@@ -1,0 +1,46 @@
+name: Suggest a Benchmark
+description: Propose a new Benchmark with primary-source evidence.
+title: "[Benchmark] "
+labels: [benchmark-candidate]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Canonical name
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source
+      description: arXiv, official paper, project, or proceedings URL.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Release evidence
+      description: Quote the short source sentence that introduces, extends, or aggregates the Benchmark.
+    validations:
+      required: true
+  - type: input
+    id: released
+    attributes:
+      label: First public release date
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
+  - type: textarea
+    id: resources
+    attributes:
+      label: Official resources
+      description: Code, data, leaderboard, or project URLs.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: This work introduces, extends, or aggregates an evaluation Benchmark; it is not only a model-comparison paper.
+          required: true
+        - label: The links above are primary or maintainer-controlled sources.
+          required: true

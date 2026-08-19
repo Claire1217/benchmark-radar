@@ -20,6 +20,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "benchmarks.json"
+OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
 METHOD_VERSION = "attention-ranking-v1"
@@ -61,6 +62,37 @@ def get_json(url: str, headers: dict[str, str] | None = None) -> dict[str, Any] 
     return None
 
 
+def github_stars_from_public_page(repo: str) -> int | None:
+    """Read the public counter when the unauthenticated REST quota is exhausted."""
+    try:
+        request = Request(f"https://github.com/{repo}", headers={"User-Agent": USER_AGENT})
+        with urlopen(request, timeout=45) as response:
+            html = response.read().decode("utf-8", "ignore")
+    except (HTTPError, URLError):
+        return None
+    match = re.search(r'aria-label="([0-9,]+) users starred this repository"', html, re.I)
+    return int(match.group(1).replace(",", "")) if match else None
+
+
+def get_public_html(url: str) -> str:
+    try:
+        request = Request(url, headers={"User-Agent": USER_AGENT})
+        with urlopen(request, timeout=45) as response:
+            return response.read().decode("utf-8", "ignore")
+    except (HTTPError, URLError):
+        return ""
+
+
+def hf_public_page_counts(url: str, fields: tuple[str, ...]) -> dict[str, int | None]:
+    """Extract server-rendered public counters when a Hub API route is unavailable."""
+    html = get_public_html(url)
+    output: dict[str, int | None] = {}
+    for field in fields:
+        match = re.search(rf'(?:&quot;|"){re.escape(field)}(?:&quot;|")\s*:\s*(\d+)', html)
+        output[field] = int(match.group(1)) if match else None
+    return output
+
+
 def github_slug(url: str | None) -> str | None:
     if not url:
         return None
@@ -84,9 +116,12 @@ def readiness_from_links(links: dict[str, Any]) -> str:
 
 
 def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: bool) -> dict[str, Any]:
-    arxiv_id = str(record.get("source", {}).get("id", ""))
+    source = record.get("source", {})
+    arxiv_id = str(source.get("id", "")) if source.get("type") == "arxiv" else ""
     paper = get_json(f"https://huggingface.co/api/papers/{quote(arxiv_id)}") if arxiv_id else None
     paper = paper or {}
+    if arxiv_id and paper.get("upvotes") is None:
+        paper.update(hf_public_page_counts(f"https://huggingface.co/papers/{quote(arxiv_id)}", ("upvotes",)))
     github_url = paper.get("githubRepo") or record.get("links", {}).get("code")
     repo = github_slug(github_url)
     github_stars = paper.get("githubStars")
@@ -99,11 +134,20 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
         if repo_info and repo_info.get("stargazers_count") is not None:
             github_stars = repo_info["stargazers_count"]
             github_source = "github-rest"
+        elif github_stars is None:
+            github_stars = github_stars_from_public_page(repo)
+            github_source = "github-public-page" if github_stars is not None else None
 
     data_url = record.get("links", {}).get("data")
     dataset = dataset_slug(data_url)
     dataset_info = get_json(f"https://huggingface.co/api/datasets/{dataset}") if dataset else None
     dataset_info = dataset_info or {}
+    if dataset and dataset_info.get("downloads") is None:
+        dataset_info.update(
+            hf_public_page_counts(
+                f"https://huggingface.co/datasets/{dataset}", ("downloads", "likes")
+            )
+        )
     return {
         "benchmarkId": record["id"],
         "hfPaperUpvotes": paper.get("upvotes"),
@@ -220,6 +264,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--date", help="Observation date in YYYY-MM-DD; defaults to manifest dataAsOf.")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--github-limit", type=int, default=50)
+    parser.add_argument(
+        "--only-ids",
+        help="Comma-separated benchmark ids to refresh; other rows are retained from today's snapshot.",
+    )
     return parser.parse_args()
 
 
@@ -230,24 +278,62 @@ def main() -> None:
     latest_source_date = payload["manifest"].get("latestSourceDate", payload["manifest"]["dataAsOf"])
     as_of = date.fromisoformat(args.date or date.today().isoformat())
     observed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    only_ids = {item.strip() for item in (args.only_ids or "").split(",") if item.strip()}
+    selected_records = [record for record in records if not only_ids or record["id"] in only_ids]
     github_token = os.environ.get("GITHUB_TOKEN")
-    github_slots = set(
-        record["id"]
-        for record in records
-        if github_slug(record.get("links", {}).get("code"))
-    )
+    github_candidates = [
+        record for record in records if github_slug(record.get("links", {}).get("code"))
+    ]
+    github_slots = {record["id"] for record in github_candidates}
     if not github_token:
-        github_slots = set(list(github_slots)[: max(args.github_limit, 0)])
+        override_ids = set()
+        if OVERRIDES_PATH.exists():
+            override_payload = read_json(OVERRIDES_PATH)
+            override_ids = set(override_payload.get("byArxivId", {}))
+        github_candidates.sort(
+            key=lambda record: (
+                record.get("source", {}).get("id") in override_ids,
+                record.get("source", {}).get("type") == "official-project",
+                record.get("releasedAt", ""),
+                record["id"],
+            ),
+            reverse=True,
+        )
+        github_slots = {
+            record["id"] for record in github_candidates[: max(args.github_limit, 0)]
+        }
 
     results: list[dict[str, Any]] = []
     with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
         futures = {
             pool.submit(enrich_one, record, github_token, record["id"] in github_slots): record["id"]
-            for record in records
+            for record in selected_records
         }
         for future in as_completed(futures):
             results.append(future.result())
+    if only_ids:
+        snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
+        if not snapshot_path.exists():
+            raise RuntimeError("--only-ids requires an existing snapshot for the observation date.")
+        retained = {
+            item["benchmarkId"]: item for item in read_json(snapshot_path).get("records", [])
+        }
+        retained.update({item["benchmarkId"]: item for item in results})
+        results = list(retained.values())
     results.sort(key=lambda item: item["benchmarkId"])
+    observed_signals = sum(
+        value is not None
+        for item in results
+        for value in (
+            item.get("hfPaperUpvotes"),
+            item.get("githubStars"),
+            item.get("hfDatasetDownloads"),
+        )
+    )
+    if records and observed_signals == 0:
+        raise RuntimeError(
+            "No attention signals were returned; keeping the previous canonical data and snapshot unchanged."
+        )
     raw_by_id = {item["benchmarkId"]: item for item in results}
     for record in records:
         raw = raw_by_id[record["id"]]

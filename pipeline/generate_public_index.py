@@ -43,7 +43,7 @@ def main() -> None:
         }
         records[-1]["source"] = {key: source["source"][key] for key in ("type", "id")}
         records[-1]["ranking"] = ranking
-        for optional_key in ("motivation", "constructionDetail", "metrics", "curation", "publication", "venueAttempts", "publications"):
+        for optional_key in ("motivation", "constructionDetail", "metrics", "curation", "publication", "venueAttempts", "publications", "watch", "releaseDates"):
             if source.get(optional_key):
                 records[-1][optional_key] = source[optional_key]
     OUTPUT.write_text(json.dumps({"manifest": payload["manifest"], "records": records}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")

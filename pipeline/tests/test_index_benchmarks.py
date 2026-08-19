@@ -6,7 +6,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from index_benchmarks import Paper, canonical_name, family_id, infer_publication, merge_patch, recognition, to_record, upsert, venue_entities
+from index_benchmarks import Paper, canonical_name, curated_records, family_id, infer_publication, merge_patch, recognition, to_record, upsert, venue_entities
 
 
 def sample(title: str, abstract: str, arxiv_id: str = "2608.00001") -> Paper:
@@ -36,6 +36,27 @@ class IndexerTests(unittest.TestCase):
         self.assertEqual(relation, "introduces")
         self.assertIn("named benchmark or evaluation-suite title", reasons)
         self.assertEqual(canonical_name(paper), "ClearBench")
+
+    def test_accepts_coined_name_without_bench_suffix(self) -> None:
+        paper = sample(
+            "DeepSWE: Measuring Frontier Coding Agents",
+            "DeepSWE is a benchmark of 113 original, long-horizon software engineering tasks for evaluating coding agents.",
+            "2607.07946",
+        )
+        score, relation, reasons = recognition(paper)
+        self.assertGreaterEqual(score, 0.85)
+        self.assertEqual(relation, "introduces")
+        self.assertIn("coined benchmark name tied to benchmark evidence", reasons)
+        self.assertEqual(canonical_name(paper), "DeepSWE")
+
+    def test_model_name_near_benchmark_is_not_a_named_benchmark(self) -> None:
+        paper = sample(
+            "TRUSS: A Retrieval Model",
+            "TRUSS improves retrieval performance on the existing MMLU benchmark and several evaluation tasks.",
+        )
+        score, relation, reasons = recognition(paper)
+        self.assertLess(score, 0.85)
+        self.assertNotIn("coined benchmark name tied to benchmark evidence", reasons)
 
     def test_benchmarking_study_is_not_auto_published(self) -> None:
         paper = sample(
@@ -76,6 +97,12 @@ class IndexerTests(unittest.TestCase):
         merged = merge_patch({"name": "ClearBench", "links": {"paper": "p", "code": None}}, {"links": {"code": "c"}})
         self.assertEqual(merged["name"], "ClearBench")
         self.assertEqual(merged["links"], {"paper": "p", "code": "c"})
+
+    def test_non_arxiv_curated_record_has_primary_source(self) -> None:
+        kotlin = next(record for record in curated_records() if record["name"] == "Kotlin Benchmark")
+        self.assertEqual(kotlin["source"]["type"], "official-project")
+        self.assertTrue(kotlin["links"]["report"].startswith("https://"))
+        self.assertEqual(kotlin["dataStatus"], "primary-source-reviewed")
 
     def test_upsert_preserves_first_seen(self) -> None:
         old = to_record(

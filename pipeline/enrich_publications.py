@@ -80,7 +80,11 @@ def main() -> None:
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
     selected = records[: args.limit] if args.limit else records
-    by_id = {clean_id(str(record.get("source", {}).get("id", ""))): record for record in selected}
+    by_id = {
+        clean_id(str(record.get("source", {}).get("id", ""))): record
+        for record in selected
+        if record.get("source", {}).get("type") == "arxiv"
+    }
     observed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     metadata: dict[str, dict[str, str]] = {}
     failures: list[dict[str, str]] = []
@@ -93,6 +97,20 @@ def main() -> None:
             failures.append({"ids": f"{batch[0]}..{batch[-1]}", "error": str(exc)[:300]})
         if offset + args.batch_size < len(ids):
             time.sleep(args.delay)
+
+    if ids and not metadata:
+        receipt = {
+            "observedAt": observed_at,
+            "recordsRequested": len(ids),
+            "recordsChecked": 0,
+            "counts": {"publication_reported": 0, "acceptance_claimed": 0, "unverified": 0},
+            "failures": failures,
+            "status": "source_unavailable_canonical_unchanged",
+        }
+        write_json(RECEIPT_DIR / f"{date.today().isoformat()}.json", receipt)
+        raise RuntimeError(
+            "arXiv returned no publication metadata; keeping canonical publication fields unchanged."
+        )
 
     counts = {"publication_reported": 0, "acceptance_claimed": 0, "unverified": 0}
     for arxiv_id, record in by_id.items():

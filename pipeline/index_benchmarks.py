@@ -29,6 +29,7 @@ CONFIG_PATH = ROOT / "pipeline" / "config.json"
 DATA_PATH = ROOT / "data" / "benchmarks.json"
 REVIEW_PATH = ROOT / "data" / "review_queue.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
+CURATED_RECORDS_PATH = ROOT / "data" / "curated_records.json"
 RUNS_PATH = ROOT / "data" / "runs"
 OAI_URL = "https://oaipmh.arxiv.org/oai"
 OAI_NS = {
@@ -234,6 +235,22 @@ def has_named_benchmark_title(title: str) -> bool:
         re.search(r"(?:Bench|Benchmark)$", prefix.strip(), re.I)
         or re.search(r"\b(benchmark|evaluation suite|testbed)\b", subtitle, re.I)
     )
+
+
+def has_named_benchmark_entity(paper: Paper) -> bool:
+    """Recognize coined names such as DeepSWE that do not end in 'Bench'."""
+    prefix, separator, _ = paper.title.partition(":")
+    name = normalize_space(prefix)
+    if not separator or not (3 <= len(name) <= 48):
+        return False
+    escaped = re.escape(name)
+    identity = re.compile(
+        rf"\b{escaped}\b\s*(?:,|\bis\b|\bconstitutes\b|\bprovides\b)\s*"
+        rf"(?:an?|the|our|this)\s+(?:(?:new|first|novel|dedicated|comprehensive|open)\s+){{0,4}}"
+        rf"(?:benchmark|evaluation suite|testbed)\b",
+        re.I,
+    )
+    return any(identity.search(sentence) for sentence in re.split(r"(?<=[.!?])\s+", normalize_space(paper.abstract)))
 
 
 def canonical_name(paper: Paper) -> str:
@@ -490,9 +507,13 @@ def recognition(paper: Paper) -> tuple[float, str, list[str]]:
     reasons: list[str] = []
     score = 0.0
     named_title = has_named_benchmark_title(paper.title)
+    named_entity = has_named_benchmark_entity(paper)
     if named_title:
         score += 0.5
         reasons.append("named benchmark or evaluation-suite title")
+    elif named_entity:
+        score += 0.7
+        reasons.append("coined benchmark name tied to benchmark evidence")
     elif BENCHMARK_TERMS.search(paper.abstract):
         score += 0.1
         reasons.append("benchmark term in abstract")
@@ -509,7 +530,7 @@ def recognition(paper: Paper) -> tuple[float, str, list[str]]:
     if NAMED_BENCHMARK_RE.search(normalize_space(paper.abstract).replace("\\textbf{", "")):
         score += 0.15
         reasons.append("named benchmark release in abstract")
-    if not named_title and not same_sentence_release:
+    if not (named_title or named_entity) and not same_sentence_release:
         score = min(score, 0.55)
         reasons.append("no explicit benchmark release evidence")
     score = min(score, 1.0)
@@ -518,7 +539,7 @@ def recognition(paper: Paper) -> tuple[float, str, list[str]]:
         relation = "extends"
     elif AGGREGATION_LANGUAGE.search(decisive_text):
         relation = "aggregates"
-    elif same_sentence_release or named_title:
+    elif same_sentence_release or named_title or named_entity:
         relation = "introduces"
     else:
         relation = "unclear"
@@ -609,6 +630,11 @@ def upsert(existing: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> li
         previous = by_source.get(source_id)
         if previous:
             record["firstSeenAt"] = previous.get("firstSeenAt", record["firstSeenAt"])
+            # Discovery refreshes must not erase the last valid enrichment
+            # snapshot before the non-blocking metrics stage succeeds.
+            for key in ("attention", "ranking", "watch"):
+                if key not in record and key in previous:
+                    record[key] = previous[key]
         by_source[source_id] = record
     return sorted(by_source.values(), key=lambda item: (item["releasedAt"], item["id"]), reverse=True)
 
@@ -632,6 +658,13 @@ def apply_curated_overrides(records: list[dict[str, Any]]) -> list[dict[str, Any
         merge_patch(record, overrides.get(str(record.get("source", {}).get("id")), {}))
         for record in records
     ]
+
+
+def curated_records() -> list[dict[str, Any]]:
+    """Load reviewed non-arXiv records such as official industry releases."""
+    if not CURATED_RECORDS_PATH.exists():
+        return []
+    return read_json(CURATED_RECORDS_PATH).get("records", [])
 
 
 def parse_args() -> argparse.Namespace:
@@ -690,7 +723,7 @@ def main() -> None:
         for record in current.get("records", [])
         if not (range_start <= str(record.get("releasedAt", "")) <= range_end)
     ]
-    records = apply_curated_overrides(upsert(retained, accepted))
+    records = apply_curated_overrides(upsert(retained, [*accepted, *curated_records()]))
     manifest = {
         "schemaVersion": config["schema_version"],
         "pipelineVersion": config["pipeline_version"],
@@ -698,7 +731,7 @@ def main() -> None:
         "dataAsOf": range_end,
         "timezone": "UTC",
         "recordCount": len(records),
-        "sourceCoverage": ["arXiv OAI-PMH"],
+        "sourceCoverage": ["arXiv OAI-PMH", "reviewed official project sources"],
         "isDemo": False,
         "run": {
             "sourceDate": target,

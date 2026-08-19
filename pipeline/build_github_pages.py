@@ -6,7 +6,7 @@ import shutil
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "static_site"
+SOURCE = ROOT / "web"
 OUTPUT = ROOT / "_site"
 
 

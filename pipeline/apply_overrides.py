@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Reapply reviewed primary-source overrides without refetching arXiv."""
 
-from index_benchmarks import DATA_PATH, apply_curated_overrides, read_json, write_json
+from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records, read_json, upsert, write_json
 
 
 def main() -> None:
     payload = read_json(DATA_PATH)
-    payload["records"] = apply_curated_overrides(payload.get("records", []))
+    payload["records"] = apply_curated_overrides(upsert(payload.get("records", []), curated_records()))
+    payload["manifest"]["recordCount"] = len(payload["records"])
     write_json(DATA_PATH, payload)
     print(f"overrides_applied={len(payload['records'])}")
 
