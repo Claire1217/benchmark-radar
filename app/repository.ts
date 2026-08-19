@@ -1,4 +1,4 @@
-import { benchmarks, type BenchmarkDemoRecord } from "./benchmarks";
+import { benchmarkSnapshot, benchmarks, type BenchmarkRecord } from "./benchmarks";
 
 export type TimeWindow = "today" | "30d" | "90d";
 export type SortMode = "newest" | "momentum";
@@ -10,17 +10,11 @@ export type BenchmarkQuery = {
   search: string;
 };
 
-export const demoManifest = {
-  schemaVersion: "1.0-demo",
-  dataAsOf: "2026-08-19",
-  timezone: "Australia/Brisbane",
-  generatedAt: "2026-08-19T13:40:00+10:00",
-  isDemo: true,
-};
+export const benchmarkManifest = benchmarkSnapshot.manifest;
 
 const daysAgo = (date: string) => {
-  const anchor = new Date(`${demoManifest.dataAsOf}T00:00:00+10:00`).getTime();
-  const target = new Date(`${date}T00:00:00+10:00`).getTime();
+  const anchor = new Date(`${benchmarkManifest.dataAsOf}T00:00:00Z`).getTime();
+  const target = new Date(`${date}T00:00:00Z`).getTime();
   return Math.floor((anchor - target) / 86_400_000);
 };
 
@@ -30,27 +24,27 @@ export const taxonomy = {
 };
 
 export interface BenchmarkRepository {
-  getManifest(): typeof demoManifest;
-  listBenchmarks(query: BenchmarkQuery): BenchmarkDemoRecord[];
-  getBenchmark(id: string): BenchmarkDemoRecord | null;
+  getManifest(): typeof benchmarkManifest;
+  listBenchmarks(query: BenchmarkQuery): BenchmarkRecord[];
+  getBenchmark(id: string): BenchmarkRecord | null;
   listTaxonomy(): typeof taxonomy;
 }
 
 export class StaticJsonRepository implements BenchmarkRepository {
   getManifest() {
-    return demoManifest;
+    return benchmarkManifest;
   }
 
   listTaxonomy() {
     return taxonomy;
   }
 
-  listBenchmarks(query: BenchmarkQuery): BenchmarkDemoRecord[] {
+  listBenchmarks(query: BenchmarkQuery): BenchmarkRecord[] {
     const maxAge = query.window === "today" ? 0 : query.window === "30d" ? 30 : 90;
     const needle = query.search.trim().toLowerCase();
 
     return benchmarks
-      .filter((item) => daysAgo(item.firstSeen) <= maxAge)
+      .filter((item) => daysAgo(item.releasedAt) <= maxAge)
       .filter((item) => !query.areas.length || query.areas.includes(item.area))
       .filter((item) => !query.topics.length || item.topics.some((topic) => query.topics.includes(topic)))
       .filter((item) => {
@@ -61,8 +55,10 @@ export class StaticJsonRepository implements BenchmarkRepository {
           .includes(needle);
       })
       .sort((a, b) => query.sort === "newest"
-        ? b.firstSeen.localeCompare(a.firstSeen)
-        : b.heat - a.heat || b.adoption30d - a.adoption30d);
+        ? b.releasedAt.localeCompare(a.releasedAt)
+        : (b.heat ?? -1) - (a.heat ?? -1)
+          || (b.adoption30d ?? -1) - (a.adoption30d ?? -1)
+          || b.releasedAt.localeCompare(a.releasedAt));
   }
 
   getBenchmark(id: string) {

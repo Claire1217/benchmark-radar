@@ -1,0 +1,63 @@
+name: Daily benchmark index
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Optional first-release date in YYYY-MM-DD"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-benchmark-index
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Test indexer
+        run: python -m unittest discover -s pipeline/tests -v
+
+      - name: Index latest arXiv release date
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
+        run: |
+          if [ -n "$REQUESTED_DATE" ]; then
+            python pipeline/index_benchmarks.py --date "$REQUESTED_DATE"
+          else
+            python pipeline/index_benchmarks.py --latest-with-papers
+          fi
+
+      - name: Validate site
+        run: |
+          npm ci
+          npm test
+
+      - name: Commit canonical data
+        run: |
+          git config user.name "benchmark-radar-bot"
+          git config user.email "benchmark-radar-bot@users.noreply.github.com"
+          git add data/benchmarks.json data/review_queue.json data/runs
+          if git diff --cached --quiet; then
+            echo "No index changes"
+          else
+            git commit -m "data: update benchmark index"
+            git push
+          fi

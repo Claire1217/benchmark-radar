@@ -28,7 +28,7 @@ test("server-renders the benchmark discovery experience", async () => {
   const html = await response.text();
   assert.match(html, /Benchmark Radar/);
   assert.match(html, /Track emerging benchmarks/);
-  assert.match(html, /DEMO DATA/);
+  assert.match(html, /PRIMARY SOURCES/);
   assert.match(html, /30 days/);
   assert.match(html, /Newest/);
   assert.match(html, /aria-pressed="true"/);
@@ -36,7 +36,7 @@ test("server-renders the benchmark discovery experience", async () => {
   assert.match(html, /og:image/);
 });
 
-test("keeps demo data, repository boundaries, and removed preview explicit", async () => {
+test("keeps primary-source data, repository boundaries, and removed preview explicit", async () => {
   const [page, repository, benchmarks, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/repository.ts", import.meta.url), "utf8"),
@@ -47,9 +47,10 @@ test("keeps demo data, repository boundaries, and removed preview explicit", asy
   assert.match(page, /benchmark-radar:watchlist:v1/);
   assert.match(page, /aria-expanded/);
   assert.match(repository, /class StaticJsonRepository/);
-  assert.match(repository, /dataAsOf: "2026-08-19"/);
+  assert.match(repository, /benchmarkSnapshot\.manifest/);
   assert.match(benchmarks, /BENCHMARK_DATA_NOTICE/);
-  assert.match(benchmarks, /demo: true/g);
+  assert.match(benchmarks, /data\/benchmarks\.json/);
+  assert.match(benchmarks, /demo: false/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(
     access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)),

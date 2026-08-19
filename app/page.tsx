@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BENCHMARK_DATA_NOTICE, type BenchmarkDemoRecord } from "./benchmarks";
-import { demoManifest, listBenchmarks, taxonomy, type SortMode, type TimeWindow } from "./repository";
+import { BENCHMARK_DATA_NOTICE, type BenchmarkRecord } from "./benchmarks";
+import { benchmarkManifest, listBenchmarks, taxonomy, type SortMode, type TimeWindow } from "./repository";
 
 const WATCHLIST_KEY = "benchmark-radar:watchlist:v1";
 const windows: { id: TimeWindow; label: string }[] = [
@@ -31,29 +31,31 @@ function ResourceLink({ href, label }: { href: string | null; label: string }) {
 }
 
 function BenchmarkCard({ item, expanded, watched, onExpand, onWatch }: {
-  item: BenchmarkDemoRecord;
+  item: BenchmarkRecord;
   expanded: boolean;
   watched: boolean;
   onExpand: () => void;
   onWatch: () => void;
 }) {
-  const [, month, day] = item.firstSeen.split("-");
+  const [, month, day] = item.releasedAt.split("-");
   const monthLabel = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][Number(month) - 1];
   const displayDate = `${day} ${monthLabel}`;
   return (
     <article className={`benchmark-card${expanded ? " is-expanded" : ""}`}>
-      <div className="card-date"><span>First seen</span>{displayDate}</div>
+      <div className="card-date"><span>Released</span>{displayDate}</div>
       <div className="card-main">
         <div className="tag-row"><span className="area-tag">{item.area}</span>{item.topics.slice(0, 2).map((topic) => <span key={topic}>{topic}</span>)}</div>
         <h2>{item.name}</h2>
         <p className="one-line">{item.oneLine}</p>
         <div className="card-meta">
           <span className={`readiness readiness-${item.readiness.toLowerCase().replaceAll(" ", "-")}`}>{item.readiness}</span>
-          <span className="adoption">↗ +{item.adoption30d} independent adopters · 30d</span>
-          <span className="confidence">{item.confidence} confidence</span>
+          <span className="adoption">{item.adoption30d === null ? "Adoption: collecting" : `↗ +${item.adoption30d} independent adopters · 30d`}</span>
+          <span className="confidence">Source evidence · {item.confidence}</span>
         </div>
         <div className="resource-row">
-          <ResourceLink href={item.links.paper} label="Paper" />
+          <ResourceLink href={item.links.report} label="Source" />
+          <ResourceLink href={item.links.pdf} label="PDF" />
+          {item.links.project && <ResourceLink href={item.links.project} label="Project" />}
           <ResourceLink href={item.links.code} label="Code" />
           <ResourceLink href={item.links.data} label="Data" />
         </div>
@@ -67,12 +69,14 @@ function BenchmarkCard({ item, expanded, watched, onExpand, onWatch }: {
               <div><dt>Construction</dt><dd>{item.construction}</dd></div>
               <div><dt>Annotation</dt><dd>{item.annotation}</dd></div>
               <div><dt>Capabilities</dt><dd>{item.capabilities.join(" · ")}</dd></div>
-              <div><dt>Momentum</dt><dd>{item.heat}/100 · {item.confidence} confidence</dd></div>
+              <div><dt>Indexed</dt><dd>{item.firstSeenAt} · {item.source.type.toUpperCase()} {item.source.id}</dd></div>
             </dl>
-            <div className="metric-strip" aria-label="Simulated benchmark metrics">
-              {item.metrics.map((metric) => <div key={metric.name}><span>{metric.name}</span><strong>{metric.value}</strong><small>{metric.note ?? "Demo"}</small></div>)}
+            <div className="source-evidence">
+              <h3>Source evidence</h3>
+              <p>{item.evidence.snippet}</p>
+              <small>{item.evidence.reasonCodes.join(" · ")} · recognition {Math.round(item.recognitionConfidence * 100)}%</small>
             </div>
-            <p className="method-note">Momentum is simulated for this prototype and kept separate from readiness. Missing signals are never treated as zero.</p>
+            <p className="method-note">Construction, adoption, and momentum stay unknown until the source or dated observations provide evidence. Missing values are never converted to zero.</p>
           </div>
         )}
       </div>
@@ -97,6 +101,8 @@ export default function Home() {
 
   useEffect(() => {
     const initial = readInitialQuery();
+    // URL and localStorage are browser-only; hydrate them after the server render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTimeWindow(initial.window);
     setSort(initial.sort);
     setAreas(initial.areas);
@@ -132,7 +138,7 @@ export default function Home() {
       <header className="topbar" id="top">
         <a className="brand" href="#top" aria-label="Benchmark Radar home">Benchmark Radar</a>
         <nav className="topnav" aria-label="Page sections"><a href="#radar">Radar</a><a href="#method">Method</a></nav>
-        <div className="header-status"><span className="demo-pill">DEMO DATA</span><span className="watch-count">{watchlist.length} watching</span></div>
+        <div className="header-status"><span className="demo-pill">PRIMARY SOURCES</span><span className="watch-count">{watchlist.length} watching</span></div>
       </header>
 
       <section className="hero">
@@ -140,7 +146,7 @@ export default function Home() {
           <h1>Track emerging benchmarks.</h1>
           <p>See what is new, what is gaining adoption, and what is ready to run.</p>
         </div>
-        <div className="hero-summary"><strong>12</strong><span>demo benchmarks · 5 areas<br />Updated {demoManifest.dataAsOf}</span></div>
+        <div className="hero-summary"><strong>{benchmarkManifest.recordCount}</strong><span>verified releases in this snapshot<br />{benchmarkManifest.run.papersFetched} source papers checked</span></div>
       </section>
 
       <section className="radar" id="radar" aria-labelledby="radar-title">
@@ -160,8 +166,8 @@ export default function Home() {
         )}
 
         <div className="feed-heading">
-          <div><span className="signal-dot" /><h2 id="radar-title">{sort === "newest" ? "New benchmarks" : "Rising benchmarks"}</h2><span className="result-count">{results.length} results</span></div>
-          <span>Demo snapshot · {demoManifest.dataAsOf} · Brisbane</span>
+          <div><span className="signal-dot" /><h2 id="radar-title">{sort === "newest" ? "New benchmark releases" : "Rising benchmarks"}</h2><span className="result-count">{results.length} results</span></div>
+          <span>Source date {benchmarkManifest.dataAsOf} · UTC · arXiv OAI-PMH</span>
         </div>
 
         <div className="benchmark-list" aria-live="polite">
@@ -173,7 +179,7 @@ export default function Home() {
 
       <section className="method" id="method">
         <h2>How to read the tracker</h2>
-        <div className="method-grid"><div><strong>Newest</strong><p>All newly identified benchmarks, ordered by first seen date.</p></div><div><strong>Momentum</strong><p>Recent independent adoption and attention. It is not a quality score.</p></div><div><strong>Readiness</strong><p>Whether the benchmark is inspectable, runnable, and maintained.</p></div></div>
+        <div className="method-grid"><div><strong>Indexed</strong><p>Only explicit benchmark releases pass automatically. Ambiguous matches go to review.</p></div><div><strong>Momentum</strong><p>Recent independent adoption and attention. It remains unavailable until dated observations exist.</p></div><div><strong>Readiness</strong><p>Resource links are shown only when the primary source publishes them.</p></div></div>
       </section>
 
       <footer><p>{BENCHMARK_DATA_NOTICE}</p><p>Watchlist is stored only in this browser.</p></footer>
