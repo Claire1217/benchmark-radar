@@ -96,16 +96,6 @@
     return node;
   };
 
-  const benchmarkActions = (record) => {
-    const detail = record.detail || {};
-    const actions = [link("Leaderboard", detail.leaderboardUrl), link("Submit results", detail.submissionUrl)].filter(Boolean);
-    if (!actions.length) return null;
-    const node = document.createElement("div");
-    node.className = "detail-links detail-benchmark-actions";
-    actions.forEach((item) => node.append(item));
-    return node;
-  };
-
   const provenance = (record) => {
     const node = document.createElement("details");
     node.className = "detail-provenance";
@@ -138,10 +128,7 @@
     panel.replaceChildren();
     const summary = radarSummary(record);
     if (summary) panel.append(summary);
-    panel.append(measureSection(record), availabilitySection(record));
-    const actions = benchmarkActions(record);
-    if (actions) panel.append(actions);
-    panel.append(provenance(record));
+    panel.append(measureSection(record), availabilitySection(record), provenance(record));
   };
 
   const modelCoverage = (record) => {
@@ -190,10 +177,7 @@
     const coverageNode = modelCoverage(record);
     if (reportsNode) panel.append(reportsNode);
     if (coverageNode) panel.append(coverageNode);
-    panel.append(measureSection(record), availabilitySection(record));
-    const actions = benchmarkActions(record);
-    if (actions) panel.append(actions);
-    panel.append(provenance(record));
+    panel.append(measureSection(record), availabilitySection(record), provenance(record));
   };
 
   window.renderBenchmarkDetails = (record, panel, surface) => {
