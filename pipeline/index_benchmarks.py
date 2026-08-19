@@ -1073,7 +1073,7 @@ def index_papers(
     existing_review_payload = read_json(REVIEW_PATH) if REVIEW_PATH.exists() else {"candidates": []}
     excluded_review_sources = {
         str((record.get("source") or {}).get("id") or "")
-        for record in accepted
+        for record in [*accepted, *curated_records()]
     }
     persistent_review = persistent_review_candidates(
         existing_review_payload.get("candidates", []),

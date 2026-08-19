@@ -48,8 +48,9 @@
   };
 
   const validCopy = (record) => {
+    if (record.description) return record.description;
     if (record.constructionDetail && !record.constructionDetail.startsWith("Unknown")) return record.constructionDetail;
-    return record.evidence?.snippet || record.oneLine;
+    return null;
   };
 
   const measureSection = (record) => {
@@ -68,6 +69,13 @@
     ]);
     if (compact) compact.classList.add("detail-compact-facts");
     if (compact) node.append(compact);
+    return node;
+  };
+
+  const whySection = (record) => {
+    if (!record.whyItMatters) return null;
+    const node = section("Why it matters");
+    node.append(text("p", "detail-copy", record.whyItMatters));
     return node;
   };
 
@@ -128,7 +136,10 @@
     panel.replaceChildren();
     const summary = radarSummary(record);
     if (summary) panel.append(summary);
-    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+    panel.append(measureSection(record));
+    const why = whySection(record);
+    if (why) panel.append(why);
+    panel.append(availabilitySection(record), provenance(record));
   };
 
   const modelCoverage = (record) => {
@@ -177,7 +188,10 @@
     const coverageNode = modelCoverage(record);
     if (reportsNode) panel.append(reportsNode);
     if (coverageNode) panel.append(coverageNode);
-    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+    panel.append(measureSection(record));
+    const why = whySection(record);
+    if (why) panel.append(why);
+    panel.append(availabilitySection(record), provenance(record));
   };
 
   window.renderBenchmarkDetails = (record, panel, surface) => {
