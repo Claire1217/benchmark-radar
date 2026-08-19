@@ -17,9 +17,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Autonomous Driving](#autonomous-driving) (10)
 - [Biology & Drug Discovery](#biology--drug-discovery) (87)
 - [Chip Design & EDA](#chip-design--eda) (8)
-- [Cybersecurity](#cybersecurity) (34)
+- [Cybersecurity](#cybersecurity) (35)
 - [Finance](#finance) (36)
-- [General AI](#general-ai) (833)
+- [General AI](#general-ai) (831)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
@@ -28,7 +28,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Quantum Computing & Control](#quantum-computing--control) (2)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (91)
 - [Scientific Facilities](#scientific-facilities) (1)
-- [Scientific Research & AI for Science](#scientific-research--ai-for-science) (1)
+- [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
 - [Software & AI Compute](#software--ai-compute) (67)
 
 ## Autonomous Driving
@@ -46,7 +46,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Biology & Drug Discovery
 
-- **PathoArgus-Bench** (2026-08-18) — We introduce PathoArgus-Bench, a benchmark and evaluation protocol that explicitly tests the full evidence chain: availability, accessibility, use, and responsiveness. [Paper](https://arxiv.org/abs/2608.17607) · [HF](https://huggingface.co/papers/2608.17607)
+- **PathoArgus-Bench** (2026-08-18) — We introduce PathoArgus-Bench, a benchmark and evaluation protocol that explicitly tests the full evidence chain: availability, accessibility, use, and responsiveness. [Paper](https://arxiv.org/abs/2608.17607) · [HF](https://huggingface.co/papers/2608.17607) · [Data](https://huggingface.co/datasets/liubw/PathoArgus-Bench)
 - **HounsBench** (2026-08-13) — To operationalize this view, we introduce HounsBench, a computed tomography (CT) centric patient-state benchmark that unifies these three task families with patient-disjoint splits and per-family metrics, and HounsWorld… [Paper](https://arxiv.org/abs/2608.12904) · [HF](https://huggingface.co/papers/2608.12904) · [Code](https://github.com/byhwhite/HounsWorld.git)
 - **CoMedBench** (2026-08-13) — We introduce CoMedBench, a reproducible benchmark that evaluates a family of generators under a common clinical-validity framework and one shared training and evaluation engine, spanning static tabular and temporal down… [Paper](https://arxiv.org/abs/2608.12805) · [HF](https://huggingface.co/papers/2608.12805)
 - **TAF-MED** (2026-08-10) — We introduce TAF-MED, a physician-reviewed benchmark of 500 fixed three-turn scenarios, and evaluate eight LLMs across 4,000 conversations. [Paper](https://arxiv.org/abs/2608.10258) · [HF](https://huggingface.co/papers/2608.10258)
@@ -147,6 +147,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Cybersecurity
 
+- **HarnessRisk** (2026-08-18) — We present HarnessRisk, a lifecycle oriented benchmark that organizes agent harness safety into six operational phases including Harness Configuration, Capability Extension, Runtime Operation, State Persistence, Action… [Paper](https://arxiv.org/abs/2608.17597) · [HF](https://huggingface.co/papers/2608.17597) · [Code](https://github.com/Baiyajing/HarnessRisk) · [Data](https://huggingface.co/datasets/YajingB/HarnessRisk)
 - **WeSCE** (2026-08-15) — In this work, we introduce WeSCE, a benchmark for quantifying security drift in code editing under weak-security constraints, where tasks specify only functional objectives without explicit security requirements. [Paper](https://arxiv.org/abs/2608.15092) · [HF](https://huggingface.co/papers/2608.15092)
 - **RealisticTritonBench** (2026-08-12) — To address these limitations, we introduce RealisticTritonBench, the first benchmark to derive Triton kernel generation tasks from real-world pull requests in popular AI frameworks, enabling realistic, production-like e… [Paper](https://arxiv.org/abs/2608.12004) · [HF](https://huggingface.co/papers/2608.12004)
 - **SRE-Bench** (2026-08-11) — To this end, we introduce SRE-Bench, the first realistic, contamination-free RE benchmark. [Paper](https://arxiv.org/abs/2608.11469) · [HF](https://huggingface.co/papers/2608.11469)
@@ -224,9 +225,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 ## General AI
 
 - **StartupBench** (2026-08-18) — We introduce \textbf{StartupBench}, an E2E agent benchmark grounded in market-validated AI startup products. [Paper](https://arxiv.org/abs/2608.17800) · [HF](https://huggingface.co/papers/2608.17800)
-- **LiveHouse-TS** (2026-08-18) — To bridge this gap, we introduce LiveHouse-TS, the first open-world living benchmark infrastructure for TSFMs. [Paper](https://arxiv.org/abs/2608.17299) · [HF](https://huggingface.co/papers/2608.17299)
-- **HarnessRisk** (2026-08-18) — We present HarnessRisk, a lifecycle oriented benchmark that organizes agent harness safety into six operational phases including Harness Configuration, Capability Extension, Runtime Operation, State Persistence, Action… [Paper](https://arxiv.org/abs/2608.17597) · [HF](https://huggingface.co/papers/2608.17597) · [Code](https://github.com/Baiyajing/HarnessRisk)
-- **CADP-Bench** (2026-08-18) — To support this setting, we introduce CADP-Bench, an expert-verified benchmark of full academic pages containing tightly coupled text and multiple SAE types, evaluated through a re-injection compilation protocol. [Paper](https://arxiv.org/abs/2608.17550) · [HF](https://huggingface.co/papers/2608.17550)
+- **LiveHouse-TS** (2026-08-18) — To bridge this gap, we introduce LiveHouse-TS, the first open-world living benchmark infrastructure for TSFMs. [Paper](https://arxiv.org/abs/2608.17299) · [HF](https://huggingface.co/papers/2608.17299) · [Code](https://github.com/zhouziyu02/TS-Live) · [Data](https://huggingface.co/spaces/CityMindDev/LiveHouse-TS)
 - **BEAR-Bench** (2026-08-18) — To address these limitations, we introduce BEAR-Bench (Bilingual Enterprise and Academic Reasoning), a self-contained, complex English-and-Russian benchmark comprising 1000 human-annotated questions based on text-rich b… [Paper](https://arxiv.org/abs/2608.17895) · [HF](https://huggingface.co/papers/2608.17895)
 - **SafeGesture** (2026-08-17) — We introduce SafeGesture, a benchmark that evaluates whether a model can infer scenario-appropriate safety actions from hand gestures. [Paper](https://arxiv.org/abs/2608.16081) · [HF](https://huggingface.co/papers/2608.16081) · [Code](https://github.com/The-Responsible-AI-Initiative/SafeGesture)
 - **Reconstruction** (2026-08-17) — We introduce Reconstruction, a blind idea-recovery benchmark that withholds the seed paper and all contemporaneous or future literature, and asks models to propose hypotheses that an independent large language model jud… [Paper](https://arxiv.org/abs/2608.16645) · [HF](https://huggingface.co/papers/2608.16645)
@@ -1110,7 +1109,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mobile & Personal Computing
 
-- **MobileWorldSafety** (2026-08-18) — To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. [Paper](https://arxiv.org/abs/2608.17659) · [HF](https://huggingface.co/papers/2608.17659)
+- **MobileWorldSafety** (2026-08-18) — To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. [Paper](https://arxiv.org/abs/2608.17659) · [HF](https://huggingface.co/papers/2608.17659) · [Code](https://anonymous.4open.science/r/Anonymous_sub-C887) · [Data](https://anonymous.4open.science/r/Anonymous_sub-C887)
 - **MindEdit-Bench** (2026-07-01) — We introduce MindEdit-Bench, a benchmark of six spatial reasoning tasks built from three-photo smartphone triplets of newly captured indoor scenes via an automatic in-the-wild 3D scene-graph extraction pipeline. [Paper](https://arxiv.org/abs/2607.00491) · [HF](https://huggingface.co/papers/2607.00491) · [Data](https://huggingface.co/datasets/ZODAOfficial/MindEdit-Bench)
 - **HeraBench** (2026-06-18) — To evaluate this capability, we introduce \textbf{HeraBench}, a fault-injected benchmark that constructs cross-device workflows over Linux and Android devices and injects strategy- and device-level failures. [Paper](https://arxiv.org/abs/2606.20487) · [HF](https://huggingface.co/papers/2606.20487)
 - **PhoneHarness** (2026-06-12) — We introduce PhoneHarness, a mixed-action benchmark and execution harness for studying phone-use agents on verifiable mobile workflows. [Paper](https://arxiv.org/abs/2606.14832) · [HF](https://huggingface.co/papers/2606.14832) · [Code](https://github.com/PhoneHarness/PhoneHarness)
@@ -1223,11 +1222,12 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Scientific Research & AI for Science
 
+- **CADP-Bench** (2026-08-18) — To support this setting, we introduce CADP-Bench, an expert-verified benchmark of full academic pages containing tightly coupled text and multiple SAE types, evaluated through a re-injection compilation protocol. [Paper](https://arxiv.org/abs/2608.17550) · [HF](https://huggingface.co/papers/2608.17550) · [Code](https://github.com/AriKing11/CADP-Bench) · [Data](https://github.com/AriKing11/CADP-Bench/tree/main/data)
 - **ASI-Bench** (2026-08-18) — ASI-Bench contains 60 project-level research tasks across 11 scientific domains and progressively reduces methodological guidance to test whether AI can independently select methods, conduct research, and produce verifi… [Paper](https://arxiv.org/abs/2608.17271) · [HF](https://huggingface.co/papers/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) · [Data](https://huggingface.co/datasets/Apexintelligence-AI/ASI-Bench-seed31415)
 
 ## Software & AI Compute
 
-- **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379)
+- **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **PLSQLBench** (2026-08-16) — We present PLSQLBench, to our knowledge the first benchmark for evaluating whether LLMs can write executable PL/SQL programs, with correctness measured through execution-based tests. [Paper](https://arxiv.org/abs/2608.15931) · [HF](https://huggingface.co/papers/2608.15931) · [Code](https://github.com/oracle-samples/plsqlbench)
 - **Vero** (2026-08-13) — To bridge this gap, we introduce Vero, the first benchmark to evaluate joint implementation and proof synthesis at the repository level. [Paper](https://arxiv.org/abs/2608.13522) · [HF](https://huggingface.co/papers/2608.13522) · [Code](https://github.com/sunblaze-ucb/vero)
 - **Edit2TikZ** (2026-08-13) — We introduce Edit2TikZ, a comprehensive benchmark for scientific figure editing tasks, featuring 1,548 diverse and high-quality samples. [Paper](https://arxiv.org/abs/2608.13441) · [HF](https://huggingface.co/papers/2608.13441) · [Code](https://github.com/Solunny/Edit2TikZ)

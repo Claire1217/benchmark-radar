@@ -87,6 +87,188 @@
         "sources": ["https://arxiv.org/abs/2607.05155", "https://edge-bench.org/", "https://github.com/ByteDance-Seed/EdgeBench", "https://huggingface.co/datasets/ByteDance-Seed/EdgeBench"]
       }
     },
+    "2608.17800": {
+      "oneLine": "Evaluates whether general-purpose agents can complete market-validated, end-to-end professional workflows and deliver usable work products.",
+      "area": "Agents & Tool Use",
+      "applicationDomains": ["General AI", "Finance", "Scientific Research & AI for Science"],
+      "primaryDomain": "General AI",
+      "capabilities": ["Long-horizon task execution", "Tool use", "Complex instruction following", "Professional artifact generation"],
+      "evaluationMode": "score_submission",
+      "readiness": "Inspectable",
+      "links": {"project": "https://startupbench.github.io/"},
+      "availability": {"paperStatus": "available", "githubStatus": "not_found", "hfDatasetStatus": "not_found", "evaluatorStatus": "described_not_released", "submissionStatus": "not_found"},
+      "constructionDetail": "StartupBench measures whether agents can complete realistic professional workflows and produce usable final work products across six broad disciplines.",
+      "detail": {
+        "taskBreakdown": ["Medical & Healthcare", "Finance", "Legal", "Business & Management", "STEM & Computer Science", "Education & Humanities"],
+        "protocol": {"tasks": "97 end-to-end workflow tasks", "primaryMetric": "Importance-weighted rubric score (0–100); success rate at score ≥90", "version": "arXiv v1"},
+        "leaderboardUrl": "https://startupbench.github.io/#leaderboard"
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17800", "https://arxiv.org/html/2608.17800", "https://startupbench.github.io/"]}
+    },
+    "2608.17379": {
+      "oneLine": "Evaluates whether LLM agents can generate correct, architecture-specific GPU kernels that execute required PTX instructions and outperform libraries.",
+      "area": "Code & Software",
+      "applicationDomains": ["Software & AI Compute"],
+      "primaryDomain": "Software & AI Compute",
+      "capabilities": ["Code generation", "GPU kernel optimization", "Architecture-specific programming", "Iterative code repair"],
+      "evaluationMode": "score_submission",
+      "readiness": "Runnable",
+      "links": {"project": "https://github.com/zhang677/PTXBench", "code": "https://github.com/zhang677/PTXBench", "data": "https://huggingface.co/datasets/AccRL/accrl-training"},
+      "availability": {"paperStatus": "available", "githubStatus": "available", "hfDatasetStatus": "available", "evaluatorStatus": "available", "submissionStatus": "not_found"},
+      "constructionDetail": "PTXBench tests architecture-specific GPU kernel generation on H100 and B200 hardware, including correctness, required-instruction execution and speedup.",
+      "detail": {
+        "taskBreakdown": ["GEMM", "Multi-head attention forward", "Causal attention forward", "Multi-head attention backward", "Causal attention backward"],
+        "protocol": {"tasks": "5 primary BF16 workloads plus generalization workloads", "primaryMetric": "Correctness, target-instruction correctness, best speedup and Fast_p", "language": "CUDA C++ with inline PTX", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17379", "https://arxiv.org/html/2608.17379", "https://github.com/zhang677/PTXBench", "https://huggingface.co/datasets/AccRL/accrl-training"]}
+    },
+    "2608.17962": {
+      "oneLine": "Provides multimodal robot demonstrations and real-world evaluation tasks for precision, contact-rich industrial manipulation.",
+      "area": "Robotics & Embodied AI",
+      "applicationDomains": ["Manufacturing & Process Control", "Robotics & Embodied AI"],
+      "primaryDomain": "Manufacturing & Process Control",
+      "capabilities": ["Multimodal robot manipulation", "Contact-rich control", "Imitation learning", "Force-aware manipulation"],
+      "evaluationMode": "score_submission",
+      "readiness": "Inspectable",
+      "links": {"project": "https://tengbo-yu.github.io/PRISM/", "code": null, "data": null},
+      "availability": {"paperStatus": "available", "githubStatus": "announced_not_released", "hfDatasetStatus": "announced_not_released", "evaluatorStatus": "described_not_released", "submissionStatus": "not_found"},
+      "constructionDetail": "PRISM covers precision industrial manipulation using synchronized RGB-D, force/torque, tactile and robot-state observations.",
+      "detail": {
+        "taskBreakdown": ["Precision contact-rich assembly", "Product packaging", "Dynamic object sorting", "Force-aware manipulation"],
+        "protocol": {"tasks": "25+ tasks and 5,000+ trajectories", "primaryMetric": "Task success rate over 20 real-robot trials per configuration", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17962", "https://arxiv.org/html/2608.17962", "https://tengbo-yu.github.io/PRISM/"]}
+    },
+    "2608.17607": {
+      "oneLine": "Evaluates evidence-grounded visual reasoning over complete gigapixel whole-slide and multi-slide pathology cases.",
+      "area": "Vision & 3D",
+      "applicationDomains": ["Biology & Drug Discovery"],
+      "primaryDomain": "Biology & Drug Discovery",
+      "capabilities": ["Medical image reasoning", "Long-context reasoning", "Evidence grounding"],
+      "evaluationMode": "score_submission",
+      "readiness": "Inspectable",
+      "links": {"data": "https://huggingface.co/datasets/liubw/PathoArgus-Bench"},
+      "availability": {"paperStatus": "available", "githubStatus": "not_found", "hfDatasetStatus": "available", "evaluatorStatus": "not_found", "submissionStatus": "not_found"},
+      "constructionDetail": "PathoArgus-Bench measures case-level pathology reasoning over whole-slide images, including diagnostic findings, staging and exact evidence grounding.",
+      "detail": {
+        "taskBreakdown": ["Anatomic site", "Histologic type", "Tumor grade", "Mitotic activity", "Local invasion", "Surgical margins", "Nodal status", "Pathologic staging", "Cross-slide integration", "Evidence grounding"],
+        "protocol": {"tasks": "22,078 four-choice questions from 4,913 patients and 5,400 whole-slide images", "primaryMetric": "Overall accuracy and QExact", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17607", "https://arxiv.org/html/2608.17607", "https://huggingface.co/datasets/liubw/PathoArgus-Bench"]}
+    },
+    "2608.17659": {
+      "oneLine": "Evaluates Android GUI-agent safety against environmental injection attacks embedded in everyday mobile workflows.",
+      "area": "Agents & Tool Use",
+      "applicationDomains": ["Mobile & Personal Computing", "Cybersecurity"],
+      "primaryDomain": "Mobile & Personal Computing",
+      "capabilities": ["Computer use", "Prompt-injection resistance", "Mobile interaction"],
+      "evaluationMode": "score_submission",
+      "readiness": "Runnable",
+      "links": {"project": "https://anonymous.4open.science/r/Anonymous_sub-C887", "code": "https://anonymous.4open.science/r/Anonymous_sub-C887", "data": "https://anonymous.4open.science/r/Anonymous_sub-C887"},
+      "availability": {"paperStatus": "available", "githubStatus": "available", "hfDatasetStatus": "available", "evaluatorStatus": "available", "submissionStatus": "not_found"},
+      "constructionDetail": "MobileWorldSafety embeds environmental injection attacks into executable Android workflows and verifies both attack success and task completion.",
+      "detail": {
+        "taskBreakdown": ["Email", "Messaging", "Calendar", "Files", "Web browsing", "Navigation", "Collaboration", "Social media", "E-commerce", "Tool responses"],
+        "protocol": {"tasks": "142 risk tasks across 13 Android apps and 5 MCP servers", "primaryMetric": "Attack Success Rate and Task Completion Rate under attack", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17659", "https://arxiv.org/html/2608.17659", "https://anonymous.4open.science/r/Anonymous_sub-C887"]}
+    },
+    "2608.17299": {
+      "oneLine": "Continuously evaluates time-series foundation models on future observations from live cross-domain data streams.",
+      "area": "Language & Knowledge",
+      "applicationDomains": ["General AI", "Finance", "Scientific Research & AI for Science", "Logistics & Operations"],
+      "primaryDomain": "General AI",
+      "capabilities": ["Time-series forecasting", "Temporal robustness", "Distribution shift"],
+      "evaluationMode": "score_submission",
+      "readiness": "Runnable",
+      "links": {"project": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS", "code": "https://github.com/zhouziyu02/TS-Live", "data": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS"},
+      "availability": {"paperStatus": "available", "githubStatus": "available", "hfDatasetStatus": "available", "evaluatorStatus": "available", "submissionStatus": "available"},
+      "constructionDetail": "LiveHouse-TS uses newly arriving observations from 17 datasets so forecasting models are evaluated under real distribution shift rather than a frozen test set.",
+      "detail": {
+        "taskBreakdown": ["Weather", "Air quality", "Energy", "Hydrology", "Ocean", "Traffic", "Finance", "Web attention", "Macroeconomics", "News events", "Disaster events"],
+        "protocol": {"tasks": "Continuous forecasting over 17 datasets from 15 sources and 11 domains", "primaryMetric": "RMSE and CRPS, summarized by Average Rank, Win Rate and Elo", "version": "Living benchmark"},
+        "leaderboardUrl": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS",
+        "submissionUrl": "https://github.com/zhouziyu02/TS-Live/issues/new?template=community-model.yml"
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17299", "https://arxiv.org/html/2608.17299", "https://github.com/zhouziyu02/TS-Live", "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS"]}
+    },
+    "2608.17600": {
+      "oneLine": "Evaluates whether vision-language-action models follow authorized visual cues while resisting unauthorized visual influence.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": ["Robotics & Embodied AI"],
+      "primaryDomain": "Robotics & Embodied AI",
+      "capabilities": ["Embodied manipulation", "Visual instruction following", "Safety"],
+      "evaluationMode": "score_submission",
+      "readiness": "Paper only",
+      "availability": {"paperStatus": "available", "githubStatus": "not_found", "hfDatasetStatus": "not_found", "evaluatorStatus": "not_found", "submissionStatus": "not_found"},
+      "constructionDetail": "LIBERO-VIFO tests authorized and unauthorized visual influence across robot-manipulation tasks and eight families of visual cues.",
+      "detail": {
+        "taskBreakdown": ["Text overlays", "Geometric symbols", "Ghost trajectories", "Pictorial demonstrations", "Hand gestures", "Visual signage", "Visual highlights", "Machine-readable codes"],
+        "protocol": {"tasks": "1,347 instances from 40 LIBERO tasks and 33 cue variants", "primaryMetric": "Full-Chain Accuracy and authorized/unauthorized visual following rates", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17600", "https://arxiv.org/html/2608.17600"]}
+    },
+    "2608.17597": {
+      "oneLine": "Evaluates safety failures of model–agent-harness configurations across setup, runtime, persistent state, actions and incident recovery.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": ["Cybersecurity"],
+      "primaryDomain": "Cybersecurity",
+      "capabilities": ["Agent safety", "Prompt-injection resistance", "Tool-use safety", "Persistent-state safety"],
+      "evaluationMode": "score_submission",
+      "readiness": "Runnable",
+      "links": {"project": "https://baiyajing.github.io/harness-risk/", "code": "https://github.com/Baiyajing/HarnessRisk", "data": "https://huggingface.co/datasets/YajingB/HarnessRisk"},
+      "availability": {"paperStatus": "available", "githubStatus": "available", "hfDatasetStatus": "available", "evaluatorStatus": "available", "submissionStatus": "not_found"},
+      "constructionDetail": "HarnessRisk evaluates the safety of complete model–harness configurations across six operational lifecycle phases in fresh sandboxes.",
+      "detail": {
+        "taskBreakdown": ["Harness configuration", "Capability extension", "Runtime operation", "State persistence", "Action control", "Incident recovery"],
+        "protocol": {"tasks": "128 sandboxed cases across six lifecycle phases", "primaryMetric": "Utility, Attack Success Rate, Persistence and Detection", "version": "arXiv v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17597", "https://arxiv.org/html/2608.17597", "https://github.com/Baiyajing/HarnessRisk", "https://huggingface.co/datasets/YajingB/HarnessRisk"]}
+    },
+    "2608.17550": {
+      "oneLine": "Evaluates MLLMs that reconstruct full academic pages as compilable LaTeX and executable Python from page images.",
+      "area": "Multimodal",
+      "applicationDomains": ["Scientific Research & AI for Science"],
+      "primaryDomain": "Scientific Research & AI for Science",
+      "capabilities": ["Academic document parsing", "Structured document reconstruction", "Chart-to-code generation", "Multimodal code generation"],
+      "evaluationMode": "score_submission",
+      "readiness": "Runnable",
+      "links": {"project": "https://github.com/AriKing11/CADP-Bench", "code": "https://github.com/AriKing11/CADP-Bench", "data": "https://github.com/AriKing11/CADP-Bench/tree/main/data"},
+      "availability": {"paperStatus": "available", "githubStatus": "available", "hfDatasetStatus": "sample_only", "evaluatorStatus": "available", "submissionStatus": "not_found"},
+      "constructionDetail": "CADP-Bench asks models to reconstruct complete academic pages as compilable LaTeX and executable Python, then scores both structure and rendered output.",
+      "detail": {
+        "taskBreakdown": ["Computer Science", "Physics", "Economics", "Quantitative Biology", "Statistics"],
+        "protocol": {"tasks": "1,630 full-page samples", "primaryMetric": "Pixel Similarity with structural, reading-order and execution metrics", "version": "v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17550", "https://arxiv.org/html/2608.17550v1", "https://github.com/AriKing11/CADP-Bench"]}
+    },
+    "2608.17895": {
+      "oneLine": "Tests English–Russian multimodal reasoning over text-dense business and scientific document pages.",
+      "area": "Multimodal",
+      "applicationDomains": ["Finance", "Scientific Research & AI for Science"],
+      "primaryDomain": "General AI",
+      "capabilities": ["Professional document reasoning", "Multimodal reasoning", "OCR-grounded reasoning", "Bilingual reasoning"],
+      "evaluationMode": "score_submission",
+      "displayEligible": false,
+      "readiness": "Paper only",
+      "availability": {"paperStatus": "available", "githubStatus": "not_found", "hfDatasetStatus": "not_found", "evaluatorStatus": "paper_spec_only", "submissionStatus": "not_found"},
+      "constructionDetail": "BEAR-Bench describes bilingual question answering over business and scientific document pages, but no official benchmark artifact has been released yet.",
+      "detail": {
+        "taskBreakdown": ["Business", "Science"],
+        "protocol": {"tasks": "1,000 document-image questions", "primaryMetric": "Accuracy using a semantic-equivalence judge", "language": "English and Russian", "version": "v1"}
+      },
+      "domainCuration": {"state": "reviewed", "method": "primary-source-review-v1"},
+      "curation": {"state": "source-reviewed", "reviewedAt": "2026-08-20", "sources": ["https://arxiv.org/abs/2608.17895", "https://arxiv.org/html/2608.17895v1"]}
+    },
     "2608.17271": {
       "area": "Agents & Tool Use",
       "applicationDomains": ["Scientific Research & AI for Science"],

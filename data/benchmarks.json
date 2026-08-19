@@ -42,24 +42,31 @@
       "name": "StartupBench",
       "paperTitle": "StartupBench: Benchmarking General-Purpose Agents on Market-Validated End-to-End Workflows",
       "aliases": [],
-      "oneLine": "Recent advances in Large Language Models(LLMs) and agents have substantially improved the ability of AI systems to execute complex tasks.",
-      "area": "Language & Knowledge",
+      "oneLine": "Evaluates whether general-purpose agents can complete market-validated, end-to-end professional workflows and deliver usable work products.",
+      "area": "Agents & Tool Use",
       "applicationDomains": [
-        "General AI"
+        "General AI",
+        "Finance",
+        "Scientific Research & AI for Science"
       ],
       "primaryDomain": "General AI",
       "industrySectors": [],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Long-horizon task execution",
+        "Tool use",
+        "Complex instruction following",
+        "Professional artifact generation"
+      ],
       "topics": [
         "Agents"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Inspectable",
       "publication": {
         "status": "unverified",
         "venue": null,
@@ -84,13 +91,13 @@
         "report": "https://arxiv.org/abs/2608.17800",
         "paper": "https://arxiv.org/abs/2608.17800",
         "pdf": "https://arxiv.org/pdf/2608.17800",
-        "project": null,
+        "project": "https://startupbench.github.io/",
         "code": null,
         "data": null,
         "hfPaper": "https://huggingface.co/papers/2608.17800"
       },
       "motivation": "Recent advances in Large Language Models(LLMs) and agents have substantially improved the ability of AI systems to execute complex tasks.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "StartupBench measures whether agents can complete realistic professional workflows and produce usable final work products across six broad disciplines.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -235,6 +242,39 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "not_found",
+        "hfDatasetStatus": "not_found",
+        "evaluatorStatus": "described_not_released",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Medical & Healthcare",
+          "Finance",
+          "Legal",
+          "Business & Management",
+          "STEM & Computer Science",
+          "Education & Humanities"
+        ],
+        "protocol": {
+          "tasks": "97 end-to-end workflow tasks",
+          "primaryMetric": "Importance-weighted rubric score (0–100); success rate at score ≥90",
+          "version": "arXiv v1"
+        },
+        "leaderboardUrl": "https://startupbench.github.io/#leaderboard"
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17800",
+          "https://arxiv.org/html/2608.17800",
+          "https://startupbench.github.io/"
+        ]
       }
     },
     {
@@ -243,7 +283,7 @@
       "name": "PTXBench",
       "paperTitle": "PTXBench: Benchmark and Adapt LLMs for GPU Kernel Optimization with Architecture-specific PTX",
       "aliases": [],
-      "oneLine": "We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization.",
+      "oneLine": "Evaluates whether LLM agents can generate correct, architecture-specific GPU kernels that execute required PTX instructions and outperform libraries.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -253,18 +293,21 @@
         "Software & Cloud"
       ],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
       "capabilities": [
-        "Code generation"
+        "Code generation",
+        "GPU kernel optimization",
+        "Architecture-specific programming",
+        "Iterative code repair"
       ],
       "topics": [
         "Code"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Runnable",
       "publication": {
         "status": "unverified",
         "venue": null,
@@ -289,13 +332,13 @@
         "report": "https://arxiv.org/abs/2608.17379",
         "paper": "https://arxiv.org/abs/2608.17379",
         "pdf": "https://arxiv.org/pdf/2608.17379",
-        "project": null,
-        "code": null,
-        "data": null,
+        "project": "https://github.com/zhang677/PTXBench",
+        "code": "https://github.com/zhang677/PTXBench",
+        "data": "https://huggingface.co/datasets/AccRL/accrl-training",
         "hfPaper": "https://huggingface.co/papers/2608.17379"
       },
       "motivation": "We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "PTXBench tests architecture-specific GPU kernel generation on H100 and B200 hardware, including correctness, required-instruction execution and speedup.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -410,6 +453,39 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "available",
+        "hfDatasetStatus": "available",
+        "evaluatorStatus": "available",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "GEMM",
+          "Multi-head attention forward",
+          "Causal attention forward",
+          "Multi-head attention backward",
+          "Causal attention backward"
+        ],
+        "protocol": {
+          "tasks": "5 primary BF16 workloads plus generalization workloads",
+          "primaryMetric": "Correctness, target-instruction correctness, best speedup and Fast_p",
+          "language": "CUDA C++ with inline PTX",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17379",
+          "https://arxiv.org/html/2608.17379",
+          "https://github.com/zhang677/PTXBench",
+          "https://huggingface.co/datasets/AccRL/accrl-training"
+        ]
       }
     },
     {
@@ -418,7 +494,7 @@
       "name": "PRISM",
       "paperTitle": "PRISM: Precision and contact-rich Real-world Industrial Skill dataset with Multimodal sensing",
       "aliases": [],
-      "oneLine": "Recent progress in robotic learning has been fueled by large-scale datasets collected in everyday environments.",
+      "oneLine": "Provides multimodal robot demonstrations and real-world evaluation tasks for precision, contact-rich industrial manipulation.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Manufacturing & Process Control",
@@ -430,11 +506,14 @@
         "Robotics"
       ],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
       "capabilities": [
-        "Robot manipulation"
+        "Multimodal robot manipulation",
+        "Contact-rich control",
+        "Imitation learning",
+        "Force-aware manipulation"
       ],
       "topics": [
         "Robotics",
@@ -473,7 +552,7 @@
         "hfPaper": "https://huggingface.co/papers/2608.17962"
       },
       "motivation": "Recent progress in robotic learning has been fueled by large-scale datasets collected in everyday environments.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "PRISM covers precision industrial manipulation using synchronized RGB-D, force/torque, tactile and robot-state observations.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -587,6 +666,36 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "announced_not_released",
+        "hfDatasetStatus": "announced_not_released",
+        "evaluatorStatus": "described_not_released",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Precision contact-rich assembly",
+          "Product packaging",
+          "Dynamic object sorting",
+          "Force-aware manipulation"
+        ],
+        "protocol": {
+          "tasks": "25+ tasks and 5,000+ trajectories",
+          "primaryMetric": "Task success rate over 20 real-robot trials per configuration",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17962",
+          "https://arxiv.org/html/2608.17962",
+          "https://tengbo-yu.github.io/PRISM/"
+        ]
       }
     },
     {
@@ -595,7 +704,7 @@
       "name": "PathoArgus-Bench",
       "paperTitle": "PathoArgus: Advancing Evidence-Grounded Long-Context Visual Reasoning across Gigapixel Whole-Slide and Multi-Slide Case Contexts",
       "aliases": [],
-      "oneLine": "Whole-slide pathology reasoning requires models to integrate gigapixel-scale visual evidence across complete case-linked slides, yet current question-answering benchmarks primarily measure final answer accuracy--a metric vulnerable to ling…",
+      "oneLine": "Evaluates evidence-grounded visual reasoning over complete gigapixel whole-slide and multi-slide pathology cases.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -605,11 +714,13 @@
         "Pharma & Biotech"
       ],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
       "capabilities": [
-        "Reasoning"
+        "Medical image reasoning",
+        "Long-context reasoning",
+        "Evidence grounding"
       ],
       "topics": [
         "Long Context",
@@ -617,7 +728,7 @@
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Inspectable",
       "publication": {
         "status": "unverified",
         "venue": null,
@@ -644,11 +755,11 @@
         "pdf": "https://arxiv.org/pdf/2608.17607",
         "project": null,
         "code": null,
-        "data": null,
+        "data": "https://huggingface.co/datasets/liubw/PathoArgus-Bench",
         "hfPaper": "https://huggingface.co/papers/2608.17607"
       },
       "motivation": "Whole-slide pathology reasoning requires models to integrate gigapixel-scale visual evidence across complete case-linked slides, yet current question-answering benchmarks primarily measure final answer accuracy--a metric vulnerable to linguistic priors and benchmark regularities, and insufficient to establish that predictions are grounded in the supplied tissue.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "PathoArgus-Bench measures case-level pathology reasoning over whole-slide images, including diagnostic findings, staging and exact evidence grounding.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -758,6 +869,42 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "not_found",
+        "hfDatasetStatus": "available",
+        "evaluatorStatus": "not_found",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Anatomic site",
+          "Histologic type",
+          "Tumor grade",
+          "Mitotic activity",
+          "Local invasion",
+          "Surgical margins",
+          "Nodal status",
+          "Pathologic staging",
+          "Cross-slide integration",
+          "Evidence grounding"
+        ],
+        "protocol": {
+          "tasks": "22,078 four-choice questions from 4,913 patients and 5,400 whole-slide images",
+          "primaryMetric": "Overall accuracy and QExact",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17607",
+          "https://arxiv.org/html/2608.17607",
+          "https://huggingface.co/datasets/liubw/PathoArgus-Bench"
+        ]
       }
     },
     {
@@ -766,27 +913,32 @@
       "name": "MobileWorldSafety",
       "paperTitle": "MobileWorldSafety: Benchmarking GUI Agent Safety Against Environmental Injection Attacks in Android Apps",
       "aliases": [],
-      "oneLine": "LLM-powered GUI agents that autonomously operate smartphones are rapidly transitioning from research prototypes to early real-world deployment.",
+      "oneLine": "Evaluates Android GUI-agent safety against environmental injection attacks embedded in everyday mobile workflows.",
       "area": "Agents & Tool Use",
       "applicationDomains": [
-        "Mobile & Personal Computing"
+        "Mobile & Personal Computing",
+        "Cybersecurity"
       ],
       "primaryDomain": "Mobile & Personal Computing",
       "industrySectors": [
         "Consumer Technology"
       ],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Computer use",
+        "Prompt-injection resistance",
+        "Mobile interaction"
+      ],
       "topics": [
         "Agents",
         "Safety"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Runnable",
       "publication": {
         "status": "unverified",
         "venue": null,
@@ -811,13 +963,13 @@
         "report": "https://arxiv.org/abs/2608.17659",
         "paper": "https://arxiv.org/abs/2608.17659",
         "pdf": "https://arxiv.org/pdf/2608.17659",
-        "project": null,
-        "code": null,
-        "data": null,
+        "project": "https://anonymous.4open.science/r/Anonymous_sub-C887",
+        "code": "https://anonymous.4open.science/r/Anonymous_sub-C887",
+        "data": "https://anonymous.4open.science/r/Anonymous_sub-C887",
         "hfPaper": "https://huggingface.co/papers/2608.17659"
       },
       "motivation": "LLM-powered GUI agents that autonomously operate smartphones are rapidly transitioning from research prototypes to early real-world deployment.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "MobileWorldSafety embeds environmental injection attacks into executable Android workflows and verifies both attack success and task completion.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -929,6 +1081,42 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "available",
+        "hfDatasetStatus": "available",
+        "evaluatorStatus": "available",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Email",
+          "Messaging",
+          "Calendar",
+          "Files",
+          "Web browsing",
+          "Navigation",
+          "Collaboration",
+          "Social media",
+          "E-commerce",
+          "Tool responses"
+        ],
+        "protocol": {
+          "tasks": "142 risk tasks across 13 Android apps and 5 MCP servers",
+          "primaryMetric": "Attack Success Rate and Task Completion Rate under attack",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17659",
+          "https://arxiv.org/html/2608.17659",
+          "https://anonymous.4open.science/r/Anonymous_sub-C887"
+        ]
       }
     },
     {
@@ -937,24 +1125,31 @@
       "name": "LiveHouse-TS",
       "paperTitle": "LiveHouse-TS: An Open-world Living Benchmark for Time Series Foundation Models",
       "aliases": [],
-      "oneLine": "Time Series Foundation Models (TSFMs) have recently emerged as a highly promising paradigm for cross-domain zero-shot forecasting.",
+      "oneLine": "Continuously evaluates time-series foundation models on future observations from live cross-domain data streams.",
       "area": "Language & Knowledge",
       "applicationDomains": [
-        "General AI"
+        "General AI",
+        "Finance",
+        "Scientific Research & AI for Science",
+        "Logistics & Operations"
       ],
       "primaryDomain": "General AI",
       "industrySectors": [],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Time-series forecasting",
+        "Temporal robustness",
+        "Distribution shift"
+      ],
       "topics": [
         "cs.AI"
       ],
       "construction": "Interactive Environment",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Runnable",
       "publication": {
         "status": "unverified",
         "venue": null,
@@ -979,13 +1174,13 @@
         "report": "https://arxiv.org/abs/2608.17299",
         "paper": "https://arxiv.org/abs/2608.17299",
         "pdf": "https://arxiv.org/pdf/2608.17299",
-        "project": null,
-        "code": null,
-        "data": null,
+        "project": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS",
+        "code": "https://github.com/zhouziyu02/TS-Live",
+        "data": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS",
         "hfPaper": "https://huggingface.co/papers/2608.17299"
       },
       "motivation": "Time Series Foundation Models (TSFMs) have recently emerged as a highly promising paradigm for cross-domain zero-shot forecasting.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "LiveHouse-TS uses newly arriving observations from 17 datasets so forecasting models are evaluated under real distribution shift rather than a frozen test set.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -1093,6 +1288,46 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "available",
+        "hfDatasetStatus": "available",
+        "evaluatorStatus": "available",
+        "submissionStatus": "available"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Weather",
+          "Air quality",
+          "Energy",
+          "Hydrology",
+          "Ocean",
+          "Traffic",
+          "Finance",
+          "Web attention",
+          "Macroeconomics",
+          "News events",
+          "Disaster events"
+        ],
+        "protocol": {
+          "tasks": "Continuous forecasting over 17 datasets from 15 sources and 11 domains",
+          "primaryMetric": "RMSE and CRPS, summarized by Average Rank, Win Rate and Elo",
+          "version": "Living benchmark"
+        },
+        "leaderboardUrl": "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS",
+        "submissionUrl": "https://github.com/zhouziyu02/TS-Live/issues/new?template=community-model.yml"
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17299",
+          "https://arxiv.org/html/2608.17299",
+          "https://github.com/zhouziyu02/TS-Live",
+          "https://huggingface.co/spaces/CityMindDev/LiveHouse-TS"
+        ]
       }
     },
     {
@@ -1101,7 +1336,7 @@
       "name": "LIBERO-VIFO",
       "paperTitle": "LIBERO-VIFO: Benchmarking the Capability and Safety of Visual Cue Following in Vision-Language-Action Models",
       "aliases": [],
-      "oneLine": "Visual cues are increasingly adopted to guide robot learning, but whether Vision-Language-Action (VLA) models can reliably follow authorized cues while disregarding unauthorized ones remains unclear.",
+      "oneLine": "Evaluates whether vision-language-action models follow authorized visual cues while resisting unauthorized visual influence.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -1111,10 +1346,14 @@
         "Robotics"
       ],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Embodied manipulation",
+        "Visual instruction following",
+        "Safety"
+      ],
       "topics": [
         "Multimodal",
         "Safety"
@@ -1152,7 +1391,7 @@
         "hfPaper": "https://huggingface.co/papers/2608.17600"
       },
       "motivation": "Visual cues are increasingly adopted to guide robot learning, but whether Vision-Language-Action (VLA) models can reliably follow authorized cues while disregarding unauthorized ones remains unclear.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "LIBERO-VIFO tests authorized and unauthorized visual influence across robot-manipulation tasks and eight families of visual cues.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -1263,6 +1502,39 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "not_found",
+        "hfDatasetStatus": "not_found",
+        "evaluatorStatus": "not_found",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Text overlays",
+          "Geometric symbols",
+          "Ghost trajectories",
+          "Pictorial demonstrations",
+          "Hand gestures",
+          "Visual signage",
+          "Visual highlights",
+          "Machine-readable codes"
+        ],
+        "protocol": {
+          "tasks": "1,347 instances from 40 LIBERO tasks and 33 cue variants",
+          "primaryMetric": "Full-Chain Accuracy and authorized/unauthorized visual following rates",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17600",
+          "https://arxiv.org/html/2608.17600"
+        ]
       }
     },
     {
@@ -1271,18 +1543,23 @@
       "name": "HarnessRisk",
       "paperTitle": "HarnessRisk: A Lifecycle-Oriented Benchmark for Agent Harness Safety",
       "aliases": [],
-      "oneLine": "Large language models are increasingly deployed through agent harnesses that manage tools, extensions, persistent state, permissions, and external actions.",
+      "oneLine": "Evaluates safety failures of model–agent-harness configurations across setup, runtime, persistent state, actions and incident recovery.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
-        "General AI"
+        "Cybersecurity"
       ],
-      "primaryDomain": "General AI",
+      "primaryDomain": "Cybersecurity",
       "industrySectors": [],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Agent safety",
+        "Prompt-injection resistance",
+        "Tool-use safety",
+        "Persistent-state safety"
+      ],
       "topics": [
         "Agents",
         "Safety"
@@ -1316,11 +1593,11 @@
         "pdf": "https://arxiv.org/pdf/2608.17597",
         "project": "https://baiyajing.github.io/harness-risk/",
         "code": "https://github.com/Baiyajing/HarnessRisk",
-        "data": null,
+        "data": "https://huggingface.co/datasets/YajingB/HarnessRisk",
         "hfPaper": "https://huggingface.co/papers/2608.17597"
       },
       "motivation": "Large language models are increasingly deployed through agent harnesses that manage tools, extensions, persistent state, permissions, and external actions.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "HarnessRisk evaluates the safety of complete model–harness configurations across six operational lifecycle phases in fresh sandboxes.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -1435,6 +1712,39 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "available",
+        "hfDatasetStatus": "available",
+        "evaluatorStatus": "available",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Harness configuration",
+          "Capability extension",
+          "Runtime operation",
+          "State persistence",
+          "Action control",
+          "Incident recovery"
+        ],
+        "protocol": {
+          "tasks": "128 sandboxed cases across six lifecycle phases",
+          "primaryMetric": "Utility, Attack Success Rate, Persistence and Detection",
+          "version": "arXiv v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17597",
+          "https://arxiv.org/html/2608.17597",
+          "https://github.com/Baiyajing/HarnessRisk",
+          "https://huggingface.co/datasets/YajingB/HarnessRisk"
+        ]
       }
     },
     {
@@ -1443,24 +1753,29 @@
       "name": "CADP-Bench",
       "paperTitle": "Code as Representation: A Compilable Parsing Paradigm for Academic Documents",
       "aliases": [],
-      "oneLine": "Academic papers are a primary carrier of scientific knowledge, yet most of this knowledge remains locked in PDFs that are optimized for human reading rather than machine use.",
-      "area": "Vision & 3D",
+      "oneLine": "Evaluates MLLMs that reconstruct full academic pages as compilable LaTeX and executable Python from page images.",
+      "area": "Multimodal",
       "applicationDomains": [
-        "General AI"
+        "Scientific Research & AI for Science"
       ],
-      "primaryDomain": "General AI",
+      "primaryDomain": "Scientific Research & AI for Science",
       "industrySectors": [],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Academic document parsing",
+        "Structured document reconstruction",
+        "Chart-to-code generation",
+        "Multimodal code generation"
+      ],
       "topics": [
         "cs.CV"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Paper only",
+      "readiness": "Runnable",
       "publication": {
         "status": "acceptance_claimed",
         "venue": "ACM MM 2026",
@@ -1500,13 +1815,13 @@
         "report": "https://arxiv.org/abs/2608.17550",
         "paper": "https://arxiv.org/abs/2608.17550",
         "pdf": "https://arxiv.org/pdf/2608.17550",
-        "project": null,
-        "code": null,
-        "data": null,
+        "project": "https://github.com/AriKing11/CADP-Bench",
+        "code": "https://github.com/AriKing11/CADP-Bench",
+        "data": "https://github.com/AriKing11/CADP-Bench/tree/main/data",
         "hfPaper": "https://huggingface.co/papers/2608.17550"
       },
       "motivation": "Academic papers are a primary carrier of scientific knowledge, yet most of this knowledge remains locked in PDFs that are optimized for human reading rather than machine use.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "CADP-Bench asks models to reconstruct complete academic pages as compilable LaTeX and executable Python, then scores both structure and rendered output.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -1628,6 +1943,37 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "available",
+        "hfDatasetStatus": "sample_only",
+        "evaluatorStatus": "available",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Computer Science",
+          "Physics",
+          "Economics",
+          "Quantitative Biology",
+          "Statistics"
+        ],
+        "protocol": {
+          "tasks": "1,630 full-page samples",
+          "primaryMetric": "Pixel Similarity with structural, reading-order and execution metrics",
+          "version": "v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17550",
+          "https://arxiv.org/html/2608.17550v1",
+          "https://github.com/AriKing11/CADP-Bench"
+        ]
       }
     },
     {
@@ -1636,19 +1982,23 @@
       "name": "BEAR-Bench",
       "paperTitle": "BEAR-Bench: A Bilingual Enterprise and Academic Reasoning Benchmark for Multimodal Models",
       "aliases": [],
-      "oneLine": "While Multimodal Large Language Models (MLLMs) have made significant strides in visual comprehension, their ability to reason about text-dense, professional documents remains incompletely evaluated.",
+      "oneLine": "Tests English–Russian multimodal reasoning over text-dense business and scientific document pages.",
       "area": "Multimodal",
       "applicationDomains": [
-        "General AI"
+        "Finance",
+        "Scientific Research & AI for Science"
       ],
       "primaryDomain": "General AI",
       "industrySectors": [],
       "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
+        "state": "reviewed",
+        "method": "primary-source-review-v1"
       },
       "capabilities": [
-        "Reasoning"
+        "Professional document reasoning",
+        "Multimodal reasoning",
+        "OCR-grounded reasoning",
+        "Bilingual reasoning"
       ],
       "topics": [
         "Multimodal",
@@ -1687,7 +2037,7 @@
         "hfPaper": "https://huggingface.co/papers/2608.17895"
       },
       "motivation": "While Multimodal Large Language Models (MLLMs) have made significant strides in visual comprehension, their ability to reason about text-dense, professional documents remains incompletely evaluated.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "constructionDetail": "BEAR-Bench describes bilingual question answering over business and scientific document pages, but no official benchmark artifact has been released yet.",
       "metrics": [],
       "source": {
         "type": "arxiv",
@@ -1799,6 +2149,35 @@
             }
           }
         }
+      },
+      "evaluationMode": "score_submission",
+      "displayEligible": false,
+      "availability": {
+        "paperStatus": "available",
+        "githubStatus": "not_found",
+        "hfDatasetStatus": "not_found",
+        "evaluatorStatus": "paper_spec_only",
+        "submissionStatus": "not_found"
+      },
+      "detail": {
+        "taskBreakdown": [
+          "Business",
+          "Science"
+        ],
+        "protocol": {
+          "tasks": "1,000 document-image questions",
+          "primaryMetric": "Accuracy using a semantic-equivalence judge",
+          "language": "English and Russian",
+          "version": "v1"
+        }
+      },
+      "curation": {
+        "state": "source-reviewed",
+        "reviewedAt": "2026-08-20",
+        "sources": [
+          "https://arxiv.org/abs/2608.17895",
+          "https://arxiv.org/html/2608.17895v1"
+        ]
       }
     },
     {

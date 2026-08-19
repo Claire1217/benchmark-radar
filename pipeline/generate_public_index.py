@@ -44,6 +44,8 @@ def project_record(source: dict) -> dict:
     for optional_key in ("motivation", "constructionDetail", "metrics", "detail", "curation", "publication", "venueAttempts", "publications", "watch", "releaseDates", "usageObservations", "evaluationMode", "availability"):
         if source.get(optional_key):
             record[optional_key] = source[optional_key]
+    if "displayEligible" in source:
+        record["displayEligible"] = source["displayEligible"]
     return record
 
 

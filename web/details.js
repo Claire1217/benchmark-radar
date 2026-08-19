@@ -72,17 +72,13 @@
   };
 
   const availabilitySection = (record) => {
-    const detail = record.detail || {};
     const a = record.availability || {};
     const resources = [
       ["Paper", record.links?.paper || record.links?.report, Boolean(record.links?.paper || record.links?.report)],
-      ["Data", record.links?.data, a.hfDatasetStatus === "available" || Boolean(record.links?.data)],
-      ["Code", record.links?.code, a.githubStatus === "available" || Boolean(record.links?.code)],
-      ["Evaluator", record.links?.code, a.evaluatorStatus === "available"],
-      ["Leaderboard", detail.leaderboardUrl, Boolean(detail.leaderboardUrl)],
-      ["Submit", detail.submissionUrl, a.submissionStatus === "available" || Boolean(detail.submissionUrl)]
+      [a.hfDatasetStatus === "sample_only" ? "Data sample" : "Data", record.links?.data, a.hfDatasetStatus === "available" || Boolean(record.links?.data)],
+      ["Code", record.links?.code, a.githubStatus === "available" || Boolean(record.links?.code)]
     ];
-    const node = section("Availability");
+    const node = section("Resources");
     const list = document.createElement("div");
     list.className = "availability-list";
     resources.forEach(([label, url, available]) => {
@@ -97,6 +93,16 @@
       list.append(item);
     });
     node.append(list);
+    return node;
+  };
+
+  const benchmarkActions = (record) => {
+    const detail = record.detail || {};
+    const actions = [link("Leaderboard", detail.leaderboardUrl), link("Submit results", detail.submissionUrl)].filter(Boolean);
+    if (!actions.length) return null;
+    const node = document.createElement("div");
+    node.className = "detail-links detail-benchmark-actions";
+    actions.forEach((item) => node.append(item));
     return node;
   };
 
@@ -120,10 +126,10 @@
     const state = window.benchmarkRadarState;
     const rank = record.ranking?.[state?.window];
     const attention = rank?.rank ? `#${rank.rank} · ${state.window}` : record.attention?.hfPaperUpvotes != null ? `${record.attention.hfPaperUpvotes} HF votes` : null;
-    const assets = [record.links?.data, record.links?.code, record.availability?.evaluatorStatus === "available", record.detail?.leaderboardUrl].filter(Boolean).length;
+    const assets = [record.links?.paper || record.links?.report, record.links?.data, record.links?.code].filter(Boolean).length;
     return factGrid([
       ["CURRENT ATTENTION", attention, "Public visibility, not quality"],
-      ["PUBLIC ASSETS", assets ? `${assets} found` : "Paper only", "Data · code · evaluator · leaderboard"],
+      ["PUBLIC RESOURCES", `${assets} found`, "Paper · data · code"],
       ["READINESS", record.readiness, "Availability at first review"]
     ]);
   };
@@ -132,7 +138,10 @@
     panel.replaceChildren();
     const summary = radarSummary(record);
     if (summary) panel.append(summary);
-    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+    panel.append(measureSection(record), availabilitySection(record));
+    const actions = benchmarkActions(record);
+    if (actions) panel.append(actions);
+    panel.append(provenance(record));
   };
 
   const modelCoverage = (record) => {
@@ -181,7 +190,10 @@
     const coverageNode = modelCoverage(record);
     if (reportsNode) panel.append(reportsNode);
     if (coverageNode) panel.append(coverageNode);
-    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+    panel.append(measureSection(record), availabilitySection(record));
+    const actions = benchmarkActions(record);
+    if (actions) panel.append(actions);
+    panel.append(provenance(record));
   };
 
   window.renderBenchmarkDetails = (record, panel, surface) => {
