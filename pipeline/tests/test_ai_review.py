@@ -13,6 +13,9 @@ from urllib.error import HTTPError
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from review_candidates_with_deepseek import (
+    DEFAULT_MODEL,
+    DEFAULT_BATCH_SIZE,
+    MAX_OUTPUT_TOKENS,
     automatic_promotion,
     candidate_fingerprint,
     deepseek_request_payload,
@@ -77,6 +80,16 @@ def full_candidate() -> dict:
     return value
 
 
+def signals(intended_use: str = "third_party_comparison") -> dict:
+    reusable = intended_use == "third_party_comparison"
+    return {
+        "third_party_runnable": reusable,
+        "stable_task_metric_protocol": reusable,
+        "public_artifacts": None,
+        "intended_use": intended_use,
+    }
+
+
 def release_response(confidence: float = 0.98, quote: str | None = None) -> dict:
     return {
         "decisions": [{
@@ -88,6 +101,7 @@ def release_response(confidence: float = 0.98, quote: str | None = None) -> dict
             "evidence_quote": quote or "We introduce DeepSWE, a benchmark of 113 original software engineering tasks.",
             "confidence": confidence,
             "reason": "Explicit identity statement.",
+            "signals": signals(),
         }]
     }
 
@@ -113,6 +127,10 @@ class AiReviewTests(unittest.TestCase):
         response.__exit__ = Mock(return_value=False)
         return response
 
+    def test_economical_flash_model_is_default(self) -> None:
+        self.assertEqual(DEFAULT_MODEL, "deepseek-v4-flash")
+        self.assertEqual(DEFAULT_BATCH_SIZE, 8)
+
     def test_unconfigured_deepseek_skips_successfully(self) -> None:
         environment = dict(os.environ)
         for name in ("DEEPSEEK_API_KEY", "DEEPSEEK_MODEL"):
@@ -132,20 +150,22 @@ class AiReviewTests(unittest.TestCase):
         self.assertIn("skipped", result.stdout)
 
     def test_deepseek_payload_has_json_mode_thinking_and_no_tools_or_secret(self) -> None:
-        payload = deepseek_request_payload([candidate()], "deepseek-v4-pro")
+        payload = deepseek_request_payload([candidate()], "deepseek-v4-flash")
         rendered = str(payload)
         self.assertNotIn("secret-value", rendered)
         self.assertNotIn("tools", payload)
         self.assertEqual(payload["response_format"], {"type": "json_object"})
         self.assertEqual(payload["thinking"], {"type": "enabled"})
         self.assertEqual(payload["reasoning_effort"], "high")
+        self.assertEqual(payload["max_tokens"], MAX_OUTPUT_TOKENS)
 
     def test_critic_payload_is_independent_second_stage(self) -> None:
         classifier = release_response()["decisions"]
-        payload = deepseek_request_payload([candidate()], "deepseek-v4-pro", critic_of=classifier)
+        payload = deepseek_request_payload([candidate()], "deepseek-v4-flash", critic_of=classifier)
         prompt = payload["messages"][1]["content"]
         self.assertIn("independent critic", prompt)
-        self.assertIn("classifier_decision", prompt)
+        self.assertNotIn("classifier_decision", prompt)
+        self.assertNotIn("Explicit identity statement", prompt)
         self.assertIn("evidence_supported", prompt)
 
     def test_deepseek_only_accepts_stop(self) -> None:
@@ -157,7 +177,7 @@ class AiReviewTests(unittest.TestCase):
     def test_deepseek_retries_429_then_succeeds(self, urlopen_mock: Mock, _sleep: Mock) -> None:
         throttled = HTTPError("https://api.deepseek.com/chat/completions", 429, "rate", {"Retry-After": "1"}, BytesIO())
         urlopen_mock.side_effect = [throttled, self.deepseek_http_response('{"decisions":[]}')]
-        self.assertEqual(invoke_deepseek_api([], "deepseek-v4-pro", "secret"), {"decisions": []})
+        self.assertEqual(invoke_deepseek_api([], "deepseek-v4-flash", "secret"), {"decisions": []})
         self.assertEqual(urlopen_mock.call_count, 2)
 
     @patch("review_candidates_with_deepseek.time.sleep")
@@ -167,14 +187,14 @@ class AiReviewTests(unittest.TestCase):
             self.deepseek_http_response(""),
             self.deepseek_http_response('{"decisions":[]}'),
         ]
-        self.assertEqual(invoke_deepseek_api([], "deepseek-v4-pro", "secret"), {"decisions": []})
+        self.assertEqual(invoke_deepseek_api([], "deepseek-v4-flash", "secret"), {"decisions": []})
         self.assertEqual(urlopen_mock.call_count, 2)
 
     @patch("review_candidates_with_deepseek.urlopen")
     def test_deepseek_does_not_retry_400(self, urlopen_mock: Mock) -> None:
         urlopen_mock.side_effect = HTTPError("https://api.deepseek.com/chat/completions", 400, "bad", {}, BytesIO())
         with self.assertRaisesRegex(RuntimeError, "HTTP 400"):
-            invoke_deepseek_api([], "deepseek-v4-pro", "secret")
+            invoke_deepseek_api([], "deepseek-v4-flash", "secret")
         self.assertEqual(urlopen_mock.call_count, 1)
 
     def test_accepts_exact_release_evidence(self) -> None:
@@ -193,6 +213,7 @@ class AiReviewTests(unittest.TestCase):
                     "evidence_quote": "We release the world's best benchmark and leaderboard.",
                     "confidence": 0.99,
                     "reason": "Claimed release.",
+                    "signals": signals(),
                 }
             ]
         }
@@ -231,6 +252,44 @@ class AiReviewTests(unittest.TestCase):
         self.assertEqual(canonical["records"], [])
         self.assertEqual(queue["candidates"][0]["autoReview"]["status"], "deferred")
 
+    def test_provider_failure_retries_on_next_run(self) -> None:
+        item = full_candidate()
+        response = {"decisions": [{
+            "id": item["id"], "verdict": "unclear", "relation": "unclear",
+            "artifact_role": "unclear", "benchmark_name": "", "evidence_quote": "",
+            "confidence": 0.0, "reason": "provider unavailable",
+            "signals": signals("unclear"),
+        }]}
+        decision = validate_decisions([item], response)
+        _, queue, statuses = automatic_promotion(
+            {"candidates": [item]}, {"manifest": {}, "records": []},
+            decision, [], model="deepseek-v4-flash",
+            provider_retry_ids={item["id"]},
+        )
+        self.assertEqual(statuses[0]["status"], "pending_provider_retry")
+        self.assertEqual(queue["candidates"][0]["autoReview"]["status"], "pending_provider_retry")
+
+    def test_diagnostic_decision_does_not_delete_legacy_canonical(self) -> None:
+        item = full_candidate()
+        legacy = {key: value for key, value in item.items() if key != "reviewContext"}
+        response = release_response()
+        response["decisions"][0]["artifact_role"] = "diagnostic_benchmark"
+        response["decisions"][0]["signals"] = {
+            "third_party_runnable": False,
+            "stable_task_metric_protocol": False,
+            "public_artifacts": False,
+            "intended_use": "claim_support",
+        }
+        decision = validate_decisions([item], response)
+        critics = validate_critic_decisions([item], critic_response(response))
+        canonical, _, statuses = automatic_promotion(
+            {"candidates": [item]}, {"manifest": {}, "records": [legacy]},
+            decision, critics, model="deepseek-v4-flash",
+        )
+        self.assertEqual(statuses[0]["status"], "deferred")
+        self.assertEqual(len(canonical["records"]), 1)
+        self.assertIn("migration replay", statuses[0]["gateErrors"][-1])
+
     def test_classifier_and_critic_can_confirm_without_keyword_veto(self) -> None:
         item = full_candidate()
         quote = "DeepSWE is a benchmark of 113 original software engineering tasks."
@@ -267,6 +326,7 @@ class AiReviewTests(unittest.TestCase):
             "evidence_quote": negative_quote,
             "confidence": 0.99,
             "reason": "The paper only reports results.",
+            "signals": signals("claim_support"),
         }]}
         decisions = validate_decisions([item], response)
         canonical, queue, statuses = automatic_promotion(
@@ -278,12 +338,31 @@ class AiReviewTests(unittest.TestCase):
         self.assertEqual(canonical["records"], [])
         self.assertEqual(queue["candidates"][0]["autoReview"]["status"], "rejected")
 
+    def test_diagnostic_benchmark_is_audited_but_excluded(self) -> None:
+        item = full_candidate()
+        item["attention"] = {"hfPaperUpvotes": 10000, "githubStars": 100000}
+        item["authors"] = ["Prestigious University Lab"]
+        response = release_response()
+        response["decisions"][0]["artifact_role"] = "diagnostic_benchmark"
+        response["decisions"][0]["signals"] = signals("claim_support")
+        decisions = validate_decisions([item], response)
+        critics = validate_critic_decisions([item], critic_response(response))
+        canonical, queue, statuses = automatic_promotion(
+            {"candidates": [item]}, {"manifest": {}, "records": []}, decisions, critics,
+            model="test-model", reviewed_at="2026-07-12T00:00:00Z",
+        )
+        self.assertEqual(statuses[0]["status"], "rejected_excluded")
+        self.assertEqual(statuses[0]["signals"]["intended_use"], "claim_support")
+        self.assertEqual(canonical["records"], [])
+        self.assertEqual(queue["candidates"][0]["autoReview"]["status"], "rejected_excluded")
+
     def test_unclear_or_invalid_nonrelease_is_deferred(self) -> None:
         item = full_candidate()
         response = {"decisions": [{
             "id": "bm_deepswe", "verdict": "unclear", "relation": "unclear",
             "artifact_role": "unclear", "benchmark_name": "", "evidence_quote": "",
             "confidence": 0.99, "reason": "Insufficient evidence.",
+            "signals": signals("unclear"),
         }]}
         decisions = validate_decisions([item], response)
         _, _, statuses = automatic_promotion(
@@ -375,6 +454,22 @@ class AiReviewTests(unittest.TestCase):
         )
         self.assertEqual(statuses[0]["status"], "deferred")
         self.assertIn("classifier and critic disagree on relation", statuses[0]["gateErrors"])
+
+    def test_critic_may_use_independent_quote_and_secondary_signals(self) -> None:
+        item = full_candidate()
+        critic_quote = "We release DeepSWE as a stable evaluation suite for external comparison."
+        item["reviewContext"]["abstract"] += " " + critic_quote
+        decisions = validate_decisions([item], release_response())
+        critic = critic_response()
+        critic["decisions"][0]["evidence_quote"] = critic_quote
+        critic["decisions"][0]["signals"]["public_artifacts"] = True
+        critics = validate_critic_decisions([item], critic)
+        canonical, _, statuses = automatic_promotion(
+            {"candidates": [item]}, {"manifest": {}, "records": []}, decisions, critics,
+            model="test-model", reviewed_at="2026-07-12T00:00:00Z",
+        )
+        self.assertEqual(statuses[0]["status"], "promoted")
+        self.assertEqual(len(canonical["records"]), 1)
 
     def test_missing_critic_forces_defer(self) -> None:
         item = full_candidate()

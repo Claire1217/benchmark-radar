@@ -9,6 +9,17 @@ on:
         description: "Optional first-release date in YYYY-MM-DD"
         required: false
         type: string
+      candidate_limit:
+        description: Maximum pending candidates to classify
+        required: false
+        default: "48"
+        type: choice
+        options: ["12", "24", "48", "96"]
+      retry_deferred:
+        description: Reclassify semantic deferrals
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -27,9 +38,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Test indexer
-        run: make test
-
       - name: Index latest arXiv release date
         env:
           REQUESTED_DATE: ${{ inputs.date }}
@@ -40,6 +48,26 @@ jobs:
             python pipeline/index_benchmarks.py --latest-with-papers
           fi
 
+      - name: Classify pending candidates with DeepSeek
+        shell: bash
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL || 'deepseek-v4-flash' }}
+          CANDIDATE_LIMIT: ${{ inputs.candidate_limit || '48' }}
+          RETRY_DEFERRED: ${{ inputs.retry_deferred || 'false' }}
+        run: |
+          set +x
+          retry_args=()
+          if [ "$RETRY_DEFERRED" = "true" ]; then retry_args+=(--retry-deferred); fi
+          python pipeline/review_candidates_with_deepseek.py \
+            --input data/review_queue.json \
+            --canonical data/benchmarks.json \
+            --library data/library_records.json \
+            --output data/ai_review_status.json \
+            --limit "$CANDIDATE_LIMIT" \
+            --skip-unconfigured \
+            "${retry_args[@]}"
+
       - name: Refresh publication and acceptance metadata
         run: python pipeline/enrich_publications.py
 
@@ -48,19 +76,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_metrics.py
 
-      - name: Refresh Awesome list
-        run: python pipeline/generate_awesome.py
-
-      - name: Reconcile reviewed Library seeds with Radar
-        run: python pipeline/build_library_records.py
-
-      - name: Refresh domain activity dataset
-        run: python pipeline/generate_domain_trends.py
-
-      - name: Build compact web index
-        run: |
-          python pipeline/generate_public_index.py
-          python pipeline/generate_library_index.py
+      - name: Generate public views once
+        run: make generate
 
       - name: Validate site
         run: make build
@@ -69,7 +86,7 @@ jobs:
         run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
-          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication
+          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/ai_review_status.json data/runs data/metrics data/publication
           if git diff --cached --quiet; then
             echo "No index changes"
           else

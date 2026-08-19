@@ -16,7 +16,7 @@ All files except `curated_overrides.json`, `curated_records.json`, `library_seed
 | `publication/YYYY-MM-DD.json` | Venue metadata refresh receipt | dated history |
 | `runs/*.json` | Index queries, counts, and accepted evidence | audit history |
 | `review_queue.json` | Persistent source-upsert queue awaiting automatic semantic classification | persistent queue |
-| `ai_review_status.json` | Fingerprinted automatic promoted/deferred/rejected decisions and promoted canonical overlay | persistent audit ledger |
+| `ai_review_status.json` | Fingerprinted automatic promoted/deferred/rejected/rejected-excluded decisions, structured semantic signals, and promoted canonical overlay | persistent audit ledger |
 
 `review_queue.json` is not a recommendation list. Its records may be false positives.
 

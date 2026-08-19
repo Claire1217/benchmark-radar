@@ -17,7 +17,8 @@
           "benchmark_name",
           "evidence_quote",
           "confidence",
-          "reason"
+          "reason",
+          "signals"
         ],
         "properties": {
           "id": {"type": "string"},
@@ -42,7 +43,26 @@
           "benchmark_name": {"type": "string"},
           "evidence_quote": {"type": "string"},
           "confidence": {"type": "number", "minimum": 0, "maximum": 1},
-          "reason": {"type": "string"}
+          "reason": {"type": "string"},
+          "signals": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "third_party_runnable",
+              "stable_task_metric_protocol",
+              "public_artifacts",
+              "intended_use"
+            ],
+            "properties": {
+              "third_party_runnable": {"type": ["boolean", "null"]},
+              "stable_task_metric_protocol": {"type": ["boolean", "null"]},
+              "public_artifacts": {"type": ["boolean", "null"]},
+              "intended_use": {
+                "type": "string",
+                "enum": ["third_party_comparison", "claim_support", "unclear"]
+              }
+            }
+          }
         }
       }
     }

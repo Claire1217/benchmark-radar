@@ -47,17 +47,20 @@ The index separates five semantic roles:
 
 - `reusable_benchmark`: released as a reusable evaluation target for other teams;
 - `diagnostic_benchmark`: built mainly to reveal a limitation or support a
-  scientific claim, but still defines a named and repeatable evaluation;
+  scientific claim or particular method without a stable protocol intended
+  for routine third-party comparison;
 - `benchmarking_study`: an empirical comparison whose main contribution is the
   analysis rather than a reusable benchmark artifact;
 - `uses_existing_benchmarks`: reports results on already established benchmarks;
 - `unclear`: the available evidence does not support a confident classification.
 
-Reusable benchmarks are eligible for the Radar when the release and identity
-evidence are clear. Diagnostic benchmarks use a higher inclusion bar: they enter
-the public Library only after a future deterministic rule can establish
-independent use or unusually strong field- and age-normalized attention; the AI
-promotion path automatically defers them. A famous author or lab is provenance,
+Reusable benchmarks are eligible for the Radar when both DeepSeek semantic
+stages and the objective integrity gates agree. Diagnostic benchmarks never
+enter Radar, Library, or Trends; confirmed cases are retained only in the audit
+ledger and uncertain cases are deferred. A diagnostic decision cannot directly
+delete a legacy public record; legacy migration is replayed separately with its
+history preserved. Attention and a famous author or lab
+never alter this boundary. Author identity remains provenance,
 not an automatic pass. Benchmarking studies and
 papers that only use existing benchmarks remain source evidence or review
 candidates; they do not become Benchmark entities.

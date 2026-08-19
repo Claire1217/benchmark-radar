@@ -5,21 +5,21 @@ Benchmark Radar is deliberately small: Git is the auditable database, GitHub Act
 ## Data flow
 
 ```text
-arXiv OAI-PMH
-      │
-      ▼
-candidate recognition ── priority only ──► persistent candidate queue
-      │                                               │
-      │ ambiguous                                     ├──► attention / venue metadata
-      ▼                                               └──► release trend signal
-review queue ──► DeepSeek semantic classification
-                    │
-                    ├──► exact evidence/schema/URL/identity/duplicate gates ──► canonical
-                    └──► automatic defer or reject ledger
-
-official benchmark sources ──► reviewed all-time Library ──► usage trend signal
-
-Radar + Library + Trends ──► static GitHub Pages artifact
+official sources ──► high-recall candidate upsert ──► persistent candidate state
+                                                        │
+                                                        ▼
+                                      DeepSeek classifier + blind critic
+                                                        │
+                          ┌─────────────────────────────┼─────────────────────────┐
+                          ▼                             ▼                         ▼
+                  reusable release             insufficient evidence      study / existing use
+                          │                             │                         │
+                          ▼                             ▼                         ▼
+                  canonical reconcile          retry or defer ledger       audit ledger only
+                          │
+                          ├──► active-window attention snapshots
+                          ├──► publication metadata enrichment
+                          └──► Radar + Library + Trends ──► one static Pages artifact
 ```
 
 ## Radar, Library, and Trends
@@ -33,9 +33,11 @@ These are separate views over separate evidence contracts:
 A usage observation records who used which benchmark, when, in what context, and the primary source URL. Counts are deduplicated by benchmark, organization, and week.
 
 The workflow is fail-closed: validation completes before generated data is committed or the Pages artifact is deployed. A failed run leaves the previous public site online.
-Daily indexing, AI promotion, and deployment share one concurrency lock. The
-AI promotion ledger is also a persistent canonical overlay, so replaying a
-source date cannot delete an earlier gated promotion.
+Daily indexing and deployment share one concurrency lock. Candidate discovery,
+AI admission, enrichment, view generation, validation, and commit happen in one
+daily workflow and in that order. The promotion ledger is also a persistent
+canonical overlay, so replaying a source date cannot delete an earlier gated
+promotion.
 
 ## Components
 
@@ -55,9 +57,9 @@ source date cannot delete an earlier gated promotion.
 ## Automation
 
 - `ci.yml` validates every pull request and push.
-- `daily-index.yml` refreshes the index once per day and supports manual runs.
-- `deepseek-promotion.yml` runs optional post-index AI promotion and safely skips
-  when the DeepSeek key is not configured.
-- `deploy-pages.yml` publishes the exact static artifact to GitHub Pages.
+- `daily-index.yml` performs one end-to-end daily transaction: discover,
+  classify, reconcile, enrich, generate, validate, and commit. DeepSeek safely
+  skips when its key is not configured.
+- `deploy-pages.yml` publishes once after the daily transaction succeeds.
 
 No browser receives API credentials. External APIs are called only by the indexing workflow.
