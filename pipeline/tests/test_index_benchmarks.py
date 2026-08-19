@@ -6,7 +6,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from index_benchmarks import Paper, canonical_name, family_id, recognition, to_record, upsert
+from index_benchmarks import Paper, canonical_name, family_id, infer_publication, merge_patch, recognition, to_record, upsert, venue_entities
 
 
 def sample(title: str, abstract: str, arxiv_id: str = "2608.00001") -> Paper:
@@ -72,6 +72,11 @@ class IndexerTests(unittest.TestCase):
     def test_family_id_is_stable_across_spelling_punctuation(self) -> None:
         self.assertEqual(family_id("Clear-Bench"), family_id("Clear Bench"))
 
+    def test_curated_patch_preserves_unmodified_source_fields(self) -> None:
+        merged = merge_patch({"name": "ClearBench", "links": {"paper": "p", "code": None}}, {"links": {"code": "c"}})
+        self.assertEqual(merged["name"], "ClearBench")
+        self.assertEqual(merged["links"], {"paper": "p", "code": "c"})
+
     def test_upsert_preserves_first_seen(self) -> None:
         old = to_record(
             sample("ClearBench: A Benchmark for Reliable Agents", "We introduce a new benchmark with tasks."),
@@ -84,6 +89,32 @@ class IndexerTests(unittest.TestCase):
         new["firstSeenAt"] = "2026-08-20"
         merged = upsert([old], [new])
         self.assertEqual(merged[0]["firstSeenAt"], "2026-08-19")
+
+    def test_publication_uses_explicit_acceptance_comment(self) -> None:
+        paper = sample("ClearBench: A Benchmark", "We introduce a new benchmark with tasks.")
+        paper = Paper(**{**paper.__dict__, "comments": "Accepted at NeurIPS 2026."})
+        publication = infer_publication(paper, "2026-08-19T00:00:00Z")
+        self.assertEqual(publication["status"], "acceptance_claimed")
+        self.assertEqual(publication["venue"], "NeurIPS 2026")
+        self.assertEqual(publication["source"], "arxiv-comments")
+        entities = venue_entities(publication)
+        self.assertEqual(entities["venueAttempts"][0]["reviewStatus"], "accepted")
+        self.assertEqual(entities["publications"], [])
+
+    def test_publication_prefers_journal_reference(self) -> None:
+        paper = sample("ClearBench: A Benchmark", "We introduce a new benchmark with tasks.")
+        paper = Paper(**{**paper.__dict__, "journal_ref": "Proceedings of ICML 2026"})
+        publication = infer_publication(paper, "2026-08-19T00:00:00Z")
+        self.assertEqual(publication["status"], "publication_reported")
+        self.assertEqual(publication["venue"], "Proceedings of ICML 2026")
+        entities = venue_entities(publication)
+        self.assertEqual(entities["publications"][0]["publicationStatus"], "published")
+
+    def test_absent_acceptance_is_unverified_not_rejected(self) -> None:
+        paper = sample("ClearBench: A Benchmark", "We introduce a new benchmark with tasks.")
+        publication = infer_publication(paper, "2026-08-19T00:00:00Z")
+        self.assertEqual(publication["status"], "unverified")
+        self.assertNotEqual(publication["status"], "rejected")
 
 
 if __name__ == "__main__":

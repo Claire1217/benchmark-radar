@@ -30,7 +30,7 @@ def main() -> None:
         "",
         "A source-audited, daily-updated index of newly released AI benchmarks.",
         "",
-        "**[Browse and filter on Benchmark Radar →](https://benchmark-radar.gthedev.chatgpt.site)**",
+        "**[Browse and filter on Benchmark Radar →](https://claire1217.github.io/benchmark-radar/)**",
         "",
         "> This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.",
         "",

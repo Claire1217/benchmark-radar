@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Track emerging AI benchmarks and field-level evaluation activity.">
+  <title>Benchmark Radar</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./details.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#radar">Benchmark Radar</a>
+    <nav aria-label="Sections"><a href="#radar" data-route="radar">Radar</a><a href="#trends" data-route="trends">Trends</a><a href="#saved" data-route="saved">Saved <span id="saved-count">0</span></a></nav>
+    <a class="github" href="https://github.com/Claire1217/benchmark-radar">GitHub ↗</a>
+  </header>
+
+  <main>
+    <section id="radar-view">
+      <div class="hero"><div><h1>Track emerging benchmarks.</h1><p>See what is new and what is gaining public attention.</p></div><div class="hero-summary" id="summary"></div></div>
+      <section class="content">
+        <div class="controls">
+          <div><span>Time window</span><div class="segmented" id="window-controls"><button data-window="today">Today</button><button data-window="30d" class="active">30 days</button><button data-window="90d">90 days</button></div></div>
+          <div><span>Sort by</span><div class="segmented" id="sort-controls"><button data-sort="newest">Newest</button><button data-sort="momentum" class="active">Attention</button></div></div>
+          <button id="filter-toggle" class="plain-button">Filters ↓</button>
+        </div>
+        <div class="filter-panel" id="filter-panel" hidden>
+          <label>Search<input id="search" placeholder="RSI, CAD, robotics…"></label>
+          <label>Application domain<select id="domain"><option value="">All domains</option></select></label>
+          <button id="clear-filters" class="text-button">Clear filters</button>
+        </div>
+        <div class="section-heading"><div><h2 id="feed-title">Rising benchmarks</h2><span id="result-count"></span></div><span id="updated"></span></div>
+        <div id="benchmark-list"></div>
+        <button id="load-more" class="load-more" hidden>Show 60 more</button>
+      </section>
+    </section>
+
+    <section id="trends-view" hidden>
+      <div class="hero"><div><h1>Evaluation activity by field.</h1><p>Track how many new Benchmark families appear—not whether the technology itself has improved.</p></div></div>
+      <section class="content trend-content">
+        <div class="controls">
+          <label class="select-control"><span>Domain</span><select id="trend-domain"></select></label>
+          <div><span>Time window</span><div class="segmented" id="trend-window"><button data-days="30">30 days</button><button data-days="90" class="active">90 days</button></div></div>
+          <span class="collecting">6 months · collecting</span>
+        </div>
+        <article class="chart-card">
+          <div class="chart-header"><div><span>NEW BENCHMARK FAMILIES</span><h2 id="chart-title"></h2></div><div class="trend-stat"><strong id="recent-count"></strong><span>last 30 days</span></div><div class="trend-stat"><strong id="growth-value"></strong><span>vs previous 30d</span></div></div>
+          <div id="line-chart" class="line-chart" role="img" aria-label="Weekly new Benchmark releases"></div>
+          <div class="chart-note"><span id="trend-confidence"></span><span>Source: first public release date · weekly counts</span></div>
+        </article>
+        <div class="section-heading"><div><h2>Domain activity</h2><span>30-day comparison</span></div></div>
+        <div id="domain-table" class="domain-table"></div>
+        <p class="caveat">Release counts are an evaluation-activity proxy. Conference deadlines, indexing coverage, and naming conventions can create bursts. A later version will add independent adoption, organization breadth, and readiness.</p>
+      </section>
+    </section>
+  </main>
+
+  <footer><span>Primary-source index · Missing signals remain unknown.</span><span>Saved items stay in this browser.</span></footer>
+  <script src="./app.js" defer></script>
+  <script src="./details.js" defer></script>
+</body>
+</html>

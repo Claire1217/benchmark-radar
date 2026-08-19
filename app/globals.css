@@ -51,12 +51,14 @@ button:focus-visible, a:focus-visible, input:focus-visible {
   font-weight: 650;
 }
 .topnav { display: flex; gap: 24px; }
-.topnav a {
+.topnav a, .topnav button {
   color: var(--muted);
   text-decoration: none;
   font-size: 13px;
 }
-.topnav a:hover { color: var(--ink); }
+.topnav button { padding: 0; border: 0; background: transparent; cursor: pointer; }
+.topnav a:hover, .topnav button:hover, .topnav button.active { color: var(--ink); }
+.topnav button.active { font-weight: 650; }
 .header-status {
   justify-self: end;
   display: flex;
@@ -289,6 +291,12 @@ legend {
   color: #111827;
   font-weight: 600;
 }
+
+.tag-row .publication-tag {
+  color: #17623a;
+  background: #eef8f1;
+  border-color: #cfe6d6;
+}
 .card-main h2 {
   margin: 10px 0 6px;
   font-size: 22px;
@@ -407,6 +415,12 @@ legend {
 .metric-strip div { padding: 14px; display: grid; gap: 5px; background: var(--surface); }
 .metric-strip span, .metric-strip small { color: var(--muted); font-size: 9px; }
 .metric-strip strong { font-size: 18px; font-weight: 650; }
+.benchmark-design { margin-top: 16px; }
+.benchmark-design > h3 { margin: 0 0 8px; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+.benchmark-design > div { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--line); }
+.benchmark-design section { display: grid; gap: 5px; padding: 13px; background: var(--surface); }
+.benchmark-design span, .benchmark-design small { color: var(--muted); font-size: 9px; }
+.benchmark-design strong { font-size: 15px; }
 .method-note { margin: 13px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .source-evidence {
   margin-top: 16px;
@@ -499,7 +513,7 @@ footer p { max-width: 720px; margin: 0; }
   .card-date { display: flex; gap: 8px; align-items: center; }
   .card-main h2 { font-size: 21px; }
   .card-actions { grid-template-columns: 1fr 1fr; }
-  .detail-copy, .fact-grid, .metric-strip { grid-template-columns: 1fr; }
+  .detail-copy, .fact-grid, .metric-strip, .benchmark-design > div { grid-template-columns: 1fr; }
   .fact-grid div, .fact-grid div:nth-child(2n), .fact-grid div:nth-last-child(-n+2) {
     border-right: 0;
     border-bottom: 1px solid var(--line);

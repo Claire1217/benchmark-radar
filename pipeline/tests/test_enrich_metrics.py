@@ -6,7 +6,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from enrich_metrics import dataset_slug, github_slug, percentile
+from enrich_metrics import dataset_slug, github_slug, percentile, readiness_from_links
 
 
 class MetricTests(unittest.TestCase):
@@ -17,6 +17,11 @@ class MetricTests(unittest.TestCase):
     def test_percentile_keeps_missing_unknown(self) -> None:
         self.assertIsNone(percentile(None, [1, 2, 3]))
         self.assertEqual(percentile(2, [1, 2, 3]), 0.5)
+
+    def test_readiness_is_recomputed_after_resource_enrichment(self) -> None:
+        self.assertEqual(readiness_from_links({"code": "https://github.com/o/r"}), "Runnable")
+        self.assertEqual(readiness_from_links({"data": "https://huggingface.co/datasets/o/d"}), "Inspectable")
+        self.assertEqual(readiness_from_links({}), "Paper only")
 
 
 if __name__ == "__main__":

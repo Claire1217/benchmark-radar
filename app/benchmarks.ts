@@ -33,6 +33,26 @@ export type BenchmarkRecord = {
   construction: string;
   annotation: string;
   readiness: "Paper only" | "Inspectable" | "Runnable" | "Maintained";
+  publication?: {
+    status: "accepted" | "published" | "acceptance_claimed" | "publication_reported" | "unverified";
+    venue: string | null;
+    evidence: string | null;
+    evidenceUrl: string;
+    source: "arxiv-comments" | "arxiv-journal-reference" | "arxiv-metadata" | "openreview" | "official-proceedings";
+    evidenceLevel: "official" | "strong-author-metadata" | "author-claim" | "unverified";
+    verifiedAt: string;
+  };
+  venueAttempts?: Array<{
+    venueName: string | null;
+    reviewStatus: "unknown" | "submitted" | "under_review" | "accepted" | "rejected" | "withdrawn" | "desk_rejected";
+    decisionRaw: string | null;
+    evidence: Array<Record<string, unknown>>;
+  }>;
+  publications?: Array<{
+    venueName: string | null;
+    publicationStatus: "forthcoming" | "published";
+    evidence: Array<Record<string, unknown>>;
+  }>;
   releasedAt: string;
   firstSeenAt: string;
   indexedAt?: string;
@@ -58,8 +78,13 @@ export type BenchmarkRecord = {
     snippet: string;
     reasonCodes: string[];
   };
-  dataStatus: "primary-source-indexed";
+  dataStatus: "primary-source-indexed" | "primary-source-reviewed";
   demo: false;
+  curation?: {
+    state: "source-reviewed";
+    reviewedAt: string;
+    sources: string[];
+  };
   attention?: {
     asOf: string;
     hfPaperUpvotes: number | null;

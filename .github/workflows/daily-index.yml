@@ -45,6 +45,9 @@ jobs:
             python pipeline/index_benchmarks.py --latest-with-papers
           fi
 
+      - name: Refresh publication and acceptance metadata
+        run: python pipeline/enrich_publications.py
+
       - name: Snapshot public attention metrics
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -68,7 +71,7 @@ jobs:
         run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
-          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/domain_trends.json data/review_queue.json data/runs data/metrics
+          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/curated_overrides.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication
           if git diff --cached --quiet; then
             echo "No index changes"
           else

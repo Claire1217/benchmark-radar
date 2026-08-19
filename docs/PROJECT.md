@@ -1,6 +1,6 @@
 # Benchmark Radar project notes
 
-Benchmark Radar is a public, GitHub-based tracker for newly released AI benchmarks. The repository homepage is the generated Awesome-style index; the website provides search, filters, time windows, and attention ranking.
+Benchmark Radar is a public, GitHub-based tracker for newly released AI benchmarks. The repository homepage is the generated Awesome-style index; the [GitHub Pages website](https://claire1217.github.io/benchmark-radar/) provides search, filters, time windows, attention ranking, and domain release-activity charts.
 
 ## What is indexed
 
@@ -27,4 +27,3 @@ Ambiguous matches are written to `data/review_queue.json`, not shown on the site
 - Readiness is separate from popularity.
 - The tracker does not average model scores across incomparable benchmarks.
 - The published website is public and does not require ChatGPT sign-in.
-

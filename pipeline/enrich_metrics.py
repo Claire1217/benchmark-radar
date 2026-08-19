@@ -75,6 +75,14 @@ def dataset_slug(url: str | None) -> str | None:
     return f"{match.group(1)}/{match.group(2)}" if match else None
 
 
+def readiness_from_links(links: dict[str, Any]) -> str:
+    if links.get("code"):
+        return "Runnable"
+    if links.get("data") or links.get("project"):
+        return "Inspectable"
+    return "Paper only"
+
+
 def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: bool) -> dict[str, Any]:
     arxiv_id = str(record.get("source", {}).get("id", ""))
     paper = get_json(f"https://huggingface.co/api/papers/{quote(arxiv_id)}") if arxiv_id else None
@@ -258,6 +266,8 @@ def main() -> None:
             record["links"]["code"] = raw["githubRepo"]
         if raw["hfPaperUrl"]:
             record["links"]["hfPaper"] = raw["hfPaperUrl"]
+        links = record.get("links", {})
+        record["readiness"] = readiness_from_links(links)
 
     rank_records(records, raw_by_id, as_of, latest_source_date)
     snapshot = {

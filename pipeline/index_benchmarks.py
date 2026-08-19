@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "pipeline" / "config.json"
 DATA_PATH = ROOT / "data" / "benchmarks.json"
 REVIEW_PATH = ROOT / "data" / "review_queue.json"
+OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 RUNS_PATH = ROOT / "data" / "runs"
 OAI_URL = "https://oaipmh.arxiv.org/oai"
 OAI_NS = {
@@ -80,6 +81,7 @@ class Paper:
     entry_url: str
     pdf_url: str
     comments: str
+    journal_ref: str = ""
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -145,6 +147,7 @@ def parse_paper(record: ET.Element) -> Paper | None:
         entry_url=f"https://arxiv.org/abs/{arxiv_id}",
         pdf_url=f"https://arxiv.org/pdf/{arxiv_id}",
         comments=oai_text(raw, "raw:comments"),
+        journal_ref=oai_text(raw, "raw:journal-ref"),
     )
 
 
@@ -368,6 +371,88 @@ def infer_construction(paper: Paper) -> tuple[str, str]:
     return "Unknown", "Unknown"
 
 
+ACCEPTED_COMMENT_RE = re.compile(
+    r"\b(?:accepted(?:\s+(?:at|to|by|for))?|to appear in|forthcoming in)\s+"
+    r"(?:the\s+)?([^.;\n]{2,120})",
+    re.I,
+)
+NEGATIVE_ACCEPTANCE_RE = re.compile(
+    r"\b(?:not accepted|rejected|under review|submitted to|submission to)\b",
+    re.I,
+)
+
+
+def infer_publication(paper: Paper, checked_at: str) -> dict[str, Any]:
+    """Extract source-stated venue facts without upgrading author claims."""
+    journal_ref = normalize_space(paper.journal_ref)
+    if journal_ref:
+        return {
+            "status": "publication_reported",
+            "venue": journal_ref[:160],
+            "evidence": journal_ref,
+            "evidenceUrl": paper.entry_url,
+            "source": "arxiv-journal-reference",
+            "evidenceLevel": "strong-author-metadata",
+            "verifiedAt": checked_at,
+        }
+
+    comments = normalize_space(paper.comments)
+    if comments and not NEGATIVE_ACCEPTANCE_RE.search(comments):
+        match = ACCEPTED_COMMENT_RE.search(comments)
+        if match:
+            venue = normalize_space(match.group(1)).strip(" ,:-")
+            return {
+                "status": "acceptance_claimed",
+                "venue": venue[:120],
+                "evidence": comments[:300],
+                "evidenceUrl": paper.entry_url,
+                "source": "arxiv-comments",
+                "evidenceLevel": "author-claim",
+                "verifiedAt": checked_at,
+            }
+
+    return {
+        "status": "unverified",
+        "venue": None,
+        "evidence": None,
+        "evidenceUrl": paper.entry_url,
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": checked_at,
+    }
+
+
+def venue_entities(publication: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    """Keep review attempts and publication records as separate entities."""
+    evidence = {
+        "sourceType": publication["source"],
+        "sourceUrl": publication["evidenceUrl"],
+        "observedAt": publication["verifiedAt"],
+        "rawValue": publication["evidence"],
+        "level": publication["evidenceLevel"],
+    }
+    if publication["status"] == "acceptance_claimed":
+        return {
+            "venueAttempts": [{
+                "venueName": publication["venue"],
+                "reviewStatus": "accepted",
+                "decisionRaw": publication["evidence"],
+                "evidence": [evidence],
+            }],
+            "publications": [],
+        }
+    if publication["status"] == "publication_reported":
+        return {
+            "venueAttempts": [],
+            "publications": [{
+                "venueName": publication["venue"],
+                "publicationStatus": "published",
+                "evidence": [evidence],
+            }],
+        }
+    return {"venueAttempts": [], "publications": []}
+
+
 def extract_links(paper: Paper) -> dict[str, str | None]:
     urls = [url.rstrip(".,;:!?") for url in URL_RE.findall(f"{paper.abstract} {paper.comments}")]
     code = next((url for url in urls if "github.com/" in url.lower()), None)
@@ -461,6 +546,8 @@ def to_record(paper: Paper, indexed_at: str, score: float, relation: str, reason
     construction, annotation = infer_construction(paper)
     links = extract_links(paper)
     readiness = "Runnable" if links["code"] else "Inspectable" if links["data"] else "Paper only"
+    publication = infer_publication(paper, indexed_at)
+    venue_metadata = venue_entities(publication)
     return {
         "id": stable_id(paper, name),
         "familyId": family_id(name),
@@ -478,6 +565,9 @@ def to_record(paper: Paper, indexed_at: str, score: float, relation: str, reason
         "construction": construction,
         "annotation": annotation,
         "readiness": readiness,
+        "publication": publication,
+        "venueAttempts": venue_metadata["venueAttempts"],
+        "publications": venue_metadata["publications"],
         "releasedAt": paper.released_at,
         "firstSeenAt": indexed_at[:10],
         "indexedAt": indexed_at,
@@ -521,6 +611,27 @@ def upsert(existing: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> li
             record["firstSeenAt"] = previous.get("firstSeenAt", record["firstSeenAt"])
         by_source[source_id] = record
     return sorted(by_source.values(), key=lambda item: (item["releasedAt"], item["id"]), reverse=True)
+
+
+def merge_patch(target: dict[str, Any], patch: dict[str, Any]) -> dict[str, Any]:
+    """Apply a small JSON Merge Patch-style curated overlay."""
+    result = dict(target)
+    for key, value in patch.items():
+        if isinstance(value, dict) and isinstance(result.get(key), dict):
+            result[key] = merge_patch(result[key], value)
+        else:
+            result[key] = value
+    return result
+
+
+def apply_curated_overrides(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if not OVERRIDES_PATH.exists():
+        return records
+    overrides = read_json(OVERRIDES_PATH).get("byArxivId", {})
+    return [
+        merge_patch(record, overrides.get(str(record.get("source", {}).get("id")), {}))
+        for record in records
+    ]
 
 
 def parse_args() -> argparse.Namespace:
@@ -579,7 +690,7 @@ def main() -> None:
         for record in current.get("records", [])
         if not (range_start <= str(record.get("releasedAt", "")) <= range_end)
     ]
-    records = upsert(retained, accepted)
+    records = apply_curated_overrides(upsert(retained, accepted))
     manifest = {
         "schemaVersion": config["schema_version"],
         "pipelineVersion": config["pipeline_version"],

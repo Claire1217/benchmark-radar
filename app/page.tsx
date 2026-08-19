@@ -55,11 +55,22 @@ function BenchmarkCard({ item, window, expanded, watched, onExpand, onWatch }: {
   const datasetRank = rank?.datasetDownloadRank && rank.datasetRankPopulation
     ? `#${rank.datasetDownloadRank} of ${rank.datasetRankPopulation}`
     : "Not ranked";
+  const detailFacts = [
+    { label: "Publication", value: item.publication?.status && item.publication.status !== "unverified" ? `${item.publication.status === "accepted" ? "Accepted" : item.publication.status === "published" ? "Published" : item.publication.status === "acceptance_claimed" ? "Acceptance claimed" : "Publication reported"}${item.publication.venue ? ` · ${item.publication.venue}` : ""}` : "Acceptance not verified" },
+    { label: "Domain", value: item.applicationDomains.join(" · ") },
+    { label: "Industry", value: item.industrySectors.join(" · ") },
+    { label: "Construction", value: item.construction === "Unknown" ? "" : item.construction },
+    { label: "Annotation", value: item.annotation === "Unknown" ? "" : item.annotation },
+    { label: "Capabilities", value: item.capabilities.length === 1 && item.capabilities[0] === "Evaluation" ? "" : item.capabilities.join(" · ") },
+    { label: "Indexed", value: `${item.firstSeenAt} · ${item.source.type.toUpperCase()} ${item.source.id}` },
+  ].filter((fact) => fact.value);
+  const showMotivation = item.motivation && item.motivation !== item.oneLine;
+  const showConstruction = item.constructionDetail && !item.constructionDetail.startsWith("Unknown");
   return (
     <article className={`benchmark-card${expanded ? " is-expanded" : ""}`}>
       <div className="card-date"><span>Released</span>{displayDate}</div>
       <div className="card-main">
-        <div className="tag-row"><span className="area-tag">{item.primaryDomain}</span>{item.topics.slice(0, 1).map((topic) => <span key={topic}>{topic}</span>)}</div>
+        <div className="tag-row"><span className="area-tag">{item.primaryDomain}</span>{item.publication?.status && item.publication.status !== "unverified" && <span className="publication-tag">{item.publication.status === "accepted" ? "Accepted" : item.publication.status === "published" ? "Published" : item.publication.status === "acceptance_claimed" ? "Acceptance claimed" : "Publication reported"}{item.publication.venue ? ` · ${item.publication.venue}` : ""}</span>}{item.topics.slice(0, 1).map((topic) => <span key={topic}>{topic}</span>)}</div>
         <h2>{item.name}</h2>
         <p className="one-line">{item.oneLine}</p>
         <div className="card-meta">
@@ -77,18 +88,14 @@ function BenchmarkCard({ item, window, expanded, watched, onExpand, onWatch }: {
         </div>
         {expanded && (
           <div className="detail-panel" id={`details-${item.id}`}>
-            <div className="detail-copy">
-              <section><h3>Motivation</h3><p>{item.motivation ?? item.oneLine}</p></section>
-              <section><h3>Construction</h3><p>{item.constructionDetail ?? "Unknown — the source does not provide enough structured evidence yet."}</p></section>
-            </div>
+            {(showMotivation || showConstruction) && <div className="detail-copy">
+              {showMotivation && <section><h3>Motivation</h3><p>{item.motivation}</p></section>}
+              {showConstruction && <section><h3>Construction</h3><p>{item.constructionDetail}</p></section>}
+            </div>}
             <dl className="fact-grid">
-              <div><dt>Domain</dt><dd>{item.applicationDomains.join(" · ")}</dd></div>
-              <div><dt>Industry</dt><dd>{item.industrySectors.join(" · ") || "Not specified"}</dd></div>
-              <div><dt>Construction</dt><dd>{item.construction}</dd></div>
-              <div><dt>Annotation</dt><dd>{item.annotation}</dd></div>
-              <div><dt>Capabilities</dt><dd>{item.capabilities.join(" · ")}</dd></div>
-              <div><dt>Indexed</dt><dd>{item.firstSeenAt} · {item.source.type.toUpperCase()} {item.source.id}</dd></div>
+              {detailFacts.map((fact) => <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
             </dl>
+            {!!item.metrics?.length && <div className="benchmark-design"><h3>Benchmark design</h3><div>{item.metrics.map((metric) => <section key={metric.name}><span>{metric.name}</span><strong>{metric.value}</strong>{metric.note && <small>{metric.note}</small>}</section>)}</div></div>}
             <div className="metric-strip" aria-label={`${window} attention signals`}>
               <div><span>HF PAPER</span><strong>{item.attention?.hfPaperUpvotes?.toLocaleString() ?? "—"}</strong><small>votes</small></div>
               <div><span>GITHUB</span><strong>{item.attention?.githubStars?.toLocaleString() ?? "—"}</strong><small>stars</small></div>
@@ -123,6 +130,7 @@ export default function Home() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [queryHydrated, setQueryHydrated] = useState(false);
   const [visibleCount, setVisibleCount] = useState(80);
+  const [savedOnly, setSavedOnly] = useState(false);
 
   useEffect(() => {
     const initial = readInitialQuery();
@@ -150,7 +158,7 @@ export default function Home() {
     history.replaceState(null, "", `?${params.toString()}`);
   }, [timeWindow, sort, areas, domains, topics, search, queryHydrated]);
 
-  const results = useMemo(() => listBenchmarks({ window: timeWindow, sort, areas, domains, topics, search }), [timeWindow, sort, areas, domains, topics, search]);
+  const results = useMemo(() => listBenchmarks({ window: savedOnly ? "90d" : timeWindow, sort, areas, domains, topics, search }).filter((item) => !savedOnly || watchlist.includes(item.id)), [timeWindow, sort, areas, domains, topics, search, savedOnly, watchlist]);
   const visibleResults = results.slice(0, visibleCount);
   const activeFilterCount = areas.length + domains.length + topics.length + (search ? 1 : 0);
   const clearFilters = () => { setAreas([]); setDomains([]); setTopics([]); setSearch(""); };
@@ -165,8 +173,8 @@ export default function Home() {
     <main className="site-shell">
       <header className="topbar" id="top">
         <a className="brand" href="#top" aria-label="Benchmark Radar home">Benchmark Radar</a>
-        <nav className="topnav" aria-label="Page sections"><a href="#radar">Radar</a><a href="#method">Method</a></nav>
-        <div className="header-status"><span className="demo-pill">PRIMARY SOURCES</span><span className="watch-count">{watchlist.length} saved</span></div>
+        <nav className="topnav" aria-label="Page sections"><button className={!savedOnly ? "active" : ""} onClick={() => setSavedOnly(false)}>Radar</button><a href="#method">Method</a><button className={savedOnly ? "active" : ""} onClick={() => { setSavedOnly(true); setTimeWindow("90d"); }}>Saved {watchlist.length}</button></nav>
+        <div className="header-status"><span className="demo-pill">PRIMARY SOURCES</span></div>
       </header>
 
       <section className="hero">
@@ -194,13 +202,13 @@ export default function Home() {
         )}
 
         <div className="feed-heading">
-          <div><span className="signal-dot" /><h2 id="radar-title">{sort === "newest" ? "New benchmark releases" : "Rising benchmarks"}</h2><span className="result-count">{results.length} results</span></div>
+          <div><span className="signal-dot" /><h2 id="radar-title">{savedOnly ? "Saved benchmarks" : sort === "newest" ? "New benchmark releases" : "Rising benchmarks"}</h2><span className="result-count">{results.length} results</span></div>
           <span>Updated {benchmarkManifest.dataAsOf} · source releases through {benchmarkManifest.latestSourceDate ?? benchmarkManifest.dataAsOf}</span>
         </div>
 
         <div className="benchmark-list" aria-live="polite">
           {results.length ? visibleResults.map((item) => <BenchmarkCard key={item.id} item={item} window={timeWindow} expanded={expanded.includes(item.id)} watched={watchlist.includes(item.id)} onExpand={() => setExpanded(expanded.includes(item.id) ? expanded.filter((id) => id !== item.id) : [...expanded, item.id])} onWatch={() => toggleWatch(item.id)} />) : (
-            <div className="empty-state"><strong>No benchmarks in this view.</strong><p>Try a wider time window or clear the current filters.</p><button onClick={clearFilters}>Clear filters</button></div>
+            <div className="empty-state"><strong>{savedOnly ? "No saved benchmarks in this view." : "No benchmarks in this view."}</strong><p>{savedOnly ? "Save a benchmark from Radar to keep it here." : "Try a wider time window or clear the current filters."}</p>{!savedOnly && <button onClick={clearFilters}>Clear filters</button>}</div>
           )}
         </div>
         {visibleResults.length < results.length && <button className="load-more" onClick={() => setVisibleCount((count) => count + 80)}>Show 80 more</button>}
