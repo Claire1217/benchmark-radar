@@ -6,7 +6,7 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from index_benchmarks import Paper, canonical_name, recognition, to_record, upsert
+from index_benchmarks import Paper, canonical_name, family_id, recognition, to_record, upsert
 
 
 def sample(title: str, abstract: str, arxiv_id: str = "2608.00001") -> Paper:
@@ -57,6 +57,20 @@ class IndexerTests(unittest.TestCase):
         self.assertIsNone(record["links"]["data"])
         self.assertEqual(record["links"]["report"], paper.entry_url)
         self.assertFalse(record["demo"])
+
+    def test_domain_is_a_separate_controlled_axis(self) -> None:
+        paper = sample(
+            "ChipBench: A Benchmark for RTL Generation",
+            "We introduce ChipBench, a new benchmark for Verilog and EDA workflows with evaluation tasks.",
+        )
+        score, relation, reasons = recognition(paper)
+        record = to_record(paper, "2026-08-19T00:00:00Z", score, relation, reasons)
+        self.assertEqual(record["primaryDomain"], "Chip Design & EDA")
+        self.assertIn("Semiconductors", record["industrySectors"])
+        self.assertEqual(record["domainCuration"]["method"], "rules-v1")
+
+    def test_family_id_is_stable_across_spelling_punctuation(self) -> None:
+        self.assertEqual(family_id("Clear-Bench"), family_id("Clear Bench"))
 
     def test_upsert_preserves_first_seen(self) -> None:
         old = to_record(

@@ -32,7 +32,7 @@ test("server-renders the benchmark discovery experience", async () => {
   assert.match(html, /30 days/);
   assert.match(html, /Newest/);
   assert.match(html, /aria-pressed="true"/);
-  assert.match(html, /Recent independent adoption and attention/);
+  assert.match(html, /HF votes, GitHub stars, and HF dataset downloads/);
   assert.match(html, /og:image/);
 });
 
@@ -49,7 +49,7 @@ test("keeps primary-source data, repository boundaries, and removed preview expl
   assert.match(repository, /class StaticJsonRepository/);
   assert.match(repository, /benchmarkSnapshot\.manifest/);
   assert.match(benchmarks, /BENCHMARK_DATA_NOTICE/);
-  assert.match(benchmarks, /data\/benchmarks\.json/);
+  assert.match(benchmarks, /data\/benchmarks_index\.json/);
   assert.match(benchmarks, /demo: false/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(

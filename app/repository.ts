@@ -6,6 +6,7 @@ export type BenchmarkQuery = {
   window: TimeWindow;
   sort: SortMode;
   areas: string[];
+  domains: string[];
   topics: string[];
   search: string;
 };
@@ -20,6 +21,7 @@ const daysAgo = (date: string) => {
 
 export const taxonomy = {
   areas: Array.from(new Set(benchmarks.map((item) => item.area))).sort(),
+  domains: Array.from(new Set(benchmarks.map((item) => item.primaryDomain))).sort(),
   topics: Array.from(new Set(benchmarks.flatMap((item) => item.topics))).sort(),
 };
 
@@ -40,24 +42,27 @@ export class StaticJsonRepository implements BenchmarkRepository {
   }
 
   listBenchmarks(query: BenchmarkQuery): BenchmarkRecord[] {
-    const maxAge = query.window === "today" ? 0 : query.window === "30d" ? 30 : 90;
+    const maxAge = query.window === "30d" ? 30 : 90;
     const needle = query.search.trim().toLowerCase();
 
     return benchmarks
-      .filter((item) => daysAgo(item.releasedAt) <= maxAge)
+      .filter((item) => query.window === "today"
+        ? item.releasedAt === (benchmarkManifest.latestSourceDate ?? benchmarkManifest.dataAsOf)
+          || item.attention?.hfDailySubmittedAt?.slice(0, 10) === benchmarkManifest.dataAsOf
+        : daysAgo(item.releasedAt) <= maxAge)
       .filter((item) => !query.areas.length || query.areas.includes(item.area))
+      .filter((item) => !query.domains.length || query.domains.includes(item.primaryDomain))
       .filter((item) => !query.topics.length || item.topics.some((topic) => query.topics.includes(topic)))
       .filter((item) => {
         if (!needle) return true;
-        return [item.name, item.oneLine, item.area, ...item.topics, ...item.capabilities]
+        return [item.name, item.oneLine, item.area, ...item.applicationDomains, ...item.industrySectors, ...item.topics, ...item.capabilities]
           .join(" ")
           .toLowerCase()
           .includes(needle);
       })
       .sort((a, b) => query.sort === "newest"
         ? b.releasedAt.localeCompare(a.releasedAt)
-        : (b.heat ?? -1) - (a.heat ?? -1)
-          || (b.adoption30d ?? -1) - (a.adoption30d ?? -1)
+        : (b.ranking?.[query.window]?.score ?? -1) - (a.ranking?.[query.window]?.score ?? -1)
           || b.releasedAt.localeCompare(a.releasedAt));
   }
 

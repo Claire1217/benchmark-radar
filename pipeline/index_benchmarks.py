@@ -161,10 +161,13 @@ def request_oai(params: dict[str, str]) -> ET.Element:
     return root
 
 
-def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
+def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
     settings = config["arxiv"]
-    target = date.fromisoformat(target_date)
-    until = min(target + timedelta(days=int(settings["lookahead_days"])), date.today()).isoformat()
+    start = date.fromisoformat(start_date)
+    end = date.fromisoformat(end_date)
+    if end < start:
+        raise ValueError("end date must be on or after start date")
+    until = min(end + timedelta(days=int(settings["lookahead_days"])), date.today()).isoformat()
     seen: set[str] = set()
     papers: list[Paper] = []
     for category in settings["categories"]:
@@ -172,14 +175,14 @@ def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
             "verb": "ListRecords",
             "metadataPrefix": "arXivRaw",
             "set": category_to_set_spec(category),
-            "from": target_date,
+            "from": start_date,
             "until": until,
         }
         while True:
             root = request_oai(params)
             for record in root.findall(".//oai:record", OAI_NS):
                 paper = parse_paper(record)
-                if paper is None or paper.arxiv_id in seen or paper.released_at != target_date:
+                if paper is None or paper.arxiv_id in seen or not (start_date <= paper.released_at <= end_date):
                     continue
                 seen.add(paper.arxiv_id)
                 papers.append(paper)
@@ -191,6 +194,10 @@ def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
             params = {"verb": "ListRecords", "resumptionToken": token}
             time.sleep(float(settings["request_delay_seconds"]))
     return sorted(papers, key=lambda item: item.arxiv_id)
+
+
+def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
+    return fetch_for_range(target_date, target_date, config)
 
 
 def first_sentence(text: str, limit: int = 240) -> str:
@@ -283,6 +290,52 @@ def infer_topics(paper: Paper) -> list[str]:
     ]
     topics = [label for pattern, label in mapping if re.search(pattern, text)]
     return topics[:3] or [paper.primary_category or "General"]
+
+
+def infer_application_domains(paper: Paper) -> list[str]:
+    """Map source text to a small controlled, cross-domain vocabulary."""
+    text = f"{paper.title} {paper.abstract}".lower()
+    mapping = [
+        (r"\b(rtl|verilog|vhdl|eda|chip design|circuit design|place and route|logic synthesis)\b", "Chip Design & EDA"),
+        (r"\b(software engineering|code generation|program repair|repository|compiler|gpu kernel|ptx|tokenizer)\b", "Software & AI Compute"),
+        (r"\b(cybersecurity|vulnerability|exploit|malware|intrusion|incident response)\b", "Cybersecurity"),
+        (r"\b(theorem|formal proof|mathematical reasoning|olympiad|geometry proof)\b", "Mathematics & Formal Science"),
+        (r"\b(quantum computing|quantum circuit|qubit|quantum control)\b", "Quantum Computing & Control"),
+        (r"\b(particle accelerator|tokamak|plasma control|scientific facility|beamline)\b", "Scientific Facilities"),
+        (r"\b(material discovery|materials science|molecule|chemical reaction|chemistry)\b", "Materials & Chemistry"),
+        (r"\b(drug discovery|protein|genomic|biomedical|clinical|pathology|medical)\b", "Biology & Drug Discovery"),
+        (r"\b(automated laboratory|self-driving lab|laboratory automation|scientific experiment)\b", "Autonomous Laboratories"),
+        (r"\b(power grid|energy system|electricity market|optimal power flow)\b", "Energy & Grid"),
+        (r"\b(manufacturing|industrial control|process control|factory|assembly line)\b", "Manufacturing & Process Control"),
+        (r"\b(robot|robotic|embodied|manipulation|locomotion)\b", "Robotics & Embodied AI"),
+        (r"\b(autonomous driving|self-driving|driving policy|traffic planning|vehicle planning)\b", "Autonomous Driving"),
+        (r"\b(logistics|supply chain|vehicle routing|inventory|warehouse)\b", "Logistics & Operations"),
+        (r"\b(advertising|ad auction|click-through|recommendation pricing|dynamic pricing)\b", "Advertising & Pricing"),
+        (r"\b(finance|financial|trading|investment|banking|credit risk)\b", "Finance"),
+    ]
+    matches = [label for pattern, label in mapping if re.search(pattern, text)]
+    return matches[:3] or ["General AI"]
+
+
+def infer_industry_sectors(domains: list[str]) -> list[str]:
+    mapping = {
+        "Chip Design & EDA": "Semiconductors",
+        "Software & AI Compute": "Software & Cloud",
+        "Cybersecurity": "Cybersecurity",
+        "Quantum Computing & Control": "Quantum Technology",
+        "Scientific Facilities": "Research Infrastructure",
+        "Materials & Chemistry": "Materials & Chemicals",
+        "Biology & Drug Discovery": "Pharma & Biotech",
+        "Autonomous Laboratories": "Laboratory Automation",
+        "Energy & Grid": "Energy & Utilities",
+        "Manufacturing & Process Control": "Manufacturing",
+        "Robotics & Embodied AI": "Robotics",
+        "Autonomous Driving": "Automotive",
+        "Logistics & Operations": "Logistics",
+        "Advertising & Pricing": "Digital Platforms",
+        "Finance": "Financial Services",
+    }
+    return list(dict.fromkeys(mapping[domain] for domain in domains if domain in mapping))
 
 
 def infer_capabilities(paper: Paper) -> list[str]:
@@ -397,18 +450,29 @@ def stable_id(paper: Paper, name: str) -> str:
     return f"bm_{slug}_{digest}"
 
 
+def family_id(name: str) -> str:
+    normalized = re.sub(r"[^a-z0-9]+", "", name.lower()) or "benchmark"
+    return f"bmf_{hashlib.sha256(normalized.encode()).hexdigest()[:12]}"
+
+
 def to_record(paper: Paper, indexed_at: str, score: float, relation: str, reasons: list[str]) -> dict[str, Any]:
     name = canonical_name(paper)
+    application_domains = infer_application_domains(paper)
     construction, annotation = infer_construction(paper)
     links = extract_links(paper)
     readiness = "Runnable" if links["code"] else "Inspectable" if links["data"] else "Paper only"
     return {
         "id": stable_id(paper, name),
+        "familyId": family_id(name),
         "name": name,
         "paperTitle": paper.title,
         "aliases": [],
         "oneLine": first_sentence(paper.abstract),
         "area": classify_area(paper),
+        "applicationDomains": application_domains,
+        "primaryDomain": application_domains[0],
+        "industrySectors": infer_industry_sectors(application_domains),
+        "domainCuration": {"state": "auto", "method": "rules-v1"},
         "capabilities": infer_capabilities(paper),
         "topics": infer_topics(paper),
         "construction": construction,
@@ -462,6 +526,8 @@ def upsert(existing: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> li
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Index new benchmark releases from arXiv OAI-PMH.")
     parser.add_argument("--date", help="First-public-release date in YYYY-MM-DD.")
+    parser.add_argument("--start-date", help="Inclusive first-public-release start date.")
+    parser.add_argument("--end-date", help="Inclusive first-public-release end date.")
     parser.add_argument("--latest-with-papers", action="store_true", help="Look back to the latest non-empty arXiv date.")
     parser.add_argument("--lookback-days", type=int, default=14)
     parser.add_argument("--dry-run", action="store_true")
@@ -471,7 +537,13 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     config = read_json(CONFIG_PATH)
-    target = args.date or date.today().isoformat()
+    if bool(args.start_date) != bool(args.end_date):
+        raise SystemExit("--start-date and --end-date must be provided together")
+    if args.date and args.start_date:
+        raise SystemExit("use either --date or --start-date/--end-date")
+    target = args.date or args.end_date or date.today().isoformat()
+    range_start = args.start_date or target
+    range_end = args.end_date or target
     papers: list[Paper] = []
     if args.latest_with_papers:
         start = date.fromisoformat(target)
@@ -480,7 +552,11 @@ def main() -> None:
             papers = fetch_for_date(candidate_date, config)
             if papers:
                 target = candidate_date
+                range_start = candidate_date
+                range_end = candidate_date
                 break
+    elif args.start_date:
+        papers = fetch_for_range(range_start, range_end, config)
     else:
         papers = fetch_for_date(target, config)
 
@@ -498,33 +574,47 @@ def main() -> None:
             review.append(record)
 
     current = read_json(DATA_PATH)
-    retained = [record for record in current.get("records", []) if record.get("releasedAt") != target]
+    retained = [
+        record
+        for record in current.get("records", [])
+        if not (range_start <= str(record.get("releasedAt", "")) <= range_end)
+    ]
     records = upsert(retained, accepted)
     manifest = {
         "schemaVersion": config["schema_version"],
         "pipelineVersion": config["pipeline_version"],
         "generatedAt": indexed_at,
-        "dataAsOf": target,
+        "dataAsOf": range_end,
         "timezone": "UTC",
         "recordCount": len(records),
         "sourceCoverage": ["arXiv OAI-PMH"],
         "isDemo": False,
         "run": {
             "sourceDate": target,
+            "sourceWindow": {"from": range_start, "to": range_end},
             "papersFetched": len(papers),
             "accepted": len(accepted),
             "reviewQueued": len(review),
         },
     }
     payload = {"manifest": manifest, "records": records}
-    review_payload = {"generatedAt": indexed_at, "sourceDate": target, "candidates": review}
+    review_payload = {
+        "generatedAt": indexed_at,
+        "sourceDate": target,
+        "sourceWindow": {"from": range_start, "to": range_end},
+        "candidates": review,
+    }
     run_payload = {
         "schemaVersion": config["schema_version"],
         "pipelineVersion": config["pipeline_version"],
         "sourceDate": target,
+        "sourceWindow": {"from": range_start, "to": range_end},
         "startedFrom": "arXiv OAI-PMH",
         "generatedAt": indexed_at,
-        "query": {"categories": config["arxiv"]["categories"], "firstVersionDate": target},
+        "query": {
+            "categories": config["arxiv"]["categories"],
+            "firstVersionDate": {"from": range_start, "to": range_end},
+        },
         "counts": {"fetched": len(papers), "accepted": len(accepted), "reviewQueued": len(review)},
         "accepted": [
             {
@@ -543,9 +633,10 @@ def main() -> None:
         return
     write_json(DATA_PATH, payload)
     write_json(REVIEW_PATH, review_payload)
-    write_json(RUNS_PATH / f"{target}.json", run_payload)
+    run_name = target if range_start == range_end else f"backfill_{range_start}_{range_end}"
+    write_json(RUNS_PATH / f"{run_name}.json", run_payload)
     print(
-        f"source_date={target} fetched={len(papers)} accepted={len(accepted)} "
+        f"source_window={range_start}..{range_end} fetched={len(papers)} accepted={len(accepted)} "
         f"review={len(review)} total={len(records)}"
     )
 
