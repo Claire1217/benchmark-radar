@@ -1,0 +1,83 @@
+name: DeepSeek benchmark promotion
+
+on:
+  workflow_run:
+    workflows: ["Daily benchmark index"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: Maximum pending candidates to classify
+        required: true
+        default: "48"
+        type: choice
+        options: ["12", "24", "48", "96"]
+      retry_deferred:
+        description: Reclassify previously deferred candidates
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: benchmark-publish-pipeline
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL || 'deepseek-v4-pro' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Classify with DeepSeek and apply deterministic promotion gates
+        shell: bash
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          CANDIDATE_LIMIT: ${{ github.event.inputs.limit || '48' }}
+          RETRY_DEFERRED: ${{ github.event.inputs.retry_deferred || 'false' }}
+        run: |
+          set +x
+          retry_args=()
+          if [ "$RETRY_DEFERRED" = "true" ]; then retry_args+=(--retry-deferred); fi
+          python pipeline/review_candidates_with_deepseek.py \
+            --input data/review_queue.json \
+            --canonical data/benchmarks.json \
+            --library data/library_records.json \
+            --output data/ai_review_status.json \
+            --limit "$CANDIDATE_LIMIT" \
+            --skip-unconfigured \
+            "${retry_args[@]}"
+
+      - name: Rebuild and validate every public artifact
+        run: |
+          make generate
+          make test
+          make build
+
+      - name: Commit gated promotions and defer ledger
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth setup-git
+          git config user.name "benchmark-radar-ai-bot"
+          git config user.email "benchmark-radar-ai-bot@users.noreply.github.com"
+          git add data/benchmarks.json data/review_queue.json data/ai_review_status.json data/benchmarks_index.json data/library_records.json data/library_index.json data/domain_trends.json AWESOME_BENCHMARKS.md
+          if git diff --cached --quiet; then
+            echo "No AI promotion changes"
+          else
+            git commit -m "data: apply gated AI benchmark promotion"
+            git push
+          fi

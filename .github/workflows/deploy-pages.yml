@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   workflow_run:
-    workflows: ["Daily benchmark index"]
+    workflows: ["Daily benchmark index", "DeepSeek benchmark promotion"]
     types: [completed]
   workflow_dispatch:
 
@@ -14,8 +14,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: benchmark-publish-pipeline
+  cancel-in-progress: false
 
 jobs:
   build:

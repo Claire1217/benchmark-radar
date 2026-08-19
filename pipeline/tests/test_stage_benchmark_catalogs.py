@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 import sys
 import tempfile
@@ -12,7 +11,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from stage_benchmark_catalogs import (  # noqa: E402
-    LLM_STATS_KEY_ENV,
+    adapt_llm_stats_public_page,
     adapt_payload,
     stage_llm_stats,
 )
@@ -58,33 +57,40 @@ class CatalogStagingTests(unittest.TestCase):
         self.assertEqual(len(terminal["rawRecordSha256"]), 64)
         self.assertEqual(result["mode"], "staging-only")
 
-    def test_adapts_llm_stats_list_to_same_schema(self) -> None:
-        payload = self.load_fixture("llm_stats_benchmarks.json")
-        result = adapt_payload(
-            payload,
-            source_id="llm-stats-zeroeval",
-            source_url="https://api.zeroeval.com/stats/v1/benchmarks",
-            retrieved_at=RETRIEVED_AT,
+    def test_llm_stats_public_page_keeps_directory_and_original_source_links(self) -> None:
+        result = adapt_llm_stats_public_page(
+            '<a href="https://arxiv.org/abs/2406.12045">tau-bench</a>'
+            '<a href="https://github.com/sierra-research/tau-bench">official code</a>'
+            '<a href="/benchmarks/internal">navigation</a>'
+            '<a href="https://example.com/blog">blog</a>'
+            '<script>self.__next_f.push([1,"/benchmarks/gpqa-diamond"])</script>',
+            RETRIEVED_AT,
         )
         candidate = result["candidates"][0]
-        self.assertEqual(candidate["sourceKey"], "swe-bench-verified")
-        self.assertEqual(candidate["rawVersion"], "verified")
-        self.assertTrue(candidate["protocolEvidence"])
-        self.assertTrue(candidate["metricEvidence"])
+        self.assertEqual(result["recordCount"], 4)
+        self.assertEqual(candidate["originalSourceUrl"], "https://arxiv.org/abs/2406.12045")
+        self.assertFalse(candidate["canonicalPromotionAllowed"])
+        internal = next(item for item in result["candidates"] if item["sourceKey"] == "internal")
+        self.assertEqual(internal["stagingStatus"], "catalog-detail-pending-primary-source")
+        self.assertIsNone(internal["originalSourceUrl"])
+        self.assertTrue(any(item["sourceKey"] == "gpqa-diamond" for item in result["candidates"]))
+        self.assertEqual(result["mode"], "public-page-discovery-only")
 
-    def test_missing_llm_stats_key_can_skip_without_network(self) -> None:
-        with tempfile.TemporaryDirectory() as directory, patch.dict(
-            os.environ, {LLM_STATS_KEY_ENV: ""}, clear=False
-        ):
-            result = stage_llm_stats(Path(directory), RETRIEVED_AT, skip_missing_key=True)
+    @patch("stage_benchmark_catalogs.fetch_bytes", side_effect=RuntimeError("offline"))
+    def test_llm_stats_public_page_failure_is_non_blocking(self, _fetch: object) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result = stage_llm_stats(Path(directory), RETRIEVED_AT)
         self.assertIsNone(result)
 
-    def test_missing_llm_stats_key_has_clear_error(self) -> None:
-        with tempfile.TemporaryDirectory() as directory, patch.dict(
-            os.environ, {LLM_STATS_KEY_ENV: ""}, clear=False
-        ):
-            with self.assertRaisesRegex(RuntimeError, LLM_STATS_KEY_ENV):
-                stage_llm_stats(Path(directory), RETRIEVED_AT, skip_missing_key=False)
+    @patch(
+        "stage_benchmark_catalogs.fetch_bytes",
+        return_value=b'<a href="https://huggingface.co/datasets/org/bench">Bench data</a>',
+    )
+    def test_llm_stats_public_page_needs_no_key(self, _fetch: object) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result = stage_llm_stats(Path(directory), RETRIEVED_AT)
+            payload = json.loads(Path(result).read_text(encoding="utf-8"))
+        self.assertEqual(payload["recordCount"], 1)
 
 
 if __name__ == "__main__":

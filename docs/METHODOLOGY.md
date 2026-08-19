@@ -55,9 +55,10 @@ The index separates five semantic roles:
 
 Reusable benchmarks are eligible for the Radar when the release and identity
 evidence are clear. Diagnostic benchmarks use a higher inclusion bar: they enter
-the public Library only after independent use, unusually strong field- and
-age-normalized attention, or an explicit evidence-backed human review. A famous
-author or lab is provenance, not an automatic pass. Benchmarking studies and
+the public Library only after a future deterministic rule can establish
+independent use or unusually strong field- and age-normalized attention; the AI
+promotion path automatically defers them. A famous author or lab is provenance,
+not an automatic pass. Benchmarking studies and
 papers that only use existing benchmarks remain source evidence or review
 candidates; they do not become Benchmark entities.
 
@@ -110,11 +111,14 @@ No record means unknown, never rejected or unpublished. Workshop, findings, demo
 
 Trend charts count newly released Benchmark families per week. They measure evaluation activity, not technical progress. Conference deadlines, source coverage, and naming conventions can create artificial bursts, so the chart includes sample size and confidence context.
 
-## Human review
+## Corrections and automatic admission
 
-Reviewed corrections live in `data/curated_overrides.json` with evidence URLs and review dates. The order is always machine snapshot → reviewed override → validation → public output.
+Source-backed corrections live in `data/curated_overrides.json` with evidence
+URLs and correction dates. The order is always machine snapshot → correction
+overlay → validation → public output.
 
-Ambiguous candidates can additionally pass through the evidence-constrained AI
-stage documented in [AI-assisted candidate review](AI_REVIEW.md). AI decisions
-remain separate from the canonical snapshot: a positive decision must carry an
-exact source quote, pass deterministic validation, and remain reviewable.
+New arXiv candidates require no human approval. They pass through the automatic
+DeepSeek classifier and independent critic documented in
+[Automatic DeepSeek candidate promotion](AI_REVIEW.md). A positive decision
+enters the canonical snapshot only when both semantic passes agree and the
+exact-source, URL, duplicate, date, and schema checks all succeed.

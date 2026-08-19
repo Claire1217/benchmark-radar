@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "pipeline" / "config.json"
 DATA_PATH = ROOT / "data" / "benchmarks.json"
 REVIEW_PATH = ROOT / "data" / "review_queue.json"
+AI_REVIEW_STATUS_PATH = ROOT / "data" / "ai_review_status.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 CURATED_RECORDS_PATH = ROOT / "data" / "curated_records.json"
 RUNS_PATH = ROOT / "data" / "runs"
@@ -978,6 +979,64 @@ def curated_records() -> list[dict[str, Any]]:
     return read_json(CURATED_RECORDS_PATH).get("records", [])
 
 
+def ai_promoted_records() -> list[dict[str, Any]]:
+    """Load AI promotions as a persistent overlay, never from model text alone."""
+    if not AI_REVIEW_STATUS_PATH.exists():
+        return []
+    entries = read_json(AI_REVIEW_STATUS_PATH).get("entries", [])
+    latest_by_source: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        source_id = str(entry.get("sourceId") or "")
+        if source_id and (
+            source_id not in latest_by_source
+            or str(entry.get("reviewedAt") or "") >= str(latest_by_source[source_id].get("reviewedAt") or "")
+        ):
+            latest_by_source[source_id] = entry
+    return [
+        entry["canonicalRecord"]
+        for entry in latest_by_source.values()
+        if entry.get("status") == "promoted" and isinstance(entry.get("canonicalRecord"), dict)
+    ]
+
+
+def persistent_review_candidates(
+    existing: list[dict[str, Any]],
+    incoming: list[dict[str, Any]],
+    range_start: str,
+    range_end: str,
+    excluded_source_ids: set[str],
+) -> list[dict[str, Any]]:
+    """Upsert one source window without deleting deferred candidates elsewhere."""
+    previous_by_source = {
+        str((candidate.get("source") or {}).get("id") or ""): candidate
+        for candidate in existing
+    }
+    retained = [
+        candidate
+        for candidate in existing
+        if not (range_start <= str(candidate.get("releasedAt", "")) <= range_end)
+    ]
+    by_source = {
+        str((candidate.get("source") or {}).get("id") or ""): candidate
+        for candidate in retained
+        if str((candidate.get("source") or {}).get("id") or "") not in excluded_source_ids
+    }
+    for candidate in incoming:
+        source_id = str((candidate.get("source") or {}).get("id") or "")
+        if not source_id or source_id in excluded_source_ids:
+            continue
+        previous = previous_by_source.get(source_id)
+        if previous and previous.get("reviewContext") == candidate.get("reviewContext"):
+            if "autoReview" in previous:
+                candidate["autoReview"] = previous["autoReview"]
+        by_source[source_id] = candidate
+    return sorted(
+        by_source.values(),
+        key=lambda item: (item.get("releasedAt", ""), item.get("id", "")),
+        reverse=True,
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Index new benchmark releases from arXiv OAI-PMH.")
     parser.add_argument("--date", help="First-public-release date in YYYY-MM-DD.")
@@ -1008,14 +1067,15 @@ def index_papers(
     indexed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     publish_threshold = float(config["thresholds"]["publish"])
     review_threshold = float(config["thresholds"]["review"])
+    # Deterministic rules are high-recall candidate prioritization only. New
+    # arXiv records never enter canonical data until DeepSeek plus hard gates
+    # produces a persistent promotion overlay.
     accepted: list[dict[str, Any]] = []
     review: list[dict[str, Any]] = []
     for paper in papers:
         score, relation, reasons = recognition(paper)
         record = to_record(paper, indexed_at, score, relation, reasons)
-        if score >= publish_threshold and relation in {"introduces", "extends", "aggregates"}:
-            accepted.append(record)
-        elif score >= review_threshold:
+        if score >= review_threshold:
             # Full source text is retained only in the non-website review queue so
             # a semantic reviewer can distinguish a new benchmark release from
             # a paper that merely evaluates on an existing benchmark.
@@ -1023,15 +1083,29 @@ def index_papers(
                 "abstract": paper.abstract,
                 "comments": paper.comments,
             }
+            record["candidatePriority"] = "high" if score >= publish_threshold else "normal"
             review.append(record)
 
     current = read_json(DATA_PATH)
-    retained = [
-        record
-        for record in current.get("records", [])
-        if not (range_start <= str(record.get("releasedAt", "")) <= range_end)
-    ]
-    records = apply_curated_overrides(upsert(retained, [*accepted, *curated_records()]))
+    # Last-known-good is immutable under discovery/AI-service failure. Replays do
+    # not remove historical canonical records.
+    retained = list(current.get("records", []))
+    promotion_overlay = ai_promoted_records()
+    records = apply_curated_overrides(
+        upsert(retained, [*accepted, *curated_records(), *promotion_overlay])
+    )
+    existing_review_payload = read_json(REVIEW_PATH) if REVIEW_PATH.exists() else {"candidates": []}
+    excluded_review_sources = {
+        str((record.get("source") or {}).get("id") or "")
+        for record in [*accepted, *promotion_overlay]
+    }
+    persistent_review = persistent_review_candidates(
+        existing_review_payload.get("candidates", []),
+        review,
+        range_start,
+        range_end,
+        excluded_review_sources,
+    )
     manifest = {
         "schemaVersion": config["schema_version"],
         "pipelineVersion": config["pipeline_version"],
@@ -1054,7 +1128,9 @@ def index_papers(
         "generatedAt": indexed_at,
         "sourceDate": target,
         "sourceWindow": {"from": range_start, "to": range_end},
-        "candidates": review,
+        "queueMode": "persistent-source-upsert",
+        "candidateCount": len(persistent_review),
+        "candidates": persistent_review,
     }
     run_payload = {
         "schemaVersion": config["schema_version"],
@@ -1080,9 +1156,9 @@ def index_papers(
             for record in accepted
         ],
     }
-    result = {"manifest": manifest, "accepted": accepted, "review": review}
+    result = {"manifest": manifest, "accepted": accepted, "review": persistent_review}
     if dry_run:
-        print(json.dumps({"manifest": manifest, "accepted": accepted, "review": review}, ensure_ascii=False, indent=2))
+        print(json.dumps({"manifest": manifest, "accepted": accepted, "review": persistent_review}, ensure_ascii=False, indent=2))
         return result
     write_json(DATA_PATH, payload)
     write_json(REVIEW_PATH, review_payload)

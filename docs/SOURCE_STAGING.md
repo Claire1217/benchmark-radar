@@ -1,31 +1,31 @@
-# External catalog staging
+# External catalog discovery
 
-`pipeline/stage_benchmark_catalogs.py` imports machine-readable benchmark
-catalogs into an isolated candidate schema. It does not scrape website HTML,
-resolve canonical identities, or modify Radar and Library files.
+`pipeline/stage_benchmark_catalogs.py` uses BenchLM and llm-stats only as
+discovery surfaces. Neither source can directly modify Radar or Library.
 
-Supported sources:
+Supported public inputs:
 
-- BenchLM's public `https://benchlm.ai/data/benchmarks.json`
-- llm-stats/ZeroEval's documented `https://api.zeroeval.com/stats/v1/benchmarks`
+- BenchLM's public `https://benchlm.ai/data/benchmarks.json`;
+- the public `https://llm-stats.com/benchmarks` page.
 
-Each candidate retains the source key, version hint, bounded protocol/metric/
-attribution evidence with original JSON paths, retrieval timestamp, and SHA-256
-hashes for both the raw source record and downloaded payload. These fields are
-evidence for later review, not normalized facts.
+No llm-stats or ZeroEval API key is requested, supported, or required.
+
+BenchLM records retain the catalog key, version hint, bounded protocol/metric
+metadata, attribution fields, retrieval time, and content hashes in a staging-
+only schema.
+
+For llm-stats, the public directory supplies benchmark detail-page discoveries;
+any direct arXiv, GitHub, or Hugging Face links exposed by the page are retained
+as stronger hints. Directory entries without an original link remain staged as
+`catalog-detail-pending-primary-source` rather than being discarded or treated
+as facts. Every candidate is marked `canonicalPromotionAllowed: false`; a later
+primary-source resolver must establish its benchmark identity. Page failure is
+logged and skipped so it never blocks daily arXiv indexing.
 
 ```sh
 python3 pipeline/stage_benchmark_catalogs.py --source benchlm
-
-export LLM_STATS_API_KEY='...'
 python3 pipeline/stage_benchmark_catalogs.py --source llm-stats
+python3 pipeline/stage_benchmark_catalogs.py --source all
 ```
 
-The ZeroEval key can only be supplied through `LLM_STATS_API_KEY`; there is no
-command-line key option. `--source all --skip-missing-key` stages BenchLM and
-cleanly skips ZeroEval when the secret is unavailable. Request headers and
-provider response bodies are excluded from errors.
-
-Generated files under `data/staging/` are git-ignored. In automation they
-should be uploaded as short-lived Actions artifacts. Promotion requires a
-separate, human-reviewed canonical mapping and the ordinary data validators.
+Generated files under `data/staging/` are git-ignored and are not website data.

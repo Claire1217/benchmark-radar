@@ -10,7 +10,7 @@ from urllib.error import HTTPError, URLError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from index_benchmarks import Paper, canonical_name, curated_records, family_id, infer_publication, merge_patch, recognition, request_oai, to_record, upsert, venue_entities
+from index_benchmarks import Paper, canonical_name, curated_records, family_id, infer_publication, merge_patch, persistent_review_candidates, recognition, request_oai, to_record, upsert, venue_entities
 
 
 OAI_OK = b'<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><ListRecords /></OAI-PMH>'
@@ -41,6 +41,35 @@ def sample(title: str, abstract: str, arxiv_id: str = "2608.00001") -> Paper:
 
 
 class IndexerTests(unittest.TestCase):
+    def test_review_queue_upsert_preserves_deferred_candidates_outside_daily_window(self) -> None:
+        older = full = {
+            "id": "older", "releasedAt": "2026-07-01",
+            "source": {"id": "2607.00001"},
+            "reviewContext": {"abstract": "old", "comments": ""},
+            "autoReview": {"status": "deferred"},
+        }
+        today = {
+            "id": "today", "releasedAt": "2026-08-19",
+            "source": {"id": "2608.19001"},
+            "reviewContext": {"abstract": "new", "comments": ""},
+        }
+        result = persistent_review_candidates(
+            [older], [today], "2026-08-19", "2026-08-19", set()
+        )
+        self.assertEqual({item["id"] for item in result}, {"older", "today"})
+        self.assertEqual(full["autoReview"]["status"], "deferred")
+
+    def test_review_queue_excludes_persistently_promoted_source(self) -> None:
+        candidate = {
+            "id": "candidate", "releasedAt": "2026-08-19",
+            "source": {"id": "2608.19002"},
+            "reviewContext": {"abstract": "text", "comments": ""},
+        }
+        result = persistent_review_candidates(
+            [candidate], [candidate], "2026-08-19", "2026-08-19", {"2608.19002"}
+        )
+        self.assertEqual(result, [])
+
     def test_systematic_benchmark_on_existing_datasets_is_evaluates_only(self) -> None:
         paper = sample(
             "Zero-Shot Vision-Language Models for Classroom Engagement Recognition: A Benchmark Study of Prompt Sensitivity and Cross-Dataset Generalization",

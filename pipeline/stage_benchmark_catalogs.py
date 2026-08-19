@@ -11,19 +11,20 @@ from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
 import hashlib
+from html.parser import HTMLParser
 import json
-import os
 from pathlib import Path
+import re
 from typing import Any, Iterable
 from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_DIR = ROOT / "data" / "staging"
 BENCHLM_URL = "https://benchlm.ai/data/benchmarks.json"
-LLM_STATS_URL = "https://api.zeroeval.com/stats/v1/benchmarks"
-LLM_STATS_KEY_ENV = "LLM_STATS_API_KEY"
+LLM_STATS_URL = "https://llm-stats.com/benchmarks"
 
 PROTOCOL_TERMS = (
     "protocol", "method", "setting", "setup", "prompt", "harness",
@@ -146,21 +147,134 @@ def adapt_payload(
     }
 
 
-def fetch_json(url: str, *, api_key: str | None = None, timeout: int = 30) -> tuple[Any, bytes]:
-    headers = {"Accept": "application/json", "User-Agent": "benchmark-radar-staging/1.0"}
-    if api_key:
-        headers["Authorization"] = f"Bearer {api_key}"
+def fetch_bytes(url: str, *, accept: str, timeout: int = 30) -> bytes:
+    headers = {"Accept": accept, "User-Agent": "benchmark-radar-staging/1.0"}
     request = Request(url, headers=headers)
     try:
         with urlopen(request, timeout=timeout) as response:
-            body = response.read()
+            return response.read()
     except (HTTPError, URLError, TimeoutError) as error:
-        # Do not include request headers or provider response bodies in logs.
         raise RuntimeError(f"catalog request failed for {url}: {type(error).__name__}") from None
+
+
+def fetch_json(url: str, *, timeout: int = 30) -> tuple[Any, bytes]:
+    body = fetch_bytes(url, accept="application/json", timeout=timeout)
     try:
         return json.loads(body), body
     except json.JSONDecodeError:
         raise RuntimeError(f"catalog returned invalid JSON: {url}") from None
+
+
+class PublicLinkParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.links: list[dict[str, str]] = []
+        self._href: str | None = None
+        self._text: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() == "a":
+            self._href = dict(attrs).get("href")
+            self._text = []
+
+    def handle_data(self, data: str) -> None:
+        if self._href is not None:
+            self._text.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "a" and self._href is not None:
+            self.links.append({"href": self._href, "text": " ".join("".join(self._text).split())})
+            self._href = None
+            self._text = []
+
+
+def adapt_llm_stats_public_page(html: str, retrieved_at: str) -> dict[str, Any]:
+    """Use the public directory for discovery without treating it as authority."""
+    parser = PublicLinkParser()
+    parser.feed(html)
+    candidates: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    blocked_hosts = {"llm-stats.com", "www.llm-stats.com", "x.com", "twitter.com", "discord.com"}
+    primary_hosts = {"arxiv.org", "www.arxiv.org", "github.com", "huggingface.co"}
+    for link in parser.links:
+        url = urljoin(LLM_STATS_URL, link["href"])
+        parsed = urlparse(url)
+        host = (parsed.hostname or "").lower()
+        text = link["text"].strip()
+        if parsed.scheme != "https" or not host or url in seen:
+            continue
+        is_detail = host in {"llm-stats.com", "www.llm-stats.com"} and re.fullmatch(
+            r"/benchmarks/[^/?#]+", parsed.path
+        )
+        if is_detail:
+            seen.add(url)
+            slug = parsed.path.rsplit("/", 1)[-1]
+            candidates.append({
+                "source": "llm-stats-public-directory",
+                "sourceKey": slug,
+                "nameHint": text or slug,
+                "catalogDetailUrl": url,
+                "originalSourceUrl": None,
+                "discoveredAt": LLM_STATS_URL,
+                "retrievedAt": retrieved_at,
+                "stagingStatus": "catalog-detail-pending-primary-source",
+                "canonicalPromotionAllowed": False,
+            })
+            continue
+        if host in blocked_hosts:
+            continue
+        # Only direct scholarly/code/data links count as resolved original
+        # sources. Generic outbound links remain excluded instead of being
+        # promoted on catalog authority alone.
+        if host not in primary_hosts or not text:
+            continue
+        seen.add(url)
+        candidates.append({
+            "source": "llm-stats-public-page",
+            "sourceKey": url,
+            "nameHint": text,
+            "originalSourceUrl": url,
+            "discoveredAt": LLM_STATS_URL,
+            "retrievedAt": retrieved_at,
+            "stagingStatus": "original-source-resolved",
+            "canonicalPromotionAllowed": False,
+        })
+    # The Next.js directory also serializes detail routes inside its streamed
+    # page payload rather than ordinary anchor tags. Retain those routes as
+    # discovery hints; they still cannot enter canonical data until a later
+    # resolver finds and verifies an original source.
+    for path in re.findall(r"/benchmarks/[A-Za-z0-9][A-Za-z0-9._-]*", html):
+        url = urljoin(LLM_STATS_URL, path)
+        if url in seen:
+            continue
+        seen.add(url)
+        slug = path.rsplit("/", 1)[-1]
+        candidates.append({
+            "source": "llm-stats-public-directory",
+            "sourceKey": slug,
+            "nameHint": slug,
+            "catalogDetailUrl": url,
+            "originalSourceUrl": None,
+            "discoveredAt": LLM_STATS_URL,
+            "retrievedAt": retrieved_at,
+            "stagingStatus": "catalog-detail-pending-primary-source",
+            "canonicalPromotionAllowed": False,
+        })
+    raw = html.encode("utf-8")
+    return {
+        "schemaVersion": "1.0",
+        "mode": "public-page-discovery-only",
+        "source": {
+            "id": "llm-stats",
+            "url": LLM_STATS_URL,
+            "attribution": LLM_STATS_URL,
+            "retrievedAt": retrieved_at,
+            "payloadSha256": sha256(raw),
+        },
+        "recordCount": len(candidates),
+        "candidates": candidates,
+        "policy": "Directory entries are discovery hints only; every candidate must be resolved to and verified against an original source before canonical use.",
+    }
 
 
 def write_staging(output: Path, payload: dict[str, Any]) -> None:
@@ -181,23 +295,17 @@ def stage_benchlm(output_dir: Path, retrieved_at: str) -> Path:
     return output
 
 
-def stage_llm_stats(output_dir: Path, retrieved_at: str, *, skip_missing_key: bool) -> Path | None:
-    api_key = os.environ.get(LLM_STATS_KEY_ENV, "")
-    if not api_key:
-        message = f"{LLM_STATS_KEY_ENV} is required for the llm-stats/ZeroEval adapter"
-        if skip_missing_key:
-            print(f"skipped llm-stats staging: {message}")
-            return None
-        raise RuntimeError(message)
-    payload, body = fetch_json(LLM_STATS_URL, api_key=api_key)
+def stage_llm_stats(output_dir: Path, retrieved_at: str) -> Path | None:
+    try:
+        body = fetch_bytes(LLM_STATS_URL, accept="text/html")
+        payload = adapt_llm_stats_public_page(body.decode("utf-8", errors="replace"), retrieved_at)
+    except RuntimeError as error:
+        # Catalog discovery is optional and must never block the daily primary-
+        # source index.
+        print(f"skipped llm-stats public-page discovery: {error}")
+        return None
     output = output_dir / "llm_stats_candidates.json"
-    write_staging(output, adapt_payload(
-        payload,
-        source_id="llm-stats-zeroeval",
-        source_url=LLM_STATS_URL,
-        retrieved_at=retrieved_at,
-        payload_bytes=body,
-    ))
+    write_staging(output, payload)
     return output
 
 
@@ -205,11 +313,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Stage external benchmark catalogs without canonical promotion.")
     parser.add_argument("--source", choices=("benchlm", "llm-stats", "all"), default="all")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    parser.add_argument(
-        "--skip-missing-key",
-        action="store_true",
-        help=f"skip llm-stats when {LLM_STATS_KEY_ENV} is absent instead of failing",
-    )
     return parser.parse_args()
 
 
@@ -220,9 +323,7 @@ def main() -> None:
     if args.source in {"benchlm", "all"}:
         outputs.append(stage_benchlm(args.output_dir, retrieved_at))
     if args.source in {"llm-stats", "all"}:
-        llm_stats_output = stage_llm_stats(
-            args.output_dir, retrieved_at, skip_missing_key=args.skip_missing_key
-        )
+        llm_stats_output = stage_llm_stats(args.output_dir, retrieved_at)
         if llm_stats_output:
             outputs.append(llm_stats_output)
     print(f"staged {len(outputs)} catalog source(s); canonical data unchanged")
