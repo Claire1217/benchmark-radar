@@ -104,7 +104,7 @@ function BenchmarkCard({ item, window, expanded, watched, onExpand, onWatch }: {
         )}
       </div>
       <div className="card-actions">
-        <button className={`watch-button${watched ? " is-watched" : ""}`} onClick={onWatch} aria-pressed={watched}>{watched ? "Watching" : "Watch"}</button>
+        <button className={`watch-button${watched ? " is-watched" : ""}`} onClick={onWatch} aria-pressed={watched}>{watched ? "Saved" : "Save"}</button>
         <button className="details" onClick={onExpand} aria-expanded={expanded} aria-controls={`details-${item.id}`}>{expanded ? "Close details ↑" : "View details ↓"}</button>
       </div>
     </article>
@@ -166,7 +166,7 @@ export default function Home() {
       <header className="topbar" id="top">
         <a className="brand" href="#top" aria-label="Benchmark Radar home">Benchmark Radar</a>
         <nav className="topnav" aria-label="Page sections"><a href="#radar">Radar</a><a href="#method">Method</a></nav>
-        <div className="header-status"><span className="demo-pill">PRIMARY SOURCES</span><span className="watch-count">{watchlist.length} watching</span></div>
+        <div className="header-status"><span className="demo-pill">PRIMARY SOURCES</span><span className="watch-count">{watchlist.length} saved</span></div>
       </header>
 
       <section className="hero">
@@ -211,7 +211,7 @@ export default function Home() {
         <div className="method-grid"><div><strong>Indexed</strong><p>Only explicit benchmark releases pass automatically. Ambiguous matches go to review.</p></div><div><strong>Attention</strong><p>HF votes, GitHub stars, and HF dataset downloads. Window deltas replace current levels as daily history accumulates.</p></div><div><strong>Readiness</strong><p>Resource links are shown only when the primary source publishes them. Popularity never changes readiness.</p></div></div>
       </section>
 
-      <footer><p>{BENCHMARK_DATA_NOTICE}</p><p>Watchlist is stored only in this browser.</p></footer>
+      <footer><p>{BENCHMARK_DATA_NOTICE}</p><p>Saved items are stored only in this browser.</p></footer>
     </main>
   );
 }
