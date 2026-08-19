@@ -31,7 +31,6 @@ ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "pipeline" / "config.json"
 DATA_PATH = ROOT / "data" / "benchmarks.json"
 REVIEW_PATH = ROOT / "data" / "review_queue.json"
-AI_REVIEW_STATUS_PATH = ROOT / "data" / "ai_review_status.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 CURATED_RECORDS_PATH = ROOT / "data" / "curated_records.json"
 RUNS_PATH = ROOT / "data" / "runs"
@@ -973,30 +972,10 @@ def apply_curated_overrides(records: list[dict[str, Any]]) -> list[dict[str, Any
 
 
 def curated_records() -> list[dict[str, Any]]:
-    """Load reviewed non-arXiv records such as official industry releases."""
+    """Load reviewed releases admitted from primary-source evidence."""
     if not CURATED_RECORDS_PATH.exists():
         return []
     return read_json(CURATED_RECORDS_PATH).get("records", [])
-
-
-def ai_promoted_records() -> list[dict[str, Any]]:
-    """Load AI promotions as a persistent overlay, never from model text alone."""
-    if not AI_REVIEW_STATUS_PATH.exists():
-        return []
-    entries = read_json(AI_REVIEW_STATUS_PATH).get("entries", [])
-    latest_by_source: dict[str, dict[str, Any]] = {}
-    for entry in entries:
-        source_id = str(entry.get("sourceId") or "")
-        if source_id and (
-            source_id not in latest_by_source
-            or str(entry.get("reviewedAt") or "") >= str(latest_by_source[source_id].get("reviewedAt") or "")
-        ):
-            latest_by_source[source_id] = entry
-    return [
-        entry["canonicalRecord"]
-        for entry in latest_by_source.values()
-        if entry.get("status") == "promoted" and isinstance(entry.get("canonicalRecord"), dict)
-    ]
 
 
 def persistent_review_candidates(
@@ -1025,10 +1004,6 @@ def persistent_review_candidates(
         source_id = str((candidate.get("source") or {}).get("id") or "")
         if not source_id or source_id in excluded_source_ids:
             continue
-        previous = previous_by_source.get(source_id)
-        if previous and previous.get("reviewContext") == candidate.get("reviewContext"):
-            if "autoReview" in previous:
-                candidate["autoReview"] = previous["autoReview"]
         by_source[source_id] = candidate
     return sorted(
         by_source.values(),
@@ -1068,8 +1043,7 @@ def index_papers(
     publish_threshold = float(config["thresholds"]["publish"])
     review_threshold = float(config["thresholds"]["review"])
     # Deterministic rules are high-recall candidate prioritization only. New
-    # arXiv records never enter canonical data until DeepSeek plus hard gates
-    # produces a persistent promotion overlay.
+    # Rules only discover candidates. Curated evidence determines publication.
     accepted: list[dict[str, Any]] = []
     review: list[dict[str, Any]] = []
     for paper in papers:
@@ -1087,17 +1061,15 @@ def index_papers(
             review.append(record)
 
     current = read_json(DATA_PATH)
-    # Last-known-good is immutable under discovery/AI-service failure. Replays do
-    # not remove historical canonical records.
+    # Replays do not remove historical canonical records.
     retained = list(current.get("records", []))
-    promotion_overlay = ai_promoted_records()
     records = apply_curated_overrides(
-        upsert(retained, [*accepted, *curated_records(), *promotion_overlay])
+        upsert(retained, [*accepted, *curated_records()])
     )
     existing_review_payload = read_json(REVIEW_PATH) if REVIEW_PATH.exists() else {"candidates": []}
     excluded_review_sources = {
         str((record.get("source") or {}).get("id") or "")
-        for record in [*accepted, *promotion_overlay]
+        for record in accepted
     }
     persistent_review = persistent_review_candidates(
         existing_review_payload.get("candidates", []),

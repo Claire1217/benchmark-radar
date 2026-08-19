@@ -38,7 +38,7 @@ Conference status is evidence-tiered. `Acceptance claimed` means an arXiv author
 | `pipeline/` | Indexing, enrichment, validation, and build scripts | Yes |
 | `pipeline/tests/` | Deterministic pipeline tests | Yes |
 | `data/curated_overrides.json` | Reviewed corrections backed by primary sources | Yes, with evidence |
-| `data/curated_records.json` | Reviewed official releases not discoverable through arXiv | Yes, with evidence |
+| `data/curated_records.json` | Reviewed releases admitted from Paper, GitHub, and Hugging Face evidence | Yes, with evidence |
 | `data/benchmarks.json` | Generated canonical snapshot | No |
 | `data/benchmarks_index.json` | Generated compact website index | No |
 | `data/metrics/`, `data/publication/`, `data/runs/` | Generated observations and audit receipts | No |

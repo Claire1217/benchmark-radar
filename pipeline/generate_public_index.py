@@ -41,7 +41,7 @@ def project_record(source: dict) -> dict:
     }
     record["source"] = {key: source["source"][key] for key in ("type", "id")}
     record["ranking"] = ranking
-    for optional_key in ("motivation", "constructionDetail", "metrics", "curation", "publication", "venueAttempts", "publications", "watch", "releaseDates", "usageObservations"):
+    for optional_key in ("motivation", "constructionDetail", "metrics", "curation", "publication", "venueAttempts", "publications", "watch", "releaseDates", "usageObservations", "evaluationMode", "availability"):
         if source.get(optional_key):
             record[optional_key] = source[optional_key]
     return record

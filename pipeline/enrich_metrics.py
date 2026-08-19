@@ -23,13 +23,14 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v1"
+METHOD_VERSION = "attention-ranking-v2"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
     "30d": {"hfPaperUpvotes": 0.40, "githubStars": 0.30, "hfDatasetDownloads": 0.30},
     "90d": {"hfPaperUpvotes": 0.30, "githubStars": 0.30, "hfDatasetDownloads": 0.40},
 }
+TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -148,6 +149,20 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
                 f"https://huggingface.co/datasets/{dataset}", ("downloads", "likes")
             )
         )
+    signal_status = {
+        "hfPaperUpvotes": {
+            "state": "fresh" if paper.get("upvotes") is not None else "unavailable" if arxiv_id else "not_applicable"
+        },
+        "githubStars": {
+            "state": "fresh" if github_stars is not None else "not_refreshed" if repo and not allow_github else "unavailable" if repo else "not_applicable"
+        },
+        "hfDatasetDownloads": {
+            "state": "fresh" if dataset_info.get("downloads") is not None else "unavailable" if dataset else "not_applicable"
+        },
+        "hfDatasetLikes": {
+            "state": "fresh" if dataset_info.get("likes") is not None else "unavailable" if dataset else "not_applicable"
+        },
+    }
     return {
         "benchmarkId": record["id"],
         "hfPaperUpvotes": paper.get("upvotes"),
@@ -159,14 +174,107 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
         "hfDataset": dataset,
         "hfDatasetDownloads": dataset_info.get("downloads"),
         "hfDatasetLikes": dataset_info.get("likes"),
+        "signalStatus": signal_status,
     }
 
 
-def percentile(value: int | float | None, population: list[int | float]) -> float | None:
+def preserve_last_known(
+    results: list[dict[str, Any]],
+    records: list[dict[str, Any]],
+    previous_snapshot: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    """Keep the last successful value on provider failure and mark it stale."""
+    previous_by_id = {
+        item["benchmarkId"]: item for item in (previous_snapshot or {}).get("records", [])
+    }
+    canonical_by_id = {record["id"]: record.get("attention", {}) for record in records}
+    for item in results:
+        benchmark_id = item["benchmarkId"]
+        previous = previous_by_id.get(benchmark_id, {})
+        canonical = canonical_by_id.get(benchmark_id, {})
+        statuses = item.setdefault("signalStatus", {})
+        for signal in TRACKED_SIGNALS:
+            status = statuses.setdefault(
+                signal, {"state": "retained" if item.get(signal) is not None else "unavailable"}
+            )
+            if item.get(signal) is not None:
+                continue
+            if status.get("state") == "not_applicable":
+                continue
+            fallback = previous.get(signal)
+            fallback_date = (
+                (previous.get("signalStatus", {}).get(signal) or {}).get("lastSuccessfulDate")
+                or (previous_snapshot or {}).get("date")
+            )
+            if fallback is None:
+                fallback = canonical.get(signal)
+                fallback_date = (
+                    (canonical.get("signalStatus", {}).get(signal) or {}).get("lastSuccessfulDate")
+                    or canonical.get("asOf")
+                )
+            if fallback is not None:
+                item[signal] = fallback
+                status["state"] = "stale"
+                status["lastSuccessfulDate"] = fallback_date
+        for identity_field in ("hfPaperUrl", "githubRepo", "hfDataset"):
+            if item.get(identity_field) is None:
+                item[identity_field] = previous.get(identity_field)
+    return results
+
+
+def summarize_observation(
+    results: list[dict[str, Any]],
+    attempted_at: str,
+    previous_snapshot: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Describe retrieval freshness without presenting a failed attempt as observation time."""
+    counts = {
+        state: sum(
+            status.get("state") == state
+            for item in results
+            for status in item.get("signalStatus", {}).values()
+        )
+        for state in (
+            "fresh", "stale", "unavailable", "not_refreshed", "not_applicable", "retained"
+        )
+    }
+    for item in results:
+        for status in item.get("signalStatus", {}).values():
+            if status.get("state") == "fresh":
+                status["observedAt"] = attempted_at
+            elif status.get("state") not in {"not_applicable", "retained"}:
+                status["checkedAt"] = attempted_at
+
+    failures = counts["stale"] + counts["unavailable"] + counts["not_refreshed"]
+    if counts["fresh"]:
+        state = "partial" if failures else "fresh"
+        observed_at = attempted_at
+    elif counts["stale"] or counts["retained"]:
+        state = "stale"
+        observed_at = (previous_snapshot or {}).get("observedAt")
+    else:
+        state = "unavailable"
+        observed_at = None
+    return {
+        "status": state,
+        "observedAt": observed_at,
+        "attemptedAt": attempted_at,
+        "providerStatus": counts,
+    }
+
+
+def percentile(
+    value: int | float | None, population: list[int | float], *, signed: bool = False
+) -> float | None:
     if value is None or not population:
         return None
-    transformed = [math.log1p(max(float(item), 0.0)) for item in population]
-    target = math.log1p(max(float(value), 0.0))
+    transform = (
+        (lambda item: math.copysign(math.log1p(abs(float(item))), float(item)))
+        if signed
+        else (lambda item: math.log1p(max(float(item), 0.0)))
+    )
+    transformed = [transform(item) for item in population]
+    target = transform(value)
     below = sum(item < target for item in transformed)
     equal = sum(item == target for item in transformed)
     return (below + 0.5 * equal) / len(transformed)
@@ -180,12 +288,53 @@ def closest_history(as_of: date, days: int) -> dict[str, Any] | None:
     return read_json(candidates[-1]) if candidates else None
 
 
+def latest_snapshot_before(as_of: date) -> dict[str, Any] | None:
+    candidates = sorted(path for path in METRICS_DIR.glob("*.json") if path.stem < as_of.isoformat())
+    return read_json(candidates[-1]) if candidates else None
+
+
 def rank_records(
     records: list[dict[str, Any]],
     raw_by_id: dict[str, dict[str, Any]],
     as_of: date,
     latest_source_date: str,
 ) -> None:
+    def score_dimension(
+        candidates: list[dict[str, Any]],
+        values: dict[str, dict[str, int | float | None]],
+        weights: dict[str, float],
+        *,
+        signed: bool,
+    ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
+        output: dict[str, dict[str, Any]] = {}
+        scored: list[tuple[float, dict[str, Any]]] = []
+        for record in candidates:
+            weighted = coverage = 0.0
+            observed = 0
+            components: dict[str, Any] = {}
+            for signal, weight in weights.items():
+                value = values[signal][record["id"]]
+                population = [item for item in values[signal].values() if item is not None]
+                pct = percentile(value, population, signed=signed)
+                components[signal] = {"value": value, "percentile": pct}
+                if pct is not None:
+                    weighted += weight * pct
+                    coverage += weight
+                    observed += 1
+            score = round(100 * weighted / coverage) if coverage else None
+            confidence = "High" if coverage >= 0.75 and observed >= 2 else "Medium" if coverage >= 0.4 else "Low"
+            result = {
+                "score": score, "rank": None, "coverage": round(coverage, 2),
+                "confidence": confidence, "components": components,
+            }
+            output[record["id"]] = result
+            if score is not None and observed >= 2:
+                scored.append((score, record))
+        scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
+        for position, (_, record) in enumerate(scored, 1):
+            output[record["id"]]["rank"] = position
+        return output, scored
+
     for window, max_age in WINDOW_DAYS.items():
         if window == "today":
             candidates = [
@@ -202,55 +351,54 @@ def rank_records(
             ]
         previous = closest_history(as_of, max_age)
         previous_by_id = {item["benchmarkId"]: item for item in (previous or {}).get("records", [])}
-        signal_values: dict[str, dict[str, int | float | None]] = {}
-        signal_modes: dict[str, str] = {}
+        history_date = (previous or {}).get("date")
+        level_values: dict[str, dict[str, int | float | None]] = {}
+        growth_values: dict[str, dict[str, int | float | None]] = {}
         for signal in WINDOW_WEIGHTS[window]:
             current_values: dict[str, int | float | None] = {}
-            used_delta = False
+            delta_values: dict[str, int | float | None] = {}
             for record in candidates:
                 current = raw_by_id[record["id"]].get(signal)
-                old = previous_by_id.get(record["id"], {}).get(signal)
-                if current is not None and old is not None:
-                    current_values[record["id"]] = max(float(current) - float(old), 0.0)
-                    used_delta = True
-                else:
-                    current_values[record["id"]] = current
-            signal_values[signal] = current_values
-            signal_modes[signal] = "window delta" if used_delta else "current level"
+                current_row = raw_by_id[record["id"]]
+                old_row = previous_by_id.get(record["id"], {})
+                old = old_row.get(signal)
+                current_state = (current_row.get("signalStatus", {}).get(signal) or {}).get("state")
+                old_state = (old_row.get("signalStatus", {}).get(signal) or {}).get("state")
+                usable_delta = current_state not in {"stale", "unavailable", "not_refreshed", "not_applicable"}
+                usable_delta = usable_delta and old_state not in {"stale", "unavailable", "not_refreshed", "not_applicable"}
+                current_values[record["id"]] = current
+                delta_values[record["id"]] = (
+                    float(current) - float(old)
+                    if current is not None and old is not None and usable_delta
+                    else None
+                )
+            level_values[signal] = current_values
+            growth_values[signal] = delta_values
 
-        scored: list[tuple[float, dict[str, Any]]] = []
+        levels, _ = score_dimension(
+            candidates, level_values, WINDOW_WEIGHTS[window], signed=False
+        )
+        growth, _ = score_dimension(
+            candidates, growth_values, WINDOW_WEIGHTS[window], signed=True
+        )
         for record in candidates:
-            weighted = 0.0
-            coverage = 0.0
-            components: dict[str, Any] = {}
-            observed = 0
-            for signal, weight in WINDOW_WEIGHTS[window].items():
-                value = signal_values[signal][record["id"]]
-                population = [item for item in signal_values[signal].values() if item is not None]
-                pct = percentile(value, population)
-                components[signal] = {"value": value, "percentile": pct, "mode": signal_modes[signal]}
-                if pct is not None:
-                    weighted += weight * pct
-                    coverage += weight
-                    observed += 1
-            score = round(100 * weighted / coverage) if coverage else None
-            confidence = "High" if coverage >= 0.75 and observed >= 2 else "Medium" if coverage >= 0.4 else "Low"
+            level = levels[record["id"]]
+            growth_result = growth[record["id"]]
             record.setdefault("ranking", {})[window] = {
-                "score": score,
-                "rank": None,
-                "coverage": round(coverage, 2),
-                "confidence": confidence,
+                # Backward-compatible aliases now always mean current level.
+                "score": level["score"], "rank": level["rank"],
+                "coverage": level["coverage"], "confidence": level["confidence"],
                 "method": METHOD_VERSION,
-                "components": components,
+                "level": level,
+                "growth": {
+                    **growth_result,
+                    "historyDate": history_date,
+                    "windowDays": max(max_age, 1),
+                    "elapsedDays": (
+                        (as_of - date.fromisoformat(history_date)).days if history_date else None
+                    ),
+                },
             }
-            # A leaderboard position requires corroboration from at least two
-            # independent signal families. Single-source records stay visible
-            # but are not called "ranked".
-            if score is not None and observed >= 2:
-                scored.append((score, record))
-        scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
-        for position, (_, record) in enumerate(scored, 1):
-            record["ranking"][window]["rank"] = position
 
         datasets = [record for record in candidates if raw_by_id[record["id"]].get("hfDatasetDownloads") is not None]
         datasets.sort(key=lambda record: raw_by_id[record["id"]]["hfDatasetDownloads"], reverse=True)
@@ -271,13 +419,31 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def observation_mode(as_of: date, today: date, explicit_date: bool, snapshot_exists: bool) -> str:
+    if as_of > today:
+        raise RuntimeError("Observation date cannot be in the future.")
+    if explicit_date and as_of < today:
+        if not snapshot_exists:
+            raise RuntimeError(
+                "Historical observation dates are read-only and require an existing real snapshot; "
+                "current provider values will never be written into the past."
+            )
+        return "historical-read-only"
+    return "live"
+
+
 def main() -> None:
     args = parse_args()
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
     latest_source_date = payload["manifest"].get("latestSourceDate", payload["manifest"]["dataAsOf"])
     as_of = date.fromisoformat(args.date or date.today().isoformat())
-    observed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    today = date.today()
+    snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
+    if observation_mode(as_of, today, bool(args.date), snapshot_path.exists()) == "historical-read-only":
+        print(f"historical snapshot preserved without network access: {snapshot_path}")
+        return
+    attempted_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     only_ids = {item.strip() for item in (args.only_ids or "").split(",") if item.strip()}
     selected_records = [record for record in records if not only_ids or record["id"] in only_ids]
     github_token = os.environ.get("GITHUB_TOKEN")
@@ -312,7 +478,6 @@ def main() -> None:
         for future in as_completed(futures):
             results.append(future.result())
     if only_ids:
-        snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
         if not snapshot_path.exists():
             raise RuntimeError("--only-ids requires an existing snapshot for the observation date.")
         retained = {
@@ -321,19 +486,9 @@ def main() -> None:
         retained.update({item["benchmarkId"]: item for item in results})
         results = list(retained.values())
     results.sort(key=lambda item: item["benchmarkId"])
-    observed_signals = sum(
-        value is not None
-        for item in results
-        for value in (
-            item.get("hfPaperUpvotes"),
-            item.get("githubStars"),
-            item.get("hfDatasetDownloads"),
-        )
-    )
-    if records and observed_signals == 0:
-        raise RuntimeError(
-            "No attention signals were returned; keeping the previous canonical data and snapshot unchanged."
-        )
+    previous_snapshot = latest_snapshot_before(as_of)
+    results = preserve_last_known(results, records, previous_snapshot)
+    observation = summarize_observation(results, attempted_at, previous_snapshot)
     raw_by_id = {item["benchmarkId"]: item for item in results}
     for record in records:
         raw = raw_by_id[record["id"]]
@@ -347,6 +502,20 @@ def main() -> None:
             "hfDatasetDownloads": raw["hfDatasetDownloads"],
             "hfDatasetLikes": raw["hfDatasetLikes"],
             "hfDataset": raw["hfDataset"],
+            "observedAt": (
+                attempted_at
+                if any(status.get("state") == "fresh" for status in raw.get("signalStatus", {}).values())
+                else (previous_snapshot or {}).get("observedAt")
+            ),
+            "attemptedAt": attempted_at,
+            "status": (
+                "fresh"
+                if any(status.get("state") == "fresh" for status in raw.get("signalStatus", {}).values())
+                else "stale"
+                if any(status.get("state") == "stale" for status in raw.get("signalStatus", {}).values())
+                else "unavailable"
+            ),
+            "signalStatus": raw.get("signalStatus", {}),
         }
         if raw["githubRepo"] and not record.get("links", {}).get("code"):
             record["links"]["code"] = raw["githubRepo"]
@@ -360,15 +529,20 @@ def main() -> None:
         "schemaVersion": "1.0",
         "methodVersion": METHOD_VERSION,
         "date": as_of.isoformat(),
-        "observedAt": observed_at,
+        "observedAt": observation["observedAt"],
+        "attemptedAt": observation["attemptedAt"],
+        "status": observation["status"],
+        "providerStatus": observation["providerStatus"],
         "records": results,
     }
     write_json(METRICS_DIR / f"{as_of.isoformat()}.json", snapshot)
     payload["manifest"]["metrics"] = {
-        "observedAt": observed_at,
+        "observedAt": observation["observedAt"],
+        "attemptedAt": observation["attemptedAt"],
+        "status": observation["status"],
         "methodVersion": METHOD_VERSION,
         "windows": ["today", "30d", "90d"],
-        "note": "Window deltas are used when historical snapshots exist; otherwise rankings use current levels and say so.",
+        "note": "Current-level and growth rankings are separate. Growth is missing without a real prior snapshot; negative deltas are preserved.",
     }
     payload["manifest"]["latestSourceDate"] = latest_source_date
     payload["manifest"]["dataAsOf"] = as_of.isoformat()

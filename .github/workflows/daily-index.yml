@@ -10,17 +10,6 @@ on:
         description: "Optional first-release date in YYYY-MM-DD"
         required: false
         type: string
-      candidate_limit:
-        description: Maximum pending candidates to classify
-        required: false
-        default: "48"
-        type: choice
-        options: ["12", "24", "48", "96"]
-      retry_deferred:
-        description: Reclassify semantic deferrals
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: write
@@ -53,26 +42,6 @@ jobs:
             python pipeline/index_benchmarks.py --date "$SCHEDULED_DATE"
           fi
 
-      - name: Classify pending candidates with DeepSeek
-        shell: bash
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL || 'deepseek-v4-flash' }}
-          CANDIDATE_LIMIT: ${{ inputs.candidate_limit || '48' }}
-          RETRY_DEFERRED: ${{ inputs.retry_deferred || 'false' }}
-        run: |
-          set +x
-          retry_args=()
-          if [ "$RETRY_DEFERRED" = "true" ]; then retry_args+=(--retry-deferred); fi
-          python pipeline/review_candidates_with_deepseek.py \
-            --input data/review_queue.json \
-            --canonical data/benchmarks.json \
-            --library data/library_records.json \
-            --output data/ai_review_status.json \
-            --limit "$CANDIDATE_LIMIT" \
-            --skip-unconfigured \
-            "${retry_args[@]}"
-
       - name: Refresh publication and acceptance metadata
         run: python pipeline/enrich_publications.py
 
@@ -91,7 +60,7 @@ jobs:
         run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
-          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/ai_review_status.json data/runs data/metrics data/publication
+          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication
           if git diff --cached --quiet; then
             echo "No index changes"
           else

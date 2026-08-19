@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-19 · **Benchmark releases:** 1215
+**Snapshot:** 2026-08-19 · **Benchmark releases:** 1216
 
 ## Contents
 
@@ -28,6 +28,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Quantum Computing & Control](#quantum-computing--control) (2)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (91)
 - [Scientific Facilities](#scientific-facilities) (1)
+- [Scientific Research & AI for Science](#scientific-research--ai-for-science) (1)
 - [Software & AI Compute](#software--ai-compute) (67)
 
 ## Autonomous Driving
@@ -1219,6 +1220,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 ## Scientific Facilities
 
 - **APS-Bench** (2026-07-27) — We construct APS-Bench, a 50-question, question-answering (QA) dataset with auditable gold answers. [Paper](https://arxiv.org/abs/2607.24663) · [HF](https://huggingface.co/papers/2607.24663)
+
+## Scientific Research & AI for Science
+
+- **ASI-Bench** (2026-08-18) — ASI-Bench contains 60 project-level research tasks across 11 scientific domains and progressively reduces methodological guidance to test whether AI can independently select methods, conduct research, and produce verifi… [Paper](https://arxiv.org/abs/2608.17271) · [HF](https://huggingface.co/papers/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) · [Data](https://huggingface.co/datasets/Apexintelligence-AI/ASI-Bench-seed31415)
 
 ## Software & AI Compute
 

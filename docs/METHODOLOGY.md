@@ -1,127 +1,57 @@
 # Methodology
 
-## What counts as a new Benchmark
+## Product goal
 
-Discovery starts from arXiv's official OAI-PMH metadata for selected AI, language, vision, robotics, software, and graphics categories. Automatic publication requires primary-source evidence of a named benchmark/evaluation-suite release or an explicit sentence that introduces, presents, releases, develops, or builds one.
+The site helps model developers and researchers find evaluation artifacts worth
+tracking or running. It is not a catalog of every paper that uses the word
+“benchmark”.
 
-Papers that only compare models on existing benchmarks are not new Benchmark entities. Ambiguous candidates are stored in `data/review_queue.json` for review and are not shown on the website.
+## Evidence check
 
-## Dates
+Each candidate is checked against three sources:
 
-- `releasedAt`: first public arXiv version date.
-- `firstSeenAt`: date the tracker first indexed the entity.
-- `sourceUpdatedAt`: most recent observed source update.
-- metric and publication observations carry their own timestamps.
+1. **Paper** — does it introduce a named evaluation artifact and explain what it
+   tests?
+2. **GitHub** — are code, evaluator, run instructions, or submission tools
+   actually available?
+3. **Hugging Face** — are the paper, dataset, model, or Space present and usable?
 
-These dates are not interchangeable. An arXiv update is not a conference decision date.
+Missing evidence is `unknown`, not `unavailable`.
 
-## Attention
+## Benchmark type
 
-Attention is a public-interest signal, not quality. The current source families are:
+Every reviewed record receives one type:
 
-- Hugging Face paper votes
-- GitHub repository stars
-- Hugging Face dataset downloads and likes
+- `score_submission`: external teams can submit a model to a leaderboard, or
+  run a public evaluator locally and obtain comparable scores.
+- `viewpoint_probe`: the paper creates a slice, transformation, stress test, or
+  diagnostic mainly to demonstrate a finding, without a clear ongoing model
+  submission or external evaluation path.
+- `unclear`: the available sources do not support either decision.
 
-Today, 30-day, and 90-day views rank records inside their respective windows. Dated deltas replace current public levels as enough daily history accumulates. Missing signals remain missing and are never converted to zero. Ranking confidence describes signal coverage; it is not paper-recognition confidence.
+This classification is based on how the artifact can be used, not the authors'
+institution or the paper's stated motivation.
 
-The default website view is **30 days · Attention**. `Newest` remains an explicit alternative.
+## Inclusion and priority
 
-## Readiness
+- `score_submission` enters Radar by default.
+- `viewpoint_probe` is lower priority. It is included only when its data and
+  evaluator are public, it has independent use, or its field-normalized public
+  attention is unusually high.
+- `unclear` remains unpublished until better evidence appears.
 
-Readiness is independent of Attention:
+Raw Hugging Face votes, GitHub stars, and downloads are never manually reduced.
+The type affects only display priority, so factual attention remains auditable.
 
-- `Paper only`: no public evaluation package was found.
-- `Protocol available` (stored as `Inspectable` in data): a public dataset,
-  project page, or sufficiently detailed evaluation protocol was found. This
-  means a reader can inspect how the evaluation is defined; it does **not**
-  claim that the benchmark can be run end to end.
-- `Runnable`: public evaluation code was found.
-- `Maintained`: reserved for stronger versioning and maintenance evidence.
+## Minimal reviewed fields
 
-A popular paper can remain `Paper only`; a low-attention benchmark can be `Runnable`.
+```text
+evaluationMode: score_submission | viewpoint_probe | unclear
+dataStatus: available | unavailable | unknown
+evaluatorStatus: available | unavailable | unknown
+submissionStatus: available | unavailable | unknown
+```
 
-## Benchmark role and inclusion threshold
-
-The index separates five semantic roles:
-
-- `reusable_benchmark`: released as a reusable evaluation target for other teams;
-- `diagnostic_benchmark`: built mainly to reveal a limitation or support a
-  scientific claim or particular method without a stable protocol intended
-  for routine third-party comparison;
-- `benchmarking_study`: an empirical comparison whose main contribution is the
-  analysis rather than a reusable benchmark artifact;
-- `uses_existing_benchmarks`: reports results on already established benchmarks;
-- `unclear`: the available evidence does not support a confident classification.
-
-Reusable benchmarks are eligible for the Radar when both DeepSeek semantic
-stages and the objective integrity gates agree. Diagnostic benchmarks never
-enter Radar, Library, or Trends; confirmed cases are retained only in the audit
-ledger and uncertain cases are deferred. A diagnostic decision cannot directly
-delete a legacy public record; legacy migration is replayed separately with its
-history preserved. Attention and a famous author or lab
-never alter this boundary. Author identity remains provenance,
-not an automatic pass. Benchmarking studies and
-papers that only use existing benchmarks remain source evidence or review
-candidates; they do not become Benchmark entities.
-
-Whether a benchmark is suitable for **training** is not an inclusion criterion.
-Most benchmarks are evaluation instruments, and keeping their test data held out
-can be a sign of sound methodology rather than low usefulness.
-
-## Watch: future adoption forecast
-
-`Watch` is reserved for a future-facing adoption forecast and is never added to Attention. Its target is whether a Benchmark gains independent use in papers, model cards, or external evaluation harnesses—not whether it receives clicks.
-
-The intended contract is:
-
-- estimate at day 14 and day 30 after first public release;
-- predict independent adoption by day 180;
-- exclude the authors' own papers, repositories, and model cards;
-- compare only with same-age, same-field release cohorts;
-- use early independent adoption, runnable evaluation resources, task breadth, dedicated leaderboard integration, and capped attention velocity;
-- never use author or institution prestige as a public feature;
-- show no `Low potential` label because delayed recognition is common.
-
-The public `Watch` badge remains disabled while the project has only a 90-day history. It will first run in shadow mode and requires rolling time-based backtests, calibrated probabilities, and a documented Precision@Watch threshold before any forecast is shown. The frontend already treats `Watch` as an optional field so the badge can be enabled without redesigning cards.
-
-## Construction and annotation
-
-Construction describes where test instances came from. Annotation describes who or what created the labels. These are separate axes. If primary-source evidence is insufficient, both remain unknown and the public detail view omits the empty field.
-
-The complete three-axis category contract and evidence priority are documented
-in [Taxonomy and classification evidence](TAXONOMY.md).
-
-## Conference and publication evidence
-
-The data model keeps venue attempts separate from publication records. Evidence priority is:
-
-1. official proceedings or publisher record
-2. official OpenReview venue status or Program Chair decision
-3. arXiv journal reference or resolved publisher DOI
-4. arXiv author comment
-5. unverified third-party mention
-
-Current automatic backfill covers arXiv journal references and comments:
-
-- `Acceptance claimed`: an author stated acceptance in arXiv comments.
-- `Publication reported`: an arXiv journal reference exists.
-- `Accepted` and `Published`: reserved for matched official evidence.
-
-No record means unknown, never rejected or unpublished. Workshop, findings, demo, and main-conference tracks must remain distinct.
-
-## Domain trends
-
-Trend charts count newly released Benchmark families per week. They measure evaluation activity, not technical progress. Conference deadlines, source coverage, and naming conventions can create artificial bursts, so the chart includes sample size and confidence context.
-
-## Corrections and automatic admission
-
-Source-backed corrections live in `data/curated_overrides.json` with evidence
-URLs and correction dates. The order is always machine snapshot → correction
-overlay → validation → public output.
-
-New arXiv candidates require no human approval. They pass through the automatic
-DeepSeek classifier and independent critic documented in
-[Automatic DeepSeek candidate promotion](AI_REVIEW.md). A positive decision
-enters the canonical snapshot only when both semantic passes agree and the
-exact-source, URL, duplicate, date, and schema checks all succeed.
+Readiness remains separate: `Paper only`, `Inspectable`, `Runnable`, or
+`Maintained`. Conference acceptance and publication evidence are also separate
+from Benchmark type and attention.
