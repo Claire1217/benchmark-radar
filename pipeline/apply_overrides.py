@@ -6,7 +6,14 @@ from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records
 
 def main() -> None:
     payload = read_json(DATA_PATH)
-    payload["records"] = apply_curated_overrides(upsert(payload.get("records", []), curated_records()))
+    records = apply_curated_overrides(upsert(payload.get("records", []), curated_records()))
+    for record in records:
+        record["capabilities"] = [
+            capability
+            for capability in record.get("capabilities", [])
+            if capability != "Evaluation"
+        ]
+    payload["records"] = records
     payload["manifest"]["recordCount"] = len(payload["records"])
     write_json(DATA_PATH, payload)
     print(f"overrides_applied={len(payload['records'])}")

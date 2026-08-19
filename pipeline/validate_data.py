@@ -65,6 +65,15 @@ def validate_record(record: dict, index: int) -> list[str]:
     for key, value in (record.get("links") or {}).items():
         if not valid_url(value):
             errors.append(f"{prefix}: invalid links.{key}")
+    if "Evaluation" in record.get("capabilities", []):
+        errors.append(f"{prefix}: generic Evaluation is not a capability")
+    detail = record.get("detail") or {}
+    for key in ("leaderboardUrl", "submissionUrl"):
+        if detail.get(key) and not valid_url(detail[key]):
+            errors.append(f"{prefix}: invalid detail.{key}")
+    leaderboard_source = (detail.get("leaderboard") or {}).get("sourceUrl")
+    if leaderboard_source and not valid_url(leaderboard_source):
+        errors.append(f"{prefix}: invalid detail.leaderboard.sourceUrl")
     publication = record.get("publication") or {}
     if publication and publication.get("status") not in PUBLICATION:
         errors.append(f"{prefix}: invalid publication status")

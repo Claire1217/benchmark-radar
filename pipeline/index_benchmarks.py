@@ -627,7 +627,7 @@ def infer_capabilities(paper: Paper) -> list[str]:
         (r"\bfactual|knowledge\b", "Factuality"),
     ]
     values = [label for pattern, label in mapping if re.search(pattern, text)]
-    return values[:3] or ["Evaluation"]
+    return values[:3]
 
 
 def infer_construction(paper: Paper) -> tuple[str, str]:
@@ -1005,6 +1005,10 @@ def persistent_review_candidates(
         if not source_id or source_id in excluded_source_ids:
             continue
         by_source[source_id] = candidate
+    for candidate in by_source.values():
+        candidate["capabilities"] = [
+            value for value in candidate.get("capabilities", []) if value != "Evaluation"
+        ]
     return sorted(
         by_source.values(),
         key=lambda item: (item.get("releasedAt", ""), item.get("id", "")),

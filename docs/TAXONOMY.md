@@ -7,6 +7,9 @@ uses three orthogonal axes:
 2. `applicationDomains` — the real-world content or deployment context;
 3. `capabilities` — the finer-grained skills or risks being measured.
 
+Capabilities are optional. `Evaluation` is not a capability and must never be
+used as a fallback value; unknown is more accurate than an invented label.
+
 This follows HELM's separation of task, domain, language, and metrics rather
 than collapsing them into one category. Hugging Face likewise keeps task
 metadata and dataset modality/context as separate fields. arXiv categories are

@@ -43,6 +43,38 @@ institution or the paper's stated motivation.
 Raw Hugging Face votes, GitHub stars, and downloads are never manually reduced.
 The type affects only display priority, so factual attention remains auditable.
 
+## Attention ranking
+
+Attention describes current public visibility, not quality, adoption, or future
+potential. Within the selected release window, each available count is converted
+with `log(1 + count)` and then to a cohort percentile. The percentiles are
+combined using these window-specific weights:
+
+| Window | HF paper votes | GitHub stars | HF dataset downloads |
+| --- | ---: | ---: | ---: |
+| Today | 60% | 25% | 15% |
+| 30 days | 40% | 30% | 30% |
+| 90 days | 30% | 30% | 40% |
+
+Missing signals are omitted and the remaining weights are normalized; they are
+never treated as zero. A formal rank requires at least two available signals.
+The public `Attention #` currently uses cumulative levels. Real snapshot-based
+growth is stored separately and must not be described as Hugging Face Trending
+or historical momentum.
+
+## Detail-page evidence
+
+The detail view keeps four concepts separate:
+
+- **Models in the source evaluation** are systems run by the benchmark authors.
+  This is not evidence that the model provider adopted the benchmark.
+- **Independent adoption** requires a source-linked run or report from an
+  external organization.
+- **Best score and saturation** require a named metric, comparable protocol,
+  date, and source.
+- **Readiness** describes whether paper, data, code/evaluator, leaderboard, and
+  submission paths are available.
+
 ## Minimal reviewed fields
 
 ```text
