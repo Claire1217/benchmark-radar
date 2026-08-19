@@ -29,105 +29,164 @@
     return node;
   };
 
-  const chips = (values) => {
+  const factGrid = (items) => {
+    const rows = items.filter(([, value]) => value !== null && value !== undefined && value !== "");
+    if (!rows.length) return null;
     const node = document.createElement("div");
-    node.className = "detail-chips";
-    values.forEach((value) => node.append(text("span", "", value)));
+    node.className = "detail-summary";
+    rows.forEach(([label, value, note]) => node.append(fact(label, String(value), note)));
     return node;
   };
 
-  function renderDetails(record, panel) {
+  const chips = (values, limit = 8) => {
+    const unique = [...new Set(values.filter(Boolean))];
+    const node = document.createElement("div");
+    node.className = "detail-chips";
+    unique.slice(0, limit).forEach((value) => node.append(text("span", "", value)));
+    if (unique.length > limit) node.append(text("span", "", `+${unique.length - limit}`));
+    return node;
+  };
+
+  const validCopy = (record) => {
+    if (record.constructionDetail && !record.constructionDetail.startsWith("Unknown")) return record.constructionDetail;
+    return record.evidence?.snippet || record.oneLine;
+  };
+
+  const measureSection = (record) => {
+    const detail = record.detail || {};
+    const node = section("What it measures");
+    const copy = validCopy(record);
+    if (copy) node.append(text("p", "detail-copy", copy));
+    const domains = detail.taskBreakdown?.length ? detail.taskBreakdown : record.applicationDomains || [];
+    if (domains.length) node.append(chips(domains));
+    const protocol = detail.protocol || {};
+    const compact = factGrid([
+      ["TASKS", protocol.tasks],
+      ["PRIMARY METRIC", protocol.primaryMetric],
+      ["VERSION", record.version || record.firstRelease?.label],
+      ["LANGUAGE", record.language]
+    ]);
+    if (compact) compact.classList.add("detail-compact-facts");
+    if (compact) node.append(compact);
+    return node;
+  };
+
+  const availabilitySection = (record) => {
+    const detail = record.detail || {};
+    const a = record.availability || {};
+    const resources = [
+      ["Paper", record.links?.paper || record.links?.report, Boolean(record.links?.paper || record.links?.report)],
+      ["Data", record.links?.data, a.hfDatasetStatus === "available" || Boolean(record.links?.data)],
+      ["Code", record.links?.code, a.githubStatus === "available" || Boolean(record.links?.code)],
+      ["Evaluator", record.links?.code, a.evaluatorStatus === "available"],
+      ["Leaderboard", detail.leaderboardUrl, Boolean(detail.leaderboardUrl)],
+      ["Submit", detail.submissionUrl, a.submissionStatus === "available" || Boolean(detail.submissionUrl)]
+    ];
+    const node = section("Availability");
+    const list = document.createElement("div");
+    list.className = "availability-list";
+    resources.forEach(([label, url, available]) => {
+      const item = document.createElement(url && available ? "a" : "span");
+      item.className = available ? "available" : "not-found";
+      item.textContent = `${label} ${available ? "✓" : "Not found"}`;
+      if (item.tagName === "A") {
+        item.href = url;
+        item.target = "_blank";
+        item.rel = "noreferrer";
+      }
+      list.append(item);
+    });
+    node.append(list);
+    return node;
+  };
+
+  const provenance = (record) => {
+    const node = document.createElement("details");
+    node.className = "detail-provenance";
+    node.append(text("summary", "", "Sources & provenance"));
+    if (record.evidence?.snippet) node.append(text("p", "evidence", record.evidence.snippet));
+    const links = document.createElement("div");
+    links.className = "detail-links";
+    [
+      link("Original source", record.links?.paper || record.links?.report),
+      link("Project", record.links?.project),
+      link("Hugging Face paper", record.links?.hfPaper)
+    ].filter(Boolean).forEach((item) => links.append(item));
+    if (links.childElementCount) node.append(links);
+    return node;
+  };
+
+  const radarSummary = (record) => {
+    const state = window.benchmarkRadarState;
+    const rank = record.ranking?.[state?.window];
+    const attention = rank?.rank ? `#${rank.rank} · ${state.window}` : record.attention?.hfPaperUpvotes != null ? `${record.attention.hfPaperUpvotes} HF votes` : null;
+    const assets = [record.links?.data, record.links?.code, record.availability?.evaluatorStatus === "available", record.detail?.leaderboardUrl].filter(Boolean).length;
+    return factGrid([
+      ["CURRENT ATTENTION", attention, "Public visibility, not quality"],
+      ["PUBLIC ASSETS", assets ? `${assets} found` : "Paper only", "Data · code · evaluator · leaderboard"],
+      ["READINESS", record.readiness, "Availability at first review"]
+    ]);
+  };
+
+  const renderRadarDetails = (record, panel) => {
+    panel.replaceChildren();
+    const summary = radarSummary(record);
+    if (summary) panel.append(summary);
+    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+  };
+
+  const modelCoverage = (record) => {
+    const groups = record.detail?.modelCoverage || [];
+    if (!groups.length) return null;
+    const node = section("Models tested by the benchmark authors");
+    const rows = document.createElement("div");
+    rows.className = "model-coverage";
+    groups.slice(0, 6).forEach((group) => {
+      const row = document.createElement("div");
+      row.append(text("strong", "", group.provider), text("span", "", group.models.join(" · ")));
+      rows.append(row);
+    });
+    node.append(rows);
+    if (record.detail?.modelCoverageNote) node.append(text("p", "detail-note", record.detail.modelCoverageNote));
+    return node;
+  };
+
+  const reportReferences = (record) => {
+    const reports = record.modelReportReferences || [];
+    if (!reports.length) return null;
+    const node = section("Tracked model reports");
+    const links = document.createElement("div");
+    links.className = "detail-links";
+    reports.slice(0, 8).forEach((report) => {
+      const item = link(report.sourceId || "Model report", report.url);
+      if (item) links.append(item);
+    });
+    node.append(links, text("p", "detail-note", "A source link shows reported use; it does not by itself prove an independently reproduced score."));
+    return node;
+  };
+
+  const renderLibraryDetails = (record, panel) => {
     const detail = record.detail || {};
     const leaderboard = detail.leaderboard || {};
-    const adopters = detail.adoption?.independentOrganizations || record.usageObservations || [];
-    const best = leaderboard.bestScore == null ? "Not tracked" : `${leaderboard.bestScore} · ${leaderboard.primaryMetric || "best reported"}`;
-    const summary = document.createElement("div");
-    summary.className = "detail-summary";
-    summary.append(
-      fact("INDEPENDENT ADOPTION", adopters.length ? `${adopters.length} tracked` : "Not yet recorded", "Source-linked organizations"),
-      fact("BEST COMPARABLE SCORE", best, leaderboard.bestSystem || "Comparable result unavailable"),
-      fact("SATURATION", leaderboard.saturationStatus || "Unknown", leaderboard.assessment || "No sourced assessment"),
-      fact("READINESS", record.readiness || "Unknown", record.evaluationMode === "score_submission" ? "Accepts comparable submissions" : "Artifact availability")
-    );
-    panel.replaceChildren(summary);
+    const independent = detail.adoption?.independentOrganizations?.length || 0;
+    const reports = record.modelReportReferences?.length || 0;
+    panel.replaceChildren();
+    const summary = factGrid([
+      ["INDEPENDENT ADOPTION", independent ? `${independent} tracked` : reports ? `${reports} report reference${reports === 1 ? "" : "s"}` : null, independent ? "Source-linked organizations" : "Official model reports"],
+      ["BEST COMPARABLE", leaderboard.bestScore == null ? null : `${leaderboard.bestScore} · ${leaderboard.primaryMetric || "score"}`, leaderboard.bestSystem],
+      ["SATURATION", leaderboard.saturationStatus, leaderboard.assessment]
+    ]);
+    if (summary) panel.append(summary);
+    const reportsNode = reportReferences(record);
+    const coverageNode = modelCoverage(record);
+    if (reportsNode) panel.append(reportsNode);
+    if (coverageNode) panel.append(coverageNode);
+    panel.append(measureSection(record), availabilitySection(record), provenance(record));
+  };
 
-    const testValues = [...(detail.taskBreakdown || []), ...(record.capabilities || []).filter((value) => value !== "Evaluation")];
-    if (record.constructionDetail || testValues.length) {
-      const node = section("What it tests");
-      if (record.constructionDetail && !record.constructionDetail.startsWith("Unknown")) node.append(text("p", "detail-copy", record.constructionDetail));
-      if (testValues.length) node.append(chips([...new Set(testValues)]));
-      panel.append(node);
-    }
-
-    if (detail.modelCoverage?.length) {
-      const node = section("Models in the source evaluation");
-      const rows = document.createElement("div");
-      rows.className = "model-coverage";
-      detail.modelCoverage.forEach((group) => {
-        const row = document.createElement("div");
-        row.append(text("strong", "", group.provider), text("span", "", group.models.join(" · ")));
-        rows.append(row);
-      });
-      node.append(rows);
-      if (detail.modelCoverageNote) node.append(text("p", "detail-note", detail.modelCoverageNote));
-      panel.append(node);
-    }
-
-    if (Object.keys(detail.protocol || {}).length || leaderboard.bestScore != null) {
-      const node = section("Score & protocol");
-      const grid = document.createElement("div");
-      grid.className = "protocol-grid";
-      const protocol = detail.protocol || {};
-      const rows = [
-        ["Best", leaderboard.bestScore == null ? null : `${leaderboard.bestScore} · ${leaderboard.bestSystem}`],
-        ["Mean", leaderboard.meanScore == null ? null : String(leaderboard.meanScore)],
-        ["Metric", protocol.comparisonMetric || protocol.primaryMetric],
-        ["Tasks", protocol.tasks == null ? null : String(protocol.tasks)],
-        ["Conditions", protocol.conditions?.join(" · ")],
-        ["Aggregation", protocol.aggregation],
-        ["Repeated runs", protocol.runs],
-        ["Tools", protocol.tools]
-      ].filter(([, value]) => value);
-      rows.forEach(([label, value]) => grid.append(fact(label.toUpperCase(), value)));
-      node.append(grid);
-      const source = link(`Result source${leaderboard.asOf ? ` · ${leaderboard.asOf}` : ""}`, leaderboard.sourceUrl);
-      if (source) node.append(source);
-      panel.append(node);
-    }
-
-    const resources = [
-      link("Paper", record.links?.paper || record.links?.report),
-      link("Data", record.links?.data),
-      link("Code / evaluator", record.links?.code),
-      link("Project", record.links?.project),
-      link("Leaderboard", detail.leaderboardUrl),
-      link("Submit a result", detail.submissionUrl)
-    ].filter(Boolean);
-    if (resources.length) {
-      const node = section("Run or inspect it");
-      const links = document.createElement("div");
-      links.className = "detail-links";
-      resources.forEach((item) => links.append(item));
-      node.append(links);
-      panel.append(node);
-    }
-
-    if (detail.adoption?.note) panel.append(text("p", "detail-note", detail.adoption.note));
-    panel.append(text("p", "evidence", record.evidence?.snippet || "Source evidence unavailable."));
-  }
-
-  function hydrate() {
-    const state = window.benchmarkRadarState;
-    if (!state) return;
-    const records = [...(state.benchmarks || []), ...(state.library || [])];
-    document.querySelectorAll(".benchmark-card:not([data-details-hydrated])").forEach((card) => {
-      card.dataset.detailsHydrated = "true";
-      const record = records.find((item) => item.id === card.dataset.id);
-      const panel = card.querySelector(".details-panel");
-      if (record && panel) renderDetails(record, panel);
-    });
-  }
-
-  new MutationObserver(hydrate).observe(document.documentElement, { childList: true, subtree: true });
-  hydrate();
+  window.renderBenchmarkDetails = (record, panel, surface) => {
+    if (!record || !panel) return;
+    if (surface === "radar") renderRadarDetails(record, panel);
+    else renderLibraryDetails(record, panel);
+  };
 })();

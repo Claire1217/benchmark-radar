@@ -48,6 +48,11 @@ def main() -> None:
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")
     if 'sort:"attention"' not in app:
         raise SystemExit("Attention must remain the default sort")
+    details = (OUTPUT / "details.js").read_text(encoding="utf-8")
+    if "data-surface" not in app or not all(name in details for name in ("renderRadarDetails", "renderLibraryDetails")):
+        raise SystemExit("Radar and Library detail contexts must remain distinct")
+    if 'evaluationMode!=="viewpoint_probe"' not in app:
+        raise SystemExit("viewpoint probes must remain outside public views")
     if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):
         raise SystemExit("Library, Saved, or Trends navigation missing")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):

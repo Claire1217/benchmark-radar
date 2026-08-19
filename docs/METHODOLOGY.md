@@ -34,14 +34,12 @@ institution or the paper's stated motivation.
 
 ## Inclusion and priority
 
-- `score_submission` enters Radar by default.
-- `viewpoint_probe` is lower priority. It is included only when its data and
-  evaluator are public, it has independent use, or its field-normalized public
-  attention is unusually high.
+- `score_submission` and reusable public Benchmarks enter the public index.
+- `viewpoint_probe` stays in the internal candidate record and is not displayed
+  in Radar, Library, or Trends.
 - `unclear` remains unpublished until better evidence appears.
 
 Raw Hugging Face votes, GitHub stars, and downloads are never manually reduced.
-The type affects only display priority, so factual attention remains auditable.
 
 ## Attention ranking
 
@@ -63,6 +61,16 @@ growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.
 
 ## Detail-page evidence
+
+Radar and Library show the same Benchmark through different decision contexts.
+Radar emphasizes release date, public attention, what the new artifact measures,
+and which assets are available. Library emphasizes source-linked use, comparable
+results, saturation, and stable run or submission paths. A newly released
+Benchmark is therefore not penalized for having no independent adoption yet.
+
+Daily updates populate the same record fields. They do not change the meaning or
+ordering of either view, and the date a record is indexed never replaces its
+original release date.
 
 The detail view keeps four concepts separate:
 
