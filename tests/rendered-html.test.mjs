@@ -27,12 +27,12 @@ test("server-renders the benchmark discovery experience", async () => {
 
   const html = await response.text();
   assert.match(html, /Benchmark Radar/);
-  assert.match(html, /See where research/);
+  assert.match(html, /Track emerging benchmarks/);
   assert.match(html, /DEMO DATA/);
   assert.match(html, /30 days/);
   assert.match(html, /Newest/);
   assert.match(html, /aria-pressed="true"/);
-  assert.match(html, /Illustrative field signals/);
+  assert.match(html, /Recent independent adoption and attention/);
   assert.match(html, /og:image/);
 });
 

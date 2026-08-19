@@ -130,27 +130,17 @@ export default function Home() {
   return (
     <main className="site-shell">
       <header className="topbar" id="top">
-        <a className="brand" href="#top" aria-label="Benchmark Radar home"><span className="brand-mark">B/</span>Benchmark Radar</a>
+        <a className="brand" href="#top" aria-label="Benchmark Radar home">Benchmark Radar</a>
         <nav className="topnav" aria-label="Page sections"><a href="#radar">Radar</a><a href="#method">Method</a></nav>
         <div className="header-status"><span className="demo-pill">DEMO DATA</span><span className="watch-count">{watchlist.length} watching</span></div>
       </header>
 
       <section className="hero">
         <div>
-          <p className="eyebrow">Research infrastructure, tracked daily</p>
-          <h1>See where research<br />is becoming real.</h1>
+          <h1>Track emerging benchmarks.</h1>
+          <p>See what is new, what is gaining adoption, and what is ready to run.</p>
         </div>
-        <div className="hero-side">
-          <p>Track the benchmarks shaping the next research frontier — from first release to real adoption.</p>
-          <div className="hero-stat"><strong>12</strong><span>demo benchmarks<br />across 5 areas</span></div>
-        </div>
-      </section>
-
-      <section className="trend-band" aria-label="Simulated research momentum insights">
-        <div><span>01</span><strong>AI Scientist</strong><p>Surging · 3 new benchmarks</p></div>
-        <div><span>02</span><strong>CAD</strong><p>Growing · runnable artifacts rising</p></div>
-        <div><span>03</span><strong>Agent Safety</strong><p>Early signal · medium confidence</p></div>
-        <p className="trend-disclaimer">Illustrative field signals</p>
+        <div className="hero-summary"><strong>12</strong><span>demo benchmarks · 5 areas<br />Updated {demoManifest.dataAsOf}</span></div>
       </section>
 
       <section className="radar" id="radar" aria-labelledby="radar-title">
@@ -182,8 +172,8 @@ export default function Home() {
       </section>
 
       <section className="method" id="method">
-        <p className="eyebrow">How to read this radar</p>
-        <div className="method-grid"><div><span>01</span><h2>Newest is discovery.</h2><p>Every high-confidence Benchmark enters the time-ordered feed. Popularity never decides whether it is visible.</p></div><div><span>02</span><h2>Momentum is adoption.</h2><p>Adoption, GitHub, Hugging Face and citations are normalized by field and age. Missing evidence stays missing.</p></div><div><span>03</span><h2>Readiness is separate.</h2><p>Paper only, Inspectable, Runnable and Maintained describe whether others can verify and reuse the evaluation.</p></div></div>
+        <h2>How to read the tracker</h2>
+        <div className="method-grid"><div><strong>Newest</strong><p>All newly identified benchmarks, ordered by first seen date.</p></div><div><strong>Momentum</strong><p>Recent independent adoption and attention. It is not a quality score.</p></div><div><strong>Readiness</strong><p>Whether the benchmark is inspectable, runnable, and maintained.</p></div></div>
       </section>
 
       <footer><p>{BENCHMARK_DATA_NOTICE}</p><p>Watchlist is stored only in this browser.</p></footer>
