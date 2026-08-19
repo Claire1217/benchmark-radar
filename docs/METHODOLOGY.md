@@ -32,11 +32,38 @@ The default website view is **30 days · Attention**. `Newest` remains an explic
 Readiness is independent of Attention:
 
 - `Paper only`: no public evaluation package was found.
-- `Inspectable`: a public dataset or project resource was found.
+- `Protocol available` (stored as `Inspectable` in data): a public dataset,
+  project page, or sufficiently detailed evaluation protocol was found. This
+  means a reader can inspect how the evaluation is defined; it does **not**
+  claim that the benchmark can be run end to end.
 - `Runnable`: public evaluation code was found.
 - `Maintained`: reserved for stronger versioning and maintenance evidence.
 
 A popular paper can remain `Paper only`; a low-attention benchmark can be `Runnable`.
+
+## Benchmark role and inclusion threshold
+
+The index separates five semantic roles:
+
+- `reusable_benchmark`: released as a reusable evaluation target for other teams;
+- `diagnostic_benchmark`: built mainly to reveal a limitation or support a
+  scientific claim, but still defines a named and repeatable evaluation;
+- `benchmarking_study`: an empirical comparison whose main contribution is the
+  analysis rather than a reusable benchmark artifact;
+- `uses_existing_benchmarks`: reports results on already established benchmarks;
+- `unclear`: the available evidence does not support a confident classification.
+
+Reusable benchmarks are eligible for the Radar when the release and identity
+evidence are clear. Diagnostic benchmarks use a higher inclusion bar: they enter
+the public Library only after independent use, unusually strong field- and
+age-normalized attention, or an explicit evidence-backed human review. A famous
+author or lab is provenance, not an automatic pass. Benchmarking studies and
+papers that only use existing benchmarks remain source evidence or review
+candidates; they do not become Benchmark entities.
+
+Whether a benchmark is suitable for **training** is not an inclusion criterion.
+Most benchmarks are evaluation instruments, and keeping their test data held out
+can be a sign of sound methodology rather than low usefulness.
 
 ## Watch: future adoption forecast
 
@@ -57,6 +84,9 @@ The public `Watch` badge remains disabled while the project has only a 90-day hi
 ## Construction and annotation
 
 Construction describes where test instances came from. Annotation describes who or what created the labels. These are separate axes. If primary-source evidence is insufficient, both remain unknown and the public detail view omits the empty field.
+
+The complete three-axis category contract and evidence priority are documented
+in [Taxonomy and classification evidence](TAXONOMY.md).
 
 ## Conference and publication evidence
 
@@ -83,3 +113,8 @@ Trend charts count newly released Benchmark families per week. They measure eval
 ## Human review
 
 Reviewed corrections live in `data/curated_overrides.json` with evidence URLs and review dates. The order is always machine snapshot → reviewed override → validation → public output.
+
+Ambiguous candidates can additionally pass through the evidence-constrained AI
+stage documented in [AI-assisted candidate review](AI_REVIEW.md). AI decisions
+remain separate from the canonical snapshot: a positive decision must carry an
+exact source quote, pass deterministic validation, and remain reviewable.

@@ -42,15 +42,15 @@ def main() -> None:
         target = OUTPUT / asset.removeprefix("./")
         if not target.exists():
             raise SystemExit(f"missing referenced asset: {asset}")
-    expected_ids = {"radar-view", "trends-view", "saved-count", "benchmark-list", "line-chart"}
+    expected_ids = {"radar-view", "library-view", "trends-view", "saved-count", "benchmark-list", "library-list", "line-chart"}
     if missing := expected_ids - set(document.ids):
         raise SystemExit(f"missing interactive regions: {sorted(missing)}")
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")
     if 'sort:"attention"' not in app:
         raise SystemExit("Attention must remain the default sort")
-    if 'href="#saved"' not in html or 'href="#trends"' not in html:
-        raise SystemExit("Saved or Trends navigation missing")
-    for name in ("benchmarks_index.json", "domain_trends.json"):
+    if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):
+        raise SystemExit("Library, Saved, or Trends navigation missing")
+    for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 

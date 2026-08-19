@@ -11,7 +11,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#radar">Benchmark Radar</a>
-    <nav aria-label="Sections"><a href="#radar" data-route="radar">Radar</a><a href="#trends" data-route="trends">Trends</a><a href="#saved" data-route="saved">Saved <span id="saved-count">0</span></a></nav>
+    <nav aria-label="Sections"><a href="#radar" data-route="radar">Radar</a><a href="#library" data-route="library">Library</a><a href="#trends" data-route="trends">Trends</a><a href="#saved" data-route="saved">Saved <span id="saved-count">0</span></a></nav>
     <a class="github" href="https://github.com/Claire1217/benchmark-radar">GitHub ↗</a>
   </header>
 
@@ -35,27 +35,42 @@
       </section>
     </section>
 
+    <section id="library-view" hidden>
+      <div class="hero"><div><h1>Find a benchmark.</h1><p>Search established and emerging benchmarks across academia and industry.</p></div><div class="hero-summary" id="library-summary"></div></div>
+      <section class="content">
+        <div class="library-controls">
+          <label>Search<input id="library-search" placeholder="MMLU, SWE-bench, robotics…"></label>
+          <label>Application domain<select id="library-domain"><option value="">All domains</option></select></label>
+        </div>
+        <div class="section-heading"><div><h2>Benchmark Library</h2><span id="library-count"></span></div><span>Reviewed sources</span></div>
+        <p class="source-note">Established entries are verified against original sources. Catalog discovery is attributed to <a href="https://benchlm.ai/benchmarks" target="_blank" rel="noreferrer">BenchLM</a> and <a href="https://llm-stats.com/benchmarks" target="_blank" rel="noreferrer">llm-stats</a>.</p>
+        <div id="library-list"></div>
+        <button id="library-more" class="load-more" hidden>Show 60 more</button>
+      </section>
+    </section>
+
     <section id="trends-view" hidden>
       <div class="hero"><div><h1>Evaluation activity by field.</h1><p>Track how many new Benchmark families appear—not whether the technology itself has improved.</p></div></div>
       <section class="content trend-content">
         <div class="controls">
           <label class="select-control"><span>Domain</span><select id="trend-domain"></select></label>
           <div><span>Time window</span><div class="segmented" id="trend-window"><button data-days="30">30 days</button><button data-days="90" class="active">90 days</button></div></div>
+          <div><span>Signal</span><div class="segmented" id="trend-signal"><button data-signal="release" class="active">New benchmarks</button><button data-signal="usage">Observed use</button></div></div>
           <span class="collecting">6 months · collecting</span>
         </div>
         <article class="chart-card">
-          <div class="chart-header"><div><span>NEW BENCHMARK FAMILIES</span><h2 id="chart-title"></h2></div><div class="trend-stat"><strong id="recent-count"></strong><span>last 30 days</span></div><div class="trend-stat"><strong id="growth-value"></strong><span>vs previous 30d</span></div></div>
+          <div class="chart-header"><div><span id="chart-signal-label">NEW BENCHMARK FAMILIES</span><h2 id="chart-title"></h2></div><div class="trend-stat"><strong id="recent-count"></strong><span>last 30 days</span></div><div class="trend-stat"><strong id="growth-value"></strong><span>vs previous 30d</span></div></div>
           <div id="line-chart" class="line-chart" role="img" aria-label="Weekly new Benchmark releases"></div>
-          <div class="chart-note"><span id="trend-confidence"></span><span>Source: first public release date · weekly counts</span></div>
+          <div class="chart-note"><span id="trend-confidence"></span><span id="chart-source-note">First public release date · weekly counts</span></div>
         </article>
         <div class="section-heading"><div><h2>Domain activity</h2><span>30-day comparison</span></div></div>
         <div id="domain-table" class="domain-table"></div>
-        <p class="caveat">Release counts are an evaluation-activity proxy. Conference deadlines, indexing coverage, and naming conventions can create bursts. A later version will add independent adoption, organization breadth, and readiness.</p>
+        <p class="caveat">Release counts are an evaluation-activity proxy. “Observed use” includes only dated, source-linked evidence and is deduplicated by benchmark, organization, and week. Missing evidence is not treated as zero real-world use.</p>
       </section>
     </section>
   </main>
 
-  <footer><span>Primary-source index · Missing signals remain unknown.</span><span>Saved items stay in this browser.</span></footer>
+  <footer><span>Primary-source index · Missing signals remain unknown.</span><span>Catalog discovery: <a href="https://benchlm.ai/benchmarks" target="_blank" rel="noreferrer">BenchLM</a> · <a href="https://llm-stats.com/benchmarks" target="_blank" rel="noreferrer">llm-stats</a></span><span>Saved items stay in this browser.</span></footer>
   <script src="./app.js" defer></script>
   <script src="./details.js" defer></script>
 </body>
