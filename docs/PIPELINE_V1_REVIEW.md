@@ -17,24 +17,11 @@ be inspected or run. These must not be collapsed into one quality score.
 
 ## Simplified v1 flow
 
-```mermaid
-flowchart LR
-  A["Official sources<br/>arXiv · HF · project pages"] --> B["Discover candidates<br/>high recall only"]
-  X["BenchLM / llm-stats"] -. "weekly Library discovery" .-> B
-  B --> C["Resolve identity<br/>family · release · protocol"]
-  C --> D["DeepSeek Flash<br/>classifier"]
-  D --> E["Blind critic<br/>proposed decisions only"]
-  E --> F{"Standalone third-party<br/>evaluation contract?"}
-  F -->|"yes"| G["Canonical benchmark"]
-  F -->|"unclear"| H["Deferred / retry state"]
-  F -->|"study or existing use"| I["Audit evidence only"]
-  G --> J["Attention snapshots<br/>HF · GitHub · downloads"]
-  G --> K["Independent-use events<br/>model reports · papers"]
-  J --> L["Radar<br/>Today · 30d · 90d"]
-  G --> M["Library"]
-  K --> N["Trends<br/>release vs adoption"]
-  G --> N
-```
+The four source-of-truth diagrams are maintained in
+[DATA_FLOW_DIAGRAMS.md](DATA_FLOW_DIAGRAMS.md): a thirty-second overview, data
+storage boundary, candidate lifecycle, and one-day update sequence. Keeping
+these questions separate prevents a single implementation-heavy diagram from
+mixing product concepts, files, AI internals, and runtime operations.
 
 The admission boundary is an artifact contract, not the paper's motivation.
 A benchmark may support a scientific claim and still be reusable. It qualifies
@@ -64,7 +51,8 @@ admitted benchmark to miss its first-day metrics.
 
 v1 uses one daily state transition:
 
-1. fetch official metadata;
+1. at 14:17 Australia/Brisbane, fetch official metadata for the previous
+   Brisbane calendar day;
 2. upsert durable candidates;
 3. classify with DeepSeek Flash and a blind critic;
 4. reconcile canonical entities;

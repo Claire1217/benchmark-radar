@@ -2,6 +2,9 @@
 
 Benchmark Radar is deliberately small: Git is the auditable database, GitHub Actions is the daily batch processor, and GitHub Pages serves immutable static files.
 
+See [DATA_FLOW_DIAGRAMS.md](DATA_FLOW_DIAGRAMS.md) for the system overview,
+storage lineage, admission state machine, daily sequence, and entity model.
+
 ## Data flow
 
 ```text
@@ -59,7 +62,9 @@ promotion.
 - `ci.yml` validates every pull request and push.
 - `daily-index.yml` performs one end-to-end daily transaction: discover,
   classify, reconcile, enrich, generate, validate, and commit. DeepSeek safely
-  skips when its key is not configured.
+  skips when its key is not configured. It runs at 14:17
+  `Australia/Brisbane` and indexes the previous Brisbane calendar day; it never
+  silently substitutes a different source date.
 - `deploy-pages.yml` publishes once after the daily transaction succeeds.
 
 No browser receives API credentials. External APIs are called only by the indexing workflow.
