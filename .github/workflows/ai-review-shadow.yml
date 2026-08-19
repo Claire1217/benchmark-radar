@@ -36,7 +36,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      BENCHMARK_LLM_API_KEY: ${{ secrets.BENCHMARK_LLM_API_KEY }}
       BENCHMARK_LLM_BASE_URL: ${{ vars.BENCHMARK_LLM_BASE_URL }}
       BENCHMARK_LLM_MODEL: ${{ vars.BENCHMARK_LLM_MODEL }}
     steps:
@@ -55,6 +54,8 @@ jobs:
 
       - name: Check provider configuration
         shell: bash
+        env:
+          BENCHMARK_LLM_API_KEY: ${{ secrets.BENCHMARK_LLM_API_KEY }}
         run: |
           set +x
           test -n "$BENCHMARK_LLM_API_KEY" || { echo "Missing required Actions secret" >&2; exit 1; }
@@ -63,6 +64,8 @@ jobs:
 
       - name: Review candidates in shadow mode
         shell: bash
+        env:
+          BENCHMARK_LLM_API_KEY: ${{ secrets.BENCHMARK_LLM_API_KEY }}
         run: |
           set +x
           mkdir -p artifacts
