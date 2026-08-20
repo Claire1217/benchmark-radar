@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Review benchmark candidates and generate public copy in one GPT call."""
+"""Review benchmark candidates and generate public copy with DeepSeek."""
 
 from __future__ import annotations
 
@@ -24,8 +24,8 @@ DATA_PATH = ROOT / "data/benchmarks.json"
 REVIEW_PATH = ROOT / "data/review_queue.json"
 CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
-API_URL = "https://api.openai.com/v1/responses"
-DEFAULT_MODEL = "gpt-5.6-luna"
+API_URL = "https://api.deepseek.com/chat/completions"
+DEFAULT_MODEL = "deepseek-v4-flash"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -71,14 +71,15 @@ def artifact_excerpt(kind: str, url: str) -> dict[str, Any]:
 
 
 def response_text(payload: dict[str, Any]) -> str:
-    for item in payload.get("output", []):
-        for content in item.get("content", []):
-            if content.get("type") == "output_text" and content.get("text"):
-                return content["text"]
-    raise RuntimeError("OpenAI response did not contain output_text")
+    choices = payload.get("choices") or []
+    if choices:
+        content = (choices[0].get("message") or {}).get("content")
+        if isinstance(content, str) and content.strip():
+            return content
+    raise RuntimeError("DeepSeek response did not contain message content")
 
 
-def call_openai(records: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
+def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
     schema = {
         "type": "object",
         "properties": {
@@ -120,22 +121,17 @@ def call_openai(records: list[dict[str, Any]], model: str, api_key: str) -> list
         "Do not write We, Our, This paper, introduces, presents, hype, rankings, or unsupported facts. "
         "Use only the supplied paper text and official links. Return one item for every sourceId."
     )
+    instructions += " Return only valid json matching this schema: " + json.dumps(schema, ensure_ascii=False)
     body = {
         "model": model,
-        "store": False,
-        "reasoning": {"effort": "low"},
-        "input": [
-            {"role": "developer", "content": instructions},
+        "messages": [
+            {"role": "system", "content": instructions},
             {"role": "user", "content": json.dumps(records, ensure_ascii=False)},
         ],
-        "text": {
-            "format": {
-                "type": "json_schema",
-                "name": "benchmark_editorial_copy",
-                "strict": True,
-                "schema": schema,
-            }
-        },
+        "thinking": {"type": "disabled"},
+        "response_format": {"type": "json_object"},
+        "max_tokens": 4096,
+        "stream": False,
     }
     request = Request(
         API_URL,
@@ -146,20 +142,21 @@ def call_openai(records: list[dict[str, Any]], model: str, api_key: str) -> list
     for attempt in range(3):
         try:
             with urlopen(request, timeout=120) as response:
-                return json.loads(response_text(json.loads(response.read())))['records']
+                parsed = json.loads(response_text(json.loads(response.read())))
+                return parsed["records"]
         except HTTPError as exc:
             if exc.code not in {429, 500, 502, 503, 504} or attempt == 2:
-                raise RuntimeError(f"OpenAI request failed with HTTP {exc.code}") from None
+                raise RuntimeError(f"DeepSeek request failed with HTTP {exc.code}") from None
         except (TimeoutError, URLError):
             if attempt == 2:
-                raise RuntimeError("OpenAI request failed after retries") from None
+                raise RuntimeError("DeepSeek request failed after retries") from None
         time.sleep(2 ** attempt)
     raise AssertionError("unreachable")
 
 
 def validate_copy(source_ids: set[str], rows: list[dict[str, Any]]) -> None:
     if {row.get("sourceId") for row in rows} != source_ids:
-        raise RuntimeError("OpenAI output did not cover the requested source IDs exactly")
+        raise RuntimeError("DeepSeek output did not cover the requested source IDs exactly")
     first_person = re.compile(r"\b(?:we|our|ours|us)\b", re.I)
     author_voice = re.compile(r"\b(?:this paper|we introduce|we present)\b", re.I)
     for row in rows:
@@ -201,7 +198,7 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
         record["displayEligible"] = True
         record["capabilities"] = [value for value in record.get("capabilities", []) if value != "Evaluation"]
         record["curation"] = {
-            "state": "gpt-reviewed",
+            "state": "ai-reviewed",
             "reviewedAt": now,
             "model": model,
             "decisionReason": decision["decisionReason"],
@@ -214,13 +211,13 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate Description and Why it matters with GPT.")
+    parser = argparse.ArgumentParser(description="Generate Description and Why it matters with DeepSeek.")
     parser.add_argument("--ids", help="Comma-separated arXiv source IDs")
     parser.add_argument("--released-on", help="Only records released on YYYY-MM-DD")
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--batch-size", type=int, default=8)
-    parser.add_argument("--model", default=os.environ.get("OPENAI_COPY_MODEL", DEFAULT_MODEL))
+    parser.add_argument("--model", default=os.environ.get("DEEPSEEK_COPY_MODEL", DEFAULT_MODEL))
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -270,18 +267,18 @@ def main() -> None:
         if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row))
     ]
     if not source_rows:
-        print("gpt_review_candidates=0 unchanged=true")
+        print("deepseek_review_candidates=0 unchanged=true")
         return
     if args.dry_run:
         print(f"editorial_copy_candidates={len(source_rows)} dry_run=true")
         return
-    api_key = os.environ.get("OPENAI_API_KEY")
+    api_key = os.environ.get("DEEPSEEK_API_KEY")
     if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is required")
+        raise RuntimeError("DEEPSEEK_API_KEY is required")
     generated: list[dict[str, Any]] = []
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
-        rows = call_openai(batch, args.model, api_key)
+        rows = call_deepseek(batch, args.model, api_key)
         validate_copy({item["sourceId"] for item in batch}, rows)
         generated.extend(rows)
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -302,7 +299,7 @@ def main() -> None:
         }
     OUTPUT_PATH.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     published = upsert_curated(records, generated, now, args.model) if args.review_queue else 0
-    print(f"gpt_reviewed={len(generated)} published={published} model={args.model}")
+    print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 
 
 if __name__ == "__main__":

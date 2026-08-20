@@ -1,9 +1,13 @@
 import unittest
 
-from generate_editorial_copy import publishable, validate_copy
+from generate_editorial_copy import publishable, response_text, validate_copy
 
 
-class GPTReviewTests(unittest.TestCase):
+class DeepSeekReviewTests(unittest.TestCase):
+    def test_chat_completion_content_is_extracted(self) -> None:
+        payload = {"choices": [{"message": {"content": '{"records": []}'}}]}
+        self.assertEqual(response_text(payload), '{"records": []}')
+
     def test_only_reusable_scored_public_artifact_is_publishable(self) -> None:
         base = {
             "decision": "publish",

@@ -47,13 +47,13 @@ jobs:
 
       - name: Review candidates and generate public copy
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_COPY_MODEL: gpt-5.6-luna
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-flash
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
         run: |
-          if [ -z "$OPENAI_API_KEY" ]; then
-            echo "OPENAI_API_KEY is not configured; candidates remain queued."
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
+            echo "DEEPSEEK_API_KEY is not configured; candidates remain queued."
           else
             python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-$SCHEDULED_DATE}"
           fi
