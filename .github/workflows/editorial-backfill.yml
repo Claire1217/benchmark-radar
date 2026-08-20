@@ -38,14 +38,15 @@ jobs:
           test -n "$DEEPSEEK_API_KEY"
           python pipeline/generate_editorial_copy.py --limit 0 --batch-size 8
 
-      - name: Rebuild from completed batches
+      - name: Reconcile with latest data and commit completed batches
         run: |
+          cp data/editorial_copy.json "$RUNNER_TEMP/editorial_copy.json"
+          git fetch origin main
+          git switch --detach origin/main
+          cp "$RUNNER_TEMP/editorial_copy.json" data/editorial_copy.json
           python pipeline/apply_overrides.py
           make generate
           make build
-
-      - name: Commit completed batches
-        run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_index.json data/domain_trends.json
@@ -53,7 +54,7 @@ jobs:
             echo "No editorial changes"
           else
             git commit -m "data: backfill benchmark descriptions and publishers"
-            git push
+            git push origin HEAD:main
           fi
 
       - name: Report partial completion
