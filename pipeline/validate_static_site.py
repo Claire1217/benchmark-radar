@@ -42,7 +42,7 @@ def main() -> None:
         target = OUTPUT / asset.removeprefix("./")
         if not target.exists():
             raise SystemExit(f"missing referenced asset: {asset}")
-    expected_ids = {"radar-view", "library-view", "trends-view", "saved-count", "benchmark-list", "library-list", "library-topic-list", "line-chart"}
+    expected_ids = {"radar-view", "library-view", "trends-view", "saved-count", "benchmark-list", "library-list", "library-domain-list", "line-chart"}
     if missing := expected_ids - set(document.ids):
         raise SystemExit(f"missing interactive regions: {sorted(missing)}")
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")

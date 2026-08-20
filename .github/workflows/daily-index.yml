@@ -32,6 +32,8 @@ jobs:
         id: source-date
         run: echo "date=$(python pipeline/scheduled_source_date.py)" >> "$GITHUB_OUTPUT"
       - name: Index requested or previous Brisbane date
+        id: discovery
+        continue-on-error: true
         env:
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
@@ -41,6 +43,10 @@ jobs:
           else
             python pipeline/index_benchmarks.py --date "$SCHEDULED_DATE"
           fi
+
+      - name: Report discovery status
+        if: steps.discovery.outcome == 'failure'
+        run: echo "::warning::Paper discovery failed; continuing with the last validated index so publication and attention data still refresh."
 
       - name: Review candidates and generate public copy
         env:
