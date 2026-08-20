@@ -47,19 +47,9 @@
     return node;
   };
 
-  const validCopy = (record) => {
-    if (record.description) return record.description;
-    if (record.constructionDetail && !record.constructionDetail.startsWith("Unknown")) return record.constructionDetail;
-    return null;
-  };
-
   const measureSection = (record) => {
     const detail = record.detail || {};
-    const node = section("What it measures");
-    const copy = validCopy(record);
-    if (copy) node.append(text("p", "detail-copy", copy));
-    const domains = detail.taskBreakdown?.length ? detail.taskBreakdown : record.applicationDomains || [];
-    if (domains.length) node.append(chips(domains));
+    const domains = detail.taskBreakdown || [];
     const protocol = detail.protocol || {};
     const compact = factGrid([
       ["TASKS", protocol.tasks],
@@ -67,6 +57,9 @@
       ["VERSION", record.version || record.firstRelease?.label],
       ["LANGUAGE", record.language]
     ]);
+    if (!domains.length && !compact) return null;
+    const node = section("What it measures");
+    if (domains.length) node.append(chips(domains));
     if (compact) compact.classList.add("detail-compact-facts");
     if (compact) node.append(compact);
     return node;
@@ -76,31 +69,6 @@
     if (!record.whyItMatters) return null;
     const node = section("Why it matters");
     node.append(text("p", "detail-copy", record.whyItMatters));
-    return node;
-  };
-
-  const availabilitySection = (record) => {
-    const a = record.availability || {};
-    const resources = [
-      ["Paper", record.links?.paper || record.links?.report, Boolean(record.links?.paper || record.links?.report)],
-      [a.hfDatasetStatus === "sample_only" ? "Data sample" : "Data", record.links?.data, a.hfDatasetStatus === "available" || Boolean(record.links?.data)],
-      ["Code", record.links?.code, a.githubStatus === "available" || Boolean(record.links?.code)]
-    ];
-    const node = section("Resources");
-    const list = document.createElement("div");
-    list.className = "availability-list";
-    resources.forEach(([label, url, available]) => {
-      const item = document.createElement(url && available ? "a" : "span");
-      item.className = available ? "available" : "not-found";
-      item.textContent = `${label} ${available ? "✓" : "Not found"}`;
-      if (item.tagName === "A") {
-        item.href = url;
-        item.target = "_blank";
-        item.rel = "noreferrer";
-      }
-      list.append(item);
-    });
-    node.append(list);
     return node;
   };
 
@@ -120,26 +88,13 @@
     return node;
   };
 
-  const radarSummary = (record) => {
-    const state = window.benchmarkRadarState;
-    const rank = record.ranking?.[state?.window];
-    const attention = rank?.rank ? `#${rank.rank} · ${state.window}` : record.attention?.hfPaperUpvotes != null ? `${record.attention.hfPaperUpvotes} HF votes` : null;
-    const assets = [record.links?.paper || record.links?.report, record.links?.data, record.links?.code].filter(Boolean).length;
-    return factGrid([
-      ["CURRENT ATTENTION", attention, "Public visibility, not quality"],
-      ["PUBLIC RESOURCES", `${assets} found`, "Paper · data · code"],
-      ["READINESS", record.readiness, "Availability at first review"]
-    ]);
-  };
-
   const renderRadarDetails = (record, panel) => {
     panel.replaceChildren();
-    const summary = radarSummary(record);
-    if (summary) panel.append(summary);
-    panel.append(measureSection(record));
+    const measures = measureSection(record);
+    if (measures) panel.append(measures);
     const why = whySection(record);
     if (why) panel.append(why);
-    panel.append(availabilitySection(record), provenance(record));
+    panel.append(provenance(record));
   };
 
   const modelCoverage = (record) => {
@@ -173,42 +128,26 @@
     return node;
   };
 
-  const publisherSection = (record) => {
-    const publishers = record.publishers || [];
-    if (!publishers.length) return null;
-    const node = section("Published by");
-    const links = document.createElement("div");
-    links.className = "detail-links";
-    publishers.forEach((publisher) => {
-      const item = link(publisher.name, publisher.sourceUrl);
-      if (item) links.append(item);
-    });
-    node.append(links, text("p", "detail-note", "Publisher provenance is separate from model-lab adoption."));
-    return node;
-  };
-
   const renderLibraryDetails = (record, panel) => {
     const detail = record.detail || {};
     const leaderboard = detail.leaderboard || {};
     const independent = detail.adoption?.independentOrganizations?.length || 0;
-    const reports = record.modelReportReferences?.length || 0;
     panel.replaceChildren();
     const summary = factGrid([
-      ["INDEPENDENT ADOPTION", independent ? `${independent} tracked` : reports ? `${reports} report reference${reports === 1 ? "" : "s"}` : null, independent ? "Source-linked organizations" : "Official model reports"],
+      ["INDEPENDENT ADOPTION", independent ? `${independent} tracked` : null, "Source-linked organizations"],
       ["BEST COMPARABLE", leaderboard.bestScore == null ? null : `${leaderboard.bestScore} · ${leaderboard.primaryMetric || "score"}`, leaderboard.bestSystem],
       ["SATURATION", leaderboard.saturationStatus, leaderboard.assessment]
     ]);
     if (summary) panel.append(summary);
-    const publisherNode = publisherSection(record);
     const reportsNode = reportReferences(record);
     const coverageNode = modelCoverage(record);
-    if (publisherNode) panel.append(publisherNode);
     if (reportsNode) panel.append(reportsNode);
     if (coverageNode) panel.append(coverageNode);
-    panel.append(measureSection(record));
+    const measures = measureSection(record);
+    if (measures) panel.append(measures);
     const why = whySection(record);
     if (why) panel.append(why);
-    panel.append(availabilitySection(record), provenance(record));
+    panel.append(provenance(record));
   };
 
   window.renderBenchmarkDetails = (record, panel, surface) => {
