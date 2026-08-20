@@ -77,9 +77,10 @@ build for pushes and pull requests.
 - **Library** reads `library_index.json`, the union of reviewed Radar records
   and established editorial seeds. A daily Radar record therefore also appears
   in Library; an old Library seed does not appear in Today/30d/90d.
-- **Trends** reads `domain_trends.json`. It reports release activity and only
-  uses source-linked adoption observations when they exist; it does not equate
-  release count with technical progress.
+- **Trends** reads `domain_trends.json`. It foregrounds the Benchmarks with the
+  strongest current tracked use and uses monthly release activity only as
+  context. It does not equate release count with deployment or technical
+  progress; historical adoption and saturation wait for comparable dated data.
 - **Saved** is browser-local `localStorage`; it is not part of the data
   pipeline and does not require a server.
 

@@ -15,9 +15,9 @@ build: check
 generate:
 	python3 pipeline/apply_overrides.py
 	python3 pipeline/build_library_records.py
-	python3 pipeline/generate_domain_trends.py
 	python3 pipeline/generate_public_index.py
 	python3 pipeline/generate_library_index.py
+	python3 pipeline/generate_domain_trends.py
 	python3 pipeline/generate_awesome.py
 
 serve: build
