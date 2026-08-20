@@ -43,8 +43,17 @@ def fetch_abstracts(source_ids: list[str]) -> dict[str, str]:
             f"https://export.arxiv.org/api/query?id_list={query}&max_results={len(batch)}",
             headers={"User-Agent": "benchmark-radar/1.0 (public research index)"},
         )
-        with urlopen(request, timeout=45) as response:
-            root = ET.fromstring(response.read())
+        root = None
+        for attempt in range(3):
+            try:
+                with urlopen(request, timeout=45) as response:
+                    root = ET.fromstring(response.read())
+                break
+            except (HTTPError, URLError, TimeoutError, ET.ParseError):
+                if attempt < 2:
+                    time.sleep(2 ** attempt)
+        if root is None:
+            continue
         for entry in root.findall(f"{ATOM}entry"):
             source_id = (entry.findtext(f"{ATOM}id") or "").rsplit("/", 1)[-1].split("v", 1)[0]
             summary = " ".join((entry.findtext(f"{ATOM}summary") or "").split())
@@ -303,11 +312,16 @@ def main() -> None:
     if missing:
         abstracts.update(fetch_abstracts(missing))
     source_rows = []
+    missing_source_ids: list[str] = []
     for record in records:
         source_id = str(record["source"]["id"])
         abstract = abstracts.get(source_id)
         if not abstract:
-            raise RuntimeError(f"Missing arXiv abstract for {source_id}")
+            fallback = str(((record.get("evidence") or {}).get("snippet")) or "").strip()
+            if not fallback:
+                missing_source_ids.append(source_id)
+                continue
+            abstract = fallback
         source_rows.append({
             "sourceId": source_id,
             "title": record.get("paperTitle") or record["name"],
@@ -320,6 +334,8 @@ def main() -> None:
                 if kind in {"code", "data"} and url
             ],
         })
+    if missing_source_ids:
+        print(f"editorial_copy_missing_source={len(missing_source_ids)} deferred=true")
     source_rows = [
         row for row in source_rows
         if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row))
