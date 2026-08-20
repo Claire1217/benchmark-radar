@@ -49,6 +49,32 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(records[1]["ranking"]["today"]["level"]["components"]["githubStars"]["value"], 10)
 
     @patch("enrich_metrics.closest_history", return_value=None)
+    def test_single_real_signal_is_ranked_with_low_confidence(self, _history) -> None:
+        records = [
+            {"id": "popular", "releasedAt": "2026-07-28", "links": {}},
+            {"id": "quiet", "releasedAt": "2026-07-28", "links": {}},
+        ]
+        raw = {
+            "popular": {
+                "hfPaperUpvotes": None, "githubStars": 119,
+                "githubScope": "benchmark_repo", "hfDatasetDownloads": None,
+                "hfDailySubmittedAt": None,
+            },
+            "quiet": {
+                "hfPaperUpvotes": None, "githubStars": 5,
+                "githubScope": "benchmark_repo", "hfDatasetDownloads": None,
+                "hfDailySubmittedAt": None,
+            },
+        }
+
+        rank_records(records, raw, date(2026, 8, 20), "2026-08-20")
+
+        popular = records[0]["ranking"]["90d"]["level"]
+        self.assertEqual(popular["rank"], 1)
+        self.assertEqual(popular["confidence"], "Low")
+        self.assertEqual(popular["components"]["githubStars"]["value"], 119)
+
+    @patch("enrich_metrics.closest_history", return_value=None)
     def test_stale_today_rank_is_removed_when_record_leaves_window(self, _history) -> None:
         records = [{
             "id": "old", "releasedAt": "2026-08-18", "links": {},

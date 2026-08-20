@@ -23,7 +23,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v3"
+METHOD_VERSION = "attention-ranking-v4"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
@@ -347,13 +347,21 @@ def rank_records(
                     # scores comparable across different two-signal patterns.
                     weighted += weight * 0.5
             score = round(100 * weighted) if observed else None
-            confidence = "High" if coverage >= 0.75 and observed >= 2 else "Medium" if coverage >= 0.4 else "Low"
+            confidence = (
+                "High" if coverage >= 0.75 and observed >= 2
+                else "Medium" if coverage >= 0.4 and observed >= 2
+                else "Low"
+            )
             result = {
                 "score": score, "rank": None, "coverage": round(coverage, 2),
                 "confidence": confidence, "components": components,
             }
             output[record["id"]] = result
-            if score is not None and observed >= 2:
+            # A single real public signal is enough to participate in ranking.
+            # Confidence stays Low until at least two independent signal types
+            # are observed, so missing coverage is visible instead of silently
+            # pushing a benchmark out of the ranked list.
+            if score is not None:
                 scored.append((score, record))
         scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
         for position, (_, record) in enumerate(scored, 1):
