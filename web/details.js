@@ -173,6 +173,20 @@
     return node;
   };
 
+  const publisherSection = (record) => {
+    const publishers = record.publishers || [];
+    if (!publishers.length) return null;
+    const node = section("Published by");
+    const links = document.createElement("div");
+    links.className = "detail-links";
+    publishers.forEach((publisher) => {
+      const item = link(publisher.name, publisher.sourceUrl);
+      if (item) links.append(item);
+    });
+    node.append(links, text("p", "detail-note", "Publisher provenance is separate from model-lab adoption."));
+    return node;
+  };
+
   const renderLibraryDetails = (record, panel) => {
     const detail = record.detail || {};
     const leaderboard = detail.leaderboard || {};
@@ -185,8 +199,10 @@
       ["SATURATION", leaderboard.saturationStatus, leaderboard.assessment]
     ]);
     if (summary) panel.append(summary);
+    const publisherNode = publisherSection(record);
     const reportsNode = reportReferences(record);
     const coverageNode = modelCoverage(record);
+    if (publisherNode) panel.append(publisherNode);
     if (reportsNode) panel.append(reportsNode);
     if (coverageNode) panel.append(coverageNode);
     panel.append(measureSection(record));

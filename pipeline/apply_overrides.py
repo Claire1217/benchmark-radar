@@ -27,7 +27,8 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
 
 def main() -> None:
     payload = read_json(DATA_PATH)
-    records = apply_editorial_copy(apply_curated_overrides(upsert(payload.get("records", []), curated_records())))
+    # Generated copy fills gaps; source-reviewed overrides always win last.
+    records = apply_curated_overrides(apply_editorial_copy(upsert(payload.get("records", []), curated_records())))
     for record in records:
         record["capabilities"] = [
             capability
