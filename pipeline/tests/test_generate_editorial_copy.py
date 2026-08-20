@@ -24,15 +24,25 @@ class DeepSeekReviewTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             validate_copy({"1": {"officialLinks": {}}}, rows)
 
-    def test_publisher_requires_an_official_input_link(self) -> None:
+    def test_unsupported_publisher_is_dropped_without_blocking_copy(self) -> None:
         rows = [{
             "sourceId": "1",
             "description": "Evaluates agents on repeatable tasks.",
             "whyItMatters": "Supports comparable system evaluation.",
             "publishers": [{"name": "Example Lab", "organizationType": "academic-lab", "sourceUrl": "https://unsupported.example"}],
         }]
-        with self.assertRaises(RuntimeError):
-            validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
+        validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
+        self.assertEqual(rows[0]["publishers"], [])
+
+    def test_publisher_link_allows_a_trailing_slash_difference(self) -> None:
+        rows = [{
+            "sourceId": "1",
+            "description": "Evaluates agents on repeatable tasks.",
+            "whyItMatters": "Supports comparable system evaluation.",
+            "publishers": [{"name": "Example Lab", "organizationType": "academic-lab", "sourceUrl": "https://github.com/example/bench/"}],
+        }]
+        validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
+        self.assertEqual(rows[0]["publishers"][0]["sourceUrl"], "https://github.com/example/bench")
 
     def test_selection_fingerprint_changes_with_source_revision(self) -> None:
         record = {

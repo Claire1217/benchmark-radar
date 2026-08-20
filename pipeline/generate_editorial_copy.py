@@ -198,11 +198,19 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
             if not value or first_person.search(value) or author_voice.search(value):
                 raise RuntimeError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
             row[field] = value
-        allowed_urls = set((sources[row["sourceId"]].get("officialLinks") or {}).values())
+        allowed_urls = {
+            str(url).rstrip("/"): str(url)
+            for url in (sources[row["sourceId"]].get("officialLinks") or {}).values()
+        }
+        supported_publishers = []
         for publisher in row.get("publishers", []):
-            if not str(publisher.get("name", "")).strip() or publisher.get("sourceUrl") not in allowed_urls:
-                raise RuntimeError(f"Unsupported publisher evidence for {row.get('sourceId')}")
+            matched_url = allowed_urls.get(str(publisher.get("sourceUrl", "")).rstrip("/"))
+            if not str(publisher.get("name", "")).strip() or not matched_url:
+                continue
+            publisher["sourceUrl"] = matched_url
             publisher["role"] = "benchmark-publisher"
+            supported_publishers.append(publisher)
+        row["publishers"] = supported_publishers
 
 
 def input_hash(row: dict[str, Any]) -> str:
