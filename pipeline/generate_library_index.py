@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 from datetime import date
+import hashlib
 import json
 from pathlib import Path
+import re
+import unicodedata
 
 from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
@@ -14,6 +17,7 @@ from taxonomy import normalize_taxonomy
 ROOT = Path(__file__).resolve().parents[1]
 RECENT = ROOT / "data" / "benchmarks.json"
 CLASSICS = ROOT / "data" / "library_records.json"
+CATALOGS = ROOT / "data" / "catalog_records.json"
 OUTPUT = ROOT / "data" / "library_index.json"
 
 MODEL_REPORT_LABELS = {
@@ -22,6 +26,103 @@ MODEL_REPORT_LABELS = {
     "google-gemini25": {"provider": "Google DeepMind", "model": "Gemini 2.5"},
     "deepseek-v3": {"provider": "DeepSeek", "model": "DeepSeek-V3"},
 }
+
+
+def normalized_name(value: str) -> str:
+    ascii_name = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().casefold()
+    return re.sub(r"[^a-z0-9]+", "", ascii_name)
+
+
+def catalog_legacy_taxonomy(categories: list[str]) -> tuple[str, str, list[str], list[str]]:
+    values = {value.casefold() for value in categories}
+    topics = [value.title() for value in categories]
+    capabilities: list[str] = []
+    if values & {"tool calling"}:
+        area, capabilities = "Agents & Tool Use", ["Tool use"]
+    elif values & {"agents", "agent", "research"}:
+        area = "Agents & Tool Use"
+    elif values & {"code", "coding", "frontend development"}:
+        area = "Code & Software"
+    elif values & {"math", "mathematics", "spatial reasoning", "spatial"}:
+        area = "Mathematical Reasoning"
+    elif values & {"long context", "memory"}:
+        area = "Long Context"
+    elif values & {"instruction following", "structured output"}:
+        area = "Instruction Following"
+    elif values & {"multimodal", "image to text", "image-generation", "text-to-image"}:
+        area = "Multimodal"
+    elif values & {"vision", "video", "3d"}:
+        area = "Vision & 3D"
+    elif values & {"audio", "speech to text"}:
+        area = "Speech & Audio"
+    elif values & {"safety", "privacy"}:
+        area = "Safety & Trustworthiness"
+    elif values & {"systems"}:
+        area = "Systems & Efficiency"
+    elif values & {"robotics", "embodied"}:
+        area = "Robotics & Embodied AI"
+    else:
+        area = "Language & Knowledge"
+
+    if values & {"finance", "economics"}:
+        domain = "Finance"
+    elif values & {"healthcare", "medical", "biology"}:
+        domain = "Health & Biomedicine"
+    elif values & {"robotics", "embodied"}:
+        domain = "Robotics & Embodied AI"
+    elif values & {"legal"}:
+        domain = "Law & Government"
+    elif values & {"science", "physics", "chemistry", "research"}:
+        domain = "Scientific Research & AI for Science"
+    else:
+        domain = "General AI"
+    return area, domain, capabilities, topics
+
+
+def public_catalog(record: dict, first_seen: str) -> dict:
+    area, domain, capabilities, topics = catalog_legacy_taxonomy(record.get("categories", []))
+    sources = record.get("sourceRecords", [])
+    preferred = next((source for source in sources if source.get("paperUrl")), None) or sources[0]
+    report = preferred.get("paperUrl") or preferred.get("url")
+    result = {
+        "id": record["id"],
+        "familyId": "catalog_family_" + hashlib.sha256(record["normalizedName"].encode()).hexdigest()[:16],
+        "name": record["name"],
+        "oneLine": record.get("description") or "Catalog-listed benchmark; original-source verification is pending.",
+        "description": record.get("description") or "Catalog-listed benchmark; original-source verification is pending.",
+        "area": area,
+        "applicationDomains": [domain],
+        "primaryDomain": domain,
+        "industrySectors": [],
+        "capabilities": capabilities,
+        "topics": topics,
+        "construction": "Unknown",
+        "annotation": "Unknown",
+        "readiness": "Paper only",
+        "releasedAt": "0001-01-01",
+        "releaseDatePrecision": "unknown",
+        "firstRelease": {"year": None, "date": None},
+        "firstSeenAt": first_seen[:10],
+        "recognitionConfidence": 0.5,
+        "links": {"report": report, "pdf": None, "project": None, "code": None, "data": None, "hfPaper": None},
+        "evidence": {"snippet": "Listed by BenchLM or llm-stats; original-source verification is pending.", "reasonCodes": ["external catalog listing"]},
+        "dataStatus": "catalog-listed-unverified",
+        "demo": False,
+        "attention": {},
+        "source": {"type": "catalog", "id": record["id"]},
+        "ranking": {},
+        "recordType": "catalog-entry",
+        "aliases": [],
+        "sourceAttribution": [{"role": source["catalog"], "url": source["url"]} for source in sources],
+        "catalogSources": sources,
+        "catalogCategories": record.get("categories", []),
+        "catalogModelCount": record.get("modelCount", 0),
+        "catalogStarCount": record.get("starCount", 0),
+        "modelReportReferences": [],
+        "usageObservations": [],
+    }
+    result.update(normalize_taxonomy(result))
+    return result
 
 
 def public_classic(record: dict, classics: dict) -> dict:
@@ -107,11 +208,32 @@ def public_classic(record: dict, classics: dict) -> dict:
 def main() -> None:
     recent = json.loads(RECENT.read_text(encoding="utf-8"))
     classics = json.loads(CLASSICS.read_text(encoding="utf-8"))
+    catalogs = json.loads(CATALOGS.read_text(encoding="utf-8")) if CATALOGS.exists() else {"records": []}
     # A reviewed Library record wins on collision. Radar remains untouched.
     recent_records = [project_record(record) for record in recent.get("records", [])]
     classic_records = [public_classic(record, classics) for record in classics.get("records", [])]
     by_id = {record["id"]: record for record in recent_records}
     by_id.update({record["id"]: record for record in classic_records})
+    identities: dict[str, dict] = {}
+    for item in by_id.values():
+        for name in [item.get("name", ""), *(item.get("aliases") or [])]:
+            if normalized := normalized_name(name):
+                identities.setdefault(normalized, item)
+    catalog_only = 0
+    catalog_merged = 0
+    for source in catalogs.get("records", []):
+        existing = identities.get(source["normalizedName"])
+        if existing:
+            existing["catalogSources"] = source.get("sourceRecords", [])
+            existing["catalogCategories"] = source.get("categories", [])
+            existing["catalogModelCount"] = max(existing.get("catalogModelCount", 0), source.get("modelCount", 0))
+            existing["catalogStarCount"] = max(existing.get("catalogStarCount", 0), source.get("starCount", 0))
+            catalog_merged += 1
+            continue
+        item = public_catalog(source, catalogs.get("retrievedAt", date.today().isoformat()))
+        by_id[item["id"]] = item
+        identities[source["normalizedName"]] = item
+        catalog_only += 1
     records = sorted(by_id.values(), key=lambda item: (item.get("name", "").casefold(), item["id"]))
     payload = {
         "manifest": {
@@ -119,13 +241,20 @@ def main() -> None:
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
             "recordCount": len(records),
             "classicRecordCount": len(classics.get("records", [])),
+            "catalogSourceRecordCount": sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values()),
+            "catalogEntityCount": len(catalogs.get("records", [])),
+            "catalogMergedCount": catalog_merged,
+            "catalogOnlyCount": catalog_only,
             "recentRecordCount": len(recent.get("records", [])),
-            "scope": "all-time reviewed Library plus recent Radar records",
+            "scope": "all-time Library, complete BenchLM and llm-stats catalogs, plus recent Radar records",
         },
         "records": records,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
-    print(f"records={len(records)} classics={payload['manifest']['classicRecordCount']} output={OUTPUT}")
+    print(
+        f"records={len(records)} classics={payload['manifest']['classicRecordCount']} "
+        f"catalog_merged={catalog_merged} catalog_only={catalog_only} output={OUTPUT}"
+    )
 
 
 if __name__ == "__main__":

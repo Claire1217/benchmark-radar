@@ -17,6 +17,7 @@ CANONICAL = ROOT / "data" / "benchmarks.json"
 PUBLIC = ROOT / "data" / "benchmarks_index.json"
 LIBRARY = ROOT / "data" / "library_records.json"
 LIBRARY_PUBLIC = ROOT / "data" / "library_index.json"
+CATALOGS = ROOT / "data" / "catalog_records.json"
 READINESS = {"Paper only", "Inspectable", "Runnable", "Maintained"}
 PUBLICATION = {"accepted", "published", "acceptance_claimed", "publication_reported", "unverified"}
 WINDOWS = {"today", "30d", "90d"}
@@ -138,6 +139,7 @@ def main() -> None:
     public = load(PUBLIC)
     library = load(LIBRARY)
     library_public = load(LIBRARY_PUBLIC)
+    catalogs = load(CATALOGS) if CATALOGS.exists() else {"records": [], "sources": {}}
     records = canonical.get("records", [])
     library_records = library.get("records", [])
     errors: list[str] = []
@@ -145,9 +147,15 @@ def main() -> None:
         errors.append("canonical manifest recordCount mismatch")
     if public.get("manifest", {}).get("recordCount") != len(public.get("records", [])):
         errors.append("public manifest recordCount mismatch")
-    expected_library_count = len(records) + len(library_records)
-    if library_public.get("manifest", {}).get("recordCount") != expected_library_count:
+    library_manifest = library_public.get("manifest", {})
+    expected_library_count = len(records) + len(library_records) + library_manifest.get("catalogOnlyCount", 0)
+    if library_manifest.get("recordCount") != expected_library_count:
         errors.append("library public manifest recordCount mismatch")
+    catalog_source_count = sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values())
+    if library_manifest.get("catalogSourceRecordCount", 0) != catalog_source_count:
+        errors.append("library public catalog source count mismatch")
+    if library_manifest.get("catalogEntityCount", 0) != len(catalogs.get("records", [])):
+        errors.append("library public catalog entity count mismatch")
     ids = [record.get("id") for record in records]
     source_ids = [record.get("source", {}).get("id") for record in records]
     if len(ids) != len(set(ids)):

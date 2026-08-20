@@ -6,6 +6,7 @@ All files except `curated_overrides.json`, `curated_records.json`, and `library_
 |---|---|---|
 | `benchmarks.json` | Canonical current snapshot | current snapshot |
 | `benchmarks_index.json` | Compact website view | current snapshot |
+| `catalog_records.json` | Complete BenchLM and llm-stats public catalogs, with source-level provenance | current snapshot |
 | `library_seed_records.json` | Editorial all-time families, variants, sources, model-report references, and catalog-discovery references | permanent |
 | `library_records.json` | Validated Library seeds after Radar reconciliation | generated snapshot |
 | `library_index.json` | Generated union of Library classics and recent Radar records | current snapshot |
@@ -27,6 +28,7 @@ All files except `curated_overrides.json`, `curated_records.json`, and `library_
   Hugging Face evidence supports the product inclusion rules.
 - `pipeline/build_library_records.py` deterministically validates editorial seeds and removes Radar duplicates only when both normalized identity name and an official link match.
 - Radar reads only `benchmarks_index.json`; Library records can never enter Today/30d/90d.
+- Catalog-only records are searchable in Library and marked as externally indexed until their original sources are verified. They never enter Radar or release Trends.
 - Model-report references are retained as evidence pointers. They are not converted into dated `usageObservations` unless the seed supplies an explicit report date, named organization, context type, and primary-source URL.
 - Reviewed corrections are applied from `curated_overrides.json`.
 - Public Description and Why it matters copy is generated from the paper with the OpenAI Responses API. Discovery evidence is never reused as editorial copy.

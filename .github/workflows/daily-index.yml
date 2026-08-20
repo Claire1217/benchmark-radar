@@ -82,6 +82,10 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_metrics.py
 
+      - name: Refresh complete public benchmark catalogs
+        continue-on-error: true
+        run: python pipeline/sync_catalogs.py
+
       - name: Generate public views once
         run: make generate
 
@@ -92,7 +96,7 @@ jobs:
         run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
-          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication
+          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication
           if git diff --cached --quiet; then
             echo "No index changes"
           else
