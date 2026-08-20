@@ -4,6 +4,15 @@ from generate_editorial_copy import publishable, response_text, selection_finger
 
 
 class DeepSeekReviewTests(unittest.TestCase):
+    def valid_decision(self) -> dict:
+        return {
+            "decision": "publish",
+            "benchmarkMode": "public_reusable",
+            "stableScoringContract": True,
+            "publicReusePath": True,
+            "decisionReason": "A stable public comparison path is documented.",
+        }
+
     def test_chat_completion_content_is_extracted(self) -> None:
         payload = {"choices": [{"message": {"content": '{"records": []}'}}]}
         self.assertEqual(response_text(payload), '{"records": []}')
@@ -26,6 +35,7 @@ class DeepSeekReviewTests(unittest.TestCase):
 
     def test_unsupported_publisher_is_dropped_without_blocking_copy(self) -> None:
         rows = [{
+            **self.valid_decision(),
             "sourceId": "1",
             "description": "Evaluates agents on repeatable tasks.",
             "whyItMatters": "Supports comparable system evaluation.",
@@ -36,6 +46,7 @@ class DeepSeekReviewTests(unittest.TestCase):
 
     def test_publisher_link_allows_a_trailing_slash_difference(self) -> None:
         rows = [{
+            **self.valid_decision(),
             "sourceId": "1",
             "description": "Evaluates agents on repeatable tasks.",
             "whyItMatters": "Supports comparable system evaluation.",

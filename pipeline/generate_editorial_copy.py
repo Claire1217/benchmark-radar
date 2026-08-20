@@ -30,6 +30,14 @@ EDITORIAL_POLICY_VERSION = "2026-08-21.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
+class ProviderError(RuntimeError):
+    pass
+
+
+class ReviewValidationError(RuntimeError):
+    pass
+
+
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -92,7 +100,7 @@ def response_text(payload: dict[str, Any]) -> str:
         content = (choices[0].get("message") or {}).get("content")
         if isinstance(content, str) and content.strip():
             return content
-    raise RuntimeError("DeepSeek response did not contain message content")
+    raise ProviderError("DeepSeek response did not contain message content")
 
 
 def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
@@ -163,7 +171,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         ],
         "thinking": {"type": "disabled"},
         "response_format": {"type": "json_object"},
-        "max_tokens": 4096,
+        "max_tokens": 8192,
         "stream": False,
     }
     request = Request(
@@ -176,28 +184,36 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         try:
             with urlopen(request, timeout=120) as response:
                 parsed = json.loads(response_text(json.loads(response.read())))
-                return parsed["records"]
+                records = parsed.get("records")
+                if not isinstance(records, list):
+                    raise ProviderError("DeepSeek response did not contain a records array")
+                return records
         except HTTPError as exc:
             if exc.code not in {429, 500, 502, 503, 504} or attempt == 2:
-                raise RuntimeError(f"DeepSeek request failed with HTTP {exc.code}") from None
-        except (TimeoutError, URLError):
+                raise ProviderError(f"DeepSeek request failed with HTTP {exc.code}") from None
+        except (TimeoutError, URLError, json.JSONDecodeError, ProviderError):
             if attempt == 2:
-                raise RuntimeError("DeepSeek request failed after retries") from None
+                raise ProviderError("DeepSeek request failed after retries") from None
         time.sleep(2 ** attempt)
     raise AssertionError("unreachable")
 
 
 def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]) -> None:
     if {row.get("sourceId") for row in rows} != set(sources):
-        raise RuntimeError("DeepSeek output did not cover the requested source IDs exactly")
+        raise ReviewValidationError("DeepSeek output did not cover the requested source IDs exactly")
     first_person = re.compile(r"\b(?:we|our|ours|us)\b", re.I)
     author_voice = re.compile(r"\b(?:this paper|we introduce|we present)\b", re.I)
     for row in rows:
         for field in ("description", "whyItMatters"):
             value = " ".join(str(row.get(field, "")).split())
             if not value or first_person.search(value) or author_voice.search(value):
-                raise RuntimeError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
+                raise ReviewValidationError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
             row[field] = value
+        required = {
+            "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason"
+        }
+        if any(field not in row for field in required):
+            raise ReviewValidationError(f"Incomplete semantic decision for {row.get('sourceId')}")
         allowed_urls = {
             str(url).rstrip("/"): str(url)
             for url in (sources[row["sourceId"]].get("officialLinks") or {}).values()
@@ -235,6 +251,27 @@ def selection_fingerprint(record: dict[str, Any]) -> str:
 
 def write_editorial_copy(payload: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def review_batch(batch: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
+    """Retry malformed multi-record output one record at a time."""
+    try:
+        rows = call_deepseek(batch, model, api_key)
+        validate_copy({item["sourceId"]: item for item in batch}, rows)
+        return rows
+    except ReviewValidationError:
+        if len(batch) == 1:
+            print(f"editorial_copy_invalid_output source={batch[0]['sourceId']} deferred=true")
+            return []
+        recovered: list[dict[str, Any]] = []
+        for source in batch:
+            try:
+                rows = call_deepseek([source], model, api_key)
+                validate_copy({source["sourceId"]: source}, rows)
+                recovered.extend(rows)
+            except ReviewValidationError:
+                print(f"editorial_copy_invalid_output source={source['sourceId']} deferred=true")
+        return recovered
 
 
 def publishable(row: dict[str, Any]) -> bool:
@@ -364,8 +401,7 @@ def main() -> None:
     published = 0
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
-        rows = call_deepseek(batch, args.model, api_key)
-        validate_copy({item["sourceId"]: item for item in batch}, rows)
+        rows = review_batch(batch, args.model, api_key)
         generated.extend(rows)
         for row in rows:
             source = source_by_id[row["sourceId"]]
