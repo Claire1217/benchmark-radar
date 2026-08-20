@@ -26,6 +26,7 @@ CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
+EDITORIAL_POLICY_VERSION = "2026-08-21.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -34,19 +35,23 @@ def read_json(path: Path) -> dict[str, Any]:
 
 
 def fetch_abstracts(source_ids: list[str]) -> dict[str, str]:
-    query = ",".join(source_ids)
-    request = Request(
-        f"https://export.arxiv.org/api/query?id_list={query}&max_results={len(source_ids)}",
-        headers={"User-Agent": "benchmark-radar/1.0 (public research index)"},
-    )
-    with urlopen(request, timeout=45) as response:
-        root = ET.fromstring(response.read())
     output: dict[str, str] = {}
-    for entry in root.findall(f"{ATOM}entry"):
-        source_id = (entry.findtext(f"{ATOM}id") or "").rsplit("/", 1)[-1].split("v", 1)[0]
-        summary = " ".join((entry.findtext(f"{ATOM}summary") or "").split())
-        if source_id and summary:
-            output[source_id] = html.unescape(summary)
+    for start in range(0, len(source_ids), 40):
+        batch = source_ids[start:start + 40]
+        query = ",".join(batch)
+        request = Request(
+            f"https://export.arxiv.org/api/query?id_list={query}&max_results={len(batch)}",
+            headers={"User-Agent": "benchmark-radar/1.0 (public research index)"},
+        )
+        with urlopen(request, timeout=45) as response:
+            root = ET.fromstring(response.read())
+        for entry in root.findall(f"{ATOM}entry"):
+            source_id = (entry.findtext(f"{ATOM}id") or "").rsplit("/", 1)[-1].split("v", 1)[0]
+            summary = " ".join((entry.findtext(f"{ATOM}summary") or "").split())
+            if source_id and summary:
+                output[source_id] = html.unescape(summary)
+        if start + 40 < len(source_ids):
+            time.sleep(0.5)
     return output
 
 
@@ -59,6 +64,8 @@ def artifact_excerpt(kind: str, url: str) -> dict[str, Any]:
     if parsed.netloc == "github.com" and len(parts) >= 2:
         fetch_url = f"https://api.github.com/repos/{parts[0]}/{parts[1]}/readme"
         headers["Accept"] = "application/vnd.github.raw+json"
+        if os.environ.get("GITHUB_TOKEN"):
+            headers["Authorization"] = f"Bearer {os.environ['GITHUB_TOKEN']}"
     elif parsed.netloc == "huggingface.co" and len(parts) >= 3 and parts[0] == "datasets":
         fetch_url = f"https://huggingface.co/datasets/{parts[1]}/{parts[2]}/raw/main/README.md"
     try:
@@ -130,7 +137,8 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "A viewpoint_probe primarily exists to support one paper's finding and lacks a standalone public comparison path; exclude it from the public site. "
         "uses_existing and not_benchmark must also be excluded. Defer when evidence or artifacts are unclear. "
         "Public attention, author prestige, and the word benchmark must never change this decision. "
-        "Then write neutral editorial copy in third person. Description states what is evaluated. "
+        "Then write neutral editorial copy in third person. Description states only what is evaluated: the evaluation object, "
+        "task or environment, and the main capability or scoring setup when known. It must not explain why the benchmark was created. "
         "Why it matters explains the evaluation gap and practical decision value. "
         "Publishers are the organizations or benchmark teams responsible for releasing the benchmark, not every author affiliation and not model adopters. "
         "Only return a publisher when its identity is supported by an official link supplied in the input; otherwise return an empty list. "
@@ -189,7 +197,27 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
 
 
 def input_hash(row: dict[str, Any]) -> str:
-    return hashlib.sha256(json.dumps(row, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+    versioned = {"policyVersion": EDITORIAL_POLICY_VERSION, "source": row}
+    return hashlib.sha256(json.dumps(versioned, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
+def selection_fingerprint(record: dict[str, Any]) -> str:
+    """Cheap local fingerprint used to resume before fetching remote artifacts."""
+    source = record.get("source") or {}
+    local = {
+        "policyVersion": EDITORIAL_POLICY_VERSION,
+        "sourceId": source.get("id"),
+        "sourceUpdatedAt": source.get("updatedAt") or record.get("sourceUpdatedAt"),
+        "title": record.get("paperTitle") or record.get("name"),
+        "links": record.get("links") or {},
+        "abstract": (record.get("reviewContext") or {}).get("abstract"),
+        "comments": (record.get("reviewContext") or {}).get("comments"),
+    }
+    return hashlib.sha256(json.dumps(local, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+
+
+def write_editorial_copy(payload: dict[str, Any]) -> None:
+    OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def publishable(row: dict[str, Any]) -> bool:
@@ -255,7 +283,14 @@ def main() -> None:
         if record.get("source", {}).get("type") == "arxiv"
         and (not requested or str(record["source"]["id"]) in requested)
         and (not args.released_on or record.get("releasedAt") == args.released_on)
-    ][:max(args.limit, 0)]
+    ]
+    records = [
+        record for record in records
+        if existing.get("bySourceId", {}).get(str(record["source"]["id"]), {}).get("selectionFingerprint")
+        != selection_fingerprint(record)
+    ]
+    if args.limit > 0:
+        records = records[:args.limit]
     if not records:
         print("editorial_copy_candidates=0")
         return
@@ -299,30 +334,35 @@ def main() -> None:
     if not api_key:
         raise RuntimeError("DEEPSEEK_API_KEY is required")
     generated: list[dict[str, Any]] = []
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    source_by_id = {item["sourceId"]: item for item in source_rows}
+    record_by_id = {str(record["source"]["id"]): record for record in records}
+    published = 0
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
         rows = call_deepseek(batch, args.model, api_key)
         validate_copy({item["sourceId"]: item for item in batch}, rows)
         generated.extend(rows)
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    source_by_id = {item["sourceId"]: item for item in source_rows}
-    for row in generated:
-        source = source_by_id[row["sourceId"]]
-        existing["bySourceId"][row["sourceId"]] = {
-            "decision": row["decision"],
-            "benchmarkMode": row["benchmarkMode"],
-            "stableScoringContract": row["stableScoringContract"],
-            "publicReusePath": row["publicReusePath"],
-            "description": row["description"],
-            "whyItMatters": row["whyItMatters"],
-            "decisionReason": row["decisionReason"],
-            "publishers": row.get("publishers", []),
-            "model": args.model,
-            "generatedAt": now,
-            "inputHash": input_hash(source),
-        }
-    OUTPUT_PATH.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    published = upsert_curated(records, generated, now, args.model) if args.review_queue else 0
+        for row in rows:
+            source = source_by_id[row["sourceId"]]
+            existing["bySourceId"][row["sourceId"]] = {
+                "decision": row["decision"],
+                "benchmarkMode": row["benchmarkMode"],
+                "stableScoringContract": row["stableScoringContract"],
+                "publicReusePath": row["publicReusePath"],
+                "description": row["description"],
+                "whyItMatters": row["whyItMatters"],
+                "decisionReason": row["decisionReason"],
+                "publishers": row.get("publishers", []),
+                "model": args.model,
+                "policyVersion": EDITORIAL_POLICY_VERSION,
+                "generatedAt": now,
+                "inputHash": input_hash(source),
+                "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]]),
+            }
+        write_editorial_copy(existing)
+        if args.review_queue:
+            published += upsert_curated(records, rows, now, args.model)
     print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 
 

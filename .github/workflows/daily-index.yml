@@ -61,6 +61,16 @@ jobs:
             python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-$SCHEDULED_DATE}"
           fi
 
+      - name: Continue editorial backfill
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-flash
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            python pipeline/generate_editorial_copy.py --limit 48 --batch-size 8
+          fi
+
       - name: Reconcile reviewed records before enrichment
         run: python pipeline/apply_overrides.py
 

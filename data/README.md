@@ -11,7 +11,7 @@ All files except `curated_overrides.json`, `curated_records.json`, and `library_
 | `library_index.json` | Generated union of Library classics and recent Radar records | current snapshot |
 | `curated_overrides.json` | Source-backed evidence patches | permanent |
 | `curated_records.json` | Source-verified releases admitted from Paper, GitHub, and Hugging Face evidence | permanent |
-| `editorial_copy.json` | GPT admission decisions plus third-person Description and Why it matters copy | permanent |
+| `editorial_copy.json` | AI admission decisions, third-person Description/Why it matters, and source-backed benchmark publishers | permanent |
 | `domain_trends.json` | Weekly release-count series | current snapshot |
 | `metrics/YYYY-MM-DD.json` | Raw public attention observation | dated history |
 | `publication/YYYY-MM-DD.json` | Venue metadata refresh receipt | dated history |
