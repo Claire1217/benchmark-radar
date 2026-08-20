@@ -508,6 +508,7 @@ def infer_topics(paper: Paper) -> list[str]:
     text = f"{paper.title} {evidence_sentence(paper)}".lower()
     mapping = [
         (r"\b(cad|computer-aided design)\b", "CAD"),
+        (r"\b(self-evolv\w+|self-improv\w+|recursive self-improvement|agent evolution)\b", "Self-Evolution"),
         (r"\b(ai scientist|research agent|scientific discovery)\b", "AI Scientist"),
         (r"\b(agent|tool use)\b", "Agents"),
         (r"\b(robot|manipulation)\b", "Robotics"),

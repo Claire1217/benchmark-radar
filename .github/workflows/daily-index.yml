@@ -42,9 +42,6 @@ jobs:
             python pipeline/index_benchmarks.py --date "$SCHEDULED_DATE"
           fi
 
-      - name: Refresh publication and acceptance metadata
-        run: python pipeline/enrich_publications.py
-
       - name: Review candidates and generate public copy
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -57,6 +54,12 @@ jobs:
           else
             python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-$SCHEDULED_DATE}"
           fi
+
+      - name: Reconcile reviewed records before enrichment
+        run: python pipeline/apply_overrides.py
+
+      - name: Refresh publication and acceptance metadata
+        run: python pipeline/enrich_publications.py
 
       - name: Snapshot public attention metrics
         env:
