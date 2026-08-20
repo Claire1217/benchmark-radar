@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import enrich_metrics
 from enrich_metrics import (
-    closest_history, dataset_slug, github_slug, observation_mode, percentile,
+    closest_history, dataset_slug, github_scope, github_slug, observation_mode, percentile,
     preserve_last_known, rank_records, readiness_from_links, summarize_observation,
 )
 
@@ -21,6 +21,8 @@ class MetricTests(unittest.TestCase):
     def test_parses_supported_public_resource_urls(self) -> None:
         self.assertEqual(github_slug("https://github.com/org/repo.git?tab=readme"), "org/repo")
         self.assertEqual(dataset_slug("https://huggingface.co/datasets/org/data"), "org/data")
+        self.assertEqual(github_scope("https://github.com/org/bench"), "benchmark_repo")
+        self.assertEqual(github_scope("https://github.com/org/platform/tree/main/bench"), "hosting_repo")
 
     def test_percentile_keeps_missing_unknown(self) -> None:
         self.assertIsNone(percentile(None, [1, 2, 3]))
@@ -31,6 +33,30 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(readiness_from_links({"code": "https://github.com/o/r"}), "Runnable")
         self.assertEqual(readiness_from_links({"data": "https://huggingface.co/datasets/o/d"}), "Inspectable")
         self.assertEqual(readiness_from_links({}), "Paper only")
+
+    @patch("enrich_metrics.closest_history", return_value=None)
+    def test_hosting_repo_stars_do_not_enter_attention_score(self, _history) -> None:
+        records = [
+            {"id": "hosted", "releasedAt": "2026-08-20", "links": {"code": "https://github.com/org/platform/tree/main/bench"}},
+            {"id": "dedicated", "releasedAt": "2026-08-20", "links": {"code": "https://github.com/org/bench"}},
+        ]
+        raw = {
+            "hosted": {"hfPaperUpvotes": 5, "githubStars": 500, "githubScope": "hosting_repo", "hfDatasetDownloads": None, "hfDailySubmittedAt": None},
+            "dedicated": {"hfPaperUpvotes": 5, "githubStars": 10, "githubScope": "benchmark_repo", "hfDatasetDownloads": None, "hfDailySubmittedAt": None},
+        }
+        rank_records(records, raw, date(2026, 8, 20), "2026-08-20")
+        self.assertIsNone(records[0]["ranking"]["today"]["level"]["components"]["githubStars"]["value"])
+        self.assertEqual(records[1]["ranking"]["today"]["level"]["components"]["githubStars"]["value"], 10)
+
+    @patch("enrich_metrics.closest_history", return_value=None)
+    def test_stale_today_rank_is_removed_when_record_leaves_window(self, _history) -> None:
+        records = [{
+            "id": "old", "releasedAt": "2026-08-18", "links": {},
+            "ranking": {"today": {"rank": 1, "score": 99}},
+        }]
+        raw = {"old": {"hfPaperUpvotes": 10, "githubStars": 10, "hfDatasetDownloads": None, "hfDailySubmittedAt": None}}
+        rank_records(records, raw, date(2026, 8, 20), "2026-08-19")
+        self.assertNotIn("today", records[0]["ranking"])
 
     def test_provider_failure_preserves_last_known_and_marks_stale(self) -> None:
         result = [{

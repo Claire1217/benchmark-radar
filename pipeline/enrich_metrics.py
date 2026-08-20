@@ -23,7 +23,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v2"
+METHOD_VERSION = "attention-ranking-v3"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
@@ -31,6 +31,13 @@ WINDOW_WEIGHTS = {
     "90d": {"hfPaperUpvotes": 0.30, "githubStars": 0.30, "hfDatasetDownloads": 0.40},
 }
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
+
+
+def github_scope(url: str | None) -> str | None:
+    """Distinguish a dedicated benchmark repo from a subdirectory in a hosting repo."""
+    if not url or not github_slug(url):
+        return None
+    return "hosting_repo" if re.search(r"github\.com/[^/]+/[^/]+/(?:tree|blob)/", url, re.I) else "benchmark_repo"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -123,7 +130,10 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
     paper = paper or {}
     if arxiv_id and paper.get("upvotes") is None:
         paper.update(hf_public_page_counts(f"https://huggingface.co/papers/{quote(arxiv_id)}", ("upvotes",)))
-    github_url = paper.get("githubRepo") or record.get("links", {}).get("code")
+    # The canonical code URL carries benchmark scope (for example a subfolder in
+    # a monorepo); prefer it over HF's repo-level association.
+    github_url = record.get("links", {}).get("code") or paper.get("githubRepo")
+    github_signal_scope = github_scope(github_url)
     repo = github_slug(github_url)
     github_stars = paper.get("githubStars")
     github_source = "huggingface-paper" if github_stars is not None else None
@@ -170,6 +180,7 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
         "hfPaperUrl": f"https://huggingface.co/papers/{arxiv_id}" if paper else None,
         "githubRepo": f"https://github.com/{repo}" if repo else None,
         "githubStars": github_stars,
+        "githubScope": github_signal_scope,
         "githubStarsSource": github_source,
         "hfDataset": dataset,
         "hfDatasetDownloads": dataset_info.get("downloads"),
@@ -216,7 +227,7 @@ def preserve_last_known(
                 item[signal] = fallback
                 status["state"] = "stale"
                 status["lastSuccessfulDate"] = fallback_date
-        for identity_field in ("hfPaperUrl", "githubRepo", "hfDataset"):
+        for identity_field in ("hfPaperUrl", "githubRepo", "githubScope", "hfDataset"):
             if item.get(identity_field) is None:
                 item[identity_field] = previous.get(identity_field)
     return results
@@ -268,13 +279,10 @@ def percentile(
 ) -> float | None:
     if value is None or not population:
         return None
-    transform = (
-        (lambda item: math.copysign(math.log1p(abs(float(item))), float(item)))
-        if signed
-        else (lambda item: math.log1p(max(float(item), 0.0)))
-    )
-    transformed = [transform(item) for item in population]
-    target = transform(value)
+    # Percentile ranks are invariant under monotonic log transforms. Keeping raw
+    # values here makes the method easier to audit without changing rank order.
+    transformed = [float(item) for item in population]
+    target = float(value)
     below = sum(item < target for item in transformed)
     equal = sum(item == target for item in transformed)
     return (below + 0.5 * equal) / len(transformed)
@@ -299,6 +307,13 @@ def rank_records(
     as_of: date,
     latest_source_date: str,
 ) -> None:
+    def age_bucket(record: dict[str, Any]) -> str:
+        age = max(0, (as_of - date.fromisoformat(record["releasedAt"])).days)
+        for upper in (2, 7, 14, 30, 60, 90):
+            if age <= upper:
+                return f"0-{upper}" if upper == 2 else str(upper)
+        return "90+"
+
     def score_dimension(
         candidates: list[dict[str, Any]],
         values: dict[str, dict[str, int | float | None]],
@@ -308,20 +323,30 @@ def rank_records(
     ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
         output: dict[str, dict[str, Any]] = {}
         scored: list[tuple[float, dict[str, Any]]] = []
+        populations: dict[tuple[str, str], list[int | float]] = {}
+        for signal in weights:
+            for record in candidates:
+                value = values[signal][record["id"]]
+                if value is not None:
+                    populations.setdefault((signal, age_bucket(record)), []).append(value)
         for record in candidates:
             weighted = coverage = 0.0
             observed = 0
             components: dict[str, Any] = {}
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
-                population = [item for item in values[signal].values() if item is not None]
+                population = populations.get((signal, age_bucket(record)), [])
                 pct = percentile(value, population, signed=signed)
                 components[signal] = {"value": value, "percentile": pct}
                 if pct is not None:
                     weighted += weight * pct
                     coverage += weight
                     observed += 1
-            score = round(100 * weighted / coverage) if coverage else None
+                else:
+                    # Missing is unknown, not zero. A neutral percentile keeps
+                    # scores comparable across different two-signal patterns.
+                    weighted += weight * 0.5
+            score = round(100 * weighted) if observed else None
             confidence = "High" if coverage >= 0.75 and observed >= 2 else "Medium" if coverage >= 0.4 else "Low"
             result = {
                 "score": score, "rank": None, "coverage": round(coverage, 2),
@@ -336,6 +361,10 @@ def rank_records(
         return output, scored
 
     for window, max_age in WINDOW_DAYS.items():
+        # A window is a derived view. Rebuild it from scratch so yesterday's
+        # Today rank cannot survive after the release/surfacing date rolls on.
+        for record in records:
+            record.setdefault("ranking", {}).pop(window, None)
         if window == "today":
             candidates = [
                 record
@@ -358,10 +387,15 @@ def rank_records(
             current_values: dict[str, int | float | None] = {}
             delta_values: dict[str, int | float | None] = {}
             for record in candidates:
-                current = raw_by_id[record["id"]].get(signal)
                 current_row = raw_by_id[record["id"]]
+                current = current_row.get(signal)
+                current_scope = current_row.get("githubScope") or github_scope(record.get("links", {}).get("code"))
+                if signal == "githubStars" and current_scope == "hosting_repo":
+                    current = None
                 old_row = previous_by_id.get(record["id"], {})
                 old = old_row.get(signal)
+                if signal == "githubStars" and old_row.get("githubScope") == "hosting_repo":
+                    old = None
                 current_state = (current_row.get("signalStatus", {}).get(signal) or {}).get("state")
                 old_state = (old_row.get("signalStatus", {}).get(signal) or {}).get("state")
                 usable_delta = current_state not in {"stale", "unavailable", "not_refreshed", "not_applicable"}
@@ -413,6 +447,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--github-limit", type=int, default=50)
     parser.add_argument(
+        "--rerank-only",
+        action="store_true",
+        help="Recompute derived rankings from an existing real snapshot without network access.",
+    )
+    parser.add_argument(
         "--only-ids",
         help="Comma-separated benchmark ids to refresh; other rows are retained from today's snapshot.",
     )
@@ -440,6 +479,23 @@ def main() -> None:
     as_of = date.fromisoformat(args.date or date.today().isoformat())
     today = date.today()
     snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
+    if args.rerank_only:
+        if not snapshot_path.exists():
+            raise RuntimeError("--rerank-only requires an existing real snapshot for --date.")
+        snapshot = read_json(snapshot_path)
+        raw_by_id = {item["benchmarkId"]: item for item in snapshot.get("records", [])}
+        if not all(record["id"] in raw_by_id for record in records):
+            raise RuntimeError("Snapshot does not cover every canonical benchmark.")
+        for record in records:
+            scope = raw_by_id[record["id"]].get("githubScope") or github_scope(record.get("links", {}).get("code"))
+            if scope:
+                record.setdefault("attention", {})["githubScope"] = scope
+        rank_records(records, raw_by_id, as_of, latest_source_date)
+        payload["manifest"].setdefault("metrics", {})["methodVersion"] = METHOD_VERSION
+        payload["manifest"]["metrics"]["rerankedFromSnapshot"] = as_of.isoformat()
+        write_json(DATA_PATH, payload)
+        print(f"reranked_records={len(records)} snapshot={snapshot_path.name} method={METHOD_VERSION}")
+        return
     if observation_mode(as_of, today, bool(args.date), snapshot_path.exists()) == "historical-read-only":
         print(f"historical snapshot preserved without network access: {snapshot_path}")
         return
@@ -499,6 +555,7 @@ def main() -> None:
             "hfPaperUrl": raw["hfPaperUrl"],
             "githubStars": raw["githubStars"],
             "githubRepo": raw["githubRepo"],
+            "githubScope": raw.get("githubScope"),
             "hfDatasetDownloads": raw["hfDatasetDownloads"],
             "hfDatasetLikes": raw["hfDatasetLikes"],
             "hfDataset": raw["hfDataset"],

@@ -44,8 +44,13 @@ Raw Hugging Face votes, GitHub stars, and downloads are never manually reduced.
 ## Attention ranking
 
 Attention describes current public visibility, not quality, adoption, or future
-potential. Within the selected release window, each available count is converted
-with `log(1 + count)` and then to a cohort percentile. The percentiles are
+potential. Signals are compared only with releases in the same age band
+(`0–2`, `3–7`, `8–14`, `15–30`, `31–60`, or `61–90` days). This prevents older
+releases from winning merely because their cumulative counters had longer to
+grow. Dedicated benchmark-repository stars count; stars on a parent repository
+that merely hosts the benchmark in a subdirectory do not.
+
+Each observed value becomes an age-cohort percentile. The percentiles are
 combined using these window-specific weights:
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
@@ -54,8 +59,10 @@ combined using these window-specific weights:
 | 30 days | 40% | 30% | 30% |
 | 90 days | 30% | 30% | 40% |
 
-Missing signals are omitted and the remaining weights are normalized; they are
-never treated as zero. A formal rank requires at least two available signals.
+Missing signals receive the neutral cohort position (50th percentile), not zero.
+Coverage is reported separately, and a formal rank still requires at least two
+observed signals. This makes two-signal combinations comparable without claiming
+that an unavailable platform has no attention.
 The public `Attention #` currently uses cumulative levels. Real snapshot-based
 growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.

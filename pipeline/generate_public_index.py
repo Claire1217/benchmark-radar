@@ -35,7 +35,7 @@ def project_record(source: dict) -> dict:
     attention = source.get("attention") or {}
     record["attention"] = {
         key: attention.get(key)
-        for key in ("asOf", "hfPaperUpvotes", "hfDailySubmittedAt", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
+        for key in ("asOf", "hfPaperUpvotes", "hfDailySubmittedAt", "githubStars", "githubScope", "hfDatasetDownloads", "hfDatasetLikes")
     }
     record["evidence"] = {
         "snippet": source.get("evidence", {}).get("snippet", ""),
