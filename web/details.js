@@ -165,7 +165,8 @@
     const links = document.createElement("div");
     links.className = "detail-links";
     reports.slice(0, 8).forEach((report) => {
-      const item = link(report.sourceId || "Model report", report.url);
+      const label = [report.provider, report.model].filter(Boolean).join(" · ") || report.sourceId || "Model report";
+      const item = link(label, report.url);
       if (item) links.append(item);
     });
     node.append(links, text("p", "detail-note", "A source link shows reported use; it does not by itself prove an independently reproduced score."));

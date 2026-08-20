@@ -22,7 +22,17 @@ class DeepSeekReviewTests(unittest.TestCase):
     def test_first_person_editorial_copy_is_rejected(self) -> None:
         rows = [{"sourceId": "1", "description": "We evaluate agents.", "whyItMatters": "It supports comparison."}]
         with self.assertRaises(RuntimeError):
-            validate_copy({"1"}, rows)
+            validate_copy({"1": {"officialLinks": {}}}, rows)
+
+    def test_publisher_requires_an_official_input_link(self) -> None:
+        rows = [{
+            "sourceId": "1",
+            "description": "Evaluates agents on repeatable tasks.",
+            "whyItMatters": "Supports comparable system evaluation.",
+            "publishers": [{"name": "Example Lab", "organizationType": "academic-lab", "sourceUrl": "https://unsupported.example"}],
+        }]
+        with self.assertRaises(RuntimeError):
+            validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
 
 
 if __name__ == "__main__":

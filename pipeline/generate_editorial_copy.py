@@ -99,8 +99,22 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                         "description": {"type": "string", "maxLength": 220},
                         "whyItMatters": {"type": "string", "maxLength": 320},
                         "decisionReason": {"type": "string", "maxLength": 320},
+                        "publishers": {
+                            "type": "array",
+                            "maxItems": 2,
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {"type": "string", "maxLength": 80},
+                                    "organizationType": {"type": "string", "enum": ["company-research-lab", "academic-lab", "benchmark-organization", "community"]},
+                                    "sourceUrl": {"type": "string"},
+                                },
+                                "required": ["name", "organizationType", "sourceUrl"],
+                                "additionalProperties": False,
+                            },
+                        },
                     },
-                    "required": ["sourceId", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason"],
+                    "required": ["sourceId", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
                     "additionalProperties": False,
                 },
             }
@@ -118,6 +132,8 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "Public attention, author prestige, and the word benchmark must never change this decision. "
         "Then write neutral editorial copy in third person. Description states what is evaluated. "
         "Why it matters explains the evaluation gap and practical decision value. "
+        "Publishers are the organizations or benchmark teams responsible for releasing the benchmark, not every author affiliation and not model adopters. "
+        "Only return a publisher when its identity is supported by an official link supplied in the input; otherwise return an empty list. "
         "Do not write We, Our, This paper, introduces, presents, hype, rankings, or unsupported facts. "
         "Use only the supplied paper text and official links. Return one item for every sourceId."
     )
@@ -154,8 +170,8 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
     raise AssertionError("unreachable")
 
 
-def validate_copy(source_ids: set[str], rows: list[dict[str, Any]]) -> None:
-    if {row.get("sourceId") for row in rows} != source_ids:
+def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]) -> None:
+    if {row.get("sourceId") for row in rows} != set(sources):
         raise RuntimeError("DeepSeek output did not cover the requested source IDs exactly")
     first_person = re.compile(r"\b(?:we|our|ours|us)\b", re.I)
     author_voice = re.compile(r"\b(?:this paper|we introduce|we present)\b", re.I)
@@ -165,6 +181,11 @@ def validate_copy(source_ids: set[str], rows: list[dict[str, Any]]) -> None:
             if not value or first_person.search(value) or author_voice.search(value):
                 raise RuntimeError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
             row[field] = value
+        allowed_urls = set((sources[row["sourceId"]].get("officialLinks") or {}).values())
+        for publisher in row.get("publishers", []):
+            if not str(publisher.get("name", "")).strip() or publisher.get("sourceUrl") not in allowed_urls:
+                raise RuntimeError(f"Unsupported publisher evidence for {row.get('sourceId')}")
+            publisher["role"] = "benchmark-publisher"
 
 
 def input_hash(row: dict[str, Any]) -> str:
@@ -195,6 +216,8 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
         record["whyItMatters"] = decision["whyItMatters"]
         record["oneLine"] = decision["description"]
         record["evaluationMode"] = decision["benchmarkMode"]
+        if decision.get("publishers"):
+            record["publishers"] = decision["publishers"]
         record["displayEligible"] = True
         record["capabilities"] = [value for value in record.get("capabilities", []) if value != "Evaluation"]
         record["curation"] = {
@@ -279,7 +302,7 @@ def main() -> None:
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
         rows = call_deepseek(batch, args.model, api_key)
-        validate_copy({item["sourceId"] for item in batch}, rows)
+        validate_copy({item["sourceId"]: item for item in batch}, rows)
         generated.extend(rows)
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     source_by_id = {item["sourceId"]: item for item in source_rows}
@@ -293,6 +316,7 @@ def main() -> None:
             "description": row["description"],
             "whyItMatters": row["whyItMatters"],
             "decisionReason": row["decisionReason"],
+            "publishers": row.get("publishers", []),
             "model": args.model,
             "generatedAt": now,
             "inputHash": input_hash(source),

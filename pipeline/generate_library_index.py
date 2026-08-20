@@ -16,6 +16,13 @@ RECENT = ROOT / "data" / "benchmarks.json"
 CLASSICS = ROOT / "data" / "library_records.json"
 OUTPUT = ROOT / "data" / "library_index.json"
 
+MODEL_REPORT_LABELS = {
+    "openai-gpt5": {"provider": "OpenAI", "model": "GPT-5"},
+    "anthropic-claude4": {"provider": "Anthropic", "model": "Claude 4"},
+    "google-gemini25": {"provider": "Google DeepMind", "model": "Gemini 2.5"},
+    "deepseek-v3": {"provider": "DeepSeek", "model": "DeepSeek-V3"},
+}
+
 
 def public_classic(record: dict, classics: dict) -> dict:
     release = record.get("firstRelease") or {}
@@ -76,7 +83,11 @@ def public_classic(record: dict, classics: dict) -> dict:
         "sourceAttribution": source_items,
         "adoptionRefs": record.get("adoptionRefs", []),
         "modelReportReferences": [
-            {"sourceId": ref, "url": classics["modelReportSources"][ref]}
+            {
+                "sourceId": ref,
+                "url": classics["modelReportSources"][ref],
+                **MODEL_REPORT_LABELS.get(ref, {"provider": ref, "model": "Model report"}),
+            }
             for ref in record.get("adoptionRefs", [])
         ],
         "catalogDiscoveryRefs": record.get("catalogDiscoveryRefs", []),

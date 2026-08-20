@@ -19,6 +19,8 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
         record["description"] = copy["description"]
         record["whyItMatters"] = copy["whyItMatters"]
         record["oneLine"] = copy["description"]
+        if copy.get("publishers"):
+            record["publishers"] = copy["publishers"]
         record["copyGeneration"] = {key: copy[key] for key in ("model", "generatedAt", "inputHash")}
     return records
 
