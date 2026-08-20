@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from build_library_records import SEED_PATH, build_payload
+from taxonomy import CAPABILITY_GROUPS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -165,6 +166,15 @@ def main() -> None:
         errors.extend(validate_library_record(record, index, library))
     for index, record in enumerate(records):
         errors.extend(validate_record(record, index))
+    for label, payload in (("public", public), ("library public", library_public)):
+        for index, record in enumerate(payload.get("records", [])):
+            groups = record.get("capabilityGroups") or []
+            if not groups or set(groups) - CAPABILITY_GROUPS:
+                errors.append(f"{label}.records[{index}]: invalid capabilityGroups")
+            if record.get("domainScope") not in {"general", "cross-domain", "specific", "unspecified"}:
+                errors.append(f"{label}.records[{index}]: invalid domainScope")
+            if "General AI" in record.get("applicationDomains", []):
+                errors.append(f"{label}.records[{index}]: General AI is not an application domain")
     if errors:
         raise SystemExit("\n".join(errors[:100]))
     print(f"validated_records={len(records)} library_classics={len(library_records)} library_public={len(library_public.get('records', []))}")

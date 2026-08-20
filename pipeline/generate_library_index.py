@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 
 from generate_public_index import project_record
+from taxonomy import normalize_taxonomy
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -88,6 +89,7 @@ def public_classic(record: dict, classics: dict) -> dict:
     for key in ("variantOf", "variantOfExternal", "versionPolicy"):
         if record.get(key):
             result[key] = record[key]
+    result.update(normalize_taxonomy(result))
     return result
 
 

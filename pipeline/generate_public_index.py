@@ -6,6 +6,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from taxonomy import normalize_taxonomy
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "benchmarks.json"
@@ -46,6 +48,7 @@ def project_record(source: dict) -> dict:
             record[optional_key] = source[optional_key]
     if "displayEligible" in source:
         record["displayEligible"] = source["displayEligible"]
+    record.update(normalize_taxonomy(record))
     return record
 
 

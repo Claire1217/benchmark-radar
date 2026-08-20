@@ -1,83 +1,80 @@
-# Taxonomy and classification evidence
+# Benchmark taxonomy
 
-Benchmark Radar does not copy the arXiv subject tree into the product UI. It
-uses three orthogonal axes:
+Benchmark Radar keeps technical capability, application context, and artifact
+type separate. They answer different questions and must not share one flat
+`Domains` menu.
 
-1. `area` — the technical object or interaction paradigm being evaluated;
-2. `applicationDomains` — the real-world content or deployment context;
-3. `capabilities` — the finer-grained skills or risks being measured.
+## Axis A — General AI capabilities
 
-Capabilities are optional. `Evaluation` is not a capability and must never be
-used as a fallback value; unknown is more accurate than an invented label.
+These describe what a model or system must do. A benchmark may have one to
+three groups:
 
-This follows HELM's separation of task, domain, language, and metrics rather
-than collapsing them into one category. Hugging Face likewise keeps task
-metadata and dataset modality/context as separate fields. arXiv categories are
-retained as source metadata and discovery inputs, not treated as product
-categories.
-
-Primary references:
-
-- Stanford CRFM, HELM: https://crfm.stanford.edu/2022/11/17/helm.html
-- Hugging Face Dataset Cards: https://huggingface.co/docs/hub/en/datasets-cards
-- arXiv Category Taxonomy: https://arxiv.org/category_taxonomy
-- MLCommons benchmark principles: https://mlcommons.org/benchmarks/
-
-## Stable areas
-
-- Language & Knowledge
-- Vision & 3D
-- Multimodal
-- Speech & Audio
-- Code & Software
-- Agents & Tool Use
-- Robotics & Embodied AI
-- Science & Engineering
+- Knowledge & Reasoning
+- Mathematics & Formal Sciences
+- Coding & Software Engineering
+- Agents
+- Tool Calling
+- Computer Use
+- Search & Retrieval
+- Long Context & Memory
+- Instruction Following & Structured Output
+- Language & Communication
+- Multimodal Perception
 - Safety & Trustworthiness
 - Systems & Efficiency
+- Robotics & Embodied Intelligence
 
-## Application-domain rules
+`General AI` is the UI umbrella for these groups, not an application-domain
+leaf and never a synonym for “classification failed.” Agents, Tool Calling,
+and Computer Use remain distinct even when one benchmark has more than one.
 
-The primary domain must be supported by the benchmark title, its explicit
-identity/evaluation-target sentence, or reviewed primary-source metadata. A
-single incidental mention elsewhere in an abstract cannot set the primary
-domain. Full-text matches may propose secondary candidates for review only.
+## Axis B — application domains
 
-`General AI` is the conservative primary domain for explicitly cross-domain
-benchmarks. `Mobile & Personal Computing` covers phone/desktop personal-agent
-environments; financial data inside one app does not make the benchmark a
-Finance benchmark.
+These describe where the evaluated work occurs. They are optional and may be
+multi-valued:
 
-Evidence priority is:
+- Health & Life Sciences
+- Finance & Economics
+- Legal & Public Sector
+- Science & Research
+- Cybersecurity
+- Industrial & Engineering
+- Transport & Logistics
+- Consumer & Productivity
+- Education
+- Creative Industries & Media
+- Robotics & Autonomous Systems
 
-1. reviewed override with primary-source URL and date;
-2. explicit scope from the benchmark's official paper/project;
-3. deterministic match in the benchmark identity/evaluation-target sentence;
-4. semantic-review proposal;
-5. `General AI` when evidence is insufficient.
+When no specific domain is supported, `applicationDomains` is empty and
+`domainScope` records `general`, `cross-domain`, or `unspecified`. Mathematics,
+Coding, Multimodal, and General AI are capabilities rather than downstream
+application domains.
 
-Every automatic classification should retain its method, matched evidence,
-and confidence. Classification changes are versioned and must be replayed over
-the active Radar window.
+## Artifact role is not a domain
 
-## Benchmark role
+`reusable_benchmark`, `benchmarking_study`, `uses_existing_benchmarks`, and
+`unclear` describe the artifact role. `Survey` is never a capability or
+application domain. A survey or comparison paper enters the public Library
+only when it separately releases a reusable evaluation artifact with a stable
+task and scoring contract.
 
-- `reusable_benchmark`: intended as a reusable evaluation target;
-- `diagnostic_benchmark`: a repeatable evaluation primarily created to expose
-  a limitation or support a scientific claim;
-- `benchmarking_study`: comparison/analysis without a reusable benchmark
-  entity;
-- `uses_existing_benchmarks`: reports results on existing benchmarks;
-- `unclear`: insufficient evidence.
+## Evidence and migration
 
-Only reusable benchmarks are eligible for automatic Radar publication.
-Diagnostic benchmarks require independent adoption, unusually strong
-field/age-normalized attention, or an explicit reviewed exception.
-Institutional prestige is provenance, never an automatic inclusion feature.
+The normalizer may safely map reviewed structured labels into the two axes. It
+must not infer new scientific meaning from paper keywords. New or ambiguous
+classification is produced by semantic source review and remains auditable.
+Legacy `primaryDomain` is temporarily retained for Radar/Trends compatibility;
+new Library UI reads `capabilityGroups`, `applicationDomains`, and
+`domainScope`.
 
-## Regression examples
+This follows HELM's separation of scenario task/domain/metric and Hugging
+Face's hierarchy of modality families and tasks. LLM Stats is used as a useful
+coverage reference for Coding, Agents, Tool Calling, Long Context, Math, and
+other practical filters, but its flat overlapping tag list is not copied.
 
-- FinanceBench / BigFinanceBench: Language & Knowledge area; Finance domain.
-- iOSWorld: Agents & Tool Use area; Mobile & Personal Computing domain.
-- EdgeBench: Agents & Tool Use area; General AI primary domain with reviewed
-  cross-domain scope.
+References:
+
+- Stanford HELM: https://crfm.stanford.edu/2022/11/17/helm.html
+- Hugging Face Tasks: https://huggingface.co/tasks
+- OpenML Tasks: https://docs.openml.org/concepts/tasks/
+- LLM Stats Benchmarks: https://llm-stats.com/benchmarks
