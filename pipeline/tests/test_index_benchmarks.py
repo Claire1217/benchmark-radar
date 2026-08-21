@@ -113,6 +113,15 @@ class IndexerTests(unittest.TestCase):
         self.assertEqual(canonical_name(paper), "InvestLogicBench")
         self.assertIn("exact named benchmark artifact released in abstract", reasons)
 
+    def test_bench_family_name_with_suffix_is_not_truncated(self) -> None:
+        paper = sample(
+            "SWE-bench Science: Can Coding Agents Resolve Engineering Tasks in Science?",
+            "We introduce SWE-bench Science, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 repositories.",
+            "2608.19799",
+        )
+        self.assertEqual(canonical_name(paper), "SWE-bench Science")
+        self.assertNotEqual(family_id(canonical_name(paper)), family_id("SWE-bench"))
+
     def test_tactus_model_is_not_promoted_to_benchmark_identity(self) -> None:
         title = "TactusBench: A Tactile Foundation Model for Robot Learning"
         paper = sample(

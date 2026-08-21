@@ -461,11 +461,14 @@ def canonical_name(paper: Paper) -> str:
     )
     if has_named_benchmark_title(title) and safe_title_identity:
         return prefix.strip()
+    # Prefer an exact coined title identity over a shorter Bench-token found in
+    # the abstract (for example, "SWE-bench Science" must not become
+    # "SWE-bench").
+    if separator and has_named_benchmark_entity(paper):
+        return prefix.strip()
     named = named_abstract_benchmark(paper)
     if named:
         return named
-    if separator and has_named_benchmark_entity(paper):
-        return prefix.strip()
     if separator and re.search(r"(?:Bench|Benchmark)$", normalize_space(prefix), re.I) and not safe_title_identity:
         return title
     match = re.search(r"\b([A-Z][A-Za-z0-9+_.-]{2,30}(?:Bench|Benchmark))\b", title)
