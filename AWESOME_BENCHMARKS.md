@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-20 · **Benchmark releases:** 1223
+**Snapshot:** 2026-08-21 · **Benchmark releases:** 1232
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (35)
 - [Finance](#finance) (38)
-- [General AI](#general-ai) (834)
+- [General AI](#general-ai) (843)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
@@ -226,6 +226,15 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **VGI-BENCH** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
+- **SWE-bench** (2026-08-20) — We introduce \textbf{SWE-bench Science}, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 GitHub repositories across 20 scientific domains. [Paper](https://arxiv.org/abs/2608.19799)
+- **Rule-Compliant Visual Spatial Planning for Multimodal Large Language Models** (2026-08-20) — To address this gap, we introduce RuleMaze, a controllable benchmark in which MLLMs must navigate mazes while obeying natural-language rules of varying complexity. [Paper](https://arxiv.org/abs/2608.20237) · [Code](https://github.com/oceanflowlab/RuleMaze)
+- **PersonalBench** (2026-08-20) — We introduce PersonalBench, a benchmark that evaluates inference-time personalization methods through three independent lenses: LUAR (a trained authorship verification model), an LLM-as-judge, and automated stylometrics. [Paper](https://arxiv.org/abs/2608.19746)
+- **PL-NBA** (2026-08-20) — Experimental results show that existing methods achieve limited performance on above four tasks, demonstrating that PL-NBA is a challenging benchmark for sports video understanding. [Paper](https://arxiv.org/abs/2608.19646)
+- **One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows** (2026-08-20) — We release both Thinkingbox and Thinkingbox-Bench: https://github.com/microsoft/thinkingbox [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
+- **MaliciousSkillBench** (2026-08-20) — We present MaliciousSkillBench, a comprehensive benchmark for malicious Agent Skill detection. [Paper](https://arxiv.org/abs/2608.19901)
+- **ExPhy: A Benchmark for Explicit Physical Property Learning in Multi-Object Trajectory Forecasting** (2026-08-20) — To address this gap, we introduce \emph{ExPhy}, a multi-object trajectory forecasting benchmark containing 24,000 simulated physical scenes with explicit object-level labels for mass, friction, and restitution. [Paper](https://arxiv.org/abs/2608.20009) · [Code](https://github.com/Zest86/ExPhy)
+- **DeltaML-Bench** (2026-08-20) — We introduce DeltaML-Bench, a benchmark comprising 48 tasks sourced from research papers that require agents to improve published baselines within imperfect, open-source repositories. [Paper](https://arxiv.org/abs/2608.19653) · [Code](https://github.com/AlgorithmicResearchGroup/deltaml-bench-public)
 - **VA-Judger-Bench** (2026-08-19) — We also introduce the VA-Judger-Bench benchmark with both in-domain and out-of-domain model comparisons to evaluate whether reward models truly align with human preferences. [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger)
 - **GreekBarRetrieval** (2026-08-19) — We introduce GreekBarRetrieval, a public retrieval benchmark derived from, and complementing GreekBarBench, which did not include retrieval. [Paper](https://arxiv.org/abs/2608.18752)
 - **AtmosCoder-Bench** (2026-08-19) — Here we introduce AtmosCoder-Bench, an execution-grounded benchmark that makes the calculation process visible. [Paper](https://arxiv.org/abs/2608.18726) · [Code](https://github.com/acodercat/AtmosCoder-Bench)
