@@ -1,6 +1,6 @@
 import unittest
 
-from generate_editorial_copy import publishable, response_text, selection_fingerprint, validate_copy
+from generate_editorial_copy import publishable, publisher_identity_is_distinct, response_text, selection_fingerprint, validate_copy
 
 
 class DeepSeekReviewTests(unittest.TestCase):
@@ -54,6 +54,18 @@ class DeepSeekReviewTests(unittest.TestCase):
         }]
         validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
         self.assertEqual(rows[0]["publishers"][0]["sourceUrl"], "https://github.com/example/bench")
+
+    def test_repository_name_is_not_treated_as_a_publisher(self) -> None:
+        self.assertFalse(
+            publisher_identity_is_distinct(
+                "NCP-Bench", "https://github.com/yingpengma/NCP-Bench", "NCP-Bench"
+            )
+        )
+        self.assertTrue(
+            publisher_identity_is_distinct(
+                "Example Research Lab", "https://github.com/example/NCP-Bench", "NCP-Bench"
+            )
+        )
 
     def test_selection_fingerprint_changes_with_source_revision(self) -> None:
         record = {

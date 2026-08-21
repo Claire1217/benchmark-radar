@@ -103,6 +103,17 @@ def response_text(payload: dict[str, Any]) -> str:
     raise ProviderError("DeepSeek response did not contain message content")
 
 
+def publisher_identity_is_distinct(name: str, source_url: str, benchmark_name: str = "") -> bool:
+    """Reject benchmark, repository, or dataset names masquerading as teams."""
+    normalize = lambda value: re.sub(r"[^a-z0-9]+", "", value.casefold())
+    normalized_name = normalize(name)
+    if not normalized_name:
+        return False
+    path_parts = [part for part in urlparse(source_url).path.split("/") if part]
+    resource_name = path_parts[-1] if path_parts else ""
+    return normalized_name not in {normalize(benchmark_name), normalize(resource_name)}
+
+
 def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
     schema = {
         "type": "object",
@@ -158,6 +169,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "task or environment, and the main capability or scoring setup when known. It must not explain why the benchmark was created. "
         "Why it matters explains the evaluation gap and practical decision value. "
         "Publishers are the organizations or benchmark teams responsible for releasing the benchmark, not every author affiliation and not model adopters. "
+        "A benchmark name, repository name, dataset name, or project-page title is not a publisher. "
         "Only return a publisher when its identity is supported by an official link supplied in the input; otherwise return an empty list. "
         "Do not write We, Our, This paper, introduces, presents, hype, rankings, or unsupported facts. "
         "Use only the supplied paper text and official links. Return one item for every sourceId."
@@ -221,7 +233,9 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
         supported_publishers = []
         for publisher in row.get("publishers", []):
             matched_url = allowed_urls.get(str(publisher.get("sourceUrl", "")).rstrip("/"))
-            if not str(publisher.get("name", "")).strip() or not matched_url:
+            if not matched_url or not publisher_identity_is_distinct(
+                str(publisher.get("name", "")), matched_url
+            ):
                 continue
             publisher["sourceUrl"] = matched_url
             publisher["role"] = "benchmark-publisher"

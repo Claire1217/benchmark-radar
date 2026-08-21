@@ -3,6 +3,7 @@
 
 from pathlib import Path
 
+from generate_editorial_copy import publisher_identity_is_distinct
 from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records, read_json, upsert, write_json
 
 
@@ -19,8 +20,18 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
         record["description"] = copy["description"]
         record["whyItMatters"] = copy["whyItMatters"]
         record["oneLine"] = copy["description"]
-        if copy.get("publishers"):
-            record["publishers"] = copy["publishers"]
+        publishers = [
+            publisher for publisher in copy.get("publishers", [])
+            if publisher_identity_is_distinct(
+                str(publisher.get("name", "")),
+                str(publisher.get("sourceUrl", "")),
+                str(record.get("name", "")),
+            )
+        ]
+        if publishers:
+            record["publishers"] = publishers
+        else:
+            record.pop("publishers", None)
         record["copyGeneration"] = {key: copy[key] for key in ("model", "generatedAt", "inputHash")}
     return records
 
