@@ -6,6 +6,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import date, timedelta
 import json
+import math
 from pathlib import Path
 
 
@@ -13,6 +14,19 @@ ROOT = Path(__file__).resolve().parents[1]
 RADAR_SOURCE = ROOT / "data" / "benchmarks.json"
 LIBRARY_SOURCE = ROOT / "data" / "library_index.json"
 OUTPUT = ROOT / "data" / "domain_trends.json"
+
+
+def tracked_use_score(provider_count: int, tracked_models: int) -> float | None:
+    """Combine independent lab breadth with catalog model breadth.
+
+    A provider multiplies rather than merely breaks ties, while log scaling stops
+    very large catalog counts from overwhelming broad official-report coverage.
+    Missing model coverage stays missing instead of being treated as zero.
+    """
+    if tracked_models <= 0:
+        return None
+    breadth = max(provider_count, 1)
+    return round(breadth * math.log2(tracked_models + 1), 2)
 
 
 def month_start(value: date) -> date:
@@ -69,15 +83,26 @@ def main() -> None:
             providers = sorted({item.get("provider") for item in reports if item.get("provider")})
             tracked_models = int(record.get("catalogModelCount") or 0)
             if tracked_models or providers:
+                score = tracked_use_score(len(providers), tracked_models)
                 landmarks.append({
                     "id": record["id"],
                     "name": record["name"],
                     "trackedModels": tracked_models,
                     "providers": providers,
                     "providerCount": len(providers),
+                    "trackedUseScore": score,
+                    "modelCoverageAvailable": tracked_models > 0,
                     "readiness": record.get("readiness"),
                 })
-        landmarks.sort(key=lambda item: (item["providerCount"], item["trackedModels"]), reverse=True)
+        landmarks.sort(
+            key=lambda item: (
+                item["modelCoverageAvailable"],
+                item["trackedUseScore"] or 0,
+                item["providerCount"],
+                item["trackedModels"],
+            ),
+            reverse=True,
+        )
         tracked_total = sum(item["trackedModels"] for item in landmarks)
         top_five_total = sum(item["trackedModels"] for item in sorted(landmarks, key=lambda item: item["trackedModels"], reverse=True)[:5])
         concentration = round(100 * top_five_total / tracked_total) if tracked_total else None
@@ -100,6 +125,7 @@ def main() -> None:
         "releaseCoverageStart": start.isoformat(),
         "releaseMetric": "new reusable benchmark families by first public release month",
         "currentUseMetric": "current catalog model coverage plus source-linked official model-report references",
+        "currentUseRanking": "official provider breadth multiplied by log2(1 + tracked catalog models); missing model coverage ranks after comparable records",
         "interpretation": "Release volume measures evaluation activity, not deployment or technical progress. Current tracked use is a snapshot, not a historical adoption series.",
         "domains": series,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
