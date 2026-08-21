@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 
-CAPABILITY_GROUPS = {
+CAPABILITY_GROUP_ORDER = (
     "Knowledge & Reasoning",
     "Mathematics & Formal Sciences",
     "Coding & Software Engineering",
@@ -19,6 +19,14 @@ CAPABILITY_GROUPS = {
     "Safety & Trustworthiness",
     "Systems & Efficiency",
     "Robotics & Embodied Intelligence",
+)
+
+CAPABILITY_GROUPS = set(CAPABILITY_GROUP_ORDER)
+
+# Exact entity curation, not keyword inference. These records predate the
+# normalized taxonomy and carry legacy areas that do not describe their task.
+CURATED_CAPABILITY_GROUPS = {
+    "LiveCodeBench": ["Coding & Software Engineering"],
 }
 
 AREA_TO_CAPABILITY = {
@@ -85,7 +93,14 @@ def unique(values: list[str]) -> list[str]:
 
 def normalize_taxonomy(record: dict) -> dict:
     """Return normalized capability and application fields without text inference."""
-    groups = [AREA_TO_CAPABILITY.get(record.get("area", ""), "Knowledge & Reasoning")]
+    groups = list(CURATED_CAPABILITY_GROUPS.get(record.get("name", ""), []))
+    if not groups:
+        groups = [
+            value for value in (record.get("capabilityGroups") or [])
+            if value in CAPABILITY_GROUPS
+        ]
+    if not groups:
+        groups = [AREA_TO_CAPABILITY.get(record.get("area", ""), "Knowledge & Reasoning")]
     capabilities = set(record.get("capabilities") or [])
     topics = set(record.get("topics") or [])
     if "Tool use" in capabilities or "Tool Calling" in topics:

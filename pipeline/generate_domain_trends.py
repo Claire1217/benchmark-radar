@@ -8,6 +8,12 @@ from datetime import date, timedelta
 import json
 import math
 from pathlib import Path
+import re
+
+try:
+    from taxonomy import CAPABILITY_GROUP_ORDER, normalize_taxonomy
+except ModuleNotFoundError:  # Imported as pipeline.generate_domain_trends in tests.
+    from pipeline.taxonomy import CAPABILITY_GROUP_ORDER, normalize_taxonomy
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +35,39 @@ def tracked_use_score(provider_count: int, tracked_models: int) -> float | None:
     return round(breadth * math.log2(tracked_models + 1), 2)
 
 
+def trend_key(kind: str, label: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", label.casefold()).strip("-")
+    return f"{kind}:{slug}"
+
+
+def matches_trend(record: dict, kind: str, label: str) -> bool:
+    """Match both release history and current use against the same taxonomy axis."""
+    if kind == "overview":
+        return record.get("domainScope") == "general"
+    if kind == "capability":
+        return label in (record.get("capabilityGroups") or [])
+    if kind == "application":
+        return label in (record.get("applicationDomains") or [])
+    raise ValueError(f"unknown trend kind: {kind}")
+
+
+def trend_definitions(records: list[dict]) -> list[tuple[str, str, str]]:
+    present_capabilities = {
+        value for record in records for value in (record.get("capabilityGroups") or [])
+    }
+    application_domains = sorted({
+        value for record in records for value in (record.get("applicationDomains") or [])
+    })
+    definitions = [("overview", "General AI", "General AI")]
+    definitions.extend(
+        ("capability", label, "General AI capabilities")
+        for label in CAPABILITY_GROUP_ORDER
+        if label in present_capabilities
+    )
+    definitions.extend(("application", label, "Application fields") for label in application_domains)
+    return definitions
+
+
 def month_start(value: date) -> date:
     return value.replace(day=1)
 
@@ -48,19 +87,20 @@ def month_range(start: date, end: date) -> list[date]:
 
 def main() -> None:
     radar_payload = json.loads(RADAR_SOURCE.read_text(encoding="utf-8"))
-    radar_records = radar_payload.get("records", [])
-    library_records = json.loads(LIBRARY_SOURCE.read_text(encoding="utf-8")).get("records", [])
+    radar_records = [{**record, **normalize_taxonomy(record)} for record in radar_payload.get("records", [])]
+    library_records = [
+        {**record, **normalize_taxonomy(record)}
+        for record in json.loads(LIBRARY_SOURCE.read_text(encoding="utf-8")).get("records", [])
+    ]
     manifest = radar_payload["manifest"]
     as_of = date.fromisoformat(manifest.get("latestSourceDate", manifest["dataAsOf"]))
     start = as_of - timedelta(days=89)
     months = month_range(start, as_of)
     current_month = month_start(as_of)
     prior_month = previous_month(as_of)
-    domains = sorted({record.get("primaryDomain") for record in radar_records + library_records if record.get("primaryDomain")})
-
     series = []
-    for domain in domains:
-        domain_releases = [record for record in radar_records if record.get("primaryDomain") == domain]
+    for kind, label, section in trend_definitions(radar_records + library_records):
+        domain_releases = [record for record in radar_records if matches_trend(record, kind, label)]
         monthly_families: dict[str, set[str]] = {month.isoformat(): set() for month in months}
         for record in domain_releases:
             released = date.fromisoformat(record["releasedAt"])
@@ -73,9 +113,8 @@ def main() -> None:
 
         domain_library = [
             record for record in library_records
-            if record.get("primaryDomain") == domain
+            if matches_trend(record, kind, label)
             and record.get("displayEligible", True) is not False
-            and record.get("dataStatus") != "catalog-listed-unverified"
         ]
         landmarks = []
         for record in domain_library:
@@ -93,6 +132,7 @@ def main() -> None:
                     "trackedUseScore": score,
                     "modelCoverageAvailable": tracked_models > 0,
                     "readiness": record.get("readiness"),
+                    "dataStatus": record.get("dataStatus"),
                 })
         landmarks.sort(
             key=lambda item: (
@@ -108,7 +148,12 @@ def main() -> None:
         concentration = round(100 * top_five_total / tracked_total) if tracked_total else None
         counts = Counter({item["month"]: item["count"] for item in monthly})
         series.append({
-            "domain": domain,
+            "key": trend_key(kind, label),
+            "label": label,
+            "section": section,
+            "kind": kind,
+            # Kept for older clients while the site migrates to key/label.
+            "domain": label,
             "monthlyNewFamilies": monthly,
             "currentMonthReleases": counts[current_month.isoformat()],
             "previousMonthReleases": counts[prior_month.isoformat()],
@@ -118,15 +163,15 @@ def main() -> None:
             "topBenchmarks": landmarks[:8],
         })
 
-    series.sort(key=lambda item: (item["trackedModelEntries"], item["currentMonthReleases"]), reverse=True)
     OUTPUT.write_text(json.dumps({
-        "schemaVersion": "2.0",
+        "schemaVersion": "3.0",
         "asOf": as_of.isoformat(),
         "releaseCoverageStart": start.isoformat(),
         "releaseMetric": "new reusable benchmark families by first public release month",
         "currentUseMetric": "current catalog model coverage plus source-linked official model-report references",
         "currentUseRanking": "official provider breadth multiplied by log2(1 + tracked catalog models); missing model coverage ranks after comparable records",
-        "interpretation": "Release volume measures evaluation activity, not deployment or technical progress. Current tracked use is a snapshot, not a historical adoption series.",
+        "taxonomy": "General AI is organized by technical capability; application fields are a separate axis. A benchmark may appear on both axes.",
+        "interpretation": "Release volume measures evaluation activity, not deployment or technical progress. Current tracked use is a snapshot, not a historical adoption series. Catalog-only coverage remains visibly provisional.",
         "domains": series,
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"domains={len(series)} output={OUTPUT}")
