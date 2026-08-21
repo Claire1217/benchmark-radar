@@ -21810,15 +21810,22 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "SWE-bench Science is a repository-level benchmark for scientific software engineering with 119 tasks from 98 repositories across 20 domains.",
-      "whyItMatters": "Provides a broad testbed for studying coding agent capabilities and failure mechanisms in scientific software.",
-      "decisionReason": "Presents a fixed dataset with clear task structure and public release.",
-      "publishers": [],
+      "description": "SWE-bench Science evaluates coding agents on 119 repository-level tasks from 98 GitHub repositories spanning 20 scientific domains, organized into Issue-driven, Expert-exploratory, and Engineering-integration paradigms. It measures pass@1 for repairing scientific software.",
+      "whyItMatters": "Existing coding agent benchmarks emphasize aggregate success and provide limited insight into failures in scientific software. SWE-bench Science provides a broad testbed for studying capabilities and failure mechanisms, noting that even top agents achieve pass@1 below 50%, helping developers identify where scientific knowledge helps or hinders repair.",
+      "decisionReason": "Named benchmark with defined tasks, scoring (pass@1), and public access via arXiv; repository tasks are fixed and reusable, though no official code link is provided but paper gives artifacts.",
+      "publishers": [
+        {
+          "name": "arXiv",
+          "organizationType": "community",
+          "sourceUrl": "https://arxiv.org/abs/2608.19799",
+          "role": "benchmark-publisher"
+        }
+      ],
       "model": "deepseek-v4-flash",
       "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "4f5259390d8f8fdb274f67ef15fa15384a626e2468f5509a260d75cea9e274de",
-      "selectionFingerprint": "bf7786510ba33dfc0db306a29e7fd0afb7575913a58fa457de7cc191d87aedc0"
+      "generatedAt": "2026-08-21T05:19:04.530412Z",
+      "inputHash": "270926c4f9204b4d25d8c0f9ecee3928e690eed0c86a223c8c2082cecd5cd884",
+      "selectionFingerprint": "f0fb1005409c3ca76726970a5bf8d23f5374ca450cd833a0598c4517e3227e72"
     },
     "2608.20237": {
       "decision": "publish",
@@ -21876,16 +21883,23 @@
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "PersonalBench evaluates inference-time personalization in LLMs through authorship verification, LLM-as-judge, and stylometrics across 50 authors.",
-      "whyItMatters": "Measures the authorship gap rather than task accuracy, providing a calibrated way to assess personalization methods.",
-      "decisionReason": "Offers a fixed dataset and protocol for evaluating personalization methods.",
-      "publishers": [],
+      "publicReusePath": false,
+      "description": "PersonalBench evaluates inference-time LLM personalization by measuring authorship resemblance across 50 authors and 1,000 generations, using LUAR, LLM-as-judge, and stylometrics. It provides metrics like LUAR similarity and AUC.",
+      "whyItMatters": "Fills gap in personalization evaluation by focusing on authorship resemblance rather than task accuracy. PersonalBench serves as a calibrated measuring stick, showing current methods modulate style but fail to bridge the human-LLM authorship gap, informing future personalization approaches.",
+      "decisionReason": "Named benchmark with defined evaluation protocol (three lenses) and scoring metrics; data of 50 authors and 1,000 generations is fixed and presumably usable, but no official code link is provided, though paper is public.",
+      "publishers": [
+        {
+          "name": "arXiv",
+          "organizationType": "community",
+          "sourceUrl": "https://arxiv.org/abs/2608.19746",
+          "role": "benchmark-publisher"
+        }
+      ],
       "model": "deepseek-v4-flash",
       "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "bcdae52475eb311cbec35c53f9238ea080ac576a8a1ee05e00942ee0df45518c",
-      "selectionFingerprint": "66fe925a228a795a9a74bd2fa70129ec1fd08932f17f7ab1230b7a43212ee428"
+      "generatedAt": "2026-08-21T05:19:04.530412Z",
+      "inputHash": "13d0ad09a7ce0eb1a4846c3e26d55e9906c66766379d36a1d64efa5832c0274e",
+      "selectionFingerprint": "593b736dca7f1f4f0ab5a4dbbe37a52d37bc52cb5c479ae41fa8ba2f44f0689e"
     },
     "2608.19741": {
       "decision": "publish",
@@ -21959,12 +21973,12 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates detection of malicious agent skills across 9,740 normalized skill instances from consolidated public sources, with defined attack categories and evaluation metrics.",
-      "whyItMatters": "Addresses fragmented malicious-skill detection evaluation, providing a standardized benchmark for comparing detectors on cross-source generalization.",
-      "decisionReason": "The project page provides official access to the benchmark, and the protocol includes defined evaluation splits and metrics.",
+      "description": "MaliciousSkillBench evaluates malicious Agent Skill detection, consolidating 13 sources into 9,740 skills (7,505 malicious, 2,235 benign) across 11 attack categories. It includes protocols for Random and Source-Disjoint splits, measuring Macro-F1 and false positive rates.",
+      "whyItMatters": "Addresses fragmentation in malicious-skill datasets by providing a comprehensive benchmark that jointly measures attack detection and benign over-flagging. It highlights source-disjoint performance gaps, guiding development of robust detectors for real-world deployment.",
+      "decisionReason": "Named benchmark with public project page and clear evaluation protocol (splits, metrics). Skills dataset is fixed and reusable; official project link provided.",
       "publishers": [
         {
-          "name": "ProtectSkills",
+          "name": "MaliciousSkillBench Project",
           "organizationType": "benchmark-organization",
           "sourceUrl": "https://protectskills.github.io/MaliciousSkillBench/",
           "role": "benchmark-publisher"
@@ -21972,9 +21986,9 @@
       ],
       "model": "deepseek-v4-flash",
       "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "fd72808904d5748ec8ed57cefad19cd30b86b2080b2627055cab2a0c6e10d7ff",
-      "selectionFingerprint": "675a732c133a3fd2226517b1828e2e855174d09ec478d09af003d6a5d6a62223"
+      "generatedAt": "2026-08-21T05:19:04.530412Z",
+      "inputHash": "ecd43125f98f5f07732f9a9a30fa6c1fad55ccd3985e076fc535fb6000f09ca3",
+      "selectionFingerprint": "0023e1685d02c4e47abbaa4a46e49780f87120913e7621d93c3c1a7da717c868"
     },
     "2608.20312": {
       "decision": "defer",
@@ -22060,25 +22074,25 @@
     },
     "2608.19653": {
       "decision": "publish",
-      "benchmarkMode": "score_submission",
+      "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "DeltaML-Bench evaluates ML agents on improving published baselines in real-world repositories. It includes 48 tasks with grading utilities and agents have 4-12 hours to make improvements, with fixed hidden evaluators.",
-      "whyItMatters": "It addresses the gap in evaluating agents in realistic research repositories, focusing on integrity and scaffolding design, which is crucial for deploying autonomous ML experimentation.",
-      "decisionReason": "The benchmark is publicly available with code and grading utilities on GitHub, and it provides a clear protocol for evaluating agents.",
+      "description": "DeltaML-Bench evaluates ML agents on 48 tasks from research papers, requiring improvement of published baselines within real repositories. It measures per-run success rate and specification gaming across configurations with time allocations (e.g., 4x6h, 2x12h).",
+      "whyItMatters": "Benchmarks agents under realistic compute constraints and detects specification gaming, which is critical for trustworthy autonomous ML experimentation. Results show scaffolding design (ARG) improves success and reduces gaming, informing agent development practices.",
+      "decisionReason": "Named benchmark with public code repository providing implementation and grading utilities. Tasks are fixed and reusable with clear protocol; official code link available.",
       "publishers": [
         {
-          "name": "AlgorithmicResearchGroup",
-          "organizationType": "community",
+          "name": "Algorithmic Research Group",
+          "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/AlgorithmicResearchGroup/deltaml-bench-public",
           "role": "benchmark-publisher"
         }
       ],
       "model": "deepseek-v4-flash",
       "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "4d296c6a4862596f24bcf7580ca5e52a1076b34f66b223d7d90198310b2c9cb1",
-      "selectionFingerprint": "9aa1831ebf9485b8beac0f01640bffd585c1ce05c1234a432df10f19ffb31813"
+      "generatedAt": "2026-08-21T05:19:04.530412Z",
+      "inputHash": "ee41b629feb8f976a34d4eea0c2d8cb6c5dd380d382a470be4968c092d3f3585",
+      "selectionFingerprint": "18b9757a8314f55b08654c9d94a4152e07a7ef6a4dd6abd3144d66136dedace9"
     },
     "2608.20204": {
       "decision": "defer",
