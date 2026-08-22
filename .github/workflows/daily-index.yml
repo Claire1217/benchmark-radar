@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "0 0 * * *"
       timezone: "Australia/Brisbane"
+    # arXiv's North American announcement window is later than Brisbane
+    # midnight. This catch-up run prevents the Radar from lagging a full day.
+    - cron: "30 12 * * *"
+      timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
       date:
