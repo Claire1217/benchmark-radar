@@ -49,8 +49,8 @@ def main() -> None:
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")
     if 'sort:"attention"' not in app:
         raise SystemExit("Attention must remain the default sort")
-    if "description-toggle" not in app or 'classList.toggle("expanded")' not in app:
-        raise SystemExit("clamped descriptions must remain expandable")
+    if "description-toggle" in app or "details-panel" in app:
+        raise SystemExit("descriptions must display directly without secondary disclosure controls")
     if 'evaluationMode!=="viewpoint_probe"' not in app:
         raise SystemExit("viewpoint probes must remain outside public views")
     if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):
