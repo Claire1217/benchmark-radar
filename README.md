@@ -10,27 +10,27 @@ Discover newly released public AI benchmarks every day—and see which benchmark
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-_Data through 2026-08-22 · benchmarks first released in August 2026_
+_Data through 2026-08-23 · benchmarks first released in August 2026_
 
 | # | Benchmark | Area | Public attention | Sources |
 |---:|---|---|---|---|
-| 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 56 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
-| 2 | **SWE-bench Science** | Coding & Software Engineering | 58 HF votes · 46 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
-| 3 | **ASI-Bench** | Agents | 57 HF votes · 101 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
-| 4 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
-| 5 | **PlayWorld** | Multimodal Perception | 45 HF votes · 84 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
-| 6 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
-| 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
+| 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 57 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
+| 2 | **ASI-Bench** | Agents | 57 HF votes · 104 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
+| 3 | **SWE-bench Science** | Coding & Software Engineering | 58 HF votes · 49 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
+| 4 | **PlayWorld** | Multimodal Perception | 45 HF votes · 84 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
+| 5 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
+| 6 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
+| 7 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
 | 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
 | 9 | **Active-SWE** | Coding & Software Engineering | 4 HF votes · 51 GitHub stars | [Paper](https://arxiv.org/abs/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE) |
-| 10 | **VA-Judger-Bench** | Multimodal Perception | 11 HF votes · 40 GitHub stars | [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger) |
+| 10 | **VA-Judger-Bench** | Multimodal Perception | 11 HF votes · 43 GitHub stars | [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger) |
 
 ### Browse by field
 
 **General AI capabilities**
-- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (831)
-- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (185)
-- [Agents](https://benchmark-radar.com/#library?capability=Agents) (245)
+- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (833)
+- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (189)
+- [Agents](https://benchmark-radar.com/#library?capability=Agents) (246)
 - [Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) (519)
 - [Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) (85)
 - [Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) (143)
@@ -39,11 +39,11 @@ _Data through 2026-08-22 · benchmarks first released in August 2026_
 **Application fields**
 - [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) (45)
 - [Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) (97)
-- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (124)
-- [Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) (77)
+- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (125)
+- [Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) (79)
 - [Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) (36)
 
-[Browse all 2,123 Library records →](https://benchmark-radar.com/#library)
+[Browse all 2,129 Library records →](https://benchmark-radar.com/#library)
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What the signals mean

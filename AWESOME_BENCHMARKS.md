@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-22 · **Benchmark releases:** 1232
+**Snapshot:** 2026-08-23 · **Benchmark releases:** 1238
 
 ## Contents
 
@@ -18,8 +18,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Biology & Drug Discovery](#biology--drug-discovery) (87)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (35)
-- [Finance](#finance) (38)
-- [General AI](#general-ai) (843)
+- [Finance](#finance) (39)
+- [General AI](#general-ai) (844)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (92)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (68)
+- [Software & AI Compute](#software--ai-compute) (72)
 
 ## Autonomous Driving
 
@@ -185,6 +185,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **financial-sentiment-benchmark** (2026-08-21) — financial-sentiment-benchmark Fine-tune a small model or prompt a big one? [Paper](https://github.com/gauthamRohan/financial-sentiment-benchmark) · [Code](https://github.com/gauthamRohan/financial-sentiment-benchmark)
 - **FinRCA-Bench** (2026-08-19) — We introduce FinRCA-Bench, a deterministic synthetic benchmark of 2,250 accounts-payable-to-bank reconciliation cases spanning 14 operational tables, including 1,500 injected failures across 15 causal categories and 750… [Paper](https://arxiv.org/abs/2608.18534) · [Code](https://github.com/PratikGhawate/FinRCA-AI-Bench)
 - **FM-Bench** (2026-08-19) — FM-Bench (Football Management Benchmark) measures this. [Paper](https://arxiv.org/abs/2608.18423) · [Code](https://github.com/Analogy-AI/fm-bench)
 - **FinFraudBench** (2026-08-15) — To address these gaps, we present FinFraudBench, a heterogeneous graph benchmark for financial fraud detection. [Paper](https://arxiv.org/abs/2608.15177) · [HF](https://huggingface.co/papers/2608.15177)
@@ -226,6 +227,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **agent-model-bench** (2026-08-21) — agent-model-bench Which model should power your agent? [Paper](https://github.com/ajbermudezh22/agent-model-bench) · [Code](https://github.com/ajbermudezh22/agent-model-bench)
 - **VGI-BENCH** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
 - **SWE-bench Science** (2026-08-20) — We introduce \textbf{SWE-bench Science}, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 GitHub repositories across 20 scientific domains. [Paper](https://arxiv.org/abs/2608.19799)
 - **Rule-Compliant Visual Spatial Planning for Multimodal Large Language Models** (2026-08-20) — To address this gap, we introduce RuleMaze, a controllable benchmark in which MLLMs must navigate mazes while obeying natural-language rules of varying complexity. [Paper](https://arxiv.org/abs/2608.20237) · [Code](https://github.com/oceanflowlab/RuleMaze)
@@ -1242,6 +1244,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **qwen3.8-27b-inference-benchmark-4090** (2026-08-21) — Qwen3.8-27B Inference Benchmark on RTX 4090 48GB 中文说明 · GitHub benchmark repository Structured performance and accuracy results for four real Qwen3.8-27B serving configurations on an NVIDIA RTX 4090 48 GB workstation. [Paper](https://huggingface.co/datasets/pxzleo/qwen3.8-27b-inference-benchmark-4090) · [Data](https://huggingface.co/datasets/pxzleo/qwen3.8-27b-inference-benchmark-4090)
+- **llm-summarization-benchmark-ptbr** (2026-08-21) — llm-summarization-benchmark-ptbr # LLM Summarization Benchmark — Brazilian Portuguese [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)](https://doi.org/10.5281/zenodo.22042502) *Six runs per model, a pr… [Paper](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Code](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)
+- **annomi-counselling-dialogue-analysis** (2026-08-21) — annomi-counselling-dialogue-analysis Transcript-grouped NLP benchmark for therapist-behaviour classification on AnnoMI counselling machine-learning natural-language-processing reproducibility roberta text-classification… [Paper](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis) · [Code](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis)
+- **ai-sim-benchmark** (2026-08-21) — ai-sim-benchmark A reproducible 3D water-simulation challenge for comparing autonomous AI coding agents # AI Coding Agent Water Simulation Benchmark This repository contains a reproducible coding challenge for comparing… [Paper](https://github.com/AiondaDotCom/ai-sim-benchmark) · [Code](https://github.com/AiondaDotCom/ai-sim-benchmark)
 - **OdinEval** (2026-08-19) — We present OdinEval, a reproducible benchmark built from documented defects in public Odin repositories. [Paper](https://arxiv.org/abs/2608.18595)
 - **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **PLSQLBench** (2026-08-16) — We present PLSQLBench, to our knowledge the first benchmark for evaluating whether LLMs can write executable PL/SQL programs, with correctness measured through execution-based tests. [Paper](https://arxiv.org/abs/2608.15931) · [HF](https://huggingface.co/papers/2608.15931) · [Code](https://github.com/oracle-samples/plsqlbench)
