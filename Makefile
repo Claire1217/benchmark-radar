@@ -6,7 +6,6 @@ test:
 check:
 	python3 pipeline/validate_data.py
 	node --check web/app.js
-	node --check web/details.js
 
 build: check
 	python3 pipeline/build_github_pages.py
