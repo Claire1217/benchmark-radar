@@ -1,103 +1,75 @@
 # Benchmark Radar
 
-[![Daily index](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)
-[![Deploy Pages](https://github.com/Claire1217/benchmark-radar/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/deploy-pages.yml)
+Discover newly released public AI benchmarks every day—and see which benchmarks model labs keep using.
+
+**[Open Benchmark Radar →](https://benchmark-radar.com/#radar)** · **[Browse Benchmark Library →](https://benchmark-radar.com/#library)**
+
+[![Daily update](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)
 [![CI](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml)
 
-A source-linked, daily-updated tracker for newly released and widely used AI benchmarks.
+## Hot this month
 
-- **[Open Benchmark Radar →](https://claire1217.github.io/benchmark-radar/)**
-- **[Browse the full Awesome list →](AWESOME_BENCHMARKS.md)**
+<!-- GENERATED_OVERVIEW_START -->
+_Data through 2026-08-22 · benchmarks first released in August 2026_
 
-Benchmark Radar helps answer two different questions:
+| # | Benchmark | Area | Public attention | Sources |
+|---:|---|---|---|---|
+| 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 56 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
+| 2 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
+| 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 84 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
+| 4 | **ASI-Bench** | Agents | 57 HF votes · 101 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
+| 5 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
+| 6 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
+| 7 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
+| 8 | **Active-SWE** | Coding & Software Engineering | 4 HF votes · 51 GitHub stars | [Paper](https://arxiv.org/abs/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE) |
+| 9 | **WorldExam** | Multimodal Perception | 34 HF votes · 21 GitHub stars | [Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam) |
+| 10 | **SWE-bench Science** | Coding & Software Engineering | 58 HF votes · 46 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
 
-- **What is new?** First public releases indexed from primary-source metadata.
-- **What is receiving attention?** Hugging Face votes, GitHub stars, and Hugging Face dataset downloads, shown separately from quality and readiness.
+### Browse by field
 
-The default view is **30 days · Attention**. Users can switch to the latest non-empty release batch, 90 days, or Newest; inspect domain activity in Trends; and keep a device-local Saved list.
+**General AI capabilities**
+- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (831)
+- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (185)
+- [Agents](https://benchmark-radar.com/#library?capability=Agents) (245)
+- [Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) (519)
+- [Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) (85)
+- [Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) (143)
+- [Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) (8)
 
-> This is a discovery index, not an endorsement, model leaderboard, or prediction guarantee. Missing evidence remains unknown. Popularity never changes readiness.
+**Application fields**
+- [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) (45)
+- [Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) (97)
+- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (124)
+- [Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) (77)
+- [Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) (36)
 
-## Current scope
+[Browse all 2,123 Library records →](https://benchmark-radar.com/#library)
+<!-- GENERATED_OVERVIEW_END -->
 
-- 90-day release Radar plus an all-time searchable Library
-- arXiv OAI-PMH as the primary discovery source
-- BenchLM and llm-stats catalog records, kept separate from verified Radar releases
-- Hugging Face and GitHub public attention signals
-- author-reported venue metadata from arXiv, clearly labelled as a claim
-- GitHub Actions daily refresh and GitHub Pages deployment
+## What the signals mean
 
-Conference status is evidence-tiered. `Acceptance claimed` means an arXiv author comment; it is not upgraded to `Accepted` until an official OpenReview decision or conference source is matched.
+- **Radar** shows recently released, public, reusable evaluation benchmarks.
+- **Attention** uses observable Hugging Face and GitHub signals. One real signal is enough to rank; missing data is not treated as zero.
+- **Library ranking** prioritizes tracked model-lab use and public evaluation coverage over release date.
+- **Daily updates** preserve real observation dates. The project does not invent historical attention or adoption.
 
-## How it works
+Benchmark Radar is a discovery index—not a quality endorsement, model leaderboard, or prediction guarantee.
 
-```text
-Retrieve official metadata
-  → review benchmark identity and public reuse evidence
-  → store admitted records and source-backed corrections
-  → enrich attention and publication signals
-  → validate and publish Radar, Library, and Trends
-```
+## Complete catalogue
 
-Keyword rules only recall candidates. An automated DeepSeek review classifies the candidate and drafts third-person display copy from supplied source text and official artifact excerpts. Deterministic validation checks identifiers, links, allowed fields, and generated views before anything is published. Source-backed maintainer overrides remain available for corrections.
+The generated **[Awesome AI Benchmarks catalogue](AWESOME_BENCHMARKS.md)** provides the complete source-linked list. The website is the recommended way to search, filter, and inspect details.
 
-## Repository map
+## Sources and corrections
 
-| Path | Purpose | Edit directly? |
-|---|---|---|
-| `web/` | Dependency-free GitHub Pages frontend | Yes |
-| `pipeline/` | Indexing, enrichment, validation, and build scripts | Yes |
-| `pipeline/tests/` | Deterministic pipeline tests | Yes |
-| `data/curated_overrides.json` | Reviewed corrections backed by primary sources | Yes, with evidence |
-| `data/curated_records.json` | Reviewed releases admitted from Paper, GitHub, and Hugging Face evidence | Yes, with evidence |
-| `data/benchmarks.json` | Generated canonical snapshot | No |
-| `data/benchmarks_index.json` | Generated compact website index | No |
-| `data/metrics/`, `data/publication/`, `data/runs/` | Generated observations and audit receipts | No |
-| `AWESOME_BENCHMARKS.md` | Generated human-readable catalogue | No |
-| `docs/` | Architecture, methodology, and data documentation | Yes |
+Records are linked to their original papers, projects, code, and datasets where available. Catalog discovery is attributed to BenchLM and llm-stats; release identity and corrections are checked against primary sources.
 
-## Local development
-
-The published site has no runtime framework and no account system.
-
-```bash
-make test
-make build
-make serve
-```
-
-Then open `http://localhost:8000`. `make serve` is local-only; the update commands below access public external APIs.
-
-To refresh generated views from the existing canonical snapshot:
-
-```bash
-make generate
-```
-
-To run a new daily index, read [CONTRIBUTING.md](CONTRIBUTING.md) first; the command updates tracked data.
-
-## Design and data
-
+- [Report a correction](https://github.com/Claire1217/benchmark-radar/issues/new/choose)
+- [Methodology](docs/METHODOLOGY.md)
+- [Public data](data/README.md)
+- [Contributing](CONTRIBUTING.md)
 - [Architecture](docs/ARCHITECTURE.md)
-- [Indexing, attention, readiness, and venue methodology](docs/METHODOLOGY.md)
-- [Data files and generated-source policy](data/README.md)
-- [Contribution guide](CONTRIBUTING.md)
-- [Security policy](SECURITY.md)
 
-## Public data
-
-The generated JSON used by the website is public and versioned in Git:
-
-- [`data/benchmarks_index.json`](data/benchmarks_index.json) — compact Radar view
-- [`data/library_index.json`](data/library_index.json) — searchable all-time Library
-- [`data/domain_trends.json`](data/domain_trends.json) — monthly release context and tracked-use summaries
-- [`data/catalog_records.json`](data/catalog_records.json) — externally discovered catalog records with provenance
-
-Consumers should read each file's `manifest.schemaVersion` and treat missing fields as unknown rather than zero.
-
-## Privacy
-
-The public site has no login, analytics, or cookies. Saved benchmarks are stored only in the visitor's browser using `localStorage`; they are not uploaded and do not sync across devices.
+The public website has no login, analytics, or cookies. Saved benchmarks remain in the visitor's browser.
 
 ## License status
 

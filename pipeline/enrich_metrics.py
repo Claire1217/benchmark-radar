@@ -24,7 +24,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v4"
+METHOD_VERSION = "attention-ranking-v5"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
@@ -336,8 +336,9 @@ def rank_records(
                 if value is not None:
                     populations.setdefault((signal, age_bucket(record)), []).append(value)
         for record in candidates:
-            weighted = coverage = 0.0
+            coverage = 0.0
             observed = 0
+            observed_percentiles: list[float] = []
             components: dict[str, Any] = {}
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
@@ -345,14 +346,19 @@ def rank_records(
                 pct = percentile(value, population, signed=signed)
                 components[signal] = {"value": value, "percentile": pct}
                 if pct is not None:
-                    weighted += weight * pct
+                    observed_percentiles.append(pct)
                     coverage += weight
                     observed += 1
-                else:
-                    # Missing is unknown, not zero. A neutral percentile keeps
-                    # scores comparable across different two-signal patterns.
-                    weighted += weight * 0.5
-            score = round(100 * weighted) if observed else None
+            # Attention is discovery-oriented: one unusually strong public
+            # signal should surface a benchmark. The strongest age-cohort
+            # percentile drives 90% of the score; the mean of other observed
+            # signals contributes 10%. Missing signals never dilute the score.
+            composite = (
+                0.9 * max(observed_percentiles)
+                + 0.1 * (sum(observed_percentiles) / len(observed_percentiles))
+                if observed_percentiles else None
+            )
+            score = round(100 * composite) if composite is not None else None
             confidence = (
                 "High" if coverage >= 0.75 and observed >= 2
                 else "Medium" if coverage >= 0.4 and observed >= 2
@@ -367,8 +373,8 @@ def rank_records(
             # Confidence stays Low until at least two independent signal types
             # are observed, so missing coverage is visible instead of silently
             # pushing a benchmark out of the ranked list.
-            if score is not None:
-                scored.append((score, record))
+            if composite is not None:
+                scored.append((composite, record))
         scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
         for position, (_, record) in enumerate(scored, 1):
             output[record["id"]]["rank"] = position

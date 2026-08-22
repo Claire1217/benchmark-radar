@@ -4,17 +4,113 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from datetime import date
 import json
 from pathlib import Path
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "benchmarks.json"
 OUTPUT_PATH = ROOT / "AWESOME_BENCHMARKS.md"
+README_PATH = ROOT / "README.md"
+SITE_URL = "https://benchmark-radar.com"
+README_START = "<!-- GENERATED_OVERVIEW_START -->"
+README_END = "<!-- GENERATED_OVERVIEW_END -->"
 
 
 def link(label: str, url: str | None) -> str | None:
     return f"[{label}]({url})" if url else None
+
+
+def site_filter(kind: str, value: str) -> str:
+    return f"{SITE_URL}/#library?{kind}={quote(value)}"
+
+
+def attention_text(record: dict) -> str:
+    attention = record.get("attention") or {}
+    parts = []
+    if attention.get("hfPaperUpvotes") is not None:
+        parts.append(f"{attention['hfPaperUpvotes']:,} HF votes")
+    if attention.get("githubStars") is not None and attention.get("githubScope") != "hosting_repo":
+        parts.append(f"{attention['githubStars']:,} GitHub stars")
+    if attention.get("hfDatasetDownloads") is not None:
+        parts.append(f"{attention['hfDatasetDownloads']:,} dataset downloads")
+    return " · ".join(parts) or "Public signals not measured yet"
+
+
+def update_readme() -> None:
+    radar = json.loads((ROOT / "data" / "benchmarks_index.json").read_text(encoding="utf-8"))
+    library = json.loads((ROOT / "data" / "library_index.json").read_text(encoding="utf-8"))
+    as_of = date.fromisoformat(radar["manifest"]["dataAsOf"])
+    month = as_of.strftime("%Y-%m")
+    candidates = [
+        record for record in radar.get("records", [])
+        if record.get("releasedAt", "").startswith(month)
+        and (record.get("ranking", {}).get("30d", {}).get("score") is not None)
+    ]
+    candidates.sort(
+        key=lambda record: (
+            record.get("ranking", {}).get("30d", {}).get("score", -1),
+            record.get("releasedAt", ""),
+        ),
+        reverse=True,
+    )
+
+    overview = [
+        f"_Data through {as_of.isoformat()} · benchmarks first released in {as_of.strftime('%B %Y')}_",
+        "",
+        "| # | Benchmark | Area | Public attention | Sources |",
+        "|---:|---|---|---|---|",
+    ]
+    for position, record in enumerate(candidates[:10], 1):
+        links = record.get("links") or {}
+        sources = " · ".join(
+            item for item in (
+                link("Paper", links.get("report") or links.get("paper")),
+                link("Code", links.get("code")),
+            ) if item
+        )
+        area = (record.get("capabilityGroups") or record.get("applicationDomains") or [record.get("area") or "—"])[0]
+        overview.append(
+            f"| {position} | **{record['name']}** | {area} | {attention_text(record)} | {sources or '—'} |"
+        )
+
+    records = library.get("records", [])
+    capability_counts = {
+        label: sum(label in (record.get("capabilityGroups") or []) for record in records)
+        for label in (
+            "Knowledge & Reasoning", "Coding & Software Engineering", "Agents",
+            "Multimodal Perception", "Safety & Trustworthiness",
+            "Mathematics & Formal Sciences",
+        )
+    }
+    rsi_count = sum("Self-Evolution" in (record.get("topics") or []) for record in records)
+    domain_counts = {
+        label: sum(label in (record.get("applicationDomains") or []) for record in records)
+        for label in (
+            "Science & Research", "Robotics & Autonomous Systems",
+            "Health & Life Sciences", "Finance & Economics", "Cybersecurity",
+        )
+    }
+    overview.extend(["", "### Browse by field", "", "**General AI capabilities**"])
+    for label, count in capability_counts.items():
+        overview.append(f"- [{label}]({site_filter('capability', label)}) ({count:,})")
+    overview.append(f"- [Self-Evolution / RSI]({site_filter('topic', 'Self-Evolution')}) ({rsi_count:,})")
+    overview.extend(["", "**Application fields**"])
+    for label, count in domain_counts.items():
+        overview.append(f"- [{label}]({site_filter('domain', label)}) ({count:,})")
+    overview.extend(["", f"[Browse all {len(records):,} Library records →]({SITE_URL}/#library)"])
+
+    readme = README_PATH.read_text(encoding="utf-8")
+    before, separator, remainder = readme.partition(README_START)
+    if not separator or README_END not in remainder:
+        raise RuntimeError("README generated overview markers are missing")
+    _, _, after = remainder.partition(README_END)
+    README_PATH.write_text(
+        before + README_START + "\n" + "\n".join(overview) + "\n" + README_END + after,
+        encoding="utf-8",
+    )
 
 
 def main() -> None:
@@ -32,7 +128,7 @@ def main() -> None:
         "",
         "A source-audited, daily-updated index of newly released AI benchmarks.",
         "",
-        "**[Browse and filter on Benchmark Radar →](https://claire1217.github.io/benchmark-radar/)**",
+        f"**[Browse and filter on Benchmark Radar →]({SITE_URL}/)**",
         "",
         "> This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.",
         "",
@@ -78,6 +174,7 @@ def main() -> None:
         ]
     )
     OUTPUT_PATH.write_text("\n".join(lines), encoding="utf-8")
+    update_readme()
     print(f"generated={OUTPUT_PATH} groups={len(groups)} records={sum(map(len, groups.values()))}")
 
 

@@ -50,8 +50,12 @@ releases from winning merely because their cumulative counters had longer to
 grow. Dedicated benchmark-repository stars count; stars on a parent repository
 that merely hosts the benchmark in a subdirectory do not.
 
-Each observed value becomes an age-cohort percentile. The percentiles are
-combined using these window-specific weights:
+Each observed value becomes an age-cohort percentile. Attention is
+discovery-oriented: the strongest observed percentile contributes 90% of the
+score, and the mean of all observed percentiles contributes 10%. This lets one
+genuinely strong public signal surface a benchmark without pretending that
+missing signals are zero. The following weights describe signal coverage and
+confidence:
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
 | --- | ---: | ---: | ---: |
@@ -59,10 +63,9 @@ combined using these window-specific weights:
 | 30 days | 40% | 30% | 30% |
 | 90 days | 30% | 30% | 40% |
 
-Missing signals receive the neutral cohort position (50th percentile), not zero.
-Coverage is reported separately. A record with one real signal can receive a
-low-coverage rank; missing platforms are never treated as zero. More observed
-signals increase ranking confidence rather than changing benchmark eligibility.
+A missing signal is unknown and does not enter the score. One observed signal is
+enough to rank, with low coverage confidence. More observed signals raise
+confidence rather than changing benchmark eligibility.
 The public `Attention #` currently uses cumulative levels. Real snapshot-based
 growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.

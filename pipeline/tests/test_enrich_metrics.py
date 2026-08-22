@@ -73,6 +73,7 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(popular["rank"], 1)
         self.assertEqual(popular["confidence"], "Low")
         self.assertEqual(popular["components"]["githubStars"]["value"], 119)
+        self.assertEqual(popular["score"], 75)
 
     @patch("enrich_metrics.closest_history", return_value=None)
     def test_stale_today_rank_is_removed_when_record_leaves_window(self, _history) -> None:
