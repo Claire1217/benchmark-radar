@@ -55,7 +55,7 @@ combined using these window-specific weights:
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
 | --- | ---: | ---: | ---: |
-| Today | 60% | 25% | 15% |
+| Latest release batch | 60% | 25% | 15% |
 | 30 days | 40% | 30% | 30% |
 | 90 days | 30% | 30% | 40% |
 

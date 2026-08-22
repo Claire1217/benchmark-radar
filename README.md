@@ -14,7 +14,7 @@ Benchmark Radar helps answer two different questions:
 - **What is new?** First public releases indexed from primary-source metadata.
 - **What is receiving attention?** Hugging Face votes, GitHub stars, and Hugging Face dataset downloads, shown separately from quality and readiness.
 
-The default view is **30 days · Attention**. Users can switch to Today, 90 days, or Newest; inspect domain activity in Trends; and keep a device-local Saved list.
+The default view is **30 days · Attention**. Users can switch to the latest non-empty release batch, 90 days, or Newest; inspect domain activity in Trends; and keep a device-local Saved list.
 
 A separate future `Watch` badge will forecast independent adoption. It is intentionally in shadow mode until enough historical outcomes exist for time-based backtesting; it will not be faked from current stars or institution prestige.
 
