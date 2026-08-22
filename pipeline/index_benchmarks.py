@@ -25,6 +25,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,10 +39,15 @@ OAI_URL = "https://oaipmh.arxiv.org/oai"
 OAI_MAX_ATTEMPTS = 5
 OAI_RETRY_BASE_SECONDS = 1.0
 OAI_RETRY_CAP_SECONDS = 60.0
+PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
 OAI_NS = {
     "oai": "http://www.openarchives.org/OAI/2.0/",
     "raw": "http://arxiv.org/OAI/arXivRaw/",
 }
+
+
+def publication_today() -> date:
+    return datetime.now(PUBLICATION_TIMEZONE).date()
 
 BENCHMARK_TERMS = re.compile(
     r"\b(benchmark|bench|evaluation suite|testbed|challenge set|evaluation dataset)\b",
@@ -219,7 +225,7 @@ def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> l
     end = date.fromisoformat(end_date)
     if end < start:
         raise ValueError("end date must be on or after start date")
-    until = min(end + timedelta(days=int(settings["lookahead_days"])), date.today()).isoformat()
+    until = min(end + timedelta(days=int(settings["lookahead_days"])), publication_today()).isoformat()
     seen: set[str] = set()
     papers: list[Paper] = []
     for category in settings["categories"]:
@@ -1158,7 +1164,7 @@ def main() -> None:
         raise SystemExit("--start-date and --end-date must be provided together")
     if args.date and args.start_date:
         raise SystemExit("use either --date or --start-date/--end-date")
-    target = args.date or args.end_date or date.today().isoformat()
+    target = args.date or args.end_date or publication_today().isoformat()
     range_start = args.start_date or target
     range_end = args.end_date or target
     papers: list[Paper] = []

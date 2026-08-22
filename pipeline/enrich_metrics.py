@@ -16,6 +16,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,11 @@ WINDOW_WEIGHTS = {
     "90d": {"hfPaperUpvotes": 0.30, "githubStars": 0.30, "hfDatasetDownloads": 0.40},
 }
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
+PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
+
+
+def publication_today() -> date:
+    return datetime.now(PUBLICATION_TIMEZONE).date()
 
 
 def github_scope(url: str | None) -> str | None:
@@ -483,8 +489,8 @@ def main() -> None:
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
     latest_source_date = payload["manifest"].get("latestSourceDate", payload["manifest"]["dataAsOf"])
-    as_of = date.fromisoformat(args.date or date.today().isoformat())
-    today = date.today()
+    today = publication_today()
+    as_of = date.fromisoformat(args.date or today.isoformat())
     snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
     if args.rerank_only:
         if not snapshot_path.exists():

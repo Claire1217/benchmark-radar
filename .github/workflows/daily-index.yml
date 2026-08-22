@@ -2,11 +2,10 @@ name: Daily benchmark index
 
 on:
   schedule:
-    - cron: "0 0 * * *"
-      timezone: "Australia/Brisbane"
-    # arXiv's North American announcement window is later than Brisbane
-    # midnight. This catch-up run prevents the Radar from lagging a full day.
-    - cron: "30 12 * * *"
+    # arXiv OAI is normally ready around 12:30 Brisbane in summer and
+    # 13:30 in winter. One buffered run avoids empty midnight batches and
+    # duplicate API/editorial work while still refreshing metrics on weekends.
+    - cron: "17 15 * * *"
       timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
