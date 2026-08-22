@@ -65,6 +65,10 @@ time. It targets the previous Brisbane calendar day. GitHub, Hugging Face, and
 OpenReview discovery runs every day; arXiv discovery runs only on its scheduled
 announcement dates. A source failure is recorded without inventing an empty
 release date or blocking healthy adapters.
+
+The Monday Brisbane run targets Sunday and rechecks the complete Friday-through-
+Sunday arXiv date window. Results are deduplicated by arXiv ID and retain their
+actual first-public date; this is catch-up coverage, not date reassignment.
 The job performs:
 
 ```text

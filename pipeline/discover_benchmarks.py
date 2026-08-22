@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import date, datetime, time, timezone
+from datetime import date, datetime, time, timedelta, timezone
 import json
 import os
 from pathlib import Path
@@ -76,6 +76,14 @@ def iso_day(value: str | int | None) -> str:
 def arxiv_enabled_for_date(target: str) -> bool:
     """arXiv announces Sunday through Thursday; Friday/Saturday are external-only."""
     return date.fromisoformat(target).weekday() not in {4, 5}
+
+
+def arxiv_query_dates(target: str) -> list[str]:
+    """Monday Brisbane runs target Sunday and recheck the full Fri-Sun window."""
+    source_day = date.fromisoformat(target)
+    if source_day.weekday() == 6:
+        return [(source_day - timedelta(days=offset)).isoformat() for offset in (2, 1, 0)]
+    return [target] if arxiv_enabled_for_date(target) else []
 
 
 def has_reviewable_evidence(value: str) -> bool:
@@ -329,9 +337,14 @@ def main() -> None:
     config = arxiv.read_json(arxiv.CONFIG_PATH)
     failures: dict[str, str] = {}
     arxiv_count = 0
-    if arxiv_enabled_for_date(target):
+    query_dates = arxiv_query_dates(target)
+    if query_dates:
         try:
-            papers = arxiv.fetch_for_date(target, config)
+            papers_by_id: dict[str, arxiv.Paper] = {}
+            for query_date in query_dates:
+                for paper in arxiv.fetch_for_date(query_date, config):
+                    papers_by_id[paper.arxiv_id] = paper
+            papers = list(papers_by_id.values())
             arxiv_count = len(papers)
             if not args.dry_run:
                 arxiv.index_papers(papers, target, target, target, config, started_from="unified discovery")
@@ -346,7 +359,7 @@ def main() -> None:
         ("openreview", openreview_candidates),
     ]
     raw: list[dict[str, Any]] = []
-    counts: dict[str, int] = {"arxiv": arxiv_count}
+    counts: dict[str, Any] = {"arxiv": arxiv_count, "arxivQueryDates": query_dates}
     for name, adapter in adapters:
         try:
             rows = adapter(target)
