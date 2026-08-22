@@ -247,6 +247,7 @@ def candidate_record(item: dict[str, Any], indexed_at: str, config: dict[str, An
     score = max(score, float(config["thresholds"]["review"]))
     record = arxiv.to_record(paper, indexed_at, score, relation, [f"discovered via {item['type']}", *reasons])
     record["links"].update({key: value for key, value in item.get("links", {}).items() if value})
+    record["links"] = {key: value for key, value in record["links"].items() if value}
     record["readiness"] = "Runnable" if record["links"].get("code") else "Inspectable" if record["links"].get("data") else "Paper only"
     record["source"] = {
         "type": item["type"], "id": item["id"], "url": item["url"],

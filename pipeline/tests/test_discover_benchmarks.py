@@ -67,6 +67,21 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["links"]["report"], "https://openreview.net/forum?id=forum1")
 
+    def test_external_candidate_drops_empty_arxiv_link_slots(self) -> None:
+        record = discover_benchmarks.candidate_record({
+            "type": "github",
+            "id": "github:lab/agentbench",
+            "title": "AgentBench",
+            "description": "A reusable AI agent benchmark with scored tasks.",
+            "releasedAt": "2026-08-21",
+            "updatedAt": "2026-08-21T05:00:00Z",
+            "url": "https://github.com/lab/AgentBench",
+            "links": {"code": "https://github.com/lab/AgentBench"},
+            "authors": ["lab"],
+        }, "2026-08-23T00:00:00Z", {"thresholds": {"review": 0.35}})
+        self.assertNotIn("pdf", record["links"])
+        self.assertTrue(all(record["links"].values()))
+
 
 class DeduplicationTests(unittest.TestCase):
     def test_same_name_merges_paper_repo_and_dataset_links(self) -> None:
