@@ -72,29 +72,12 @@
     return node;
   };
 
-  const provenance = (record) => {
-    const node = document.createElement("details");
-    node.className = "detail-provenance";
-    node.append(text("summary", "", "Sources & provenance"));
-    if (record.evidence?.snippet) node.append(text("p", "evidence", record.evidence.snippet));
-    const links = document.createElement("div");
-    links.className = "detail-links";
-    [
-      link("Original source", record.links?.paper || record.links?.report),
-      link("Project", record.links?.project),
-      link("Hugging Face paper", record.links?.hfPaper)
-    ].filter(Boolean).forEach((item) => links.append(item));
-    if (links.childElementCount) node.append(links);
-    return node;
-  };
-
   const renderRadarDetails = (record, panel) => {
     panel.replaceChildren();
     const measures = measureSection(record);
     if (measures) panel.append(measures);
     const why = whySection(record);
     if (why) panel.append(why);
-    panel.append(provenance(record));
   };
 
   const modelCoverage = (record) => {
@@ -116,7 +99,7 @@
   const reportReferences = (record) => {
     const reports = record.modelReportReferences || [];
     if (!reports.length) return null;
-    const node = section("Tracked model reports");
+    const node = section("Used by model labs");
     const links = document.createElement("div");
     links.className = "detail-links";
     reports.slice(0, 8).forEach((report) => {
@@ -124,7 +107,7 @@
       const item = link(label, report.url);
       if (item) links.append(item);
     });
-    node.append(links, text("p", "detail-note", "A source link shows reported use; it does not by itself prove an independently reproduced score."));
+    node.append(links);
     return node;
   };
 
@@ -147,7 +130,6 @@
     if (measures) panel.append(measures);
     const why = whySection(record);
     if (why) panel.append(why);
-    panel.append(provenance(record));
   };
 
   window.renderBenchmarkDetails = (record, panel, surface) => {

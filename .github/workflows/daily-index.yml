@@ -13,6 +13,11 @@ on:
         description: "Optional first-release date in YYYY-MM-DD"
         required: false
         type: string
+      metrics_only:
+        description: "Refresh public attention without discovery or AI review"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -33,9 +38,11 @@ jobs:
         with:
           python-version: "3.11"
       - name: Resolve previous Brisbane calendar day
+        if: ${{ inputs.metrics_only != true }}
         id: source-date
         run: echo "date=$(python pipeline/scheduled_source_date.py)" >> "$GITHUB_OUTPUT"
       - name: Index requested or latest complete source batch
+        if: ${{ inputs.metrics_only != true }}
         id: discovery
         continue-on-error: true
         env:
@@ -52,10 +59,11 @@ jobs:
           python -c 'import json; print("indexed_date=" + json.load(open("data/review_queue.json"))["sourceDate"])' >> "$GITHUB_OUTPUT"
 
       - name: Report discovery status
-        if: steps.discovery.outcome == 'failure'
+        if: ${{ inputs.metrics_only != true && steps.discovery.outcome == 'failure' }}
         run: echo "::warning::Paper discovery failed; continuing with the last validated index so publication and attention data still refresh."
 
       - name: Review candidates and generate public copy
+        if: ${{ inputs.metrics_only != true }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_COPY_MODEL: deepseek-v4-flash
@@ -70,6 +78,7 @@ jobs:
           fi
 
       - name: Continue editorial backfill
+        if: ${{ inputs.metrics_only != true }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_COPY_MODEL: deepseek-v4-flash
@@ -80,9 +89,11 @@ jobs:
           fi
 
       - name: Reconcile reviewed records before enrichment
+        if: ${{ inputs.metrics_only != true }}
         run: python pipeline/apply_overrides.py
 
       - name: Refresh publication and acceptance metadata
+        if: ${{ inputs.metrics_only != true }}
         run: python pipeline/enrich_publications.py
 
       - name: Snapshot public attention metrics
@@ -91,6 +102,7 @@ jobs:
         run: python pipeline/enrich_metrics.py
 
       - name: Refresh complete public benchmark catalogs
+        if: ${{ inputs.metrics_only != true }}
         continue-on-error: true
         run: python pipeline/sync_catalogs.py
 
