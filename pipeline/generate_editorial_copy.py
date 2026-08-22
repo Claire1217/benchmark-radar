@@ -348,8 +348,7 @@ def main() -> None:
     requested = {item.strip() for item in (args.ids or "").split(",") if item.strip()}
     records = [
         record for record in payload.get("candidates" if args.review_queue else "records", [])
-        if record.get("source", {}).get("type") == "arxiv"
-        and (not requested or str(record["source"]["id"]) in requested)
+        if (not requested or str(record["source"]["id"]) in requested)
         and (not args.released_on or record.get("releasedAt") == args.released_on)
     ]
     records = [
@@ -363,11 +362,16 @@ def main() -> None:
         print("editorial_copy_candidates=0")
         return
     source_ids = [str(record["source"]["id"]) for record in records]
+    source_records = {str(record["source"]["id"]): record for record in records}
     abstracts = {
         str((record.get("source") or {}).get("id")): str((record.get("reviewContext") or {}).get("abstract") or "")
         for record in records
     }
-    missing = [source_id for source_id in source_ids if not abstracts.get(source_id)]
+    missing = [
+        source_id for source_id in source_ids
+        if not abstracts.get(source_id)
+        and source_records[source_id].get("source", {}).get("type") == "arxiv"
+    ]
     if missing:
         abstracts.update(fetch_abstracts(missing))
     source_rows = []

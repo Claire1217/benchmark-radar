@@ -8,13 +8,19 @@ tracking or running. It is not a catalog of every paper that uses the word
 
 ## Evidence check
 
-Each candidate is checked against three sources:
+Candidates may be discovered from arXiv, GitHub, Hugging Face, or OpenReview,
+then checked against the available primary sources:
 
 1. **Paper** — does it introduce a named evaluation artifact and explain what it
    tests?
 2. **GitHub** — are code, evaluator, run instructions, or submission tools
    actually available?
 3. **Hugging Face** — are the paper, dataset, model, or Space present and usable?
+4. **OpenReview** — is there a public submission with sufficient evaluation
+   evidence and a stable source URL?
+
+Paper, repository, dataset, and OpenReview records are merged before review
+when they share a source ID, official URL, or normalized benchmark family name.
 
 Missing evidence is `unknown`, not `unavailable`.
 

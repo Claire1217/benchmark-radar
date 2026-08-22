@@ -8,7 +8,8 @@ files. No application server is required for the current product.
 
 ```mermaid
 flowchart LR
-  A["1. Retrieve<br>arXiv metadata"] --> B["2. Review<br>Paper · GitHub · HF"]
+  A["1. Retrieve<br>arXiv · GitHub · HF · OpenReview"] --> X["deduplicate<br>one candidate pool"]
+  X --> B["2. Review<br>source text + public artifacts"]
   B -->|"publish"| C["3. Store<br>reviewed records"]
   B -->|"insufficient evidence"| Q["candidate queue"]
   C --> U["5. Update<br>publication + attention"]
@@ -24,7 +25,7 @@ consistent snapshot.
 
 | Stage | Job | Main code | Persistent data | Runs automatically? |
 |---|---|---|---|---|
-| 1. Retrieve | Fetch the previous Brisbane calendar day's papers from selected arXiv categories; extract stable IDs, dates, source text, and links; place plausible candidates in a persistent queue. Keyword rules are recall filters, not publication decisions. | `pipeline/scheduled_source_date.py`, `pipeline/index_benchmarks.py`; historical replay: `pipeline/backfill_index.py` | `data/review_queue.json`, `data/runs/*.json` | Yes, daily |
+| 1. Retrieve | Build one dated candidate pool from arXiv, newly created GitHub repositories, Hugging Face datasets, and OpenReview submissions. Require enough source text to support review, then deduplicate by source ID, official URL, and normalized benchmark family name. Source filters never make the publication decision. On arXiv's Friday/Saturday no-announcement dates, only the other three adapters run. | `pipeline/discover_benchmarks.py`, `pipeline/index_benchmarks.py`; historical arXiv replay: `pipeline/backfill_index.py` | `data/review_queue.json`, `data/runs/*.json` | Yes, daily |
 | 2. Review | DeepSeek checks supplied Paper text and bounded official project/GitHub/Hugging Face excerpts. It decides whether the artifact is `score_submission`, `viewpoint_probe`, or `unclear`, and drafts third-person display copy. Unknown evidence stays unknown. | `pipeline/generate_editorial_copy.py`; policy: `docs/METHODOLOGY.md` | Decisions and copy: `data/editorial_copy.json`; unresolved candidates remain in `data/review_queue.json` | Yes; source-backed maintainer corrections are separate |
 | 3. Store | Admit eligible reviewed releases or apply a narrowly scoped source-backed correction. Stable source IDs prevent duplicates, and deterministic validators control canonical output. | `pipeline/generate_editorial_copy.py`, `pipeline/apply_overrides.py`; merge helpers in `pipeline/index_benchmarks.py` | Additions: `data/curated_records.json`; corrections: `data/curated_overrides.json`; canonical output: `data/benchmarks.json` | Yes |
 | 4. Display | Produce a small Radar index, the all-time Library union, domain release trends, the Awesome list, and the static site. | `pipeline/generate_public_index.py`, `pipeline/build_library_records.py`, `pipeline/generate_library_index.py`, `pipeline/generate_domain_trends.py`, `pipeline/generate_awesome.py`, `pipeline/build_github_pages.py`; frontend: `web/` | `data/benchmarks_index.json`, `data/library_index.json`, `data/domain_trends.json`, `AWESOME_BENCHMARKS.md` | Yes, every successful update |
@@ -34,7 +35,7 @@ consistent snapshot.
 
 ```text
 review_queue candidate
-  -> automated Paper/GitHub/HF evidence review
+  -> automated multi-source evidence review
   -> editorial_copy decision
   -> curated_records (eligible record) or curated_overrides (maintainer correction)
   -> benchmarks.json
@@ -60,8 +61,10 @@ viewpoint probe.
 
 `.github/workflows/daily-index.yml` runs once at 15:17 Brisbane time. This is
 buffered beyond arXiv's nightly OAI update in both US daylight and standard
-time. It targets the previous Brisbane calendar day and falls back to the
-latest non-empty source batch on weekends, holidays, or delayed announcements.
+time. It targets the previous Brisbane calendar day. GitHub, Hugging Face, and
+OpenReview discovery runs every day; arXiv discovery runs only on its scheduled
+announcement dates. A source failure is recorded without inventing an empty
+release date or blocking healthy adapters.
 The job performs:
 
 ```text
@@ -92,7 +95,6 @@ build for pushes and pull requests.
 ## Current boundary
 
 The current system is deliberately small: one static frontend, one daily
-workflow, and JSON data in Git. It does not yet automatically crawl every
-project page, GitHub repository, or Hugging Face dataset during semantic
-review. That can be added later as a bounded review assistant without changing
-the four-stage public data contract above.
+workflow, bounded public-source adapters, and JSON data in Git. Discovery is
+not exhaustive web crawling; it uses dated official APIs and records adapter
+failures explicitly.

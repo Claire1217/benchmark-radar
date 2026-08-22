@@ -41,26 +41,22 @@ jobs:
         if: ${{ inputs.metrics_only != true }}
         id: source-date
         run: echo "date=$(python pipeline/scheduled_source_date.py)" >> "$GITHUB_OUTPUT"
-      - name: Index requested or latest complete source batch
+      - name: Discover one unified public-source batch
         if: ${{ inputs.metrics_only != true }}
         id: discovery
         continue-on-error: true
         env:
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENREVIEW_TOKEN: ${{ secrets.OPENREVIEW_TOKEN }}
         run: |
-          if [ -n "$REQUESTED_DATE" ]; then
-            python pipeline/index_benchmarks.py --date "$REQUESTED_DATE"
-          else
-            # Weekends, holidays, and delayed announcements may have no new
-            # source batch. Keep the site on the latest non-empty source day.
-            python pipeline/index_benchmarks.py --date "$SCHEDULED_DATE" --latest-with-papers
-          fi
+          python pipeline/discover_benchmarks.py --date "${REQUESTED_DATE:-$SCHEDULED_DATE}"
           python -c 'import json; print("indexed_date=" + json.load(open("data/review_queue.json"))["sourceDate"])' >> "$GITHUB_OUTPUT"
 
       - name: Report discovery status
         if: ${{ inputs.metrics_only != true && steps.discovery.outcome == 'failure' }}
-        run: echo "::warning::Paper discovery failed; continuing with the last validated index so publication and attention data still refresh."
+        run: echo "::warning::Unified discovery failed; continuing with the last validated index so publication and attention data still refresh."
 
       - name: Review candidates and generate public copy
         if: ${{ inputs.metrics_only != true }}

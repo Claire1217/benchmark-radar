@@ -61,7 +61,7 @@ The generated **[Awesome AI Benchmarks catalogue](AWESOME_BENCHMARKS.md)** provi
 
 ## Sources and corrections
 
-Records are linked to their original papers, projects, code, and datasets where available. Catalog discovery is attributed to BenchLM and llm-stats; release identity and corrections are checked against primary sources.
+Daily release discovery checks arXiv, GitHub, Hugging Face, and OpenReview, then deduplicates candidates before semantic review. Records are linked to their original papers, projects, code, and datasets where available. Catalog discovery is attributed to BenchLM and llm-stats; release identity and corrections are checked against primary sources.
 
 - [Report a correction](https://github.com/Claire1217/benchmark-radar/issues/new/choose)
 - [Methodology](docs/METHODOLOGY.md)
