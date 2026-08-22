@@ -24,6 +24,7 @@ concurrency:
 jobs:
   index:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:
@@ -34,7 +35,7 @@ jobs:
       - name: Resolve previous Brisbane calendar day
         id: source-date
         run: echo "date=$(python pipeline/scheduled_source_date.py)" >> "$GITHUB_OUTPUT"
-      - name: Index requested or previous Brisbane date
+      - name: Index requested or latest complete source batch
         id: discovery
         continue-on-error: true
         env:
@@ -44,8 +45,8 @@ jobs:
           if [ -n "$REQUESTED_DATE" ]; then
             python pipeline/index_benchmarks.py --date "$REQUESTED_DATE"
           else
-            # Brisbane midnight is earlier than the corresponding arXiv daily
-            # announcement. Keep the site on the latest non-empty source day.
+            # Weekends, holidays, and delayed announcements may have no new
+            # source batch. Keep the site on the latest non-empty source day.
             python pipeline/index_benchmarks.py --date "$SCHEDULED_DATE" --latest-with-papers
           fi
           python -c 'import json; print("indexed_date=" + json.load(open("data/review_queue.json"))["sourceDate"])' >> "$GITHUB_OUTPUT"

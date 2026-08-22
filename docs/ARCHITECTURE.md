@@ -25,8 +25,8 @@ consistent snapshot.
 | Stage | Job | Main code | Persistent data | Runs automatically? |
 |---|---|---|---|---|
 | 1. Retrieve | Fetch the previous Brisbane calendar day's papers from selected arXiv categories; extract stable IDs, dates, source text, and links; place plausible candidates in a persistent queue. Keyword rules are recall filters, not publication decisions. | `pipeline/scheduled_source_date.py`, `pipeline/index_benchmarks.py`; historical replay: `pipeline/backfill_index.py` | `data/review_queue.json`, `data/runs/*.json` | Yes, daily |
-| 2. Review | Check the Paper, official project/GitHub, and Hugging Face. Decide whether the artifact is `score_submission`, `viewpoint_probe`, or `unclear`; record code/data/evaluator/submission availability. Unknown evidence stays unknown. | Review policy: `docs/METHODOLOGY.md`; reviewed additions and fixes are represented directly as data, without a separate AI state machine. | Proposed candidates remain in `data/review_queue.json` | Source verification is currently a curated step |
-| 3. Store | Add a verified release or patch an indexed record. Stable source IDs prevent duplicates. These files are the only bridge from review into canonical data. | `pipeline/apply_overrides.py`; merge helpers in `pipeline/index_benchmarks.py` | Additions: `data/curated_records.json`; corrections: `data/curated_overrides.json`; canonical output: `data/benchmarks.json` | Merge is automatic; adding review evidence is curated |
+| 2. Review | DeepSeek checks supplied Paper text and bounded official project/GitHub/Hugging Face excerpts. It decides whether the artifact is `score_submission`, `viewpoint_probe`, or `unclear`, and drafts third-person display copy. Unknown evidence stays unknown. | `pipeline/generate_editorial_copy.py`; policy: `docs/METHODOLOGY.md` | Decisions and copy: `data/editorial_copy.json`; unresolved candidates remain in `data/review_queue.json` | Yes; source-backed maintainer corrections are separate |
+| 3. Store | Admit eligible reviewed releases or apply a narrowly scoped source-backed correction. Stable source IDs prevent duplicates, and deterministic validators control canonical output. | `pipeline/generate_editorial_copy.py`, `pipeline/apply_overrides.py`; merge helpers in `pipeline/index_benchmarks.py` | Additions: `data/curated_records.json`; corrections: `data/curated_overrides.json`; canonical output: `data/benchmarks.json` | Yes |
 | 4. Display | Produce a small Radar index, the all-time Library union, domain release trends, the Awesome list, and the static site. | `pipeline/generate_public_index.py`, `pipeline/build_library_records.py`, `pipeline/generate_library_index.py`, `pipeline/generate_domain_trends.py`, `pipeline/generate_awesome.py`, `pipeline/build_github_pages.py`; frontend: `web/` | `data/benchmarks_index.json`, `data/library_index.json`, `data/domain_trends.json`, `AWESOME_BENCHMARKS.md` | Yes, every successful update |
 | 5. Update | Refresh author-reported venue metadata and current Hugging Face/GitHub signals. Store dated observations, preserve the last valid value on source failure, and recompute Latest/30d/90d ranking. | `pipeline/enrich_publications.py`, `pipeline/enrich_metrics.py` | `data/publication/*.json`, `data/metrics/*.json`, enriched fields in `data/benchmarks.json` | Yes, daily |
 
@@ -34,8 +34,9 @@ consistent snapshot.
 
 ```text
 review_queue candidate
-  -> Paper/GitHub/HF source check
-  -> curated_records (new record) or curated_overrides (correction)
+  -> automated Paper/GitHub/HF evidence review
+  -> editorial_copy decision
+  -> curated_records (eligible record) or curated_overrides (maintainer correction)
   -> benchmarks.json
   -> benchmarks_index.json / library_index.json / domain_trends.json
   -> web/app.js
@@ -47,8 +48,8 @@ validation.
 
 `evaluationMode` affects display priority, not factual attention values:
 
-- `score_submission`: normal priority;
-- `viewpoint_probe`: slightly lower ordering priority;
+- `score_submission` or another reusable public benchmark: publishable;
+- `viewpoint_probe`: retained as review evidence but not published;
 - `unclear`: not published.
 
 Readiness is separate. A record can be `Paper only`, `Inspectable`, or
@@ -57,12 +58,16 @@ viewpoint probe.
 
 ## Daily schedule and publishing
 
-`.github/workflows/daily-index.yml` runs at 14:17 Brisbane time and processes
-the previous Brisbane calendar day. The job performs:
+`.github/workflows/daily-index.yml` runs once at 15:17 Brisbane time. This is
+buffered beyond arXiv's nightly OAI update in both US daylight and standard
+time. It targets the previous Brisbane calendar day and falls back to the
+latest non-empty source batch on weekends, holidays, or delayed announcements.
+The job performs:
 
 ```text
-retrieve -> update candidate queue -> publication metadata -> attention snapshot
--> generate all public views -> validate -> one Git commit
+retrieve -> update candidate queue -> semantic review -> reconcile canonical data
+-> publication metadata -> attention snapshot -> generate all public views
+-> validate -> one Git commit
 ```
 
 The Pages workflow builds from the committed `main` branch. If retrieval,

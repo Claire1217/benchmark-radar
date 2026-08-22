@@ -60,9 +60,9 @@ combined using these window-specific weights:
 | 90 days | 30% | 30% | 40% |
 
 Missing signals receive the neutral cohort position (50th percentile), not zero.
-Coverage is reported separately, and a formal rank still requires at least two
-observed signals. This makes two-signal combinations comparable without claiming
-that an unavailable platform has no attention.
+Coverage is reported separately. A record with one real signal can receive a
+low-coverage rank; missing platforms are never treated as zero. More observed
+signals increase ranking confidence rather than changing benchmark eligibility.
 The public `Attention #` currently uses cumulative levels. Real snapshot-based
 growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.

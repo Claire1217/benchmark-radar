@@ -4,7 +4,7 @@
 [![Deploy Pages](https://github.com/Claire1217/benchmark-radar/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/deploy-pages.yml)
 [![CI](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml)
 
-A source-audited, daily-updated tracker for newly released AI benchmarks.
+A source-linked, daily-updated tracker for newly released and widely used AI benchmarks.
 
 - **[Open Benchmark Radar →](https://claire1217.github.io/benchmark-radar/)**
 - **[Browse the full Awesome list →](AWESOME_BENCHMARKS.md)**
@@ -16,19 +16,30 @@ Benchmark Radar helps answer two different questions:
 
 The default view is **30 days · Attention**. Users can switch to the latest non-empty release batch, 90 days, or Newest; inspect domain activity in Trends; and keep a device-local Saved list.
 
-A separate future `Watch` badge will forecast independent adoption. It is intentionally in shadow mode until enough historical outcomes exist for time-based backtesting; it will not be faked from current stars or institution prestige.
-
 > This is a discovery index, not an endorsement, model leaderboard, or prediction guarantee. Missing evidence remains unknown. Popularity never changes readiness.
 
 ## Current scope
 
-- 90-day benchmark-release snapshot
+- 90-day release Radar plus an all-time searchable Library
 - arXiv OAI-PMH as the primary discovery source
+- BenchLM and llm-stats catalog records, kept separate from verified Radar releases
 - Hugging Face and GitHub public attention signals
 - author-reported venue metadata from arXiv, clearly labelled as a claim
 - GitHub Actions daily refresh and GitHub Pages deployment
 
 Conference status is evidence-tiered. `Acceptance claimed` means an arXiv author comment; it is not upgraded to `Accepted` until an official OpenReview decision or conference source is matched.
+
+## How it works
+
+```text
+Retrieve official metadata
+  → review benchmark identity and public reuse evidence
+  → store admitted records and source-backed corrections
+  → enrich attention and publication signals
+  → validate and publish Radar, Library, and Trends
+```
+
+Keyword rules only recall candidates. An automated DeepSeek review classifies the candidate and drafts third-person display copy from supplied source text and official artifact excerpts. Deterministic validation checks identifiers, links, allowed fields, and generated views before anything is published. Source-backed maintainer overrides remain available for corrections.
 
 ## Repository map
 
@@ -72,6 +83,17 @@ To run a new daily index, read [CONTRIBUTING.md](CONTRIBUTING.md) first; the com
 - [Data files and generated-source policy](data/README.md)
 - [Contribution guide](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
+
+## Public data
+
+The generated JSON used by the website is public and versioned in Git:
+
+- [`data/benchmarks_index.json`](data/benchmarks_index.json) — compact Radar view
+- [`data/library_index.json`](data/library_index.json) — searchable all-time Library
+- [`data/domain_trends.json`](data/domain_trends.json) — monthly release context and tracked-use summaries
+- [`data/catalog_records.json`](data/catalog_records.json) — externally discovered catalog records with provenance
+
+Consumers should read each file's `manifest.schemaVersion` and treat missing fields as unknown rather than zero.
 
 ## Privacy
 
