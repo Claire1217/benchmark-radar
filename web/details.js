@@ -49,7 +49,12 @@
 
   const measureSection = (record) => {
     const detail = record.detail || {};
-    const domains = detail.taskBreakdown || [];
+    const domains = [
+      ...(detail.taskBreakdown || []),
+      ...(record.capabilityGroups || []),
+      ...(record.applicationDomains || []),
+      ...(record.topics || [])
+    ];
     const protocol = detail.protocol || {};
     const compact = factGrid([
       ["TASKS", protocol.tasks],
@@ -57,8 +62,9 @@
       ["VERSION", record.version || record.firstRelease?.label],
       ["LANGUAGE", record.language]
     ]);
-    if (!domains.length && !compact) return null;
+    if (!record.description && !domains.length && !compact) return null;
     const node = section("What it measures");
+    if (record.description) node.append(text("p", "detail-copy", record.description));
     if (domains.length) node.append(chips(domains));
     if (compact) compact.classList.add("detail-compact-facts");
     if (compact) node.append(compact);
