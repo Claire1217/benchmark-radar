@@ -44,13 +44,14 @@ Raw Hugging Face votes, GitHub stars, and downloads are never manually reduced.
 ## Attention ranking
 
 Attention describes current public visibility, not quality, adoption, or future
-potential. Signals are compared only with releases in the same age band
-(`0–2`, `3–7`, `8–14`, `15–30`, `31–60`, or `61–90` days). This prevents older
-releases from winning merely because their cumulative counters had longer to
-grow. Dedicated benchmark-repository stars count; stars on a parent repository
-that merely hosts the benchmark in a subdirectory do not.
+potential. Signals are compared across all eligible releases in the selected
+Today, 30-day, or 90-day window. The window itself supplies the time boundary;
+there is no second release-age bucket that can make a larger public count rank
+below a smaller count on the same signal. Dedicated benchmark-repository stars
+count; stars on a parent repository that merely hosts the benchmark in a
+subdirectory do not.
 
-Each observed value becomes an age-cohort percentile. Attention is
+Each observed value becomes a percentile within the selected window. Attention is
 discovery-oriented: the strongest observed percentile contributes 90% of the
 score, and the mean of all observed percentiles contributes 10%. This lets one
 genuinely strong public signal surface a benchmark without pretending that

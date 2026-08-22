@@ -24,7 +24,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v5"
+METHOD_VERSION = "attention-ranking-v6"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
@@ -313,13 +313,6 @@ def rank_records(
     as_of: date,
     latest_source_date: str,
 ) -> None:
-    def age_bucket(record: dict[str, Any]) -> str:
-        age = max(0, (as_of - date.fromisoformat(record["releasedAt"])).days)
-        for upper in (2, 7, 14, 30, 60, 90):
-            if age <= upper:
-                return f"0-{upper}" if upper == 2 else str(upper)
-        return "90+"
-
     def score_dimension(
         candidates: list[dict[str, Any]],
         values: dict[str, dict[str, int | float | None]],
@@ -329,12 +322,12 @@ def rank_records(
     ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
         output: dict[str, dict[str, Any]] = {}
         scored: list[tuple[float, dict[str, Any]]] = []
-        populations: dict[tuple[str, str], list[int | float]] = {}
+        populations: dict[str, list[int | float]] = {}
         for signal in weights:
             for record in candidates:
                 value = values[signal][record["id"]]
                 if value is not None:
-                    populations.setdefault((signal, age_bucket(record)), []).append(value)
+                    populations.setdefault(signal, []).append(value)
         for record in candidates:
             coverage = 0.0
             observed = 0
@@ -342,7 +335,7 @@ def rank_records(
             components: dict[str, Any] = {}
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
-                population = populations.get((signal, age_bucket(record)), [])
+                population = populations.get(signal, [])
                 pct = percentile(value, population, signed=signed)
                 components[signal] = {"value": value, "percentile": pct}
                 if pct is not None:

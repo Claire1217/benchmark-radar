@@ -76,6 +76,22 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(popular["score"], 75)
 
     @patch("enrich_metrics.closest_history", return_value=None)
+    def test_window_percentile_does_not_reverse_larger_hf_vote_count(self, _history) -> None:
+        records = [
+            {"id": "older", "releasedAt": "2026-08-06", "links": {}},
+            {"id": "newer", "releasedAt": "2026-08-10", "links": {}},
+        ]
+        raw = {
+            "older": {"hfPaperUpvotes": 46, "githubStars": None, "hfDatasetDownloads": None},
+            "newer": {"hfPaperUpvotes": 133, "githubStars": None, "hfDatasetDownloads": None},
+        }
+
+        rank_records(records, raw, date(2026, 8, 20), "2026-08-20")
+
+        self.assertEqual(records[1]["ranking"]["30d"]["rank"], 1)
+        self.assertEqual(records[0]["ranking"]["30d"]["rank"], 2)
+
+    @patch("enrich_metrics.closest_history", return_value=None)
     def test_stale_today_rank_is_removed_when_record_leaves_window(self, _history) -> None:
         records = [{
             "id": "old", "releasedAt": "2026-08-18", "links": {},

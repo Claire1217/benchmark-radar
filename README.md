@@ -15,15 +15,15 @@ _Data through 2026-08-22 · benchmarks first released in August 2026_
 | # | Benchmark | Area | Public attention | Sources |
 |---:|---|---|---|---|
 | 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 56 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
-| 2 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
-| 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 84 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
-| 4 | **ASI-Bench** | Agents | 57 HF votes · 101 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
-| 5 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
-| 6 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
-| 7 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
-| 8 | **Active-SWE** | Coding & Software Engineering | 4 HF votes · 51 GitHub stars | [Paper](https://arxiv.org/abs/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE) |
-| 9 | **WorldExam** | Multimodal Perception | 34 HF votes · 21 GitHub stars | [Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam) |
-| 10 | **SWE-bench Science** | Coding & Software Engineering | 58 HF votes · 46 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
+| 2 | **SWE-bench Science** | Coding & Software Engineering | 58 HF votes · 46 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
+| 3 | **ASI-Bench** | Agents | 57 HF votes · 101 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
+| 4 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
+| 5 | **PlayWorld** | Multimodal Perception | 45 HF votes · 84 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
+| 6 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
+| 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
+| 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
+| 9 | **Active-SWE** | Coding & Software Engineering | 4 HF votes · 51 GitHub stars | [Paper](https://arxiv.org/abs/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE) |
+| 10 | **VA-Judger-Bench** | Multimodal Perception | 11 HF votes · 40 GitHub stars | [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger) |
 
 ### Browse by field
 
