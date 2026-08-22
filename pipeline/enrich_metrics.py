@@ -378,7 +378,6 @@ def rank_records(
                 record
                 for record in records
                 if record["releasedAt"] == latest_source_date
-                or str(raw_by_id[record["id"]].get("hfDailySubmittedAt", ""))[:10] == as_of.isoformat()
             ]
         else:
             candidates = [
