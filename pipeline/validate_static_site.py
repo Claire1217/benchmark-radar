@@ -6,6 +6,7 @@ from __future__ import annotations
 from html.parser import HTMLParser
 import json
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,7 +40,7 @@ def main() -> None:
     if len(document.ids) != len(set(document.ids)):
         raise SystemExit("duplicate HTML id")
     for asset in [*document.scripts, *document.styles]:
-        target = OUTPUT / asset.removeprefix("./")
+        target = OUTPUT / urlsplit(asset).path.removeprefix("./")
         if not target.exists():
             raise SystemExit(f"missing referenced asset: {asset}")
     expected_ids = {"radar-view", "library-view", "trends-view", "saved-count", "benchmark-list", "library-list", "library-domain-list", "line-chart"}
