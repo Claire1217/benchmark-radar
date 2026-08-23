@@ -378,7 +378,8 @@ def exact_benchmark_identity(paper: Paper, name: str) -> bool:
     identity = re.compile(
         rf"\b{escaped}\b\s*(?:,|\bis\b|\bconstitutes\b|\bprovides\b)\s*"
         rf"(?:an?|the|our|this)\s+(?:new\s+)?"
-        rf"(?:[A-Za-z][A-Za-z-]*\s+){{0,6}}?(?:benchmark|evaluation suite|testbed)\b",
+        rf"(?:[A-Za-z][A-Za-z-]*(?:\s+|,\s*)){{0,8}}?"
+        rf"(?:benchmark|evaluation suite|testbed)\b",
         re.I,
     )
     for sentence in re.split(r"(?<=[.!?])\s+", normalize_space(paper.abstract)):

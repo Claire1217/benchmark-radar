@@ -19,7 +19,7 @@ _Data through 2026-08-23 · benchmarks first released in August 2026_
 | 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 85 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
 | 4 | **SWE-bench Science** | Coding & Software Engineering | 60 HF votes · 49 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
 | 5 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
-| 6 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
+| 6 | **SWE-Bench ProMax** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
 | 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
 | 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
 | 9 | **NCP-Bench** | Agents | 29 HF votes · 29 GitHub stars | [Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench) |

@@ -122,6 +122,15 @@ class IndexerTests(unittest.TestCase):
         self.assertEqual(canonical_name(paper), "SWE-bench Science")
         self.assertNotEqual(family_id(canonical_name(paper)), family_id("SWE-bench"))
 
+    def test_bench_family_name_with_comma_separated_descriptors_is_not_truncated(self) -> None:
+        paper = sample(
+            "SWE-Bench ProMax: Benchmarking Agents on Large-Scale Multilingual Code Refactoring",
+            "We introduce SWE-Bench ProMax, an expert-curated, multilingual code refactoring benchmark of 170 instances.",
+            "2608.09802",
+        )
+        self.assertEqual(canonical_name(paper), "SWE-Bench ProMax")
+        self.assertNotEqual(family_id(canonical_name(paper)), family_id("SWE-Bench"))
+
     def test_tactus_model_is_not_promoted_to_benchmark_identity(self) -> None:
         title = "TactusBench: A Tactile Foundation Model for Robot Learning"
         paper = sample(
