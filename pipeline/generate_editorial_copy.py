@@ -26,7 +26,7 @@ CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
-EDITORIAL_POLICY_VERSION = "2026-08-21.1"
+EDITORIAL_POLICY_VERSION = "2026-08-23.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -161,6 +161,8 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "Act as the admission editor for Benchmark Radar. Decide from meaning, never from keyword presence. "
         "Publish only a named benchmark that defines a repeatable evaluation object and comparable scoring contract, "
         "and provides a credible public path for other teams to run or inspect it. "
+        "An explicit source statement that the task suite, evaluators, scored submissions, data, or code are released counts as a public path even when the source metadata does not expose a separate project URL. "
+        "A missing direct code, data, or project link lowers readiness; it must not by itself turn a released benchmark with a stable evaluation and scoring contract into defer. "
         "score_submission means an ongoing public benchmark intended for model comparison; public_reusable means a fixed public dataset/protocol usable by other teams. "
         "A viewpoint_probe primarily exists to support one paper's finding and lacks a standalone public comparison path; exclude it from the public site. "
         "uses_existing and not_benchmark must also be excluded. Defer when evidence or artifacts are unclear. "

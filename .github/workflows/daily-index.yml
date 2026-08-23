@@ -62,7 +62,9 @@ jobs:
         if: ${{ inputs.metrics_only != true }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_COPY_MODEL: deepseek-v4-flash
+          # Admission is the high-judgment step; use Pro here. Routine copy
+          # backfill below stays on Flash to keep the daily cost small.
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
           INDEXED_DATE: ${{ steps.discovery.outputs.indexed_date }}
