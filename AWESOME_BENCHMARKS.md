@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-23 · **Benchmark releases:** 1238
+**Snapshot:** 2026-08-23 · **Benchmark releases:** 1250
 
 ## Contents
 
@@ -18,18 +18,18 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Biology & Drug Discovery](#biology--drug-discovery) (87)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (35)
-- [Finance](#finance) (39)
-- [General AI](#general-ai) (844)
+- [Finance](#finance) (41)
+- [General AI](#general-ai) (849)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
 - [Mathematics & Formal Science](#mathematics--formal-science) (16)
 - [Mobile & Personal Computing](#mobile--personal-computing) (7)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (92)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (93)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (72)
+- [Software & AI Compute](#software--ai-compute) (76)
 
 ## Autonomous Driving
 
@@ -185,6 +185,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **refusal-benchmark** (2026-08-22) — refusal-benchmark 519+ harmful prompts to detect how abliterated AI models are # refusal-benchmark > 519+ harmful prompts to detect how abliterated AI models are. [Paper](https://github.com/audn-ai/refusal-benchmark) · [Code](https://github.com/audn-ai/refusal-benchmark)
+- **mandate-bench** (2026-08-22) — mandate-bench Behavioral benchmarking of LLM agents on a fixed portfolio-rebalancing task: mandate compliance, decision consistency, reasoning-action agreement agents benchmark instruction-following llm reproducibility… [Paper](https://github.com/msavdert/mandate-bench) · [Code](https://github.com/msavdert/mandate-bench)
 - **financial-sentiment-benchmark** (2026-08-21) — financial-sentiment-benchmark Fine-tune a small model or prompt a big one? [Paper](https://github.com/gauthamRohan/financial-sentiment-benchmark) · [Code](https://github.com/gauthamRohan/financial-sentiment-benchmark)
 - **FinRCA-Bench** (2026-08-19) — We introduce FinRCA-Bench, a deterministic synthetic benchmark of 2,250 accounts-payable-to-bank reconciliation cases spanning 14 operational tables, including 1,500 injected failures across 15 causal categories and 750… [Paper](https://arxiv.org/abs/2608.18534) · [Code](https://github.com/PratikGhawate/FinRCA-AI-Bench)
 - **FM-Bench** (2026-08-19) — FM-Bench (Football Management Benchmark) measures this. [Paper](https://arxiv.org/abs/2608.18423) · [Code](https://github.com/Analogy-AI/fm-bench)
@@ -227,6 +229,11 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **vast-benchmarking** (2026-08-22) — vast-benchmarking Bounded Vast.ai GPU, effective-CPU, memory, and disk benchmark with a SQLite leaderboard benchmark computer-vision cuda flask pytorch sqlite vast-ai Vast Benchmarking Measure the hardware capacity a re… [Paper](https://github.com/drivelineresearch/vast-benchmarking) · [Code](https://github.com/drivelineresearch/vast-benchmarking)
+- **tw-bench** (2026-08-22) — 🔗 opentwbench.ai · leaderboard, methodology, submissions from datasets import load_dataset ds = load_dataset("OpenTWBench/tw-bench", "dentistry", split="test") ds = load_dataset("OpenTWBench/tw-bench", "field_medicine",… [Paper](https://huggingface.co/datasets/OpenTWBench/tw-bench) · [Data](https://huggingface.co/datasets/OpenTWBench/tw-bench)
+- **roman-numeral-harmony-benchmark** (2026-08-22) — roman-numeral-harmony-benchmark A benchmark for functional harmony: Roman-numeral analysis, cadence classification and key identification, in four representations. [Paper](https://github.com/4esv/roman-numeral-harmony-benchmark) · [Code](https://github.com/4esv/roman-numeral-harmony-benchmark)
+- **groundtruth-dynamic-benchmarking** (2026-08-22) — Groundtruth Dynamic Benchmarking — Geology Question sets and grading rubrics for evaluating LLMs on real-world geological reasoning. [Paper](https://huggingface.co/datasets/EigenformAI/groundtruth-dynamic-benchmarking) · [Data](https://huggingface.co/datasets/EigenformAI/groundtruth-dynamic-benchmarking)
+- **frontier-agent-benchmark** (2026-08-22) — frontier-agent-benchmark # Frontier Agent Benchmark (FAB) **Independent observability and benchmarking platform for evaluating autonomous AI engineering agents on engineering quality - not volume.** FAB answers a differ… [Paper](https://github.com/shubhraj5575/frontier-agent-benchmark) · [Code](https://github.com/shubhraj5575/frontier-agent-benchmark)
 - **agent-model-bench** (2026-08-21) — agent-model-bench Which model should power your agent? [Paper](https://github.com/ajbermudezh22/agent-model-bench) · [Code](https://github.com/ajbermudezh22/agent-model-bench)
 - **VGI-BENCH** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
 - **SWE-bench Science** (2026-08-20) — We introduce \textbf{SWE-bench Science}, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 GitHub repositories across 20 scientific domains. [Paper](https://arxiv.org/abs/2608.19799)
@@ -1140,6 +1147,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **cross-engine-humanoid-benchmark** (2026-08-22) — cross-engine-humanoid-benchmark Cross-engine (MuJoCo vs PyBullet) humanoid benchmark with PSO-based sim calibration # Cross-Engine Humanoid Benchmark [![benchmark](https://github.com/tiago369/cross-engine-humanoid-bench… [Paper](https://github.com/tiago369/cross-engine-humanoid-benchmark) · [Code](https://github.com/tiago369/cross-engine-humanoid-benchmark)
 - **SoftVTBench: A Deformation-Aware Visuo-Tactile Dataset and Benchmark for Deformable-Object Manipulation** (2026-08-19) — We introduce SoftVTBench, a visuo-tactile dataset for physical-interaction-aware deformable-object manipulation. [Paper](https://arxiv.org/abs/2608.18701)
 - **LIBERO-VIFO** (2026-08-18) — To address these gaps, we introduce LIBERO-VIFO, a benchmark to evaluate both the capability and safety of visual cue following in VLA models. [Paper](https://arxiv.org/abs/2608.17600) · [HF](https://huggingface.co/papers/2608.17600)
 - **FloodReasonBench** (2026-08-15) — We present FloodReasonBench, a benchmark for VLM reasoning segmentation for embodied flood response at the edge. [Paper](https://arxiv.org/abs/2608.15410) · [HF](https://huggingface.co/papers/2608.15410)
@@ -1244,6 +1252,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **turkish-llm-benchmark** (2026-08-22) — turkish-llm-benchmark Provider-neutral Turkish quality, cost, latency, and performance benchmarks for LLMs benchmark evaluation llm openrouter turkish # Turkish LLM Benchmark [![CI](https://github.com/kadirnar/turkish-l… [Paper](https://github.com/kadirnar/turkish-llm-benchmark) · [Code](https://github.com/kadirnar/turkish-llm-benchmark)
+- **evallab** (2026-08-22) — evallab Research-style evaluation of local LLMs focused on paired comparisons, uncertainty, benchmark stability, and trustworthy model-ranking conclusions. [Paper](https://github.com/bagheri365/evallab) · [Code](https://github.com/bagheri365/evallab)
+- **ct-segmentation-benchmark** (2026-08-22) — ct-segmentation-benchmark Staged Dice/IoU benchmark of MOOSE, TotalSegmentator & VoxTell on public CT datasets. [Paper](https://github.com/caitlin-leonard/ct-segmentation-benchmark) · [Code](https://github.com/caitlin-leonard/ct-segmentation-benchmark) · [Data](https://zenodo.org/record/6802614)
+- **DelveRL** (2026-08-22) — DelveRL A human-playable turn-based roguelike and open benchmark for local game-playing agents. [Paper](https://github.com/SnyderConsulting/DelveRL) · [Code](https://github.com/SnyderConsulting/DelveRL)
 - **qwen3.8-27b-inference-benchmark-4090** (2026-08-21) — Qwen3.8-27B Inference Benchmark on RTX 4090 48GB 中文说明 · GitHub benchmark repository Structured performance and accuracy results for four real Qwen3.8-27B serving configurations on an NVIDIA RTX 4090 48 GB workstation. [Paper](https://huggingface.co/datasets/pxzleo/qwen3.8-27b-inference-benchmark-4090) · [Data](https://huggingface.co/datasets/pxzleo/qwen3.8-27b-inference-benchmark-4090)
 - **llm-summarization-benchmark-ptbr** (2026-08-21) — llm-summarization-benchmark-ptbr # LLM Summarization Benchmark — Brazilian Portuguese [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)](https://doi.org/10.5281/zenodo.22042502) *Six runs per model, a pr… [Paper](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Code](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)
 - **annomi-counselling-dialogue-analysis** (2026-08-21) — annomi-counselling-dialogue-analysis Transcript-grouped NLP benchmark for therapist-behaviour classification on AnnoMI counselling machine-learning natural-language-processing reproducibility roberta text-classification… [Paper](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis) · [Code](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis)
