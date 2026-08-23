@@ -26,7 +26,8 @@ CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
-EDITORIAL_POLICY_VERSION = "2026-08-23.1"
+COPY_POLICY_VERSION = "2026-08-21.1"
+ADMISSION_POLICY_VERSION = "2026-08-23.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -245,16 +246,16 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
         row["publishers"] = supported_publishers
 
 
-def input_hash(row: dict[str, Any]) -> str:
-    versioned = {"policyVersion": EDITORIAL_POLICY_VERSION, "source": row}
+def input_hash(row: dict[str, Any], policy_version: str = COPY_POLICY_VERSION) -> str:
+    versioned = {"policyVersion": policy_version, "source": row}
     return hashlib.sha256(json.dumps(versioned, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
-def selection_fingerprint(record: dict[str, Any]) -> str:
+def selection_fingerprint(record: dict[str, Any], policy_version: str = COPY_POLICY_VERSION) -> str:
     """Cheap local fingerprint used to resume before fetching remote artifacts."""
     source = record.get("source") or {}
     local = {
-        "policyVersion": EDITORIAL_POLICY_VERSION,
+        "policyVersion": policy_version,
         "sourceId": source.get("id"),
         "sourceUpdatedAt": source.get("updatedAt") or record.get("sourceUpdatedAt"),
         "title": record.get("paperTitle") or record.get("name"),
@@ -353,10 +354,11 @@ def main() -> None:
         if (not requested or str(record["source"]["id"]) in requested)
         and (not args.released_on or record.get("releasedAt") == args.released_on)
     ]
+    policy_version = ADMISSION_POLICY_VERSION if args.review_queue else COPY_POLICY_VERSION
     records = [
         record for record in records
         if existing.get("bySourceId", {}).get(str(record["source"]["id"]), {}).get("selectionFingerprint")
-        != selection_fingerprint(record)
+        != selection_fingerprint(record, policy_version)
     ]
     if args.limit > 0:
         records = records[:args.limit]
@@ -403,7 +405,7 @@ def main() -> None:
         print(f"editorial_copy_missing_source={len(missing_source_ids)} deferred=true")
     source_rows = [
         row for row in source_rows
-        if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row))
+        if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row, policy_version))
     ]
     if not source_rows:
         print("deepseek_review_candidates=0 unchanged=true")
@@ -435,10 +437,10 @@ def main() -> None:
                 "decisionReason": row["decisionReason"],
                 "publishers": row.get("publishers", []),
                 "model": args.model,
-                "policyVersion": EDITORIAL_POLICY_VERSION,
+                "policyVersion": policy_version,
                 "generatedAt": now,
-                "inputHash": input_hash(source),
-                "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]]),
+                "inputHash": input_hash(source, policy_version),
+                "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]], policy_version),
             }
         write_editorial_copy(existing)
         if args.review_queue:
