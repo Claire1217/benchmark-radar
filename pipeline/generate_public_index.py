@@ -87,8 +87,7 @@ def main() -> None:
     payload = json.loads(SOURCE.read_text(encoding="utf-8"))
     records = [project_record(source) for source in payload.get("records", [])]
     manifest = dict(payload["manifest"])
-    claimed_date = manifest.get("latestSourceDate", manifest["dataAsOf"])
-    manifest["latestSourceDate"] = effective_latest_release(records, claimed_date)
+    manifest["latestSourceDate"] = effective_latest_release(records, manifest["dataAsOf"])
     OUTPUT.write_text(json.dumps({"manifest": manifest, "records": records}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"records={len(records)} output={OUTPUT}")
 

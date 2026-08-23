@@ -11,6 +11,13 @@ class PublicIndexTests(unittest.TestCase):
         ]
         self.assertEqual(effective_latest_release(records, "2026-08-21"), "2026-08-20")
 
+    def test_historical_rerun_does_not_hide_newer_public_releases(self) -> None:
+        records = [
+            {"releasedAt": "2026-08-20", "displayEligible": True},
+            {"releasedAt": "2026-08-22", "displayEligible": True},
+        ]
+        self.assertEqual(effective_latest_release(records, "2026-08-23"), "2026-08-22")
+
     def test_hosting_platform_is_not_a_publisher(self) -> None:
         source = {
             "name": "SWE-bench Science",

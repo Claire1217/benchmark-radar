@@ -18,6 +18,11 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+try:
+    from generate_public_index import effective_latest_release
+except ModuleNotFoundError:  # Imported as pipeline.enrich_metrics in tests.
+    from pipeline.generate_public_index import effective_latest_release
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "benchmarks.json"
@@ -487,9 +492,9 @@ def main() -> None:
     args = parse_args()
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
-    latest_source_date = payload["manifest"].get("latestSourceDate", payload["manifest"]["dataAsOf"])
     today = publication_today()
     as_of = date.fromisoformat(args.date or today.isoformat())
+    latest_source_date = effective_latest_release(records, as_of.isoformat())
     snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
     if args.rerank_only:
         if not snapshot_path.exists():
