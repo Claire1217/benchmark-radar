@@ -29,7 +29,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v6"
+METHOD_VERSION = "attention-ranking-v7"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
@@ -37,6 +37,7 @@ WINDOW_WEIGHTS = {
     "90d": {"hfPaperUpvotes": 0.30, "githubStars": 0.30, "hfDatasetDownloads": 0.40},
 }
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
+POSITION_WEIGHTS = (0.65, 0.25, 0.10)
 PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
 
@@ -299,6 +300,16 @@ def percentile(
     return (below + 0.5 * equal) / len(transformed)
 
 
+def positional_attention(percentiles: list[float]) -> float | None:
+    """Blend strongest-to-weakest signals without treating missing data as zero."""
+    ranked = sorted(percentiles, reverse=True)
+    weights = POSITION_WEIGHTS[:len(ranked)]
+    return (
+        sum(value * weight for value, weight in zip(ranked, weights)) / sum(weights)
+        if weights else None
+    )
+
+
 def closest_history(as_of: date, days: int) -> dict[str, Any] | None:
     if days <= 0:
         days = 1
@@ -347,15 +358,10 @@ def rank_records(
                     observed_percentiles.append(pct)
                     coverage += weight
                     observed += 1
-            # Attention is discovery-oriented: one unusually strong public
-            # signal should surface a benchmark. The strongest age-cohort
-            # percentile drives 90% of the score; the mean of other observed
-            # signals contributes 10%. Missing signals never dilute the score.
-            composite = (
-                0.9 * max(observed_percentiles)
-                + 0.1 * (sum(observed_percentiles) / len(observed_percentiles))
-                if observed_percentiles else None
-            )
+            # Rank observed signals from strongest to weakest, then blend them
+            # 65/25/10. Re-normalizing available weights keeps missing signals
+            # unknown instead of silently treating them as zero.
+            composite = positional_attention(observed_percentiles)
             score = round(100 * composite) if composite is not None else None
             confidence = (
                 "High" if coverage >= 0.75 and observed >= 2

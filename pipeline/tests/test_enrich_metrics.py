@@ -13,7 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import enrich_metrics
 from enrich_metrics import (
     closest_history, dataset_slug, github_scope, github_slug, observation_mode, percentile,
-    preserve_last_known, rank_records, readiness_from_links, summarize_observation,
+    positional_attention, preserve_last_known, rank_records, readiness_from_links,
+    summarize_observation,
 )
 
 
@@ -28,6 +29,12 @@ class MetricTests(unittest.TestCase):
         self.assertIsNone(percentile(None, [1, 2, 3]))
         self.assertEqual(percentile(2, [1, 2, 3]), 0.5)
         self.assertLess(percentile(-5, [-5, 0, 5], signed=True), percentile(0, [-5, 0, 5], signed=True))
+
+    def test_attention_blends_ranked_signals_without_missing_penalty(self) -> None:
+        self.assertAlmostEqual(positional_attention([0.9, 0.5, 0.1]), 0.72)
+        self.assertAlmostEqual(positional_attention([0.9, 0.5]), (0.65 * 0.9 + 0.25 * 0.5) / 0.9)
+        self.assertAlmostEqual(positional_attention([0.9]), 0.9)
+        self.assertIsNone(positional_attention([]))
 
     def test_readiness_is_recomputed_after_resource_enrichment(self) -> None:
         self.assertEqual(readiness_from_links({"code": "https://github.com/o/r"}), "Runnable")
