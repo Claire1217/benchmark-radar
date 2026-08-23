@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-23 · **Benchmark releases:** 1250
+**Snapshot:** 2026-08-23 · **Benchmark releases:** 1258
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (35)
 - [Finance](#finance) (41)
-- [General AI](#general-ai) (849)
+- [General AI](#general-ai) (855)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (93)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (76)
+- [Software & AI Compute](#software--ai-compute) (78)
 
 ## Autonomous Driving
 
@@ -235,12 +235,18 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **groundtruth-dynamic-benchmarking** (2026-08-22) — Groundtruth Dynamic Benchmarking — Geology Question sets and grading rubrics for evaluating LLMs on real-world geological reasoning. [Paper](https://huggingface.co/datasets/EigenformAI/groundtruth-dynamic-benchmarking) · [Data](https://huggingface.co/datasets/EigenformAI/groundtruth-dynamic-benchmarking)
 - **frontier-agent-benchmark** (2026-08-22) — frontier-agent-benchmark # Frontier Agent Benchmark (FAB) **Independent observability and benchmarking platform for evaluating autonomous AI engineering agents on engineering quality - not volume.** FAB answers a differ… [Paper](https://github.com/shubhraj5575/frontier-agent-benchmark) · [Code](https://github.com/shubhraj5575/frontier-agent-benchmark)
 - **agent-model-bench** (2026-08-21) — agent-model-bench Which model should power your agent? [Paper](https://github.com/ajbermudezh22/agent-model-bench) · [Code](https://github.com/ajbermudezh22/agent-model-bench)
+- **the-value-engine-benchmark** (2026-08-20) — the-value-engine-benchmark VEB: an evidence-graded RL environment and benchmark for LLM agents on multi-touch enterprise-sales negotiation. [Paper](https://github.com/rudycelekli/the-value-engine-benchmark) · [Code](https://github.com/rudycelekli/the-value-engine-benchmark)
+- **rtcbench** (2026-08-20) — rtcbench A benchmark for LLMs that commission real closed-loop control systems. [Paper](https://github.com/aiast1/rtcbench) · [Code](https://github.com/aiast1/rtcbench)
+- **euskal-agent-bench** (2026-08-20) — euskal-agent-bench Do LLM agents work in Basque? [Paper](https://github.com/GorkaFS13/euskal-agent-bench) · [Code](https://github.com/GorkaFS13/euskal-agent-bench)
 - **VGI-BENCH** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
 - **SWE-bench Science** (2026-08-20) — We introduce \textbf{SWE-bench Science}, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 GitHub repositories across 20 scientific domains. [Paper](https://arxiv.org/abs/2608.19799)
+- **SBMLLM-Bench** (2026-08-20) — SBMLLM-Bench Benchmark LLMs on their ability to reconstruct executable systems-biology models from scientific papers. [Paper](https://github.com/cosbi-research/SBMLLM-Bench) · [Code](https://github.com/cosbi-research/SBMLLM-Bench)
 - **Rule-Compliant Visual Spatial Planning for Multimodal Large Language Models** (2026-08-20) — To address this gap, we introduce RuleMaze, a controllable benchmark in which MLLMs must navigate mazes while obeying natural-language rules of varying complexity. [Paper](https://arxiv.org/abs/2608.20237) · [Code](https://github.com/oceanflowlab/RuleMaze)
 - **PersonalBench** (2026-08-20) — We introduce PersonalBench, a benchmark that evaluates inference-time personalization methods through three independent lenses: LUAR (a trained authorship verification model), an LLM-as-judge, and automated stylometrics. [Paper](https://arxiv.org/abs/2608.19746)
 - **PL-NBA** (2026-08-20) — Experimental results show that existing methods achieve limited performance on above four tasks, demonstrating that PL-NBA is a challenging benchmark for sports video understanding. [Paper](https://arxiv.org/abs/2608.19646)
+- **OpenBenchmark** (2026-08-20) — ai-agents benchmark evaluation llm llm-evaluation nextjs observability openrouter postgres typescript # OpenBenchmark **English** · [简体中文](README.zh-CN.md) · [日本語](README.ja.md) · [Français](README.fr.md) · [Español](RE… [Paper](https://github.com/crispyberry/OpenBenchmark) · [Code](https://github.com/crispyberry/OpenBenchmark)
 - **One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows** (2026-08-20) — We release both Thinkingbox and Thinkingbox-Bench: https://github.com/microsoft/thinkingbox [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
+- **MuSP-Bench** (2026-08-20) — MuSP-Bench MuSP-Bench is a 490-question benchmark for musical score understanding, performance listening, and combined score-performance reasoning. [Paper](https://huggingface.co/datasets/bryel-labs/MuSP-Bench) · [Data](https://huggingface.co/datasets/bryel-labs/MuSP-Bench)
 - **MaliciousSkillBench** (2026-08-20) — We present MaliciousSkillBench, a comprehensive benchmark for malicious Agent Skill detection. [Paper](https://arxiv.org/abs/2608.19901)
 - **ExPhy: A Benchmark for Explicit Physical Property Learning in Multi-Object Trajectory Forecasting** (2026-08-20) — To address this gap, we introduce \emph{ExPhy}, a multi-object trajectory forecasting benchmark containing 24,000 simulated physical scenes with explicit object-level labels for mass, friction, and restitution. [Paper](https://arxiv.org/abs/2608.20009) · [Code](https://github.com/Zest86/ExPhy)
 - **DeltaML-Bench** (2026-08-20) — We introduce DeltaML-Bench, a benchmark comprising 48 tasks sourced from research papers that require agents to improve published baselines within imperfect, open-source repositories. [Paper](https://arxiv.org/abs/2608.19653) · [Code](https://github.com/AlgorithmicResearchGroup/deltaml-bench-public)
@@ -1260,6 +1266,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **llm-summarization-benchmark-ptbr** (2026-08-21) — llm-summarization-benchmark-ptbr # LLM Summarization Benchmark — Brazilian Portuguese [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)](https://doi.org/10.5281/zenodo.22042502) *Six runs per model, a pr… [Paper](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Code](https://github.com/gbbarra/llm-summarization-benchmark-ptbr) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22042502.svg)
 - **annomi-counselling-dialogue-analysis** (2026-08-21) — annomi-counselling-dialogue-analysis Transcript-grouped NLP benchmark for therapist-behaviour classification on AnnoMI counselling machine-learning natural-language-processing reproducibility roberta text-classification… [Paper](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis) · [Code](https://github.com/abdullahuseyinli-dot/annomi-counselling-dialogue-analysis)
 - **ai-sim-benchmark** (2026-08-21) — ai-sim-benchmark A reproducible 3D water-simulation challenge for comparing autonomous AI coding agents # AI Coding Agent Water Simulation Benchmark This repository contains a reproducible coding challenge for comparing… [Paper](https://github.com/AiondaDotCom/ai-sim-benchmark) · [Code](https://github.com/AiondaDotCom/ai-sim-benchmark)
+- **silentbug-bench** (2026-08-20) — silentbug-bench ML training defects that never crash. [Paper](https://github.com/Json604/silentbug-bench) · [Code](https://github.com/Json604/silentbug-bench)
+- **silent-misresolution-benchmark** (2026-08-20) — silent-misresolution-benchmark A benchmark for silent misresolution in dictation cleanup: when a system deletes what you said and the output still reads perfectly. [Paper](https://github.com/hemachandra666/silent-misresolution-benchmark) · [Code](https://github.com/hemachandra666/silent-misresolution-benchmark)
 - **OdinEval** (2026-08-19) — We present OdinEval, a reproducible benchmark built from documented defects in public Odin repositories. [Paper](https://arxiv.org/abs/2608.18595)
 - **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **PLSQLBench** (2026-08-16) — We present PLSQLBench, to our knowledge the first benchmark for evaluating whether LLMs can write executable PL/SQL programs, with correctness measured through execution-based tests. [Paper](https://arxiv.org/abs/2608.15931) · [HF](https://huggingface.co/papers/2608.15931) · [Code](https://github.com/oracle-samples/plsqlbench)
