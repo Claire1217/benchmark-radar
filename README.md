@@ -15,7 +15,7 @@ _Data through 2026-08-23 · benchmarks first released in August 2026_
 | # | Benchmark | Area | Public attention | Sources |
 |---:|---|---|---|---|
 | 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 58 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
-| 2 | **ASI-Bench** | Agents | 58 HF votes · 110 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
+| 2 | **ASI-Bench** | Agents | 59 HF votes · 110 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
 | 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 85 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
 | 4 | **SWE-bench Science** | Coding & Software Engineering | 60 HF votes · 49 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
 | 5 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
@@ -23,27 +23,27 @@ _Data through 2026-08-23 · benchmarks first released in August 2026_
 | 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
 | 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
 | 9 | **NCP-Bench** | Agents | 29 HF votes · 29 GitHub stars | [Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench) |
-| 10 | **WorldExam** | Multimodal Perception | 34 HF votes · 21 GitHub stars | [Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam) |
+| 10 | **DataSpace** | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars | [Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace) |
 
 ### Browse by field
 
 **General AI capabilities**
-- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (844)
-- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (195)
+- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (845)
+- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (199)
 - [Agents](https://benchmark-radar.com/#library?capability=Agents) (248)
-- [Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) (521)
+- [Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) (522)
 - [Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) (85)
 - [Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) (143)
-- [Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) (8)
+- [Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) (9)
 
 **Application fields**
 - [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) (45)
-- [Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) (98)
-- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (127)
+- [Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) (99)
+- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (128)
 - [Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) (81)
 - [Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) (36)
 
-[Browse all 2,149 Library records →](https://benchmark-radar.com/#library)
+[Browse all 2,154 Library records →](https://benchmark-radar.com/#library)
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What the signals mean

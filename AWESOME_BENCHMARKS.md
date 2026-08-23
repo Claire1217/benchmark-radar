@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-23 · **Benchmark releases:** 1258
+**Snapshot:** 2026-08-23 · **Benchmark releases:** 1263
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (35)
 - [Finance](#finance) (41)
-- [General AI](#general-ai) (855)
+- [General AI](#general-ai) (856)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (93)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (78)
+- [Software & AI Compute](#software--ai-compute) (82)
 
 ## Autonomous Driving
 
@@ -238,6 +238,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **the-value-engine-benchmark** (2026-08-20) — the-value-engine-benchmark VEB: an evidence-graded RL environment and benchmark for LLM agents on multi-touch enterprise-sales negotiation. [Paper](https://github.com/rudycelekli/the-value-engine-benchmark) · [Code](https://github.com/rudycelekli/the-value-engine-benchmark)
 - **rtcbench** (2026-08-20) — rtcbench A benchmark for LLMs that commission real closed-loop control systems. [Paper](https://github.com/aiast1/rtcbench) · [Code](https://github.com/aiast1/rtcbench)
 - **euskal-agent-bench** (2026-08-20) — euskal-agent-bench Do LLM agents work in Basque? [Paper](https://github.com/GorkaFS13/euskal-agent-bench) · [Code](https://github.com/GorkaFS13/euskal-agent-bench)
+- **amo-bench-p** (2026-08-20) — AMO-Bench-P This is the 39-problem, parser-graded subset of meituan-longcat/AMO-Bench. [Paper](https://huggingface.co/datasets/djalexj/amo-bench-p) · [Data](https://huggingface.co/datasets/djalexj/amo-bench-p)
 - **VGI-BENCH** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
 - **SWE-bench Science** (2026-08-20) — We introduce \textbf{SWE-bench Science}, a repository-level benchmark for scientific software engineering comprising 119 tasks from 98 GitHub repositories across 20 scientific domains. [Paper](https://arxiv.org/abs/2608.19799)
 - **SBMLLM-Bench** (2026-08-20) — SBMLLM-Bench Benchmark LLMs on their ability to reconstruct executable systems-biology models from scientific papers. [Paper](https://github.com/cosbi-research/SBMLLM-Bench) · [Code](https://github.com/cosbi-research/SBMLLM-Bench)
@@ -1268,6 +1269,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **ai-sim-benchmark** (2026-08-21) — ai-sim-benchmark A reproducible 3D water-simulation challenge for comparing autonomous AI coding agents # AI Coding Agent Water Simulation Benchmark This repository contains a reproducible coding challenge for comparing… [Paper](https://github.com/AiondaDotCom/ai-sim-benchmark) · [Code](https://github.com/AiondaDotCom/ai-sim-benchmark)
 - **silentbug-bench** (2026-08-20) — silentbug-bench ML training defects that never crash. [Paper](https://github.com/Json604/silentbug-bench) · [Code](https://github.com/Json604/silentbug-bench)
 - **silent-misresolution-benchmark** (2026-08-20) — silent-misresolution-benchmark A benchmark for silent misresolution in dictation cleanup: when a system deletes what you said and the output still reads perfectly. [Paper](https://github.com/hemachandra666/silent-misresolution-benchmark) · [Code](https://github.com/hemachandra666/silent-misresolution-benchmark)
+- **dgx-spark-llm-lab** (2026-08-20) — Benchmark model + quant + serving flags + thinking mode on your own hardware, then install the config that won. [Paper](https://github.com/luongnv89/dgx-spark-llm-lab) · [Code](https://github.com/luongnv89/dgx-spark-llm-lab)
+- **alzheimer-classification-benchmark** (2026-08-20) — alzheimer-classification-benchmark Benchmarking 11 classifiers for Alzheimer's disease detection on synthetic health data with KNIME and Python. [Paper](https://github.com/hervemottaran/alzheimer-classification-benchmark) · [Code](https://github.com/hervemottaran/alzheimer-classification-benchmark)
+- **ai-gateway-reproducible-benchmark** (2026-08-20) — ai-gateway-reproducible-benchmark Comparing Bifrost vs LiteLLM vs GoModel vs PortkeyAI. [Paper](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark) · [Code](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark)
+- **AI4AI-Bench** (2026-08-20) — We present AI4AI\mbox{-}Bench, 10 frozen research repositories spanning 10 training algorithm families. [Paper](https://arxiv.org/abs/2608.20318)
 - **OdinEval** (2026-08-19) — We present OdinEval, a reproducible benchmark built from documented defects in public Odin repositories. [Paper](https://arxiv.org/abs/2608.18595)
 - **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **PLSQLBench** (2026-08-16) — We present PLSQLBench, to our knowledge the first benchmark for evaluating whether LLMs can write executable PL/SQL programs, with correctness measured through execution-based tests. [Paper](https://arxiv.org/abs/2608.15931) · [HF](https://huggingface.co/papers/2608.15931) · [Code](https://github.com/oracle-samples/plsqlbench)

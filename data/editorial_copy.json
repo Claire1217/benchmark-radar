@@ -22099,45 +22099,45 @@
       "benchmarkMode": "unclear",
       "stableScoringContract": false,
       "publicReusePath": false,
-      "description": "ContractScrub evaluates LLMs on contract scrubbing, the final review of legal contracts for errors and inconsistencies. It includes hand-crafted contracts with diverse error categories.",
-      "whyItMatters": "It targets a practical legal task where LLMs may underperform despite strong general abilities, highlighting the need for domain-specific benchmarks.",
-      "decisionReason": "No official benchmark link, code, or dataset is provided; only an arXiv paper exists, making the benchmark inaccessible for public reuse.",
+      "description": "Legal contract scrubbing tasks covering errors such as misuse of defined terms, incorrect references, and inconsistent language.",
+      "whyItMatters": "No formal evaluations of LLMs for contract scrubbing existed, despite its economic value and routine nature.",
+      "decisionReason": "The paper introduces the benchmark but provides no evidence of released data, code, or scoring submission; a public reuse path cannot be confirmed.",
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "b8b0abd0b100fe68c31fac37b659adeb999ff0c1f6b55768ce485c59a43116ac",
-      "selectionFingerprint": "1f9c9b8a24f0fcd3ac9ba2d2515f82cbce8f8935dce1f66211440ed1522d0958"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "663b19ea83ec159043640dc36c617b28775768f219fc83c9022d0181fadbc757",
+      "selectionFingerprint": "90b09839a7688b5f85d2ed8f3f28e41142114d595d3c54b613d29cedcdff476d"
     },
     "2608.20107": {
       "decision": "defer",
       "benchmarkMode": "unclear",
       "stableScoringContract": false,
       "publicReusePath": false,
-      "description": "BeyondMasks is a paired benchmark for causally consistent video object removal, including synthetic and real-world video pairs with clean background references. It evaluates removal of physical effects like shadows and reflections.",
-      "whyItMatters": "It reframes video object removal as causal scene consistency, addressing the gap in evaluating secondary physical effects beyond local reconstruction.",
-      "decisionReason": "No official dataset or code links are provided; only a project page and arXiv paper, so the benchmark lacks a clear path for reuse or inspection.",
+      "description": "Paired synthetic and real video benchmark for evaluating video object removal, focusing on causal consistency including physical effects like shadows and reflections.",
+      "whyItMatters": "Existing video object removal benchmarks neglect secondary physical effects, limiting assessment of real-world editing quality.",
+      "decisionReason": "Insufficient evidence of released data, code, or public submission path; only a paper and project page link are provided.",
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "640500019d229a64cb874739eee1894506098f68ae0a86f33cd882ca827102b7",
-      "selectionFingerprint": "cbc5bf978473100d785370087fe91d99157264e760fe732a7b66732b281a8a1e"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "61916f39f332ac2465625ae7fa2badce6adc722c81021268eb75b7b10d2b04ab",
+      "selectionFingerprint": "fc749e238e70a8bd498792ea7e4f32ad295eff8d78cca2e159a1eccca37061a9"
     },
     "2608.20318": {
-      "decision": "defer",
-      "benchmarkMode": "unclear",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "AI4AI-Bench evaluates LLM agents on algorithmic design for recursive self-improvement across 10 training algorithm families. Agents have 4 hours to rewrite algorithms and are scored by hidden evaluators against the original.",
-      "whyItMatters": "It addresses the gap in isolating the ability to design training algorithms, which is central to recursive self-improvement, and highlights failures to change learning algorithms.",
-      "decisionReason": "No official benchmark link or public artifact is provided; only an arXiv paper, so the benchmark lacks a clear public path for reuse.",
+      "decision": "publish",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "AI4AI-Bench evaluates LLM agents on 10 frozen research repositories requiring them to rewrite training algorithms within 4 hours on one B300. The modified algorithm is rerun from scratch for up to 12 hours and scored by a hidden fixed evaluator relative to the repository's original algorithm and the task optimum on a normalized scale.",
+      "whyItMatters": "It isolates the ability to design training algorithms for recursive self-improvement, distinguishing changes to the learning algorithm from data collection or hyperparameter tuning. The normalized scoring across incommensurable metrics provides a comparable measure of progress toward algorithm design capability.",
+      "decisionReason": "The benchmark is named, defines a repeatable evaluation object (10 frozen repositories, fixed procedure, hidden evaluator) and a comparable scoring contract (normalized scale from uninformative model to task optimum). The paper explicitly states the task suite, evaluators, and every scored submission are released, providing a public path for other teams to run or inspect it.",
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-21.1",
-      "generatedAt": "2026-08-21T04:30:12.448463Z",
-      "inputHash": "c514b352b1ccb9b8fe71b0f8b5bc317f282547e343129fe336603fb563ee4fe2",
-      "selectionFingerprint": "4e9376de1be98cf893b3b8ca023935c147ec783f57ba3f1bcec42810bc656f8b"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "905b10591809a6426a23d4706442247570b134d215b8a58fc948edb605007927",
+      "selectionFingerprint": "d9246d1dd57de748ded141a9adcdfee58746298d8c9e10f7d3cdc4ae06a324a9"
     },
     "2608.14379": {
       "decision": "publish",
@@ -23464,9 +23464,9 @@
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "An evidence-graded RL environment and benchmark for evaluating LLM agents on multi-touch enterprise-sales negotiation, with scalar rewards and structured diagnostic grades from an explicit rubric.",
-      "whyItMatters": "Fills a gap in long-horizon, interactive agent evaluation where single-turn benchmarks fail to test planning, value framing, price discipline, and honesty under pressure.",
-      "decisionReason": "Provides a runnable environment, fixed task set, explicit scoring rubric, committed validation procedures, and a public repository for third-party runs and submissions.",
+      "description": "VEB is an evidence-graded RL environment and benchmark for evaluating LLM agents on multi-touch enterprise-sales negotiation. Agents act as B2B sellers in multi-turn negotiations against a stochastic LLM buyer, graded with a sales-methodology rubric producing scalar rewards and structured diagnostic grades.",
+      "whyItMatters": "VEB addresses the need for evaluating long-horizon planning, value framing, price discipline, and honesty under pressure in sales negotiations, which single-turn benchmarks do not stress. It provides a methodology-controlled environment for training and evaluating agents, with a focus on reproducible evaluation and a leaderboard for model comparison.",
+      "decisionReason": "Repository provides a runnable RL environment, scenario set, evaluation grid, and explicit verification instructions. License openly permits running and forking the environment, and the repo includes code, data artifacts, and validation protocols.",
       "publishers": [
         {
           "name": "The Value Engine",
@@ -23475,11 +23475,11 @@
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "1a1b609b77ed8ce76723fe27f54ddd663c10df1f7f93ba828450f29343f59230",
-      "selectionFingerprint": "8c6ac89a3f6b58754618699e644d0bda964337102a6411718319a945d24ff281"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "9ce4a58ce6c21da969ea09f8060167d55578ad77f6b300e8b724549347ff929d",
+      "selectionFingerprint": "b27a4b920273e5ebbf43ac9054e28894a6a7b68f73d60a4c923134ce8c466e36"
     },
     "github:ak8x6/talent-bridge-lebanon": {
       "decision": "exclude",
@@ -23516,75 +23516,68 @@
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "An agentic benchmark with 18 tasks where agents must identify injected ML training defects in small PyTorch repositories, with patch application and unit-test verification scoring.",
-      "whyItMatters": "Provides a contamination-free evaluation of debugging ability for subtle training defects that do not cause crashes, using programmatic verification instead of model grading.",
-      "decisionReason": "The repository includes a locked task set, deterministic scoring components, baselines, and a harness that supports third-party agent submissions, enabling comparable evaluations.",
+      "description": "silentbug-bench evaluates LLM agents on detecting silent defects in ML training code. Agents receive a small training repository with an injected defect and must identify the defect from a fixed taxonomy, localize it, and provide a patch. Scoring is automated via a program that applies the patch, retrains, and evaluates six components.",
+      "whyItMatters": "This benchmark addresses the challenge of detecting training defects that do not crash or obviously degrade performance, which are difficult to identify manually. It provides a standardized evaluation for agent performance on code understanding, defect localization, and patch correctness, with clear scoring and baselines.",
+      "decisionReason": "Repository includes full task suite, scoring harness, baselines, and results. It defines a clear evaluation protocol with fixed tasks, submission schema, and automated scoring. Public path is the repository itself.",
       "publishers": [
         {
-          "name": "SilentBug Benchmark",
-          "organizationType": "benchmark-organization",
+          "name": "Json604",
+          "organizationType": "community",
           "sourceUrl": "https://github.com/Json604/silentbug-bench",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "9d993246def6437680fc0613b2d943840a79e4f5d166ac4977a615c4530497fa",
-      "selectionFingerprint": "b2aee25a95a1b7be7556902f3faf3178f2a409f9ea8a51cb8c3449205d8fceb5"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "db183fcf1eb1847c3aff7344740324a46e521b311a5df2c8d338a3be96979de3",
+      "selectionFingerprint": "a720be4a0fd6f1d50fcc88d43af748f92c77e67ef6ec23ce9fe8e3fc8e14ffcc"
     },
     "github:hemachandra666/silent-misresolution-benchmark": {
-      "decision": "publish",
-      "benchmarkMode": "public_reusable",
-      "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "A benchmark and scorer for silent misresolution in dictation cleanup, where a system removes a spoken correction without trace. It evaluates how systems handle revision sites, distinguishing silent errors, visible errors, correct resolutions, and preserved ambiguities.",
-      "whyItMatters": "Existing metrics like edit rate and WER cannot detect silent misresolution because the output reads correctly. This benchmark provides a scored corpus with predefined ground truth and ambiguity handling, allowing comparison of dictation cleanup systems on a dangerous failure mode that current quality processes miss.",
-      "decisionReason": "The repository includes a benchmark and scorer with a defined scoring contract and public reuse path, despite small corpus and methodological limitations. It is intended for measuring a specific error type and can be used by other teams.",
-      "publishers": [
-        {
-          "name": "hemachandra666",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/hemachandra666/silent-misresolution-benchmark",
-          "role": "benchmark-publisher"
-        }
-      ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "039da0a07c107067033fc17e4168749e27b21aa97b79945c22c0dd0d57832df0",
-      "selectionFingerprint": "4dc6af356fe1d57eab9b8e7218467552b1073da225225b566ba8ddc7cdd8e0d8"
+      "decision": "defer",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "This repository provides a benchmark and scorer for detecting silent misresolution in dictation cleanup, where a system deletes a spoken revision but produces grammatically correct output that changes the meaning. It includes a corpus of revision sites and a scoring methodology distinguishing silent from visible errors.",
+      "whyItMatters": "This benchmark exposes a failure mode in dictation systems that existing metrics like edit rate and WER cannot detect. It quantifies the prevalence of silent misresolution and highlights limitations of current evaluation approaches, which could inform better quality metrics for speech-to-text products.",
+      "decisionReason": "Evidence indicates the study is primarily to highlight a problem with dictation tools and existing metrics, with a small corpus, limited system coverage, and acknowledged limitations in ground truth. It lacks a clear standalone public comparison path for ongoing model evaluation, and the scoring contract is not fully stabilized.",
+      "publishers": [],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "7a82e16ed47864e083f32642b65247bb248b01389f2b52e573dfadff28237b64",
+      "selectionFingerprint": "3eed71a11b645b65a233ba33bdec2a120f259222da2dded1a0b10b7690be01e2"
     },
     "github:cosbi-research/sbmllm-bench": {
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "A manually curated dataset for evaluating large language models on converting scientific publications into executable Systems Biology models in Antimony format. It scores generated models against expert-curated references using multiple metrics including simulation success, species/reaction recovery, and dynamic reproducibility.",
-      "whyItMatters": "Automated reconstruction of systems biology models from literature is a complex task with no standardized evaluation. This benchmark provides a public method to measure both structural and dynamical accuracy, helping compare LLM-based pipelines for scientific model extraction.",
-      "decisionReason": "The repository contains the dataset, reference models, scoring metrics, and a reproducible Snakemake workflow, making it usable by other teams. The task and scoring are clearly defined.",
+      "description": "SBMLLM-Bench is a manually curated dataset and benchmark for evaluating LLMs on reconstructing executable systems-biology models from scientific papers. Models convert publications into Antimony models, and performance is measured by simulation success, species recovery, reaction accuracy, and dynamic reproducibility.",
+      "whyItMatters": "This benchmark addresses the need for automated model reconstruction in systems biology, which is time-consuming and requires expertise. It provides a standardized evaluation for LLM-based model generation and repair, with clear metrics for structural and dynamic fidelity, facilitating comparison of approaches.",
+      "decisionReason": "Repository provides dataset, workflow, and metrics. It includes a quick-start, configuration, and performance metrics. The benchmark is designed for reuse by other teams, with clear instructions and a public GitHub repository.",
       "publishers": [
         {
           "name": "COSBI",
-          "organizationType": "company-research-lab",
+          "organizationType": "academic-lab",
           "sourceUrl": "https://www.cosbi.eu/contact",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "edba74f8afe4cd976a7c4e3ab3d4ed97fd15aeef625d133ff28e8b98baa0e330",
-      "selectionFingerprint": "beb2e140a83c4a5eefb48681d055f9860152a3c545eca6ea08056b0a751c6b58"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "b973248419d89013807d1c3fc497b8a8e97cdf542ba8f7ba22307340ee7aee60",
+      "selectionFingerprint": "09f1e2d6afeb8e9742984fc006e0c49a9cf88619148bd25342e92923a4954ac6"
     },
     "github:aiast1/rtcbench": {
       "decision": "publish",
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "A benchmark for language models that commission real closed-loop control systems. Submissions are controllers interfaced with dynamic process simulations, scored on plant performance with safety gates and reference-based anchors.",
-      "whyItMatters": "Traditional control benchmarks often test theoretical knowledge rather than practical controller performance. This benchmark evaluates controllers on realistic plants with safety constraints, providing a comparable score that reflects both control quality and reliability.",
-      "decisionReason": "The repository provides a scoring harness, task definitions, reference controllers, and a leaderboard, with a clear interface for submitting controllers. The scoring contract is stable and publicly reusable.",
+      "description": "RTCbench evaluates LLMs on commissioning closed-loop control systems. A submission is a controller that is wired to a dynamic process simulation and judged on plant performance. It includes ten plants, safety gates, and an anchored scoring baseline.",
+      "whyItMatters": "RTCbench addresses the gap in evaluating LLMs for control engineering tasks beyond theoretical quizzes, focusing on real closed-loop performance. It provides a reproducible benchmark with validated tasks, safety constraints, and variance-aware ranking, useful for comparing models on control commissioning.",
+      "decisionReason": "Repository includes task files, scoring harness, baselines, and results. It defines a clear interface for submissions and a scoring contract with safety gates and validation. Public path is the repo itself.",
       "publishers": [
         {
           "name": "aiast1",
@@ -23593,55 +23586,55 @@
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "535a42b4a3343ae504f951f5f9cff524d38dcc6c46825de1a7ac7bdac1e70025",
-      "selectionFingerprint": "9d3009a99b2b3779156e7aa447bebcec001bef8d2540de360975718fcea02afb"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "8c8616952124927ff87a59d61fd3b7b94dfd2c9b2ab11128b58674e500b0f135",
+      "selectionFingerprint": "620da944d8940412a8f3d68e0101212ae03e3e9d9d364e5cc64a9136d4d14194"
     },
     "github:crispyberry/openbenchmark": {
-      "decision": "publish",
-      "benchmarkMode": "score_submission",
-      "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "A platform that turns real agent trajectories into runnable benchmarks for ranking models, harnesses, and agents on score, cost, and speed. It includes a pipeline for importing traces, generating tasks with a build agent, and evaluating with rubric or pairwise judging.",
-      "whyItMatters": "Standard benchmarks may not reflect an organization's specific agent workloads. OpenBenchmark allows creating customized benchmarks from actual usage data, providing practical comparisons that include cost and speed, directly relevant for deployment decisions.",
-      "decisionReason": "The repository provides a fully functional system with clear instructions, scoring methods, and leaderboard generation. Users can create and run benchmarks, making it an ongoing public submission platform.",
+      "decision": "exclude",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "OpenBenchmark is a platform for turning agent trajectories into custom benchmarks and ranking models on score, cost, and speed. It allows importing traces, drafting tasks with an AI agent, and running evaluations across models.",
+      "whyItMatters": "This platform enables organizations to create benchmarks from their own data, potentially improving model selection for specific tasks. However, it is a tool for building benchmarks rather than a defined benchmark itself.",
+      "decisionReason": "This is a tool for creating custom benchmarks, not a predefined benchmark with a fixed task set and scoring contract. It is a platform that users configure for their own evaluations, so it does not meet the definition of a benchmark for public comparison.",
       "publishers": [
         {
-          "name": "crispyberry",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/crispyberry/OpenBenchmark",
+          "name": "Pi",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://pi.dev",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "446566f709fead514d67739a59d8673ca8bf73ec9375bc59d19b79ea3886c099",
-      "selectionFingerprint": "8ba2cadabd9db39f6618ec89621e2e31aad5acd0c7efcaea80183e887c736a5b"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "c0dffd8f2af7e372460ba2fea9c10bb8c3b3f4e233eef3e3d8eaff7206aca41a",
+      "selectionFingerprint": "b908eae5ddf9496fc73e2feb76bcee93b6b6fdc9f635fedbe82710e4f2f502c7"
     },
     "huggingface:bryel-labs/musp-bench": {
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "A 490-question benchmark for musical score understanding, performance listening, and combined score-performance reasoning, with questions and accepted answers provided as a dataset. It includes multiple input representations such as PDF, images, ABC, MIDI event text, and audio.",
-      "whyItMatters": "Assessing multimodal understanding of music requires benchmarks that combine visual score and auditory performance. This dataset provides a structured, publicly available testbed for evaluating models on music-specific reasoning tasks.",
-      "decisionReason": "The Hugging Face dataset page includes all questions, answers, and input files, making it a fixed public dataset with a clear evaluation protocol.",
+      "description": "MuSP-Bench is a 490-question benchmark for musical score understanding, performance listening, and combined score-performance reasoning. Questions cover short, mid, and long musical spans, with modalities for score (S), performance (P), both (SP), and either source (S/P).",
+      "whyItMatters": "This benchmark fills a gap in evaluating multimodal understanding of music, combining symbolic score and audio performance. It provides a standardized set with multiple input representations (ABC, MIDI, images, audio) and ablation results, useful for comparing models on music reasoning tasks.",
+      "decisionReason": "The dataset is openly released on Hugging Face with a clear license and includes all inputs and answers. It has a fixed evaluation protocol with accepted answers and response contracts. Reproducibility is possible via the dataset.",
       "publishers": [
         {
           "name": "Bryel Labs",
-          "organizationType": "academic-lab",
+          "organizationType": "company-research-lab",
           "sourceUrl": "https://huggingface.co/datasets/bryel-labs/MuSP-Bench",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "8ace88683146702507d0fbfb2720e6a609d34bc86906ab35468b2e2472642e5e",
-      "selectionFingerprint": "376b70feec728bbcf9d1b7b71093b747295f9177636b59a00e0610845f57f1fd"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "2af36117d73d2038dbaa71c05f168bb69a92815db51138c61c2c11764b4e73cb",
+      "selectionFingerprint": "dff59be2ef568936aa7ca2e689c9686e5de756aee4039d292c795f732e25c5eb"
     },
     "github:taimourmushtaq/medical-nlp-supervised-benchmark": {
       "decision": "exclude",
@@ -23678,22 +23671,148 @@
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "A 30-task battery in English, Spanish, and Basque that scores extraction, reasoning, tool use, format compliance, and output-contract adherence for LLM agents.",
-      "whyItMatters": "Isolates how low-resource language localization affects agentic capabilities beyond content understanding, providing a public leaderboard and reproducible protocol.",
-      "decisionReason": "The benchmark includes a public code repository, live leaderboard, and defined scoring metrics across task types, supporting ongoing model comparisons.",
+      "description": "euskal-agent-bench evaluates LLM agents in Basque, Spanish, and English on a 30-task battery of extraction, reasoning, tool use, and format compliance. Tasks are presented in each language with localized output contracts and tools, and performance is measured on accuracy, contract compliance, and tool-call validity.",
+      "whyItMatters": "This benchmark addresses the gap in evaluating agentic capabilities in low-resource languages, specifically Basque. It measures not only task accuracy but also the robustness of agentic infrastructure (output contracts, tool use) under language shift, which is critical for deploying LLM systems in multilingual contexts.",
+      "decisionReason": "The repository provides a reproducible methodology, task battery, scoring code, and a live leaderboard. It includes verified expected values and native speaker validation. The benchmark is designed for comparing models on these tasks.",
       "publishers": [
         {
-          "name": "euskal-agent-bench maintainers",
+          "name": "GorkaFS13",
           "organizationType": "community",
           "sourceUrl": "https://github.com/GorkaFS13/euskal-agent-bench",
           "role": "benchmark-publisher"
         }
       ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-23T09:02:46.503495Z",
+      "inputHash": "b0a4597b12e4689ed6baa0a624cfba347be14226009872e5ae522f1453ab82fd",
+      "selectionFingerprint": "006c4611906347032fee1a03364bfd5cddd942281f9787d85b383d440a69d6f3"
+    },
+    "github:luongnv89/dgx-spark-llm-lab": {
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates LLM coding and agentic tool-calling setups on a user's own hardware via hidden executable tests, reporting pass@1, tool-call validity, and efficiency metrics across one-shot and multi-turn tasks.",
+      "whyItMatters": "Fills the gap between public leaderboards and local deployment by measuring models with configurable serving flags, quantizations, and harnesses on the same machine where they will run, guiding practical model and serving choices.",
+      "decisionReason": "The repository provides a clear evaluation protocol with validated hidden tests, repeated campaign reports, and installable configuration artifacts, enabling other teams to run and compare local setups.",
+      "publishers": [],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T06:56:13.762703Z",
-      "inputHash": "d71e2f82653e56efc43ef3d8f7475e4e3823dbcfc270e41cb537f5027951e9aa",
-      "selectionFingerprint": "e740d2a99300bbcbb1ac404f9ac44d6197ac02a9c00b3c89c1655eee1dbb54af"
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "a00328e0569a50dbb6ffd26db90c918952133f599089a7fb10f38369c55d75d5",
+      "selectionFingerprint": "43b8a60563e36fd8d3fcac95f0e0585fcc3cc01b845159c93106ef45a2e10208"
+    },
+    "huggingface:nyamtulla/benchmarking-the-benchmarks-data": {
+      "decision": "defer",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": true,
+      "description": "Evaluates automated safety benchmarks for small language models by scoring 26 SLMs on four existing safety benchmark suites using a GPT-4o judge, producing per-prompt ambiguity scores.",
+      "whyItMatters": "Reveals that LLM-oriented safety benchmarks are ineffective for SLMs due to high ambiguity rates, contributing to the research gap in reliable safety evaluation for small models.",
+      "decisionReason": "The dataset and code are released, but the core scoring is done by a GPT-4o judge, which is proprietary and not fully reproducible. There is no stable numeric scoring contract independent of the judge, and the ranking is shown to be brittle. It serves primarily as data for the paper's viewpoint rather than a standalone benchmark for ongoing comparison. Hence, defer.",
+      "publishers": [
+        {
+          "name": "University of Kansas",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://huggingface.co/datasets/nyamtulla/benchmarking-the-benchmarks-data",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "742f6ee3f7f810cd4534dc661513674abbb110cd4457745cff9a6ad291b9287d",
+      "selectionFingerprint": "24f1a7cf5fd85338b2bbc4e2cef0cefa356e79ee071ab48efda91852d4d892ed"
+    },
+    "github:break-through-tech/automation-anywhere-2b-evaluation-framework-for-synthetic-agent-benchmark-datasets": {
+      "decision": "exclude",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Template repository outline for an AI Studio challenge project, containing placeholder sections for team members, data exploration, model development, and results.",
+      "whyItMatters": "No evaluation object, task, or scoring contract is defined; the repository remains a template with no benchmark content.",
+      "decisionReason": "The repository is a project template with placeholder text and no defined evaluation object, task, scoring protocol, or released artifacts.",
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "e4a923df2d0ec1c711506c31ac2555e971d0d413e1ddbec763ffdf0d0c8a9ca2",
+      "selectionFingerprint": "9a278c00802658936ce480f09a8b11c47eda22a820077b1a0fc2fb79d1c4d1a4"
+    },
+    "huggingface:djalexj/amo-bench-p": {
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "A 39-problem parser-graded subset of the AMO-Bench mathematical reasoning dataset, containing number, set, and variable answer types for automatic verification.",
+      "whyItMatters": "Provides a clean subset of AMO-Bench where answers can be verified programmatically without an LLM judge, enabling more reliable and consistent evaluation of mathematical reasoning models.",
+      "decisionReason": "The dataset is released on Hugging Face with a clear filtering rationale and preserves the upstream evaluator, making it reusable for parser-based scoring with a stable contract.",
+      "publishers": [
+        {
+          "name": "djalexj",
+          "organizationType": "community",
+          "sourceUrl": "https://huggingface.co/datasets/djalexj/amo-bench-p",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "d9ef8fd7cdbd192b51139453bf0c29f08c709df1c6879547e885f4dae4bab4b5",
+      "selectionFingerprint": "57058ba61bd6914c71434316bcfcae72a4a2d304eeb98a0b9f93b18cb9e9ab0f"
+    },
+    "github:hervemottaran/alzheimer-classification-benchmark": {
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates 11 machine learning classifiers for Alzheimer's disease detection on a synthetic health dataset with demographic, lifestyle, clinical and cognitive features, using sensitivity as the primary metric and accuracy and ROC AUC as secondary metrics.",
+      "whyItMatters": "Provides a standardized comparison of classifier performance on synthetic Alzheimer's data, helping researchers select models for screening-oriented applications where false negatives are costly.",
+      "decisionReason": "The repository defines a repeatable pipeline with data, workflow, and evaluation metrics, and is publicly available for others to run or inspect.",
+      "publishers": [
+        {
+          "name": "hervemottaran",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/hervemottaran/alzheimer-classification-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "68462ad0a0aa87c5a6af074b179883b401f92a3443d525205358e6605d6bfe33",
+      "selectionFingerprint": "2f2b700bde4722ff5510ae756436d8b0a88cb5d59087cc7e5a668c7fee2e21ab"
+    },
+    "github:enterpilot/ai-gateway-reproducible-benchmark": {
+      "decision": "publish",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Compares AI gateway overhead for GoModel, LiteLLM, Portkey, and Bifrost using a reproducible AWS harness with in-memory mock backends, measuring latency, throughput, and resource footprint.",
+      "whyItMatters": "Provides a transparent, repeatable way to evaluate AI gateway routing and translation overhead, helping developers choose gateways based on performance and resource usage rather than marketing claims.",
+      "decisionReason": "The repository provides a named benchmark with a stable scoring contract, clear public reuse path via a runnable AWS harness, and ongoing result tracking, making it suitable for model comparison.",
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "cdb39a02c319c166d64120e50b9f23b9a70a3d57dbd590ff5131fc36f6375a0e",
+      "selectionFingerprint": "056be5b13267a56e1245ab6365040eb57071308fe52b85467176a261bfb4d102"
+    },
+    "github:anmol-mahajan/ai-db-benchmark": {
+      "decision": "defer",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates database performance and LLM workflow behavior across SQLite, DuckDB, pgvector, Qdrant, Chroma, LanceDB, Milvus, and Weaviate on synthetic enterprise data, measuring retrieval, generation, accuracy, and write-back latency.",
+      "whyItMatters": "Addresses the need to measure database and LLM integration performance for production-shaped workloads, providing separate metrics for database reads, model reasoning, answer accuracy, and persistence.",
+      "decisionReason": "The benchmark is specified with detailed CLI commands and deterministic data generation, but the official links include a localhost URL and the project is in early MVP stage; evidence of a complete public release is unclear.",
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-23T09:01:42.984229Z",
+      "inputHash": "957a0d1ebbbf0d543a8742653537b581817e4856739597c6ca44e18e2ed16f48",
+      "selectionFingerprint": "dfc53c9dced6215cf9e9d38f3cbffc00789e47721a213afaae36b82625a644c1"
     }
   }
 }
