@@ -76,7 +76,7 @@ jobs:
           if [ -z "$DEEPSEEK_API_KEY" ]; then
             echo "DEEPSEEK_API_KEY is not configured; candidates remain queued."
           else
-            python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
+            python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}" --limit 0 --batch-size 8
           fi
 
       - name: Continue editorial backfill
