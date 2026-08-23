@@ -15,15 +15,15 @@ _Data through 2026-08-23 · benchmarks first released in August 2026_
 | # | Benchmark | Area | Public attention | Sources |
 |---:|---|---|---|---|
 | 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 58 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
-| 2 | **ASI-Bench** | Agents | 57 HF votes · 108 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
+| 2 | **ASI-Bench** | Agents | 58 HF votes · 110 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
 | 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 85 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
 | 4 | **SWE-bench Science** | Coding & Software Engineering | 60 HF votes · 49 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
-| 5 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
-| 6 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
-| 7 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
-| 8 | **Active-SWE** | Coding & Software Engineering | 4 HF votes · 51 GitHub stars | [Paper](https://arxiv.org/abs/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE) |
-| 9 | **VA-Judger-Bench** | Multimodal Perception | 11 HF votes · 45 GitHub stars | [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger) |
-| 10 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
+| 5 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
+| 6 | **SWE-Bench** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
+| 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
+| 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
+| 9 | **NCP-Bench** | Agents | 29 HF votes · 29 GitHub stars | [Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench) |
+| 10 | **WorldExam** | Multimodal Perception | 34 HF votes · 21 GitHub stars | [Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam) |
 
 ### Browse by field
 
