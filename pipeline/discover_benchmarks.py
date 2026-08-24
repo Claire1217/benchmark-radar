@@ -351,11 +351,9 @@ def main() -> None:
     batch_start = batch_dates[0]
     if query_dates:
         try:
-            papers_by_id: dict[str, arxiv.Paper] = {}
-            for query_date in query_dates:
-                for paper in arxiv.fetch_for_date(query_date, config):
-                    papers_by_id[paper.arxiv_id] = paper
-            papers = list(papers_by_id.values())
+            # One range request per arXiv category is materially faster and
+            # less failure-prone than repeating every category for each day.
+            papers = arxiv.fetch_for_range(query_dates[0], query_dates[-1], config)
             arxiv_count = len(papers)
             if not args.dry_run:
                 arxiv.index_papers(
@@ -364,6 +362,14 @@ def main() -> None:
                 )
         except (HTTPError, URLError, TimeoutError, RuntimeError) as error:
             failures["arxiv"] = type(error).__name__
+            if not args.dry_run:
+                # External sources can still publish a valid dated batch. Keep
+                # the failed arXiv source explicit instead of leaving an old
+                # source window in the canonical manifest.
+                arxiv.index_papers(
+                    [], batch_start, target, target, config,
+                    started_from="arXiv unavailable; external sources only",
+                )
     elif not args.dry_run:
         arxiv.index_papers(
             [], batch_start, target, target, config,
