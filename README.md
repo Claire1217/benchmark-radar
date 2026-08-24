@@ -1,4 +1,4 @@
-<h1 align="center">Benchmark Radar</h1>
+<h1 align="center"><img src="web/benchmark-radar-mark.png" width="34" height="34" alt=""> Benchmark Radar</h1>
 
 <p align="center">Discover newly released public AI benchmarks—and see which benchmarks model labs keep using.</p>
 
