@@ -13,8 +13,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import enrich_metrics
 from enrich_metrics import (
     closest_history, dataset_slug, github_scope, github_slug, observation_mode, percentile,
-    positional_attention, preserve_last_known, rank_records, readiness_from_links,
+    preserve_last_known, rank_records, readiness_from_links,
     summarize_observation,
+    weighted_attention,
 )
 
 
@@ -30,11 +31,18 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(percentile(2, [1, 2, 3]), 0.5)
         self.assertLess(percentile(-5, [-5, 0, 5], signed=True), percentile(0, [-5, 0, 5], signed=True))
 
-    def test_attention_blends_ranked_signals_without_missing_penalty(self) -> None:
-        self.assertAlmostEqual(positional_attention([0.9, 0.5, 0.1]), 0.72)
-        self.assertAlmostEqual(positional_attention([0.9, 0.5]), (0.65 * 0.9 + 0.25 * 0.5) / 0.9)
-        self.assertAlmostEqual(positional_attention([0.9]), 0.9)
-        self.assertIsNone(positional_attention([]))
+    def test_attention_uses_fixed_signal_weights_without_missing_penalty(self) -> None:
+        weights = enrich_metrics.WINDOW_WEIGHTS["today"]
+        self.assertAlmostEqual(weighted_attention({
+            "hfPaperUpvotes": 0.9, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
+        }, weights), 0.72)
+        self.assertAlmostEqual(weighted_attention({
+            "hfPaperUpvotes": None, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
+        }, weights), 0.45)
+        self.assertAlmostEqual(weighted_attention({
+            "hfPaperUpvotes": 0.9, "githubStars": None, "hfDatasetDownloads": None,
+        }, weights), 0.9)
+        self.assertIsNone(weighted_attention({}, weights))
 
     def test_readiness_is_recomputed_after_resource_enrichment(self) -> None:
         self.assertEqual(readiness_from_links({"code": "https://github.com/o/r"}), "Runnable")
@@ -95,8 +103,11 @@ class MetricTests(unittest.TestCase):
 
         rank_records(records, raw, date(2026, 8, 20), "2026-08-20")
 
-        self.assertEqual(records[1]["ranking"]["30d"]["rank"], 1)
-        self.assertEqual(records[0]["ranking"]["30d"]["rank"], 2)
+        newer = records[1]["ranking"]["30d"]
+        older = records[0]["ranking"]["30d"]
+        self.assertGreater(newer["score"], older["score"])
+        self.assertIsNone(newer["rank"])
+        self.assertIsNone(older["rank"])
 
     @patch("enrich_metrics.closest_history", return_value=None)
     def test_stale_today_rank_is_removed_when_record_leaves_window(self, _history) -> None:

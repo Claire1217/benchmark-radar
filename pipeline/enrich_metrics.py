@@ -29,15 +29,14 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v7"
+METHOD_VERSION = "attention-ranking-v8"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
-    "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.25, "hfDatasetDownloads": 0.15},
-    "30d": {"hfPaperUpvotes": 0.40, "githubStars": 0.30, "hfDatasetDownloads": 0.30},
-    "90d": {"hfPaperUpvotes": 0.30, "githubStars": 0.30, "hfDatasetDownloads": 0.40},
+    "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.35, "hfDatasetDownloads": 0.05},
+    "30d": {"hfPaperUpvotes": 0.35, "githubStars": 0.40, "hfDatasetDownloads": 0.25},
+    "90d": {"hfPaperUpvotes": 0.20, "githubStars": 0.40, "hfDatasetDownloads": 0.40},
 }
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
-POSITION_WEIGHTS = (0.65, 0.25, 0.10)
 PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
 
@@ -300,13 +299,19 @@ def percentile(
     return (below + 0.5 * equal) / len(transformed)
 
 
-def positional_attention(percentiles: list[float]) -> float | None:
-    """Blend strongest-to-weakest signals without treating missing data as zero."""
-    ranked = sorted(percentiles, reverse=True)
-    weights = POSITION_WEIGHTS[:len(ranked)]
-    return (
-        sum(value * weight for value, weight in zip(ranked, weights)) / sum(weights)
-        if weights else None
+def weighted_attention(
+    percentiles: dict[str, float | None], weights: dict[str, float]
+) -> float | None:
+    """Blend signal percentiles by meaning, while keeping missing data unknown."""
+    observed = [
+        (percentiles[signal], weight)
+        for signal, weight in weights.items()
+        if percentiles.get(signal) is not None
+    ]
+    if not observed:
+        return None
+    return sum(value * weight for value, weight in observed) / sum(
+        weight for _, weight in observed
     )
 
 
@@ -336,6 +341,7 @@ def rank_records(
         weights: dict[str, float],
         *,
         signed: bool,
+        allow_hf_only_rank: bool,
     ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
         output: dict[str, dict[str, Any]] = {}
         scored: list[tuple[float, dict[str, Any]]] = []
@@ -348,21 +354,20 @@ def rank_records(
         for record in candidates:
             coverage = 0.0
             observed = 0
-            observed_percentiles: list[float] = []
+            observed_percentiles: dict[str, float | None] = {}
             components: dict[str, Any] = {}
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
                 population = populations.get(signal, [])
                 pct = percentile(value, population, signed=signed)
                 components[signal] = {"value": value, "percentile": pct}
+                observed_percentiles[signal] = pct
                 if pct is not None:
-                    observed_percentiles.append(pct)
                     coverage += weight
                     observed += 1
-            # Rank observed signals from strongest to weakest, then blend them
-            # 65/25/10. Re-normalizing available weights keeps missing signals
-            # unknown instead of silently treating them as zero.
-            composite = positional_attention(observed_percentiles)
+            # Fixed signal-type weights make the score interpretable. Available
+            # weights are re-normalized so missing observations stay unknown.
+            composite = weighted_attention(observed_percentiles, weights)
             score = round(100 * composite) if composite is not None else None
             confidence = (
                 "High" if coverage >= 0.75 and observed >= 2
@@ -374,11 +379,14 @@ def rank_records(
                 "confidence": confidence, "components": components,
             }
             output[record["id"]] = result
-            # A single real public signal is enough to participate in ranking.
-            # Confidence stays Low until at least two independent signal types
-            # are observed, so missing coverage is visible instead of silently
-            # pushing a benchmark out of the ranked list.
-            if composite is not None:
+            # HF votes can rank a launch batch, where community discovery is the
+            # decision context. In longer windows they still produce a visible
+            # score, but a formal rank requires a repository or dataset signal.
+            has_durable_signal = any(
+                components[signal]["percentile"] is not None
+                for signal in ("githubStars", "hfDatasetDownloads")
+            )
+            if composite is not None and (allow_hf_only_rank or has_durable_signal):
                 scored.append((composite, record))
         scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
         for position, (_, record) in enumerate(scored, 1):
@@ -436,10 +444,12 @@ def rank_records(
             growth_values[signal] = delta_values
 
         levels, _ = score_dimension(
-            candidates, level_values, WINDOW_WEIGHTS[window], signed=False
+            candidates, level_values, WINDOW_WEIGHTS[window], signed=False,
+            allow_hf_only_rank=window == "today",
         )
         growth, _ = score_dimension(
-            candidates, growth_values, WINDOW_WEIGHTS[window], signed=True
+            candidates, growth_values, WINDOW_WEIGHTS[window], signed=True,
+            allow_hf_only_rank=window == "today",
         )
         for record in candidates:
             level = levels[record["id"]]

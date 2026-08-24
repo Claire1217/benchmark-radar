@@ -57,22 +57,22 @@ below a smaller count on the same signal. Dedicated benchmark-repository stars
 count; stars on a parent repository that merely hosts the benchmark in a
 subdirectory do not.
 
-Each observed value becomes a percentile within the selected window. Attention is
-discovery-oriented: the strongest observed percentile contributes 90% of the
-score, and the mean of all observed percentiles contributes 10%. This lets one
-genuinely strong public signal surface a benchmark without pretending that
-missing signals are zero. The following weights describe signal coverage and
-confidence:
+Each observed cumulative value becomes a percentile within the selected window.
+The percentiles are combined with fixed weights for each signal type, so a large
+download count cannot silently take the meaning of a GitHub star or HF vote.
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
 | --- | ---: | ---: | ---: |
-| Latest release batch | 60% | 25% | 15% |
-| 30 days | 40% | 30% | 30% |
-| 90 days | 30% | 30% | 40% |
+| Latest release batch | 60% | 35% | 5% |
+| 30 days | 35% | 40% | 25% |
+| 90 days | 20% | 40% | 40% |
 
-A missing signal is unknown and does not enter the score. One observed signal is
-enough to rank, with low coverage confidence. More observed signals raise
-confidence rather than changing benchmark eligibility.
+A missing signal is unknown and does not enter the score; the remaining weights
+are re-normalized. In the latest release batch, one observed signal is enough to
+rank because launch discovery is the decision context. In the 30- and 90-day
+views, HF votes alone produce a visible low-confidence score but no formal rank;
+a dedicated repository or exact dataset signal is required. More observed
+signals raise confidence.
 The public `Attention #` currently uses cumulative levels. Real snapshot-based
 growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.

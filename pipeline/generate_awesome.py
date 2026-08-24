@@ -47,14 +47,13 @@ def update_readme() -> None:
     candidates = [
         record for record in radar.get("records", [])
         if record.get("releasedAt", "").startswith(month)
-        and (record.get("ranking", {}).get("30d", {}).get("score") is not None)
+        and (record.get("ranking", {}).get("30d", {}).get("rank") is not None)
     ]
     candidates.sort(
         key=lambda record: (
-            record.get("ranking", {}).get("30d", {}).get("score", -1),
+            record.get("ranking", {}).get("30d", {}).get("rank", 10**9),
             record.get("releasedAt", ""),
         ),
-        reverse=True,
     )
 
     overview = [
