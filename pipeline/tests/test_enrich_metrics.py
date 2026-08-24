@@ -31,7 +31,7 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(percentile(2, [1, 2, 3]), 0.5)
         self.assertLess(percentile(-5, [-5, 0, 5], signed=True), percentile(0, [-5, 0, 5], signed=True))
 
-    def test_attention_uses_fixed_signal_weights_without_missing_penalty(self) -> None:
+    def test_attention_uses_fixed_signal_weights_with_neutral_missing_prior(self) -> None:
         self.assertEqual(enrich_metrics.WINDOW_WEIGHTS, {
             "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
             "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
@@ -43,11 +43,25 @@ class MetricTests(unittest.TestCase):
         }, weights), 0.68)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": None, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
-        }, weights), 0.46)
+        }, weights), 0.48)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": 0.9, "githubStars": None, "hfDatasetDownloads": None,
-        }, weights), 0.9)
+        }, weights), 0.7)
         self.assertIsNone(weighted_attention({}, weights))
+
+    def test_missing_downloads_do_not_outrank_stronger_complete_signals(self) -> None:
+        weights = enrich_metrics.WINDOW_WEIGHTS["30d"]
+        asi = weighted_attention({
+            "hfPaperUpvotes": 0.9646,
+            "githubStars": 0.9883,
+            "hfDatasetDownloads": 0.8684,
+        }, weights)
+        playworld = weighted_attention({
+            "hfPaperUpvotes": 0.9343,
+            "githubStars": 0.9805,
+            "hfDatasetDownloads": None,
+        }, weights)
+        self.assertGreater(asi, playworld)
 
     def test_readiness_is_recomputed_after_resource_enrichment(self) -> None:
         self.assertEqual(readiness_from_links({"code": "https://github.com/o/r"}), "Runnable")
@@ -93,7 +107,7 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(popular["rank"], 1)
         self.assertEqual(popular["confidence"], "Low")
         self.assertEqual(popular["components"]["githubStars"]["value"], 119)
-        self.assertEqual(popular["score"], 75)
+        self.assertEqual(popular["score"], 64)
 
     @patch("enrich_metrics.closest_history", return_value=None)
     def test_window_percentile_does_not_reverse_larger_hf_vote_count(self, _history) -> None:

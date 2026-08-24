@@ -67,12 +67,14 @@ download count cannot silently take the meaning of a GitHub star or HF vote.
 | 30 days | 30% | 55% | 15% |
 | 90 days | 15% | 55% | 30% |
 
-A missing signal is unknown and does not enter the score; the remaining weights
-are re-normalized. In the latest release batch, one observed signal is enough to
-rank because launch discovery is the decision context. In the 30- and 90-day
-views, HF votes alone produce a visible low-confidence score but no formal rank;
-a dedicated repository or exact dataset signal is required. More observed
-signals raise confidence.
+A missing signal remains unknown but keeps its fixed weight and receives a
+neutral 50th-percentile prior. This discounts incomplete coverage toward the
+midpoint without treating missing data as zero or redistributing its weight to
+the available signals. In the latest release batch, one observed signal is enough to rank
+because launch discovery is the decision context. In the 30- and 90-day views,
+HF votes alone produce a visible low-confidence score but no formal rank; a
+dedicated repository or exact dataset signal is required. More observed signals
+raise confidence.
 The public `Attention #` currently uses cumulative levels. Real snapshot-based
 growth is stored separately and must not be described as Hugging Face Trending
 or historical momentum.

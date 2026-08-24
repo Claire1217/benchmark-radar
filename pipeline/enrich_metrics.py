@@ -29,7 +29,8 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v9"
+METHOD_VERSION = "attention-ranking-v10"
+MISSING_SIGNAL_PRIOR = 0.50
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
@@ -302,17 +303,14 @@ def percentile(
 def weighted_attention(
     percentiles: dict[str, float | None], weights: dict[str, float]
 ) -> float | None:
-    """Blend signal percentiles by meaning, while keeping missing data unknown."""
-    observed = [
-        (percentiles[signal], weight)
-        for signal, weight in weights.items()
-        if percentiles.get(signal) is not None
-    ]
-    if not observed:
+    """Blend fixed signal weights, shrinking missing observations to neutral."""
+    if not any(percentiles.get(signal) is not None for signal in weights):
         return None
-    return sum(value * weight for value, weight in observed) / sum(
-        weight for _, weight in observed
-    )
+    return sum(
+        (percentiles.get(signal) if percentiles.get(signal) is not None else MISSING_SIGNAL_PRIOR)
+        * weight
+        for signal, weight in weights.items()
+    ) / sum(weights.values())
 
 
 def closest_history(as_of: date, days: int) -> dict[str, Any] | None:
@@ -366,8 +364,8 @@ def rank_records(
                 if pct is not None:
                     coverage += weight
                     observed += 1
-            # Fixed signal-type weights make the score interpretable. Available
-            # weights are re-normalized so missing observations stay unknown.
+            # Fixed signal-type weights make the score interpretable. Missing
+            # observations shrink to neutral instead of gaining redistributed weight.
             composite = weighted_attention(observed_percentiles, weights)
             score = round(100 * composite) if composite is not None else None
             confidence = (
