@@ -32,13 +32,18 @@ class MetricTests(unittest.TestCase):
         self.assertLess(percentile(-5, [-5, 0, 5], signed=True), percentile(0, [-5, 0, 5], signed=True))
 
     def test_attention_uses_fixed_signal_weights_without_missing_penalty(self) -> None:
+        self.assertEqual(enrich_metrics.WINDOW_WEIGHTS, {
+            "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
+            "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
+            "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
+        })
         weights = enrich_metrics.WINDOW_WEIGHTS["today"]
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": 0.9, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
-        }, weights), 0.72)
+        }, weights), 0.68)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": None, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
-        }, weights), 0.45)
+        }, weights), 0.46)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": 0.9, "githubStars": None, "hfDatasetDownloads": None,
         }, weights), 0.9)

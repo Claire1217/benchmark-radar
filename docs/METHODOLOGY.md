@@ -63,9 +63,9 @@ download count cannot silently take the meaning of a GitHub star or HF vote.
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
 | --- | ---: | ---: | ---: |
-| Latest release batch | 60% | 35% | 5% |
-| 30 days | 35% | 40% | 25% |
-| 90 days | 20% | 40% | 40% |
+| Latest release batch | 50% | 45% | 5% |
+| 30 days | 30% | 55% | 15% |
+| 90 days | 15% | 55% | 30% |
 
 A missing signal is unknown and does not enter the score; the remaining weights
 are re-normalized. In the latest release batch, one observed signal is enough to

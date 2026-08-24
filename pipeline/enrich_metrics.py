@@ -29,12 +29,12 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v8"
+METHOD_VERSION = "attention-ranking-v9"
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
-    "today": {"hfPaperUpvotes": 0.60, "githubStars": 0.35, "hfDatasetDownloads": 0.05},
-    "30d": {"hfPaperUpvotes": 0.35, "githubStars": 0.40, "hfDatasetDownloads": 0.25},
-    "90d": {"hfPaperUpvotes": 0.20, "githubStars": 0.40, "hfDatasetDownloads": 0.40},
+    "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
+    "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
+    "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
 }
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
 PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
