@@ -7,6 +7,12 @@ Discover newly released public AI benchmarks every day—and see which benchmark
 [![Daily update](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)
 [![CI](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml)
 
+<p align="center">
+  <a href="https://benchmark-radar.com/#radar">
+    <img src="docs/assets/benchmark-radar-overview.png" alt="Benchmark Radar showing emerging benchmarks ranked by public attention" width="1200">
+  </a>
+</p>
+
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
