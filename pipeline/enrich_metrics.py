@@ -328,6 +328,7 @@ def rank_records(
     raw_by_id: dict[str, dict[str, Any]],
     as_of: date,
     latest_source_date: str,
+    windows: tuple[str, ...] | None = None,
 ) -> None:
     def score_dimension(
         candidates: list[dict[str, Any]],
@@ -384,7 +385,9 @@ def rank_records(
             output[record["id"]]["rank"] = position
         return output, scored
 
-    for window, max_age in WINDOW_DAYS.items():
+    selected_windows = windows or tuple(WINDOW_DAYS)
+    for window in selected_windows:
+        max_age = WINDOW_DAYS[window]
         # A window is a derived view. Rebuild it from scratch so yesterday's
         # Today rank cannot survive after the release/surfacing date rolls on.
         for record in records:
@@ -478,6 +481,11 @@ def parse_args() -> argparse.Namespace:
         "--only-ids",
         help="Comma-separated benchmark ids to refresh; other rows are retained from today's snapshot.",
     )
+    parser.add_argument(
+        "--today-only",
+        action="store_true",
+        help="Refresh the latest public batch and recompute only the Today ranking.",
+    )
     return parser.parse_args()
 
 
@@ -496,6 +504,8 @@ def observation_mode(as_of: date, today: date, explicit_date: bool, snapshot_exi
 
 def main() -> None:
     args = parse_args()
+    if args.rerank_only and args.today_only:
+        raise RuntimeError("--rerank-only and --today-only cannot be combined.")
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
     today = publication_today()
@@ -524,6 +534,14 @@ def main() -> None:
         return
     attempted_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     only_ids = {item.strip() for item in (args.only_ids or "").split(",") if item.strip()}
+    if args.today_only:
+        only_ids.update(
+            record["id"] for record in records
+            if record.get("releasedAt") == latest_source_date
+        )
+        if not only_ids:
+            print(f"no Today records for latest release {latest_source_date}")
+            return
     selected_records = [record for record in records if not only_ids or record["id"] in only_ids]
     github_token = os.environ.get("GITHUB_TOKEN")
     github_candidates = [
@@ -570,6 +588,8 @@ def main() -> None:
     observation = summarize_observation(results, attempted_at, previous_snapshot)
     raw_by_id = {item["benchmarkId"]: item for item in results}
     for record in records:
+        if only_ids and record["id"] not in only_ids:
+            continue
         raw = raw_by_id[record["id"]]
         record["attention"] = {
             "asOf": as_of.isoformat(),
@@ -604,7 +624,13 @@ def main() -> None:
         links = record.get("links", {})
         record["readiness"] = readiness_from_links(links)
 
-    rank_records(records, raw_by_id, as_of, latest_source_date)
+    rank_records(
+        records,
+        raw_by_id,
+        as_of,
+        latest_source_date,
+        windows=("today",) if args.today_only else None,
+    )
     snapshot = {
         "schemaVersion": "1.0",
         "methodVersion": METHOD_VERSION,
@@ -616,14 +642,23 @@ def main() -> None:
         "records": results,
     }
     write_json(METRICS_DIR / f"{as_of.isoformat()}.json", snapshot)
-    payload["manifest"]["metrics"] = {
-        "observedAt": observation["observedAt"],
-        "attemptedAt": observation["attemptedAt"],
-        "status": observation["status"],
-        "methodVersion": METHOD_VERSION,
-        "windows": ["today", "30d", "90d"],
-        "note": "Current-level and growth rankings are separate. Growth is missing without a real prior snapshot; negative deltas are preserved.",
-    }
+    if args.today_only:
+        metrics = payload["manifest"].setdefault("metrics", {})
+        metrics.update({
+            "todayObservedAt": observation["observedAt"],
+            "todayAttemptedAt": observation["attemptedAt"],
+            "todayStatus": observation["status"],
+            "methodVersion": METHOD_VERSION,
+        })
+    else:
+        payload["manifest"]["metrics"] = {
+            "observedAt": observation["observedAt"],
+            "attemptedAt": observation["attemptedAt"],
+            "status": observation["status"],
+            "methodVersion": METHOD_VERSION,
+            "windows": ["today", "30d", "90d"],
+            "note": "Current-level and growth rankings are separate. Growth is missing without a real prior snapshot; negative deltas are preserved.",
+        }
     payload["manifest"]["latestSourceDate"] = latest_source_date
     payload["manifest"]["dataAsOf"] = as_of.isoformat()
     payload["manifest"]["sourceCoverage"] = list(

@@ -109,6 +109,36 @@ class MetricTests(unittest.TestCase):
         self.assertNotIn("today", records[0]["ranking"])
 
     @patch("enrich_metrics.closest_history", return_value=None)
+    def test_today_only_rerank_preserves_longer_windows(self, _history) -> None:
+        records = [{
+            "id": "new", "releasedAt": "2026-08-20", "links": {},
+            "ranking": {
+                "30d": {"rank": 7, "score": 61},
+                "90d": {"rank": 19, "score": 54},
+            },
+        }]
+        raw = {
+            "new": {
+                "hfPaperUpvotes": 12,
+                "githubStars": None,
+                "hfDatasetDownloads": None,
+                "hfDailySubmittedAt": None,
+            },
+        }
+
+        rank_records(
+            records,
+            raw,
+            date(2026, 8, 20),
+            "2026-08-20",
+            windows=("today",),
+        )
+
+        self.assertEqual(records[0]["ranking"]["today"]["rank"], 1)
+        self.assertEqual(records[0]["ranking"]["30d"], {"rank": 7, "score": 61})
+        self.assertEqual(records[0]["ranking"]["90d"], {"rank": 19, "score": 54})
+
+    @patch("enrich_metrics.closest_history", return_value=None)
     def test_late_hf_feature_does_not_become_today_release(self, _history) -> None:
         records = [
             {"id": "old", "releasedAt": "2026-08-13"},

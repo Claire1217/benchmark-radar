@@ -2,10 +2,9 @@ name: Daily benchmark index
 
 on:
   schedule:
-    # arXiv OAI is normally ready around 12:30 Brisbane in summer and
-    # 13:30 in winter. One buffered run avoids empty midnight batches and
-    # duplicate API/editorial work while still refreshing metrics on weekends.
-    - cron: "17 15 * * *"
+    # Publish one reviewed morning batch for the previous Brisbane calendar
+    # day. Lightweight Today-only attention refreshes run separately.
+    - cron: "0 9 * * *"
       timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:

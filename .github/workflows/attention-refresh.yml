@@ -1,0 +1,66 @@
+name: Refresh Today attention
+
+on:
+  schedule:
+    # Refresh the latest published batch every three hours during the Brisbane
+    # day. The full 09:00 job remains the only run that discovers and reviews.
+    - cron: "0 12,15,18,21 * * *"
+      timezone: "Australia/Brisbane"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: benchmark-publish-pipeline
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync latest main after waiting in the queue
+        run: |
+          git fetch origin main
+          git switch --detach origin/main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check that the morning snapshot exists
+        id: snapshot
+        run: |
+          snapshot="data/metrics/$(TZ=Australia/Brisbane date +%F).json"
+          if [ -f "$snapshot" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Morning snapshot is not available; skipping the partial refresh."
+          fi
+      - name: Refresh the latest batch only
+        if: steps.snapshot.outputs.ready == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python pipeline/enrich_metrics.py --today-only
+      - name: Generate and validate the public view
+        if: steps.snapshot.outputs.ready == 'true'
+        run: |
+          python pipeline/generate_public_index.py
+          make build
+      - name: Commit refreshed Today attention
+        if: steps.snapshot.outputs.ready == 'true'
+        run: |
+          git config user.name "benchmark-radar-bot"
+          git config user.email "benchmark-radar-bot@users.noreply.github.com"
+          git add data/benchmarks.json data/benchmarks_index.json data/metrics
+          if git diff --cached --quiet; then
+            echo "No attention changes"
+          else
+            git commit -m "data: refresh Today attention"
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi

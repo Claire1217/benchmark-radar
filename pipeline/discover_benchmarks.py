@@ -79,11 +79,9 @@ def arxiv_enabled_for_date(target: str) -> bool:
 
 
 def arxiv_query_dates(target: str) -> list[str]:
-    """Monday Brisbane runs target Sunday and recheck the full Fri-Sun window."""
+    """Recheck a rolling three-day window so a 09:00 run can recover late feeds."""
     source_day = date.fromisoformat(target)
-    if source_day.weekday() == 6:
-        return [(source_day - timedelta(days=offset)).isoformat() for offset in (2, 1, 0)]
-    return [target] if arxiv_enabled_for_date(target) else []
+    return [(source_day - timedelta(days=offset)).isoformat() for offset in (2, 1, 0)]
 
 
 def has_reviewable_evidence(value: str) -> bool:

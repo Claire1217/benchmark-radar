@@ -20,12 +20,15 @@ class SourceScheduleTests(unittest.TestCase):
         self.assertTrue(discover_benchmarks.generic_artifact_name("benchmarks"))
         self.assertFalse(discover_benchmarks.generic_artifact_name("AgentBench"))
 
-    def test_monday_run_rechecks_friday_through_sunday_arxiv_dates(self) -> None:
+    def test_every_run_rechecks_a_three_day_arxiv_window(self) -> None:
         self.assertEqual(
             discover_benchmarks.arxiv_query_dates("2026-08-23"),
             ["2026-08-21", "2026-08-22", "2026-08-23"],
         )
-        self.assertEqual(discover_benchmarks.arxiv_query_dates("2026-08-24"), ["2026-08-24"])
+        self.assertEqual(
+            discover_benchmarks.arxiv_query_dates("2026-08-24"),
+            ["2026-08-22", "2026-08-23", "2026-08-24"],
+        )
 
 
 class AdapterTests(unittest.TestCase):
