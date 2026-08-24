@@ -30,8 +30,6 @@ function renderTrend(){if(!state.trends?.domains?.length)return;const key=$("tre
 function setup(){
   const domains=[...new Set(state.benchmarks.map(r=>r.primaryDomain))].sort();
   $("domain").innerHTML+=domains.map(d=>`<option>${escapeHtml(d)}</option>`).join("");
-  const latest=state.manifest.latestSourceDate||state.manifest.dataAsOf;
-  const batch=state.manifest.latestBatch||{from:latest,to:latest};
   document.querySelector('[data-window="today"]').textContent="Latest";
   const trendSections=[...new Set(state.trends.domains.map(d=>d.section||"Fields"))];
   $("trend-domain").innerHTML=trendSections.map(section=>`<optgroup label="${escapeHtml(section)}">${state.trends.domains.filter(d=>(d.section||"Fields")===section).map(d=>`<option value="${escapeHtml(d.key||d.domain)}">${escapeHtml(d.label||d.domain)}</option>`).join("")}</optgroup>`).join("");

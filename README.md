@@ -17,7 +17,7 @@
 
 <p align="center">
   <a href="https://benchmark-radar.com/#radar">
-    <img src="docs/assets/benchmark-radar-90-days.svg" alt="Benchmark Radar 90-day view showing emerging benchmarks ranked by public attention" width="1200">
+    <img src="docs/assets/benchmark-radar-overview.png" alt="Benchmark Radar showing emerging benchmarks ranked by public attention" width="1200">
   </a>
 </p>
 
