@@ -1,5 +1,5 @@
 const RADAR_PAGE_SIZE=60,LIBRARY_PAGE_SIZE=120;
-const state={window:"30d",sort:"attention",search:"",domain:"",visible:RADAR_PAGE_SIZE,latestFrom:null,latestRanks:{},benchmarks:[],manifest:null,library:[],libraryManifest:null,librarySearch:"",libraryScope:"",libraryDomain:"",libraryCapability:"",libraryTopic:"",libraryVisible:LIBRARY_PAGE_SIZE,trends:null,savedOnly:false,saved:new Set(JSON.parse(localStorage.getItem("benchmark-radar:watchlist:v1")||"[]"))};
+const state={window:"today",sort:"attention",search:"",domain:"",visible:RADAR_PAGE_SIZE,latestFrom:null,latestRanks:{},benchmarks:[],manifest:null,library:[],libraryManifest:null,librarySearch:"",libraryScope:"",libraryDomain:"",libraryCapability:"",libraryTopic:"",libraryVisible:LIBRARY_PAGE_SIZE,trends:null,savedOnly:false,saved:new Set(JSON.parse(localStorage.getItem("benchmark-radar:watchlist:v1")||"[]"))};
 window.benchmarkRadarState=state;
 const $=id=>document.getElementById(id);const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=n=>n==null?"—":Number(n).toLocaleString();
@@ -32,7 +32,7 @@ function setup(){
   $("domain").innerHTML+=domains.map(d=>`<option>${escapeHtml(d)}</option>`).join("");
   const latest=state.manifest.latestSourceDate||state.manifest.dataAsOf;
   const batch=state.manifest.latestBatch||{from:latest,to:latest};
-  document.querySelector('[data-window="today"]').textContent=batch.from===batch.to?`Latest · ${shortDate(batch.to)}`:`Latest · ${shortDate(batch.from)}–${shortDate(batch.to)}`;
+  document.querySelector('[data-window="today"]').textContent="Latest";
   const trendSections=[...new Set(state.trends.domains.map(d=>d.section||"Fields"))];
   $("trend-domain").innerHTML=trendSections.map(section=>`<optgroup label="${escapeHtml(section)}">${state.trends.domains.filter(d=>(d.section||"Fields")===section).map(d=>`<option value="${escapeHtml(d.key||d.domain)}">${escapeHtml(d.label||d.domain)}</option>`).join("")}</optgroup>`).join("");
   document.querySelectorAll("#window-controls button").forEach(button=>button.onclick=()=>{state.window=button.dataset.window;state.visible=RADAR_PAGE_SIZE;state.latestFrom=null;document.querySelectorAll("#window-controls button").forEach(item=>item.classList.toggle("active",item===button));renderRadar();});
