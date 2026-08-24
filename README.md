@@ -1,6 +1,6 @@
 <h1 align="center"><img src="web/benchmark-radar-mark.png" width="34" height="34" alt=""> Benchmark Radar</h1>
 
-<p align="center">Discover newly released public AI benchmarks—and see which benchmarks model labs keep using.</p>
+<p align="center">Track the benchmarks shaping AI—from new public releases to the evaluations adopted by leading model labs.</p>
 
 <p align="center">
   <strong><a href="https://benchmark-radar.com/#radar">Open Radar →</a></strong>
