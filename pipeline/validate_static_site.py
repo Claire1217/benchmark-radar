@@ -6,6 +6,7 @@ from __future__ import annotations
 from html.parser import HTMLParser
 import json
 from pathlib import Path
+import re
 from urllib.parse import urlsplit
 
 
@@ -57,6 +58,15 @@ def main() -> None:
         raise SystemExit("Library, Saved, or Trends navigation missing")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
+    for name in ("robots.txt", "sitemap.xml", "llms.txt", "social-preview.png"):
+        if not (OUTPUT / name).exists():
+            raise SystemExit(f"missing discovery asset: {name}")
+    if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
+        raise SystemExit("canonical production URL missing")
+    structured = re.search(r'<script type="application/ld\+json">\s*(.*?)\s*</script>', html, re.DOTALL)
+    if not structured:
+        raise SystemExit("structured data missing")
+    json.loads(structured.group(1))
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 
 

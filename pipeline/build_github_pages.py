@@ -14,6 +14,7 @@ def main() -> None:
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
     shutil.copytree(SOURCE, OUTPUT)
+    shutil.copy2(ROOT / "docs" / "assets" / "benchmark-radar-overview.png", OUTPUT / "social-preview.png")
     data_dir = OUTPUT / "data"
     data_dir.mkdir()
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
