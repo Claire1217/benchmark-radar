@@ -1,6 +1,6 @@
 import unittest
 
-from pipeline.generate_public_index import effective_latest_release, public_publishers
+from pipeline.generate_public_index import effective_latest_batch, effective_latest_release, public_publishers
 
 
 class PublicIndexTests(unittest.TestCase):
@@ -27,6 +27,18 @@ class PublicIndexTests(unittest.TestCase):
             ],
         }
         self.assertEqual([item["name"] for item in public_publishers(source)], ["Example Research"])
+
+    def test_weekend_publication_batch_keeps_all_three_days(self) -> None:
+        records = [
+            {"releasedAt": "2026-08-21", "displayEligible": True},
+            {"releasedAt": "2026-08-22", "displayEligible": True},
+        ]
+        self.assertEqual(
+            effective_latest_batch(
+                records, "2026-08-23", {"from": "2026-08-21", "to": "2026-08-23"}
+            ),
+            {"from": "2026-08-21", "to": "2026-08-23"},
+        )
 
     def test_benchmark_name_is_not_a_publisher(self) -> None:
         source = {"name": "NCP-Bench", "publishers": [{"name": "NCP-Bench"}]}

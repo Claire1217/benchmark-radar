@@ -59,16 +59,15 @@ viewpoint probe.
 
 ## Daily schedule and publishing
 
-`.github/workflows/daily-index.yml` runs once at 15:17 Brisbane time. This is
-buffered beyond arXiv's nightly OAI update in both US daylight and standard
-time. It targets the previous Brisbane calendar day. GitHub, Hugging Face, and
-OpenReview discovery runs every day; arXiv discovery runs only on its scheduled
-announcement dates. A source failure is recorded without inventing an empty
+`.github/workflows/daily-index.yml` runs once at 09:00 Brisbane time and targets
+the previous Brisbane calendar day. GitHub, Hugging Face, OpenReview, and arXiv
+are checked together. A source failure is recorded without inventing an empty
 release date or blocking healthy adapters.
 
 The Monday Brisbane run targets Sunday and rechecks the complete Friday-through-
-Sunday arXiv date window. Results are deduplicated by arXiv ID and retain their
-actual first-public date; this is catch-up coverage, not date reassignment.
+Sunday window for every source. Results are deduplicated and retain their actual
+first-public dates. Radar presents the three dates as one Latest catch-up batch;
+this is catch-up coverage, not date reassignment.
 The job performs:
 
 ```text

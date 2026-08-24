@@ -43,7 +43,12 @@ jobs:
       - name: Resolve previous Brisbane calendar day
         if: ${{ inputs.metrics_only != true }}
         id: source-date
-        run: echo "date=$(python pipeline/scheduled_source_date.py)" >> "$GITHUB_OUTPUT"
+        env:
+          REQUESTED_DATE: ${{ inputs.date }}
+        run: |
+          target="${REQUESTED_DATE:-$(python pipeline/scheduled_source_date.py)}"
+          echo "date=$target" >> "$GITHUB_OUTPUT"
+          echo "start=$(python pipeline/scheduled_source_date.py --target "$target" --batch-start)" >> "$GITHUB_OUTPUT"
       - name: Discover one unified public-source batch
         if: ${{ inputs.metrics_only != true }}
         id: discovery
@@ -70,12 +75,14 @@ jobs:
           DEEPSEEK_COPY_MODEL: deepseek-v4-pro
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
+          BATCH_START: ${{ steps.source-date.outputs.start }}
           INDEXED_DATE: ${{ steps.discovery.outputs.indexed_date }}
         run: |
           if [ -z "$DEEPSEEK_API_KEY" ]; then
             echo "DEEPSEEK_API_KEY is not configured; candidates remain queued."
           else
-            python pipeline/generate_editorial_copy.py --review-queue --released-on "${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}" --limit 0 --batch-size 8
+            target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
+            python pipeline/generate_editorial_copy.py --review-queue --released-from "$BATCH_START" --released-through "$target" --limit 0 --batch-size 8
           fi
 
       - name: Continue editorial backfill

@@ -19,9 +19,9 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 try:
-    from generate_public_index import effective_latest_release
+    from generate_public_index import effective_latest_batch
 except ModuleNotFoundError:  # Imported as pipeline.enrich_metrics in tests.
-    from pipeline.generate_public_index import effective_latest_release
+    from pipeline.generate_public_index import effective_latest_batch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -333,6 +333,7 @@ def rank_records(
     raw_by_id: dict[str, dict[str, Any]],
     as_of: date,
     latest_source_date: str,
+    latest_batch_start: str | None = None,
     windows: tuple[str, ...] | None = None,
 ) -> None:
     def score_dimension(
@@ -394,6 +395,7 @@ def rank_records(
         return output, scored
 
     selected_windows = windows or tuple(WINDOW_DAYS)
+    batch_start = latest_batch_start or latest_source_date
     for window in selected_windows:
         max_age = WINDOW_DAYS[window]
         # A window is a derived view. Rebuild it from scratch so yesterday's
@@ -404,7 +406,7 @@ def rank_records(
             candidates = [
                 record
                 for record in records
-                if record["releasedAt"] == latest_source_date
+                if batch_start <= record["releasedAt"] <= latest_source_date
             ]
         else:
             candidates = [
@@ -520,7 +522,13 @@ def main() -> None:
     records = payload.get("records", [])
     today = publication_today()
     as_of = date.fromisoformat(args.date or today.isoformat())
-    latest_source_date = effective_latest_release(records, as_of.isoformat())
+    latest_batch = effective_latest_batch(
+        records,
+        as_of.isoformat(),
+        (payload.get("manifest", {}).get("run") or {}).get("sourceWindow"),
+    )
+    latest_source_date = latest_batch["to"]
+    latest_batch_start = latest_batch["from"]
     snapshot_path = METRICS_DIR / f"{as_of.isoformat()}.json"
     if args.rerank_only:
         if not snapshot_path.exists():
@@ -533,7 +541,7 @@ def main() -> None:
             scope = raw_by_id[record["id"]].get("githubScope") or github_scope(record.get("links", {}).get("code"))
             if scope:
                 record.setdefault("attention", {})["githubScope"] = scope
-        rank_records(records, raw_by_id, as_of, latest_source_date)
+        rank_records(records, raw_by_id, as_of, latest_source_date, latest_batch_start)
         payload["manifest"].setdefault("metrics", {})["methodVersion"] = METHOD_VERSION
         payload["manifest"]["metrics"]["rerankedFromSnapshot"] = as_of.isoformat()
         write_json(DATA_PATH, payload)
@@ -547,7 +555,7 @@ def main() -> None:
     if args.today_only:
         only_ids.update(
             record["id"] for record in records
-            if record.get("releasedAt") == latest_source_date
+            if latest_batch_start <= record.get("releasedAt", "") <= latest_source_date
         )
         if not only_ids:
             print(f"no Today records for latest release {latest_source_date}")
@@ -639,6 +647,7 @@ def main() -> None:
         raw_by_id,
         as_of,
         latest_source_date,
+        latest_batch_start,
         windows=("today",) if args.today_only else None,
     )
     snapshot = {
@@ -670,6 +679,7 @@ def main() -> None:
             "note": "Current-level and growth rankings are separate. Growth is missing without a real prior snapshot; negative deltas are preserved.",
         }
     payload["manifest"]["latestSourceDate"] = latest_source_date
+    payload["manifest"]["latestBatch"] = latest_batch
     payload["manifest"]["dataAsOf"] = as_of.isoformat()
     payload["manifest"]["sourceCoverage"] = list(
         dict.fromkeys(payload["manifest"].get("sourceCoverage", []) + ["Hugging Face Hub", "GitHub REST"])

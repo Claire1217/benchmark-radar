@@ -336,6 +336,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate Description and Why it matters with DeepSeek.")
     parser.add_argument("--ids", help="Comma-separated arXiv source IDs")
     parser.add_argument("--released-on", help="Only records released on YYYY-MM-DD")
+    parser.add_argument("--released-from", help="Earliest release date to include")
+    parser.add_argument("--released-through", help="Latest release date to include")
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--batch-size", type=int, default=8)
@@ -353,6 +355,8 @@ def main() -> None:
         record for record in payload.get("candidates" if args.review_queue else "records", [])
         if (not requested or str(record["source"]["id"]) in requested)
         and (not args.released_on or record.get("releasedAt") == args.released_on)
+        and (not args.released_from or record.get("releasedAt", "") >= args.released_from)
+        and (not args.released_through or record.get("releasedAt", "") <= args.released_through)
     ]
     policy_version = ADMISSION_POLICY_VERSION if args.review_queue else COPY_POLICY_VERSION
     records = [

@@ -42,6 +42,26 @@ def effective_latest_release(records: list[dict], claimed_date: str) -> str:
     return max(candidates, default=claimed_date)
 
 
+def effective_latest_batch(
+    records: list[dict], claimed_date: str, source_window: dict | None,
+) -> dict[str, str]:
+    """Use the current publication window when it contains public records."""
+    start = str((source_window or {}).get("from") or claimed_date)
+    end = str((source_window or {}).get("to") or claimed_date)
+    fallback = effective_latest_release(records, claimed_date)
+    if end < fallback:
+        return {"from": fallback, "to": fallback}
+    has_public_record = any(
+        start <= str(record.get("releasedAt") or "") <= end
+        and record.get("displayEligible", True) is not False
+        and record.get("evaluationMode") != "viewpoint_probe"
+        for record in records
+    )
+    if has_public_record:
+        return {"from": start, "to": end}
+    return {"from": fallback, "to": fallback}
+
+
 def project_record(source: dict) -> dict:
     """Return the browser-safe subset shared by Radar and Library."""
     ranking = {}
@@ -87,7 +107,11 @@ def main() -> None:
     payload = json.loads(SOURCE.read_text(encoding="utf-8"))
     records = [project_record(source) for source in payload.get("records", [])]
     manifest = dict(payload["manifest"])
-    manifest["latestSourceDate"] = effective_latest_release(records, manifest["dataAsOf"])
+    latest_batch = effective_latest_batch(
+        records, manifest["dataAsOf"], (manifest.get("run") or {}).get("sourceWindow")
+    )
+    manifest["latestBatch"] = latest_batch
+    manifest["latestSourceDate"] = latest_batch["to"]
     OUTPUT.write_text(json.dumps({"manifest": manifest, "records": records}, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"records={len(records)} output={OUTPUT}")
 

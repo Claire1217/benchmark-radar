@@ -84,6 +84,13 @@ def arxiv_query_dates(target: str) -> list[str]:
     return [(source_day - timedelta(days=offset)).isoformat() for offset in (2, 1, 0)]
 
 
+def publication_batch_dates(target: str) -> list[str]:
+    """Monday's publication batch covers Friday, Saturday, and Sunday."""
+    source_day = date.fromisoformat(target)
+    offsets = (2, 1, 0) if source_day.weekday() == 6 else (0,)
+    return [(source_day - timedelta(days=offset)).isoformat() for offset in offsets]
+
+
 def has_reviewable_evidence(value: str) -> bool:
     """Coarse evidence gate only; semantic admission remains an AI decision."""
     return bool(
@@ -291,7 +298,10 @@ def merge_candidate(target: dict[str, Any], source: dict[str, Any]) -> None:
             target.setdefault("discoverySources", []).append(item)
 
 
-def merge_review_queue(incoming: list[dict[str, Any]], target: str, failures: dict[str, str]) -> tuple[int, int]:
+def merge_review_queue(
+    incoming: list[dict[str, Any]], target: str, range_start: str,
+    failures: dict[str, str],
+) -> tuple[int, int]:
     queue = read_json(REVIEW_PATH, {"candidates": []})
     candidates = list(queue.get("candidates", []))
     known = read_json(arxiv.DATA_PATH, {"records": []}).get("records", [])
@@ -312,7 +322,7 @@ def merge_review_queue(incoming: list[dict[str, Any]], target: str, failures: di
     queue.update({
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "sourceDate": target,
-        "sourceWindow": {"from": target, "to": target},
+        "sourceWindow": {"from": range_start, "to": target},
         "queueMode": "persistent-multi-source-upsert",
         "candidateCount": len(candidates),
         "sourceCoverage": ["arxiv", "github", "huggingface", "openreview"],
@@ -337,6 +347,8 @@ def main() -> None:
     failures: dict[str, str] = {}
     arxiv_count = 0
     query_dates = arxiv_query_dates(target)
+    batch_dates = publication_batch_dates(target)
+    batch_start = batch_dates[0]
     if query_dates:
         try:
             papers_by_id: dict[str, arxiv.Paper] = {}
@@ -346,11 +358,17 @@ def main() -> None:
             papers = list(papers_by_id.values())
             arxiv_count = len(papers)
             if not args.dry_run:
-                arxiv.index_papers(papers, target, target, target, config, started_from="unified discovery")
+                arxiv.index_papers(
+                    papers, batch_start, target, target, config,
+                    started_from="unified discovery",
+                )
         except (HTTPError, URLError, TimeoutError, RuntimeError) as error:
             failures["arxiv"] = type(error).__name__
     elif not args.dry_run:
-        arxiv.index_papers([], target, target, target, config, started_from="external-only source day")
+        arxiv.index_papers(
+            [], batch_start, target, target, config,
+            started_from="external-only source day",
+        )
 
     indexed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     adapters: list[tuple[str, Callable[[str], list[dict[str, Any]]]]] = [
@@ -358,10 +376,14 @@ def main() -> None:
         ("openreview", openreview_candidates),
     ]
     raw: list[dict[str, Any]] = []
-    counts: dict[str, Any] = {"arxiv": arxiv_count, "arxivQueryDates": query_dates}
+    counts: dict[str, Any] = {
+        "arxiv": arxiv_count,
+        "arxivQueryDates": query_dates,
+        "publicationBatchDates": batch_dates,
+    }
     for name, adapter in adapters:
         try:
-            rows = adapter(target)
+            rows = [record for source_day in batch_dates for record in adapter(source_day)]
             counts[name] = len(rows)
             raw.extend(rows)
         except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
@@ -380,7 +402,7 @@ def main() -> None:
             ],
         }, ensure_ascii=False, indent=2))
         return
-    added, duplicates = merge_review_queue(records, target, failures)
+    added, duplicates = merge_review_queue(records, target, batch_start, failures)
     run_path = RUNS_PATH / f"{target}.json"
     run = read_json(run_path, {"sourceDate": target, "generatedAt": indexed_at, "counts": {}})
     run["externalDiscovery"] = {"counts": counts, "failures": failures, "added": added, "duplicates": duplicates}
