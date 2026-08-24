@@ -58,10 +58,10 @@ def update_readme() -> None:
     )
 
     overview = [
-        f"_Data through {as_of.isoformat()} · benchmarks first released in {as_of.strftime('%B %Y')}_",
+        f"<sub>Updated {as_of.isoformat()} · benchmarks first released in {as_of.strftime('%B %Y')}</sub>",
         "",
-        "| # | Benchmark | Area | Public attention | Sources |",
-        "|---:|---|---|---|---|",
+        "| # | Benchmark | Field | Public signals |",
+        "|---:|---|---|---|",
     ]
     for position, record in enumerate(candidates[:10], 1):
         links = record.get("links") or {}
@@ -72,8 +72,9 @@ def update_readme() -> None:
             ) if item
         )
         area = (record.get("capabilityGroups") or record.get("applicationDomains") or [record.get("area") or "—"])[0]
+        source_line = f"<br><sub>{sources}</sub>" if sources else ""
         overview.append(
-            f"| {position} | **{record['name']}** | {area} | {attention_text(record)} | {sources or '—'} |"
+            f"| {position} | **{record['name']}**{source_line} | {area} | {attention_text(record)} |"
         )
 
     records = library.get("records", [])
@@ -93,14 +94,27 @@ def update_readme() -> None:
             "Health & Life Sciences", "Finance & Economics", "Cybersecurity",
         )
     }
-    overview.extend(["", "### Browse by field", "", "**General AI capabilities**"])
-    for label, count in capability_counts.items():
-        overview.append(f"- [{label}]({site_filter('capability', label)}) ({count:,})")
-    overview.append(f"- [Self-Evolution / RSI]({site_filter('topic', 'Self-Evolution')}) ({rsi_count:,})")
-    overview.extend(["", "**Application fields**"])
-    for label, count in domain_counts.items():
-        overview.append(f"- [{label}]({site_filter('domain', label)}) ({count:,})")
-    overview.extend(["", f"[Browse all {len(records):,} Library records →]({SITE_URL}/#library)"])
+    capability_links = [
+        f"[{label}]({site_filter('capability', label)}) · {count:,}"
+        for label, count in capability_counts.items()
+    ]
+    capability_links.append(
+        f"[Self-Evolution / RSI]({site_filter('topic', 'Self-Evolution')}) · {rsi_count:,}"
+    )
+    domain_links = [
+        f"[{label}]({site_filter('domain', label)}) · {count:,}"
+        for label, count in domain_counts.items()
+    ]
+    overview.extend([
+        "",
+        "### Explore the library",
+        "",
+        "| General AI capabilities | Application fields |",
+        "|---|---|",
+        f"| {'<br>'.join(capability_links)} | {'<br>'.join(domain_links)} |",
+        "",
+        f"**[Browse all {len(records):,} Library records →]({SITE_URL}/#library)**",
+    ])
 
     readme = README_PATH.read_text(encoding="utf-8")
     before, separator, remainder = readme.partition(README_START)

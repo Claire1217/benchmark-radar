@@ -1,11 +1,19 @@
-# Benchmark Radar
+<h1 align="center">Benchmark Radar</h1>
 
-Discover newly released public AI benchmarks every day—and see which benchmarks model labs keep using.
+<p align="center">Discover newly released public AI benchmarks—and see which benchmarks model labs keep using.</p>
 
-**[Open Benchmark Radar →](https://benchmark-radar.com/#radar)** · **[Browse Benchmark Library →](https://benchmark-radar.com/#library)**
+<p align="center">
+  <strong><a href="https://benchmark-radar.com/#radar">Open Radar →</a></strong>
+  &nbsp;·&nbsp;
+  <strong><a href="https://benchmark-radar.com/#library">Browse Library →</a></strong>
+  &nbsp;·&nbsp;
+  <strong><a href="https://benchmark-radar.com/#trends">Explore Trends →</a></strong>
+</p>
 
-[![Daily update](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)
-[![CI](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml)
+<p align="center">
+  <a href="https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml"><img src="https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg" alt="Daily update"></a>
+  <a href="https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml"><img src="https://github.com/Claire1217/benchmark-radar/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+</p>
 
 <p align="center">
   <a href="https://benchmark-radar.com/#radar">
@@ -16,58 +24,50 @@ Discover newly released public AI benchmarks every day—and see which benchmark
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-_Data through 2026-08-23 · benchmarks first released in August 2026_
+<sub>Updated 2026-08-23 · benchmarks first released in August 2026</sub>
 
-| # | Benchmark | Area | Public attention | Sources |
-|---:|---|---|---|---|
-| 1 | **RA-Bench** | Multimodal Perception | 277 HF votes · 58 GitHub stars | [Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench) |
-| 2 | **ASI-Bench** | Agents | 59 HF votes · 110 GitHub stars · 1,536 dataset downloads | [Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench) |
-| 3 | **PlayWorld** | Multimodal Perception | 45 HF votes · 85 GitHub stars | [Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld) |
-| 4 | **SWE-bench Science** | Coding & Software Engineering | 60 HF votes · 49 GitHub stars | [Paper](https://arxiv.org/abs/2608.19799) |
-| 5 | **GST-Bench** | Multimodal Perception | 46 HF votes | [Paper](https://arxiv.org/abs/2608.05747) |
-| 6 | **SWE-Bench ProMax** | Coding & Software Engineering | 133 HF votes · 328 dataset downloads | [Paper](https://arxiv.org/abs/2608.09802) |
-| 7 | **GDPevo** | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars | [Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo) |
-| 8 | **HarnessOpt-Bench** | Knowledge & Reasoning | 35 HF votes | [Paper](https://arxiv.org/abs/2608.06301) |
-| 9 | **NCP-Bench** | Agents | 29 HF votes · 29 GitHub stars | [Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench) |
-| 10 | **DataSpace** | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars | [Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace) |
+| # | Benchmark | Field | Public signals |
+|---:|---|---|---|
+| 1 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 277 HF votes · 58 GitHub stars |
+| 2 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 59 HF votes · 110 GitHub stars · 1,536 dataset downloads |
+| 3 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 45 HF votes · 85 GitHub stars |
+| 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 60 HF votes · 49 GitHub stars |
+| 5 | **GST-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.05747)</sub> | Multimodal Perception | 46 HF votes |
+| 6 | **SWE-Bench ProMax**<br><sub>[Paper](https://arxiv.org/abs/2608.09802)</sub> | Coding & Software Engineering | 133 HF votes · 328 dataset downloads |
+| 7 | **GDPevo**<br><sub>[Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo)</sub> | Knowledge & Reasoning | 27 HF votes · 59 GitHub stars |
+| 8 | **HarnessOpt-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.06301)</sub> | Knowledge & Reasoning | 35 HF votes |
+| 9 | **NCP-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)</sub> | Agents | 29 HF votes · 29 GitHub stars |
+| 10 | **DataSpace**<br><sub>[Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace)</sub> | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars |
 
-### Browse by field
+### Explore the library
 
-**General AI capabilities**
-- [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) (845)
-- [Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) (199)
-- [Agents](https://benchmark-radar.com/#library?capability=Agents) (248)
-- [Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) (522)
-- [Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) (85)
-- [Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) (143)
-- [Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) (9)
+| General AI capabilities | Application fields |
+|---|---|
+| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 845<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 199<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 248<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 522<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 85<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 143<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 9 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 45<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 99<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 128<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 81<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 36 |
 
-**Application fields**
-- [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) (45)
-- [Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) (99)
-- [Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) (128)
-- [Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) (81)
-- [Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) (36)
-
-[Browse all 2,154 Library records →](https://benchmark-radar.com/#library)
+**[Browse all 2,154 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
-## What the signals mean
+## What you can find
 
-- **Radar** shows recently released, public, reusable evaluation benchmarks.
-- **Attention** uses observable Hugging Face and GitHub signals. One real signal is enough to rank; missing data is not treated as zero.
-- **Library ranking** prioritizes tracked model-lab use and public evaluation coverage over release date.
-- **Daily updates** preserve real observation dates. The project does not invent historical attention or adoption.
+| Radar | Library | Trends |
+|---|---|---|
+| Newly released, public, reusable evaluation benchmarks | Established benchmarks ranked by tracked use and public evaluation coverage | Monthly benchmark activity and the benchmarks shaping each field |
 
-Benchmark Radar is a discovery index—not a quality endorsement, model leaderboard, or prediction guarantee.
+Attention uses observable Hugging Face and GitHub signals. One real signal is enough to rank; missing data is not treated as zero.
 
-## Complete catalogue
+The generated **[Awesome AI Benchmarks catalogue](AWESOME_BENCHMARKS.md)** provides the complete source-linked list.
 
-The generated **[Awesome AI Benchmarks catalogue](AWESOME_BENCHMARKS.md)** provides the complete source-linked list. The website is the recommended way to search, filter, and inspect details.
+<details>
+<summary><strong>Data, methodology, and project information</strong></summary>
 
-## Sources and corrections
+### Data policy
 
 Daily release discovery checks arXiv, GitHub, Hugging Face, and OpenReview, then deduplicates candidates before semantic review. Records are linked to their original papers, projects, code, and datasets where available. Catalog discovery is attributed to BenchLM and llm-stats; release identity and corrections are checked against primary sources.
+
+Daily updates preserve real observation dates. Benchmark Radar does not invent historical attention or adoption. It is a discovery index—not a quality endorsement, model leaderboard, or prediction guarantee.
+
+### Project links
 
 - [Report a correction](https://github.com/Claire1217/benchmark-radar/issues/new/choose)
 - [Methodology](docs/METHODOLOGY.md)
@@ -77,6 +77,8 @@ Daily release discovery checks arXiv, GitHub, Hugging Face, and OpenReview, then
 
 The public website has no login, analytics, or cookies. Saved benchmarks remain in the visitor's browser.
 
-## License status
+### License status
 
 No open-source code or data license has been selected yet. Public visibility permits inspection, but does not itself grant reuse rights. Code and third-party-derived metadata will receive separate, explicit terms before the project invites broad reuse.
+
+</details>
