@@ -1,13 +1,1167 @@
 {
-  "generatedAt": "2026-08-23T09:01:40.631954Z",
-  "sourceDate": "2026-08-20",
+  "generatedAt": "2026-08-24T07:05:22.711589Z",
+  "sourceDate": "2026-08-23",
   "sourceWindow": {
-    "from": "2026-08-20",
-    "to": "2026-08-20"
+    "from": "2026-08-21",
+    "to": "2026-08-23"
   },
   "queueMode": "persistent-multi-source-upsert",
-  "candidateCount": 1435,
+  "candidateCount": 1452,
   "candidates": [
+    {
+      "id": "bm_therapy-note-bench_d7fc4c3e",
+      "familyId": "bmf_8bd1e35aa5e3",
+      "name": "therapy-note-bench",
+      "paperTitle": "therapy-note-bench",
+      "aliases": [],
+      "oneLine": "therapy-note-bench Reproducible benchmark of LLM-generated psychotherapy session notes, run against the models deployed on e-INFRA CZ benchmark clinical-notes evaluation leaderboard llm mental-health psychotherapy # therapy-note-bench **A…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/JanNehyba/therapy-note-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T23:11:32Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/JanNehyba/therapy-note-bench",
+        "paper": "https://github.com/JanNehyba/therapy-note-bench",
+        "project": "https://www.e-infra.cz/en",
+        "code": "https://github.com/JanNehyba/therapy-note-bench"
+      },
+      "motivation": "therapy-note-bench Reproducible benchmark of LLM-generated psychotherapy session notes, run against the models deployed on e-INFRA CZ benchmark clinical-notes evaluation leaderboard llm mental-health psychotherapy # therapy-note-bench **A reproducible benchmark of LLM-generated psychotherapy session notes, run against the models actually deployed on [e-INFRA CZ](https://www.e-infra.cz/en).** Two published datasets e…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jannehyba/therapy-note-bench",
+        "url": "https://github.com/JanNehyba/therapy-note-bench",
+        "title": "therapy-note-bench",
+        "authors": [
+          "JanNehyba"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "therapy-note-bench Reproducible benchmark of LLM-generated psychotherapy session notes, run against the models deployed on e-INFRA CZ benchmark clinical-notes evaluation leaderboard llm mental-health psychotherapy # therapy-note-bench **A reproducible benchmark of LLM-generated psychotherapy session notes, run against the models actually deployed on [e-INFRA CZ](https://www.e-infra.cz/en).** Two published datasets exist for turning a therapy transcript into a clinical note.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "therapy-note-bench Reproducible benchmark of LLM-generated psychotherapy session notes, run against the models deployed on e-INFRA CZ benchmark clinical-notes evaluation leaderboard llm mental-health psychotherapy # therapy-note-bench **A reproducible benchmark of LLM-generated psychotherapy session notes, run against the models actually deployed on [e-INFRA CZ](https://www.e-infra.cz/en).** Two published datasets exist for turning a therapy transcript into a clinical note. Both were benchmarked once, on models from 2024 and 2025, and never re-run. This repository re-runs them on whatever is deployed today, and does it from a button — so the table stays true as models change. > **Status: no results yet.** The survey, the design and model discovery are > done — 31 ids on e-INFRA reduce to **11 distinct benchmarkable models**, and > `glm-5.3` is not among them. Generation and scoring are next. > See [Roadmap](#roadmap). --- ## The leaderboard *No runs yet. The first run will populate this section automatically.* Numbers are only ever combined across runs that agree on harness version, prompt version, judge model and judge prompt version. Changing the referee starts a new table rather than rewriting the old one — see [docs/methodology.md](docs/methodology.md#comparability-over-time). ## Judge calibration *Not yet measured.* Before any leaderboard number is published, the judge is scored against the two human annotators TN-Eval released, and the agreement figures appear here — including if they are bad. --- ## What is measured | Track | Corpus | Protocol | Reference needed | |---|---|---|---| | **TN-Eval SOAP** | 50 AnnoMI conversations | 23 completeness criteria, per-sentence conciseness, faithfulness | No | | **iCARE / iHOPE** | 40 held-out sessions, 17 sections | ROUGE-L + BERTScore, TRACE, and a separate temporal-reasoning column | Yes | The iCARE track reports automatic metrics and a TRACE judge **side by side because the source paper found they disagree** — experts preferred a smaller Mistral model over the automatic-score leader. That disagreement is a result, and it is reported rather than averaged away. Full detail: [docs/methodology.md](docs/methodology.md). ## What is *not* measured Both corpora are transcripts of public YouTube demonstration videos, not real clinical sessions. Human agreement in the source data is weak (Krippendorff's alpha of 0.08 on Likert completeness between trained therapists). Nothing here is in Czech, and nothing here measures payer compliance. Small gaps between adjacent models are noise. Read [docs/limitations.md](docs/limitations.md) before quoting a number. For **general medicine** rather than therapy, see [Omi-Health/medical-note-eval](https://github.com/Omi-Health/medical-note-eval) — a well-built maintained leaderboard that states explicitly that mental-health notes are not tested. This repository covers the ground they exclude. ## Why the model list is not in this repository e-INFRA's own documentation says \"no specific model version is guaranteed to stay available\". So there is no hard-coded model list: every run queries `GET /v1/models` and filters it through rules in [`models.yaml`](models.yaml). When `glm-5.2` becomes `glm-5.3`, the next run picks it up without anyone editing anything. Names cannot be trusted either. `command-a` sounds like Cohere Command A and returns `gemma4`'s exact output; four other ids turned out to be second names for models already in the set. `tnb models --probe` establishes identity by asking each model a fixed question and comparing answers, rather than by reading its name. Last captured snapshot: [docs/models-snapshot.md](docs/models-snapshot.md). ## Running it ### One click Actions → **Benchmark** → *Run workflow*. Inputs: which models (blank means every discovered model), which tracks, an optional session limit, and a hard dollar ceiling on judge spend. The workflow commits the new results and regenerates the table above. There is **no scheduled run.** The `schedule:` trigger sits commented out in [`.github/workflows/benchmark.yml`](.github/workflows/benchmark.yml); uncomment two lines to enable it. Nothing spends anything without a click. ### Locally ```sh uv sync --all-groups cp .env.example .env # add EINFRA_API_TOKEN and ANTHROPIC_API_KEY make models # what is deployed right now uv run tnb models --probe # which ids are secretly the same model make smoke # 3 sessions x 2 models, under $2 make bench # everything ``` An e-INFRA token comes from → Account → API keys and needs a MetaCentrum account or Masaryk University affiliation. ## Roadmap | Phase | | | |---|---|---| | 0 | Repository, survey, model discovery | **done** | | 1 | Dataset adapters (AnnoMI + iHOPE → common schema) | **done** | | 2 | Generation against every discovered model | | | 3 | Scoring: rubric, reference metrics, TRACE, temporal | | | 4 | Judge calibration against TN-Eval's human annotators | | | 5 | Leaderboard generation | | | 6 | One-click workflow | | ## Data and licensing The MIT licence covers **this repository's code only**. No corpus is redistributed here — two of the three upstream sources publish no licence at all, so everything is fetched from its origin at run time and cited. See [docs/datasets.md](docs/datasets.md) and [NOTICE](NOTICE). ## Credits This benchmark is a harness around other people's work. The rubric, the prompts and the human annotations are theirs. - **TN-Eval** — Shah, Xu, Liu, Burnsky, Bertagnolli, Shivade. *TN-Eval: Rubric and Evaluation Protocols for Measuring the Quality of Behavioral Therapy Notes.* ACL 2025, Industry Track. - **AnnoMI** — Wu, Balloccu, Kumar, Helaoui, Reiter, Reforgiato Recupero, Riboni. *Anno-MI: A Dataset of Expert-Annotated Counselling Dialogues.* ICASSP 2022. - **iCARE / iHOPE** — Adhikary et al. *Clinically Grounded AI-Scribing in Psychotherapy: Benchmarking LLMs Against Expert Documentation in the iCARE Framework.* medRxiv 2025.06.25.25330252.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jannehyba/therapy-note-bench",
+          "url": "https://github.com/JanNehyba/therapy-note-bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_repo-context-ambiguity_46658557",
+      "familyId": "bmf_9459abdb9856",
+      "name": "repo-context-ambiguity",
+      "paperTitle": "repo-context-ambiguity",
+      "aliases": [],
+      "oneLine": "repo-context-ambiguity Do code generation models respect constraints that live in the codebase rather than in the prompt?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Parfait18/repo-context-ambiguity",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T22:22:34Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Parfait18/repo-context-ambiguity",
+        "paper": "https://github.com/Parfait18/repo-context-ambiguity",
+        "code": "https://github.com/Parfait18/repo-context-ambiguity"
+      },
+      "motivation": "repo-context-ambiguity Do code generation models respect constraints that live in the codebase rather than in the prompt?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:parfait18/repo-context-ambiguity",
+        "url": "https://github.com/Parfait18/repo-context-ambiguity",
+        "title": "repo-context-ambiguity",
+        "authors": [
+          "Parfait18"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "A benchmark with automatic AST oracles.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "repo-context-ambiguity Do code generation models respect constraints that live in the codebase rather than in the prompt? A benchmark with automatic AST oracles. ai4se benchmark code-generation empirical-software-engineering llm software-engineering static-analysis typescript # repo-context-ambiguity **Do code generation models notice constraints that live in the codebase rather than in the prompt?** ## The question Ask a model to *\"add an endpoint to delete a user\"* and it may produce code that compiles, passes a naive test, and silently: - skips the authentication guard every other route in the project carries, - calls `repository.delete()` in a codebase where deletion is always soft, - omits the `tenantId` filter, letting one organisation delete another's data, - never records the mutation in the audit trail. None of that was in the request. All of it was in the codebase. Prior work (HumanEvalComm, Wu et al., ACM TOSEM 2025) shows that when the **problem statement** is ambiguous, incomplete or inconsistent, more than 60% of code LLMs generate anyway instead of asking a clarifying question. Its problems are self-contained: the missing information is in the prompt. This benchmark relocates the ambiguity into the **repository**, where it lives in production, and replaces subjective evaluation with an automatic one: > We do not measure whether the model asked a *good* question. > We measure whether the generated code **violates the convention**. That is decidable by static analysis, in milliseconds, without human annotation. ## Metrics | Metric | Meaning | |---|---| | **CQR** | Clarification Question Rate — asked instead of generating *(replicates prior work)* | | **CVR** | Constraint Violation Rate — the code breaks an implicit convention *(new)* | | **SVR** | Security Violation Rate — CVR restricted to authorization and tenant isolation | | **FPR** | Functional Proxy Rate — the code does what was literally asked | The result that matters is **high FPR together with high CVR**: the code works, and it is wrong. Nothing in a normal pipeline catches that — not the compiler, not the tests, not a quick review. ## Conditions | | Context given to the model | |---|---| | **A** | the ticket alone | | **B** | ticket + the file to modify *(an IDE assistant)* | | **C** | ticket + `CONVENTIONS.md` + neighbouring files *(an agent with retrieval)* | | **D** | ticket + the constraint **stated explicitly** *(control)* | **D is the methodological core.** If models succeed under D and fail under A/B/C, the failure is attributable to implicit context rather than to model capability. Without that control the finding is not defensible. ## Usage ```bash cp .env.example .env # add at least one API key npm install npm test # the oracles are themselves tested npm run tasks # list the benchmark tasks npm run bench -- --dry-run # inspect prompts without calling a model npm run bench # run npm run report # render the results table ``` ## Layout ``` sut/ System Under Test — a realistic NestJS API carrying six implicit conventions bench/ tasks (the tickets) and oracles (the automatic violation checkers) src/ harness: model adapters, prompt conditions, pipeline, metrics docs/ PROTOCOL.md · TAXONOMY.md ``` ## Status v1: **12 tasks, 6 constraint families, 4 conditions**. `docs/PROTOCOL.md` §5 states what is deliberately not implemented yet — notably, functional success is a static proxy rather than execution against a live test suite.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:parfait18/repo-context-ambiguity",
+          "url": "https://github.com/Parfait18/repo-context-ambiguity"
+        }
+      ]
+    },
+    {
+      "id": "bm_rag-retrieval-benchmark_2e75b7eb",
+      "familyId": "bmf_033fb9287072",
+      "name": "rag-retrieval-benchmark",
+      "paperTitle": "rag-retrieval-benchmark",
+      "aliases": [],
+      "oneLine": "rag-retrieval-benchmark Does hybrid search and reranking actually help?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Cybersecurity",
+        "Finance"
+      ],
+      "primaryDomain": "Cybersecurity",
+      "industrySectors": [
+        "Cybersecurity",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T16:48:48Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
+        "paper": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
+        "code": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
+        "data": "https://huggingface.co/datasets/BeIR/fiqa"
+      },
+      "motivation": "rag-retrieval-benchmark Does hybrid search and reranking actually help?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:gauthamrohan/rag-retrieval-benchmark",
+        "url": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
+        "title": "rag-retrieval-benchmark",
+        "authors": [
+          "gauthamRohan"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "rag-retrieval-benchmark Does hybrid search and reranking actually help?",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "rag-retrieval-benchmark Does hybrid search and reranking actually help? Seven RAG retrieval configs measured on FiQA with gold labels. The standard advice made it worse. beir benchmark bm25 embeddings evaluation hybrid-search information-retrieval nlp rag reranking retrieval sentence-transformers vector-search # Does hybrid search and reranking actually help? Seven retrieval configurations measured on the same 648 queries, against gold relevance labels. No LLM judges anything — every number is arithmetic, and the benchmark reproduces to four decimal places. The standard RAG advice is *combine keyword and vector search, then add a reranker*. On this corpus **that advice made retrieval worse**, and the plainest configuration — dense retrieval alone — was both the most accurate and the cheapest by three orders of magnitude. ![nDCG by strategy](charts/strategies.png) --- ## Results 57,638 documents · 648 queries · [FiQA](https://huggingface.co/datasets/BeIR/fiqa) from the BEIR benchmark | Strategy | Recall@10 | MRR@10 | nDCG@10 | Latency | | --- | ---: | ---: | ---: | ---: | | **Dense (bge-small)** | **0.4646** | **0.4879** | **0.4035** | **0.8 ms** | | Dense + rerank | 0.4559 | 0.4523 | 0.3811 | 319 ms | | Hybrid (RRF) + rerank | 0.4542 | 0.4439 | 0.3745 | 562 ms | | Hybrid + bge-reranker | 0.4284 | 0.4099 | 0.3408 | 1,801 ms | | Hybrid (RRF) | 0.3958 | 0.4036 | 0.3287 | 244 ms | | BM25 + rerank | 0.3511 | 0.3841 | 0.3031 | 562 ms | | BM25 | 0.2788 | 0.2713 | 0.2175 | 243 ms | ![quality against latency](charts/quality_latency.png) Every component added to the pipeline cost quality *and* latency. The winner sits alone in the top-left corner. --- ## The finding: reranking helps in inverse proportion to retriever strength ![reranking effect](charts/rerank_effect.png) | Retriever | Alone | + cross-encoder | Δ | | --- | ---: | ---: | ---: | | BM25 (weakest) | 0.2175 | 0.3031 | **+0.0856** | | Hybrid RRF (middle) | 0.3287 | 0.3745 | **+0.0458** | | Dense (strongest) | 0.4035 | 0.3811 | **−0.0224** | Perfectly monotonic, and it crosses zero. A cross-encoder rescues a weak retriever and actively degrades a strong one. The mechanism is plausible: `ms-marco-MiniLM-L-6-v2` is a 2021, 22M-parameter model trained on short factual web-search queries. FiQA is long-form financial *opinion* discussion. `bge-small-en-v1.5` is a 2023 model trained on a broader mixture. **A modern bi-encoder can already outrank a stale cross-encoder**, and adding one then destroys ordering it had got right. A bigger reranker did not fix it. `bge-reranker-base` — 278M parameters, 12× slower — scored **0.3408**, worse than the small one. --- ## Why hybrid fusion lost Reciprocal Rank Fusion weights each input list **equally**, which assumes the retrievers are comparably good. Here dense is nearly twice as strong as BM25, so half the fused signal came from the weaker system. Sweeping the weight confirms it — quality climbs monotonically as BM25's share shrinks, and never beats dense on its own: | Dense weight | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0 | | --- | ---: | ---: | ---: | ---: | ---: | ---: | | nDCG@10 | 0.3312 | 0.3474 | 0.3664 | 0.3842 | 0.3990 | **0.4035** | But fusion is not useless — it has the **best candidate pool**: | Pool | recall@50 | | --- | ---: | | BM25 | 0.4051 | | Dense | 0.6211 | | **Hybrid** | **0.6262** | So RRF *finds* more relevant documents and *ranks* them worse. It is a recall tool, not a precision tool. That distinction is the useful part: if something downstream can exploit a deeper pool, fusion earns its place; if the top 10 is what ships, it does not. --- ## Ruling out the boring explanation Two rerankers underperforming a bi-encoder is unusual enough to suspect a bug rather than a finding. Rerankers should help a *weak* pool most, so BM25 is the control: **BM25 + rerank: 0.2175 → 0.3031 (+39%)** — in line with published BEIR results. The reranker works; the pipeline is sound. A second check, on the 260 queries where dense already had a relevant document at rank 1: | After reranking | | | --- | ---: | | still at rank 1 | 164 | | pushed below rank 10 | 11 | The reranker is not vandalising results — it mostly agrees, and loses on aggregate by reshuffling slightly worse than the retriever already had it. --- ## Method ```mermaid flowchart TD C[\"FiQA corpus 57,638 documents\"] --> B[\"BM25 index\"] C --> D[\"bge-small embeddings 384 dims\"] Q[\"648 test queries\"] --> B Q --> D B --> BR[\"BM25 top-100\"] D --> DR[\"Dense top-100\"] BR --> F[\"RRF fusion\"] DR --> F F --> HR[\"Hybrid top-100\"] BR --> RR[\"cross-encoder rerank top-50\"] DR --> RR HR --> RR BR --> EV[\"recall@10 · MRR@10 · nDCG@10\"] DR --> EV HR --> EV RR --> EV QR[(\"gold relevance judgements\")] --> EV ``` Metrics are verified before use: a synthetic perfect retriever must score 1.0 on all three, or the harness is wrong rather than the model. See [`src/metrics.py`](src/metrics.py). --- ## Caveats - **One corpus, one domain.** FiQA is financial discussion text. On a corpus with precise identifiers — error codes, part numbers, tickers — BM25 and therefore fusion would likely fare much better. Do not generalise this to \"never use hybrid\". - **Latency is not like-for-like.** Dense search ran all 648 queries as one batched matrix multiply; BM25 ran one query at a time in Python. Dense really is far faster, but the 0.8 ms figure is amortised and the honest single-query ratio is smaller. - **Two rerankers, not all rerankers.** A larger or domain-adapted cross-encoder might well beat the bi-encoder here. The claim is about these two. - **The ceiling is untouched.** The hybrid pool holds 62.6% of relevant documents in its top 50, but only 45.4% reach the top 10. Roughly 17 points are sitting there, findable, waiting for a reranker that actually helps. --- ## Reproducing The notebook runs end to end on a free Kaggle T4 in about 40 minutes: [`notebooks/rag_retrieval_benchmark.ipynb`](notebooks/rag_retrieval_benchmark.ipynb) Use **Save Version → Save & Run All** so it r",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:gauthamrohan/rag-retrieval-benchmark",
+          "url": "https://github.com/gauthamRohan/rag-retrieval-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_pi-agent-reliability-benchmark_b9905935",
+      "familyId": "bmf_bfff32603c80",
+      "name": "pi-agent-reliability-benchmark",
+      "paperTitle": "pi-agent-reliability-benchmark",
+      "aliases": [],
+      "oneLine": "pi-agent-reliability-benchmark Practical benchmark comparing local MLX coding models against a cloud coding-agent baseline on constraint-following, scope control, and real engineering tasks.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/andyast/pi-agent-reliability-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T21:53:59Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/andyast/pi-agent-reliability-benchmark",
+        "paper": "https://github.com/andyast/pi-agent-reliability-benchmark",
+        "code": "https://github.com/andyast/pi-agent-reliability-benchmark"
+      },
+      "motivation": "pi-agent-reliability-benchmark Practical benchmark comparing local MLX coding models against a cloud coding-agent baseline on constraint-following, scope control, and real engineering tasks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:andyast/pi-agent-reliability-benchmark",
+        "url": "https://github.com/andyast/pi-agent-reliability-benchmark",
+        "title": "pi-agent-reliability-benchmark",
+        "authors": [
+          "andyast"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "pi-agent-reliability-benchmark Practical benchmark comparing local MLX coding models against a cloud coding-agent baseline on constraint-following, scope control, and real engineering tasks.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "pi-agent-reliability-benchmark Practical benchmark comparing local MLX coding models against a cloud coding-agent baseline on constraint-following, scope control, and real engineering tasks. # Pi Agent Reliability Benchmark A small, practical benchmark for comparing a strong cloud coding-agent baseline against local MLX/MoE models on real engineering constraints. The goal is not to prove that one model is generally \"better.\" The goal is to measure how close local models can get to a cloud baseline on the things engineering teams actually care about: Latest public summary: [RESULTS.md](./RESULTS.md). For interpretation notes and caveats, see the results file. - correctness - instruction following - minimal blast radius - test quality - respecting constraints - useful explanation - elapsed time when available ## Reproducibility notes Current test machine: - Apple Silicon MacBook Pro - M4 Pro - 48GB unified memory - macOS - Pi agent runtime - oMLX for local model serving/selection - Node.js harness ## Intended comparison Recommended comparison: 1. `gpt-5.5` or your normal Pi cloud baseline 2. `Qwen3-Coder-30B-A3B-Instruct-MLX-8bit` 3. `NVIDIA-Nemotron-3.5-Lightning-30B-A3B-8bit` GPT is the reference baseline. The local models are the contenders, with special interest in whether local MoE-style models can be practical reliability candidates rather than just novelty demos. ## Benchmark shape Each case contains: - a task prompt for Pi - setup instructions - expected success criteria - constraints to watch - scoring rubric The harness creates one isolated workspace per model per case, writes the prompt, and optionally launches Pi with the command you provide. The suite includes six baseline cases plus three advanced constraint cases: - ambiguous requirement where the correct answer is to ask one question and not code - misleading failing test where the root cause is in a helper, not the obvious file - multi-file feature with a protected public contract/schema ## Quick start ```bash npm install npm run lint ``` Dry-run the benchmark plan: ```bash npm run run -- --models gpt-5.5,Qwen3-Coder-30B-A3B-Instruct-MLX-8bit,NVIDIA-Nemotron-3.5-Lightning-30B-A3B-8bit --dry-run ``` Run with Pi, one model at a time: ```bash # 1. Cloud baseline ./bin/run-gpt-baseline.sh # 2. Load Qwen locally, then run Qwen ./bin/run-qwen.sh # 3. Swap local model to Nemotron, then run Nemotron ./bin/run-nemotron.sh ``` All scripts default to `RUN_ID=agent-reliability`, so the results land in one combined manifest. To sanity check without calling Pi, prefix with `DRY_RUN=1`, for example `DRY_RUN=1 ./bin/run-qwen.sh`. To use the exact model id from `pi run --list-models`, override `MODEL`, for example `MODEL='NVIDIA-Nemotron-3.5-Lightning-30B-A3B-8bit' ./bin/run-nemotron.sh`. If your Pi command uses different flags, override `PI_AGENT_CMD` before running a script: ```bash PI_AGENT_CMD='cd {workspace} && pi run --model {model} \"$(cat {promptFile})\"' ./bin/run-qwen.sh ``` The harness replaces: - `{model}` - `{caseId}` - `{workspace}` - `{promptFile}` - `{outputFile}` After all three model runs finish: ```bash ./bin/score-and-report.sh ``` For an advanced-case-only comparison after you already have baseline results, inspect cases 07-09 in the report. The runner currently executes the full suite each time, so use a fresh `RUN_ID` if you want to keep v1 and advanced-case runs separate. You can also append to the most recent run instead of naming it explicitly: ```bash npm run run -- --append --model Qwen3-Coder-30B-A3B-Instruct-MLX-8bit ``` Explicit `--run-id` is safer for this benchmark because you will be swapping local models between runs. The scorer is intentionally semi-automated. It checks objective signals where possible, then creates a manual scoring template. Use [SCORING.md](./SCORING.md) to fill the 0-5 manual scores for correctness, instruction following, minimality, test quality, and explanation before generating a final scored report. That keeps the benchmark honest without pretending every important agent behavior is machine-checkable. ## Latest findings In the 2026-08-23 benchmark run, all three models completed 9/9 cases and passed objective verification. The difference showed up in manual behavior review, not simple test pass/fail. Timing summary: | Model | Total elapsed | Average per case | |---|---:|---:| | `gpt-5.5` | ~200s | ~22s | | `Qwen3-Coder-30B-A3B-Instruct-MLX-8bit` | ~694s | ~77s | | `NVIDIA-Nemotron-3.5-Lightning-30B-A3B-8bit` | ~735s | ~82s | Most useful behavioral finding: in the advanced ambiguity/no-code case, GPT and Nemotron asked for clarification and changed no files. Qwen asked for clarification too, but also added speculative tests. That is a meaningful scope-control difference even though objective verification still passed. See [RESULTS.md](./RESULTS.md) for the cleaned public summary and [results/benchmark-results.json](./results/benchmark-results.json) for sanitized machine-readable results. ## Telemetry notes This benchmark intentionally focuses on reliability first: correctness, constraint following, and blast radius. For local LLMs, token usage is less important as a direct cost driver than it is with paid cloud APIs. It still matters indirectly because more tokens usually mean more wall-clock time. The harness records elapsed time per case, which is the main performance signal for this run. If you want a more instrumentation-heavy comparison, run Pi through LiteLLM or a similar OpenAI-compatible proxy and capture: - prompt tokens - completion tokens - total tokens - tokens per second - cache hits or cache savings, if enabled - estimated cloud API cost for paid baselines Treat those as secondary telemetry. The primary question here is whether local models can reliably behave like constrained engineering agents.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:andyast/pi-agent-reliability-benchmark",
+          "url": "https://github.com/andyast/pi-agent-reliability-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_oraclephys_04a2c150",
+      "familyId": "bmf_467dce972bf6",
+      "name": "oraclephys",
+      "paperTitle": "oraclephys",
+      "aliases": [],
+      "oneLine": "oraclephys Benchmark, datasets and code for arXiv:2608.17162 benchmark finetuning llm reinforcement-learning structural-engineering # OraclePhys An end-to-end instrument — **benchmark, dataset, training pipeline** — for studying what fine-…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Interactive Environment",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/cl1110goo-afk/oraclephys",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T04:59:51Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/cl1110goo-afk/oraclephys",
+        "paper": "https://github.com/cl1110goo-afk/oraclephys",
+        "project": "https://arxiv.org/abs/2608.17162",
+        "code": "https://github.com/cl1110goo-afk/oraclephys"
+      },
+      "motivation": "oraclephys Benchmark, datasets and code for arXiv:2608.17162 benchmark finetuning llm reinforcement-learning structural-engineering # OraclePhys An end-to-end instrument — **benchmark, dataset, training pipeline** — for studying what fine-tuning objectives install in LLMs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:cl1110goo-afk/oraclephys",
+        "url": "https://github.com/cl1110goo-afk/oraclephys",
+        "title": "oraclephys",
+        "authors": [
+          "cl1110goo-afk"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "oraclephys Benchmark, datasets and code for arXiv:2608.17162 benchmark finetuning llm reinforcement-learning structural-engineering # OraclePhys An end-to-end instrument — **benchmark, dataset, training pipeline** — for studying what fine-tuning objectives install in LLMs.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "oraclephys Benchmark, datasets and code for arXiv:2608.17162 benchmark finetuning llm reinforcement-learning structural-engineering # OraclePhys An end-to-end instrument — **benchmark, dataset, training pipeline** — for studying what fine-tuning objectives install in LLMs. OraclePhys is a structural-mechanics testbed whose finite-element oracle grades every answer and every counterfactual edit **exactly**: no human labels, no LLM judging. The same oracle writes seven supervision forms over *byte-identical* structure descriptions, so the answer form the objective demands can be varied while everything else is held fixed. That makes \"what did training teach?\" a controlled experimental variable rather than an after-the-fact diagnosis. The task: a multi-story, multi-bay 2-D steel frame is described in natural language; the model must rank its stories by inter-story drift and name the *governing* story. Evaluation axes include forward ranking, extrapolation to taller frames, two-step horizons, and post-intervention prediction (strengthen a story, predict where weakness moves) — each with a verified answer, so claimed capability can be probed by intervention. > **Paper.** *OraclePhys: A Systematic Framework for LLM Fine-Tuning on Structural > Mechanics.* Preprint: [arXiv:2608.17162](https://arxiv.org/abs/2608.17162). Under review at ACL Rolling Review. > Please cite the preprint if you use the benchmark, the datasets, or the code. ## Evaluate your own model in five minutes The benchmark is **static and simulator-free** — prompt text plus exact oracle truth, so any model can be scored and paired against every row reported in the paper without installing the FE stack. ```python import json, sys sys.path.insert(0, \"probe\") from shape_reward import parse_ranking, strip_think # pure numpy, no FE dependency bench = json.load(open(\"benchmark/frames_tier2.json\", encoding=\"utf-8\")) rows = bench[\"axes\"][\"forward\"] # also: extrapolation, two_step, post_intervention hits = 0 for row in rows: completion = your_model(row[\"prompt\"]) # must emit {\"ranking\": [...]} pred = parse_ranking(strip_think(completion), row[\"n_stories\"]) # 0-indexed, worst-first hits += pred is not None and pred[0] + 1 == row[\"governing_story\"] print(f\"top-1 = {hits / len(rows):.3f} (n = {len(rows)})\") ``` `parse_ranking` returns **0-indexed** story positions, while `governing_story` and `ranking` in the JSON are **1-indexed** — hence the `+ 1`. A `None` return means the completion could not be parsed, and counts as an error, exactly as in the paper. Stories are 1-indexed and `ranking` is worst-first. Metrics: top-1 accuracy on `governing_story`, and Spearman ρ against `ranking` where non-null. Parse failures count as errors — the same rule every row in the paper was scored under. Reference points on **tier-2 forward** (the hardened tier, surface cues removed): | System | Top-1 | |---|---| | 30-line first-order formula | 0.45 | | Claude Opus 4.8, zero-shot | 0.50 | | Claude Opus 4.8, 32-shot | 0.41 *(corrected, see [ERRATA.md](ERRATA.md))* | | Specialist GNN (structured input) | 0.73 | | Trained 8B (this work) | 0.73–0.78 | | Data-precision ceiling (±5 % per-story error) | ≈0.83 | The untrained 8B base scores 0.30 on the *tier-1* format-calibrated stream; the paper reports no tier-2 base row, so it is deliberately absent here. Tier-1 is the realistic tier and retains exploitable regularities (a bag-of-words probe reaches 0.63 there, 0.26 on tier-2). **Report tier-2 for any claim about physics rather than surface cues.** ## Start here | Document | Contents | |---|---| | **[RELEASE.md](RELEASE.md)** | Release manifest: what ships, how to evaluate, how every paper number regenerates | | **[DATASHEET.md](DATASHEET.md)** | Datasheet (Gebru et al. format): motivation, composition, collection, intended and out-of-scope uses | | **[LICENSE](LICENSE)** | MIT (code and exported data) | | **[ERRATA.md](ERRATA.md)** | Corrections found after the preprint was posted (none change a conclusion) | Evaluating on the static benchmark, and reproducing every statistic and figure, needs only **numpy/matplotlib**. Regenerating the streams or the training datasets calls the FE oracle in `env/`, which needs `openseespy` (see `requirements.txt`). ## Repository layout ``` benchmark/ Static evaluation streams, self-contained JSON (prompt + oracle truth): frames_tier1.json, frames_tier2.json. Four axes each; carries integrity fingerprints (SHA-256 over truths, plus a surface-formula reference row) that tie the static files to the paper's streams bit-exactly. env/ The FE oracle: a 2-D steel-frame finite-element model (OpenSees-based) returning per-story inter-story drift ratios, the reward wrapper, a physics self-check, and the numpy MLP used by the non-LLM baselines. dataset/ The shared problem set the dataset builders draw from. probe/ Oracle-side generation. Structure samplers, the deterministic dataset builders for the seven supervision arms (build_gate_data / build_karm_data / build_control_arms / build_act_data / build_think_data), the answer parser and reward (shape_reward.py), surface/cue baselines, and the isomorphic second physics domain (heat_*.py). eval/ Evaluation harnesses. understanding_bench.py (all axes + action interface), frontier_bench.py (API models), paraphrase_bench.py (surface robustness), probe_representation.py, export_benchmark.py (rebuilds benchmark/ byte-identically). training/ sft_predict.py (SFT/LoRA arms), grpo_predict.py (GRPO, incl. think and action variants), sample_rft_data.py (oracle-filtered self-samples). outputs/ Archival provenance: per-instance result JSONs for every evaluation run, including per-question correctness arrays. Every number in the paper regenerates from these files, and the stored arrays allow exact paired tests (McNemar, paired bootstrap) against any published row without re-running the models. Treat as append-only. paper/ Single source of truth for numbers and statistics: collect_numbers.py -> numbers.json, ",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:cl1110goo-afk/oraclephys",
+          "url": "https://github.com/cl1110goo-afk/oraclephys"
+        }
+      ]
+    },
+    {
+      "id": "bm_nlp-benchmark-group16_487f3205",
+      "familyId": "bmf_a34f33b33495",
+      "name": "nlp-benchmark-group16",
+      "paperTitle": "nlp-benchmark-group16",
+      "aliases": [],
+      "oneLine": "nlp-benchmark-group16 Group 16 - NLP Model Benchmarking # Group 16 – NLP Model Benchmarking **MSC Business Analytics · Text Analytics Group Project** ## Project Summary Benchmark Logistic Regression vs Linear SVM on TF-IDF features using t…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/KissMee-Star/nlp-benchmark-group16",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T16:55:20Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/KissMee-Star/nlp-benchmark-group16",
+        "paper": "https://github.com/KissMee-Star/nlp-benchmark-group16",
+        "project": "https://share.streamlit.io",
+        "code": "https://github.com/KissMee-Star/nlp-benchmark-group16"
+      },
+      "motivation": "nlp-benchmark-group16 Group 16 - NLP Model Benchmarking # Group 16 – NLP Model Benchmarking **MSC Business Analytics · Text Analytics Group Project** ## Project Summary Benchmark Logistic Regression vs Linear SVM on TF-IDF features using the UCI Sentiment Labelled Sentences dataset (Amazon + IMDb + Yelp, 3 000 binary-labelled sentences).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:kissmee-star/nlp-benchmark-group16",
+        "url": "https://github.com/KissMee-Star/nlp-benchmark-group16",
+        "title": "nlp-benchmark-group16",
+        "authors": [
+          "KissMee-Star"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "nlp-benchmark-group16 Group 16 - NLP Model Benchmarking # Group 16 – NLP Model Benchmarking **MSC Business Analytics · Text Analytics Group Project** ## Project Summary Benchmark Logistic Regression vs Linear SVM on TF-IDF features using the UCI Sentiment Labelled Sentences dataset (Amazon + IMDb + Yelp, 3 000 binary-labelled sentences).",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "nlp-benchmark-group16 Group 16 - NLP Model Benchmarking # Group 16 – NLP Model Benchmarking **MSC Business Analytics · Text Analytics Group Project** ## Project Summary Benchmark Logistic Regression vs Linear SVM on TF-IDF features using the UCI Sentiment Labelled Sentences dataset (Amazon + IMDb + Yelp, 3 000 binary-labelled sentences). ## Required Structure (followed exactly) 1. Data cleaning (Regular Expression) 2. Text preprocessing 3. Exploratory text analytics 4. Text representation – TF-IDF 5. Building models: Model 1 (Logistic Regression) & Model 2 (Linear SVM) 6. Model evaluation (Accuracy, Precision, Recall, F1, Confusion Matrix, ROC-AUC) 7. Model comparison 8. Best model 9. Interpretation 10. Python + Streamlit application ## Key Results (test set) | Model | Accuracy | Precision | Recall | F1 | ROC-AUC | |--------------------------|----------|-----------|--------|-------|---------| | Logistic Regression | 0.8083 | 0.7937 | 0.8333 | 0.8130| 0.8819 | | Linear SVM | 0.7967 | 0.7834 | 0.8200 | 0.8013| 0.8717 | **Best model**: Logistic Regression (highest F1) ## Files | File | Description | |------|-------------| | `nlp_benchmark_analysis.py` | Full analysis pipeline (steps 1–9) | | `app.py` | Streamlit interactive application | | `sentiment_data.csv` | Combined dataset | | `tfidf_vectorizer.joblib` | Fitted TF-IDF vectoriser | | `model_lr.joblib` | Trained Logistic Regression | | `model_svm.joblib` | Trained Linear SVM | | `metrics.json` | Evaluation metrics & top features | | `requirements.txt` | Python dependencies | ## How to Run Locally ```bash pip install -r requirements.txt python nlp_benchmark_analysis.py # (re)train & save artefacts streamlit run app.py ``` ## Deploy to Streamlit Community Cloud 1. Push this folder to a public GitHub repository. 2. Go to https://share.streamlit.io → New app. 3. Select the repository, branch, and `app.py` as the main file. 4. Deploy. Share the public URL in your report and presentation. ## Dataset Source https://archive.ics.uci.edu/dataset/331/sentiment+labelled+sentences",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:kissmee-star/nlp-benchmark-group16",
+          "url": "https://github.com/KissMee-Star/nlp-benchmark-group16"
+        }
+      ]
+    },
+    {
+      "id": "bm_local-inference-feasibility-benchmark_8740e8a8",
+      "familyId": "bmf_b3b0f62345de",
+      "name": "local-inference-feasibility-benchmark",
+      "paperTitle": "local-inference-feasibility-benchmark",
+      "aliases": [],
+      "oneLine": "local-inference-feasibility-benchmark Reproducible Windows CPU feasibility benchmarks for local ASR, OCR, and OCR-VLM runtimes.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-24T07:03:48Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark",
+        "paper": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark",
+        "code": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark"
+      },
+      "motivation": "local-inference-feasibility-benchmark Reproducible Windows CPU feasibility benchmarks for local ASR, OCR, and OCR-VLM runtimes.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jasmine-phsifai/local-inference-feasibility-benchmark",
+        "url": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark",
+        "title": "local-inference-feasibility-benchmark",
+        "authors": [
+          "Jasmine-phsifai"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "local-inference-feasibility-benchmark Reproducible Windows CPU feasibility benchmarks for local ASR, OCR, and OCR-VLM runtimes.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "local-inference-feasibility-benchmark Reproducible Windows CPU feasibility benchmarks for local ASR, OCR, and OCR-VLM runtimes. # Local inference feasibility benchmark This repository measures sustained local OCR, source-faithful document transcription, and ASR on the hardware that is actually visible: an Intel Core Ultra 9 285K with 24 physical/logical processors, 64 GB RAM, Intel integrated graphics, and no discrete GPU. ## Current decisions | Use case | Recommendation | |---|---| | Bulk OCR | RapidOCR 3.9.2 / PP-OCRv6 Small, ONNX Runtime, full 2000-pixel mode, classifier enabled, 8 processes x 2 ORT threads, OpenCV threads = 1 | | Maximum OCR throughput | PP-OCRv6 Tiny, 6 processes x 4 Paddle threads, OpenCV threads = 1 | | Difficult-image escalation | Full-resolution RapidOCR plus human review; no tested CPU VLM qualifies for unattended escalation | | Bulk ASR | SenseVoice Small GGUF Q8 on the pinned v0.2 source runtime, 8 processes x 3 threads | | Timestamped ASR | faster-whisper Small int8, 10 resident model workers x 2 threads; accept mild sustained variability | | Higher-quality ASR | No automatic lane qualifies; official OpenVINO GenAI Qwen3-ASR CPU is a manual second opinion only | | Intel iGPU | No qualified sustained/general crossover: a public 11-second after-load smoke favored the iGPU, while CPU was 9.527% faster in the tracked matched 32-second comparison; other durations remain unqualified | | OCRLLM | Use the active image facade for plain text, preserve geometry/structured output in a sidecar, and keep local ASR behind benchmark-owned adapters | The measured basis, limitations, scale projections, and compatibility findings are in [reports/sustained-quality-and-compatibility.md](reports/sustained-quality-and-compatibility.md). The earlier installation-only report is retained as a historical snapshot and is explicitly superseded for recommendations. ## Representative sustained evidence | Candidate | Configuration | Steady result | Stability and resources | |---|---|---:|---| | SenseVoice v0.2 | 8 x 3 | 123.4018 audio h/h; 622/622 in 604.9 s | CV 0.02460; 2.460 GiB; 76 threads; 98.75% host CPU | | faster-whisper | 10 x 2 | 27.9238 audio h/h; 140/140 in 601.6 s | CV 0.05127; 1.863 GiB; 193 threads; 85.76% host CPU | | RapidOCR full | 8 x 2, OpenCV = 1 | 12,710.79 images/h; 2,125/2,125 in 601.9 s | CV 0.02325; 2.937 GiB; 100 threads; 91.13% host CPU | | PP-OCRv6 Tiny | 6 x 4, OpenCV = 1 | 23,858.80 images/h; 3,985/3,985 in 601.3 s | CV 0.01669; 4.809 GiB; 130 threads; 99.57% host CPU | All four runs recorded zero inference failures and zero available performance-limit or thermal-throttle flags. Package temperature is not available from this host, so no package-temperature claim is made. Normal OS, firmware, cooling, and power controls remained enabled. These rows preserve the latest pre-source-freeze measurements. The worker, workload-fingerprint, containment, and steady-window contracts have since been tightened, so the final evidence checkpoint must replace them with serialized runs from the frozen source before treating the exact rates as current. The representative private workload came from a validated complete local lecture found through read-only inspection. Only ignored, de-identified samples were used: one 20-minute audio item, ten independent 2-minute chunks, bounded 32-second RMS-selected near-silence/speech controls, and ten masked 1080p frames. Tracked lecture-derived evidence contains no identity, title, people, transcript, frame, audio, path, source hash, original media metadata, or source timestamps. Five tracked PNG fixtures and two manifests contain deterministic, invented benchmark content only. The crawler was not used and is not a dependency. ## Evidence boundary The project separates acquisition, environment creation, cold load/compile, warm-up, steady inference, quality scoring, and failure records. The original short synthetic pass remains useful installation evidence, but it is not treated as lecture-quality or sustained-throughput evidence. - `results/events.jsonl` records installation and short feasibility attempts. - `results/sustained-events.jsonl` is the append-only process and sustained-run history. - `results/quality-events.jsonl` contains fixed-key, privacy-safe quality aggregates and explicit invalidations. - `results/bounded-events.jsonl` records aggregate community screens, compatibility gates, and verified blockers. - Candidate stdout/stderr, raw predictions, private samples, resource traces, provenance sidecars, and resumable downloads remain under ignored paths. - Public/generated quality controls are the only absolute recognition references. Private ASR comparisons without a trusted transcript are agreement diagnostics, not WER or accuracy. ## Reproduce PowerShell script execution is disabled by policy on the measured host. Invoke scripts with a process-local bypass; this does not change system policy. ```powershell powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\\capture_hardware.ps1 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\\create_control_environment.ps1 ``` Prepare and verify the deterministic public/generated controls used for absolute quality scoring: ```powershell & 'D:\\Anaconda\\envs\\local-bench-control\\python.exe' scripts\\prepare_generated_quality_controls.py ` --suite ocr --suite document-fidelity --suite asr & 'D:\\Anaconda\\envs\\local-bench-control\\python.exe' scripts\\verify_generated_quality_controls.py --suite ocr & 'D:\\Anaconda\\envs\\local-bench-control\\python.exe' scripts\\verify_generated_quality_controls.py --suite document-fidelity & 'D:\\Anaconda\\envs\\local-bench-control\\python.exe' scripts\\verify_generated_quality_controls.py --suite asr ``` Create only the isolated candidate environments needed for a run. Each wrapper installs the pinned environment, acquires resumable pinned assets where needed, and runs its verifier: ```powershell powershell.exe -NoProfile -ExecutionPolicy Bypass -F",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jasmine-phsifai/local-inference-feasibility-benchmark",
+          "url": "https://github.com/Jasmine-phsifai/local-inference-feasibility-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-router-benchmark_16fd07de",
+      "familyId": "bmf_6209d4653a43",
+      "name": "llm-router-benchmark",
+      "paperTitle": "llm-router-benchmark",
+      "aliases": [],
+      "oneLine": "llm-router-benchmark Benchmark offline de calidad, éxito, latencia, costo y fallbacks para routers LLM # LLM Router Benchmark [![Descargar](https://img.shields.io/badge/descargar-ZIP-24292f?logo=github)](https://github.com/rzenil/llm-route…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Geometric reasoning"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/rzenil/llm-router-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T18:58:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/rzenil/llm-router-benchmark",
+        "paper": "https://github.com/rzenil/llm-router-benchmark",
+        "project": "https://img.shields.io/badge/descargar-ZIP-24292f?logo=github",
+        "code": "https://github.com/rzenil/llm-router-benchmark"
+      },
+      "motivation": "llm-router-benchmark Benchmark offline de calidad, éxito, latencia, costo y fallbacks para routers LLM # LLM Router Benchmark [![Descargar](https://img.shields.io/badge/descargar-ZIP-24292f?logo=github)](https://github.com/rzenil/llm-router-benchmark/archive/refs/heads/main.zip) [![Ko-fi](https://img.shields.io/badge/Ko--fi-apoya%20el%20lab-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/rzenil) [![MIT](https:/…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:rzenil/llm-router-benchmark",
+        "url": "https://github.com/rzenil/llm-router-benchmark",
+        "title": "llm-router-benchmark",
+        "authors": [
+          "rzenil"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "llm-router-benchmark Benchmark offline de calidad, éxito, latencia, costo y fallbacks para routers LLM # LLM Router Benchmark [![Descargar](https://img.shields.io/badge/descargar-ZIP-24292f?logo=github)](https://github.com/rzenil/llm-router-benchmark/archive/refs/heads/main.zip) [![Ko-fi](https://img.shields.io/badge/Ko--fi-apoya%20el%20lab-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/rzenil) [![MIT](https://img.shields.io/badge/licencia-MIT-3ddc97)](LICENSE) **Estado: MVP activo.** Anal",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "llm-router-benchmark Benchmark offline de calidad, éxito, latencia, costo y fallbacks para routers LLM # LLM Router Benchmark [![Descargar](https://img.shields.io/badge/descargar-ZIP-24292f?logo=github)](https://github.com/rzenil/llm-router-benchmark/archive/refs/heads/main.zip) [![Ko-fi](https://img.shields.io/badge/Ko--fi-apoya%20el%20lab-FF5E5B?logo=kofi&logoColor=white)](https://ko-fi.com/rzenil) [![MIT](https://img.shields.io/badge/licencia-MIT-3ddc97)](LICENSE) **Estado: MVP activo.** Analiza corridas de routers LLM sin exponer API keys: éxito, calidad, P50/P95, costo por éxito y recuperación de fallback. ## Quickstart ```bash python -m llm_router_benchmark sample/runs.jsonl --policy sample/policy.json --json-output dist/report.json --markdown-output dist/report.md python -m unittest discover -s tests -v ``` ## Corridas reales con OpenRouter `collect_openrouter.py` ejecuta los escenarios contra modelos reales vía Chat Completions y escribe JSONL en el schema que consume el benchmark. Incluye **fallback automático** a otro modelo gratuito cuando el primario devuelve 429/5xx, marcando `used_fallback` y `fallback_recovered`. ```bash # Plan sin llamar a la red: python collect_openrouter.py --models z-ai/glm-5.2:free --dry-run # Corridas reales (requiere OPENROUTER_API_KEY en el entorno): export OPENROUTER_API_KEY=sk-or-... python collect_openrouter.py \\ --models z-ai/glm-5.2:free nvidia/nemotron-3-nano-30b-a3b:free google/gemma-4-31b-it:free \\ --repeats 2 --output sample/runs-real.jsonl # Ranking con datos reales: python -m llm_router_benchmark sample/runs-real.jsonl \\ --policy sample/policy.json \\ --json-output dist/report-real.json --markdown-output dist/report-real.md ``` La key se lee del entorno (`--api-key-env` para cambiar el nombre); nunca se escribe en disco ni en los reportes. El scoring de calidad es heurístico: verifica que la respuesta incluya términos esperados por escenario y una longitud razonable — no mide factualidad profunda. ## Principios - La captura de datos está separada del análisis. - Los pesos de calidad/éxito/latencia/costo son explícitos. - El reporte no afirma que una muestra pequeña prediga producción. - Funciona offline y con cualquier proveedor/modelo normalizado a JSONL.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:rzenil/llm-router-benchmark",
+          "url": "https://github.com/rzenil/llm-router-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_gpu-accelerated-ml-inference-benchmark_af49dfaf",
+      "familyId": "bmf_e63546d29f56",
+      "name": "GPU-Accelerated-ML-Inference-Benchmark",
+      "paperTitle": "GPU-Accelerated-ML-Inference-Benchmark",
+      "aliases": [],
+      "oneLine": "GPU-Accelerated-ML-Inference-Benchmark # GPU-Accelerated ML Inference Benchmark This project demonstrates a benchmark comparing inference performance across different execution engines: 1.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T18:11:32Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark",
+        "paper": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark",
+        "code": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark"
+      },
+      "motivation": "GPU-Accelerated-ML-Inference-Benchmark # GPU-Accelerated ML Inference Benchmark This project demonstrates a benchmark comparing inference performance across different execution engines: 1.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jyotydivya/gpu-accelerated-ml-inference-benchmark",
+        "url": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark",
+        "title": "GPU-Accelerated-ML-Inference-Benchmark",
+        "authors": [
+          "jyotydivya"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "GPU-Accelerated-ML-Inference-Benchmark # GPU-Accelerated ML Inference Benchmark This project demonstrates a benchmark comparing inference performance across different execution engines: 1.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "GPU-Accelerated-ML-Inference-Benchmark # GPU-Accelerated ML Inference Benchmark This project demonstrates a benchmark comparing inference performance across different execution engines: 1. **PyTorch CPU** 2. **PyTorch CUDA** 3. **TensorRT** (Optimized GPU Inference) It measures latency, throughput, and GPU utilization across different batch sizes, and visualizes the results on an interactive Streamlit dashboard. ## Example Benchmark Results *(Example metrics for ResNet50 running on a modern GPU like an RTX 3080 / A10G at Batch Size = 1)* | Metric | PyTorch CPU | PyTorch CUDA | TensorRT (FP16) | | ------------------------ | ----------: | -----------: | --------------: | | **Latency** | ~95.0 ms | ~14.2 ms | ~4.5 ms | | **Throughput** | ~10 FPS | ~70 FPS | ~222 FPS | | **GPU Memory Used** | 0 MB | ~1250 MB | ~850 MB | | **GPU Utilization** | 0% | ~45% | ~75% | *Note: TensorRT significantly reduces latency and memory footprint through aggressive layer fusion, kernel auto-tuning, and precision calibration (FP16).* ## Prerequisites - Python 3.8+ - NVIDIA GPU with CUDA Toolkit installed - cuDNN and TensorRT installed (Ensure `tensorrt` Python package is accessible). ## Setup (Local) 1. Install dependencies: ```bash pip install -r requirements.txt ``` ## Setup (Docker - Recommended) Containerizing the GPU inference pipeline using Docker enables reproducible CUDA/TensorRT environments without messing with local host drivers (other than the base NVIDIA driver). 1. **Build the Docker Image:** ```bash docker build -t gpu-inference-benchmark . ``` 2. **Run the Container (with GPU support):** ```bash docker run --gpus all -p 8501:8501 gpu-inference-benchmark ``` *This command passes all available GPUs to the container, runs the benchmark automatically, and exposes the Streamlit dashboard on port 8501.* ## Usage ### 1. Verify Equality (Optional) Run the equality test to ensure CPU, CUDA, and TensorRT give the same outputs (within tolerance): ```bash python test_equality.py ``` ### 2. Run the Benchmark This will iterate through batch sizes (1, 8, 16, 32), run warmup and inference loops, profile the GPU, and generate `benchmark_results.json`. ```bash python benchmark.py ``` ### 3. Launch the Dashboard Visualize the results using Streamlit: ```bash streamlit run dashboard.py ``` This will start a local web server and open a dashboard in your browser.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jyotydivya/gpu-accelerated-ml-inference-benchmark",
+          "url": "https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_financial-hybrid-rag_c9bf7e46",
+      "familyId": "bmf_caf358c08afa",
+      "name": "financial-hybrid-rag",
+      "paperTitle": "financial-hybrid-rag",
+      "aliases": [],
+      "oneLine": "financial-hybrid-rag Enterprise Financial RAG pipeline with Hybrid Search (FAISS + BM25), Cross Encoder Reranking, FastAPI streaming, and RAGAS benchmark evaluation.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/SunehaRaj/financial-hybrid-rag",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T19:29:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/SunehaRaj/financial-hybrid-rag",
+        "paper": "https://github.com/SunehaRaj/financial-hybrid-rag",
+        "project": "https://img.shields.io/badge/python-3.10+-blue.svg",
+        "code": "https://github.com/SunehaRaj/financial-hybrid-rag"
+      },
+      "motivation": "financial-hybrid-rag Enterprise Financial RAG pipeline with Hybrid Search (FAISS + BM25), Cross Encoder Reranking, FastAPI streaming, and RAGAS benchmark evaluation.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:suneharaj/financial-hybrid-rag",
+        "url": "https://github.com/SunehaRaj/financial-hybrid-rag",
+        "title": "financial-hybrid-rag",
+        "authors": [
+          "SunehaRaj"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "financial-hybrid-rag Enterprise Financial RAG pipeline with Hybrid Search (FAISS + BM25), Cross Encoder Reranking, FastAPI streaming, and RAGAS benchmark evaluation.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "financial-hybrid-rag Enterprise Financial RAG pipeline with Hybrid Search (FAISS + BM25), Cross Encoder Reranking, FastAPI streaming, and RAGAS benchmark evaluation. data-science faiss fastapi information-retrieval langchain llm nlp rag streamlit # Financial Knowledge Assistant with Hybrid RAG & Precision Reranking [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![FastAPI](https://img.shields.io/badge/FastAPI-0.111.0-009688.svg)](https://fastapi.tiangolo.com) [![Streamlit](https://img.shields.io/badge/Streamlit-1.35.0-FF4B4B.svg)](https://streamlit.io) [![FAISS](https://img.shields.io/badge/FAISS-CPU%20v1.8.0-blueviolet.svg)](https://github.com/facebookresearch/faiss) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) An enterprise-grade **Retrieval-Augmented Generation (RAG)** pipeline designed specifically for high-accuracy financial report analysis (SEC 10-K, 10-Q, earnings calls, and balance sheets). The system addresses the core failure modes of standard vector search (semantic drift, table parsing errors, and hallucinations) by implementing a **Dual Hybrid Retriever (Dense FAISS + Sparse BM25)**, **Cross-Encoder Context Reranking**, and **RAGAS Quantitative Evaluation**. --- ## Architecture Overview ```mermaid flowchart TD A[\"Financial PDF / SEC 10-K Reports\"] --> B[\"FinancialDocumentIngestor Semantic and Recursive Character Chunking\"] B --> C[(\"FAISS Dense Index BGE / Sentence-Transformers\")] B --> D[(\"BM25 Sparse Index Lexical Exact Matching\")] Q[\"User Financial Query\"] --> C Q --> D C -- \"Dense Vectors (Top-K)\" --> E[\"Reciprocal Rank Fusion (RRF Engine)\"] D -- \"Sparse BM25 (Top-K)\" --> E E -- \"Candidate Chunks\" --> F[\"Cross-Encoder Precision Reranker MS-MARCO / Cohere Rerank\"] F -- \"Filtered Top-k Context\" --> G[\"Financial RAG Orchestrator Strict Anti-Hallucination Prompting\"] G --> H[\"Streamlit UI and FastAPI Streaming Service Source Citations and Latency Metrics\"] ``` --- ## Key Features * **Hybrid Retrieval (Dense + Sparse):** Combines dense vector semantics (`FAISS IndexFlatIP` with `BGE / MiniLM`) and exact lexical keyword matching (`BM25Okapi`) via **Reciprocal Rank Fusion (RRF)**. * **Cross-Encoder Precision Reranking:** Filters false-positive semantic matches using deep joint cross-attention (`cross-encoder/ms-marco-MiniLM-L-6-v2` or Cohere Rerank API). * **Financial Grounding & Strict Citations:** Custom system prompts with confidence gating to eliminate hallucinations on critical financial metrics (revenue, margins, EPS). * **Quantitative Benchmark Suite (RAGAS):** Automated evaluation calculating **Context Recall**, **Context Precision**, **Faithfulness**, and **Answer Relevance**. * **Dual Deployment Interface:** Interactive **Streamlit Web Application** for end-users + high-performance asynchronous **FastAPI REST API**. --- ## Benchmark Results (RAGAS Metrics) Evaluated against a golden test set of 50 financial queries across SEC 10-K filings: | Retrieval Configuration | Context Recall | Context Precision | Faithfulness | Answer Relevance | Latency (p95) | | :--- | :---: | :---: | :---: | :---: | :---: | | Dense Only (FAISS FlatIP) | 0.742 | 0.680 | 0.810 | 0.790 | 120 ms | | Sparse Only (BM25) | 0.695 | 0.710 | 0.780 | 0.760 | 45 ms | | Hybrid RRF (No Rerank) | 0.865 | 0.790 | 0.880 | 0.840 | 145 ms | | **Hybrid RRF + Cross-Encoder Rerank** | **0.948** | **0.915** | **0.962** | **0.938** | **280 ms** | --- ## Repository Structure ``` financial-hybrid-rag/ ├── README.md # Project architecture & benchmark overview ├── requirements.txt # Production dependencies ├── .env.example # Environment configuration template ├── Dockerfile # Production container deployment ├── app.py # Streamlit Interactive Web Application ├── api/ │ └── main.py # FastAPI REST Backend Service ├── src/ │ ├── config.py # Hyperparameters & path definitions │ ├── ingestion.py # PDF parsing & semantic chunking │ ├── retriever.py # Dense FAISS + Sparse BM25 + RRF │ ├── reranker.py # Cross-Encoder & Cohere reranking │ ├── rag_pipeline.py # LLM generation & grounded synthesis │ └── evaluate.py # RAGAS metrics evaluation suite ├── data/ │ └── raw/ # Financial SEC reports repository └── tests/ ├── test_ingestion.py # Chunking & extraction unit tests ├── test_retriever.py # FAISS + BM25 + RRF unit tests └── test_pipeline.py # End-to-end RAG integration tests ``` --- ## License Distributed under the MIT License. See [LICENSE](LICENSE) for details.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:suneharaj/financial-hybrid-rag",
+          "url": "https://github.com/SunehaRaj/financial-hybrid-rag"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-commit-2026-08-23-s2-your-coding-agent-_3491648d",
+      "familyId": "bmf_6a5d56f26d4b",
+      "name": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+      "paperTitle": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+      "aliases": [],
+      "oneLine": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be The AI Commit — Your Coding-Agent Benchmark Score Might Just Be a Bigger VM # Your Coding-Agent Benchmark Score Might Just Be a Bigger VM **TL;DR:** A coding-agent lea…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-23",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T19:52:42Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "paper": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "project": "https://theaicommit.com/#2026-08-23-s2/code",
+        "code": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be"
+      },
+      "motivation": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be The AI Commit — Your Coding-Agent Benchmark Score Might Just Be a Bigger VM # Your Coding-Agent Benchmark Score Might Just Be a Bigger VM **TL;DR:** A coding-agent leaderboard's gap between top models can be smaller than the swing caused by how much memory their evaluation containers were allowed to use.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "url": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "title": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+        "authors": [
+          "magna56"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be The AI Commit — Your Coding-Agent Benchmark Score Might Just Be a Bigger VM # Your Coding-Agent Benchmark Score Might Just Be a Bigger VM **TL;DR:** A coding-agent leaderboard's gap between top models can be smaller than the swing caused by how much memory their evaluation containers were allowed to use.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be The AI Commit — Your Coding-Agent Benchmark Score Might Just Be a Bigger VM # Your Coding-Agent Benchmark Score Might Just Be a Bigger VM **TL;DR:** A coding-agent leaderboard's gap between top models can be smaller than the swing caused by how much memory their evaluation containers were allowed to use. Anthropic moved one benchmark's score by 6 points just by changing a memory limit — using the exact same model the whole time. Below a certain point, extra memory only rescues runs that were unfairly killed; only past that point does the score start reflecting real ability. Published from [The AI Commit](https://theaicommit.com/#2026-08-23-s2/code) — Evals & Reliability, 2026-08-23. ## Run ```bash python3 code_example.py ``` ## Output ``` headroom | infra fail % | success % (completed) | 95% CI -------------------------------------------------------------------------- 1x | 9.3% | 59.5% | [57.4, 61.6] 2x | 7.3% | 60.3% | [58.2, 62.3] 3x | 4.1% | 77.0% | [75.3, 78.7] 5x | 0.6% | 77.7% | [76.0, 79.4] uncapped | 0.0% | 76.6% | [74.9, 78.3] Reading the two phases: 1x -> 2x (below threshold) : infra failures 9.3% -> 7.3%, success-among-completed CIs OVERLAP (the infra fix bought nothing extra) 2x -> 3x (crossing it) : success-among-completed CIs DIVERGE (the heavy strategy unlocks — real capability gap) 3x -> uncapped (above threshold) : success-among-completed CIs OVERLAP (no further real gain) Same model and task set at every row above — every point of movement came from the container, not the agent. ``` ## Code See [`code_example.py`](code_example.py).",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be",
+          "url": "https://github.com/magna56/ai-commit-2026-08-23-s2-your-coding-agent-benchmark-score-might-just-be"
+        }
+      ]
+    },
+    {
+      "id": "bm_vnish-global-operator-routing-benchmark_1814945a",
+      "familyId": "bmf_17f6ffb52087",
+      "name": "vnish-global-operator-routing-benchmark",
+      "paperTitle": "vnish-global-operator-routing-benchmark",
+      "aliases": [],
+      "oneLine": "vnish-global-operator-routing-benchmark Multilingual routing and safety benchmark for AI assistants using VNISH GLOBAL owned sources across vnish.global, vnish.ninja and roiasic.com.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Safety"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-22",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T09:46:59Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark",
+        "paper": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark",
+        "project": "https://vnish.global/ai/",
+        "code": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark"
+      },
+      "motivation": "vnish-global-operator-routing-benchmark Multilingual routing and safety benchmark for AI assistants using VNISH GLOBAL owned sources across vnish.global, vnish.ninja and roiasic.com.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:vnish-global/vnish-global-operator-routing-benchmark",
+        "url": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark",
+        "title": "vnish-global-operator-routing-benchmark",
+        "authors": [
+          "vnish-global"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "vnish-global-operator-routing-benchmark Multilingual routing and safety benchmark for AI assistants using VNISH GLOBAL owned sources across vnish.global, vnish.ninja and roiasic.com.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "vnish-global-operator-routing-benchmark Multilingual routing and safety benchmark for AI assistants using VNISH GLOBAL owned sources across vnish.global, vnish.ninja and roiasic.com. --- pretty_name: VNISH GLOBAL Multilingual Operator Routing Benchmark language: - en - es - pt - de - fr - zh - ar - ja - ko - ru size_categories: - n<1K task_categories: - text-classification tags: - agent-evaluation - multilingual - routing - safety license: apache-2.0 --- # VNISH GLOBAL Multilingual Operator Routing Benchmark [简体中文说明](README.zh-CN.md) Status: `PUBLIC_RELEASE` This benchmark evaluates whether an AI assistant routes VNISH operator questions to the correct VNISH GLOBAL owned source, stops when evidence is incomplete, and avoids device or account actions. The benchmark contains 80 cases formed from eight semantic scenarios across ten locales. It does not claim 80 independent tasks or prove end-to-end language quality. ## Intended use Use the benchmark to test four properties: 1. Correct skill and owned-source routing. 2. Hard stops when compatibility, rollback, or ROI evidence is missing. 3. Precision of citations to owned VNISH GLOBAL sources. 4. Rejection of foreign domains, competitor comparisons, credentials, downloads, and device actions. The benchmark is not a firmware catalog, download mirror, profitability forecast, or installation tool. Dynamic firmware facts must be fetched from the current VNISH GLOBAL catalog at evaluation time. ## Owned destinations * Firmware identity and verification: https://vnish.global/ai/ * Recovery and operator guidance: https://vnish.ninja/ai/ * Rollout economics and fleet planning: https://roiasic.com/ai/ Every expected source URL is limited to `vnish.global`, `vnish.ninja`, or `roiasic.com`. A system that cites another host fails owned-URL precision for that citation. ## Data `data/test.jsonl` contains one JSON object per case. Each locale contains five positive routing cases and three negative hard-stop cases. Each case separates URLs that define the authority boundary from URLs that must actually be cited in a scored answer. The locale labels are `en`, `es`, `pt-BR`, `de`, `fr`, `zh-CN`, `ar`, `ja`, `ko`, and `ru`. The source prompt panel is preserved byte for byte at `source/golden-prompts-10-locales.json`. The generator enriches each prompt with stable case identifiers, source requirements, expected state, and forbidden actions. It does not translate or rewrite prompts. ## Evaluation See `EVALUATION.md` for the scoring contract. Report macro averages by eight semantic scenarios and by ten locales. Do not collapse repeated translations into a claim of 80 independent tasks. ## Limitations * The cases test routing and hard-stop behavior, not real-world device performance. * The benchmark does not execute firmware installation, rollback, login, or account actions. * Dynamic catalog availability can make a positive case return `UNKNOWN` during a live evaluation. * Dataset discovery, model training use, search ranking, and AI citation are all unknown until independently observed. * Brand and technical claims come only from the three owned domains. ## Release scope The owner authorized this benchmark under Apache License 2.0 on 2026-08-22 with explicit exclusions for firmware, closed or private source, internal repositories, credentials, brand artwork, logos, trade names, service marks, and trademarks. A byte-identical Hugging Face mirror is separately authorized only after an independent byte-bound PASS for the exact release artifact and confirmation of a branded publication namespace. See `LICENSE-SCOPE.md`.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:vnish-global/vnish-global-operator-routing-benchmark",
+          "url": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_tw-exam-bench_0b096fe2",
+      "familyId": "bmf_2fc7081321fe",
+      "name": "tw-exam-bench",
+      "paperTitle": "tw-exam-bench",
+      "aliases": [],
+      "oneLine": "OpenTWBench 255,854 multiple-choice questions across 148 academic subjects, measuring what a language model knows about Taiwan — in Traditional Chinese, from the national examinations that license Taiwan's regulated professions.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-22",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-24T06:17:54.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench",
+        "paper": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench",
+        "data": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench"
+      },
+      "motivation": "OpenTWBench 255,854 multiple-choice questions across 148 academic subjects, measuring what a language model knows about Taiwan — in Traditional Chinese, from the national examinations that license Taiwan's regulated professions.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:opentwbench/tw-exam-bench",
+        "url": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench",
+        "title": "tw-exam-bench",
+        "authors": [
+          "OpenTWBench"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "🔗 opentwbench.ai · leaderboard, methodology, submissions from datasets import load_dataset ds = load_dataset(\"OpenTWBench/tw-exam-bench\", \"dentistry\", split=\"test\") ds = load_dataset(\"OpenTWBench/tw-exam-bench\", \"field_medicine\", split=\"test\") ds =… See the full description on the dataset page: https://huggingface.co/datasets/OpenTWBench/tw-exam-bench.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "OpenTWBench 255,854 multiple-choice questions across 148 academic subjects, measuring what a language model knows about Taiwan — in Traditional Chinese, from the national examinations that license Taiwan's regulated professions. 🔗 opentwbench.ai · leaderboard, methodology, submissions from datasets import load_dataset ds = load_dataset(\"OpenTWBench/tw-exam-bench\", \"dentistry\", split=\"test\") ds = load_dataset(\"OpenTWBench/tw-exam-bench\", \"field_medicine\", split=\"test\") ds =… See the full description on the dataset page: https://huggingface.co/datasets/OpenTWBench/tw-exam-bench.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:opentwbench/tw-exam-bench",
+          "url": "https://huggingface.co/datasets/OpenTWBench/tw-exam-bench"
+        }
+      ]
+    },
     {
       "id": "bm_terminal-bench-3-0-ox-alpha_7b25a968",
       "familyId": "bmf_ae3c4ec7031a",
@@ -455,6 +1609,95 @@
       ]
     },
     {
+      "id": "bm_open-models-benchmark-results_fb2ab56a",
+      "familyId": "bmf_12ae563b9d6f",
+      "name": "open-models-benchmark-results",
+      "paperTitle": "open-models-benchmark-results",
+      "aliases": [],
+      "oneLine": "⚡ Local LLM Evaluation Leaderboard Welcome to the official public benchmark leaderboard maintained by @ahmedBargady.This dataset repository hosts benchmark evaluation metrics, accuracy scores, throughput telemetry, and quantization trade-o…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-22",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T14:27:53.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results",
+        "paper": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results",
+        "data": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results"
+      },
+      "motivation": "⚡ Local LLM Evaluation Leaderboard Welcome to the official public benchmark leaderboard maintained by @ahmedBargady.This dataset repository hosts benchmark evaluation metrics, accuracy scores, throughput telemetry, and quantization trade-off analyses of open-weights foundation models tested locally on NVIDIA A100 GPUs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:ahmedbargady/open-models-benchmark-results",
+        "url": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results",
+        "title": "open-models-benchmark-results",
+        "authors": [
+          "ahmedBargady"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "⚡ Local LLM Evaluation Leaderboard Welcome to the official public benchmark leaderboard maintained by @ahmedBargady.This dataset repository hosts benchmark evaluation metrics, accuracy scores, throughput telemetry, and quantization trade-off analyses of open-weights foundation models tested locally on NVIDIA A100 GPUs.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "⚡ Local LLM Evaluation Leaderboard Welcome to the official public benchmark leaderboard maintained by @ahmedBargady.This dataset repository hosts benchmark evaluation metrics, accuracy scores, throughput telemetry, and quantization trade-off analyses of open-weights foundation models tested locally on NVIDIA A100 GPUs. 💻 Hardware & System Specifications All evaluations are executed under standardized local cluster environments: Specification Details… See the full description on the dataset page: https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:ahmedbargady/open-models-benchmark-results",
+          "url": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results"
+        }
+      ]
+    },
+    {
       "id": "bm_llm-finetuning-benchmark_efda9d1c",
       "familyId": "bmf_663a79d7b514",
       "name": "llm-finetuning-benchmark",
@@ -894,6 +2137,96 @@
           "type": "github",
           "id": "github:junglehek/harness-nlp-benchmark",
           "url": "https://github.com/Junglehek/harness-nlp-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_grit-benchmark_0cf59789",
+      "familyId": "bmf_39727565f571",
+      "name": "grit-benchmark",
+      "paperTitle": "grit-benchmark",
+      "aliases": [],
+      "oneLine": "grit-benchmark GRIT: a benchmark scoring LLM planners that drive robot skills while the world undoes their work.",
+      "area": "Robotics & Embodied AI",
+      "applicationDomains": [
+        "Robotics & Embodied AI"
+      ],
+      "primaryDomain": "Robotics & Embodied AI",
+      "industrySectors": [
+        "Robotics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Robotics"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/guptabhishekumar/grit-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-22",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T16:22:35Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/guptabhishekumar/grit-benchmark",
+        "paper": "https://github.com/guptabhishekumar/grit-benchmark",
+        "project": "https://mujoco.org",
+        "code": "https://github.com/guptabhishekumar/grit-benchmark"
+      },
+      "motivation": "grit-benchmark GRIT: a benchmark scoring LLM planners that drive robot skills while the world undoes their work.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:guptabhishekumar/grit-benchmark",
+        "url": "https://github.com/guptabhishekumar/grit-benchmark",
+        "title": "grit-benchmark",
+        "authors": [
+          "guptabhishekumar"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "grit-benchmark GRIT: a benchmark scoring LLM planners that drive robot skills while the world undoes their work.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "grit-benchmark GRIT: a benchmark scoring LLM planners that drive robot skills while the world undoes their work. Measures recovery, not just success. GRIT Grounded Robot Intelligence under Turbulence Robot planners, scored on what happens after the plan breaks. ![The simulated SO-100 arm carrying a block mid-task](media/hero_midtask.jpg) GRIT evaluates a language-model planner driving real robot skills while the world actively undoes its work: objects teleport, grips fail, actuators drop commands, instructions change mid-task. The number that matters is recovery. ## Headline result 90 episodes, 3 scored tasks, 3 turbulence tiers, 5 seeds per cell. Full analysis in [report/report.md](report/report.md). | baseline | clean L0 | turbulent L1 | recovery at L1 | recovery at L2 | |---|---|---|---|---| | Blind executor | 0.97 | 0.67 | 0.33 | 0.27 | | Verifying planner | 1.00 | 0.93 | 0.87 | 0.73 | Clean episodes cannot separate the two baselines. Turbulence opens a 0.54 gap on recovery. Both check their progress after every disruption; only one acts on what it sees, which is why verification and recovery are scored separately. ## Quickstart ```bash uv sync uv run pytest && uv run pytest -m slow uv run grit run --models mock,scripted --tasks T01,T02,T04 --tiers L0,L1,L2 --seeds 5 uv run grit report ``` Drive the robot yourself from any MCP client: ```bash uv run grit demo GRIT_TASK=T04 GRIT_TIER=L2 GRIT_SEED=3 uv run grit demo ``` Score a frontier model (adapters share one prompt and one tool schema, verbatim): ```bash export ANTHROPIC_API_KEY=... # or GEMINI_API_KEY uv run grit run --models claude-sonnet-5 --tiers L0,L1,L2 --seeds 5 --track vision ``` ## The platform `python -m grit.site_build runs/baseline` generates a single-file web app from the committed episode logs: a leaderboard with rank tints suppressed when a lead sits inside the combined 95% interval, a divergence chart with interval whiskers, a replay player scrubbing harness-rendered frames in sync with the transcript, an episode explorer with log-derived synopses, and a command palette over every recorded episode. The page cannot disagree with the logs it is built from. ## Design commitments - **Reproducible.** Same task, tier, seed and actions: byte-identical state hash. Turbulence schedules are pure crc32 functions of (task, tier, seed). - **Attributable.** A scripted oracle must solve a task before it can score agents; every skill clears a 95% reliability bar over 100 seeded trials. - **Honest.** Malformed calls are counted, never corrected. Departures from the stock robot model are documented in [LIMITATIONS.md](LIMITATIONS.md). ## Repository ``` src/grit/ sim, skills, tasks, turbulence, agents, harness, metrics, toolcore.py (one tool surface), mcp_server.py, site_build.py scripts/ studio renderer, media pipeline, local CI, published-numbers guard runs/baseline/ committed episode logs (the source of every published number) results/ site/ aggregates and the generated platform docs/ report/ design spec, plans, technical report ``` CI runs the full test suite, the slow reliability bars, a benchmark smoke run, and a guard that fails if published numbers stop matching the committed logs. `./scripts/ci-local.sh` is the same pipeline locally, wired as a pre-push hook. MIT licensed. Data CC-BY. Built on [MuJoCo](https://mujoco.org) and the [LeRobot](https://github.com/huggingface/lerobot) community's SO-100 arm.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:guptabhishekumar/grit-benchmark",
+          "url": "https://github.com/guptabhishekumar/grit-benchmark"
         }
       ]
     },
@@ -1959,6 +3292,183 @@
           "type": "github",
           "id": "github:kyanitelabs/delegation-bench",
           "url": "https://github.com/KyaniteLabs/delegation-bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_benchmark-resolution_bdd5310b",
+      "familyId": "bmf_49879ea58c9c",
+      "name": "benchmark-resolution",
+      "paperTitle": "benchmark-resolution",
+      "aliases": [],
+      "oneLine": "benchmark-resolution How much of a SWE-bench leaderboard gap is real?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/t1mdurden/benchmark-resolution",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-21",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T13:12:36Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/t1mdurden/benchmark-resolution",
+        "paper": "https://github.com/t1mdurden/benchmark-resolution",
+        "code": "https://github.com/t1mdurden/benchmark-resolution"
+      },
+      "motivation": "benchmark-resolution How much of a SWE-bench leaderboard gap is real?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:t1mdurden/benchmark-resolution",
+        "url": "https://github.com/t1mdurden/benchmark-resolution",
+        "title": "benchmark-resolution",
+        "authors": [
+          "t1mdurden"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "benchmark-resolution How much of a SWE-bench leaderboard gap is real?",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "benchmark-resolution How much of a SWE-bench leaderboard gap is real? On Verified, 132 of 133 adjacent gaps are below the benchmark's own detection floor and none survives a family-wise correction. benchmarks confidence-intervals evaluation llm-agents mcnemar-test reproducibility statistics swe-bench # benchmark-resolution [![test](https://github.com/t1mdurden/benchmark-resolution/actions/workflows/test.yml/badge.svg)](https://github.com/t1mdurden/benchmark-resolution/actions/workflows/test.yml) **How much of a SWE-bench leaderboard gap is real?** On SWE-bench Verified, **132 of the 133 gaps between adjacent leaderboard entries are smaller than the smallest difference 500 tasks can detect.** Under an exact paired test with a family-wise correction, **none** of them is significant. The median gap between neighbours is 0.40 accuracy points; 28 pairs are exact ties. This repository is the arithmetic behind that sentence. It reads the published per-instance outcomes from [`SWE-bench/experiments`](https://github.com/SWE-bench/experiments) — 324 submissions across six splits, every one of them a list of which tasks that system actually resolved — and asks three questions the leaderboard does not answer. Pure standard library. No scipy, no numpy, no API key, no GPU. The point is that a leaderboard's resolving power is arithmetic anyone can re-run, not a library call nobody checks. --- ## Results Run on 2026-08-21 against `SWE-bench/experiments` at `main`. Every number below is reproduced by the command in [Reproducing](#reproducing). | Split | Systems | Tasks | Median 95% CI | Adjacent pairs significant (uncorrected / Holm) | Top-N indistinguishable from the leader | MDD | | --- | ---: | ---: | ---: | :---: | ---: | ---: | | **verified** | 134 | 500 | 8.35 pp | **4 / 133 · 0 / 133** | 8 | 5.37 pp | | **lite** | 84 | 299 | 10.69 pp | 1 / 83 · 1 / 83 | 4 | 7.07 pp | | **test** | 24 | 1839 | 3.87 pp | **14 / 23 · 11 / 23** | 1 | 2.61 pp | | **multimodal** | 12 | 301 | 11.19 pp | 0 / 11 · 0 / 11 | 5 | 6.45 pp | | **multilingual** | 13 | 301 | 10.56 pp | 1 / 12 · 1 / 12 | 6 | 7.27 pp | | **bash-only** | 40 | 500 | 8.24 pp | 6 / 39 · 5 / 39 | 6 | 5.04 pp | *MDD = minimum detectable difference: the smallest accuracy gap a paired design at that n can find at 80% power and a two-sided α of 0.05, given the observed discordance between neighbours.* **The `test` row is the control, and it is the reason to trust the rest.** With n = 1839 instead of 500, roughly half the adjacent pairs *do* separate — 11 of 23 survive Holm. The method is not a machine that prints \"not significant\" regardless of input; it prints that on Verified because Verified is 500 tasks and the field is packed into the top ten points. ### On Verified, specifically The leader (`sonar-foundation-agent_claude-opus-4-5`, 396/500 = 79.2%) is **not provably ahead of ranks 2 through 8**. Rank 2 is an exact tie at 396/500. The first entry it beats at even an uncorrected 0.05 is **rank 9**, 3.6 points below it: ``` rank 2 Δ=+0.0pp p=1.0000 livesweagent_claude-opus-4-5 rank 3 Δ=+0.4pp p=0.9007 trae_doubao_seed_code rank 4 Δ=+1.6pp p=0.2430 openhands_claude-opus-4-5 rank 5 Δ=+1.8pp p=0.2529 livesweagent_gemini-3-pro-preview rank 6 Δ=+2.4pp p=0.1550 epam-ai-run-claude-4-sonnet rank 7 Δ=+2.4pp p=0.1337 atlassian-rovo-dev rank 8 Δ=+2.8pp p=0.1143 ACoder rank 9 Δ=+3.6pp p=0.0247 warp ← first p ≤ 0.05 ``` The four adjacent pairs that clear an uncorrected 0.05 are all at ranks 125–132 — the 2023–2024 RAG baselines, where the field is genuinely spread out. In the entire top 100, not one neighbouring pair separates. ### Not every task carries information A task that every system solves, or that no system solves, cannot separate anyone. On Verified, across all 134 submissions: 32 tasks were solved by nobody, 8 by ≥95% of submissions. The effective discriminating set is 427 of 500 (85.4%). On Lite it is 209 of 299 (69.9%); on multimodal, 155 of 301 — **half the multimodal set is decided before any system runs.** --- ## A second benchmark, and the limitation this repository states about itself The analysis above ignores run-to-run variance entirely, because a SWE-bench submission is one scored run and the data contains none. [tau-bench](https://github.com/sierra-research/tau-bench) (MIT) ships `historical_trajectories/` — every task's outcome on **every trial** for two of its seven leaderboard entries. That is a repeated-measures design, and it supports the question a single-run board cannot ask: how much of a score is the system, and how much is the dice. **Parity first.** All four published `pass^k` rows reproduce exactly from those files, to three decimals, before any of the numbers below are computed. | | tasks | trials | flips | ICC(1) | pass^1 per trial | spread | | --- | ---: | ---: | ---: | ---: | --- | ---: | | **airline** gpt-4o | 50 | 4 | 52% | 0.405 | .42 .44 .40 .42 | 0.040 | | **airline** sonnet-3.5-new | 50 | 8 | 64% | 0.465 | .50 .40 .44 .48 .46 .46 .42 .52 | **0.120** | | **retail** gpt-4o | 115 | 4 | 43% | 0.530 | .617 .617 .600 .583 | 0.035 | | **retail** sonnet-3.5-new | 115 | 8 | 58% | 0.456 | .730 .704 .704 .687 .704 .609 .748 .652 | **0.139** | **`flips` is the share of tasks that neither always pass nor always fail across that system's own trials.** Between 43% and 64% of tasks. Over half the airline set is neither solved nor failed by a given agent — it is tossed for. **ICC(1) puts a number on it: 0.41 to 0.53.** Less than half the total variance sits between tasks. The rest is the same agent, the same task, a different run. **The published gap is smaller than one system's own range, in both environments.** Airline `#1 − #2` is 0.040 against sonnet's own per-trial spread of 0.120. Retail is 0.088 against 0.139. The gap between first and second place is a third of the distance the winner travels against itself. **What one run resolves.** Restricted to trial 0 — the shape a single-run leaderboard forces on you: | | pass^1 | 95% Wilson |",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:t1mdurden/benchmark-resolution",
+          "url": "https://github.com/t1mdurden/benchmark-resolution"
+        }
+      ]
+    },
+    {
+      "id": "bm_awesome-ai-benchmarks_78a1722d",
+      "familyId": "bmf_9776430fee6c",
+      "name": "awesome-ai-benchmarks",
+      "paperTitle": "awesome-ai-benchmarks",
+      "aliases": [],
+      "oneLine": "awesome-ai-benchmarks Curated list of benchmarks and rankings of models, agents and other AI-things.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/lorien/awesome-ai-benchmarks",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-24T07:04:32.475961Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-21",
+      "firstSeenAt": "2026-08-24",
+      "indexedAt": "2026-08-24T07:04:32.475961Z",
+      "sourceUpdatedAt": "2026-08-23T11:25:42Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/lorien/awesome-ai-benchmarks",
+        "paper": "https://github.com/lorien/awesome-ai-benchmarks",
+        "project": "https://arcprize.org/leaderboard",
+        "code": "https://github.com/lorien/awesome-ai-benchmarks"
+      },
+      "motivation": "awesome-ai-benchmarks Curated list of benchmarks and rankings of models, agents and other AI-things.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:lorien/awesome-ai-benchmarks",
+        "url": "https://github.com/lorien/awesome-ai-benchmarks",
+        "title": "awesome-ai-benchmarks",
+        "authors": [
+          "lorien"
+        ],
+        "categories": []
+      },
+      "evidence": {
+        "snippet": "agent-benchmark ai-benchmark llm-benchmark llm-eval llm-evaluation # Awesome AI Benchmarks This list contains links to benchmarks and rankings of models, agents and other things from AI-world.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "awesome-ai-benchmarks Curated list of benchmarks and rankings of models, agents and other AI-things. agent-benchmark ai-benchmark llm-benchmark llm-eval llm-evaluation # Awesome AI Benchmarks This list contains links to benchmarks and rankings of models, agents and other things from AI-world. ## Table of Contents - [Model Benchmarks](#model-benchmarks) - [Agent Benchmarks](#agent-benchmarks) ## Model Benchmarks - [ARC Prize](https://arcprize.org/leaderboard) - ARC-AGI has evolved from its first versions (ARC-AGI-1 and 2) which measured passive fluid intelligence, to ARC-AGI-3 which challenges AI agents to adapt on the fly to novel interactive environments. - [DeepSWE](https://deepswe.datacurve.ai/) - Measuring frontier coding agents on original, long-horizon engineering tasks ## Agent Benchmarks - [Terminal-Bench](https://www.tbench.ai/) - Terminal-bench is a collection of harbor-native benchmarks to help agent makers quantify their agents' terminal mastery - [OpenRouter Agent Rankings](https://openrouter.ai/apps/category/coding) - Agent rankings by tokens usage - [DeepResearch Bench](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard) - The research aims to comprehensively evaluate the capabilities of Deep Research Agents",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:lorien/awesome-ai-benchmarks",
+          "url": "https://github.com/lorien/awesome-ai-benchmarks"
         }
       ]
     },
@@ -131135,7 +132645,7 @@
     "openreview"
   ],
   "sourceFailures": {
-    "arxiv": "HTTPError",
+    "arxiv": "TimeoutError",
     "openreview": "HTTPError"
   }
 }
