@@ -66,8 +66,8 @@ release date or blocking healthy adapters.
 
 The Monday Brisbane run targets Sunday and rechecks the complete Friday-through-
 Sunday window for every source. Results are deduplicated and retain their actual
-first-public dates. Radar presents the three dates as one Latest catch-up batch;
-this is catch-up coverage, not date reassignment.
+first-public dates. Latest initially presents only the newest release day; as a
+reader scrolls, it loads earlier release days with visible date dividers.
 The job performs:
 
 ```text
@@ -83,8 +83,8 @@ build for pushes and pull requests.
 
 ## Radar, Library, and Trends
 
-- **Radar** reads `benchmarks_index.json`. Latest, 30 days, and 90 days are
-  rolling release-date filters over reviewed records.
+- **Radar** reads `benchmarks_index.json`. Latest is a day-grouped continuous
+  feed; 30 days and 90 days are rolling release-date filters over reviewed records.
 - **Library** reads `library_index.json`, the union of reviewed Radar records
   and established editorial seeds. A daily Radar record therefore also appears
   in Library; an old Library seed does not appear in Latest/30d/90d.

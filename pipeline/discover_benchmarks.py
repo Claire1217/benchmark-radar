@@ -149,6 +149,7 @@ def github_candidates(target: str) -> list[dict[str, Any]]:
                 "releasedAt": target,
                 "updatedAt": str(item.get("updated_at") or item.get("created_at") or ""),
                 "url": str(item.get("html_url") or f"https://github.com/{source_id}"),
+                "publicSignals": {"githubStars": int(item.get("stargazers_count") or 0)},
                 "links": {
                     "code": str(item.get("html_url") or f"https://github.com/{source_id}"),
                     "project": str(item.get("homepage") or "") or None,
@@ -183,6 +184,10 @@ def huggingface_candidates(target: str) -> list[dict[str, Any]]:
                 "releasedAt": target,
                 "updatedAt": str(item.get("lastModified") or item.get("createdAt") or ""),
                 "url": dataset_url,
+                "publicSignals": {
+                    "hfDatasetDownloads": int(item.get("downloads") or 0),
+                    "hfDatasetLikes": int(item.get("likes") or 0),
+                },
                 "links": {"data": dataset_url},
                 "authors": [str(item.get("author") or dataset_id.split("/", 1)[0])],
             }
@@ -258,6 +263,8 @@ def candidate_record(item: dict[str, Any], indexed_at: str, config: dict[str, An
         "type": item["type"], "id": item["id"], "url": item["url"],
         "title": item["title"], "authors": paper.authors, "categories": [],
     }
+    if item.get("publicSignals"):
+        record["source"]["publicSignals"] = item["publicSignals"]
     record["sourceUpdatedAt"] = item["updatedAt"]
     record["reviewContext"] = {"abstract": item["description"], "comments": ""}
     record["candidatePriority"] = "normal"

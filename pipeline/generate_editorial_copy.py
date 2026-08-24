@@ -27,7 +27,7 @@ OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-21.1"
-ADMISSION_POLICY_VERSION = "2026-08-23.1"
+ADMISSION_POLICY_VERSION = "2026-08-24.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -125,6 +125,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                     "type": "object",
                     "properties": {
                         "sourceId": {"type": "string"},
+                        "canonicalName": {"type": "string", "maxLength": 120},
                         "decision": {"type": "string", "enum": ["publish", "defer", "exclude"]},
                         "benchmarkMode": {
                             "type": "string",
@@ -150,7 +151,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                             },
                         },
                     },
-                    "required": ["sourceId", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
+                    "required": ["sourceId", "canonicalName", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
                     "additionalProperties": False,
                 },
             }
@@ -160,14 +161,16 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
     }
     instructions = (
         "Act as the admission editor for Benchmark Radar. Decide from meaning, never from keyword presence. "
-        "Publish only a named benchmark that defines a repeatable evaluation object and comparable scoring contract, "
+        "Publish only a formally named benchmark release that defines a repeatable evaluation object and comparable scoring contract, "
         "and provides a credible public path for other teams to run or inspect it. "
         "An explicit source statement that the task suite, evaluators, scored submissions, data, or code are released counts as a public path even when the source metadata does not expose a separate project URL. "
         "A missing direct code, data, or project link lowers readiness; it must not by itself turn a released benchmark with a stable evaluation and scoring contract into defer. "
         "score_submission means an ongoing public benchmark intended for model comparison; public_reusable means a fixed public dataset/protocol usable by other teams. "
         "A viewpoint_probe primarily exists to support one paper's finding and lacks a standalone public comparison path; exclude it from the public site. "
         "uses_existing and not_benchmark must also be excluded. Defer when evidence or artifacts are unclear. "
-        "Public attention, author prestige, and the word benchmark must never change this decision. "
+        "A newly created GitHub repository or Hugging Face dataset page is discovery evidence, not by itself a formal release: defer it unless the input also supplies an independent paper, OpenReview, Hugging Face paper, official benchmark site, or clear strong public adoption. "
+        "Public attention and author prestige must never change benchmark identity. The word benchmark alone is insufficient. "
+        "canonicalName must reproduce the official human-readable benchmark name from the paper title or README heading, preserving capitalization; never return a repository slug when a formal name is available. "
         "Then write neutral editorial copy in third person. Description states only what is evaluated: the evaluation object, "
         "task or environment, and the main capability or scoring setup when known. It must not explain why the benchmark was created. "
         "Why it matters explains the evaluation gap and practical decision value. "
@@ -225,7 +228,7 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
                 raise ReviewValidationError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
             row[field] = value
         required = {
-            "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason"
+            "canonicalName", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason"
         }
         if any(field not in row for field in required):
             raise ReviewValidationError(f"Incomplete semantic decision for {row.get('sourceId')}")
@@ -300,6 +303,25 @@ def publishable(row: dict[str, Any]) -> bool:
     )
 
 
+def public_release_ready(record: dict[str, Any]) -> bool:
+    """Artifact-registry discoveries need independent release evidence or adoption."""
+    source_type = (record.get("source") or {}).get("type")
+    if source_type not in {"github", "huggingface"}:
+        return True
+    links = record.get("links") or {}
+    paper_hosts = {"arxiv.org", "www.arxiv.org", "openreview.net"}
+    has_paper = any(urlparse(str(links.get(key) or "")).netloc.casefold() in paper_hosts for key in ("report", "paper", "project"))
+    has_hf_paper = bool(links.get("hfPaper"))
+    stars = max(
+        int((((record.get("source") or {}).get("publicSignals") or {}).get("githubStars")) or 0),
+        int(((record.get("attention") or {}).get("githubStars")) or 0),
+    )
+    source_signals = ((record.get("source") or {}).get("publicSignals") or {})
+    downloads = max(int(source_signals.get("hfDatasetDownloads") or 0), int(((record.get("attention") or {}).get("hfDatasetDownloads")) or 0))
+    likes = max(int(source_signals.get("hfDatasetLikes") or 0), int(((record.get("attention") or {}).get("hfDatasetLikes")) or 0))
+    return has_paper or has_hf_paper or stars >= 25 or downloads >= 1000 or likes >= 10
+
+
 def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str) -> int:
     payload = read_json(CURATED_PATH) if CURATED_PATH.exists() else {"schemaVersion": "1.0", "records": []}
     by_source = {str((record.get("source") or {}).get("id") or ""): record for record in payload.get("records", [])}
@@ -310,7 +332,10 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
             continue
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
+        if not public_release_ready(source):
+            continue
         record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
+        record["name"] = decision["canonicalName"]
         record["description"] = decision["description"]
         record["whyItMatters"] = decision["whyItMatters"]
         record["oneLine"] = decision["description"]
@@ -433,6 +458,7 @@ def main() -> None:
             source = source_by_id[row["sourceId"]]
             existing["bySourceId"][row["sourceId"]] = {
                 "decision": row["decision"],
+                "canonicalName": row["canonicalName"],
                 "benchmarkMode": row["benchmarkMode"],
                 "stableScoringContract": row["stableScoringContract"],
                 "publicReusePath": row["publicReusePath"],

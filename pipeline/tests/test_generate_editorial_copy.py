@@ -1,11 +1,12 @@
 import unittest
 
-from generate_editorial_copy import publishable, publisher_identity_is_distinct, response_text, selection_fingerprint, validate_copy
+from generate_editorial_copy import public_release_ready, publishable, publisher_identity_is_distinct, response_text, selection_fingerprint, validate_copy
 
 
 class DeepSeekReviewTests(unittest.TestCase):
     def valid_decision(self) -> dict:
         return {
+            "canonicalName": "ExampleBench",
             "decision": "publish",
             "benchmarkMode": "public_reusable",
             "stableScoringContract": True,
@@ -32,6 +33,19 @@ class DeepSeekReviewTests(unittest.TestCase):
         rows = [{"sourceId": "1", "description": "We evaluate agents.", "whyItMatters": "It supports comparison."}]
         with self.assertRaises(RuntimeError):
             validate_copy({"1": {"officialLinks": {}}}, rows)
+
+    def test_new_github_repo_needs_independent_release_or_strong_adoption(self) -> None:
+        repo = {
+            "source": {"type": "github", "publicSignals": {"githubStars": 0}},
+            "links": {"code": "https://github.com/example/bench"},
+        }
+        self.assertFalse(public_release_ready(repo))
+        self.assertTrue(public_release_ready({**repo, "links": {**repo["links"], "paper": "https://arxiv.org/abs/2608.00001"}}))
+        self.assertTrue(public_release_ready({**repo, "source": {"type": "github", "publicSignals": {"githubStars": 25}}}))
+        self.assertTrue(public_release_ready({**repo, "attention": {"githubStars": 25}}))
+        dataset = {"source": {"type": "huggingface"}, "links": {"data": "https://huggingface.co/datasets/example/bench"}, "attention": {"hfDatasetDownloads": 62, "hfDatasetLikes": 0}}
+        self.assertFalse(public_release_ready(dataset))
+        self.assertTrue(public_release_ready({**dataset, "attention": {"hfDatasetDownloads": 1000, "hfDatasetLikes": 0}}))
 
     def test_unsupported_publisher_is_dropped_without_blocking_copy(self) -> None:
         rows = [{

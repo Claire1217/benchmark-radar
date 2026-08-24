@@ -63,14 +63,14 @@ download count cannot silently take the meaning of a GitHub star or HF vote.
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads |
 | --- | ---: | ---: | ---: |
-| Latest release batch | 50% | 45% | 5% |
+| Latest release day | 50% | 45% | 5% |
 | 30 days | 30% | 55% | 15% |
 | 90 days | 15% | 55% | 30% |
 
 A missing signal remains unknown but keeps its fixed weight and receives a
 neutral 50th-percentile prior. This discounts incomplete coverage toward the
 midpoint without treating missing data as zero or redistributing its weight to
-the available signals. In the latest release batch, one observed signal is enough to rank
+the available signals. In the latest release day, one observed signal is enough to rank
 because launch discovery is the decision context. In the 30- and 90-day views,
 HF votes alone produce a visible low-confidence score but no formal rank; a
 dedicated repository or exact dataset signal is required. More observed signals
