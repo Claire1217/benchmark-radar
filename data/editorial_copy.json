@@ -22786,19 +22786,19 @@
       "selectionFingerprint": "a14c2e25a3931cd25448759cda4ba87ae3ce4ac0b56984395bbb55cba806f2a7"
     },
     "github:aryanthemscoder/recoveriq": {
-      "decision": "publish",
-      "benchmarkMode": "score_submission",
-      "stableScoringContract": true,
+      "decision": "defer",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
       "publicReusePath": true,
-      "description": "Evaluates payment recovery policies on 10,000 synthetic failed transactions using metrics like recovery rate, expected recovery, human review rate, and unsafe actions.",
-      "whyItMatters": "Demonstrates policy-engine controlled AI for financial recovery, doubling recovery rate with zero unsafe actions, providing a safe automation framework for fintech.",
-      "decisionReason": "Repeatable benchmark script compares baseline, ML, and agentic policies with deterministic scoring; code and run instructions are public.",
+      "description": "RecoverIQ is an AI-assisted revenue recovery engine for failed payments with deterministic policy guardrails and a simulation-based evaluation harness. It includes a synthetic dataset of 10,000 payment transactions and a repeatable benchmark comparing baseline, ML, and agentic policies on recovery rate and safety.",
+      "whyItMatters": "It provides a framework for evaluating AI-assisted payment recovery policies under controlled conditions, focusing on safety constraints and measurable outcomes. The benchmark could inform decisions on deploying such systems in fintech operations.",
+      "decisionReason": "The repository is a project that includes an evaluation harness, but the core artifact is an application rather than a benchmark with a predefined scoring contract for model comparison. The benchmark is more of an internal experiment for the project's own evaluation. The official link for the project points to a localhost URL, indicating it's not a public deployment. The code and data are available, but the benchmark's focus is on the application's performance rather than a generalizable benchmark.",
       "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "c78745b6f9d44e13709885c52abea53317e3a995da5c87c80adb436a20d6a6ef",
-      "selectionFingerprint": "cbd2b8b2e56fc42e205822353289931028d5dc07b4961b8516b96f05f609b43d"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "ee2f66fc4895d7a992bd0db369bbdac3b6181554e83620687aadd765ed029e24",
+      "selectionFingerprint": "73f3b852307535ac02e6d6613ede50c4429b6ca53d51e3c6f93c12b2b1a97f27"
     },
     "github:lvxinquan/rag-benchmark": {
       "decision": "defer",
@@ -22861,18 +22861,25 @@
     },
     "github:miolonixc/llm-free-benchmark": {
       "decision": "publish",
-      "benchmarkMode": "score_submission",
+      "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Runs a fixed battery of logic, brevity, Russian-format, reasoning, and coding tasks against free-tier OpenRouter and Nous Portal LLMs, grading with 0-5 programmatic scores.",
-      "whyItMatters": "Offers a lightweight reproducible platform for comparing free-tier model performance across diverse skill types without heavy dependencies.",
-      "decisionReason": "Scripts, task definitions, and grading scheme are provided; results are published and can be regenerated with an API key.",
-      "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "f063484e588358e1801bd3b8d1cf6313df9a42b0744ea582bb1161d7bb8dc6ac",
-      "selectionFingerprint": "718b316fcd3cdd89500cc0031330484940beded35ce374f0a34141e5a1a2bd2e"
+      "description": "Dependency-free benchmark for free-tier LLMs on OpenRouter. Runs a fixed battery of seven typed tasks (logic, brevity, Russian, reasoning, code_count, code_regex, code_class) and grades each answer programmatically on a 0-5 scale. Produces a ranked report with per-model average, total, success rate, and latency.",
+      "whyItMatters": "Provides a lightweight, reproducible method to compare free-tier LLMs on a diverse set of tasks, helping users choose cost-effective models. The sequential request design with cooldowns mitigates rate-limit artifacts, making scores more reflective of model quality.",
+      "decisionReason": "Public repo with full code and task definitions. The scoring rubric is explicit and automated. Includes instructions for running on OpenRouter and Nous Portal, with results caching and resume capability. The benchmark is a standalone tool for comparing LLMs on a fixed task set.",
+      "publishers": [
+        {
+          "name": "Miolonixc",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/Miolonixc/llm-free-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "f08ef6329d3d20b1c8a142a5652f6f6ab022360cc51c46871de63e51cb685ccc",
+      "selectionFingerprint": "93574cb6535a022267d1fbd871c4e834a543ff11d97981d41a77d9eda728a697"
     },
     "github:heretek-ai/harness-benchmark": {
       "decision": "exclude",
@@ -23083,19 +23090,19 @@
       "selectionFingerprint": "fd580f29389f4d395fb0973c5e59066393f5c834fcdab251ba57ec56b31f4af2"
     },
     "github:wwewtech/russian-it-community-corpus": {
-      "decision": "exclude",
-      "benchmarkMode": "not_benchmark",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "A curated Russian IT community corpus with data engineering pipelines for SFT, DPO, and RAG, including a local LoRA training setup.",
-      "whyItMatters": "Provides valuable data for Russian NLP, but lacks a defined evaluation object or scoring contract for comparing model performance.",
-      "decisionReason": "Focuses on dataset creation and curation infrastructure, not on benchmarking; no standardized task suite or public submission path is evident.",
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Russian IT Community Corpus evaluates multilingual technical dialogue processing, SFT, DPO, and RAG retrieval on 2.91M de-identified Russian IT discussions with defined quality and privacy metrics.",
+      "whyItMatters": "Provides a large, privacy-verified dataset for IT-domain language model fine-tuning and retrieval tasks where Russian-language technical corpora are scarce.",
+      "decisionReason": "Named corpus with released data, code, and documented evaluation metrics; usable by other teams for reproducible modeling.",
       "publishers": [],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T05:47:18.116919Z",
-      "inputHash": "4070345a88932a39290e61c0762c7f3c97767f12639649f66601bfd8a844d917",
-      "selectionFingerprint": "8623a119149cb1bd1de2d4c8e39fbad32bd9e465b4fdb87dc9012b2b21d92497"
+      "generatedAt": "2026-08-24T07:41:28.683304Z",
+      "inputHash": "a7c056e1c1f9e9ce407173ec2ce67907ac607801113bdc2915a8ae6dbfbeb4dc",
+      "selectionFingerprint": "440f140119ce198008a607bc74f2fc634f88b383fb46f3545db1bcaeeb79f9c4"
     },
     "github:4esv/roman-numeral-harmony-benchmark": {
       "decision": "publish",
@@ -23179,19 +23186,19 @@
       "selectionFingerprint": "649013fd4b098e08dbbdd032c8206b529ba8e170a368c24c62ced12298cc2346"
     },
     "github:ishant-005/llm-finetuning-benchmark": {
-      "decision": "exclude",
-      "benchmarkMode": "not_benchmark",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "Compares fine-tuning strategies (full fine-tuning, LoRA, QLoRA) on Financial PhraseBank with Qwen 2.5-0.5B, measuring performance, cost, and memory.",
-      "whyItMatters": "Provides a case study on fine-tuning efficiency trade-offs but does not establish a reusable evaluation framework.",
-      "decisionReason": "The repository describes a one-off experimental comparison without a defined scoring protocol or public submission path.",
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Compares full fine-tuning, LoRA, and QLoRA strategies on a financial sentiment classification task using Qwen2.5-0.5B and the Financial PhraseBank dataset, reporting accuracy, cost, and memory.",
+      "whyItMatters": "Offers a practical reference for selecting parameter-efficient fine-tuning methods under resource constraints.",
+      "decisionReason": "Public repository with benchmarking methodology and open dataset enables reproducible comparisons.",
       "publishers": [],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "8cd2bf6b84f892a08d0b4480798f632670c6047ecaaf3e3bdf1e817a278bdf4b",
-      "selectionFingerprint": "222043b1ccfa37d906b7007c6b3df41a256840a63cfc5f7f0195c73c8f5d8ffb"
+      "generatedAt": "2026-08-24T07:41:28.683304Z",
+      "inputHash": "f6f2817de52c73b04115426f8ac2a75ecacf62f07420590e2b26d878cd849b87",
+      "selectionFingerprint": "99be0c19c5143f1ed2e9d2e2354f6e50688e3d9257b684b4fdd46f70620a633e"
     },
     "github:vsmirlis/llm-coding-benchmark": {
       "decision": "exclude",
@@ -23298,19 +23305,19 @@
       "selectionFingerprint": "fe1c0c2a40b5ce1861b1c84f565bbadfce8fbf9891db7391336b3ac5d34962fc"
     },
     "github:chirindaopensource/from_financial_sentiment_classification_to_return_predictability": {
-      "decision": "defer",
-      "benchmarkMode": "unclear",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "The repository implements a pipeline that adapts large language models via QLoRA on five financial sentiment corpora and evaluates the resulting sentiment scores for return predictability on a 2019 S&P 100 news panel using rank IC and long-short portfolios.",
-      "whyItMatters": "Connecting financial sentiment classification to return predictability provides a practical check on whether model improvements translate into economic signals, which is valuable for quantitative finance applications.",
-      "decisionReason": "The repository provides an implementation of the methodology but does not clearly define a standalone benchmark with a public comparison path, scoring contract, or reusable evaluation protocol. The data sources are referenced but not directly released, and the evaluator is tied to the paper's specific analysis.",
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates LLM-based financial sentiment classification on a harmonized three-class benchmark and tests return predictability using rank IC and long-short portfolio analysis.",
+      "whyItMatters": "Bridges financial sentiment classification and asset pricing, providing a framework for linking NLP models to economic outcomes.",
+      "decisionReason": "End-to-end implementation with code and data sources allows independent replication of the benchmark and economic evaluation.",
       "publishers": [],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-23T05:47:18.116919Z",
-      "inputHash": "0b913228e08a7bfd9a4eaf6c0073e154157c886c780a3f5b364474c41dc93f32",
-      "selectionFingerprint": "2f7615adaa038d217d6208e165073c2f648fcc40d0d29b56a1f8c4c9ce7bfbb2"
+      "generatedAt": "2026-08-24T07:41:28.683304Z",
+      "inputHash": "1d8fbc90ab6c1abf286f5e7a677ac07e0c66a66be9531bef94d1c9288facad9b",
+      "selectionFingerprint": "ea6e5a4a43d8e9daec4a98e82751b2bd5da5bcefb24aed4d6d3bb9d2ec6f32fa"
     },
     "github:bagheri365/evallab": {
       "decision": "exclude",
@@ -23820,9 +23827,9 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates code generation models on their ability to respect implicit constraints in a codebase when given tasks, using automatic AST-based violation checkers and four context conditions.",
-      "whyItMatters": "Addresses the practical risk that models produce functionally plausible but contract-violating code when repository conventions are not in the prompt, enabling systematic measurement of this failure mode.",
-      "decisionReason": "The repository provides a fixed set of 12 tasks, defined oracles, and a clear protocol, allowing other teams to run the same benchmark and compare results.",
+      "description": "Benchmark evaluates code generation models on detecting implicit repository conventions. Tasks present a ticket and code context; models must generate code without violating conventions. Automatic AST-based oracles measure constraint violations, security violations, clarification question rate, and functional proxy rate across four context conditions.",
+      "whyItMatters": "Addresses the gap where code LLMs can pass naive tests while violating unstated codebase conventions. Provides a decidable, objective evaluation method for implicit context understanding, useful for improving code assistants in real-world repositories.",
+      "decisionReason": "Provides a named benchmark with defined tasks, conditions, and metrics (CQR, CVR, SVR, FPR). Includes code with automatic oracles, usage instructions, and explicit public availability.",
       "publishers": [
         {
           "name": "Parfait18",
@@ -23831,33 +23838,33 @@
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "f809ba095c49e3f3bc4ed1462f2599835327a0c8bcf6ba799aca4de284887f59",
-      "selectionFingerprint": "acb30de45f0c44c6927f73ed345c9169fac5fec9df11d690ae8f594509859cea"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "964fd5103e127bb2337f56faa98db2ff5529e67f7b8c59c5f8b50541fba0b46c",
+      "selectionFingerprint": "7203ec41200cecc857cb2ca231f5609b4a5ae2734cae2a711c62f2f5cd409f54"
     },
     "github:gauthamrohan/rag-retrieval-benchmark": {
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Measures seven RAG retrieval configurations (BM25, dense, hybrid, with/without reranking) on the FiQA dataset using gold relevance labels and standard IR metrics (Recall@10, MRR@10, nDCG@10).",
-      "whyItMatters": "Challenges common RAG advice by providing deterministic, reproducible evidence that hybrid search and reranking can hurt retrieval quality on certain domains, informing pipeline design decisions.",
-      "decisionReason": "The benchmark uses a fixed public dataset and gold labels, defines clear metrics, and offers code and a notebook for reproduction; results are deterministic.",
+      "description": "Benchmark evaluates retrieval configurations (dense, BM25, hybrid, reranking) on 648 queries from the FiQA dataset with gold relevance labels. Metrics include recall@10, MRR@10, nDCG@10, and latency. The protocol is deterministic and claims reproducibility to four decimal places.",
+      "whyItMatters": "Provides evidence on whether hybrid search and reranking improve retrieval quality in real-world settings. The finding that dense retrieval alone can outperform more complex pipelines informs practical RAG system design and avoids unnecessary computational cost.",
+      "decisionReason": "The benchmark uses the public FiQA dataset with clear protocols, metrics, and code. The source explicitly states reproducibility and includes a notebook for end-to-end execution.",
       "publishers": [
         {
-          "name": "GauthamRohan",
+          "name": "gauthamRohan",
           "organizationType": "community",
           "sourceUrl": "https://github.com/gauthamRohan/rag-retrieval-benchmark",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "b1adecaf4a5ec8100449c5d70eb7adcc8f6b81a0a846e3b1e96acf812ca64a67",
-      "selectionFingerprint": "cf4a8b814e158ee647d74fa40df9a657abcd1d1196f4f427a62aaaf8f8a484db"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "6ecf3596337a4eee5b4aab7d310b8dff2f5d4c643ac849c7f889474f0692ceaa",
+      "selectionFingerprint": "6f85bd4e5efe91d4b905a759b31b30e447df9c58eca10e23624bd772b2db914d"
     },
     "github:andyast/pi-agent-reliability-benchmark": {
       "decision": "publish",
@@ -23886,15 +23893,22 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Static benchmark of LLM structural-mechanics reasoning: models rank stories by inter-story drift and identify the governing story for described 2-D steel frames, with oracle ground truth from finite-element analysis.",
-      "whyItMatters": "Offers exact, simulator-free evaluation of physics reasoning in LLMs, enabling controlled measurement of capability and the effects of fine-tuning objectives without ambiguous grading.",
-      "decisionReason": "The benchmark ships as self-contained JSON files with prompts and exact oracle answers, a defined parsing and scoring protocol, and code to reproduce all paper results.",
-      "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "a1de53afd2da9bc77c697c95d4e3129c5d3e4ddaba6afd324795d2c7dc5399cf",
-      "selectionFingerprint": "6eb0e4b7fedf626d9912c75b847ac364aa18c77ec1841adf41351f5e528f2f2c"
+      "description": "Benchmark evaluates LLM fine-tuning objectives on structural mechanics tasks. Models rank stories of steel frames by inter-story drift and identify the governing story. Evaluation axes include forward ranking, extrapolation, two-step horizons, and post-intervention prediction, with exact finite-element oracle truths.",
+      "whyItMatters": "Provides a controlled testbed to study how different supervision forms affect LLM capabilities in physics-based domains. The exact oracle allows probing whether models learn underlying principles or surface cues, informing training methodology for scientific applications.",
+      "decisionReason": "Provides static benchmark files, dataset, code, and training pipeline. The source includes evaluation instructions, metrics, and reproducibility notes, and explicitly states public availability.",
+      "publishers": [
+        {
+          "name": "cl1110goo-afk",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/cl1110goo-afk/oraclephys",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "76544880e8bcea9bf63a56a109f38763df9d40785c1c34b7fe0fc27e9210d780",
+      "selectionFingerprint": "500b74a1086ab3f27d9c46b140be1d891c0f1f0487e1ba52e884594a1a487b01"
     },
     "github:kissmee-star/nlp-benchmark-group16": {
       "decision": "exclude",
@@ -23963,19 +23977,19 @@
       "selectionFingerprint": "d89a3d07fc62957e9af0103d56bbefccd7f0e5006f08218add0943ba503bef70"
     },
     "github:jyotydivya/gpu-accelerated-ml-inference-benchmark": {
-      "decision": "publish",
-      "benchmarkMode": "public_reusable",
-      "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "Compares ML inference latency, throughput, GPU memory, and utilization across PyTorch CPU, PyTorch CUDA, and TensorRT engines at batch sizes 1, 8, 16, and 32.",
-      "whyItMatters": "Provides a reproducible measurement framework for GPU inference engine selection, quantifying trade-offs between latency, throughput, and resource usage across runtime options.",
-      "decisionReason": "The repository outlines a repeatable benchmark with defined metrics, batch-size sweep, and a public repository that includes code, results, and deployment instructions.",
+      "decision": "exclude",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Tool or script for measuring inference performance across PyTorch CPU, PyTorch CUDA, and TensorRT with a Streamlit dashboard. It is not a repeatable evaluation with a scoring contract.",
+      "whyItMatters": "Demonstrates performance benchmarking but lacks a defined evaluation protocol and comparable scoring, so it does not serve as a standard benchmark for model comparison.",
+      "decisionReason": "The repository is a demonstration project comparing execution engines, lacking a defined task set, scoring criteria, and reproducibility requirements of a benchmark.",
       "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "f3400b06e2511c698af2c4a523f49eb50d379366aaab9a5c21fc2ca6fad69f63",
-      "selectionFingerprint": "891e9a2c4623e8efda459afa5a0b51e1f097f315d77c50c344c07a9943c49bfd"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "85efadbba086634b6414468a3179dde37711ea68e026bef8107c3c47da75fd2f",
+      "selectionFingerprint": "2149431167bdba798cfe40446e8593e6aa4e3915fda9f89aee56345eda90fee1"
     },
     "github:suneharaj/financial-hybrid-rag": {
       "decision": "exclude",
@@ -24019,31 +24033,31 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates AI assistant routing and hard-stop behavior for VNISH operator questions across ten locales using 80 cases with defined authority URLs.",
-      "whyItMatters": "Provides a controlled multilingual test set for routing, citation precision, and safety refusal in operator-specific scenarios where evidence boundaries matter.",
-      "decisionReason": "The repository specifies data, scoring contract, and release scope, and the code link leads to a public repository containing the benchmark.",
+      "description": "Benchmark evaluates AI assistants' ability to route operator questions to correct VNISH GLOBAL sources, stop when evidence is incomplete, and avoid unauthorized actions. Contains 80 cases across 10 locales, testing citation precision and rejection of foreign domains.",
+      "whyItMatters": "Addresses evaluation of multilingual routing and safety in AI assistants, which is critical for enterprise deployments with specific source authorities. Provides a structured protocol for testing these capabilities.",
+      "decisionReason": "Provides dataset, evaluation contract, and release under Apache 2.0. The source clearly defines intended properties and usage, with public availability of artifacts.",
       "publishers": [
         {
           "name": "VNISH GLOBAL",
           "organizationType": "company-research-lab",
-          "sourceUrl": "https://vnish.global/ai/",
+          "sourceUrl": "https://github.com/vnish-global/vnish-global-operator-routing-benchmark",
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "a1f29e7d24e05627f9f6fc17e450249c8f3d6d50a377f758bb3f7bf7dbcd2a77",
-      "selectionFingerprint": "5c4079b735cbd1a0ca73a431e0c3023c20a9f5c0ee6c3bc3ec53789c4cd182a2"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "45dca0f39a13df0a0a94ef59208a1ce4f78a1c069f1e42a5c6713683509675ca",
+      "selectionFingerprint": "6d6df5cb8e75c0e518c2fe084b7d45484919c1a2347b045db3f1dfd8af4a3102"
     },
     "huggingface:opentwbench/tw-exam-bench": {
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "A dataset of 255,854 multiple-choice questions from Taiwan's professional licensing exams across 148 subjects, organized by field and configurable via Hugging Face datasets.",
-      "whyItMatters": "Offers a large-scale Traditional Chinese multiple-choice evaluation resource for measuring language model knowledge in professional and academic domains in Taiwan.",
-      "decisionReason": "The dataset is available on Hugging Face with named configurations and an explicit linkage to a leaderboard, methodology, and submissions, indicating a credible public reuse path.",
+      "description": "Benchmark for Taiwanese professional exams, containing multiple-choice questions across various fields like medicine, law, and engineering. Configurations per field, with test splits. Scored by accuracy on multiple-choice answers.",
+      "whyItMatters": "Provides a broad, real-world evaluation set for Chinese language models in professional domains, useful for assessing knowledge and reasoning capabilities in specific fields.",
+      "decisionReason": "Public Hugging Face dataset with clearly defined fields and splits. The associated website provides leaderboard and methodology, indicating a stable scoring contract and public availability.",
       "publishers": [
         {
           "name": "OpenTWBench",
@@ -24052,11 +24066,11 @@
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "61995a31a6fe2a890ad1ae575c3323ea12a9cf4e9dc923304ca512a991b558e5",
-      "selectionFingerprint": "5d4f8edf40059e06783a3715ae5629383cf6641b515de9eadd9c78ffe14167f1"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "9d2756a025b4fce4d4c6cabaafae4e2c71308a90bec52669d0ddae875b26e8ea",
+      "selectionFingerprint": "c763af478fd855e0161f22e902b72679e7f593a2ea9f9f9343723842df736ead"
     },
     "huggingface:ahmedbargady/open-models-benchmark-results": {
       "decision": "exclude",
@@ -24075,63 +24089,84 @@
     },
     "github:guptabhishekumar/grit-benchmark": {
       "decision": "publish",
-      "benchmarkMode": "public_reusable",
-      "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "Assesses language model planners on recovery from turbulence—object teleports, grip failures, actuator drops, and instruction changes—in simulated robot manipulation tasks.",
-      "whyItMatters": "Fills a gap by measuring robustness and recovery rather than success in clean conditions, offering a reproducible harness for robotic planning agents.",
-      "decisionReason": "GRIT provides a clear scoring contract, reproducible turbulence schedules, and a public code repository with committed baseline logs and a leaderboard generation tool.",
-      "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "08a11ba71f1e0af9ba40e2fcb5f64f855f48aa1f2ef819b1acd9844bffccd6fb",
-      "selectionFingerprint": "0e11385c2086ad5cd8c13a1ebc3a2941ed9983f61853932fb37680438fd27764"
-    },
-    "github:0xboyu/company-mental-model-benchmark": {
-      "decision": "publish",
-      "benchmarkMode": "public_reusable",
-      "stableScoringContract": true,
-      "publicReusePath": true,
-      "description": "Evaluates how explicit company economic-model representations affect LLM-generated investment briefs across eight companies, comparing direct synthesis, structured model, and structured model plus critic.",
-      "whyItMatters": "Tests whether structured economic representations improve LLM ability to identify dominant compounding mechanisms, with potential impact on AI-assisted investment analysis workflows.",
-      "decisionReason": "Defines a repeatable task suite with frozen evidence, three treatment comparisons, and a scoring rubric; repository provides runner and protocol for reuse.",
-      "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "d580cdd4b5da888d7f023f1450d417b48ce59ee92a442299f4ca99730ae98962",
-      "selectionFingerprint": "940d606e09dd0bf1e2ed3104284a5bda9085fc10cfc93b4d02e490009e09ce61"
-    },
-    "github:anuragkokate09/asr-model-benchmark": {
-      "decision": "publish",
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Compares Whisper Small, Faster-Whisper Small, and Wav2Vec2 on automatic speech recognition using Word Error Rate, latency, memory, and robustness to controlled noise.",
-      "whyItMatters": "Provides comparable metrics across models under identical clean and noisy conditions, aiding selection of CPU-based ASR models for practical deployment.",
-      "decisionReason": "Fixed evaluation protocol with defined metrics and dataset from LibriSpeech; code and results are available for reproducible comparison.",
+      "description": "Benchmark evaluates LLM planners that drive robot skills in simulated environments with disruptions (object teleport, grip failures). Tasks involve recovery after plan breaks. Metrics include success rate and recovery rate across turbulence tiers, with seeds for reproducibility.",
+      "whyItMatters": "Tests robustness and recovery capabilities of AI planners in dynamic real-world conditions, which is crucial for deploying robots in uncertain environments. Provides a standardized simulation for comparative evaluation.",
+      "decisionReason": "Provides a full platform with reproducible episodes, leaderboard generation, and clear scoring contract. Publicly available code and logs, with CI for validation.",
+      "publishers": [
+        {
+          "name": "guptabhishekumar",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/guptabhishekumar/grit-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "885e8106116c912c638274bec531f74d11d890971d3e62e511e1257e22a3b4aa",
+      "selectionFingerprint": "0fcec9e57db0ba7a8b49ed61e050a005fb4fb159d207f00c8907825e6698a39e"
+    },
+    "github:0xboyu/company-mental-model-benchmark": {
+      "decision": "exclude",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Research benchmark testing whether explicit company economic-model representations improve LLM's ability to identify compounding mechanisms. Compares direct synthesis, structured model, and structured model with critic on 8 companies.",
+      "whyItMatters": "Addresses a research question about LLM reasoning, but the benchmark has no standalone comparison path and is designed to support a specific paper's finding.",
+      "decisionReason": "Primarily a research experiment to support a paper's conclusion; no leaderboard or public comparison mechanism. The benchmark is not intended for ongoing model evaluation.",
       "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "665aa18914fedac3fe3e431de58417c9c4b189d8e267b09c43c3176ce0f021fe",
-      "selectionFingerprint": "92eb5ad29c032d741713ac1dff8a94c85d0ff131a34127fdde86378048afc053"
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "27a775c7455d685e5f57bc7ea6a7bd095fc1cf193f0e80d58019ea47bcde6970",
+      "selectionFingerprint": "9d6daf37abb7b9f5fca0eeee09ed92cb149140551199ff4a52e92dc2f7252cce"
+    },
+    "github:anuragkokate09/asr-model-benchmark": {
+      "decision": "publish",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Reproducible CPU benchmark comparing Whisper Small, Faster-Whisper Small, and Wav2Vec2 Base 960h under clean and 10 dB SNR noisy speech conditions. Evaluates Word Error Rate (WER), inference latency, real-time factor (RTF), memory usage, and robustness to controlled noise. Uses 20 clean and 20 noisy samples from the LibriSpeech ASR clean test set with fixed random seed.",
+      "whyItMatters": "Provides a controlled comparison of three widely used ASR models on CPU, measuring both accuracy and efficiency. Helps practitioners select models for resource-constrained, CPU-only deployments. The consistent protocol and noise injection methodology offer a baseline for evaluating other ASR models under similar conditions.",
+      "decisionReason": "Public repo with complete code, data, and instructions. Evaluates a fixed set of models on a standard dataset with a clear scoring protocol (WER, latency, RTF, memory). Includes reproducible environment details and results tables.",
+      "publishers": [
+        {
+          "name": "Anurag Kokate",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/Anuragkokate09/asr-model-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "11dba55c29208501bd9279320efee1c25978b518dd6489d89c029c2246e1a4ad",
+      "selectionFingerprint": "0c418acde240303130e1f55f534541b0c79af8a1fc486f42c18d3652b84e85d5"
     },
     "github:bluebunnyanon/agent-benchmark-2d-maze": {
       "decision": "publish",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates interactive multimodal agents on long-horizon navigation and interaction tasks within structured 2D maze environments, using mechanism-aware progress scoring.",
-      "whyItMatters": "Addresses a gap in multi-step agent evaluation by requiring navigation, tool interaction, and error recovery, providing a reusable environment for model comparison.",
-      "decisionReason": "Provides maze corpus, evaluation harness, scoring implementation, and reproduction instructions; task validation and solvability checks are included.",
-      "publishers": [],
-      "model": "deepseek-v4-pro",
-      "policyVersion": "2026-08-23.1",
-      "generatedAt": "2026-08-24T07:05:30.194517Z",
-      "inputHash": "6072cdb53cae9172ce5ed7ba0597792f171b36ad088753e66b50033d66e622b7",
-      "selectionFingerprint": "cb45e0e8db24deae3a5751d3294bd78a683a726f7aa81c818dcf14d97c456741"
+      "description": "Benchmark for evaluating interactive multimodal agents in structured 2D maze environments. Requires long-horizon interaction, partial observability, action execution, and recovery from mistakes. Includes maze specifications, environment implementations, model adapters, and a mechanism-aware progress scoring system. Provides scripts for running and reproducing evaluations.",
+      "whyItMatters": "Addresses the gap in evaluating agents on sequential, goal-directed tasks beyond single-step prediction. Offers a controlled environment with declarative task specifications and a transparent scoring mechanism, enabling comparison of different models' planning and interaction capabilities. The included human-playable interface and validation utilities support broader usability.",
+      "decisionReason": "Repository contains code, benchmark instances, evaluation harness, and reproducibility artifacts. Clearly defines the evaluation protocol and scoring. Provides installation and reproduction instructions. While the accompanying paper is anonymous, the public artifacts support independent use.",
+      "publishers": [
+        {
+          "name": "Blue Bunny Anon",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/bluebunnyanon/agent-benchmark-2d-maze",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-flash",
+      "policyVersion": "2026-08-21.1",
+      "generatedAt": "2026-08-24T07:41:44.885071Z",
+      "inputHash": "a2c5bd6118929ed81026a0906fefc6565780cfd9feb9fd7fdcd833f1d298d48f",
+      "selectionFingerprint": "be7808508323522f851af8d712dd0b8e3b81397f3d3b5017bcd014372538afb2"
     },
     "github:t1mdurden/benchmark-resolution": {
       "decision": "exclude",
@@ -24162,6 +24197,21 @@
       "generatedAt": "2026-08-24T07:05:30.194517Z",
       "inputHash": "001508a184e66ada17d6c42584401fcd5338ed8fca6ce6defc033ed5a3446213",
       "selectionFingerprint": "6e88968eb86a6dfecc0d411e84c1f507da32457e5e968e29d3866021e2433de7"
+    },
+    "github:kyashrathore/agent-app-benchmark": {
+      "decision": "publish",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Agent App Benchmark measures GUI performance of coding-agent applications on deterministic scenarios: application start, session switching, and memory/CPU under historical session loads.",
+      "whyItMatters": "Enables direct comparison of coding-agent desktop apps on reproducible performance metrics, which is currently missing.",
+      "decisionReason": "Public benchmark framework with canonical corpus and validation allows multiple applications to be scored under identical conditions.",
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-08-23.1",
+      "generatedAt": "2026-08-24T07:41:28.683304Z",
+      "inputHash": "73f3bdfa752d4efc97affd5b556bb38f2d96a263747672c71f6b0442bf9c75a6",
+      "selectionFingerprint": "b4e892a9069eab8e8eb1308c5582cae17a0a80e1765fae9fdc8888ab5ad50253"
     }
   }
 }
