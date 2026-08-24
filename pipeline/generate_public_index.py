@@ -45,21 +45,9 @@ def effective_latest_release(records: list[dict], claimed_date: str) -> str:
 def effective_latest_batch(
     records: list[dict], claimed_date: str, source_window: dict | None,
 ) -> dict[str, str]:
-    """Use the current publication window when it contains public records."""
-    start = str((source_window or {}).get("from") or claimed_date)
-    end = str((source_window or {}).get("to") or claimed_date)
-    fallback = effective_latest_release(records, claimed_date)
-    if end < fallback:
-        return {"from": fallback, "to": fallback}
-    has_public_record = any(
-        start <= str(record.get("releasedAt") or "") <= end
-        and record.get("displayEligible", True) is not False
-        and record.get("evaluationMode") != "viewpoint_probe"
-        for record in records
-    )
-    if has_public_record:
-        return {"from": start, "to": end}
-    return {"from": fallback, "to": fallback}
+    """Latest is one release day; a wider source window is catch-up only."""
+    latest = effective_latest_release(records, claimed_date)
+    return {"from": latest, "to": latest}
 
 
 def project_record(source: dict) -> dict:

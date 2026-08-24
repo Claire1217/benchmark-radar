@@ -28,7 +28,7 @@ class PublicIndexTests(unittest.TestCase):
         }
         self.assertEqual([item["name"] for item in public_publishers(source)], ["Example Research"])
 
-    def test_weekend_publication_batch_keeps_all_three_days(self) -> None:
+    def test_weekend_catch_up_does_not_expand_latest_beyond_one_day(self) -> None:
         records = [
             {"releasedAt": "2026-08-21", "displayEligible": True},
             {"releasedAt": "2026-08-22", "displayEligible": True},
@@ -37,7 +37,7 @@ class PublicIndexTests(unittest.TestCase):
             effective_latest_batch(
                 records, "2026-08-23", {"from": "2026-08-21", "to": "2026-08-23"}
             ),
-            {"from": "2026-08-21", "to": "2026-08-23"},
+            {"from": "2026-08-22", "to": "2026-08-22"},
         )
 
     def test_benchmark_name_is_not_a_publisher(self) -> None:
