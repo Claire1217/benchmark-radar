@@ -54,6 +54,8 @@ def main() -> None:
         raise SystemExit("descriptions must display directly without secondary disclosure controls")
     if 'button.textContent=previous?"Show the previous day":""' not in app:
         raise SystemExit("Latest must offer a date-free previous-day control")
+    if '&&previousDay&&r.releasedAt!==previousDay?dayDivider' not in app:
+        raise SystemExit("Latest release day must not repeat a redundant date divider")
     if "new IntersectionObserver" in app:
         raise SystemExit("previous days must load only after an explicit button click")
     if 'evaluationMode!=="viewpoint_probe"' not in app:
