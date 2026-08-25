@@ -1,13 +1,1589 @@
 {
-  "generatedAt": "2026-08-24T07:41:26.531286Z",
-  "sourceDate": "2026-08-23",
+  "generatedAt": "2026-08-25T14:36:57.665108Z",
+  "sourceDate": "2026-08-24",
   "sourceWindow": {
-    "from": "2026-08-21",
-    "to": "2026-08-23"
+    "from": "2026-08-24",
+    "to": "2026-08-24"
   },
   "queueMode": "persistent-multi-source-upsert",
-  "candidateCount": 1426,
+  "candidateCount": 1439,
   "candidates": [
+    {
+      "id": "bm_rag-token-benchmark-vector-graph-hybrid_b26c7bba",
+      "familyId": "bmf_71a9ecc67ae5",
+      "name": "rag-token-benchmark-vector-graph-hybrid",
+      "paperTitle": "rag-token-benchmark-vector-graph-hybrid",
+      "aliases": [],
+      "oneLine": "rag-token-benchmark-vector-graph-hybrid Comparative benchmarking of Vector, Graph, and Hybrid RAG pipelines focused on token consumption, using LlamaIndex, ChromaDB, and Neo4j.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T01:11:23Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid",
+        "paper": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid",
+        "project": "https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white",
+        "code": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid"
+      },
+      "motivation": "rag-token-benchmark-vector-graph-hybrid Comparative benchmarking of Vector, Graph, and Hybrid RAG pipelines focused on token consumption, using LlamaIndex, ChromaDB, and Neo4j.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:viochris/rag-token-benchmark-vector-graph-hybrid",
+        "url": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid",
+        "title": "rag-token-benchmark-vector-graph-hybrid",
+        "authors": [
+          "viochris"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "rag-token-benchmark-vector-graph-hybrid Comparative benchmarking of Vector, Graph, and Hybrid RAG pipelines focused on token consumption, using LlamaIndex, ChromaDB, and Neo4j.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "rag-token-benchmark-vector-graph-hybrid Comparative benchmarking of Vector, Graph, and Hybrid RAG pipelines focused on token consumption, using LlamaIndex, ChromaDB, and Neo4j. chromadb graph-rag hybrid-search llama-index llm-benchmark neo4j rag retrieval-augmented-generation token-efficiency vector-search # 🔍 RAG Token & Cost Benchmark: Vector vs Graph vs Hybrid ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat&logo=python&logoColor=white) ![LlamaIndex](https://img.shields.io/badge/LlamaIndex-Framework-black?style=flat) ![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Store-FF6F00?style=flat) ![Neo4j](https://img.shields.io/badge/Neo4j-Graph%20Store-008CC1?style=flat&logo=neo4j&logoColor=white) ![Google Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?style=flat&logo=google&logoColor=white) ![LiteLLM](https://img.shields.io/badge/LiteLLM-Cost%20Tracking-purple?style=flat) ![Phoenix](https://img.shields.io/badge/Arize-Phoenix%20Tracing-00C7B7?style=flat) ![License](https://img.shields.io/badge/License-MIT-green?style=flat) ## 📌 Overview This project benchmarks **token consumption and inference cost** across three Retrieval-Augmented Generation (RAG) architectures (**Vector RAG**, **Graph RAG**, and **Hybrid RAG**) when answering the same set of questions (increasing in complexity: simple, analytical, multi-hop) over the same YouTube video transcript. Each architecture is instrumented with a token counter, a step-level debug tracer, and a cost calculator, so every answer comes with a transparent breakdown of prompt tokens, completion tokens, total tokens, and estimated USD cost. This allows a direct, apples-to-apples comparison of what each architecture actually costs to run, not just how well it answers. > **Status:** 🟢 Complete. Vector RAG, Graph RAG, and Hybrid RAG benchmarks have all been run on the same transcript and question set. --- ## 🎯 Context & Problem Statement ### 💬 The Practical Problem Graph RAG and Hybrid RAG are frequently recommended over plain Vector RAG for their supposedly richer, more relational context, but that recommendation almost never comes with a number attached. In practice, building a Graph or Hybrid pipeline means paying for **two extra, non-trivial cost centers** that Vector RAG doesn't have: (1) an LLM-driven triplet extraction step to populate the knowledge graph during ingestion, and (2) typically longer, more elaborate LLM completions at query time. For anyone operating under a **limited API quota** (students, researchers, or hobbyists on free-tier keys), adopting a \"better\" architecture without knowing this upfront can mean running out of quota mid-experiment, with no way to know in advance whether the answer-quality gain was even worth the extra spend. ### 💡 The Solution & Engineering Approach This project answers a narrow, concrete question: **for the exact same transcript and the exact same 3 questions, how many more tokens, and how many more dollars, does each additional layer of RAG sophistication (Vector to Graph to Hybrid) actually cost?** Rather than debating this in the abstract, each architecture is built end-to-end and instrumented identically with: * 🔢 **Token accounting** via `TokenCountingHandler` (prompt / completion / total tokens per turn). * 🐞 **Step-level tracing** via `LlamaDebugHandler` (retrieval → reranking → synthesis → LLM latency breakdown). * 💰 **Cost estimation** via LiteLLM's `completion_cost()`, mapped against the actual model used per call. * 📊 **Distributed tracing** via Arize Phoenix (OpenTelemetry) for full observability of the retrieval/generation pipeline. The same three questions of deliberately increasing complexity are asked against each architecture's index of the identical transcript, so any token/cost difference can be attributed to **architecture design**, not to varying source content or varying questions. --- ## 📊 Quantitative Metrics **Data Source:** Single YouTube video transcript (zero-shot object detection & localization using OpenAI's CLIP) **Model Used (all turns):** `gemini-2.5-flash` Note: LiteLLM supports automatic fallback to alternate models on rate limits or errors, but fallback was deliberately left disabled for this benchmark. Keeping a single fixed model across every turn and every architecture avoids introducing an extra variable (a mid-run model switch) that would make the token and cost comparison between Vector, Graph, and Hybrid RAG less controlled. ### The 3 Questions Used (Identical Across All 3 Architectures) 1. **Q1 (Simple):** *\"What is this video mainly about?\"* 2. **Q2 (Analytical):** *\"What are the main points or steps explained in this video, and how do they relate to each other?\"* 3. **Q3 (Multi-hop):** *\"Based on everything discussed in this video, what conclusion or key takeaway can be drawn, and what supporting details from different parts of the video lead to that conclusion?\"* ### Vector RAG Retrieval Config: `similarity_top_k=5`, reranked down to `top_n=3` via cross-encoder (`ms-marco-MiniLM-L-2-v2`) | Question Complexity | Prompt Tokens | Completion Tokens | Total Tokens | Estimated Cost (USD) | | :--- | ---: | ---: | ---: | ---: | | **Q1 (Simple)** (\"What is this video mainly about?\") | 5,467 | 391 | 5,858 | $0.002618 | | **Q2 (Analytical)** (\"What are the main points/steps and how do they relate?\") | 5,645 | 1,673 | 7,318 | $0.005876 | | **Q3 (Multi-hop)** (\"What conclusion can be drawn, with supporting details across the video?\") | 6,897 | 1,857 | 8,754 | $0.005338 | ### Graph RAG Retrieval Config: Neo4j property graph (triplet extraction via `SimpleLLMPathExtractor`, `max_paths_per_chunk=15`), `similarity_top_k=5`, `include_text=True`, reranked via cross-encoder (`ms-marco-MiniLM-L-2-v2`) | Question Complexity | Prompt Tokens | Completion Tokens | Total Tokens | Estimated Cost (USD) | | :--- | ---: | ---: | ---: | ---: | | **Q1 (Simple)** (\"What is this video mainly about?\") | 3,527 | 1,432 | 4,959 | $0.004638 | | **Q2 (Analytic",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:viochris/rag-token-benchmark-vector-graph-hybrid",
+          "url": "https://github.com/viochris/rag-token-benchmark-vector-graph-hybrid"
+        }
+      ]
+    },
+    {
+      "id": "bm_rag-quantization-benchmark_0e9ac2c5",
+      "familyId": "bmf_241df9b04303",
+      "name": "RAG-Quantization-Benchmark",
+      "paperTitle": "RAG-Quantization-Benchmark",
+      "aliases": [],
+      "oneLine": "RAG-Quantization-Benchmark Benchmarking LLM quantization (FP16, INT8, INT4) on a real RAG pipeline, measuring RAM usage, latency, throughput, and answer quality with Ollama, Qwen3, FastAPI, PostgreSQL/pgvector, and React.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T04:54:44Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark",
+        "paper": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark",
+        "code": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark"
+      },
+      "motivation": "RAG-Quantization-Benchmark Benchmarking LLM quantization (FP16, INT8, INT4) on a real RAG pipeline, measuring RAM usage, latency, throughput, and answer quality with Ollama, Qwen3, FastAPI, PostgreSQL/pgvector, and React.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:prachipmishra/rag-quantization-benchmark",
+        "url": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark",
+        "title": "RAG-Quantization-Benchmark",
+        "authors": [
+          "PrachiPMishra"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "RAG-Quantization-Benchmark Benchmarking LLM quantization (FP16, INT8, INT4) on a real RAG pipeline, measuring RAM usage, latency, throughput, and answer quality with Ollama, Qwen3, FastAPI, PostgreSQL/pgvector, and React.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "RAG-Quantization-Benchmark Benchmarking LLM quantization (FP16, INT8, INT4) on a real RAG pipeline, measuring RAM usage, latency, throughput, and answer quality with Ollama, Qwen3, FastAPI, PostgreSQL/pgvector, and React. benchmarking docker fastapi generative-ai llm llm-quantization ollama pgvector postgresql quantization qwen rag react semantic-search vector-database # RAGQuantBench A benchmarking tool that measures how LLM quantization — fp16 vs. 8-bit vs. 4-bit — affects RAM usage, latency, and answer quality. Instead of synthetic benchmarks, it uses a real RAG pipeline over uploaded PDFs as the test harness: same documents, same questions, same retrieval, only the model's weight precision changes between runs. The PDF chat interface you can click around in is the vehicle for generating that comparison, not the product itself. ## Screenshots ### Benchmark Dashboard ![RAGQuantBench Chat](screenshots/dashboard.png) ### RAG Chat Interface ![Benchmark Dashboard](screenshots/single-document.png) ### Multi-Document RAG ![Multi-Document RAG](screenshots/multi-document.png) ## The question this answers Does compressing a model's weights actually hurt answer quality, or is it free performance? ## Key finding **q4_K_M matched fp16 on accuracy across every tested question, while using ~34% of the RAM and running 1.9–2.3x faster.** Across repeated benchmark runs (9 questions, real RAG retrieval, Qwen3-4B-Instruct): | Variant | Avg RAM | Avg Latency | Relative to fp16 | |---|---|---|---| | `q4_K_M` | 2761 MB (2.7 GB) | 4332 ms | 34% RAM · 2.26x faster | | `q8_0` | 4462 MB (4.4 GB) | 6210 ms | 55% RAM · 1.58x faster | | `fp16` | 8058 MB (8.1 GB) | 9805 ms | baseline | On every question in the final run — including a \"list every chemical compound mentioned\" enumeration question that's a good stress test for precision — all three variants produced the identical, correct answer (`CO2, H2O, C6H12O6, O2`). Quantizing to 4-bit cost nothing on correctness here. **One thing we did catch along the way**: in an earlier pass (direct-context, before we tightened the prompt), `q8_0` visibly second-guessed itself on that same enumeration question — it over-included non-compounds (`stroma`, `thylakoids`) before self-correcting mid-answer, and its latency spiked to 16.6s (vs. 8.5s for q4_K_M and 22.4s for fp16 on that same call — fp16 was actually the cleanest on that particular pass). That instability wasn't quantization-specific; it went away for all three variants once the prompt explicitly forbade self-correction and re-deriving. Worth knowing if you're benchmarking your own prompts: some of what looks like a \"quantization tax\" is actually a prompt-engineering gap. ## Architecture ``` PDF upload │ ▼ Text extraction (pypdf, layout-aware) │ ▼ Chunking (~200 tokens, 40-token overlap) │ ▼ Embedding (all-MiniLM-L6-v2, 384-dim) ──► pgvector storage (Postgres) │ User question ──► Query classification ───────────┤ (SUMMARY vs. SPECIFIC, │ lightweight LLM call) │ │ │ ┌─────────────┴─────────────┐ │ ▼ ▼ │ SPECIFIC: top-k SUMMARY: fetch all │ similarity retrieval chunks, map-reduce │ (cosine distance) (per-chunk abstract │ │ + synthesized reduce) │ │ │ │ └─────────────┬─────────────┘ │ ▼ │ Ollama inference ◄────────────────────┘ (user-selected quantization tier: q4_K_M / q8_0 / fp16) │ ▼ Answer ``` Retrieval is scoped per-document — every query filters on `document_id`, so uploading a second PDF doesn't bleed into the first document's answers. ## Tech stack - **Ollama** — Qwen3 4B Instruct, three quantization tags: `q4_K_M`, `q8_0`, `fp16` - **FastAPI** — backend, `/ingest`, `/chat`, `/retrieve` endpoints - **PostgreSQL + pgvector** — combined relational + vector store - **sentence-transformers** — `all-MiniLM-L6-v2` for embeddings - **React + Vite** — frontend chat UI - **Docker Compose** — orchestrates app, db, and frontend containers ## Features - **Real-time model switching** between quantization tiers, mid-conversation, no restart - **RAG over uploaded PDFs** with per-document scoping (multiple documents don't cross-contaminate retrieval) - **Adaptive answer length** via `/short` and `/detail` (or `/detailed`, `/long`) slash commands typed directly into the question - **Automatic broad-vs-specific query classification** — a lightweight LLM call decides whether a question wants a narrow fact (top-k retrieval) or a whole-document overview (map-reduce summarization across every chunk), with no keyword heuristics involved ## Why pgvector over a dedicated vector DB - One database for both relational data (documents, chunk metadata) and vector data (embeddings) — no second system to run, back up, or keep in sync - Per-document scoping is a plain SQL `WHERE document_id = %s` filter alongside the vector similarity `ORDER BY`, not a separate metadata-filtering API - Zero extra infrastructure for a project this size — Postgres was already the natural choice for document/chunk bookkeeping, and pgvector just adds a column type and an operator - A dedicated vector DB (Pinecone, Weaviate, Qdrant) earns its keep at a scale — millions of vectors, approximate-index tuning, distributed retrieval — this project is nowhere near ## Known limitations - **Summarization can run long on dense documents.** The map-reduce summary path synthesizes per-chunk abstracts into a final overview, and getting that to consistently land in a target word range took several rounds of tuning (fixed-tier token budgets, explicit \"aim for 300–500 words, don't just list everything\" instructions). A document with unusually dense, tabular content can still produce a longer-than-intended summary. - **Retrieval is pure semantic similarity — no hybrid/keyword boost.** A hybrid keyword-boost path (regex-matching literal identifiers like \"day 7\" and forcing that chunk into the retrieved set) was built and verified to fix exactly this class of failure, then deliberately reverted to keep retrieval simple and predictable. The tradeoff: very literal queries — exact sect",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:prachipmishra/rag-quantization-benchmark",
+          "url": "https://github.com/PrachiPMishra/RAG-Quantization-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_pocket-eval_a33cd17d",
+      "familyId": "bmf_125e20882da0",
+      "name": "pocket-eval",
+      "paperTitle": "pocket-eval",
+      "aliases": [],
+      "oneLine": "pocket-eval The LLM eval harness that fits in your pocket: CPU-only, keyless, offline — perplexity plus a 12-item multiple-choice mini-benchmark with a deterministic n-gram baseline and an optional Hugging Face backend.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/pxlcrtiv/pocket-eval",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T16:36:43Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/pxlcrtiv/pocket-eval",
+        "paper": "https://github.com/pxlcrtiv/pocket-eval",
+        "project": "https://img.shields.io/github/actions/workflow/status/pxlcrtiv/pocket-eval/ci.yml?branch=main&label=CI",
+        "code": "https://github.com/pxlcrtiv/pocket-eval"
+      },
+      "motivation": "pocket-eval The LLM eval harness that fits in your pocket: CPU-only, keyless, offline — perplexity plus a 12-item multiple-choice mini-benchmark with a deterministic n-gram baseline and an optional Hugging Face backend.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:pxlcrtiv/pocket-eval",
+        "url": "https://github.com/pxlcrtiv/pocket-eval",
+        "title": "pocket-eval",
+        "authors": [
+          "pxlcrtiv"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "pocket-eval The LLM eval harness that fits in your pocket: CPU-only, keyless, offline — perplexity plus a 12-item multiple-choice mini-benchmark with a deterministic n-gram baseline and an optional Hugging Face backend.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "pocket-eval The LLM eval harness that fits in your pocket: CPU-only, keyless, offline — perplexity plus a 12-item multiple-choice mini-benchmark with a deterministic n-gram baseline and an optional Hugging Face backend. Zero runtime deps, zero API keys, zero GPUs. ai benchmark cli cpu defi evaluation keyless llm machine-learning mlops perplexity python # pocket-eval [![CI](https://img.shields.io/github/actions/workflow/status/pxlcrtiv/pocket-eval/ci.yml?branch=main&label=CI)](https://github.com/pxlcrtiv/pocket-eval/actions) [![License](https://img.shields.io/github/license/pxlcrtiv/pocket-eval)](LICENSE) [![Stars](https://img.shields.io/github/stars/pxlcrtiv/pocket-eval)](https://github.com/pxlcrtiv/pocket-eval/stargazers) [![Forks](https://img.shields.io/github/forks/pxlcrtiv/pocket-eval)](https://github.com/pxlcrtiv/pocket-eval/forks) [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/) [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff) **The LLM eval harness that fits in your pocket.** CPU-only, keyless, offline: evaluates language models on a bundled DeFi/on-chain/ML corpus — perplexity + a 12-item multiple-choice mini-benchmark — with a deterministic n-gram baseline that runs anywhere Python runs, and an optional Hugging Face backend for real tiny models. **Zero runtime dependencies, zero API keys, zero GPUs.** ## Problem - Evaluations are the boring part of ML engineering — so they get skipped, or run ad-hoc with no baselines, no seeds, and no reproducible reports. - State-of-the-art harnesses ([EleutherAI/lm-evaluation-harness]( https://github.com/EleutherAI/lm-evaluation-harness)) assume a GPU farm and heavyweight model suites; they cannot run in CI or on a laptop. - Nobody *reports the floor*: without a random baseline and a lexical baseline, a model's score is a headline, not a result. ## Solution `pocket-eval` ships a self-contained evaluation in a single package: | Backend | What it is | Requires | | --- | --- | --- | | `ngram` | add-1 smoothed bigram LM trained on the bundled corpus (stdlib-only, deterministic) | nothing | | `random` | seeded uniform-choice chance floor | nothing | | `huggingface` | any public causal LM (CPU, keyless) | `pip install \"pocket-eval[hf]\"` | The bundled assets are **original and leakage-free**: a 15-doc corpus (DeFi 101, smart-contract security, ERC standards, MEV, flash loans, zk-rollups, LLM agents on-chain, …) and a 12-question multiple-choice mini-benchmark with per-item topics and answers. You can swap in your own corpus and items by editing the JSON/markdown in `pocket_eval/data/`. ## Quickstart ```bash git clone https://github.com/pxlcrtiv/pocket-eval cd pocket-eval python3 -m venv .venv && source .venv/bin/activate pip install -e . ``` Run the full bundled evaluation (ngram baseline): ```bash pocket-eval demo ``` Score the mini-benchmark with a real (tiny) model — keyless, CPU, ~16 MB: ```bash pip install \"pocket-eval[hf]\" pocket-eval qa --backend huggingface --model sshleifer/tiny-gpt2 ``` ## Demo (live transcript, 2026-08-24) ```text $ pocket-eval demo # pocket-eval report - model: **ngram-v1 (bundled bigram)** - backend: `ngram` (seed 7) ## Perplexity (bundled corpus) | metric | value | | --- | --- | | corpus tokens | 3487 | | corpus perplexity | 520.72 | ## Multiple-choice QA (bundled mini-benchmark) | metric | value | | --- | --- | | questions | 12 | | correct | 10 | | accuracy | 83.3% | ``` Run the chance floor: ```text $ pocket-eval qa --backend random --seed 7 6/12 correct (50.0%) q01 correct score=0.0000 ... ``` And the honest comparison — a 15M-parameter model is *worse than chance* on this benchmark, because its next-token probabilities are too flat to discriminate options: ```text $ pocket-eval qa --backend huggingface --model sshleifer/tiny-gpt2 2/12 correct (16.7%) q01 missed score=0.0172 ... $ pocket-eval perplexity --backend huggingface --model distilgpt2 --json {\"perplexity\": 1191.2760960550697} ``` ## Results so far (real runs, keyless, CPU-only) | Model / baseline | Corpus PPL | QA accuracy | What it shows | | --- | --- | --- | --- | | random (seed stream, avg) | — | ~25% | the chance floor | | ngram-v1 (bundled bigram) | 520.7 | 10/12 (83.3%) | lexical co-occurrence memorizes definitions | | `sshleifer/tiny-gpt2` | 49,982 | 2/12 (16.7%) | probabilities too flat to discriminate | | `distilgpt2` | 1,191 | 3/12 (25.0%) | fluency ≠ definitional knowledge | | `Qwen/Qwen2.5-0.5B-Instruct` | 4,918 | 3/12 (25.0%) | raw-logprob scoring ignores chat templates | The lesson is the point of the harness: **a 10-line n-gram baseline over the corpus beats GPT-2-class models on definitional items** — it memorizes co-occurrence while small LMs emit fluent-but-flat probabilities, and instruct-tuned models need chat-formatted scoring to answer at all. Plug in a bigger or chat-templated scorer and watch the ordering flip; the harness keeps the comparison reproducible either way. ## Commands ```bash # full bundled evaluation (corpus perplexity + QA, markdown/json) pocket-eval demo [--format json] # perplexity of a sentence or the whole bundled corpus pocket-eval perplexity \"Flash loans must be repaid in the same transaction\" pocket-eval perplexity --backend huggingface --model distilgpt2 # multiple-choice QA with any backend pocket-eval qa --backend ngram --seed 7 pocket-eval qa --backend random --seed 7 pocket-eval qa --backend huggingface --model sshleifer/tiny-gpt2 --format json # deterministic corpus stats pocket-eval corpus ``` ## How it works 1. `tokenize()` — deterministic lowercase word tokenization (hyphenated terms like `checks-effects-interactions` stay one token). 2. `NgramLM` — add-1 smoothed word bigram trained at runtime on the bundled corpus; OOV words map to ` ` at query time only. Training is deterministic: same corpus bytes → same probabilities. 3. QA scoring — options are ranked by `log P(option | question)` (mean log-prob of the full sequ",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:pxlcrtiv/pocket-eval",
+          "url": "https://github.com/pxlcrtiv/pocket-eval"
+        }
+      ]
+    },
+    {
+      "id": "bm_neoxider-benchmark_5cd14627",
+      "familyId": "bmf_0220af5c0163",
+      "name": "neoxider-benchmark",
+      "paperTitle": "neoxider-benchmark",
+      "aliases": [],
+      "oneLine": "neoxider-benchmark Honest benchmark for agentic CLI models: instruction-following, algorithms, browser work, spatial reasoning, exact arithmetic — and resistance to making things up agentic-ai ai-agents benchmark claude-code cli evaluation…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/NeoXider/neoxider-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T14:35:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/NeoXider/neoxider-benchmark",
+        "paper": "https://github.com/NeoXider/neoxider-benchmark",
+        "project": "https://neoxider.github.io/neoxider-benchmark/",
+        "code": "https://github.com/NeoXider/neoxider-benchmark"
+      },
+      "motivation": "neoxider-benchmark Honest benchmark for agentic CLI models: instruction-following, algorithms, browser work, spatial reasoning, exact arithmetic — and resistance to making things up agentic-ai ai-agents benchmark claude-code cli evaluation hallucination leaderboard llm llm-evaluation opencode python # Neoxider Benchmark ![Neoxider Benchmark](docs/cover.png) A small, honest benchmark for **agentic** CLI models: it me…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:neoxider/neoxider-benchmark",
+        "url": "https://github.com/NeoXider/neoxider-benchmark",
+        "title": "neoxider-benchmark",
+        "authors": [
+          "NeoXider"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "neoxider-benchmark Honest benchmark for agentic CLI models: instruction-following, algorithms, browser work, spatial reasoning, exact arithmetic — and resistance to making things up agentic-ai ai-agents benchmark claude-code cli evaluation hallucination leaderboard llm llm-evaluation opencode python # Neoxider Benchmark ![Neoxider Benchmark](docs/cover.png) A small, honest benchmark for **agentic** CLI models: it measures not whether the model knows facts, but whether it finishes the job, follow",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "neoxider-benchmark Honest benchmark for agentic CLI models: instruction-following, algorithms, browser work, spatial reasoning, exact arithmetic — and resistance to making things up agentic-ai ai-agents benchmark claude-code cli evaluation hallucination leaderboard llm llm-evaluation opencode python # Neoxider Benchmark ![Neoxider Benchmark](docs/cover.png) A small, honest benchmark for **agentic** CLI models: it measures not whether the model knows facts, but whether it finishes the job, follows instructions literally, and **admits when it can't**. Eight tasks, ten levels each. One attempt and one chance to fix per level — like a live agent told \"that didn't work, fix it.\" **Leaderboard:** https://neoxider.github.io/neoxider-benchmark/ ## Why another benchmark Existing benchmarks measure answer quality. This one measures what actually burns you in day-to-day work: a model can produce output that is **indistinguishable from good by every external sign** — correct structure, tidy references, even a self-critical section about difficulties — and be entirely fabricated. The only way to catch this is verification. Hence the `honesty` task, which you won't find in standard suites: some of its questions are **unsolvable in principle**, points are awarded for an honest \"not found,\" and taken away for a plausible made-up answer. A model that lies ends up **below** a model that stays silent. ## Tasks | Task | What it measures | Categories | |---|---|---| | `count` | literal instruction following | instruction | | `path3d` | pathfinding algorithm on a 3D grid | logic, spatial | | `webform` | working with a real page in a browser | agentic | | `spatial` | spatial reasoning without code | spatial | | `honesty` | resistance to making things up | honesty | | `calc` | exact arithmetic and equations | math, logic | | `pathperf` | solution quality: correct **and** within a time budget | logic, agentic | | `toolchoice` | figuring out on its own that the job needs a tool | agentic, logic | Details on each are in [docs/TASKS.md](docs/TASKS.md). ## Four rules baked into the architecture Keep them in mind with any change to the suite. **1. One task is one folder.** `tasks/ /task.py` with `NAME`, `TITLE`, `MAX_LEVEL`, `CATEGORIES`, `NEEDS`, `generate`, `score`. Adding a task means dropping in a folder; the registry finds it on its own. Nothing else needs editing. **2. A run catches up instead of starting over.** Results are stored per (task, level) key. Re-running computes only what's missing and appends to the same file. So you can run the minimum today, add a task tomorrow, and backfill just that one — existing results get reused. This lets the benchmark grow without rerunning history. **3. Tasks are generated procedurally from a seed.** The repository ships a generator, not ready-made instances. A model trained on this repo gains no advantage: the concrete mazes, cube rotations, and equations are new every time. The seed is recorded in results, so a run reproduces exactly. **4. Everything a user sees is English.** README and docs, the site, CLI output, generated model cards, and — importantly — **the task prompts themselves**. Russian stays only in source comments, which are internal notes. For prompts this is not cosmetic. A Russian prompt quietly penalises a model that is weaker in Russian, so the suite would be measuring language skill on top of the thing it claims to measure. Missing spots were found one at a time — first the landing page, then the form, then the model card — which is why the rule is stated once and applies everywhere rather than as a list of files. ## Running ```bash python run.py --model opencode/x-preview-f-free --profile minimal ``` From any harness, including another agent: ```bash ./bench.sh opencode/x-preview-f-free minimal ``` Catching up is just running again without a profile: ```bash python run.py --model opencode/x-preview-f-free ``` Useful: ```bash python run.py --status --model # what's done, what's left python run.py --tasks spatial --levels 1-3 # part of the suite only python run.py --rerun-failed --model # recompute failures only python run.py --list # tasks, categories, profiles, engines python run.py --report # rebuild leaderboard and cards ./bench.sh --all-free minimal # every free model in a row ``` Profiles: `minimal` (levels 1–3), `quick` (1, 3, 5, 7), `full` (all levels), `offline` (skips tasks that need a browser). `minimal` is a competence floor, not a competition: a model you can actually work with is expected to take it at 100%. The top levels are deliberately not fully reachable — a benchmark someone clears completely stops measuring anything. ## How scoring works | Outcome | Score | |---|---| | Passed on the first attempt | **1.0** | | Passed after a fix | **0.5** | | Failed | **0** | | Fabricated a plausible answer instead of \"not found\" | **−1.0** | Maximum is 80 points on a full run. Per-category scores are computed separately, from 0 to 1. ## Tokens, overhead, and cost Tokens are **measured**, not estimated: `opencode` reports them in its `--format json` event stream, `claude` in the `usage` field, `codex` in its own JSON. If an engine doesn't report tokens, the report shows a dash, not a made-up number. Before the tasks, a **baseline** is measured: a trivial prompt asking for a one-word answer. It shows how much context the harness itself eats — system prompt, tool descriptions, rules. For `opencode` that turned out to be about **52,700 tokens of context before any task even starts**. Without subtracting the baseline, comparing engines against each other would be meaningless, so the report carries three numbers: overhead, net work, and total. Cost comes from `bench/pricing.json`. Where the price is unknown there's a dash, not a zero: zero would distort the score-versus-cost chart. ## Protection against leaking into training data Besides procedural generation, every prompt embeds the canary string `NXB-CANARY-a7f3c1`. If it shows up in the output of a m",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:neoxider/neoxider-benchmark",
+          "url": "https://github.com/NeoXider/neoxider-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_localslm_5ae37d24",
+      "familyId": "bmf_01fdc9db8214",
+      "name": "LocalSLM",
+      "paperTitle": "LocalSLM",
+      "aliases": [],
+      "oneLine": "LocalSLM Run, chat with, and rigorously benchmark small language models on your own machine apple-silicon benchmarking fastapi llm llm-evaluation local-llm ollama react small-language-models # LocalSLM LocalSLM is a benchmarking lab for sm…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/brncoguz/LocalSLM",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T14:15:00Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/brncoguz/LocalSLM",
+        "paper": "https://github.com/brncoguz/LocalSLM",
+        "project": "https://brncoguz.github.io/LocalSLM/",
+        "code": "https://github.com/brncoguz/LocalSLM"
+      },
+      "motivation": "LocalSLM Run, chat with, and rigorously benchmark small language models on your own machine apple-silicon benchmarking fastapi llm llm-evaluation local-llm ollama react small-language-models # LocalSLM LocalSLM is a benchmarking lab for small language models running locally through Ollama.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:brncoguz/localslm",
+        "url": "https://github.com/brncoguz/LocalSLM",
+        "title": "LocalSLM",
+        "authors": [
+          "brncoguz"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "LocalSLM Run, chat with, and rigorously benchmark small language models on your own machine apple-silicon benchmarking fastapi llm llm-evaluation local-llm ollama react small-language-models # LocalSLM LocalSLM is a benchmarking lab for small language models running locally through Ollama.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "LocalSLM Run, chat with, and rigorously benchmark small language models on your own machine apple-silicon benchmarking fastapi llm llm-evaluation local-llm ollama react small-language-models # LocalSLM LocalSLM is a benchmarking lab for small language models running locally through Ollama. You chat with models in a web UI, and every message is recorded as a measurement — throughput, time to first answer token, memory use, cold-start cost — so the data accumulates as you use it instead of requiring a separate benchmark run. Everything here was built and measured on a MacBook Pro M1 Pro with 16 GB of unified memory. [![CI](https://github.com/brncoguz/LocalSLM/actions/workflows/ci.yml/badge.svg)](https://github.com/brncoguz/LocalSLM/actions/workflows/ci.yml) ![Python](https://img.shields.io/badge/Python-3.13-blue) ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green) ![React](https://img.shields.io/badge/React-19-61dafb) ![Ollama](https://img.shields.io/badge/Ollama-0.32-white) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE) --- ## Overview There are plenty of situations where a hosted API isn't an option: data that can't leave the building for privacy or compliance reasons, latency budgets that don't allow a network round trip, cost at scale, or edge deployments without reliable connectivity. Choosing a model for those cases means understanding trade-offs that public leaderboards don't cover, because they weren't measured on your laptop. ## Features - **Chat:** Stream responses from any installed model. Reasoning traces collapse into an expandable summary, and a stats footer under each reply shows time to answer, throughput, token counts and whether the model had to load from disk. - **Conversation history:** Sessions persist in a sidebar grouped by day, and can be renamed or deleted. Reopening a conversation restores its messages along with the measurements recorded at the time. Deleting a conversation removes the transcript but keeps the measurements. - **Model management:** Pull models from a curated catalogue or any tag on the Ollama registry, with live download progress, throughput and ETA. Load, unload and delete without leaving the app. Each model card shows that model's measured performance. - **Stats dashboard:** Charts for throughput over time, speed against memory use, time-to-first-answer distribution, cold-start penalty, and the split between reasoning and answer tokens. Each model keeps a consistent colour across every chart. - **CLI:** `doctor` reports machine state (Ollama version, disk, memory pressure, power source), `models` lists what's installed with measured numbers, `repair` re-scores historical rows when a metric definition changes, and `judge` scores a completed run with a local judge and reports how far that judge can be trusted. ## How the measurements work Three decisions shape how the numbers are collected. Chat and benchmarks write to the same table. Every generation, whether it came from the chat UI or a benchmark run, is stored as a row in `requests`. The throughput shown under a chat message is the same value that feeds the reports, so the UI and the analysis can't drift apart. Requests measured on a loaded machine are excluded rather than reported as slow. If the sampler detects swapping or critical memory pressure while a request is running, the row is flagged with an `excluded` reason. It stays visible in the trace view for debugging but never reaches an average, and the filter lives in SQL so no chart can forget to apply it. On a 16 GB machine this happens regularly; 10 of the 43 requests recorded so far are excluded, 3 of them for swapping. Comparisons are paired on the items every setting actually completed. Long reasoning runs push a 16 GB machine into swap, and those requests get excluded — correctly — leaving each setting with a different subset of items. Averaging over whatever survived would compare one setting on the questions it happened to finish against another on all of them, and read the difference as a property of the setting. The analysis endpoints intersect first, and report how many items were dropped. Time to first answer token is tracked separately from time to first token. Reasoning models stream their internal monologue before the reply, so TTFT can come in under a second while you wait half a minute to read anything useful. TTFAT measures the delay that actually matters, and it's the figure the UI leads with. ## Results so far | Model | tok/s | Time to answer | Model RAM | Cold start | |---|---:|---:|---:|---:| | llama3.2:1b | 198.2 | 0.20 s | 1.57 GB | 78× | | llama3.2:3b | 91.4 | 0.35 s | 2.59 GB | 8.0× | | gemma3:4b | 60.6 | 0.48 s | 4.31 GB | 10.9× | | qwen3.5:9b | 41.7 | 0.53 s | — | — | | qwen3.5:4b | 38.7 | 0.54 s | 4.29 GB | 14.0× | | deepseek-r1:8b | 23.0 | 72.9 s | — | — | Sample sizes are small, so treat these as early signal. Where a claim is backed by a paired bootstrap the interval is quoted; where it isn't, it isn't. Model RAM is the memory charged to that model alone; the two models showing `—` have since been deleted locally, so they were never re-measured under per-model attribution. - **Reasoning tripled accuracy on arithmetic, and cost 67× the latency.** `qwen3.5:4b` on nine shared maths items scored 0.33 with thinking off and 1.00 with it on — a paired gain of +0.667 (95% CI [+0.333, +1.000], n=9). It answers in 0.5 s without reasoning and 33.6 s with it, spending roughly 1,010 tokens thinking before writing one line. - **The `think` level is binary for this model, not graded.** `low` and `high` produced identical token counts and identical timings — a measured difference of 0.000 with a zero-width interval. Ollama accepts `low`/`medium`/`high`, but `qwen3.5:4b` appears to treat anything non-false the same way. - **`deepseek-r1:8b` ignores `think=False`** — roughly 1,672 tokens either way. Between that and the point above, controlling reasoning to trade accuracy for speed is n",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:brncoguz/localslm",
+          "url": "https://github.com/brncoguz/LocalSLM"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-benchmark-tool_8275f554",
+      "familyId": "bmf_b1dcf2d7dd2c",
+      "name": "llm-benchmark-tool",
+      "paperTitle": "llm-benchmark-tool",
+      "aliases": [],
+      "oneLine": "llm-benchmark-tool # LLM Cost / Latency Benchmark Tool Runs the same set of prompts across multiple LLMs via [OpenRouter](https://openrouter.ai) — the unified API that fronts Grok, Hugging Face-hosted open models (Llama, Mistral, Qwen, ...…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/shristijain00/llm-benchmark-tool",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T07:39:02Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/shristijain00/llm-benchmark-tool",
+        "paper": "https://github.com/shristijain00/llm-benchmark-tool",
+        "project": "https://openrouter.ai",
+        "code": "https://github.com/shristijain00/llm-benchmark-tool"
+      },
+      "motivation": "llm-benchmark-tool # LLM Cost / Latency Benchmark Tool Runs the same set of prompts across multiple LLMs via [OpenRouter](https://openrouter.ai) — the unified API that fronts Grok, Hugging Face-hosted open models (Llama, Mistral, Qwen, ...), and hundreds of others — and reports which one is actually the best trade-off on **latency, cost, and response quality**, not just whichever benchmark leaderboard is trending.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:shristijain00/llm-benchmark-tool",
+        "url": "https://github.com/shristijain00/llm-benchmark-tool",
+        "title": "llm-benchmark-tool",
+        "authors": [
+          "shristijain00"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "llm-benchmark-tool # LLM Cost / Latency Benchmark Tool Runs the same set of prompts across multiple LLMs via [OpenRouter](https://openrouter.ai) — the unified API that fronts Grok, Hugging Face-hosted open models (Llama, Mistral, Qwen, ...), and hundreds of others — and reports which one is actually the best trade-off on **latency, cost, and response quality**, not just whichever benchmark leaderboard is trending.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "llm-benchmark-tool # LLM Cost / Latency Benchmark Tool Runs the same set of prompts across multiple LLMs via [OpenRouter](https://openrouter.ai) — the unified API that fronts Grok, Hugging Face-hosted open models (Llama, Mistral, Qwen, ...), and hundreds of others — and reports which one is actually the best trade-off on **latency, cost, and response quality**, not just whichever benchmark leaderboard is trending. ![Sample benchmark dashboard](assets/sample_dashboard.png) ## Why this exists Picking a model for a product feature usually comes down to \"it seems fine and it's cheap enough\" — rarely to real, side-by-side numbers on your own prompts. This tool makes that comparison mechanical: define your prompt set once, point it at any OpenRouter model IDs, and get back latency percentiles, cost per 1K tokens, and a quality-vs-cost chart to make the call from. ## Runs with zero API keys by default By default the benchmark runs against `MockProvider` — a deterministic, offline stand-in that simulates each model's latency profile and returns canned answers (with a couple of intentionally-planted mistakes on smaller models, e.g. a wrong math answer) so the tool is fully runnable, testable, and demonstrable without anyone's API key or a real network call. Pass `--live` with `OPENROUTER_API_KEY` set to hit the real API instead — same code path either way, since both providers implement the same `complete(model, prompt_spec) -> ProviderResponse` interface. ## Architecture ```mermaid flowchart LR P[prompts/*.yaml] --> R[runner.py] M[providers.py Mock or OpenRouter] --> R PR[pricing.yaml] --> R R --> A[aggregate.py per-model stats] A --> C[charts.py Matplotlib/Seaborn] A --> RP[report.py] C --> RP RP --> O[output/ results.csv · summary.csv dashboard.png · summary.md] ``` ## Quickstart ```bash python -m venv .venv && source .venv/bin/activate pip install -r requirements.txt python scripts/run_benchmark.py ``` That runs the default 3-model comparison (Grok, Llama 3.1 8B, Mistral Small) against the 5-prompt sample set (factual QA, reasoning, code generation, summarization, creative writing), 3 repeats each, and writes `output/results.csv`, `output/summary.csv`, `output/dashboard.png`, and `output/summary.md`. ```bash # Compare different models, more repeats, your own prompt file python scripts/run_benchmark.py \\ --models x-ai/grok-4.20 deepseek/deepseek-v4-flash qwen/qwen3.7-flash \\ --repeats 5 --prompts prompts/sample_prompts.yaml # Hit the real OpenRouter API instead of the mock cp .env.example .env # add your OPENROUTER_API_KEY python scripts/run_benchmark.py --live ``` Any model you pass must have a pricing entry — refresh or add one from OpenRouter's live, public model list (no API key needed for this endpoint): ```bash python scripts/refresh_pricing.py --models x-ai/grok-4.20 anthropic/claude-sonnet-5 ``` ## What \"quality\" means here Response quality is scored with a cheap, fully deterministic heuristic (`judge.py`), not a second LLM call: keyword presence for factual/code/math prompts, word-count range for open-ended ones. This is a proxy, not a semantic judge — it's a known simplification (buggy code that still contains `def is_palindrome` would still pass the keyword check), documented so it's obvious where to plug in an LLM-as-judge call if you need finer signal. Similarly, cost uses each model's base pricing tier; several OpenRouter models charge more once a request crosses a large prompt-token threshold, which this tool doesn't model since its prompts are short by design. ## Project structure ``` llm-benchmark-tool/ ├── src/llm_benchmark/ │ ├── providers.py # MockProvider (offline, deterministic) + OpenRouterProvider (real API) │ ├── pricing.py # load pricing.yaml, compute request cost │ ├── pricing.yaml # $/token snapshot, refreshable from OpenRouter's live model list │ ├── judge.py # keyword / word-count quality heuristic │ ├── runner.py # (model x prompt x repeat) loop -> raw DataFrame │ ├── aggregate.py # raw records -> per-model summary stats │ ├── charts.py # latency / cost / quality-vs-cost / latency-spread dashboard │ ├── report.py # writes CSV + PNG + markdown summary │ └── cli.py # argparse entry point ├── prompts/sample_prompts.yaml ├── scripts/ │ ├── run_benchmark.py │ └── refresh_pricing.py └── tests/ ``` ## Testing ```bash python -m pytest -v ``` 23 tests cover cost computation, quality-scoring edge cases, the mock provider's per-model behavior, the OpenRouter client's response parsing and error handling (via a stubbed `requests.post`, no real network calls), aggregation math, and that the generated report contains the expected files/content. CI (`.github/workflows/ci.yml`) runs the suite on Python 3.10–3.12. ## Stack Python · Pandas · Requests · Matplotlib · Seaborn · PyYAML · pytest · OpenRouter API",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:shristijain00/llm-benchmark-tool",
+          "url": "https://github.com/shristijain00/llm-benchmark-tool"
+        }
+      ]
+    },
+    {
+      "id": "bm_l4-gpu-llm-benchmark-leaderboard_3c0a7a71",
+      "familyId": "bmf_e89a18a9f463",
+      "name": "l4-gpu-llm-benchmark-leaderboard",
+      "paperTitle": "l4-gpu-llm-benchmark-leaderboard",
+      "aliases": [],
+      "oneLine": "🚀 Local LLM Serving & Quality Benchmark Leaderboard (NVIDIA L4 24GB) An exhaustive, reproducible benchmark study measuring real-world serving performance (TTFT, TPOT, throughput, peak VRAM, energy consumption, and cost) alongside rigorous…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T04:45:27.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+        "paper": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+        "data": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard"
+      },
+      "motivation": "🚀 Local LLM Serving & Quality Benchmark Leaderboard (NVIDIA L4 24GB) An exhaustive, reproducible benchmark study measuring real-world serving performance (TTFT, TPOT, throughput, peak VRAM, energy consumption, and cost) alongside rigorous task quality gates (HumanEval+, MMLU-Pro, BFCL v4 tool calling, and RULER needle retrieval) for open-weight LLMs on a single NVIDIA L4 24GB GPU.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+        "url": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+        "title": "l4-gpu-llm-benchmark-leaderboard",
+        "authors": [
+          "mayank-dubey-ai"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 6,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "🚀 Local LLM Serving & Quality Benchmark Leaderboard (NVIDIA L4 24GB) An exhaustive, reproducible benchmark study measuring real-world serving performance (TTFT, TPOT, throughput, peak VRAM, energy consumption, and cost) alongside rigorous task quality gates (HumanEval+, MMLU-Pro, BFCL v4 tool calling, and RULER needle retrieval) for open-weight LLMs on a single NVIDIA L4 24GB GPU.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "🚀 Local LLM Serving & Quality Benchmark Leaderboard (NVIDIA L4 24GB) An exhaustive, reproducible benchmark study measuring real-world serving performance (TTFT, TPOT, throughput, peak VRAM, energy consumption, and cost) alongside rigorous task quality gates (HumanEval+, MMLU-Pro, BFCL v4 tool calling, and RULER needle retrieval) for open-weight LLMs on a single NVIDIA L4 24GB GPU. 📊 Executive Summary & Key Takeaways ⚡ Best Throughput & Coding Workhorse:… See the full description on the dataset page: https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard",
+          "url": "https://huggingface.co/datasets/mayank-dubey-ai/l4-gpu-llm-benchmark-leaderboard"
+        }
+      ]
+    },
+    {
+      "id": "bm_health-optimization-bench-sample_99fc9a4a",
+      "familyId": "bmf_7b66036432c5",
+      "name": "health-optimization-bench-sample",
+      "paperTitle": "health-optimization-bench-sample",
+      "aliases": [],
+      "oneLine": "Health Optimization Bench (Sample) A 30-task public sample of Health Optimization Bench, a rubric-graded benchmark measuring how well frontier language models handle current clinical evidence in preventive and optimization medicine.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T19:50:52.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample",
+        "paper": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample",
+        "data": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample"
+      },
+      "motivation": "Health Optimization Bench (Sample) A 30-task public sample of Health Optimization Bench, a rubric-graded benchmark measuring how well frontier language models handle current clinical evidence in preventive and optimization medicine.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:arcophos/health-optimization-bench-sample",
+        "url": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample",
+        "title": "health-optimization-bench-sample",
+        "authors": [
+          "Arcophos"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 1
+        }
+      },
+      "evidence": {
+        "snippet": "Health Optimization Bench (Sample) A 30-task public sample of Health Optimization Bench, a rubric-graded benchmark measuring how well frontier language models handle current clinical evidence in preventive and optimization medicine.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Health Optimization Bench (Sample) A 30-task public sample of Health Optimization Bench, a rubric-graded benchmark measuring how well frontier language models handle current clinical evidence in preventive and optimization medicine. Three tasks from each of the benchmark's ten micro benches. The full benchmark is 977 authored tasks with 346 released across ten micro benches. On the current leaderboard no model scores above 71 of 100 and the field spans 66 points. Rankings:… See the full description on the dataset page: https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:arcophos/health-optimization-bench-sample",
+          "url": "https://huggingface.co/datasets/Arcophos/health-optimization-bench-sample"
+        }
+      ]
+    },
+    {
+      "id": "bm_eeg-privacy-benchmark_665f439f",
+      "familyId": "bmf_6c0b41cc80b8",
+      "name": "eeg-privacy-benchmark",
+      "paperTitle": "eeg-privacy-benchmark",
+      "aliases": [],
+      "oneLine": "eeg-privacy-benchmark Reproducible benchmark for evaluating privacy-preserving machine learning methods on EEG data.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Interactive Environment",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/tienxion/eeg-privacy-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T23:31:40Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/tienxion/eeg-privacy-benchmark",
+        "paper": "https://github.com/tienxion/eeg-privacy-benchmark",
+        "code": "https://github.com/tienxion/eeg-privacy-benchmark"
+      },
+      "motivation": "eeg-privacy-benchmark Reproducible benchmark for evaluating privacy-preserving machine learning methods on EEG data.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:tienxion/eeg-privacy-benchmark",
+        "url": "https://github.com/tienxion/eeg-privacy-benchmark",
+        "title": "eeg-privacy-benchmark",
+        "authors": [
+          "tienxion"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "eeg-privacy-benchmark Reproducible benchmark for evaluating privacy-preserving machine learning methods on EEG data.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "eeg-privacy-benchmark Reproducible benchmark for evaluating privacy-preserving machine learning methods on EEG data. # EEG Privacy Benchmark v1 A reproducible benchmark for asking a narrow question: when an EEG decoder is trained for left- versus right-hand motor imagery, what subject-identity and training-membership signals remain in its representations and outputs? The benchmark evaluates BNCI2014-001, Lee2019 MI/OpenBMI, and PhysioNet EEG Motor Movement/Imagery with CSP-LDA, compact EEGNet variants, subject-identity probes, and threshold, logistic, and nonlinear membership attacks. Privacy objectives are reported separately. A favorable metric is evidence only for the named attacker, split, model, and release surface; it is not a general privacy guarantee. ## Main v1 findings - Bottleneck EEGNet gives a qualified utility/subject-identification tradeoff on BNCI and Lee, but not an attack-invariant membership defense. - PhysioNet has no supported default: rankings change by attacker and protocol. - The PhysioNet federated comparison is diagnostic only because mean task balanced accuracy falls below the preregistered 0.60 utility gate. - The pairwise-mask secure-aggregation simulator matches FedAvg numerically but is 217.77x slower in the measured local aggregation benchmark. It is not production cryptography and does not protect model outputs, membership, malicious clients, dropout, collusion, authentication, or metadata. See [RESULTS.md](RESULTS.md), the [venue-neutral manuscript](paper/manuscript.md), and the [curated v1 evidence](results/v1/README.md). ## Installation Python 3.9 or newer is supported. The exact top-level versions used for the validated v1 environment are in `requirements-lock.txt`. ```bash python -m venv .venv source .venv/bin/activate python -m pip install --upgrade pip python -m pip install -r requirements-lock.txt python -m pip install --no-deps -e . ``` The dependency set includes PyTorch, MNE, and MOABB. Installation can therefore be large even though the no-training checks are lightweight. ## Lightweight quickstart These commands do not download EEG data or train a model: ```bash python scripts/check_public_smoke.py python scripts/check_public_release.py --allow-remote origin eeg-privacy-benchmark --help ``` Inspect a local cache without downloading missing files: ```bash eeg-privacy-benchmark check-dataset-cache \\ --dataset bnci2014_001 --subjects 1 \\ --mne-data-dir raw_data/mne_data ``` ## Data acquisition No EEG recordings are included. Review [DATASETS.md](DATASETS.md) and each upstream dataset's current access terms before downloading. Dataset access is performed through MOABB/MNE only when an explicit manifest or training command is run. Keep all downloads under ignored `raw_data/mne_data/`. ## Reproduction tiers - Tier 0, seconds: inspect the committed manuscript, tables, summaries, release manifest, and checksums. No environment or data is required. - Tier 1, minutes: install dependencies and run public smoke/release checks. No data, downloads, or training are used. - Tier 2, minutes to hours: acquire one upstream dataset, generate manifests, and run a one-subject or dry-run workflow. - Tier 3, hours to days: reproduce frozen multi-seed neural, federated, and attacker suites. Use sequential jobs and thread caps on laptops; see [REPRODUCING.md](REPRODUCING.md). ## Repository layout - `src/eeg_privacy_benchmark/`: benchmark package and CLI - `configs/`: frozen v1 and explicitly labeled diagnostic configurations - `scripts/`: runners, plan/result tools, smoke tests, and release validation - `data/`: frozen split definitions and metadata documentation - `paper/`: venue-neutral manuscript and bibliography - `results/v1/`: curated aggregate evidence, figures, tables, and checksums Dataset caches, generated manifests, and run outputs are written to the ignored `raw_data/`, `data/manifests/`, and `outputs/` paths when required; generated artifacts are not part of the source distribution. ## Licensing and citation Code is Apache-2.0. The manuscript, figures, tables, and curated report assets are CC BY 4.0. Dataset rights remain with their upstream providers and are not granted by this repository. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md), [DATASETS.md](DATASETS.md), and [CITATION.cff](CITATION.cff). ## Release status The `v1.0.0` release is the frozen public benchmark and evidence boundary. Its versioned manifest records the development source checkpoint and curated evidence checksums. Secret-scan and manuscript-render checks are recorded in [the publication QA note](release/PUBLICATION_QA.md).",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:tienxion/eeg-privacy-benchmark",
+          "url": "https://github.com/tienxion/eeg-privacy-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_dt-sched-bench_0617c280",
+      "familyId": "bmf_817225ad6ac5",
+      "name": "dt_sched_bench",
+      "paperTitle": "DT-Sched-Bench-v0.57.1-core",
+      "aliases": [],
+      "oneLine": "DT-Sched-Bench v0.57.1 Core Protocol-2.1 Core for DT-Sched-Bench: LLMs as scheduling and supervisory agents against seeded simulator backends.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Interactive Environment",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T15:30:44.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.75,
+      "relation": "introduces",
+      "links": {
+        "report": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core",
+        "paper": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core",
+        "data": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core"
+      },
+      "motivation": "DT-Sched-Bench v0.57.1 Core Protocol-2.1 Core for DT-Sched-Bench: LLMs as scheduling and supervisory agents against seeded simulator backends.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:xnhyacinth/dt-sched-bench-v0.57.1-core",
+        "url": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core",
+        "title": "DT-Sched-Bench-v0.57.1-core",
+        "authors": [
+          "Xnhyacinth"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Field Value Release dt_sched_bench_v0_57_1 Core rows 288 Selection quality_core_v2_v0571 Scoring 0.12.0 Leaderboard eligible false (logical_persistent primary and separate realtime_persistent supervision scorecard pending) Visibility public This source/manifest bundle contains… See the full description on the dataset page: https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "exact named benchmark artifact released in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "DT-Sched-Bench v0.57.1 Core Protocol-2.1 Core for DT-Sched-Bench: LLMs as scheduling and supervisory agents against seeded simulator backends. Dataset visibility is public. Field Value Release dt_sched_bench_v0_57_1 Core rows 288 Selection quality_core_v2_v0571 Scoring 0.12.0 Leaderboard eligible false (logical_persistent primary and separate realtime_persistent supervision scorecard pending) Visibility public This source/manifest bundle contains… See the full description on the dataset page: https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:xnhyacinth/dt-sched-bench-v0.57.1-core",
+          "url": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57.1-core"
+        },
+        {
+          "type": "huggingface",
+          "id": "huggingface:xnhyacinth/dt-sched-bench-v0.57-core",
+          "url": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.57-core"
+        },
+        {
+          "type": "huggingface",
+          "id": "huggingface:xnhyacinth/dt-sched-bench-v0.56-core",
+          "url": "https://huggingface.co/datasets/Xnhyacinth/DT-Sched-Bench-v0.56-core"
+        }
+      ]
+    },
+    {
+      "id": "bm_docuintel_c4ba2398",
+      "familyId": "bmf_59f9c2e100f4",
+      "name": "DocuIntel",
+      "paperTitle": "DocuIntel",
+      "aliases": [],
+      "oneLine": "DocuIntel Intelligent Document Processing and Grounded RAG platform with OCR, hybrid retrieval, CrossEncoder reranking, structured extraction, PII redaction and benchmark-driven evaluation.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Logistics & Operations",
+        "Finance"
+      ],
+      "primaryDomain": "Logistics & Operations",
+      "industrySectors": [
+        "Logistics",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/ronitloke/DocuIntel",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T08:26:55Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/ronitloke/DocuIntel",
+        "paper": "https://github.com/ronitloke/DocuIntel",
+        "code": "https://github.com/ronitloke/DocuIntel"
+      },
+      "motivation": "DocuIntel Intelligent Document Processing and Grounded RAG platform with OCR, hybrid retrieval, CrossEncoder reranking, structured extraction, PII redaction and benchmark-driven evaluation.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ronitloke/docuintel",
+        "url": "https://github.com/ronitloke/DocuIntel",
+        "title": "DocuIntel",
+        "authors": [
+          "ronitloke"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "DocuIntel Intelligent Document Processing and Grounded RAG platform with OCR, hybrid retrieval, CrossEncoder reranking, structured extraction, PII redaction and benchmark-driven evaluation.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "DocuIntel Intelligent Document Processing and Grounded RAG platform with OCR, hybrid retrieval, CrossEncoder reranking, structured extraction, PII redaction and benchmark-driven evaluation. ai ai-agents docker fastapi llm nlp ocr pgvector postgresql rag streamlit tesseract # DocuIntel ## Intelligent Document Processing and Grounded RAG Platform DocuIntel is an end-to-end document intelligence platform for turning native and scanned PDFs into searchable, explainable evidence. It combines PDF ingestion, native extraction, OCR, layout-aware processing, structure-aware chunking, embeddings, PostgreSQL with pgvector, keyword and semantic hybrid retrieval, CrossEncoder reranking, grounded local LLM generation, source citations, structured extraction, deterministic table analytics, document comparison, PII detection and redaction, and reproducible benchmarking. The application is complete for the current Modules 0–13 scope. It is a portfolio-quality reference implementation rather than a claim of universal document accuracy or unrestricted production readiness. ## Key capabilities - Native PDF ingestion with PyMuPDF and selective Tesseract OCR - Heuristic layout and document-structure extraction - Structure-aware chunking and local sentence-transformer embeddings - PostgreSQL and pgvector persistence - Keyword, semantic, and hybrid search with Reciprocal Rank Fusion - Optional CrossEncoder reranking over a bounded candidate pool - Grounded single-document and explicit multi-document Q&A - Source excerpts, page metadata, citation validation, and timing metadata - Grounded document summarization and constrained classification - Evidence-grounded structured field extraction - Table inventory, preview, and deterministic natural-language table queries - Document and version comparison with change detection - High-confidence email, phone, IBAN, and payment-card detection - Review-first selective PDF redaction with unchanged originals - Read-only E1–E5 evaluation tooling and a Streamlit evaluation dashboard ## Architecture ```mermaid flowchart TD UI[Streamlit frontend] --> API[FastAPI HTTP API] PDF[Uploaded PDF] --> EXTRACT[PyMuPDF native extraction] PDF --> OCR[Tesseract OCR fallback] EXTRACT --> STRUCT[Layout and document structure] OCR --> STRUCT STRUCT --> CHUNKS[Structure-aware chunks] CHUNKS --> EMBED[Sentence Transformer embeddings] EMBED --> DB[(PostgreSQL and pgvector)] DB --> RETRIEVE[Keyword and semantic retrieval] RETRIEVE --> RRF[Hybrid Reciprocal Rank Fusion] RRF --> RERANK[CrossEncoder reranking] RETRIEVE --> RERANK RERANK --> CONTEXT[Bounded context construction] CONTEXT --> OLLAMA[Ollama with llama3.2:3b] OLLAMA --> VERIFY[Grounding and citation validation] VERIFY --> ANSWER[Grounded answer and page citations] API --> EXTRACT API --> RETRIEVE API --> ANSWER ``` The Streamlit application is an HTTP-only presentation layer. Business logic, database access, retrieval, reranking, OCR, and local LLM access remain behind FastAPI services. Ollama is an external local HTTP service; DocuIntel does not start `ollama.exe` or select CPU/GPU hardware. ## Application Screenshots The Streamlit interface exposes DocuIntel's document intelligence, grounded RAG, structured analysis, privacy, and benchmark workflows through the FastAPI backend. ### Home Platform overview showing document-intelligence capabilities, architecture, backend health, and persisted document state. ![DocuIntel Home](docs/images/home.png) ### Grounded Q&A Hybrid retrieval with CrossEncoder reranking generates a source-grounded answer with page-level evidence citations. ![DocuIntel Grounded Q&A](docs/images/grounded-qa.png) ### Structured Extraction Typed field extraction returns grounded values for the resignation notice period and invoice reference while explicitly marking unsupported employee information as not found. ![DocuIntel Structured Extraction](docs/images/analyze.png) ### Document Comparison Version-aware comparison identifies added, removed, and modified text and structured table changes between document revisions. ![DocuIntel Document Comparison](docs/images/compare.png) ### Privacy and PII Redaction Local PII detection identifies email, phone number, IBAN, and credit-card values and allows explicit selective redaction rather than automatic removal. ![DocuIntel Privacy and PII Redaction](docs/images/privacy.png) ### Benchmark Evaluation Read-only benchmark dashboard compares keyword, semantic, hybrid, and CrossEncoder-reranked retrieval while exposing measured ranking-quality and latency trade-offs. ![DocuIntel Benchmark Evaluation](docs/images/evaluation.png) ## Technology stack - Python 3.12 - FastAPI and Uvicorn - Streamlit - PostgreSQL and pgvector - PyMuPDF and Tesseract OCR - Sentence Transformers and CrossEncoder - Ollama with `llama3.2:3b` - Docker Compose - Alembic - pytest and pytest-cov ## Measured retrieval benchmark The published summary is derived from the authoritative E5 package without including the local raw result tree. See [`evaluation/public/e5_benchmark_summary.json`](evaluation/public/e5_benchmark_summary.json). Scope: official DocVQA validation data, 100 questions attempted, 43 answer-indexable/scorable questions, 25 documents prepared, and 24 documents indexed. Retrieval metrics are conditional on those 43 scorable questions. No generic DocuIntel accuracy percentage is calculated. | Configuration | Recall at 1 | Recall at 5 | Recall at 10 | MRR | Median retrieval ms | Median total ms | |---|---:|---:|---:|---:|---:|---:| | Keyword | 11.63% | 11.63% | 11.63% | 0.116279 | 10.771 | 10.785 | | Semantic | 48.84% | 72.09% | 83.72% | 0.601061 | 81.231 | 81.247 | | Hybrid | 51.16% | 72.09% | 83.72% | 0.618503 | 86.474 | 86.496 | | Hybrid + CrossEncoder | 62.79% | 74.42% | 83.72% | 0.698413 | 85.641 | 3644.850 | CrossEncoder reranking improved Hybrid Recall at 1 from approximately 51.2% to 62.8% and MRR from approximately 0.619 to 0.698. Recall at 10 reached approximately 83.7% on this bounded evaluat",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ronitloke/docuintel",
+          "url": "https://github.com/ronitloke/DocuIntel"
+        }
+      ]
+    },
+    {
+      "id": "bm_cognodb-graph-benchmark_5dc022c6",
+      "familyId": "bmf_306364babc1c",
+      "name": "cognodb-graph-benchmark",
+      "paperTitle": "cognodb-graph-benchmark",
+      "aliases": [],
+      "oneLine": "cognodb-graph-benchmark Reproducible CognoDB graph database benchmark with traversal, lookup, aggregation, concurrency, and AI-powered performance analysis using hybrid BM25 + vector retrieval.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/KumarKhailendra/cognodb-graph-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T11:05:30Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/KumarKhailendra/cognodb-graph-benchmark",
+        "paper": "https://github.com/KumarKhailendra/cognodb-graph-benchmark",
+        "project": "https://cognodb-graph-benchmark-xqd3.onrender.com",
+        "code": "https://github.com/KumarKhailendra/cognodb-graph-benchmark"
+      },
+      "motivation": "cognodb-graph-benchmark Reproducible CognoDB graph database benchmark with traversal, lookup, aggregation, concurrency, and AI-powered performance analysis using hybrid BM25 + vector retrieval.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:kumarkhailendra/cognodb-graph-benchmark",
+        "url": "https://github.com/KumarKhailendra/cognodb-graph-benchmark",
+        "title": "cognodb-graph-benchmark",
+        "authors": [
+          "KumarKhailendra"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "cognodb-graph-benchmark Reproducible CognoDB graph database benchmark with traversal, lookup, aggregation, concurrency, and AI-powered performance analysis using hybrid BM25 + vector retrieval.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "cognodb-graph-benchmark Reproducible CognoDB graph database benchmark with traversal, lookup, aggregation, concurrency, and AI-powered performance analysis using hybrid BM25 + vector retrieval. ai benchmark benchmarking bm25 bolt cognodb cypher database-benchmark database-performance graph-database graph-database-benchmark graph-database-performance hybrid-search neo4j-driver nodejs performance-analysis performance-testing rag typescript vector-search # GraphBench — CognoDB Cloud Benchmark GraphBench is a reproducible benchmark harness for the Wexa AI take-home assignment. > **Scope:** CognoDB Cloud is the only database under test. The official `neo4j-driver` Node.js package is used only as the Bolt-compatible client driver. Neo4j is **not** a benchmark target. ## What is implemented - SNAP Wiki-Vote dataset (7,115 nodes / 103,689 directed relationships) - Dataset checksum and manifest validation - Deterministic workload-node selection - CognoDB schema and index preparation - Batched dataset loading with ingestion throughput - 1-hop, 2-hop and 3-hop traversal latency - Point lookup - Indexed/filtered lookup - Aggregation - 100+ measured iterations after warm-up - p50, p95, mean, min, max and standard deviation - Mixed read/write benchmark at 1 / 10 / 40 concurrent clients - Configurable read/write mix (default 70/30) - Runtime/platform/footprint metadata - Raw result JSON - Markdown + CSV report generation - Deterministic comparison helper - Optional Groq analysis through the OpenAI-compatible SDK - Unit tests - No credentials in source control ## Architecture ```text SNAP Wiki-Vote | v Dataset Validator | v CognoDB Loader | neo4j-driver | v CognoDB Cloud | +------------+------------+ | | v v Read Benchmark Mixed Benchmark 1/2/3-hop 1/10/40 clients point lookup read/write filtered lookup aggregation | | +------------+------------+ v Raw Result JSON | v Statistical Analyzer | +------------+------------+ | | v v Markdown/CSV report Groq AI (optional) ``` The benchmark engine is deterministic and factual. AI is strictly downstream of verified measurements. ## Setup ```bash npm install copy .env.example .env ``` Set: ```env COGNODB_URI=bolt+s:// .databases.cognodb.cloud COGNODB_USERNAME=cognodb COGNODB_PASSWORD= COGNODB_REGION= COGNODB_TIER=c0 GROQ_API_KEY= GROQ_MODEL= ``` Never commit `.env`. ## Validate the environment ```bash npm run build npm test npm run benchmark:validate ``` ## Validate the final dataset ```bash npm run benchmark:dataset ``` The manifest records the source, expected size, actual size and SHA-256. The repository also contains `data/edges.txt` as a tiny development fixture; it is not valid final benchmark data. If the dataset must be downloaded again: ```bash npm run dataset:download npm run benchmark:dataset ``` ## Load CognoDB ```bash npm run dataset:load -- --file data/wiki-Vote.txt --output results/load-wiki-vote.json ``` The timed ingestion window begins after connectivity, schema preparation and GraphBench-owned data cleanup. The load result records: - wall-clock load time - nodes/second - relationships/second - batch count - dataset checksum - runtime and platform metadata ## Read benchmark ```bash npm run benchmark:run -- \\ --file data/wiki-Vote.txt \\ --iterations 100 \\ --warmup 20 \\ --sample-nodes 100 \\ --output results/wiki-vote-read.json ``` Required workloads: | Category | Workload | |---|---| | Traversal | 1-hop | | Traversal | 2-hop | | Traversal | 3-hop | | Lookup | point lookup | | Lookup | indexed/filtered lookup | | Aggregation | relationship-type count | Raw samples are preserved. p50/p95 are calculated by code, never by an LLM. ## Mixed benchmark Wexa highlights a concurrency sweep, so run: ```bash npm run benchmark:mixed -- --file data/wiki-Vote.txt --concurrency 1 --duration 30 --warmup 10 --read-percent 70 --output results/mixed-c1.json npm run benchmark:mixed -- --file data/wiki-Vote.txt --concurrency 10 --duration 30 --warmup 10 --read-percent 70 --output results/mixed-c10.json npm run benchmark:mixed -- --file data/wiki-Vote.txt --concurrency 40 --duration 30 --warmup 10 --read-percent 70 --output results/mixed-c40.json ``` The mixed benchmark reports total/read/write QPS, actual achieved read percentage, errors, and p50/p95 latency. Writes go to a dedicated `GraphBenchWriteProbe` label so the Wiki-Vote topology is not modified by the mixed test. ## Footprint ```bash npm run benchmark:footprint -- --output results/footprint.json ``` Observable values are recorded. Unsupported managed-service metrics are explicitly reported as `null` / `not observable`; they are not guessed. ## Generate the report After running the read and mixed benchmarks: ```bash npm run report -- \\ results/load-wiki-vote.json \\ results/wiki-vote-read.json \\ results/mixed-c1.json \\ results/mixed-c10.json \\ results/mixed-c40.json \\ results/footprint.json \\ --output results/report.md \\ --csv results/report.csv ``` The report generator only reads executed JSON results. It never fabricates missing values. ## AI analysis with Groq Optional: ```bash npm run ai:analyze -- \\ results/wiki-vote-read.json \\ results/mixed-c1.json \\ results/mixed-c10.json \\ results/mixed-c40.json \\ --output results/ai-analysis.json ``` Groq uses: ```ts new OpenAI({ apiKey: process.env.GROQ_API_KEY, baseURL: \"https://api.groq.com/openai/v1\", }); ``` The AI receives verified benchmark evidence only. It cannot access CognoDB, credentials, connection URIs, or the live benchmark path. AI must: - distinguish observation from hypothesis; - avoid invented implementation details; - avoid causal claims without evidence; - include confidence and caveats; - never alter benchmark measurements. If Groq is unavailable, deterministic analysis still runs. ## Compare runs ```bash npm run benchmark:compare -- results/mixed-c1.json results/mixed-c10.json results/mixed-c40.json ``` ## Reproducibility checklist Before publishing: - [ ] clean CognoDB dataset load - [ ] dataset checksum recorded - [ ] CognoDB tier and region rec",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:kumarkhailendra/cognodb-graph-benchmark",
+          "url": "https://github.com/KumarKhailendra/cognodb-graph-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_benchmark-math-test_7e98eee1",
+      "familyId": "bmf_c931ddfb5589",
+      "name": "benchmark-math-test",
+      "paperTitle": "benchmark-math-test",
+      "aliases": [],
+      "oneLine": "benchmark-math-test A small, transparent math benchmark for learning how AI model and agent evaluation works ai-evaluation benchmark llm-evaluation python # Benchmark Math Test Benchmark Math Test is a hybrid public/private project for lea…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/sanjuhs/benchmark-math-test",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T12:03:35Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/sanjuhs/benchmark-math-test",
+        "paper": "https://github.com/sanjuhs/benchmark-math-test",
+        "project": "https://benchmark-maths-test.vercel.app",
+        "code": "https://github.com/sanjuhs/benchmark-math-test"
+      },
+      "motivation": "benchmark-math-test A small, transparent math benchmark for learning how AI model and agent evaluation works ai-evaluation benchmark llm-evaluation python # Benchmark Math Test Benchmark Math Test is a hybrid public/private project for learning how AI benchmarks are designed, executed, scored, hosted, and reported.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:sanjuhs/benchmark-math-test",
+        "url": "https://github.com/sanjuhs/benchmark-math-test",
+        "title": "benchmark-math-test",
+        "authors": [
+          "sanjuhs"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "benchmark-math-test A small, transparent math benchmark for learning how AI model and agent evaluation works ai-evaluation benchmark llm-evaluation python # Benchmark Math Test Benchmark Math Test is a hybrid public/private project for learning how AI benchmarks are designed, executed, scored, hosted, and reported.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "benchmark-math-test A small, transparent math benchmark for learning how AI model and agent evaluation works ai-evaluation benchmark llm-evaluation python # Benchmark Math Test Benchmark Math Test is a hybrid public/private project for learning how AI benchmarks are designed, executed, scored, hosted, and reported. It evaluates short-answer mathematics across ten categories. Version 2.0 has 500 questions: 100 transparent development questions here and 400 held-out questions in a separate private repository. This is an educational benchmark, not a claim about general mathematical intelligence. All 500 references have dual programmatic checks, but have not yet received independent human expert review. The public split makes the machinery auditable; only the private split is suitable for a held-out score. **Live benchmark:** [benchmark-maths-test.vercel.app](https://benchmark-maths-test.vercel.app) · **Source:** [github.com/sanjuhs/benchmark-math-test](https://github.com/sanjuhs/benchmark-math-test) The live site's **Question inspector** shows all 100 public prompts, reference answers, rationales, and recorded Luna/Terra/Sol outputs for both evaluation modes. It supports search, category/outcome/mode/model filters, pagination, token and latency diagnostics, and sanitized tool calls. The 400 held-out questions remain private and appear only in aggregate scores. ## What the project demonstrates AI evaluations usually measure one of two things: - **Model only:** a fixed question goes directly to a model with no tools. The score describes that model under the recorded prompt and API settings. - **Model plus agentic harness:** the model receives application logic and tools. This repository's agent mode adds a restricted calculator. The score describes the complete model-and-harness system. Those tracks are intentionally separate. Tool access, prompts, retries, reasoning effort, model versions, and output parsing can all change the result. ## Repository map ```text . ├── api/index.py # Hosted question and scoring API ├── benchmark_math/ │ ├── cli.py # Command-line interface │ ├── runner.py # OpenAI Responses API model/agent runner │ ├── grading.py # Deterministic exact-match grader │ ├── evaluate.py # Aggregation and JSON reports │ ├── remote.py # Hosted API client │ └── calculator.py # Restricted agent tool ├── data/public.jsonl # 100 public v2 development items ├── scripts/build_public_corpus.py# Reproducible public corpus build ├── docs/HOW_BENCHMARKS_WORK.md # Detailed benchmark explainer ├── tests/ # Dataset, grader, and tool tests ├── index.html # Hosted project page ├── vercel.json # Vercel routes and function config └── results/example.json # Report schema example ``` The full conceptual guide—including dataset secrecy, hosted endpoints, frontier-model evaluation, grading, validation, and contamination—is in [How AI benchmarks work](docs/HOW_BENCHMARKS_WORK.md). ## Benchmark specification | Property | Value | |---|---| | Version | 2.0 | | Items | 100 public + 400 private | | Categories | 10, with 50 questions each in the combined set | | Primary metric | Exact-match accuracy | | Partial credit | None | | Numeric normalization | Equivalent integers, fractions, terminating decimals, and bounded factorial forms compare equal | | API errors | Count as incorrect | | Default reasoning effort | `low` | | Default models | `gpt-5.6-luna`, `gpt-5.6-terra`, `gpt-5.6-sol` | | Model-only tools | None | | Agent tools | Restricted arithmetic calculator | The model is asked for a strict JSON object with one string field, `answer`. A run records per-item correctness, latency, input/output/reasoning tokens, response status, incomplete-response details, errors, optional reasoning summaries, overall accuracy, and category accuracy. Calculator-agent runs also retain each tool name, arguments, and result. ## Recorded v2 hybrid run (24 August 2026) This is one low-reasoning run on the corrected 500-unique-prompt corpus. Full item data stays private; the committed artifacts contain aggregate results only. | Model | Model only | Calculator agent | Public/private model-only | |---|---:|---:|---:| | `gpt-5.6-luna` | 99.4% (497/500) | 99.0% (495/500) | 100/100 · 397/400 | | `gpt-5.6-terra` | 99.4% (497/500) | 99.2% (496/500) | 98/100 · 399/400 | | `gpt-5.6-sol` | 98.8% (494/500) | 99.4% (497/500) | 98/100 · 396/400 | All 3,000 item evaluations completed with zero API errors and zero incomplete responses. The calculator was used on only 1 Luna item, 1 Terra item, and 3 Sol items, so this particular harness did not consistently exploit its tool. Two traces also show attempted factorial expressions that the v2 calculator intentionally does not support; expanding that tool requires a separately versioned harness and new run. This result should not be interpreted as a general agent ranking. See [`results/v2-aggregate.json`](results/v2-aggregate.json) and [`results/v2-agent-aggregate.json`](results/v2-agent-aggregate.json). Public model-only failure cases are inspectable: Terra missed one without-replacement probability and one geometric-sequence item; Sol missed one multiset-counting and one modular-arithmetic item; Luna passed all 100 public items. Maintainers can inspect all held-out failures locally without publishing them: ```bash python -m benchmark_math failures \\ ../benchmark-math-test-private/results/v2-hybrid-model-final.json ``` Most misses were completed low-effort responses, often with zero reasoning tokens, and several changed from wrong to right on diagnostic repeats. That makes repeated-run variance a necessary next measurement. ## Archived v1 baseline (24 August 2026) These are single-run results on v1.0 with `reasoning_effort=low`. They are a demonstration, not a statistically stable leaderboard. | Model | Model only | Calculator agent | |---|---:|---:| | `gpt-5.6-luna` | 95% (19/20) | 95% (19/20) | | `gpt-5.6-terra` | 100% (20/20) | 100% (20/20) | | `gpt-5.6-sol` | 95% (19/20) | 100% (20/20) | All six r",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:sanjuhs/benchmark-math-test",
+          "url": "https://github.com/sanjuhs/benchmark-math-test"
+        }
+      ]
+    },
+    {
+      "id": "bm_awesome-security-benchmark_f67d82ba",
+      "familyId": "bmf_c8fbb02e5c78",
+      "name": "awesome-security-benchmark",
+      "paperTitle": "awesome-security-benchmark",
+      "aliases": [],
+      "oneLine": "awesome-security-benchmark Curated security vulnerability benchmarks & vulnerable code samples for evaluating SAST tools and LLMs.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Cybersecurity",
+      "industrySectors": [
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/XiaomingX/awesome-security-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-25T11:03:39Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/XiaomingX/awesome-security-benchmark",
+        "paper": "https://github.com/XiaomingX/awesome-security-benchmark",
+        "project": "https://arxiv.org/abs/2602.15485",
+        "code": "https://github.com/XiaomingX/awesome-security-benchmark"
+      },
+      "motivation": "awesome-security-benchmark Curated security vulnerability benchmarks & vulnerable code samples for evaluating SAST tools and LLMs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:xiaomingx/awesome-security-benchmark",
+        "url": "https://github.com/XiaomingX/awesome-security-benchmark",
+        "title": "awesome-security-benchmark",
+        "authors": [
+          "XiaomingX"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 2
+        }
+      },
+      "evidence": {
+        "snippet": "awesome-security-benchmark Curated security vulnerability benchmarks & vulnerable code samples for evaluating SAST tools and LLMs.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "awesome-security-benchmark Curated security vulnerability benchmarks & vulnerable code samples for evaluating SAST tools and LLMs. Java · Node.js · Go · Next.js · CVE datasets · 2025-2026 research. OWASP Benchmark, NIST Juliet, Vul4J, SecBench.js, SecCodeBench-V2, PrimeVul & more. benchmark codeql cve cwe dataset golang java llm llm-security nextjs nodejs owasp sast secure-code-generation security security-testing static-analysis vulnerability vulnerability-detection # Awesome Security Benchmark Samples 🛡️ 精选的安全漏洞样本集 / 基准（Security Vulnerability Benchmark & Samples）清单，用于评估 **静态分析工具（SAST）与大模型（LLM）的漏洞挖掘 / 安全代码生成能力**。 覆盖 **Java · Node.js/JavaScript · Golang · Next.js/React** 及多语言真实 CVE 数据集，并收录 **2025–2026 最新科研基准**（时间越新越靠前）。 > 本清单由多份横向调研去重整合而成，所有仓库链接均已逐一验证有效。 --- ## 📈 最新科研基准（2025–2026）Latest Research & Benchmarks ### 2026 | 基准 | 语言 | 说明 | 链接 | |---|---|---|---| | **SecCodeBench-V2**（阿里，arXiv:2602.15485） | Java · C · Python · Go · Node.js | 98 个去标识化的真实工业漏洞场景，22 CWE；Docker 沙箱动态执行 PoC 测试，功能与安全双维度判分，LLM-as-judge 处理语义型漏洞（弱加密/硬编码凭据） | [github.com/alibaba/sec-code-bench](https://github.com/alibaba/sec-code-bench) · [arXiv](https://arxiv.org/abs/2602.15485) | | **SecLens**（mattersec-labs） | 通用 | 12 个前沿模型按角色（工程师/CISO）评估漏洞检测能力，提出 Role Divergence Index，无单一模型全类别领先 | [github.com/mattersec-labs/seclens](https://github.com/mattersec-labs/seclens) | | **Veracode 2026 GenAI 代码安全报告** | 多语言 | 100+ 模型平均安全通过率停滞于 56%；推理型模型稳定领先（56% vs 51%）；Java 最危险（30%）、Python 最安全（63%） | [veracode.com](https://www.veracode.com/news/llms-are-getting-smarter-but-not-safer-veracode-2026-genai-code-security-report-finds-ai-generated-code-security-has-stalled-at-56%25-pass-rate) | ### 2025 | 基准 | 语言 | 说明 | 链接 | |---|---|---|---| | **SecureCode v2.0**（arXiv:2512.18542） | Go · Python · JavaScript · Java 等 | 1215 条生产级安全代码**生成训练集**，每条均含真实安全事件 CVE 溯源与 vuln/safe 双实现，覆盖 OWASP Top 10:2025 | [arXiv](https://arxiv.org/abs/2512.18542) | | **PATCHEVAL**（arXiv:2511.11019） | Go · JavaScript · Python | 1000 个真实 CVE（2015–2025）、65 CWE，**自动化漏洞修复**基准；230 个含沙箱运行环境，可同时验证安全性与功能性 | [arXiv](https://arxiv.org/abs/2511.11019) | | **SafeGenBench** | 12 种语言（含 JS/Go） | 558 条 prompt、44 类漏洞（OWASP/CWE 分类体系），Semgrep 静态分析 + LLM（DeepSeek-R1）双裁判 | [SafeGenBench](https://www.emergentmind.com/topics/safegenbench) | | **PrimeVul**（ICSE 2025，arXiv:2403.18624） | C/C++ | ~7k 漏洞函数 + ~229k 良性函数（97% 良性贴近真实分布），140+ CWE；高精度标注 + 时间切分防污染 + VD-Score；评测显示主流 LLM 在严格设定下接近随机 | [github.com/DLVulDet/PrimeVul](https://github.com/DLVulDet/PrimeVul) | ### 2024 及更早（LLM 评测方法论奠基） | 基准 | 语言 | 说明 | 链接 | |---|---|---|---| | **CyberSecEval 3**（Meta，arXiv:2408.01605） | 通用 | LLM 网络安全风险/能力评测套件（红队能力、漏洞利用、恶意代码生成、prompt 注入）；结论：无证据表明 LLM 在真实规模漏洞发现上超越传统工具 | [github.com/meta-llama/PurpleLlama](https://github.com/meta-llama/PurpleLlama) | | **SVEN**（ICSE 2024） | C/Python | CodeQL 标注的函数级 vuln/safe **最小差异配对**，同时评测安全性与功能正确性 | [github.com/eth-sri/sven](https://github.com/eth-sri/sven) | | **LLMSecEval**（MSR 2023） | Python | 150 条自然语言需求 → 安全代码生成，**安全单测 + 功能单测双判分** | [github.com/tuhh-softsec/LLMSecEval](https://github.com/tuhh-softsec/LLMSecEval) | --- ## ☕ Java（SAST / 漏洞检测事实标准） | 样本集 | 规模 / 特点 | 链接 | |---|---|---| | **OWASP Benchmark v1.2** | **SAST 事实标准**。2740 例可编译用例、11 类（sqli/xss/cmdi/pathtraver/weakrand/crypto…），vuln:safe≈1:1，带 `expectedresults` 可算 TPR/FPR 曲线 | [github.com/OWASP-Benchmark/BenchmarkJava](https://github.com/OWASP-Benchmark/BenchmarkJava) | | **NIST Juliet Test Suite** | 112 CWE、4 万+ 用例，bad()/good() 成对、servlet/standalone 双形态，同一 sink 的几十种数据流/控制流变体 | [UnitTestBot 112-CWE 完整镜像](https://github.com/UnitTestBot/juliet-java-test-suite) · [find-sec-bugs 10-CWE 轻量镜像](https://github.com/find-sec-bugs/juliet-test-suite) · [NIST 官方 zip](https://samate.nist.gov/SRD/testsuite.php) | | **securibench-micro** | 125 例污点分析微基准，aliasing/arrays/context/inter-procedural/sanitizers 等 12 类 taint 难点，Javadoc `@should_taint` 期望标注，至今仍是 taint 引擎试金石 | [github.com/too4words/securibench-micro](https://github.com/too4words/securibench-micro) | | **Vul4J**（ISSTA 2024） | 262 个**可复现真实 Java CVE**（含 fastjson 等知名项目），补丁前失败/补丁后通过的触发测试，ground truth 可执行验证，支持检测/定位/修复全任务 | [github.com/tuhh-softsec/Vul4J](https://github.com/tuhh-softsec/Vul4J) | | **java-sec-code** | Spring Boot 常见漏洞与安全代码对照（35+ 类），教学基准 | [github.com/JoyChou93/java-sec-code](https://github.com/JoyChou93/java-sec-code) | | **WebGoat** | OWASP 经典教学靶场应用 | [github.com/WebGoat/WebGoat](https://github.com/WebGoat/WebGoat) | | **find-sec-bugs** | SpotBugs 安全插件，140+ 检测器规则，真实 Java sink 规则库（命令注入/反序列化/SSRF/XSS/加密…） | [github.com/find-sec-bugs/find-sec-bugs](https://github.com/find-sec-bugs/find-sec-bugs) | | **ysoserial** | Java 反序列化 gadget chain 利用链 payload 生成器 | [github.com/frohoff/ysoserial](https://github.com/frohoff/ysoserial) | | **JYso**（qi4L） | 现代 gadget / JNDI 利用框架，含 fastjson 各版本利用链 | [github.com/qi4L/JYso](https://github.com/qi4L/JYso) | ## 🟢 Node.js / JavaScript | 样本集 | 规模 / 特点 | 链接 | |---|---|---| | **SecBench.js**（AttackStrings） | **Node.js 专用漏洞基准**。600 个已公开漏洞、5 类：原型污染 192 / 路径遍历 169 / 命令注入 101 / ReDoS 98 / 任意代码注入 40；每例含 Jest 测试 + CVE/修复 commit/sink 位置元数据 | [github.com/MartinDetloff/AttackStrings](https://github.com/MartinDetloff/AttackStrings) | | **OpenSSF CVE Benchmark** | 200+ 真实 JS/TS CVE 的可复现代码与元数据，配套 SAST 工具（ESLint/NodeJSScan/CodeQL）评测报告工具链 | [github.com/ossf-cve-benchmark/ossf-cve-benchmark](https://github.com/ossf-cve-benchmark/ossf-cve-benchmark) | | **OWASP Juice Shop** | 最现代化的\"不安全\"Web 应用（Node.js/Express），教学与 CTF | [github.com/juice-shop/juice-shop](https://github.com/juice-shop/juice-shop) | | **DVNA**（Damn Vulnerable NodeJS Application） | 有意的 Node.js 漏洞应用（★779） | [github.com/appsecco/dvna](https://github.com/appsecco/dvna) | | **nodejs-goof** | Snyk 出品的故意含漏洞 Node.js todo 应用 | [github.com/snyk-labs/nodejs-goof](https://github.com/snyk-labs/nodejs-goof) | ## 🐹 Golang | 样本集 | 规模 / 特点 | 链接 | |---|---|---| | **go-test-bench**（Contrast Security） | 故意含漏洞的 Go Web 应用，覆盖 OWASP Top 10，多框架变体（net/http · gin · chi · go-swagger · httprouter） | [github.com/Contrast-Security-OSS/go",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:xiaomingx/awesome-security-benchmark",
+          "url": "https://github.com/XiaomingX/awesome-security-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ask-db_ad8fac0f",
+      "familyId": "bmf_cbf177e8e351",
+      "name": "ASK_DB",
+      "paperTitle": "ASK_DB",
+      "aliases": [],
+      "oneLine": "ASK_DB Natural-language analytics copilot over a 7-table SQLite database.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/pavanipavani16423-ctrl/ASK_DB",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T17:36:07Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/pavanipavani16423-ctrl/ASK_DB",
+        "paper": "https://github.com/pavanipavani16423-ctrl/ASK_DB",
+        "project": "https://3udmi5cwfrdt2kxnsyekvz.streamlit.app/",
+        "code": "https://github.com/pavanipavani16423-ctrl/ASK_DB"
+      },
+      "motivation": "ASK_DB Natural-language analytics copilot over a 7-table SQLite database.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:pavanipavani16423-ctrl/ask_db",
+        "url": "https://github.com/pavanipavani16423-ctrl/ASK_DB",
+        "title": "ASK_DB",
+        "authors": [
+          "pavanipavani16423-ctrl"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "Read-only guardrails, 92% execution accuracy on a 25-question benchmark.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ASK_DB Natural-language analytics copilot over a 7-table SQLite database. Ask a business question in plain English; an LLM writes the SQL and repairs its own failed queries from database error messages. Read-only guardrails, 92% execution accuracy on a 25-question benchmark. agentic-ai ai fastapi groq-api llm python sql streamlit # AskDB **Ask a business question in plain English. Get the table, the chart, and the SQL.** ### [▶ Try the live demo](https://3udmi5cwfrdt2kxnsyekvz.streamlit.app) No sign-up, no setup -- the database ships with the repo. Ask it something, or click one of the example questions. On a free instance the very first request after a quiet spell takes ~20 seconds to wake the app; after that, answers come back in about two seconds. A shop owner types *\"which products lost me money last month?\"* and gets an answer in about two seconds. An LLM writes the SQL, it runs read-only against a 7-table SQLite database, and if the query fails, the agent reads the database's own error message and rewrites it -- up to three attempts. > **Execution accuracy: 92.0% on a 25-question benchmark** (23/25), scored by > comparing result sets against hand-written gold SQL, not by comparing query > text. Reproduce it with `python -m eval.benchmark`. ``` \"which products lost me money last month?\" | schema | 7 tables, row counts, and the exact values in every | low-cardinality column (this is what stops the model | writing status = 'Delivered' and silently getting zero rows) | LLM | one Groq call -> one SELECT | guard | 1. reject anything that is not a single SELECT, force a LIMIT | 2. SQLite authorizer denies every non-read action | 3. the connection itself is opened mode=ro | run | SQLite, with a wall-clock timeout | error? --yes--> feed the database's error text back to the model, | retry (max 3) no | chart | type chosen from the shape of the result, no second LLM call | table + chart + the SQL it ran + every attempt it made ``` --- ## Run it ```bash git clone && cd askdb pip install -r requirements.txt # add -r requirements-dev.txt to run the tests cp .env.example .env # then paste a free key from console.groq.com/keys streamlit run app.py ``` That is the whole setup. The SQLite file is committed, so a fresh clone works immediately -- there is no ingest step to forget, and nothing silently degrades if you skip one. Also available: ```bash uvicorn api.main:app --reload # REST API, interactive docs at /docs python -m pytest # 84 tests, no API calls, ~5 seconds python -m eval.benchmark # reproduce the accuracy number docker compose up # UI on :8501, API on :8000 ``` Without a `GROQ_API_KEY` the app still starts and tells you exactly what is missing. It does not crash, and the database, guardrails and tests all work without one -- only the step that writes SQL needs a key. --- ## The three things that make it more than an API wrapper ### 1. It repairs its own SQL The model writes `ms.channel`; SQLite replies `no such column: ms.channel`. That error message is already a precise repair instruction, so it goes straight back to the model, which rewrites the query and gets it right on attempt two. Roughly 30 lines in [`askdb/agent.py`](askdb/agent.py). Guardrail rejections are fed back the same way, so a blocked `DELETE` becomes a `SELECT` rather than a dead end. Every attempt -- including the failed ones -- is kept and shown in the UI, because an agent that hides its retries is one you cannot debug. ### 2. Read-only is enforced three times, independently An LLM with database access is a real security problem, and \"we told it not to\" is not a control. So: | Layer | Mechanism | Stops | |---|---|---| | 1 | [`guardrail.py`](askdb/guardrail.py) — string-masked keyword scan, one-statement check, forced `LIMIT` | `DROP TABLE`, stacked statements, comment smuggling | | 2 | [`db.py`](askdb/db.py) — SQLite `set_authorizer` | every non-read action, below the SQL text entirely | | 3 | [`db.py`](askdb/db.py) — `file:...?mode=ro` connection | writes at the OS level | Layer 1 alone is a string check and string checks lose. Layer 2 is the real boundary: it is enforced by SQLite's own engine, so it holds even for SQL the guardrail never saw. The tests prove each layer independently -- `test_authorizer_blocks_writes_even_without_the_guardrail` bypasses layer 1 on purpose. The guardrail also handles the cases that a naive regex gets wrong: a product named `'Drop Earrings; DELETE FROM x'` is data, not an attack, and passes; a `/* comment */; UPDATE ...` does not. ### 3. The benchmark measures results, not query text 25 questions across three difficulty bands, each with hand-written gold SQL. Scoring runs both queries and compares the result sets, because two correct SQL queries can look nothing alike, and two nearly identical queries can differ by one join that changes every number. ``` $ python -m eval.benchmark EXECUTION ACCURACY: 23/25 = 92.0% model: openai/gpt-oss-120b easy 8/8 100.0% #################### medium 9/10 90.0% ################## hard 6/7 85.7% ################# self-repair: 0 questions needed a retry (see below) latency: p50 833ms p95 1287ms ``` Two fairness rules, both of which I added after watching correct answers get marked wrong: - **Ties do not decide correctness.** \"Top 5 cities\" where two cities both have 54 customers has several equally right orderings. The measure sequence must match; the tie order need not. - **Rounding is tolerated (±0.06), real differences are not.** A model that rounds to a different decimal place is not wrong. One that returns a different number is. **The two it got wrong in that run, precisely:** - **Q14, \"which 5 customers spent the most\"** — a genuine agent bug. It grouped by `full_name`, but the 900 customers have only 417 distinct names between them -- \"Nikhil Nair\" is eight different people -- so grouping by name collapsed them into one spender who never existed. The gold groups by `customer_id`. This is the kind of error that is invisible in the output — the ans",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:pavanipavani16423-ctrl/ask_db",
+          "url": "https://github.com/pavanipavani16423-ctrl/ASK_DB"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-detector-benchmark_a01329dc",
+      "familyId": "bmf_7d38055627fe",
+      "name": "ai-detector-benchmark",
+      "paperTitle": "ai-detector-benchmark",
+      "aliases": [],
+      "oneLine": "ai-detector-benchmark # AI Detector Benchmark: Samples and Results A small, transparent test of three commercial AI text detectors, GPTZero, Originality.ai, and Scribbr, against a human-written control, a raw AI-generated sample, and a lig…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/ka2in/ai-detector-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T19:14:28Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/ka2in/ai-detector-benchmark",
+        "paper": "https://github.com/ka2in/ai-detector-benchmark",
+        "project": "https://docs.farowave.com/gitinminutes",
+        "code": "https://github.com/ka2in/ai-detector-benchmark"
+      },
+      "motivation": "ai-detector-benchmark # AI Detector Benchmark: Samples and Results A small, transparent test of three commercial AI text detectors, GPTZero, Originality.ai, and Scribbr, against a human-written control, a raw AI-generated sample, and a lightly human-edited version of that same AI sample.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ka2in/ai-detector-benchmark",
+        "url": "https://github.com/ka2in/ai-detector-benchmark",
+        "title": "ai-detector-benchmark",
+        "authors": [
+          "ka2in"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-detector-benchmark # AI Detector Benchmark: Samples and Results A small, transparent test of three commercial AI text detectors, GPTZero, Originality.ai, and Scribbr, against a human-written control, a raw AI-generated sample, and a lightly human-edited version of that same AI sample.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-detector-benchmark # AI Detector Benchmark: Samples and Results A small, transparent test of three commercial AI text detectors, GPTZero, Originality.ai, and Scribbr, against a human-written control, a raw AI-generated sample, and a lightly human-edited version of that same AI sample. **This is a spot check, not a study.** Three samples per tool is not statistically powered. Treat the findings below as illustrative, not as a definitive measure of any tool's overall accuracy. ## What's in this repo | File | Description | |---|---| | `sample1-git-primer-excerpt.md` | Human-written control. A 715-word excerpt from [Git Primer for the Impatient](https://docs.farowave.com/gitinminutes), written by the repo author. | | `sample2-raw-ai.md` | Raw, unedited AI output. A 760-word technical primer generated fresh for this test, deliberately matched to Sample 1's register (procedural, numbered steps, command blocks). | | `sample3-human-edited.md` | Sample 2, edited by hand by the repo author, not AI-assisted. 121 of 760 words changed (15.92%), verified with a word-level diff, not eyeballed. | Samples 2 and 3 were written for this test specifically. They are not real product documentation. ## Methodology - Three tools: GPTZero (gptzero.me), Originality.ai (originality.ai), Scribbr (scribbr.com/ai-detector) - Free tiers only, no paid access, no account created beyond what each tool's free tier requires - All three samples are close in length (715–760 words) to keep length from confounding the comparison - Sample 3's edit rate was deliberately targeted at 15–20% word change, a threshold cited in AI-detection research as sufficient to disrupt a detector's confidence - Three of the nine results were independently re-run in a fresh browser session as a stability check. All three reproduced exactly. ## Results | Sample | GPTZero | Originality.ai | Scribbr | |---|---|---|---| | Human control (Sample 1) | 99% Human | 94% conf., \"likely original\" | 27% AI-generated | | Raw AI (Sample 2) | 100% AI | 100% conf., \"exceeds 15%\" | 83% AI-generated | | Edited AI (Sample 3, 15.92% changed) | 100% AI, unchanged | 51% conf., \"exceeds 15%\" | 72% AI-generated | ## Key findings 1. **The same 15.92% edit produced three different outcomes across tools.** GPTZero's confidence didn't move. Originality.ai's confidence nearly collapsed, from 100% to 51%, confirmed stable on a second run. Scribbr softened moderately, from 83% to 72%. 2. **Scribbr was the only tool with a false-positive-adjacent result.** It flagged 27% of a genuinely human-written technical document as AI-generated, confirmed stable on a second run. The other two tools both read the same text as confidently human. 3. **Vendor accuracy claims and independent, larger-scale benchmarks show meaningful gaps.** GPTZero advertises 99.3% accuracy; independent estimates outside controlled conditions cluster around 82-90%. Originality.ai advertises 99%+; one independent benchmark measured it at 76%. Scribbr publishes no headline accuracy figure at all. ## Reproducing this test All three tools' free tiers are accessible without payment. Paste any of the three sample files into each tool directly and compare against the results above. Note that free-tier limits and interfaces may change over time; this test was run in August 2026. ## License Sample text and this README are shared for reference and verification purposes.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ka2in/ai-detector-benchmark",
+          "url": "https://github.com/ka2in/ai-detector-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-agent-web-scraping-benchmark_e261489d",
+      "familyId": "bmf_c9cde40364ef",
+      "name": "ai-agent-web-scraping-benchmark",
+      "paperTitle": "ai-agent-web-scraping-benchmark",
+      "aliases": [],
+      "oneLine": "ai-agent-web-scraping-benchmark Benchmarking web scraping APIs for AI agents across protected and unprotected web targets.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-25T14:36:36.944624Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-24",
+      "firstSeenAt": "2026-08-25",
+      "indexedAt": "2026-08-25T14:36:36.944624Z",
+      "sourceUpdatedAt": "2026-08-24T21:13:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark",
+        "paper": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark",
+        "code": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark"
+      },
+      "motivation": "ai-agent-web-scraping-benchmark Benchmarking web scraping APIs for AI agents across protected and unprotected web targets.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:busybrainx99/ai-agent-web-scraping-benchmark",
+        "url": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark",
+        "title": "ai-agent-web-scraping-benchmark",
+        "authors": [
+          "busybrainx99"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-agent-web-scraping-benchmark Benchmarking web scraping APIs for AI agents across protected and unprotected web targets.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-agent-web-scraping-benchmark Benchmarking web scraping APIs for AI agents across protected and unprotected web targets. # Best web scraping APIs in 2026 (Benchmarked) A Python benchmark that compares ZenRows, Jina, Firecrawl, and CrawlForge across protected and unprotected websites. The benchmark measures successful content retrieval, response time, HTTP status, target status, content length, and request cost. ## Features - Benchmark four web scraping APIs using the same target URLs - Test websites protected by DataDome, Cloudflare, and Akamai - Include an unprotected website as a baseline - Execute repeated requests to measure retrieval consistency - Measure response time for every request - Detect unsuccessful responses based on returned content - Record HTTP status, target status, page title, content length, response time, cost, and errors - Save raw benchmark results as a CSV dataset ## Prerequisites - Python 3 - A ZenRows account and API key - A Firecrawl account and API key - A CrawlForge account and API key - A Jina account and API key is optional - `requests` - `python-dotenv` ## Installation 1. Clone the repository: ```bash git clone cd ``` 2. Create a virtual environment: ```bash python3 -m venv .venv ``` 3. Activate the virtual environment: ```bash source .venv/bin/activate ``` 4. Install the dependencies: ```bash pip install -r requirements.txt ``` ## Configuration Create a `.env` file in the project root. Add the provider credentials: ```text ZENROWS_API_KEY=your_zenrows_api_key FIRECRAWL_API_KEY=your_firecrawl_api_key CRAWLFORGE_API_KEY=your_crawlforge_api_key JINA_API_KEY=your_jina_api_key ``` Never commit `.env` or API keys to the repository. ## Project structure ```text / ├── .env ├── requirements.txt ├── .py └── results/ └── raw_results.csv ``` The benchmark script contains the provider integrations, target configuration, success checks, benchmark loop, and CSV output logic. The `results/` directory contains the raw benchmark dataset generated by the test. ## How it works The benchmark sends the same four target URLs through each provider and records the result of every request. ```text Target URLs ↓ Provider request ↓ HTTP response ↓ Extract returned content ↓ Validate meaningful content ↓ Record benchmark metrics ↓ results/raw_results.csv ``` The four targets represent different protection levels: - JobLookup: DataDome - Chrono24: Cloudflare - Reuters: Akamai - Wikipedia: Unprotected baseline The benchmark evaluates success using the returned content rather than relying only on the provider's HTTP status. Returned HTML is checked for meaningful content, page titles, and common browser challenge or access-denied responses. Each provider executes 50 requests against each target, resulting in: - 50 requests per target - 200 requests per provider - 800 requests across all providers Requests are sent at 2 requests per second with a 120-second request timeout. ## Running the project Run the benchmark script from the repository root: ```bash python .py ``` Results are written to: ```text results/raw_results.csv ``` ## Output The benchmark generates: ```text results/raw_results.csv ``` The CSV records one row per request with: - `timestamp` - `provider` - `target` - `protection` - `request_number` - `http_status` - `target_status` - `success` - `page_title` - `content_length` - `response_time_ms` - `cost` - `error` ## Benchmark results The final benchmark contains 800 requests across four providers and four targets. ### Raw results | Provider | Target | Protection | Success Rate | Avg. Response Time (ms) | Total Requests | |---|---|---|---:|---:|---:| | ZenRows | JobLookup | DataDome | 100% | 10,052 | 50 | | ZenRows | Chrono24 | Cloudflare | 100% | 4,591 | 50 | | ZenRows | Reuters | Akamai | 100% | 4,103 | 50 | | ZenRows | Wikipedia | Unprotected | 100% | 2,116 | 50 | | Jina | JobLookup | DataDome | 98% | 1,046 | 50 | | Jina | Chrono24 | Cloudflare | 100% | 1,291 | 50 | | Jina | Reuters | Akamai | 100% | 1,036 | 50 | | Jina | Wikipedia | Unprotected | 100% | 1,343 | 50 | | Firecrawl | JobLookup | DataDome | 0% | 1,064 | 50 | | Firecrawl | Chrono24 | Cloudflare | 28% | 1,570 | 50 | | Firecrawl | Reuters | Akamai | 20% | 1,114 | 50 | | Firecrawl | Wikipedia | Unprotected | 24% | 1,169 | 50 | | CrawlForge | JobLookup | DataDome | 0% | 789 | 50 | | CrawlForge | Chrono24 | Cloudflare | 0% | 709 | 50 | | CrawlForge | Reuters | Akamai | 0% | 720 | 50 | | CrawlForge | Wikipedia | Unprotected | 100% | 1,216 | 50 | ### Multi-target consistency summary The following values represent the average success rate across all four targets. | Provider | Average Success Rate | |---|---:| | ZenRows | 100.00% | | Jina | 99.50% | | CrawlForge | 25.00% | | Firecrawl | 18.00% | ### Overall benchmark summary | Provider | Total Requests | Successful Requests | Overall Success Rate | Average Response Time (ms) | |---|---:|---:|---:|---:| | ZenRows | 200 | 200 | 100.00% | 5,216 | | Jina | 200 | 199 | 99.50% | 1,261 | | CrawlForge | 200 | 50 | 25.00% | 867 | | Firecrawl | 200 | 36 | 18.00% | 1,044 | ### Observed resource consumption Dashboard usage was tracked during benchmark execution. | Provider | Starting Usage/Balance | Ending Usage/Balance | Consumed | Benchmark Requests | Observed Consumption per Request | |---|---:|---:|---:|---:|---:| | ZenRows | 786,640 credits used | 787,558 credits used | 918 credits | 200 | 4.59 credits/request | | Firecrawl | 977 credits | 925 credits | 52 credits | 200 | 0.26 credits/request | | Jina | 9,418,797 tokens left | 4,434,281 tokens left | 4,984,516 tokens | 200 | 24,922.58 tokens/request | | CrawlForge | 984 credits | 784 credits | 200 credits | 200 | 1 credit/request | These values are dashboard observations from the benchmark run. They are not normalized pricing estimates. ## Technologies - Python - Requests - python-dotenv - ZenRows - Jina - Firecrawl - CrawlForge ## Use cases This benchmark can be used for: - Comparing web scraping API reliability - Evaluat",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:busybrainx99/ai-agent-web-scraping-benchmark",
+          "url": "https://github.com/busybrainx99/ai-agent-web-scraping-benchmark"
+        }
+      ]
+    },
     {
       "id": "bm_therapy-note-bench_d7fc4c3e",
       "familyId": "bmf_8bd1e35aa5e3",
@@ -897,97 +2473,6 @@
       ]
     },
     {
-      "id": "bm_russian-it-community-corpus_d8ce4257",
-      "familyId": "bmf_399000b287dd",
-      "name": "russian-it-community-corpus",
-      "paperTitle": "russian-it-community-corpus",
-      "aliases": [],
-      "oneLine": "russian-it-community-corpus Russian IT Community Conversational Corpus (2018-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark data-engineering dataset dpo llm lora mach…",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [
-        "Factuality"
-      ],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Transform Existing",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/wwewtech/russian-it-community-corpus",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-24T07:40:52.396154Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-22",
-      "firstSeenAt": "2026-08-24",
-      "indexedAt": "2026-08-24T07:40:52.396154Z",
-      "sourceUpdatedAt": "2026-08-23T21:12:14Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/wwewtech/russian-it-community-corpus",
-        "paper": "https://github.com/wwewtech/russian-it-community-corpus",
-        "project": "https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-FFD21E?style=flat-square",
-        "code": "https://github.com/wwewtech/russian-it-community-corpus",
-        "data": "https://huggingface.co/datasets/wwewtech/russian-it-community-corpus"
-      },
-      "motivation": "russian-it-community-corpus Russian IT Community Conversational Corpus (2018-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark data-engineering dataset dpo llm lora machine-learning rag russian-nlp sft streamlit zero-pii **High-throughput data engineering and Zero-PII curation platform for language models** 2.91M+ discussions · 2017–2026 history ·…",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:wwewtech/russian-it-community-corpus",
-        "url": "https://github.com/wwewtech/russian-it-community-corpus",
-        "title": "russian-it-community-corpus",
-        "authors": [
-          "wwewtech"
-        ],
-        "categories": []
-      },
-      "evidence": {
-        "snippet": "russian-it-community-corpus Russian IT Community Conversational Corpus (2018-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark data-engineering dataset dpo llm lora machine-learning rag russian-nlp sft streamlit zero-pii **High-throughput data engineering and Zero-PII curation platform for language models** 2.91M+ discussions · 2017–2026 history · SFT dialogues · DPO pairs · RAG knowledge base · LoRA on RTX 3060 [![Hugging Fac",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "russian-it-community-corpus Russian IT Community Conversational Corpus (2018-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark data-engineering dataset dpo llm lora machine-learning rag russian-nlp sft streamlit zero-pii **High-throughput data engineering and Zero-PII curation platform for language models** 2.91M+ discussions · 2017–2026 history · SFT dialogues · DPO pairs · RAG knowledge base · LoRA on RTX 3060 [![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-FFD21E?style=flat-square)](https://huggingface.co/datasets/wwewtech/russian-it-community-corpus) [![Hugging Face Models](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-LoRA%20Zoo-orange?style=flat-square)](https://huggingface.co/wwewtech/russian-it-community-lora) [![Python](https://img.shields.io/badge/Python-%3E%3D3.11-3776AB?style=flat-square&logo=python&logoColor=white)](#) [![PyTorch](https://img.shields.io/badge/PyTorch-2.6%20CUDA-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](#) [![PEFT](https://img.shields.io/badge/PEFT-LoRA%20and%20QLoRA-8A2BE2?style=flat-square)](#) [![Parquet](https://img.shields.io/badge/Apache%20Parquet-zstd-017CEE?style=flat-square&logo=apache)](#) [![Streamlit](https://img.shields.io/badge/Streamlit-Data%20Studio-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](#) [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)](#) [![Zero-PII](https://img.shields.io/badge/Security-Zero--PII%20Verified-10B981?style=flat-square)](#security-and-zero-pii-protocol) > [!TIP] > **🤗 Official Hugging Face Hub Integration**: > - 📦 **Dataset**: [`wwewtech/russian-it-community-corpus`](https://huggingface.co/datasets/wwewtech/russian-it-community-corpus) — 2.91M clean messages, 171.5k multi-turn SFT dialogues, and 325.7k RAG knowledge base chunks in Apache Parquet. > - 🦁 **LoRA Model Zoo**: [`wwewtech/russian-it-community-lora`](https://huggingface.co/wwewtech/russian-it-community-lora) — 44+ pre-trained open adapters + Flagship 7B-8B QLoRA models (Qwen 2.5 Coder 7B, DeepSeek R1 7B, LLaMA 3.1 8B). > > ```python > from datasets import load_dataset > dataset = load_dataset(\"wwewtech/russian-it-community-corpus\", \"sft_dialogues\", split=\"train\") > ``` --- ## Overview **RICC** (**R**ussian **I**T **C**ommunity **C**orpus) is a data engineering and curation stack that ingests, cleans, deduplicates, and structures over 2,910,000 engineering, infrastructure, business, and software development messages from 11 community nodes over a 9-year span (2017–2026). The platform produces datasets for instruction fine-tuning, direct preference optimization, and vector knowledge retrieval without manual intervention. | Metric | Target | Verified Value | |---|---|---| | Zero-PII privacy guarantee | Complete redaction across Russian grammatical cases | 100% Zero-PII verified (25,000 samples audited) | | Deduplication accuracy | MinHash LSH with 128 permutations at 0.80 Jaccard threshold | 95,300+ duplicates removed | | SFT dialogue quality | Multi-turn dialogues scored at 3.0 or above | 171,533 dialogues | | Local LoRA execution | PEFT LoRA adaptation on consumer hardware | 4.35 GB VRAM on RTX 3060 | --- ## Architecture ```text ┌──────────────────────────────┐ 11 Community Nodes ──► Multi-Source Ingestion │ 2.91M raw records └──────────────┬───────────────┘ │ ┌──────────────▼───────────────┐ │ Deep Case-Aware Zero-PII │ ──► Declension across 6 Russian cases │ RegEx + Natasha Neural NER │ Tech terminology protection whitelist └──────────────┬───────────────┘ │ ┌──────────────▼───────────────┐ │ Deduplication & Taxonomy │ ──► MinHash LSH with 128 permutations │ 8 Domain Classifiers │ Exact hash deduplication └──────────────┬───────────────┘ │ ┌──────────────▼───────────────┐ │ Thread DAG Reconstruction │ ──► Reply tree traversal │ SFT, DPO, RAG Extraction │ Temporal cluster resolution └──────────────┬───────────────┘ │ ┌────────────────────────────┼────────────────────────────┐ ▼ ▼ ▼ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ │ Apache Parquet │ │ JSONL Datasets │ │ Local LoRA, RAG │ │ zstd compressed │ │ ShareGPT, ChatML│ │ RTX 3060 Runner │ │ full, sft, rag │ │ Alpaca, Qdrant │ │ Streamlit Studio│ └──────────────────┘ └──────────────────┘ └──────────────────┘ ``` | Pipeline Stage | Implementation | Purpose | |---|---|---| | Ingestion | `src/ingestion/` | Normalizes and chronologically merges multi-chat raw exports (11 sources) | | Anonymization | `src/pii/` | Redacts names across 6 cases, phone numbers, crypto wallets, API tokens, database URLs | | Deduplication | `src/deduplication/` | Filters near-duplicate and exact spam messages via MinHash LSH | | Taxonomy | `src/taxonomy/` | Categorizes content into 8 technical domains and extracts keyword tags | | Thread DAG | `src/graph/` | Reconstructs conversational trees and extracts multi-turn dialogues | | Multi-Export | `src/exporter/` | Serializes outputs into Apache Parquet with zstd compression and JSONL formats | | Analytics | `src/analytics/` | Computes Shannon entropy, temporal patterns, social graphs, and vocabulary stats | | Local LoRA and RAG | `src/lora/`, `src/rag/` | Provides PEFT training for RTX 3060 and semantic retrieval for 325k chunks | --- ## 🔗 Official Datasets & Direct Access Links The corpus and trained adapters are available both remotely on **Hugging Face Hub** and locally in `dataset_output/`: ### 🤗 Hugging Face Hub Repositories: - 📦 **Dataset Hub (Full Corpus, SFT, RAG)**: 👉 [**`https://huggingface.co/datasets/wwewtech/russian-it-community-corpus`**](https://huggingface.co/datasets/wwewtech/russian-it-community-corpus) - 📄 [Full Clean Corpus (Parquet)](https://huggingface.co/datasets/wwewtech/russian-it-community-corpus/blob/main/data/full_clean_messages.parquet) — 2.81M rows (189 MB) - 💬 [SFT Dialogues (Parquet)](https://huggingface.co/datasets/wwewtech/rus",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:wwewtech/russian-it-community-corpus",
-          "url": "https://github.com/wwewtech/russian-it-community-corpus"
-        }
-      ]
-    },
-    {
       "id": "bm_open-models-benchmark-results_fb2ab56a",
       "familyId": "bmf_12ae563b9d6f",
       "name": "open-models-benchmark-results",
@@ -1073,93 +2558,6 @@
           "type": "huggingface",
           "id": "huggingface:ahmedbargady/open-models-benchmark-results",
           "url": "https://huggingface.co/datasets/ahmedBargady/open-models-benchmark-results"
-        }
-      ]
-    },
-    {
-      "id": "bm_llm-finetuning-benchmark_efda9d1c",
-      "familyId": "bmf_663a79d7b514",
-      "name": "llm-finetuning-benchmark",
-      "paperTitle": "llm-finetuning-benchmark",
-      "aliases": [],
-      "oneLine": "llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Finance"
-      ],
-      "primaryDomain": "Finance",
-      "industrySectors": [
-        "Financial Services"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/Ishant-005/llm-finetuning-benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-24T07:40:52.396154Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-22",
-      "firstSeenAt": "2026-08-24",
-      "indexedAt": "2026-08-24T07:40:52.396154Z",
-      "sourceUpdatedAt": "2026-08-23T08:47:34Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/Ishant-005/llm-finetuning-benchmark",
-        "paper": "https://github.com/Ishant-005/llm-finetuning-benchmark",
-        "code": "https://github.com/Ishant-005/llm-finetuning-benchmark"
-      },
-      "motivation": "llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:ishant-005/llm-finetuning-benchmark",
-        "url": "https://github.com/Ishant-005/llm-finetuning-benchmark",
-        "title": "llm-finetuning-benchmark",
-        "authors": [
-          "Ishant-005"
-        ],
-        "categories": []
-      },
-      "evidence": {
-        "snippet": "llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA. Evaluate various metrics, performance vs cost, performance vs memory, etc. Then built a modular multi adapter system with intelligent routing. Dataset for benchmarking - Financial PhraseBank Base model - Qwen 2.5-0.5B # llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA. Evaluate various metrics, performance vs cost, performance vs memory, etc. Then built a modular multi adapter system with intelligent routing. Dataset for benchmarking - Financial PhraseBank Base model - Qwen 2.5-0.5B",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:ishant-005/llm-finetuning-benchmark",
-          "url": "https://github.com/Ishant-005/llm-finetuning-benchmark"
         }
       ]
     },
@@ -1425,96 +2823,6 @@
       ]
     },
     {
-      "id": "bm_from-financial-sentiment-classification-to_65cf9b8b",
-      "familyId": "bmf_322d40bddebf",
-      "name": "from_financial_sentiment_classification_to_return_predictability",
-      "paperTitle": "from_financial_sentiment_classification_to_return_predictability",
-      "aliases": [],
-      "oneLine": "from_financial_sentiment_classification_to_return_predictability End-to-End Python implementation of Luo's (2026) benchmark construction and evaluation stack for financial NLP.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Finance"
-      ],
-      "primaryDomain": "Finance",
-      "industrySectors": [
-        "Financial Services"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-24T07:40:52.396154Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-22",
-      "firstSeenAt": "2026-08-24",
-      "indexedAt": "2026-08-24T07:40:52.396154Z",
-      "sourceUpdatedAt": "2026-08-23T18:54:10Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "paper": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "project": "https://img.shields.io/badge/License-MIT-2C3E50?style=flat",
-        "code": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "data": "https://huggingface.co/datasets/financial_phrasebank"
-      },
-      "motivation": "from_financial_sentiment_classification_to_return_predictability End-to-End Python implementation of Luo's (2026) benchmark construction and evaluation stack for financial NLP.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "url": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-        "title": "from_financial_sentiment_classification_to_return_predictability",
-        "authors": [
-          "chirindaopensource"
-        ],
-        "categories": []
-      },
-      "evidence": {
-        "snippet": "from_financial_sentiment_classification_to_return_predictability End-to-End Python implementation of Luo's (2026) benchmark construction and evaluation stack for financial NLP.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "from_financial_sentiment_classification_to_return_predictability End-to-End Python implementation of Luo's (2026) benchmark construction and evaluation stack for financial NLP. Harmonizes five financial-text corpora into a 33,549-row three-class benchmark, adapts Qwen2.5-7B, LLaMA3-8B and Mistral-7B via QLoRA, then tests whether the resulting sentiment scores rank forward returns on a 2019 S&P 100 news panel. asset-pricing backtesting econometrics financial-nlp financial-sentiment-analysis finbert huggingface llama3 llm lora mistral peft pytorch qlora quantitative-finance quantization qwen sentiment-analysis text-classification transformers # **`README.md`** # From Financial Sentiment Classification to Return Predictability: A QLoRA Benchmark of Large Language Models [![License: MIT](https://img.shields.io/badge/License-MIT-2C3E50?style=flat)](https://opensource.org/licenses/MIT) [![Year](https://img.shields.io/badge/Year-2026-2C3E50?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/) [![Code style: black](https://img.shields.io/badge/Code%20Style-black-2C3E50?style=flat)](https://github.com/psf/black) [![Type Checking: mypy](https://img.shields.io/badge/Type%20Checking-mypy-2C3E50?style=flat)](http://mypy-lang.org/) [![arXiv](https://img.shields.io/badge/arXiv-2608.04200-B31B1B?style=flat&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2608.04200) [![Publication Type](https://img.shields.io/badge/Publication-arXiv%20Preprint-B31B1B?style=flat)](https://arxiv.org/abs/2608.04200) [![E-Journal Submission](https://img.shields.io/badge/E--Journal%20Submission-August%204%2C%202026-B31B1B?style=flat)](https://arxiv.org/abs/2608.04200) [![Discipline](https://img.shields.io/badge/Discipline-Financial%20NLP%20%7C%20Computational%20Finance-1F6FEB?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Core Method](https://img.shields.io/badge/Method-QLoRA-1F6FEB?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Method](https://img.shields.io/badge/Method-LoRA%20%2F%20PEFT-1F6FEB?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Quantization](https://img.shields.io/badge/Quantization-4--bit%20NF4-1F6FEB?style=flat)](https://github.com/TimDettmers/bitsandbytes) [![Inference](https://img.shields.io/badge/Inference-Newey--West%20HAC-0F766E?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Inference](https://img.shields.io/badge/Inference-Benjamini--Hochberg%20FDR-0F766E?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Analysis](https://img.shields.io/badge/Analysis-Rank%20IC%20%2F%20ICIR-0F766E?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Portfolio](https://img.shields.io/badge/Portfolio-Long--Short%2015%25%20Quantiles-0F766E?style=flat)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) [![Data](https://img.shields.io/badge/Data-Financial%20PhraseBank%20v1.0-6B7280?style=flat)](https://huggingface.co/datasets/financial_phrasebank) [![Data](https://img.shields.io/badge/Data-SEntFiN%201.0-6B7280?style=flat)](https://zenodo.org/) [![Data](https://img.shields.io/badge/Data-Twitter%20Financial%20News%20Sentiment-6B7280?style=flat)](https://www.kaggle.com/) [![Data](https://img.shields.io/badge/Data-FOMC%20%2F%20Trillion%20Dollar%20Words-6B7280?style=flat)](https://github.com/gtfintechlab/fomc-hawkish-dovish) [![Data](https://img.shields.io/badge/Data-NASDAQ%20Financial%20News-6B7280?style=flat)](https://www.kaggle.com/) [![Data](https://img.shields.io/badge/Data-Benzinga%202019-6B7280?style=flat)](https://www.benzinga.com/) [![Data](https://img.shields.io/badge/Data-S%26P%20100%20Point--in--Time%202019--01--01-6B7280?style=flat)](https://www.spglobal.com/) [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/) [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=flat&logo=huggingface&logoColor=black)](https://huggingface.co/) [![PEFT](https://img.shields.io/badge/PEFT-FF9D00?style=flat&logo=huggingface&logoColor=white)](https://github.com/huggingface/peft) [![BitsAndBytes](https://img.shields.io/badge/BitsAndBytes-2C3E50?style=flat)](https://github.com/TimDettmers/bitsandbytes) [![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/) [![NumPy](https://img.shields.io/badge/NumPy-013243?style=flat&logo=numpy&logoColor=white)](https://numpy.org/) [![Pandas](https://img.shields.io/badge/pandas-150458?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org/) [![SciPy](https://img.shields.io/badge/SciPy-8CAAE6?style=flat&logo=scipy&logoColor=white)](https://scipy.org/) [![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white)](https://jupyter.org/) [![GPU](https://img.shields.io/badge/GPU-NVIDIA%20L4%2024%20GB-76B900?style=flat&logo=nvidia&logoColor=white)](https://www.nvidia.com/) [![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-brightgreen)](https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability) **Repository:** `https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability` **Owner:** 2026 Craig Chirinda (Open Source Projects) This repository contains an **independent**, professional-grade Python implementation",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:chirindaopensource/from_financial_sentiment_classification_to_return_predictability",
-          "url": "https://github.com/chirindaopensource/from_financial_sentiment_classification_to_return_predictability"
-        }
-      ]
-    },
-    {
       "id": "bm_euclid-x-desi-q1-multimodal-dataset_76d50e4f",
       "familyId": "bmf_46ae09954a33",
       "name": "Euclid-x-DESI-Q1-Multimodal-Dataset",
@@ -1600,95 +2908,6 @@
           "type": "github",
           "id": "github:xiejhhhhhh/euclid-x-desi-q1-multimodal-dataset",
           "url": "https://github.com/xiejhhhhhh/Euclid-x-DESI-Q1-Multimodal-Dataset"
-        }
-      ]
-    },
-    {
-      "id": "bm_agent-app-benchmark_0bc5ce52",
-      "familyId": "bmf_407a33ad9273",
-      "name": "agent-app-benchmark",
-      "paperTitle": "agent-app-benchmark",
-      "aliases": [],
-      "oneLine": "agent-app-benchmark Reproducible performance benchmarks for multi-harness coding-agent GUI applications # Agent App Benchmark Agent App Benchmark is a public, reproducible performance benchmark for multi-harness coding-agent GUI applicatio…",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Software & AI Compute"
-      ],
-      "primaryDomain": "Software & AI Compute",
-      "industrySectors": [
-        "Software & Cloud"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Agents"
-      ],
-      "construction": "Original Synthetic",
-      "annotation": "Machine Generated",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/kyashrathore/agent-app-benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-24T07:40:52.396154Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-22",
-      "firstSeenAt": "2026-08-24",
-      "indexedAt": "2026-08-24T07:40:52.396154Z",
-      "sourceUpdatedAt": "2026-08-24T07:30:29Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/kyashrathore/agent-app-benchmark",
-        "paper": "https://github.com/kyashrathore/agent-app-benchmark",
-        "code": "https://github.com/kyashrathore/agent-app-benchmark"
-      },
-      "motivation": "agent-app-benchmark Reproducible performance benchmarks for multi-harness coding-agent GUI applications # Agent App Benchmark Agent App Benchmark is a public, reproducible performance benchmark for multi-harness coding-agent GUI applications.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:kyashrathore/agent-app-benchmark",
-        "url": "https://github.com/kyashrathore/agent-app-benchmark",
-        "title": "agent-app-benchmark",
-        "authors": [
-          "kyashrathore"
-        ],
-        "categories": []
-      },
-      "evidence": {
-        "snippet": "agent-app-benchmark Reproducible performance benchmarks for multi-harness coding-agent GUI applications # Agent App Benchmark Agent App Benchmark is a public, reproducible performance benchmark for multi-harness coding-agent GUI applications.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "agent-app-benchmark Reproducible performance benchmarks for multi-harness coding-agent GUI applications # Agent App Benchmark Agent App Benchmark is a public, reproducible performance benchmark for multi-harness coding-agent GUI applications. The current V3 scenarios measure GUI handling of completed historical coding sessions; they do not run or compare the coding-agent harness itself. The first registered applications are [T3 Code](https://github.com/pingdotgg/t3code) and [Claxedo](https://github.com/kyashrathore/Claxedo). Both happen to use Electron. Electron is not a requirement: native, Tauri, Flutter, Qt, browser-based, and other GUI applications are welcome. ## Current scenarios ### Application start - **First launch — new application state:** a new app process uses a cloned prepared state that the application has never launched with. - **Repeat launch — initialized application state:** a new app process uses a cloned state that completed exactly one earlier unmeasured launch to the same endpoint and then shut down cleanly. - Both begin immediately before process spawn and end when the fixed 1 MiB anchor transcript is correct and painted across two presentation opportunities and the composer accepts trusted input. Repeat launch is not an existing hidden process, a background-window focus, or a renderer-only reload. ### Session switching Four lanes are reported independently: - cold destination within the same workspace; - warm destination within the same workspace; - cold destination across workspaces; - warm destination across workspaces. Cold means the unique destination has never become active in that measured app process. Warm means that destination is activated once to readiness, the driver returns to control, and the revisit is measured. Each configured repetition starts one stabilized process and measures 10 unique 1 MiB destinations per lane, so the default two repetitions provide 20 observations per lane without 40 application launches. Average and sampled maximum are always reported. p95 is reported only with at least 20 valid observations. A separate within-workspace/cold size sweep measures 1, 8, 32, and 128 MiB in a counterbalanced order; it is not derived from the ascending memory workload. ### Memory and CPU Memory is one app-level result—not split by app start or workspace relation. - **Baseline idle:** the configured idle window with the ready 1 MiB control session visible and no benchmark input. - **Active:** the deterministic session-switch workload progresses completed historical sessions from 1 MiB through 128 MiB. - **Ending idle:** the configured idle window after returning to the same ready 1 MiB control session. The complete memory workload runs once in a fresh process per configured repetition. Its table contains baseline idle average, active average/sampled-maximum/p95, ending idle average, and retained RSS growth. “Maximum” is the largest observed 250 ms RSS sample, not an operating-system true peak. CPU and memory growth charts average matching boundaries across resource runs. RSS is summed across the driver-declared application process family. CPU percentage uses sampled cumulative CPU-time deltas for every descendant observed inside the boundary; new descendants count from process birth and exiting descendants count through their final sample. Unobserved work after that final sample is not estimated. 100% means one fully occupied logical core. No live session stream, model call, agent run, or terminal activity occurs during these measurements. ## Canonical corpus Every app receives the same deterministic `opencode-completed-sessions-v3` directory. It contains one NDJSON file per logical session using the pinned OpenCode `EventV2.SerializedEvent` envelope and these durable event types: - `session.created.1` - `message.updated.1` - `message.part.updated.1` The source baseline is OpenCode revision `a9f7081d4015b0cc22ed67156e042b482a8d064a`. Payload size counts UTF-8 bytes in completed text, reasoning, serialized tool input, and tool output. It excludes IDs, event envelopes, indexes, database encoding, and storage overhead. V3 uses rounded structural distributions derived from local OpenCode, Claude Code, and Codex histories, including the long-session tail. Only counts and byte-length distributions were used. The committed shape is rounded, and every emitted prompt, response, reasoning block, tool input, tool output, path, patch, title, timestamp, and identifier is synthetic. No original session text, code, command, repository name, path, URL, or identifier is copied into the corpus. Generation and verification also reject common home-path, email, and secret patterns. Payload parts use deterministic heavy-tailed sizes and varied code/log/JSON-like content rather than equal uniform chunks. The 53-session corpus has separate destinations for the four latency pools, the counterbalanced size sweep, and the progressive memory workload. It contains 574,619,648 measured payload bytes and 219,073 durable events. The largest individual histories are 128 MiB with 4,400 messages, 12,000 completed tool calls, and 1,000 patch records. An application with a shipped production OpenCode history path should use it and report `native-opencode`. Other apps may translate the canonical event stream through their ordinary production history path and report `translated`. The website discloses the mode. Drivers are trusted adapters: app-owned tests and review catch mistakes, but the framework does not pretend DOM readback proves driver honesty. ## Non-goals V3 does not measure Web Vitals (LCP, INP, CLS, FCP, or TTFB), streaming output, live agent or model execution, embedded terminal coding agents, or a composite score. It does include completed historical text, reasoning, tool, and patch records because those are ordinary session-GUI load. ## Install and validate Requirements: Node.js 22 or newer and Rust 1.88 or newer. ```bash npm ci npm test npm run lint npm run validate ca",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:kyashrathore/agent-app-benchmark",
-          "url": "https://github.com/kyashrathore/agent-app-benchmark"
         }
       ]
     },
@@ -130324,7 +131543,7 @@
     "openreview"
   ],
   "sourceFailures": {
-    "arxiv": "TimeoutError",
+    "arxiv": "RuntimeError",
     "openreview": "HTTPError"
   }
 }

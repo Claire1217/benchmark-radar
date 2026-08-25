@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-24 · **Benchmark releases:** 1279
+**Snapshot:** 2026-08-26 · **Benchmark releases:** 1279
 
 ## Contents
 
@@ -273,7 +273,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **OpenHarmony Bench** (2026-08-17) — We present OPENHARMONY BENCH, an app-level coding benchmark for evaluating LLM-based coding agents on OpenHarmony ArkTS applications. [Paper](https://arxiv.org/abs/2608.16022) · [HF](https://huggingface.co/papers/2608.16022)
 - **OV3D-Bench** (2026-08-17) — To address this, we introduce OV3D-Bench, a diagnostic benchmark that compares open-vocabulary monocular 3D detectors under deployment-realistic conditions across seven indoor and outdoor datasets. [Paper](https://arxiv.org/abs/2608.17110) · [HF](https://huggingface.co/papers/2608.17110) · [Code](https://github.com/mgladkova/ov3d-bench)
 - **INSPIRE** (2026-08-17) — We introduce INSPIRE, the first benchmark for instruction-aware speech retrieval, in which natural-language instructions dynamically specify relevance criteria, including semantic content, speaker identity, speaking sty… [Paper](https://arxiv.org/abs/2608.16203) · [HF](https://huggingface.co/papers/2608.16203)
-- **ConceptEdit-Bench** (2026-08-17) — Finally, we present ConceptEdit-Bench, a granular evaluation suite designed to diagnose model capabilities across a vast array of real-world scenarios. [Paper](https://arxiv.org/abs/2608.16812) · [HF](https://huggingface.co/papers/2608.16812)
+- **ConceptEdit-Bench** (2026-08-17) — Finally, we present ConceptEdit-Bench, a granular evaluation suite designed to diagnose model capabilities across a vast array of real-world scenarios. [Paper](https://arxiv.org/abs/2608.16812) · [HF](https://huggingface.co/papers/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)
 - **AeroCopilotBench** (2026-08-17) — This paper presents the AeroCopilot Operational Environment (ACOE), a reproducible interactive virtual-cockpit test environment, and AeroCopilotBench, a two-tier aviation agent evaluation benchmark. [Paper](https://arxiv.org/abs/2608.16349) · [HF](https://huggingface.co/papers/2608.16349)
 - **WSE-bench** (2026-08-16) — We introduce WSE-bench, a process benchmark that separately evaluates sustained generation, canonical coherence, and meaningful development in dynamic LLM storytelling. [Paper](https://arxiv.org/abs/2608.15654) · [HF](https://huggingface.co/papers/2608.15654)
 - **VARM-Bench** (2026-08-16) — We introduce VARM-Bench, a benchmark for field-anchored chain-of-thought rationales in Chinese abusive-speech moderation. [Paper](https://arxiv.org/abs/2608.15600) · [HF](https://huggingface.co/papers/2608.15600)
