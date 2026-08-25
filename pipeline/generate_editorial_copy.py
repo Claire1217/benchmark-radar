@@ -515,6 +515,25 @@ def main() -> None:
         })
     if missing_source_ids:
         print(f"editorial_copy_missing_source={len(missing_source_ids)} deferred=true")
+        if args.review_curated and not args.dry_run:
+            now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+            upsert_curated(
+                records,
+                [
+                    {
+                        "sourceId": source_id,
+                        "decision": "defer",
+                        "decisionReason": (
+                            "The source text needed to prove the formal benchmark name was unavailable "
+                            "during this audit."
+                        ),
+                    }
+                    for source_id in missing_source_ids
+                ],
+                now,
+                args.model,
+                audit_existing=True,
+            )
     source_rows = [
         row for row in source_rows
         if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row, policy_version))
