@@ -3,8 +3,11 @@ name: Daily benchmark index
 on:
   schedule:
     # Publish one reviewed morning batch for the previous Brisbane calendar
-    # day. Lightweight Today-only attention refreshes run separately.
+    # day. A later idempotent retry catches transient source or model outages.
+    # Lightweight Today-only attention refreshes run separately.
     - cron: "0 9 * * *"
+      timezone: "Australia/Brisbane"
+    - cron: "30 11 * * *"
       timezone: "Australia/Brisbane"
   workflow_dispatch:
     inputs:
@@ -68,6 +71,8 @@ jobs:
 
       - name: Review candidates and generate public copy
         if: ${{ inputs.metrics_only != true }}
+        id: editorial-review
+        continue-on-error: true
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           # Admission is the high-judgment step; use Pro here. Routine copy
@@ -85,8 +90,14 @@ jobs:
             python pipeline/generate_editorial_copy.py --review-queue --released-from "$BATCH_START" --released-through "$target" --limit 0 --batch-size 8
           fi
 
+      - name: Report editorial review status
+        if: ${{ inputs.metrics_only != true && steps.editorial-review.outcome == 'failure' }}
+        run: echo "::warning::Editorial review service failed; keeping candidates queued for the later daily retry."
+
       - name: Continue editorial backfill
         if: ${{ inputs.metrics_only != true }}
+        id: editorial-backfill
+        continue-on-error: true
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_COPY_MODEL: deepseek-v4-flash
@@ -95,6 +106,10 @@ jobs:
           if [ -n "$DEEPSEEK_API_KEY" ]; then
             python pipeline/generate_editorial_copy.py --limit 48 --batch-size 8
           fi
+
+      - name: Report editorial backfill status
+        if: ${{ inputs.metrics_only != true && steps.editorial-backfill.outcome == 'failure' }}
+        run: echo "::warning::Editorial backfill failed; continuing with validated canonical records."
 
       - name: Reconcile reviewed records before enrichment
         if: ${{ inputs.metrics_only != true }}
