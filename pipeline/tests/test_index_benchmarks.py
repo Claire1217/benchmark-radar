@@ -10,7 +10,7 @@ from urllib.error import HTTPError, URLError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from index_benchmarks import Paper, canonical_name, curated_records, family_id, infer_publication, merge_patch, persistent_review_candidates, recognition, request_oai, to_record, upsert, venue_entities
+from index_benchmarks import Paper, canonical_name, curated_records, family_id, infer_publication, merge_patch, parse_atom_paper, persistent_review_candidates, recognition, request_oai, to_record, upsert, venue_entities
 
 
 OAI_OK = b'<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><ListRecords /></OAI-PMH>'
@@ -41,6 +41,24 @@ def sample(title: str, abstract: str, arxiv_id: str = "2608.00001") -> Paper:
 
 
 class IndexerTests(unittest.TestCase):
+    def test_atom_fallback_parses_official_arxiv_entry(self) -> None:
+        import xml.etree.ElementTree as ET
+        entry = ET.fromstring("""
+        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">
+          <id>https://arxiv.org/abs/2608.12345v1</id><updated>2026-08-24T12:00:00Z</updated>
+          <published>2026-08-24T12:00:00Z</published><title>ExampleBench: A Benchmark</title>
+          <summary>We introduce ExampleBench.</summary><author><name>A. Researcher</name></author>
+          <category term="cs.AI"/><arxiv:primary_category term="cs.AI"/>
+          <arxiv:comment>Code released.</arxiv:comment><link href="https://arxiv.org/pdf/2608.12345" type="application/pdf"/>
+        </entry>
+        """)
+        paper = parse_atom_paper(entry)
+        self.assertIsNotNone(paper)
+        self.assertEqual(paper.arxiv_id, "2608.12345")
+        self.assertEqual(paper.released_at, "2026-08-24")
+        self.assertEqual(paper.primary_category, "cs.AI")
+        self.assertEqual(paper.authors, ["A. Researcher"])
+
     def test_review_queue_upsert_preserves_deferred_candidates_outside_daily_window(self) -> None:
         older = full = {
             "id": "older", "releasedAt": "2026-07-01",

@@ -36,6 +36,7 @@ OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 CURATED_RECORDS_PATH = ROOT / "data" / "curated_records.json"
 RUNS_PATH = ROOT / "data" / "runs"
 OAI_URL = "https://oaipmh.arxiv.org/oai"
+ATOM_API_URL = "https://export.arxiv.org/api/query"
 OAI_MAX_ATTEMPTS = 5
 OAI_RETRY_BASE_SECONDS = 1.0
 OAI_RETRY_CAP_SECONDS = 60.0
@@ -43,6 +44,11 @@ PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
 OAI_NS = {
     "oai": "http://www.openarchives.org/OAI/2.0/",
     "raw": "http://arxiv.org/OAI/arXivRaw/",
+}
+ATOM_NS = {
+    "atom": "http://www.w3.org/2005/Atom",
+    "arxiv": "http://arxiv.org/schemas/atom",
+    "opensearch": "http://a9.com/-/spec/opensearch/1.1/",
 }
 
 
@@ -256,6 +262,68 @@ def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> l
 
 def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
     return fetch_for_range(target_date, target_date, config)
+
+
+def atom_text(element: ET.Element, path: str) -> str:
+    found = element.find(path, ATOM_NS)
+    return normalize_space(found.text if found is not None else "")
+
+
+def parse_atom_paper(entry: ET.Element) -> Paper | None:
+    entry_url = atom_text(entry, "atom:id")
+    arxiv_id = entry_url.rsplit("/", 1)[-1].split("v", 1)[0]
+    published = atom_text(entry, "atom:published")
+    updated = atom_text(entry, "atom:updated") or published
+    if not arxiv_id or not published:
+        return None
+    categories = [item.attrib.get("term", "") for item in entry.findall("atom:category", ATOM_NS)]
+    primary = entry.find("arxiv:primary_category", ATOM_NS)
+    links = {item.attrib.get("type"): item.attrib.get("href", "") for item in entry.findall("atom:link", ATOM_NS)}
+    return Paper(
+        arxiv_id=arxiv_id,
+        title=atom_text(entry, "atom:title"),
+        authors=[atom_text(item, "atom:name") for item in entry.findall("atom:author", ATOM_NS)],
+        abstract=atom_text(entry, "atom:summary"),
+        categories=[item for item in categories if item],
+        primary_category=(primary.attrib.get("term", "") if primary is not None else (categories[0] if categories else "")),
+        released_at=published[:10],
+        updated_at=updated,
+        entry_url=entry_url or f"https://arxiv.org/abs/{arxiv_id}",
+        pdf_url=links.get("application/pdf") or f"https://arxiv.org/pdf/{arxiv_id}",
+        comments=atom_text(entry, "arxiv:comment"),
+        journal_ref=atom_text(entry, "arxiv:journal_ref"),
+    )
+
+
+def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
+    """Fallback to arXiv's official Atom API when OAI-PMH is unavailable."""
+    settings = config["arxiv"]
+    categories = " OR ".join(f"cat:{category}" for category in settings["categories"])
+    start_stamp = start_date.replace("-", "") + "0000"
+    end_stamp = end_date.replace("-", "") + "2359"
+    search = f"submittedDate:[{start_stamp} TO {end_stamp}] AND ({categories})"
+    page_size = 500
+    start = 0
+    papers: dict[str, Paper] = {}
+    while True:
+        request = Request(
+            f"{ATOM_API_URL}?{urlencode({'search_query': search, 'start': start, 'max_results': page_size, 'sortBy': 'submittedDate', 'sortOrder': 'ascending'})}",
+            headers={"User-Agent": "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"},
+        )
+        with urlopen(request, timeout=90) as response:
+            root = ET.fromstring(response.read())
+        entries = root.findall("atom:entry", ATOM_NS)
+        for entry in entries:
+            paper = parse_atom_paper(entry)
+            if paper is not None and start_date <= paper.released_at <= end_date:
+                papers[paper.arxiv_id] = paper
+        total_text = atom_text(root, "opensearch:totalResults")
+        total = int(total_text or len(entries))
+        start += len(entries)
+        if not entries or start >= total or len(papers) >= int(settings["max_papers"]):
+            break
+        time.sleep(float(settings["request_delay_seconds"]))
+    return sorted(papers.values(), key=lambda item: item.arxiv_id)[: int(settings["max_papers"])]
 
 
 def first_sentence(text: str, limit: int = 240) -> str:

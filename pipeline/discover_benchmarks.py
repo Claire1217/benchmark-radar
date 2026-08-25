@@ -353,6 +353,7 @@ def main() -> None:
     config = arxiv.read_json(arxiv.CONFIG_PATH)
     failures: dict[str, str] = {}
     arxiv_count = 0
+    arxiv_mode = "oai"
     query_dates = arxiv_query_dates(target)
     batch_dates = publication_batch_dates(target)
     batch_start = batch_dates[0]
@@ -367,16 +368,27 @@ def main() -> None:
                     papers, batch_start, target, target, config,
                     started_from="unified discovery",
                 )
-        except (HTTPError, URLError, TimeoutError, RuntimeError) as error:
-            failures["arxiv"] = type(error).__name__
-            if not args.dry_run:
-                # External sources can still publish a valid dated batch. Keep
-                # the failed arXiv source explicit instead of leaving an old
-                # source window in the canonical manifest.
-                arxiv.index_papers(
-                    [], batch_start, target, target, config,
-                    started_from="arXiv unavailable; external sources only",
-                )
+        except (HTTPError, URLError, TimeoutError, RuntimeError) as oai_error:
+            try:
+                papers = arxiv.fetch_for_range_atom(query_dates[0], query_dates[-1], config)
+                arxiv_count = len(papers)
+                arxiv_mode = "atom-fallback"
+                failures["arxivOai"] = type(oai_error).__name__
+                if not args.dry_run:
+                    arxiv.index_papers(
+                        papers, batch_start, target, target, config,
+                        started_from="arXiv Atom API fallback",
+                    )
+            except (HTTPError, URLError, TimeoutError, RuntimeError) as fallback_error:
+                failures["arxiv"] = type(fallback_error).__name__
+                if not args.dry_run:
+                    # External sources can still publish a valid dated batch. Keep
+                    # the failed arXiv source explicit instead of leaving an old
+                    # source window in the canonical manifest.
+                    arxiv.index_papers(
+                        [], batch_start, target, target, config,
+                        started_from="arXiv unavailable; external sources only",
+                    )
     elif not args.dry_run:
         arxiv.index_papers(
             [], batch_start, target, target, config,
@@ -391,6 +403,7 @@ def main() -> None:
     raw: list[dict[str, Any]] = []
     counts: dict[str, Any] = {
         "arxiv": arxiv_count,
+        "arxivMode": arxiv_mode,
         "arxivQueryDates": query_dates,
         "publicationBatchDates": batch_dates,
     }
