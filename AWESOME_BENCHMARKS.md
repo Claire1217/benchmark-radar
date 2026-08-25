@@ -10,26 +10,26 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-26 · **Benchmark releases:** 1279
+**Snapshot:** 2026-08-26 · **Benchmark releases:** 1295
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (10)
-- [Biology & Drug Discovery](#biology--drug-discovery) (87)
+- [Biology & Drug Discovery](#biology--drug-discovery) (88)
 - [Chip Design & EDA](#chip-design--eda) (8)
-- [Cybersecurity](#cybersecurity) (36)
-- [Finance](#finance) (43)
-- [General AI](#general-ai) (862)
+- [Cybersecurity](#cybersecurity) (37)
+- [Finance](#finance) (44)
+- [General AI](#general-ai) (873)
 - [Logistics & Operations](#logistics--operations) (7)
 - [Manufacturing & Process Control](#manufacturing--process-control) (5)
 - [Materials & Chemistry](#materials--chemistry) (11)
 - [Mathematics & Formal Science](#mathematics--formal-science) (16)
 - [Mobile & Personal Computing](#mobile--personal-computing) (7)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (94)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (95)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (88)
+- [Software & AI Compute](#software--ai-compute) (89)
 
 ## Autonomous Driving
 
@@ -46,6 +46,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Biology & Drug Discovery
 
+- **TSWAP Thai Wellness Benchmark** (2026-08-24) — We release the first Thai traditional-medicine/wellness retrieval benchmark (50 questions with gold document IDs; Recall@5 = 0.88), production QA logs (91.1% test-retest pass over 259 cases), and a 71-question frontier… [Paper](http://arxiv.org/abs/2608.22917v1) · [Data](https://huggingface.co/datasets/iapp/tswap-wellness-benchmark)
 - **PathoArgus-Bench** (2026-08-18) — We introduce PathoArgus-Bench, a benchmark and evaluation protocol that explicitly tests the full evidence chain: availability, accessibility, use, and responsiveness. [Paper](https://arxiv.org/abs/2608.17607) · [HF](https://huggingface.co/papers/2608.17607) · [Data](https://huggingface.co/datasets/liubw/PathoArgus-Bench)
 - **HounsBench** (2026-08-13) — To operationalize this view, we introduce HounsBench, a computed tomography (CT) centric patient-state benchmark that unifies these three task families with patient-disjoint splits and per-family metrics, and HounsWorld… [Paper](https://arxiv.org/abs/2608.12904) · [HF](https://huggingface.co/papers/2608.12904) · [Code](https://github.com/byhwhite/HounsWorld.git)
 - **CoMedBench** (2026-08-13) — We introduce CoMedBench, a reproducible benchmark that evaluates a family of generators under a common clinical-validity framework and one shared training and evaluation engine, spanning static tabular and temporal down… [Paper](https://arxiv.org/abs/2608.12805) · [HF](https://huggingface.co/papers/2608.12805)
@@ -147,6 +148,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Cybersecurity
 
+- **RAD** (2026-08-24) — To evaluate this setting, we introduce a relational anomaly detection benchmark spanning three settings: LANL cybersecurity event detection and two unexpected user-churn anomaly tasks derived from Amazon and H&M relatio… [Paper](http://arxiv.org/abs/2608.23468v1) · [Code](https://github.com/noahd15/RAD_RelationalAnomalyDetection)
 - **rag-retrieval-benchmark** (2026-08-23) — rag-retrieval-benchmark Does hybrid search and reranking actually help? [Paper](https://github.com/gauthamRohan/rag-retrieval-benchmark) · [Code](https://github.com/gauthamRohan/rag-retrieval-benchmark) · [Data](https://huggingface.co/datasets/BeIR/fiqa)
 - **HarnessRisk** (2026-08-18) — We present HarnessRisk, a lifecycle oriented benchmark that organizes agent harness safety into six operational phases including Harness Configuration, Capability Extension, Runtime Operation, State Persistence, Action… [Paper](https://arxiv.org/abs/2608.17597) · [HF](https://huggingface.co/papers/2608.17597) · [Code](https://github.com/Baiyajing/HarnessRisk) · [Data](https://huggingface.co/datasets/YajingB/HarnessRisk)
 - **WeSCE** (2026-08-15) — In this work, we introduce WeSCE, a benchmark for quantifying security drift in code editing under weak-security constraints, where tasks specify only functional objectives without explicit security requirements. [Paper](https://arxiv.org/abs/2608.15092) · [HF](https://huggingface.co/papers/2608.15092)
@@ -186,6 +188,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **FinixDocBench** (2026-08-24) — For evaluation, we construct FinixDocBench, a financial-domain evaluation suite covering digital-native, camera-captured, ultra-large-page, and internal-workflow scenarios, with a compliance-reviewed subset released alo… [Paper](http://arxiv.org/abs/2608.22842v1)
 - **refusal-benchmark** (2026-08-22) — refusal-benchmark 519+ harmful prompts to detect how abliterated AI models are # refusal-benchmark > 519+ harmful prompts to detect how abliterated AI models are. [Paper](https://github.com/audn-ai/refusal-benchmark) · [Code](https://github.com/audn-ai/refusal-benchmark)
 - **llm-finetuning-benchmark** (2026-08-22) — llm-finetuning-benchmark Benchmarked different fine tuning strategies like full ft, LoRA, QLoRA. [Paper](https://github.com/Ishant-005/llm-finetuning-benchmark) · [Code](https://github.com/Ishant-005/llm-finetuning-benchmark)
 - **Mandate Bench** (2026-08-22) — mandate-bench Behavioral benchmarking of LLM agents on a fixed portfolio-rebalancing task: mandate compliance, decision consistency, reasoning-action agreement agents benchmark instruction-following llm reproducibility… [Paper](https://github.com/msavdert/mandate-bench) · [Code](https://github.com/msavdert/mandate-bench)
@@ -232,6 +235,17 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **WildHandBench** (2026-08-24) — We present WildHandBench, a benchmark containing 500 handwritten documents across three structures (free text, tables, formulas), four languages, and nine real-world scenarios. [Paper](http://arxiv.org/abs/2608.22959v1)
+- **WebDev-Skills-Bench** (2026-08-24) — We introduce WebDev-Skills-Bench and use it for a controlled empirical study of 31 public WebDev Skills on 50 Web-Bench projects and 1,000 ordered tasks. [Paper](http://arxiv.org/abs/2608.23067v1)
+- **WADE** (2026-08-24) — We introduce WADE, a reasoning-annotated benchmark containing 2,167 images from rural Bangladesh, 13,608 bounding boxes, and ten waste categories. [Paper](http://arxiv.org/abs/2608.22950v1)
+- **VideoRover-Bench** (2026-08-24) — We also introduce VideoRover-Bench, a benchmark stratified by video duration and research difficulty. [Paper](http://arxiv.org/abs/2608.23329v1)
+- **StrategyBench** (2026-08-24) — To evaluate this ability, we propose StrategyBench, which selects strategy-inducible tasks from BIG-Bench, constructs reference strategies, and defines evaluation metrics along two dimensions: strategy quality and downs… [Paper](http://arxiv.org/abs/2608.23475v1)
+- **RuleWorld** (2026-08-24) — To evaluate this capability, we introduce RuleWorld, a large-scale benchmark that reformulates rules as globally reusable abstract units rather than instance-specific facts. [Paper](http://arxiv.org/abs/2608.22753v1) · [Code](https://github.com/SharkSpicy-NLP/Beyond-Factual-Knowledge)
+- **MHER** (2026-08-24) — We introduce MHER, a provenance-controlled benchmark for pairwise reconciliation of person-name attestations from the Mongol world. [Paper](http://arxiv.org/abs/2608.23507v1)
+- **Lit2Test** (2026-08-24) — We introduce a benchmark that carries a proposal from Literature to Test: the Lit2Test benchmark centers on a six-field contract organized around a falsifying outcome, so that every proposal precommits the observation t… [Paper](http://arxiv.org/abs/2608.22948v1)
+- **Cultural Moment Benchmark** (2026-08-24) — We introduce the Cultural Moment Benchmark (CMB): 306 expert-curated concepts from seven countries in Southeast Asia across five categories. [Paper](http://arxiv.org/abs/2608.23065v1)
+- **CatchBench** (2026-08-24) — A benchmark number is therefore not interpretable until the process behind its labels is published and tested for the shortcut it may leave. [Paper](http://arxiv.org/abs/2608.22808v1) · [Code](https://github.com/yzhao062/catchbench)
+- **BasketballBench** (2026-08-24) — We introduce BasketballBench, a multimodal benchmark comprising 7,980 questions across ten tasks in text, image, and video. [Paper](http://arxiv.org/abs/2608.23435v1)
 - **GPU-Accelerated-ML-Inference-Benchmark** (2026-08-23) — GPU-Accelerated-ML-Inference-Benchmark # GPU-Accelerated ML Inference Benchmark This project demonstrates a benchmark comparing inference performance across different execution engines: 1. [Paper](https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark) · [Code](https://github.com/jyotydivya/GPU-Accelerated-ML-Inference-Benchmark)
 - **russian-it-community-corpus** (2026-08-22) — russian-it-community-corpus Russian IT Community Conversational Corpus (2018-2026) · Zero-PII Curation Platform, Multi-turn SFT, DPO, RAG Knowledge Base, Streamlit Studio & RTX 3060 LoRA benchmark data-engineering datas… [Paper](https://github.com/wwewtech/russian-it-community-corpus) · [Code](https://github.com/wwewtech/russian-it-community-corpus) · [Data](https://huggingface.co/datasets/wwewtech/russian-it-community-corpus)
 - **Vast Benchmarking** (2026-08-22) — vast-benchmarking Bounded Vast.ai GPU, effective-CPU, memory, and disk benchmark with a SQLite leaderboard benchmark computer-vision cuda flask pytorch sqlite vast-ai Vast Benchmarking Measure the hardware capacity a re… [Paper](https://github.com/drivelineresearch/vast-benchmarking) · [Code](https://github.com/drivelineresearch/vast-benchmarking)
@@ -245,6 +259,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **llm-free-benchmark** (2026-08-21) — llm-free-benchmark Dependency-free benchmark for free-tier LLMs on OpenRouter. [Paper](https://github.com/Miolonixc/llm-free-benchmark) · [Code](https://github.com/Miolonixc/llm-free-benchmark)
 - **agent-model-bench** (2026-08-21) — agent-model-bench Which model should power your agent? [Paper](https://github.com/ajbermudezh22/agent-model-bench) · [Code](https://github.com/ajbermudezh22/agent-model-bench)
 - **euskal-agent-bench** (2026-08-20) — euskal-agent-bench Do LLM agents work in Basque? [Paper](https://github.com/GorkaFS13/euskal-agent-bench) · [Code](https://github.com/GorkaFS13/euskal-agent-bench)
+- **amo-bench-p** (2026-08-20) — AMO-Bench-P This is the 39-problem, parser-graded subset of meituan-longcat/AMO-Bench. [Paper](https://huggingface.co/datasets/djalexj/amo-bench-p) · [Data](https://huggingface.co/datasets/djalexj/amo-bench-p)
 - **VGI-Bench** (2026-08-20) — To this end, we introduce VGI-bench, containing 27 tasks and 810 instances, organized by a two-level taxonomy of task domains and skill tags for fine-grained evaluation of visual reasoning capabilities of video generati… [Paper](https://arxiv.org/abs/2608.19583)
 - **Thinkingbox-bench** (2026-08-20) — We release both Thinkingbox and Thinkingbox-Bench: https://github.com/microsoft/thinkingbox [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
 - **The Value Engine Benchmark** (2026-08-20) — the-value-engine-benchmark VEB: an evidence-graded RL environment and benchmark for LLM agents on multi-touch enterprise-sales negotiation. [Paper](https://github.com/rudycelekli/the-value-engine-benchmark) · [Code](https://github.com/rudycelekli/the-value-engine-benchmark)
@@ -259,7 +274,6 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **MaliciousSkillBench** (2026-08-20) — We present MaliciousSkillBench, a comprehensive benchmark for malicious Agent Skill detection. [Paper](https://arxiv.org/abs/2608.19901)
 - **ExPhy** (2026-08-20) — To address this gap, we introduce \emph{ExPhy}, a multi-object trajectory forecasting benchmark containing 24,000 simulated physical scenes with explicit object-level labels for mass, friction, and restitution. [Paper](https://arxiv.org/abs/2608.20009) · [Code](https://github.com/Zest86/ExPhy)
 - **DeltaML-Bench** (2026-08-20) — We introduce DeltaML-Bench, a benchmark comprising 48 tasks sourced from research papers that require agents to improve published baselines within imperfect, open-source repositories. [Paper](https://arxiv.org/abs/2608.19653) · [Code](https://github.com/AlgorithmicResearchGroup/deltaml-bench-public)
-- **AMO-Bench-P** (2026-08-20) — AMO-Bench-P This is the 39-problem, parser-graded subset of meituan-longcat/AMO-Bench. [Paper](https://huggingface.co/datasets/djalexj/amo-bench-p) · [Data](https://huggingface.co/datasets/djalexj/amo-bench-p)
 - **VA-Judger-Bench** (2026-08-19) — We also introduce the VA-Judger-Bench benchmark with both in-domain and out-of-domain model comparisons to evaluate whether reward models truly align with human preferences. [Paper](https://arxiv.org/abs/2608.18607) · [Code](https://github.com/ShareLab-SII/VA-Judger)
 - **GreekBarRetrieval** (2026-08-19) — We introduce GreekBarRetrieval, a public retrieval benchmark derived from, and complementing GreekBarBench, which did not include retrieval. [Paper](https://arxiv.org/abs/2608.18752)
 - **AtmosCoder-Bench** (2026-08-19) — Here we introduce AtmosCoder-Bench, an execution-grounded benchmark that makes the calculation process visible. [Paper](https://arxiv.org/abs/2608.18726) · [Code](https://github.com/acodercat/AtmosCoder-Bench)
@@ -1163,6 +1177,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **InstructMove** (2026-08-24) — We introduce InstructMove, a text-indispensable benchmark for instruction-following manipulation. [Paper](http://arxiv.org/abs/2608.22990v1) · [Code](https://github.com/HorizonRobotics/RoboOrchardSim)
 - **GRIT** (2026-08-22) — grit-benchmark GRIT: a benchmark scoring LLM planners that drive robot skills while the world undoes their work. [Paper](https://github.com/guptabhishekumar/grit-benchmark) · [Code](https://github.com/guptabhishekumar/grit-benchmark)
 - **Cross-Engine Humanoid Benchmark** (2026-08-22) — cross-engine-humanoid-benchmark Cross-engine (MuJoCo vs PyBullet) humanoid benchmark with PSO-based sim calibration # Cross-Engine Humanoid Benchmark [![benchmark](https://github.com/tiago369/cross-engine-humanoid-bench… [Paper](https://github.com/tiago369/cross-engine-humanoid-benchmark) · [Code](https://github.com/tiago369/cross-engine-humanoid-benchmark)
 - **SoftVTBench: A Deformation-Aware Visuo-Tactile Dataset and Benchmark for Deformable-Object Manipulation** (2026-08-19) — We introduce SoftVTBench, a visuo-tactile dataset for physical-interaction-aware deformable-object manipulation. [Paper](https://arxiv.org/abs/2608.18701)
@@ -1269,11 +1284,12 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **SWE Refactor Bench** (2026-08-24) — To address this problem, we introduce SWE Refactor Bench, a benchmark comprising 20 whole-repository migrations, covering 4 kinds of technical debt. [Paper](http://arxiv.org/abs/2608.23564v1)
 - **repo-context-ambiguity** (2026-08-23) — A benchmark with automatic AST oracles. [Paper](https://github.com/Parfait18/repo-context-ambiguity) · [Code](https://github.com/Parfait18/repo-context-ambiguity)
 - **OraclePhys** (2026-08-23) — oraclephys Benchmark, datasets and code for arXiv:2608.17162 benchmark finetuning llm reinforcement-learning structural-engineering # OraclePhys An end-to-end instrument — **benchmark, dataset, training pipeline** — for… [Paper](https://github.com/cl1110goo-afk/oraclephys) · [Code](https://github.com/cl1110goo-afk/oraclephys)
+- **evallab** (2026-08-22) — evallab Research-style evaluation of local LLMs focused on paired comparisons, uncertainty, benchmark stability, and trustworthy model-ranking conclusions. [Paper](https://github.com/bagheri365/evallab) · [Code](https://github.com/bagheri365/evallab)
 - **Turkish LLM Benchmark** (2026-08-22) — turkish-llm-benchmark Provider-neutral Turkish quality, cost, latency, and performance benchmarks for LLMs benchmark evaluation llm openrouter turkish # Turkish LLM Benchmark [![CI](https://github.com/kadirnar/turkish-l… [Paper](https://github.com/kadirnar/turkish-llm-benchmark) · [Code](https://github.com/kadirnar/turkish-llm-benchmark)
 - **Multi-Organ CT Segmentation Benchmark** (2026-08-22) — ct-segmentation-benchmark Staged Dice/IoU benchmark of MOOSE, TotalSegmentator & VoxTell on public CT datasets. [Paper](https://github.com/caitlin-leonard/ct-segmentation-benchmark) · [Code](https://github.com/caitlin-leonard/ct-segmentation-benchmark) · [Data](https://zenodo.org/record/6802614)
-- **EvalLab** (2026-08-22) — evallab Research-style evaluation of local LLMs focused on paired comparisons, uncertainty, benchmark stability, and trustworthy model-ranking conclusions. [Paper](https://github.com/bagheri365/evallab) · [Code](https://github.com/bagheri365/evallab)
 - **DelveRL** (2026-08-22) — DelveRL A human-playable turn-based roguelike and open benchmark for local game-playing agents. [Paper](https://github.com/SnyderConsulting/DelveRL) · [Code](https://github.com/SnyderConsulting/DelveRL)
 - **Company Mental Model Benchmark** (2026-08-22) — company-mental-model-benchmark Research benchmark for testing explicit company economic-model representations against direct LLM synthesis. [Paper](https://github.com/0xboyu/company-mental-model-benchmark) · [Code](https://github.com/0xboyu/company-mental-model-benchmark)
 - **Agentic Evaluation in 2D Mazes** (2026-08-22) — agent-benchmark-2d-maze # Agentic Evaluation in 2D Mazes This repository contains the code, benchmark instances, evaluation harness, and reproducibility artifacts accompanying an anonymous submission on evaluating inter… [Paper](https://github.com/bluebunnyanon/agent-benchmark-2d-maze) · [Code](https://github.com/bluebunnyanon/agent-benchmark-2d-maze)
@@ -1287,8 +1303,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **silent-misresolution-benchmark** (2026-08-20) — silent-misresolution-benchmark A benchmark for silent misresolution in dictation cleanup: when a system deletes what you said and the output still reads perfectly. [Paper](https://github.com/hemachandra666/silent-misresolution-benchmark) · [Code](https://github.com/hemachandra666/silent-misresolution-benchmark)
 - **dgx-spark-llm-lab** (2026-08-20) — Benchmark model + quant + serving flags + thinking mode on your own hardware, then install the config that won. [Paper](https://github.com/luongnv89/dgx-spark-llm-lab) · [Code](https://github.com/luongnv89/dgx-spark-llm-lab)
 - **alzheimer-classification-benchmark** (2026-08-20) — alzheimer-classification-benchmark Benchmarking 11 classifiers for Alzheimer's disease detection on synthetic health data with KNIME and Python. [Paper](https://github.com/hervemottaran/alzheimer-classification-benchmark) · [Code](https://github.com/hervemottaran/alzheimer-classification-benchmark)
-- **ai-gateway-reproducible-benchmark** (2026-08-20) — ai-gateway-reproducible-benchmark Comparing Bifrost vs LiteLLM vs GoModel vs PortkeyAI. [Paper](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark) · [Code](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark)
 - **AI4AI-Bench** (2026-08-20) — We present AI4AI\mbox{-}Bench, 10 frozen research repositories spanning 10 training algorithm families. [Paper](https://arxiv.org/abs/2608.20318)
+- **AI gateway reproducible benchmark** (2026-08-20) — ai-gateway-reproducible-benchmark Comparing Bifrost vs LiteLLM vs GoModel vs PortkeyAI. [Paper](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark) · [Code](https://github.com/ENTERPILOT/ai-gateway-reproducible-benchmark)
 - **OdinEval** (2026-08-19) — We present OdinEval, a reproducible benchmark built from documented defects in public Odin repositories. [Paper](https://arxiv.org/abs/2608.18595)
 - **PTXBench** (2026-08-18) — We introduce PTXBench, a benchmark for evaluating and adapting large language models (LLMs) to use architecture-specific PTX for GPU kernel optimization. [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **PLSQLBench** (2026-08-16) — We present PLSQLBench, to our knowledge the first benchmark for evaluating whether LLMs can write executable PL/SQL programs, with correctness measured through execution-based tests. [Paper](https://arxiv.org/abs/2608.15931) · [HF](https://huggingface.co/papers/2608.15931) · [Code](https://github.com/oracle-samples/plsqlbench)

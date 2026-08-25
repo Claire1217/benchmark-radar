@@ -28,12 +28,12 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 61 HF votes · 171 GitHub stars · 1,798 dataset downloads |
+| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 61 HF votes · 173 GitHub stars · 1,798 dataset downloads |
 | 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 277 HF votes · 68 GitHub stars |
 | 3 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 45 HF votes · 85 GitHub stars |
 | 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 62 HF votes · 61 GitHub stars |
 | 5 | **GDPevo**<br><sub>[Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo)</sub> | Knowledge & Reasoning | 27 HF votes · 61 GitHub stars |
-| 6 | **ConceptEdit-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)</sub> | Multimodal Perception | 43 HF votes · 26 GitHub stars |
+| 6 | **ConceptEdit-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)</sub> | Multimodal Perception | 44 HF votes · 26 GitHub stars |
 | 7 | **NCP-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)</sub> | Agents | 29 HF votes · 29 GitHub stars |
 | 8 | **DataSpace**<br><sub>[Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace)</sub> | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars |
 | 9 | **WorldExam**<br><sub>[Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam)</sub> | Multimodal Perception | 34 HF votes · 21 GitHub stars |
@@ -43,9 +43,9 @@
 
 | General AI capabilities | Application fields |
 |---|---|
-| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 852<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 206<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 249<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 523<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 86<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 143<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 9 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 45<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 100<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 128<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 86<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 37 |
+| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 859<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 207<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 249<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 529<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 87<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 143<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 9 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 45<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 101<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 129<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 87<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 38 |
 
-**[Browse all 2,171 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,187 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
