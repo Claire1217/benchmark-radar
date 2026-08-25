@@ -27,7 +27,7 @@ OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-21.1"
-ADMISSION_POLICY_VERSION = "2026-08-26.2"
+ADMISSION_POLICY_VERSION = "2026-08-26.3"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -388,6 +388,19 @@ def upsert_curated(
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
         if not public_release_ready(source):
+            if audit_existing and source_id in by_source:
+                record = by_source[source_id]
+                record["displayEligible"] = False
+                record["curation"] = {
+                    **(record.get("curation") or {}),
+                    "state": "ai-name-audit-deferred",
+                    "reviewedAt": now,
+                    "model": model,
+                    "decisionReason": (
+                        "The formal benchmark name is source-grounded, but the public release "
+                        "does not yet meet the independent evidence or adoption threshold."
+                    ),
+                }
             continue
         record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
         old_name = str(record.get("name") or "").strip()
@@ -423,6 +436,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--released-on", help="Only records released on YYYY-MM-DD")
     parser.add_argument("--released-from", help="Earliest release date to include")
     parser.add_argument("--released-through", help="Latest release date to include")
+    parser.add_argument("--first-seen-from", help="Earliest site discovery date to include")
+    parser.add_argument("--first-seen-through", help="Latest site discovery date to include")
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
     parser.add_argument("--review-curated", action="store_true", help="Re-review published records and audit their canonical names")
     parser.add_argument("--limit", type=int, default=24)
@@ -446,6 +461,8 @@ def main() -> None:
         and (not args.released_on or record.get("releasedAt") == args.released_on)
         and (not args.released_from or record.get("releasedAt", "") >= args.released_from)
         and (not args.released_through or record.get("releasedAt", "") <= args.released_through)
+        and (not args.first_seen_from or record.get("firstSeenAt", "") >= args.first_seen_from)
+        and (not args.first_seen_through or record.get("firstSeenAt", "") <= args.first_seen_through)
     ]
     policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated else COPY_POLICY_VERSION
     records = [

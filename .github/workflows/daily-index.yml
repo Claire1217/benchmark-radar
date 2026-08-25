@@ -113,7 +113,7 @@ jobs:
           if [ -z "$DEEPSEEK_API_KEY" ]; then
             echo "::warning::DEEPSEEK_API_KEY is not configured; canonical names were not audited."
           else
-            python pipeline/generate_editorial_copy.py --review-curated --released-from "$AUDIT_NAMES_FROM" --released-through "${REQUESTED_DATE:-$SCHEDULED_DATE}" --limit 0 --batch-size 8
+            python pipeline/generate_editorial_copy.py --review-curated --first-seen-from "$AUDIT_NAMES_FROM" --first-seen-through "${REQUESTED_DATE:-$SCHEDULED_DATE}" --limit 0 --batch-size 8
           fi
 
       - name: Report canonical-name audit status
