@@ -35,6 +35,8 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
         record["description"] = copy["description"]
         record["whyItMatters"] = copy["whyItMatters"]
         record["oneLine"] = copy["description"]
+        if copy.get("attentionForecast"):
+            record["attentionForecast"] = copy["attentionForecast"]
         publishers = [
             publisher for publisher in copy.get("publishers", [])
             if publisher_identity_is_distinct(

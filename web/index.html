@@ -81,7 +81,7 @@
         </div>
         <details class="attention-method">
           <summary>How Attention is calculated</summary>
-          <p><strong>Score 0–100.</strong> Cumulative HF votes, dedicated-repository GitHub stars, and dataset downloads are converted to percentiles within the selected release window. Today weights them 50/45/5, 30 days 30/55/15, and 90 days 15/55/30. A missing signal keeps its weight and receives a neutral 50th-percentile prior, so incomplete coverage is discounted toward the midpoint rather than rewarded or treated as zero. HF votes alone can rank a new release; longer-window ranks require a repository or dataset signal.</p>
+          <p><strong>Score 0–100.</strong> Latest blends an experimental LLM 7-day attention forecast (40%) with observed HF paper votes (25%), dedicated-repository GitHub stars (30%), and dataset downloads (5%). The forecast uses only supplied benchmark scope, artifact readiness, topical breadth, and supported publisher evidence; it is not a quality score. The 30-day and 90-day views use observed signals only, weighted 30/55/15 and 15/55/30. A missing observed signal keeps its weight and receives a neutral 50th-percentile prior rather than being treated as zero.</p>
         </details>
         <div class="filter-panel" id="filter-panel" hidden>
           <label>Search<input id="search" placeholder="RSI, CAD, robotics…"></label>

@@ -19,6 +19,12 @@ class DeepSeekReviewTests(unittest.TestCase):
             "stableScoringContract": True,
             "publicReusePath": True,
             "decisionReason": "A stable public comparison path is documented.",
+            "attentionForecast": {
+                "score": 68,
+                "confidence": "Medium",
+                "horizon": "7d",
+                "reason": "The released task suite has broad relevance and a runnable artifact.",
+            },
         }
 
     def test_chat_completion_content_is_extracted(self) -> None:

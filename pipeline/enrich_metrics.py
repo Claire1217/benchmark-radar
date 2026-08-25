@@ -29,11 +29,11 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v10"
+METHOD_VERSION = "attention-ranking-v11"
 MISSING_SIGNAL_PRIOR = 0.50
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
-    "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
+    "today": {"llmAttentionForecast": 0.40, "hfPaperUpvotes": 0.25, "githubStars": 0.30, "hfDatasetDownloads": 0.05},
     "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
     "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
 }
@@ -358,7 +358,11 @@ def rank_records(
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
                 population = populations.get(signal, [])
-                pct = percentile(value, population, signed=signed)
+                pct = (
+                    max(0.0, min(1.0, float(value) / 100.0))
+                    if signal == "llmAttentionForecast" and value is not None and not signed
+                    else percentile(value, population, signed=signed)
+                )
                 components[signal] = {"value": value, "percentile": pct}
                 observed_percentiles[signal] = pct
                 if pct is not None:
@@ -422,7 +426,11 @@ def rank_records(
             delta_values: dict[str, int | float | None] = {}
             for record in candidates:
                 current_row = raw_by_id[record["id"]]
-                current = current_row.get(signal)
+                current = (
+                    (record.get("attentionForecast") or {}).get("score")
+                    if signal == "llmAttentionForecast"
+                    else current_row.get(signal)
+                )
                 current_scope = current_row.get("githubScope") or github_scope(record.get("links", {}).get("code"))
                 if signal == "githubStars" and current_scope == "hosting_repo":
                     current = None

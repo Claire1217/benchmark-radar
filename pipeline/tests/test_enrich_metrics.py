@@ -33,20 +33,20 @@ class MetricTests(unittest.TestCase):
 
     def test_attention_uses_fixed_signal_weights_with_neutral_missing_prior(self) -> None:
         self.assertEqual(enrich_metrics.WINDOW_WEIGHTS, {
-            "today": {"hfPaperUpvotes": 0.50, "githubStars": 0.45, "hfDatasetDownloads": 0.05},
+            "today": {"llmAttentionForecast": 0.40, "hfPaperUpvotes": 0.25, "githubStars": 0.30, "hfDatasetDownloads": 0.05},
             "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
             "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
         })
         weights = enrich_metrics.WINDOW_WEIGHTS["today"]
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": 0.9, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
-        }, weights), 0.68)
+        }, weights), 0.58)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": None, "githubStars": 0.5, "hfDatasetDownloads": 0.1,
         }, weights), 0.48)
         self.assertAlmostEqual(weighted_attention({
             "hfPaperUpvotes": 0.9, "githubStars": None, "hfDatasetDownloads": None,
-        }, weights), 0.7)
+        }, weights), 0.6)
         self.assertIsNone(weighted_attention({}, weights))
 
     def test_missing_downloads_do_not_outrank_stronger_complete_signals(self) -> None:
@@ -81,6 +81,25 @@ class MetricTests(unittest.TestCase):
         rank_records(records, raw, date(2026, 8, 20), "2026-08-20")
         self.assertIsNone(records[0]["ranking"]["today"]["level"]["components"]["githubStars"]["value"])
         self.assertEqual(records[1]["ranking"]["today"]["level"]["components"]["githubStars"]["value"], 10)
+
+    @patch("enrich_metrics.closest_history", return_value=None)
+    def test_latest_attention_blends_llm_forecast_with_observed_signals(self, _history) -> None:
+        records = [
+            {"id": "forecast", "releasedAt": "2026-08-24", "links": {}, "attentionForecast": {"score": 80}},
+            {"id": "quiet", "releasedAt": "2026-08-24", "links": {}, "attentionForecast": {"score": 20}},
+        ]
+        raw = {
+            key: {
+                "hfPaperUpvotes": None, "githubStars": None, "githubScope": None,
+                "hfDatasetDownloads": None, "hfDailySubmittedAt": None,
+            }
+            for key in ("forecast", "quiet")
+        }
+        rank_records(records, raw, date(2026, 8, 26), "2026-08-24")
+        self.assertEqual(records[0]["ranking"]["today"]["score"], 62)
+        self.assertEqual(records[1]["ranking"]["today"]["score"], 38)
+        self.assertEqual(records[0]["ranking"]["today"]["rank"], 1)
+        self.assertEqual(records[0]["ranking"]["today"]["level"]["components"]["llmAttentionForecast"]["value"], 80)
 
     @patch("enrich_metrics.closest_history", return_value=None)
     def test_single_real_signal_is_ranked_with_low_confidence(self, _history) -> None:

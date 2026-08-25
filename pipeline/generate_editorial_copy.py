@@ -26,8 +26,8 @@ CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
-COPY_POLICY_VERSION = "2026-08-21.1"
-ADMISSION_POLICY_VERSION = "2026-08-26.3"
+COPY_POLICY_VERSION = "2026-08-26.2"
+ADMISSION_POLICY_VERSION = "2026-08-26.4"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -141,6 +141,17 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                         "description": {"type": "string", "maxLength": 220},
                         "whyItMatters": {"type": "string", "maxLength": 320},
                         "decisionReason": {"type": "string", "maxLength": 320},
+                        "attentionForecast": {
+                            "type": "object",
+                            "properties": {
+                                "score": {"type": "integer", "minimum": 0, "maximum": 100},
+                                "confidence": {"type": "string", "enum": ["Low", "Medium"]},
+                                "horizon": {"type": "string", "enum": ["7d"]},
+                                "reason": {"type": "string", "maxLength": 240}
+                            },
+                            "required": ["score", "confidence", "horizon", "reason"],
+                            "additionalProperties": False
+                        },
                         "publishers": {
                             "type": "array",
                             "maxItems": 2,
@@ -156,7 +167,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                             },
                         },
                     },
-                    "required": ["sourceId", "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
+                    "required": ["sourceId", "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "attentionForecast", "publishers"],
                     "additionalProperties": False,
                 },
             }
@@ -180,6 +191,10 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "Never turn a paper title, repository slug, dataset slug, task description, or method name into a benchmark name. If no formally declared benchmark name is present, defer rather than inventing one. "
         "For GitHub and Hugging Face discoveries, a slug-shaped discoveredName is only a candidate label; use it only when the README explicitly declares it as the benchmark's name. "
         "For defer or exclude decisions, canonicalName and canonicalNameEvidence may be empty because no supported formal benchmark name may exist. "
+        "For every record, estimate its likely public attention during the first 7 days after release as attentionForecast.score from 0 to 100. "
+        "Base this experimental forecast only on the supplied title, abstract, benchmark scope, artifact readiness, topical breadth, and supported publisher evidence. "
+        "Do not assume stars, votes, downloads, author prestige, or social activity that are not supplied. Use Medium confidence only when the sources clearly support the forecast; otherwise use Low. "
+        "attentionForecast.reason must be one neutral third-person sentence describing the forecast drivers, not benchmark quality. For excluded records return score 0 and Low confidence. "
         "Then write neutral editorial copy in third person. Description states only what is evaluated: the evaluation object, "
         "task or environment, and the main capability or scoring setup when known. It must not explain why the benchmark was created. "
         "Why it matters explains the evaluation gap and practical decision value. "
@@ -238,7 +253,7 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
             row[field] = value
         required = {
             "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision",
-            "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason",
+            "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason", "attentionForecast",
         }
         if any(field not in row for field in required):
             raise ReviewValidationError(f"Incomplete semantic decision for {row.get('sourceId')}")
@@ -267,6 +282,17 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
             raise ReviewValidationError(f"Unsupported canonical name for {row.get('sourceId')}")
         row["canonicalName"] = canonical_name
         row["canonicalNameEvidence"] = name_evidence
+        forecast = row["attentionForecast"]
+        if (
+            not isinstance(forecast, dict)
+            or not isinstance(forecast.get("score"), int)
+            or not 0 <= forecast["score"] <= 100
+            or forecast.get("confidence") not in {"Low", "Medium"}
+            or forecast.get("horizon") != "7d"
+            or not " ".join(str(forecast.get("reason") or "").split())
+        ):
+            raise ReviewValidationError(f"Invalid attention forecast for {row.get('sourceId')}")
+        forecast["reason"] = " ".join(str(forecast["reason"]).split())
         allowed_urls = {
             str(url).rstrip("/"): str(url)
             for url in (sources[row["sourceId"]].get("officialLinks") or {}).values()
@@ -411,6 +437,7 @@ def upsert_curated(
         record["whyItMatters"] = decision["whyItMatters"]
         record["oneLine"] = decision["description"]
         record["evaluationMode"] = decision["benchmarkMode"]
+        record["attentionForecast"] = decision["attentionForecast"]
         if decision.get("publishers"):
             record["publishers"] = decision["publishers"]
         record["displayEligible"] = True
@@ -569,6 +596,7 @@ def main() -> None:
                 "description": row["description"],
                 "whyItMatters": row["whyItMatters"],
                 "decisionReason": row["decisionReason"],
+                "attentionForecast": row["attentionForecast"],
                 "publishers": row.get("publishers", []),
                 "model": args.model,
                 "policyVersion": policy_version,
