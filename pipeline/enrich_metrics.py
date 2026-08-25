@@ -524,6 +524,7 @@ def main() -> None:
         records,
         as_of.isoformat(),
         (payload.get("manifest", {}).get("run") or {}).get("sourceWindow"),
+        payload.get("manifest", {}).get("latestReportDate") or payload.get("manifest", {}).get("latestSourceDate"),
     )
     latest_source_date = latest_batch["to"]
     latest_batch_start = latest_batch["from"]
@@ -677,6 +678,7 @@ def main() -> None:
             "note": "Current-level and growth rankings are separate. Growth is missing without a real prior snapshot; negative deltas are preserved.",
         }
     payload["manifest"]["latestSourceDate"] = latest_source_date
+    payload["manifest"]["latestReportDate"] = latest_source_date
     payload["manifest"]["latestBatch"] = latest_batch
     payload["manifest"]["dataAsOf"] = as_of.isoformat()
     payload["manifest"]["sourceCoverage"] = list(

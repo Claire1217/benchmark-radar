@@ -4,19 +4,27 @@ from pipeline.generate_public_index import effective_latest_batch, effective_lat
 
 
 class PublicIndexTests(unittest.TestCase):
-    def test_empty_source_day_falls_back_to_latest_public_release(self) -> None:
+    def test_empty_source_day_remains_the_latest_report_day(self) -> None:
         records = [
             {"releasedAt": "2026-08-20", "displayEligible": True},
             {"releasedAt": "2026-08-13", "displayEligible": True},
         ]
-        self.assertEqual(effective_latest_release(records, "2026-08-21"), "2026-08-20")
+        self.assertEqual(
+            effective_latest_batch(records, "2026-08-21", {"from": "2026-08-21", "to": "2026-08-21"}),
+            {"from": "2026-08-21", "to": "2026-08-21"},
+        )
 
-    def test_historical_rerun_does_not_hide_newer_public_releases(self) -> None:
+    def test_historical_rerun_does_not_move_latest_report_backwards(self) -> None:
         records = [
             {"releasedAt": "2026-08-20", "displayEligible": True},
             {"releasedAt": "2026-08-22", "displayEligible": True},
         ]
-        self.assertEqual(effective_latest_release(records, "2026-08-23"), "2026-08-22")
+        self.assertEqual(
+            effective_latest_batch(
+                records, "2026-08-23", {"from": "2026-08-20", "to": "2026-08-20"}, "2026-08-22"
+            ),
+            {"from": "2026-08-22", "to": "2026-08-22"},
+        )
 
     def test_hosting_platform_is_not_a_publisher(self) -> None:
         source = {
@@ -37,7 +45,7 @@ class PublicIndexTests(unittest.TestCase):
             effective_latest_batch(
                 records, "2026-08-23", {"from": "2026-08-21", "to": "2026-08-23"}
             ),
-            {"from": "2026-08-22", "to": "2026-08-22"},
+            {"from": "2026-08-23", "to": "2026-08-23"},
         )
 
     def test_benchmark_name_is_not_a_publisher(self) -> None:

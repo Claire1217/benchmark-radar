@@ -30,7 +30,7 @@ def public_publishers(source: dict) -> list[dict]:
 
 
 def effective_latest_release(records: list[dict], claimed_date: str) -> str:
-    """Keep Today on the latest non-empty public release date."""
+    """Return the latest eligible release known by the reporting date."""
     candidates = [
         str(record.get("releasedAt"))
         for record in records
@@ -44,9 +44,11 @@ def effective_latest_release(records: list[dict], claimed_date: str) -> str:
 
 def effective_latest_batch(
     records: list[dict], claimed_date: str, source_window: dict | None,
+    previous_latest: str | None = None,
 ) -> dict[str, str]:
-    """Latest is one release day; a wider source window is catch-up only."""
-    latest = effective_latest_release(records, claimed_date)
+    """Latest is the newest completed report day, even when it has zero releases."""
+    report_date = str((source_window or {}).get("to") or claimed_date)
+    latest = max(report_date, previous_latest or "", effective_latest_release(records, claimed_date))
     return {"from": latest, "to": latest}
 
 
@@ -96,7 +98,10 @@ def main() -> None:
     records = [project_record(source) for source in payload.get("records", [])]
     manifest = dict(payload["manifest"])
     latest_batch = effective_latest_batch(
-        records, manifest["dataAsOf"], (manifest.get("run") or {}).get("sourceWindow")
+        records,
+        manifest["dataAsOf"],
+        (manifest.get("run") or {}).get("sourceWindow"),
+        manifest.get("latestReportDate") or manifest.get("latestSourceDate"),
     )
     manifest["latestBatch"] = latest_batch
     manifest["latestSourceDate"] = latest_batch["to"]

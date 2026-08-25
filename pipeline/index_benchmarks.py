@@ -1076,6 +1076,11 @@ def index_papers(
             review.append(record)
 
     current = read_json(DATA_PATH)
+    previous_latest = str(
+        (current.get("manifest") or {}).get("latestReportDate")
+        or (current.get("manifest") or {}).get("latestSourceDate")
+        or ""
+    )
     # Replays do not remove historical canonical records.
     retained = list(current.get("records", []))
     records = apply_curated_overrides(
@@ -1102,6 +1107,7 @@ def index_papers(
         "recordCount": len(records),
         "sourceCoverage": ["arXiv OAI-PMH", "reviewed official project sources"],
         "isDemo": False,
+        "latestReportDate": max(previous_latest, target),
         "run": {
             "sourceDate": target,
             "sourceWindow": {"from": range_start, "to": range_end},
