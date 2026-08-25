@@ -33,11 +33,11 @@
 | 3 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 45 HF votes · 85 GitHub stars |
 | 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 62 HF votes · 61 GitHub stars |
 | 5 | **GDPevo**<br><sub>[Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo)</sub> | Knowledge & Reasoning | 27 HF votes · 61 GitHub stars |
-| 6 | **NCP-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)</sub> | Agents | 29 HF votes · 29 GitHub stars |
-| 7 | **DataSpace**<br><sub>[Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace)</sub> | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars |
-| 8 | **WorldExam**<br><sub>[Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam)</sub> | Multimodal Perception | 34 HF votes · 21 GitHub stars |
-| 9 | **PAST-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.04003) · [Code](https://github.com/Gen-Verse/PAST-Bench)</sub> | Knowledge & Reasoning | 33 HF votes · 22 GitHub stars |
-| 10 | **StreamArena**<br><sub>[Paper](https://arxiv.org/abs/2608.05703) · [Code](https://github.com/JIA-Lab-research/StreamArena)</sub> | Multimodal Perception | 16 HF votes · 27 GitHub stars |
+| 6 | **ConceptEdit-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)</sub> | Multimodal Perception | 43 HF votes · 26 GitHub stars |
+| 7 | **NCP-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)</sub> | Agents | 29 HF votes · 29 GitHub stars |
+| 8 | **DataSpace**<br><sub>[Paper](https://arxiv.org/abs/2608.03451) · [Code](https://github.com/HKUSTDial/DataSpace)</sub> | Knowledge & Reasoning | 33 HF votes · 24 GitHub stars |
+| 9 | **WorldExam**<br><sub>[Paper](https://arxiv.org/abs/2608.02603) · [Code](https://github.com/YuxueYang1204/worldexam)</sub> | Multimodal Perception | 34 HF votes · 21 GitHub stars |
+| 10 | **PAST-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.04003) · [Code](https://github.com/Gen-Verse/PAST-Bench)</sub> | Knowledge & Reasoning | 33 HF votes · 22 GitHub stars |
 
 ### Explore the library
 
