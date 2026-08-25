@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import time as time_module
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -48,8 +49,19 @@ def read_json(path: Path, default: dict[str, Any]) -> dict[str, Any]:
 def fetch_json(url: str, headers: dict[str, str] | None = None) -> Any:
     request_headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     request_headers.update(headers or {})
-    with urlopen(Request(url, headers=request_headers), timeout=45) as response:
-        return json.loads(response.read())
+    request = Request(url, headers=request_headers)
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=45) as response:
+                return json.loads(response.read())
+        except HTTPError as error:
+            if attempt == 2 or (error.code != 429 and not 500 <= error.code <= 599):
+                raise
+        except (URLError, TimeoutError):
+            if attempt == 2:
+                raise
+        time_module.sleep(2**attempt)
+    raise RuntimeError("JSON source retry loop ended without a response")
 
 
 def fetch_text(url: str, headers: dict[str, str] | None = None) -> str:
@@ -368,12 +380,11 @@ def main() -> None:
                     papers, batch_start, target, target, config,
                     started_from="unified discovery",
                 )
-        except (HTTPError, URLError, TimeoutError, RuntimeError) as oai_error:
+        except (HTTPError, URLError, TimeoutError, RuntimeError):
             try:
                 papers = arxiv.fetch_for_range_atom(query_dates[0], query_dates[-1], config)
                 arxiv_count = len(papers)
                 arxiv_mode = "atom-fallback"
-                failures["arxivOai"] = type(oai_error).__name__
                 if not args.dry_run:
                     arxiv.index_papers(
                         papers, batch_start, target, target, config,
