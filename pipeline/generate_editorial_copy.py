@@ -404,6 +404,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--released-from", help="Earliest release date to include")
     parser.add_argument("--released-through", help="Latest release date to include")
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
+    parser.add_argument("--review-curated", action="store_true", help="Re-review published records and audit their canonical names")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--model", default=os.environ.get("DEEPSEEK_COPY_MODEL", DEFAULT_MODEL))
@@ -413,7 +414,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    payload = read_json(REVIEW_PATH if args.review_queue else DATA_PATH)
+    if args.review_queue and args.review_curated:
+        raise RuntimeError("--review-queue and --review-curated are mutually exclusive")
+    payload_path = REVIEW_PATH if args.review_queue else CURATED_PATH if args.review_curated else DATA_PATH
+    payload = read_json(payload_path)
     existing = read_json(OUTPUT_PATH) if OUTPUT_PATH.exists() else {"schemaVersion": "1.0", "bySourceId": {}}
     requested = {item.strip() for item in (args.ids or "").split(",") if item.strip()}
     records = [
@@ -423,7 +427,7 @@ def main() -> None:
         and (not args.released_from or record.get("releasedAt", "") >= args.released_from)
         and (not args.released_through or record.get("releasedAt", "") <= args.released_through)
     ]
-    policy_version = ADMISSION_POLICY_VERSION if args.review_queue else COPY_POLICY_VERSION
+    policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated else COPY_POLICY_VERSION
     records = [
         record for record in records
         if existing.get("bySourceId", {}).get(str(record["source"]["id"]), {}).get("selectionFingerprint")
@@ -517,7 +521,7 @@ def main() -> None:
                 "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]], policy_version),
             }
         write_editorial_copy(existing)
-        if args.review_queue:
+        if args.review_queue or args.review_curated:
             published += upsert_curated(records, rows, now, args.model)
     print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 

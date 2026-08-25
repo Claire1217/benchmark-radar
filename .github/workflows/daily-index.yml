@@ -20,6 +20,10 @@ on:
         required: false
         default: false
         type: boolean
+      audit_names_from:
+        description: "Optional earliest release date for a source-grounded canonical-name audit"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -93,6 +97,28 @@ jobs:
       - name: Report editorial review status
         if: ${{ inputs.metrics_only != true && steps.editorial-review.outcome == 'failure' }}
         run: echo "::warning::Editorial review service failed; keeping candidates queued for the later daily retry."
+
+      - name: Audit published canonical names
+        if: ${{ inputs.metrics_only != true && inputs.audit_names_from != '' }}
+        id: canonical-name-audit
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+          AUDIT_NAMES_FROM: ${{ inputs.audit_names_from }}
+          REQUESTED_DATE: ${{ inputs.date }}
+          SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
+            echo "::warning::DEEPSEEK_API_KEY is not configured; canonical names were not audited."
+          else
+            python pipeline/generate_editorial_copy.py --review-curated --released-from "$AUDIT_NAMES_FROM" --released-through "${REQUESTED_DATE:-$SCHEDULED_DATE}" --limit 0 --batch-size 8
+          fi
+
+      - name: Report canonical-name audit status
+        if: ${{ inputs.metrics_only != true && inputs.audit_names_from != '' && steps.canonical-name-audit.outcome == 'failure' }}
+        run: echo "::warning::Canonical-name audit failed; existing validated records remain unchanged."
 
       - name: Continue editorial backfill
         if: ${{ inputs.metrics_only != true }}
