@@ -52,6 +52,10 @@ def main() -> None:
         raise SystemExit("Attention must remain the default sort")
     if "description-toggle" in app or "details-panel" in app:
         raise SystemExit("descriptions must display directly without secondary disclosure controls")
+    if 'button.textContent=previous?"Show the previous day":""' not in app:
+        raise SystemExit("Latest must offer a date-free previous-day control")
+    if "new IntersectionObserver" in app:
+        raise SystemExit("previous days must load only after an explicit button click")
     if 'evaluationMode!=="viewpoint_probe"' not in app:
         raise SystemExit("viewpoint probes must remain outside public views")
     if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):

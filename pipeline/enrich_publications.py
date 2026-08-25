@@ -108,9 +108,11 @@ def main() -> None:
             "status": "source_unavailable_canonical_unchanged",
         }
         write_json(RECEIPT_DIR / f"{date.today().isoformat()}.json", receipt)
-        raise RuntimeError(
-            "arXiv returned no publication metadata; keeping canonical publication fields unchanged."
+        print(
+            "::warning::arXiv returned no publication metadata; "
+            "keeping canonical publication fields unchanged and continuing the daily update."
         )
+        return
 
     counts = {"publication_reported": 0, "acceptance_claimed": 0, "unverified": 0}
     for arxiv_id, record in by_id.items():
