@@ -27,7 +27,7 @@ OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-21.1"
-ADMISSION_POLICY_VERSION = "2026-08-24.1"
+ADMISSION_POLICY_VERSION = "2026-08-26.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -126,6 +126,11 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                     "properties": {
                         "sourceId": {"type": "string"},
                         "canonicalName": {"type": "string", "maxLength": 120},
+                        "canonicalNameSource": {
+                            "type": "string",
+                            "enum": ["paper_title", "abstract", "official_readme"],
+                        },
+                        "canonicalNameEvidence": {"type": "string", "maxLength": 240},
                         "decision": {"type": "string", "enum": ["publish", "defer", "exclude"]},
                         "benchmarkMode": {
                             "type": "string",
@@ -151,7 +156,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                             },
                         },
                     },
-                    "required": ["sourceId", "canonicalName", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
+                    "required": ["sourceId", "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "publishers"],
                     "additionalProperties": False,
                 },
             }
@@ -170,7 +175,11 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "uses_existing and not_benchmark must also be excluded. Defer when evidence or artifacts are unclear. "
         "A newly created GitHub repository or Hugging Face dataset page is discovery evidence, not by itself a formal release: defer it unless the input also supplies an independent paper, OpenReview, Hugging Face paper, official benchmark site, or clear strong public adoption. "
         "Public attention and author prestige must never change benchmark identity. The word benchmark alone is insufficient. "
-        "canonicalName must reproduce the official human-readable benchmark name from the paper title or README heading, preserving capitalization; never return a repository slug when a formal name is available. "
+        "canonicalName must reproduce the official human-readable benchmark name from the paper title, abstract, or official README, preserving capitalization. "
+        "Return canonicalNameSource and a short verbatim canonicalNameEvidence quote proving that exact name. The quote must come from the selected source. "
+        "Never turn a paper title, repository slug, dataset slug, task description, or method name into a benchmark name. If no formally declared benchmark name is present, defer rather than inventing one. "
+        "For GitHub and Hugging Face discoveries, a slug-shaped discoveredName is only a candidate label; use it only when the README explicitly declares it as the benchmark's name. "
+        "For defer or exclude decisions, canonicalName and canonicalNameEvidence may be empty because no supported formal benchmark name may exist. "
         "Then write neutral editorial copy in third person. Description states only what is evaluated: the evaluation object, "
         "task or environment, and the main capability or scoring setup when known. It must not explain why the benchmark was created. "
         "Why it matters explains the evaluation gap and practical decision value. "
@@ -228,10 +237,36 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
                 raise ReviewValidationError(f"Invalid third-person copy for {row.get('sourceId')}:{field}")
             row[field] = value
         required = {
-            "canonicalName", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason"
+            "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision",
+            "benchmarkMode", "stableScoringContract", "publicReusePath", "decisionReason",
         }
         if any(field not in row for field in required):
             raise ReviewValidationError(f"Incomplete semantic decision for {row.get('sourceId')}")
+        source = sources[row["sourceId"]]
+        canonical_name = " ".join(str(row["canonicalName"]).split())
+        name_evidence = " ".join(str(row["canonicalNameEvidence"]).split())
+        source_field = row["canonicalNameSource"]
+        if source_field == "paper_title":
+            evidence_source = str(source.get("title") or "")
+        elif source_field == "abstract":
+            evidence_source = " ".join((str(source.get("abstract") or ""), str(source.get("comments") or "")))
+        else:
+            evidence_source = " ".join(
+                str(item.get("excerpt") or "")
+                for item in source.get("artifactEvidence") or []
+                if item.get("status") == "available"
+            )
+        normalize_evidence = lambda value: re.sub(r"\s+", " ", html.unescape(value)).strip().casefold()
+        normalize_name = lambda value: re.sub(r"[^a-z0-9]+", "", value.casefold())
+        if row.get("decision") == "publish" and (
+            not canonical_name
+            or not name_evidence
+            or normalize_evidence(name_evidence) not in normalize_evidence(evidence_source)
+            or normalize_name(canonical_name) not in normalize_name(name_evidence)
+        ):
+            raise ReviewValidationError(f"Unsupported canonical name for {row.get('sourceId')}")
+        row["canonicalName"] = canonical_name
+        row["canonicalNameEvidence"] = name_evidence
         allowed_urls = {
             str(url).rstrip("/"): str(url)
             for url in (sources[row["sourceId"]].get("officialLinks") or {}).values()
@@ -335,7 +370,10 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
         if not public_release_ready(source):
             continue
         record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
+        old_name = str(record.get("name") or "").strip()
         record["name"] = decision["canonicalName"]
+        if old_name and old_name.casefold() != record["name"].casefold():
+            record["aliases"] = list(dict.fromkeys([*(record.get("aliases") or []), old_name]))
         record["description"] = decision["description"]
         record["whyItMatters"] = decision["whyItMatters"]
         record["oneLine"] = decision["description"]
@@ -349,6 +387,8 @@ def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, A
             "reviewedAt": now,
             "model": model,
             "decisionReason": decision["decisionReason"],
+            "canonicalNameSource": decision["canonicalNameSource"],
+            "canonicalNameEvidence": decision["canonicalNameEvidence"],
         }
         by_source[source_id] = record
         published += 1
@@ -420,6 +460,8 @@ def main() -> None:
             abstract = fallback
         source_rows.append({
             "sourceId": source_id,
+            "sourceType": record.get("source", {}).get("type"),
+            "discoveredName": record.get("name"),
             "title": record.get("paperTitle") or record["name"],
             "abstract": abstract,
             "comments": str((record.get("reviewContext") or {}).get("comments") or ""),
@@ -459,6 +501,8 @@ def main() -> None:
             existing["bySourceId"][row["sourceId"]] = {
                 "decision": row["decision"],
                 "canonicalName": row["canonicalName"],
+                "canonicalNameSource": row["canonicalNameSource"],
+                "canonicalNameEvidence": row["canonicalNameEvidence"],
                 "benchmarkMode": row["benchmarkMode"],
                 "stableScoringContract": row["stableScoringContract"],
                 "publicReusePath": row["publicReusePath"],

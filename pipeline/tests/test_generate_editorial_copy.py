@@ -7,6 +7,8 @@ class DeepSeekReviewTests(unittest.TestCase):
     def valid_decision(self) -> dict:
         return {
             "canonicalName": "ExampleBench",
+            "canonicalNameSource": "paper_title",
+            "canonicalNameEvidence": "ExampleBench: A repeatable evaluation",
             "decision": "publish",
             "benchmarkMode": "public_reusable",
             "stableScoringContract": True,
@@ -55,7 +57,7 @@ class DeepSeekReviewTests(unittest.TestCase):
             "whyItMatters": "Supports comparable system evaluation.",
             "publishers": [{"name": "Example Lab", "organizationType": "academic-lab", "sourceUrl": "https://unsupported.example"}],
         }]
-        validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
+        validate_copy({"1": {"title": "ExampleBench: A repeatable evaluation", "officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
         self.assertEqual(rows[0]["publishers"], [])
 
     def test_publisher_link_allows_a_trailing_slash_difference(self) -> None:
@@ -66,8 +68,55 @@ class DeepSeekReviewTests(unittest.TestCase):
             "whyItMatters": "Supports comparable system evaluation.",
             "publishers": [{"name": "Example Lab", "organizationType": "academic-lab", "sourceUrl": "https://github.com/example/bench/"}],
         }]
-        validate_copy({"1": {"officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
+        validate_copy({"1": {"title": "ExampleBench: A repeatable evaluation", "officialLinks": {"code": "https://github.com/example/bench"}}}, rows)
         self.assertEqual(rows[0]["publishers"][0]["sourceUrl"], "https://github.com/example/bench")
+
+    def test_canonical_name_requires_verbatim_source_evidence(self) -> None:
+        rows = [{
+            **self.valid_decision(),
+            "sourceId": "1",
+            "canonicalName": "InventedBench",
+            "canonicalNameEvidence": "InventedBench is the official benchmark.",
+            "description": "Evaluates agents on repeatable tasks.",
+            "whyItMatters": "Supports comparable system evaluation.",
+            "publishers": [],
+        }]
+        with self.assertRaises(RuntimeError):
+            validate_copy({"1": {"title": "A Study of Agent Evaluation", "officialLinks": {}}}, rows)
+
+    def test_canonical_name_can_be_grounded_in_official_readme(self) -> None:
+        rows = [{
+            **self.valid_decision(),
+            "sourceId": "1",
+            "canonicalName": "ExampleBench",
+            "canonicalNameSource": "official_readme",
+            "canonicalNameEvidence": "ExampleBench is a public benchmark",
+            "description": "Evaluates agents on repeatable tasks.",
+            "whyItMatters": "Supports comparable system evaluation.",
+            "publishers": [],
+        }]
+        validate_copy({"1": {
+            "title": "example-benchmark-repo",
+            "artifactEvidence": [{"status": "available", "excerpt": "ExampleBench is a public benchmark for agents."}],
+            "officialLinks": {},
+        }}, rows)
+        self.assertEqual(rows[0]["canonicalName"], "ExampleBench")
+
+    def test_deferred_candidate_does_not_need_name_evidence(self) -> None:
+        rows = [{
+            **self.valid_decision(),
+            "sourceId": "1",
+            "canonicalName": "",
+            "canonicalNameEvidence": "",
+            "decision": "defer",
+            "benchmarkMode": "unclear",
+            "stableScoringContract": False,
+            "publicReusePath": False,
+            "description": "Evaluates agents on an incompletely documented task.",
+            "whyItMatters": "The available evidence is insufficient for comparable evaluation.",
+            "publishers": [],
+        }]
+        validate_copy({"1": {"title": "Agent Evaluation Study", "officialLinks": {}}}, rows)
 
     def test_repository_name_is_not_treated_as_a_publisher(self) -> None:
         self.assertFalse(
