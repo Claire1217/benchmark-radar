@@ -28,7 +28,7 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 61 HF votes · 170 GitHub stars · 1,798 dataset downloads |
+| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 61 HF votes · 171 GitHub stars · 1,798 dataset downloads |
 | 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 277 HF votes · 68 GitHub stars |
 | 3 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 45 HF votes · 85 GitHub stars |
 | 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 62 HF votes · 61 GitHub stars |
