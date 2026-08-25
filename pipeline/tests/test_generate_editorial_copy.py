@@ -1,6 +1,11 @@
+import json
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
-from generate_editorial_copy import public_release_ready, publishable, publisher_identity_is_distinct, response_text, selection_fingerprint, validate_copy
+import generate_editorial_copy
+from generate_editorial_copy import public_release_ready, publishable, publisher_identity_is_distinct, response_text, review_batch, selection_fingerprint, upsert_curated, validate_copy
 
 
 class DeepSeekReviewTests(unittest.TestCase):
@@ -117,6 +122,55 @@ class DeepSeekReviewTests(unittest.TestCase):
             "publishers": [],
         }]
         validate_copy({"1": {"title": "Agent Evaluation Study", "officialLinks": {}}}, rows)
+
+    def test_name_audit_hides_existing_record_without_supported_name(self) -> None:
+        candidate = {
+            "name": "odd-repository-slug",
+            "source": {"type": "github", "id": "github:example/odd-repository-slug"},
+            "links": {"code": "https://github.com/example/odd-repository-slug"},
+            "displayEligible": True,
+        }
+        decision = {
+            **self.valid_decision(),
+            "sourceId": "github:example/odd-repository-slug",
+            "canonicalName": "",
+            "canonicalNameEvidence": "",
+            "decision": "defer",
+            "benchmarkMode": "unclear",
+            "stableScoringContract": False,
+            "publicReusePath": False,
+            "decisionReason": "No formally declared benchmark name is supported by the source.",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            curated_path = Path(directory) / "curated.json"
+            curated_path.write_text(json.dumps({"schemaVersion": "1.0", "records": [candidate]}), encoding="utf-8")
+            with patch.object(generate_editorial_copy, "CURATED_PATH", curated_path):
+                upsert_curated([candidate], [decision], "2026-08-26T00:00:00Z", "test-model", audit_existing=True)
+            record = json.loads(curated_path.read_text(encoding="utf-8"))["records"][0]
+        self.assertFalse(record["displayEligible"])
+        self.assertEqual(record["curation"]["state"], "ai-name-audit-deferred")
+
+    def test_batch_review_retries_only_the_invalid_name(self) -> None:
+        sources = [
+            {"sourceId": "1", "title": "OneBench: Evaluation", "officialLinks": {}},
+            {"sourceId": "2", "title": "TwoBench: Evaluation", "officialLinks": {}},
+        ]
+        def row(source_id: str, name: str, evidence: str) -> dict:
+            return {
+                **self.valid_decision(),
+                "sourceId": source_id,
+                "canonicalName": name,
+                "canonicalNameEvidence": evidence,
+                "description": "Evaluates agents on repeatable tasks.",
+                "whyItMatters": "Supports comparable system evaluation.",
+                "publishers": [],
+            }
+        first = [row("1", "OneBench", "OneBench: Evaluation"), row("2", "InventedBench", "InventedBench")]
+        retry = [row("2", "TwoBench", "TwoBench: Evaluation")]
+        with patch("generate_editorial_copy.call_deepseek", side_effect=[first, retry]) as mocked:
+            reviewed = review_batch(sources, "test-model", "test-key")
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual([item["canonicalName"] for item in reviewed], ["OneBench", "TwoBench"])
 
     def test_repository_name_is_not_treated_as_a_publisher(self) -> None:
         self.assertFalse(

@@ -27,7 +27,7 @@ OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-21.1"
-ADMISSION_POLICY_VERSION = "2026-08-26.1"
+ADMISSION_POLICY_VERSION = "2026-08-26.2"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -309,24 +309,30 @@ def write_editorial_copy(payload: dict[str, Any]) -> None:
 
 
 def review_batch(batch: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
-    """Retry malformed multi-record output one record at a time."""
+    """Keep valid batch rows and retry only malformed records one at a time."""
     try:
         rows = call_deepseek(batch, model, api_key)
-        validate_copy({item["sourceId"]: item for item in batch}, rows)
-        return rows
     except ReviewValidationError:
-        if len(batch) == 1:
-            print(f"editorial_copy_invalid_output source={batch[0]['sourceId']} deferred=true")
-            return []
-        recovered: list[dict[str, Any]] = []
-        for source in batch:
+        rows = []
+    sources = {item["sourceId"]: item for item in batch}
+    returned = {str(row.get("sourceId")): row for row in rows}
+    recovered: list[dict[str, Any]] = []
+    for source_id, source in sources.items():
+        row = returned.get(source_id)
+        if row is not None:
             try:
-                rows = call_deepseek([source], model, api_key)
-                validate_copy({source["sourceId"]: source}, rows)
-                recovered.extend(rows)
+                validate_copy({source_id: source}, [row])
+                recovered.append(row)
+                continue
             except ReviewValidationError:
-                print(f"editorial_copy_invalid_output source={source['sourceId']} deferred=true")
-        return recovered
+                pass
+        try:
+            retry_rows = call_deepseek([source], model, api_key)
+            validate_copy({source_id: source}, retry_rows)
+            recovered.extend(retry_rows)
+        except ReviewValidationError:
+            print(f"editorial_copy_invalid_output source={source_id} deferred=true")
+    return recovered
 
 
 def publishable(row: dict[str, Any]) -> bool:
@@ -357,13 +363,27 @@ def public_release_ready(record: dict[str, Any]) -> bool:
     return has_paper or has_hf_paper or stars >= 25 or downloads >= 1000 or likes >= 10
 
 
-def upsert_curated(candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str) -> int:
+def upsert_curated(
+    candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str,
+    *, audit_existing: bool = False,
+) -> int:
     payload = read_json(CURATED_PATH) if CURATED_PATH.exists() else {"schemaVersion": "1.0", "records": []}
     by_source = {str((record.get("source") or {}).get("id") or ""): record for record in payload.get("records", [])}
     candidate_by_source = {str((record.get("source") or {}).get("id") or ""): record for record in candidates}
     published = 0
     for decision in decisions:
         if not publishable(decision):
+            source_id = decision["sourceId"]
+            if audit_existing and source_id in by_source:
+                record = by_source[source_id]
+                record["displayEligible"] = False
+                record["curation"] = {
+                    **(record.get("curation") or {}),
+                    "state": "ai-name-audit-deferred",
+                    "reviewedAt": now,
+                    "model": model,
+                    "decisionReason": decision["decisionReason"],
+                }
             continue
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
@@ -522,7 +542,9 @@ def main() -> None:
             }
         write_editorial_copy(existing)
         if args.review_queue or args.review_curated:
-            published += upsert_curated(records, rows, now, args.model)
+            published += upsert_curated(
+                records, rows, now, args.model, audit_existing=args.review_curated
+            )
     print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 
 
