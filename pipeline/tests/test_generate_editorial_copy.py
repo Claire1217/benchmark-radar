@@ -156,6 +156,31 @@ class DeepSeekReviewTests(unittest.TestCase):
         self.assertFalse(record["displayEligible"])
         self.assertEqual(record["curation"]["state"], "ai-name-audit-deferred")
 
+    def test_public_audit_persists_hidden_decision_for_auto_indexed_record(self) -> None:
+        candidate = {
+            "name": "Benchmark Study",
+            "source": {"type": "arxiv", "id": "2608.00001"},
+            "links": {"report": "https://arxiv.org/abs/2608.00001"},
+            "displayEligible": True,
+        }
+        decision = {
+            **self.valid_decision(),
+            "sourceId": "2608.00001",
+            "decision": "exclude",
+            "benchmarkMode": "uses_existing",
+            "stableScoringContract": False,
+            "publicReusePath": False,
+            "decisionReason": "The paper evaluates methods on an existing benchmark.",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            curated_path = Path(directory) / "curated.json"
+            curated_path.write_text(json.dumps({"schemaVersion": "1.0", "records": []}), encoding="utf-8")
+            with patch.object(generate_editorial_copy, "CURATED_PATH", curated_path):
+                upsert_curated([candidate], [decision], "2026-08-26T00:00:00Z", "test-model", audit_existing=True)
+            record = json.loads(curated_path.read_text(encoding="utf-8"))["records"][0]
+        self.assertFalse(record["displayEligible"])
+        self.assertEqual(record["source"]["id"], "2608.00001")
+
     def test_name_audit_hides_source_grounded_name_without_release_evidence(self) -> None:
         candidate = {
             "name": "odd-repository-slug",

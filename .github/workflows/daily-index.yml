@@ -24,6 +24,10 @@ on:
         description: "Optional earliest release date for a source-grounded canonical-name audit"
         required: false
         type: string
+      review_ids:
+        description: "Optional comma-separated source IDs to review immediately"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -56,6 +60,7 @@ jobs:
           target="${REQUESTED_DATE:-$(python pipeline/scheduled_source_date.py)}"
           echo "date=$target" >> "$GITHUB_OUTPUT"
           echo "start=$(python pipeline/scheduled_source_date.py --target "$target" --batch-start)" >> "$GITHUB_OUTPUT"
+          echo "review_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=89)).isoformat())' "$target")" >> "$GITHUB_OUTPUT"
       - name: Discover one unified public-source batch
         if: ${{ inputs.metrics_only != true }}
         id: discovery
@@ -92,6 +97,46 @@ jobs:
           else
             target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
             python pipeline/generate_editorial_copy.py --review-queue --released-from "$BATCH_START" --released-through "$target" --limit 0 --batch-size 8
+          fi
+
+      - name: Review requested source IDs immediately
+        if: ${{ inputs.metrics_only != true && inputs.review_ids != '' }}
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+          REVIEW_IDS: ${{ inputs.review_ids }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            python pipeline/generate_editorial_copy.py --review-queue --ids "$REVIEW_IDS" --limit 0 --batch-size 8
+          fi
+
+      - name: Review rolling 90-day candidate backlog
+        if: ${{ inputs.metrics_only != true }}
+        id: rolling-candidate-review
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+          REVIEW_START: ${{ steps.source-date.outputs.review_start }}
+          REVIEW_END: ${{ steps.source-date.outputs.date }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            python pipeline/generate_editorial_copy.py --review-queue --released-from "$REVIEW_START" --released-through "$REVIEW_END" --limit 64 --batch-size 8
+          fi
+
+      - name: Audit rolling 90-day public records
+        if: ${{ inputs.metrics_only != true }}
+        id: rolling-public-audit
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+          REVIEW_START: ${{ steps.source-date.outputs.review_start }}
+          REVIEW_END: ${{ steps.source-date.outputs.date }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            python pipeline/generate_editorial_copy.py --review-public --released-from "$REVIEW_START" --released-through "$REVIEW_END" --limit 64 --batch-size 8
           fi
 
       - name: Report editorial review status

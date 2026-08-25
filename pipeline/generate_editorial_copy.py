@@ -400,8 +400,11 @@ def upsert_curated(
     for decision in decisions:
         if not publishable(decision):
             source_id = decision["sourceId"]
-            if audit_existing and source_id in by_source:
-                record = by_source[source_id]
+            if audit_existing and source_id in candidate_by_source:
+                record = by_source.get(source_id) or {
+                    key: value for key, value in candidate_by_source[source_id].items()
+                    if key not in {"reviewContext", "candidatePriority"}
+                }
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -410,12 +413,16 @@ def upsert_curated(
                     "model": model,
                     "decisionReason": decision["decisionReason"],
                 }
+                by_source[source_id] = record
             continue
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
         if not public_release_ready(source):
-            if audit_existing and source_id in by_source:
-                record = by_source[source_id]
+            if audit_existing:
+                record = by_source.get(source_id) or {
+                    key: value for key, value in source.items()
+                    if key not in {"reviewContext", "candidatePriority"}
+                }
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -427,6 +434,7 @@ def upsert_curated(
                         "does not yet meet the independent evidence or adoption threshold."
                     ),
                 }
+                by_source[source_id] = record
             continue
         record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
         old_name = str(record.get("name") or "").strip()
@@ -467,6 +475,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--first-seen-through", help="Latest site discovery date to include")
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
     parser.add_argument("--review-curated", action="store_true", help="Re-review published records and audit their canonical names")
+    parser.add_argument("--review-public", action="store_true", help="Audit public index records and persist reviewed decisions")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--model", default=os.environ.get("DEEPSEEK_COPY_MODEL", DEFAULT_MODEL))
@@ -476,8 +485,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    if args.review_queue and args.review_curated:
-        raise RuntimeError("--review-queue and --review-curated are mutually exclusive")
+    if sum((args.review_queue, args.review_curated, args.review_public)) > 1:
+        raise RuntimeError("--review-queue, --review-curated, and --review-public are mutually exclusive")
     payload_path = REVIEW_PATH if args.review_queue else CURATED_PATH if args.review_curated else DATA_PATH
     payload = read_json(payload_path)
     existing = read_json(OUTPUT_PATH) if OUTPUT_PATH.exists() else {"schemaVersion": "1.0", "bySourceId": {}}
@@ -491,7 +500,7 @@ def main() -> None:
         and (not args.first_seen_from or record.get("firstSeenAt", "") >= args.first_seen_from)
         and (not args.first_seen_through or record.get("firstSeenAt", "") <= args.first_seen_through)
     ]
-    policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated else COPY_POLICY_VERSION
+    policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated or args.review_public else COPY_POLICY_VERSION
     records = [
         record for record in records
         if existing.get("bySourceId", {}).get(str(record["source"]["id"]), {}).get("selectionFingerprint")
@@ -542,7 +551,7 @@ def main() -> None:
         })
     if missing_source_ids:
         print(f"editorial_copy_missing_source={len(missing_source_ids)} deferred=true")
-        if args.review_curated and not args.dry_run:
+        if (args.review_curated or args.review_public) and not args.dry_run:
             now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
             upsert_curated(
                 records,
@@ -605,9 +614,9 @@ def main() -> None:
                 "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]], policy_version),
             }
         write_editorial_copy(existing)
-        if args.review_queue or args.review_curated:
+        if args.review_queue or args.review_curated or args.review_public:
             published += upsert_curated(
-                records, rows, now, args.model, audit_existing=args.review_curated
+                records, rows, now, args.model, audit_existing=args.review_curated or args.review_public
             )
     print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 
