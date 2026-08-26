@@ -54,6 +54,8 @@ def main() -> None:
         raise SystemExit("descriptions must display directly without secondary disclosure controls")
     if 'button.textContent=previous?"Show the previous day":""' not in app:
         raise SystemExit("Latest must offer a date-free previous-day control")
+    if "state.latestFrom=latestAvailableDate()" not in app:
+        raise SystemExit("Latest must automatically fall back to the newest non-empty day")
     if "dayDivider" in app or ".day-divider" in (OUTPUT / "styles.css").read_text(encoding="utf-8"):
         raise SystemExit("Latest must rely on card dates without redundant day dividers")
     if "new IntersectionObserver" in app:
