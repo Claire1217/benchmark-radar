@@ -81,7 +81,16 @@
         </div>
         <details class="attention-method">
           <summary>How Attention is calculated</summary>
-          <p><strong>Score 0–100.</strong> Latest blends an experimental LLM 7-day attention forecast (40%) with observed HF paper votes (25%), dedicated-repository GitHub stars (30%), and dataset downloads (5%). The forecast uses only supplied benchmark scope, artifact readiness, topical breadth, and supported publisher evidence; it is not a quality score. The 30-day and 90-day views use observed signals only, weighted 30/55/15 and 15/55/30. A missing observed signal keeps its weight and receives a neutral 50th-percentile prior rather than being treated as zero.</p>
+          <div class="method-body">
+            <p><strong>What the score means.</strong> Attention is a relative 0–100 estimate of how much public interest a benchmark is receiving—or, for a brand-new release, may receive. It does not measure benchmark quality or model performance.</p>
+            <ul>
+              <li><strong>Latest:</strong> 40% LLM 7-day forecast + 25% Hugging Face paper votes + 30% GitHub stars + 5% dataset downloads.</li>
+              <li><strong>30 days:</strong> 30% paper votes + 55% GitHub stars + 15% dataset downloads. No LLM forecast.</li>
+              <li><strong>90 days:</strong> 15% paper votes + 55% GitHub stars + 30% dataset downloads. No LLM forecast.</li>
+            </ul>
+            <p><strong>How the forecast works.</strong> The LLM considers only the supplied benchmark scope, artifact readiness, topical breadth, and verified publisher evidence. It does not invent stars, votes, downloads, or adoption.</p>
+            <p><strong>When data is missing.</strong> Each observed signal is converted to a percentile within the selected time window. A missing signal receives a neutral 50th-percentile value—not zero—and the result is marked with lower confidence.</p>
+          </div>
         </details>
         <div class="filter-panel" id="filter-panel" hidden>
           <label>Search<input id="search" placeholder="RSI, CAD, robotics…"></label>
