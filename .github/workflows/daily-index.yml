@@ -191,9 +191,15 @@ jobs:
         run: python pipeline/enrich_publications.py
 
       - name: Snapshot public attention metrics
+        id: attention_metrics
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_metrics.py
+
+      - name: Report attention metrics status
+        if: ${{ steps.attention_metrics.outcome == 'failure' }}
+        run: echo "::warning::Attention metrics refresh failed; continuing with the last validated snapshot."
 
       - name: Refresh complete public benchmark catalogs
         if: ${{ inputs.metrics_only != true }}

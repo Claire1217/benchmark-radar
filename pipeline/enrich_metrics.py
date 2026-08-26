@@ -69,7 +69,10 @@ def get_json(url: str, headers: dict[str, str] | None = None) -> dict[str, Any] 
             with urlopen(Request(url, headers=request_headers), timeout=45) as response:
                 return json.loads(response.read())
         except HTTPError as error:
-            if error.code in {403, 404, 429}:
+            # A public artifact can later become private or gated. Treat that
+            # single signal as unavailable so preserve_last_known() can retain
+            # its previous observation instead of aborting the daily update.
+            if error.code in {401, 403, 404, 429}:
                 if error.code == 429 and attempt < 2:
                     time.sleep(2 ** attempt)
                     continue

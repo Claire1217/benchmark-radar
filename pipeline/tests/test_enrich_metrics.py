@@ -7,6 +7,7 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -20,6 +21,15 @@ from enrich_metrics import (
 
 
 class MetricTests(unittest.TestCase):
+    def test_restricted_provider_response_is_an_unavailable_signal(self) -> None:
+        for status in (401, 403):
+            with self.subTest(status=status), patch(
+                "enrich_metrics.urlopen",
+                side_effect=HTTPError("https://example.test/item", status, "restricted", {}, None),
+            ) as mocked_open:
+                self.assertIsNone(enrich_metrics.get_json("https://example.test/item"))
+                self.assertEqual(mocked_open.call_count, 1)
+
     def test_parses_supported_public_resource_urls(self) -> None:
         self.assertEqual(github_slug("https://github.com/org/repo.git?tab=readme"), "org/repo")
         self.assertEqual(dataset_slug("https://huggingface.co/datasets/org/data"), "org/data")
