@@ -29,14 +29,15 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v11"
+METHOD_VERSION = "attention-ranking-v12"
 MISSING_SIGNAL_PRIOR = 0.50
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
-    "today": {"llmAttentionForecast": 0.40, "hfPaperUpvotes": 0.25, "githubStars": 0.30, "hfDatasetDownloads": 0.05},
+    "today": {"hfPaperUpvotes": 0.45, "githubStars": 0.25, "hfDatasetDownloads": 0.05},
     "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
     "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
 }
+TODAY_FORECAST_BONUS_WEIGHT = 0.25
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
 PUBLICATION_TIMEZONE = ZoneInfo("Australia/Brisbane")
 
@@ -344,6 +345,7 @@ def rank_records(
         *,
         signed: bool,
         allow_hf_only_rank: bool,
+        forecast_bonus_weight: float = 0.0,
     ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
         output: dict[str, dict[str, Any]] = {}
         scored: list[tuple[float, dict[str, Any]]] = []
@@ -361,11 +363,7 @@ def rank_records(
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
                 population = populations.get(signal, [])
-                pct = (
-                    max(0.0, min(1.0, float(value) / 100.0))
-                    if signal == "llmAttentionForecast" and value is not None and not signed
-                    else percentile(value, population, signed=signed)
-                )
+                pct = percentile(value, population, signed=signed)
                 components[signal] = {"value": value, "percentile": pct}
                 observed_percentiles[signal] = pct
                 if pct is not None:
@@ -373,8 +371,26 @@ def rank_records(
                     observed += 1
             # Fixed signal-type weights make the score interpretable. Missing
             # observations shrink to neutral instead of gaining redistributed weight.
-            composite = weighted_attention(observed_percentiles, weights)
-            score = round(100 * composite) if composite is not None else None
+            observed_composite = weighted_attention(observed_percentiles, weights)
+            composite = observed_composite
+            if forecast_bonus_weight and observed_composite is not None:
+                forecast_value = (record.get("attentionForecast") or {}).get("score")
+                forecast_percentile = (
+                    max(0.0, min(1.0, float(forecast_value) / 100.0))
+                    if forecast_value is not None
+                    else 0.0
+                )
+                components["llmAttentionForecast"] = {
+                    "value": forecast_value,
+                    "percentile": forecast_percentile,
+                    "role": "bonus",
+                    "maxContribution": forecast_bonus_weight,
+                }
+                composite = (
+                    observed_composite * (1.0 - forecast_bonus_weight)
+                    + forecast_percentile * forecast_bonus_weight
+                )
+            score = round(100 * composite + 1e-9) if composite is not None else None
             confidence = (
                 "High" if coverage >= 0.75 and observed >= 2
                 else "Medium" if coverage >= 0.4 and observed >= 2
@@ -457,6 +473,7 @@ def rank_records(
         levels, _ = score_dimension(
             candidates, level_values, WINDOW_WEIGHTS[window], signed=False,
             allow_hf_only_rank=window == "today",
+            forecast_bonus_weight=TODAY_FORECAST_BONUS_WEIGHT if window == "today" else 0.0,
         )
         growth, _ = score_dimension(
             candidates, growth_values, WINDOW_WEIGHTS[window], signed=True,

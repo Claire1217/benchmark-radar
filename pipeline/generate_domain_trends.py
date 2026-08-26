@@ -101,13 +101,27 @@ def main() -> None:
     series = []
     for kind, label, section in trend_definitions(radar_records + library_records):
         domain_releases = [record for record in radar_records if matches_trend(record, kind, label)]
-        monthly_families: dict[str, set[str]] = {month.isoformat(): set() for month in months}
+        monthly_families: dict[str, dict[str, dict]] = {
+            month.isoformat(): {} for month in months
+        }
         for record in domain_releases:
             released = date.fromisoformat(record["releasedAt"])
             if start <= released <= as_of:
-                monthly_families.setdefault(month_start(released).isoformat(), set()).add(record.get("familyId") or record["id"])
+                month_key = month_start(released).isoformat()
+                family_key = record.get("familyId") or record["id"]
+                monthly_families.setdefault(month_key, {}).setdefault(family_key, record)
         monthly = [
-            {"month": month.isoformat(), "count": len(monthly_families.get(month.isoformat(), set()))}
+            {
+                "month": month.isoformat(),
+                "count": len(monthly_families.get(month.isoformat(), {})),
+                "benchmarkIds": [
+                    record["id"]
+                    for record in sorted(
+                        monthly_families.get(month.isoformat(), {}).values(),
+                        key=lambda item: item["name"].casefold(),
+                    )
+                ],
+            }
             for month in months
         ]
 
@@ -164,7 +178,7 @@ def main() -> None:
         })
 
     OUTPUT.write_text(json.dumps({
-        "schemaVersion": "3.0",
+        "schemaVersion": "3.1",
         "asOf": as_of.isoformat(),
         "releaseCoverageStart": start.isoformat(),
         "releaseMetric": "new reusable benchmark families by first public release month",

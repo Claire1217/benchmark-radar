@@ -61,11 +61,17 @@ Each observed cumulative value becomes a percentile within the selected window.
 The percentiles are combined with fixed weights for each signal type, so a large
 download count cannot silently take the meaning of a GitHub star or HF vote.
 
-| Window | HF paper votes | GitHub stars | HF dataset downloads |
-| --- | ---: | ---: | ---: |
-| Latest release day | 50% | 45% | 5% |
-| 30 days | 30% | 55% | 15% |
-| 90 days | 15% | 55% | 30% |
+| Window | HF paper votes | GitHub stars | HF dataset downloads | LLM forecast bonus |
+| --- | ---: | ---: | ---: | ---: |
+| Latest release day | 45% | 25% | 5% | up to 25% |
+| 30 days | 30% | 55% | 15% | none |
+| 90 days | 15% | 55% | 30% | none |
+
+On the latest release day, the three observed signals form the base Attention
+score. The experimental seven-day LLM forecast is then added as a bonus worth
+up to 25 points; it is not a public signal and does not establish ranking
+eligibility or confidence by itself. The forecast is not used in the 30- or
+90-day views.
 
 A missing signal remains unknown but keeps its fixed weight and receives a
 neutral 50th-percentile prior. This discounts incomplete coverage toward the

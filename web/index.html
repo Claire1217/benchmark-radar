@@ -84,7 +84,7 @@
           <div class="method-body">
             <p><strong>What the score means.</strong> Attention is a relative 0–100 estimate of how much public interest a benchmark is receiving—or, for a brand-new release, may receive. It does not measure benchmark quality or model performance.</p>
             <ul>
-              <li><strong>Latest:</strong> 40% LLM 7-day forecast + 25% Hugging Face paper votes + 30% GitHub stars + 5% dataset downloads.</li>
+              <li><strong>Latest:</strong> 45% Hugging Face paper votes + 25% GitHub stars + 5% dataset downloads, with up to 25 bonus points from the experimental LLM 7-day forecast.</li>
               <li><strong>30 days:</strong> 30% paper votes + 55% GitHub stars + 15% dataset downloads. No LLM forecast.</li>
               <li><strong>90 days:</strong> 15% paper votes + 55% GitHub stars + 30% dataset downloads. No LLM forecast.</li>
             </ul>
@@ -104,7 +104,7 @@
     </section>
 
     <section id="library-view" hidden>
-      <div class="hero"><div><h1>Find a benchmark.</h1><p>Compare reusable public benchmarks by field, reported use, results, and availability.</p></div><div class="hero-summary" id="library-summary"></div></div>
+      <div class="hero"><div><h1>Find a benchmark.</h1><p>Find benchmarks by field and compare how they are used, what results they report, and whether they are ready to run.</p></div><div class="hero-summary" id="library-summary"></div></div>
       <section class="content">
         <div class="library-layout">
           <aside class="library-domains" aria-label="Benchmark filters"><h2>Domains</h2><div id="library-domain-list"></div></aside>
@@ -119,7 +119,7 @@
     </section>
 
     <section id="trends-view" hidden>
-      <div class="hero"><div><h1>How evaluation is evolving.</h1><p>See which Benchmarks are becoming shared evaluation coordinates—and treat new releases as context, not proof of progress.</p></div></div>
+      <div class="hero"><div><h1>How evaluation is evolving.</h1><p>See what is new and what is gaining public attention.</p></div></div>
       <section class="content trend-content">
         <div class="controls">
           <label class="select-control"><span>View</span><select id="trend-domain"></select></label>
@@ -127,11 +127,18 @@
         </div>
         <article class="chart-card">
           <div class="chart-header"><div><span>NEW PUBLIC BENCHMARK FAMILIES</span><h2 id="chart-title"></h2></div><div class="trend-stat"><strong id="recent-count"></strong><span>this month</span></div><div class="trend-stat"><strong id="growth-value"></strong><span>previous month</span></div></div>
-          <div id="line-chart" class="line-chart" role="img" aria-label="Monthly new Benchmark releases"></div>
+          <div id="line-chart" class="line-chart" role="group" aria-label="Monthly new Benchmark releases"></div>
           <div class="chart-note"><span id="trend-confidence"></span><span>First public release month · family deduplicated</span></div>
         </article>
-        <div class="section-heading"><div><h2>Benchmarks shaping this field</h2><span>current tracked-use snapshot</span></div></div>
-        <div id="domain-table" class="domain-table landmark-table"></div>
+        <section class="trend-release-section">
+          <div class="section-heading"><div><h2 id="trend-release-title">New benchmarks</h2><span id="trend-release-count"></span></div></div>
+          <div id="trend-release-list" class="trend-release-list"></div>
+          <button id="trend-more" class="load-more" type="button" hidden>Show more</button>
+        </section>
+        <section id="tracked-use-section" hidden>
+          <div class="section-heading"><div><h2>Benchmarks with tracked use</h2><span id="tracked-use-count">current snapshot</span></div></div>
+          <div id="domain-table" class="domain-table landmark-table"></div>
+        </section>
         <p class="caveat"><strong>How to read this:</strong> tracked use helps identify shared evaluation standards. Monthly release volume only shows evaluation activity and may also reflect fragmentation. Saturation is intentionally omitted until comparable score histories exist for the same version, metric, and protocol.</p>
       </section>
     </section>
