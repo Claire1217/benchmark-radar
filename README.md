@@ -28,8 +28,8 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 62 HF votes · 268 GitHub stars · 2,772 dataset downloads |
-| 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 279 HF votes · 82 GitHub stars |
+| 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 62 HF votes · 272 GitHub stars · 2,772 dataset downloads |
+| 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 279 HF votes · 83 GitHub stars |
 | 3 | **PosterBench**<br><sub>[Paper](https://arxiv.org/abs/2608.13560) · [Code](https://github.com/Yaxin9Luo/AutoDesign)</sub> | Multimodal Perception | 55 HF votes · 181 GitHub stars |
 | 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 62 HF votes · 61 GitHub stars |
 | 5 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 46 HF votes · 87 GitHub stars |
