@@ -13,7 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import enrich_metrics
 from enrich_metrics import (
-    closest_history, dataset_slug, github_scope, github_slug, observation_mode, percentile,
+    closest_history, dataset_slug, github_scope, github_slug, log_max_normalized,
+    observation_mode, percentile,
     preserve_last_known, rank_records, readiness_from_links,
     summarize_observation,
     weighted_attention,
@@ -40,6 +41,20 @@ class MetricTests(unittest.TestCase):
         self.assertIsNone(percentile(None, [1, 2, 3]))
         self.assertEqual(percentile(2, [1, 2, 3]), 0.5)
         self.assertLess(percentile(-5, [-5, 0, 5], signed=True), percentile(0, [-5, 0, 5], signed=True))
+
+    def test_log_max_normalization_preserves_magnitude(self) -> None:
+        population = [1, 2, 100, 101]
+        self.assertIsNone(log_max_normalized(None, population))
+        self.assertEqual(log_max_normalized(0, population), 0.0)
+        self.assertEqual(log_max_normalized(101, population), 1.0)
+        self.assertAlmostEqual(
+            percentile(100, population) - percentile(2, population),
+            percentile(101, population) - percentile(100, population),
+        )
+        self.assertGreater(
+            log_max_normalized(100, population) - log_max_normalized(2, population),
+            log_max_normalized(101, population) - log_max_normalized(100, population),
+        )
 
     def test_attention_uses_fixed_signal_weights_with_neutral_missing_prior(self) -> None:
         self.assertEqual(enrich_metrics.WINDOW_WEIGHTS, {
@@ -138,10 +153,10 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(popular["rank"], 1)
         self.assertEqual(popular["confidence"], "Low")
         self.assertEqual(popular["components"]["githubStars"]["value"], 119)
-        self.assertEqual(popular["score"], 64)
+        self.assertEqual(popular["score"], 78)
 
     @patch("enrich_metrics.closest_history", return_value=None)
-    def test_window_percentile_does_not_reverse_larger_hf_vote_count(self, _history) -> None:
+    def test_window_log_normalization_does_not_reverse_larger_hf_vote_count(self, _history) -> None:
         records = [
             {"id": "older", "releasedAt": "2026-08-06", "links": {}},
             {"id": "newer", "releasedAt": "2026-08-10", "links": {}},

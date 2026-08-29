@@ -29,7 +29,7 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v12"
+METHOD_VERSION = "attention-ranking-v13"
 MISSING_SIGNAL_PRIOR = 0.50
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
@@ -304,14 +304,31 @@ def percentile(
     return (below + 0.5 * equal) / len(transformed)
 
 
+def log_max_normalized(
+    value: int | float | None, population: list[int | float]
+) -> float | None:
+    """Keep magnitude differences while damping heavy-tailed public counts."""
+    if value is None or not population:
+        return None
+    maximum = max(max(0.0, float(item)) for item in population)
+    target = max(0.0, float(value))
+    if maximum == 0:
+        return 0.0
+    return min(1.0, math.log1p(target) / math.log1p(maximum))
+
+
 def weighted_attention(
-    percentiles: dict[str, float | None], weights: dict[str, float]
+    normalized_values: dict[str, float | None], weights: dict[str, float]
 ) -> float | None:
     """Blend fixed signal weights, shrinking missing observations to neutral."""
-    if not any(percentiles.get(signal) is not None for signal in weights):
+    if not any(normalized_values.get(signal) is not None for signal in weights):
         return None
     return sum(
-        (percentiles.get(signal) if percentiles.get(signal) is not None else MISSING_SIGNAL_PRIOR)
+        (
+            normalized_values.get(signal)
+            if normalized_values.get(signal) is not None
+            else MISSING_SIGNAL_PRIOR
+        )
         * weight
         for signal, weight in weights.items()
     ) / sum(weights.values())
@@ -346,6 +363,7 @@ def rank_records(
         signed: bool,
         allow_hf_only_rank: bool,
         forecast_bonus_weight: float = 0.0,
+        normalization: str = "percentile",
     ) -> tuple[dict[str, dict[str, Any]], list[tuple[float, dict[str, Any]]]]:
         output: dict[str, dict[str, Any]] = {}
         scored: list[tuple[float, dict[str, Any]]] = []
@@ -358,20 +376,30 @@ def rank_records(
         for record in candidates:
             coverage = 0.0
             observed = 0
-            observed_percentiles: dict[str, float | None] = {}
+            observed_normalized: dict[str, float | None] = {}
             components: dict[str, Any] = {}
             for signal, weight in weights.items():
                 value = values[signal][record["id"]]
                 population = populations.get(signal, [])
-                pct = percentile(value, population, signed=signed)
-                components[signal] = {"value": value, "percentile": pct}
-                observed_percentiles[signal] = pct
-                if pct is not None:
+                normalized = (
+                    log_max_normalized(value, population)
+                    if normalization == "log-max"
+                    else percentile(value, population, signed=signed)
+                )
+                components[signal] = {
+                    "value": value,
+                    "normalized": normalized,
+                    "normalization": normalization,
+                }
+                if normalization == "percentile":
+                    components[signal]["percentile"] = normalized
+                observed_normalized[signal] = normalized
+                if normalized is not None:
                     coverage += weight
                     observed += 1
             # Fixed signal-type weights make the score interpretable. Missing
             # observations shrink to neutral instead of gaining redistributed weight.
-            observed_composite = weighted_attention(observed_percentiles, weights)
+            observed_composite = weighted_attention(observed_normalized, weights)
             composite = observed_composite
             if forecast_bonus_weight and observed_composite is not None:
                 forecast_value = (record.get("attentionForecast") or {}).get("score")
@@ -405,7 +433,7 @@ def rank_records(
             # decision context. In longer windows they still produce a visible
             # score, but a formal rank requires a repository or dataset signal.
             has_durable_signal = any(
-                components[signal]["percentile"] is not None
+                components[signal]["normalized"] is not None
                 for signal in ("githubStars", "hfDatasetDownloads")
             )
             if composite is not None and (allow_hf_only_rank or has_durable_signal):
@@ -474,6 +502,7 @@ def rank_records(
             candidates, level_values, WINDOW_WEIGHTS[window], signed=False,
             allow_hf_only_rank=window == "today",
             forecast_bonus_weight=TODAY_FORECAST_BONUS_WEIGHT if window == "today" else 0.0,
+            normalization="percentile" if window == "today" else "log-max",
         )
         growth, _ = score_dimension(
             candidates, growth_values, WINDOW_WEIGHTS[window], signed=True,

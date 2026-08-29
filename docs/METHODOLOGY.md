@@ -57,9 +57,13 @@ below a smaller count on the same signal. Dedicated benchmark-repository stars
 count; stars on a parent repository that merely hosts the benchmark in a
 subdirectory do not.
 
-Each observed cumulative value becomes a percentile within the selected window.
-The percentiles are combined with fixed weights for each signal type, so a large
-download count cannot silently take the meaning of a GitHub star or HF vote.
+On the latest release day, each observed cumulative value becomes a percentile
+within that release batch. In the 30- and 90-day windows, each non-negative
+count is normalized as `log(1 + value) / log(1 + window maximum)`. The logarithm
+dampens heavy-tailed counts while preserving meaningful magnitude differences
+between leading benchmarks. The normalized values are combined with fixed
+weights for each signal type, so a large download count cannot silently take
+the meaning of a GitHub star or HF vote.
 
 | Window | HF paper votes | GitHub stars | HF dataset downloads | LLM forecast bonus |
 | --- | ---: | ---: | ---: | ---: |
@@ -74,7 +78,7 @@ eligibility or confidence by itself. The forecast is not used in the 30- or
 90-day views.
 
 A missing signal remains unknown but keeps its fixed weight and receives a
-neutral 50th-percentile prior. This discounts incomplete coverage toward the
+neutral midpoint prior of 0.5. This discounts incomplete coverage toward the
 midpoint without treating missing data as zero or redistributing its weight to
 the available signals. In the latest release day, one observed signal is enough to rank
 because launch discovery is the decision context. In the 30- and 90-day views,
