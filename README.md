@@ -29,15 +29,15 @@
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **ASI-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.17271) · [Code](https://github.com/apexin-ai/ASI-Bench)</sub> | Agents | 62 HF votes · 273 GitHub stars · 3,072 dataset downloads |
-| 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 280 HF votes · 89 GitHub stars |
+| 2 | **RA-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.14391) · [Code](https://github.com/24029100313/RA-Bench)</sub> | Multimodal Perception | 280 HF votes · 91 GitHub stars |
 | 3 | **PosterBench**<br><sub>[Paper](https://arxiv.org/abs/2608.13560) · [Code](https://github.com/Yaxin9Luo/AutoDesign)</sub> | Multimodal Perception | 55 HF votes · 181 GitHub stars |
 | 4 | **SWE-bench Science**<br><sub>[Paper](https://arxiv.org/abs/2608.19799)</sub> | Coding & Software Engineering | 62 HF votes · 61 GitHub stars |
 | 5 | **PlayWorld**<br><sub>[Paper](https://arxiv.org/abs/2608.13552) · [Code](https://github.com/kxding/PlayWorld)</sub> | Multimodal Perception | 46 HF votes · 87 GitHub stars |
 | 6 | **SWE-Bench ProMax**<br><sub>[Paper](https://arxiv.org/abs/2608.09802)</sub> | Coding & Software Engineering | 133 HF votes · 600 dataset downloads |
 | 7 | **VAKRA**<br><sub>[Paper](https://arxiv.org/abs/2608.12282) · [Code](https://github.com/IBM/VAKRA)</sub> | Knowledge & Reasoning | 65 GitHub stars · 1,748 dataset downloads |
 | 8 | **CDAF — Cached Descriptive Asset Files**<br><sub>[Paper](https://github.com/UditAkhourii/cdaf) · [Code](https://github.com/UditAkhourii/cdaf)</sub> | Knowledge & Reasoning | 99 GitHub stars |
-| 9 | **GDPevo**<br><sub>[Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo)</sub> | Knowledge & Reasoning | 27 HF votes · 61 GitHub stars |
-| 10 | **ConceptEdit-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)</sub> | Multimodal Perception | 49 HF votes · 35 GitHub stars |
+| 9 | **GDPevo**<br><sub>[Paper](https://arxiv.org/abs/2608.03764) · [Code](https://github.com/Prism-Shadow/GDPevo)</sub> | Knowledge & Reasoning | 27 HF votes · 62 GitHub stars |
+| 10 | **ConceptEdit-Bench**<br><sub>[Paper](https://arxiv.org/abs/2608.16812) · [Code](https://github.com/inclusionAI/ConceptEdit)</sub> | Multimodal Perception | 50 HF votes · 35 GitHub stars |
 
 ### Explore the library
 
