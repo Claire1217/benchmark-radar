@@ -1,9 +1,10 @@
-<h1 align="center"><img src="web/benchmark-radar-mark.png" width="34" height="34" alt=""> Benchmark Radar</h1>
+<h1 align="center"><img src="web/benchmark-radar-mark.png" width="38" height="38" alt=""> Benchmark Radar — AI Benchmark Tracker and Library</h1>
 
-<p align="center">Track the benchmarks shaping AI. Follow new public releases and the evaluations adopted by leading model labs.</p>
+<p align="center"><strong>Benchmark Radar</strong> is the official daily-updated AI benchmark tracker and searchable benchmark library. This GitHub repository powers <a href="https://benchmark-radar.com/">benchmark-radar.com</a>, indexing public evaluation benchmarks, papers, code, datasets, attention signals, and use in model reports.</p>
 
 <p align="center">
-  <strong>Official website:</strong>
+  <strong><a href="https://benchmark-radar.com/">Official Benchmark Radar website →</a></strong>
+  &nbsp;·&nbsp;
   <strong><a href="https://benchmark-radar.com/#radar">Open Radar →</a></strong>
   &nbsp;·&nbsp;
   <strong><a href="https://benchmark-radar.com/#library">Browse Library →</a></strong>
