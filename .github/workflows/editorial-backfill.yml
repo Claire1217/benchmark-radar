@@ -1,6 +1,9 @@
 name: Backfill benchmark descriptions and publishers
 
 on:
+  schedule:
+    - cron: "30 14 * * *"
+      timezone: "Australia/Brisbane"
   workflow_dispatch:
 
 permissions:
@@ -13,7 +16,7 @@ concurrency:
 jobs:
   backfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,7 +25,31 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Process every pending benchmark
+      - name: Review a small 90-day candidate batch
+        id: candidate_review
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+        run: |
+          test -n "$DEEPSEEK_API_KEY"
+          review_end=$(python pipeline/scheduled_source_date.py)
+          review_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=89)).isoformat())' "$review_end")
+          python pipeline/generate_editorial_copy.py --review-queue --released-from "$review_start" --released-through "$review_end" --limit 16 --batch-size 4
+
+      - name: Audit a small 90-day public batch
+        id: public_audit
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+        run: |
+          test -n "$DEEPSEEK_API_KEY"
+          review_end=$(python pipeline/scheduled_source_date.py)
+          review_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=89)).isoformat())' "$review_end")
+          python pipeline/generate_editorial_copy.py --review-public --released-from "$review_start" --released-through "$review_end" --limit 8 --batch-size 4
+
+      - name: Backfill a small description batch
         id: editorial
         continue-on-error: true
         env:
@@ -31,20 +58,24 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           test -n "$DEEPSEEK_API_KEY"
-          python pipeline/generate_editorial_copy.py --limit 0 --batch-size 8
+          python pipeline/generate_editorial_copy.py --limit 16 --batch-size 4
 
       - name: Reconcile with latest data and commit completed batches
         run: |
           cp data/editorial_copy.json "$RUNNER_TEMP/editorial_copy.json"
+          cp data/review_queue.json "$RUNNER_TEMP/review_queue.json"
+          cp data/curated_records.json "$RUNNER_TEMP/curated_records.json"
           git fetch origin main
           git switch --detach origin/main
           cp "$RUNNER_TEMP/editorial_copy.json" data/editorial_copy.json
+          cp "$RUNNER_TEMP/review_queue.json" data/review_queue.json
+          cp "$RUNNER_TEMP/curated_records.json" data/curated_records.json
           python pipeline/apply_overrides.py
           make generate
           make build
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
-          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_index.json data/domain_trends.json
+          git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_index.json data/domain_trends.json data/review_queue.json data/curated_overrides.json data/curated_records.json
           if git diff --cached --quiet; then
             echo "No editorial changes"
           else
@@ -53,5 +84,5 @@ jobs:
           fi
 
       - name: Report partial completion
-        if: steps.editorial.outcome == 'failure'
-        run: echo "::warning::The backfill stopped early. Completed batches were saved; the daily job will resume the remainder."
+        if: steps.candidate_review.outcome == 'failure' || steps.public_audit.outcome == 'failure' || steps.editorial.outcome == 'failure'
+        run: echo "::warning::One background batch stopped early. Completed work was saved and the next scheduled batch will resume."

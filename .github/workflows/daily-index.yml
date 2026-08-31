@@ -39,7 +39,7 @@ concurrency:
 jobs:
   index:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -60,7 +60,7 @@ jobs:
           target="${REQUESTED_DATE:-$(python pipeline/scheduled_source_date.py)}"
           echo "date=$target" >> "$GITHUB_OUTPUT"
           echo "start=$(python pipeline/scheduled_source_date.py --target "$target" --batch-start)" >> "$GITHUB_OUTPUT"
-          echo "review_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=89)).isoformat())' "$target")" >> "$GITHUB_OUTPUT"
+          echo "recent_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=3)).isoformat())' "$target")" >> "$GITHUB_OUTPUT"
       - name: Discover one unified public-source batch
         if: ${{ inputs.metrics_only != true }}
         id: discovery
@@ -82,7 +82,7 @@ jobs:
         if: ${{ inputs.metrics_only != true }}
         run: python pipeline/auto_admit_candidates.py
 
-      - name: Optionally enrich remaining candidates and public copy
+      - name: Review the latest four release days
         if: ${{ inputs.metrics_only != true }}
         id: editorial-review
         continue-on-error: true
@@ -93,14 +93,14 @@ jobs:
           DEEPSEEK_COPY_MODEL: deepseek-v4-pro
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
-          BATCH_START: ${{ steps.source-date.outputs.start }}
+          RECENT_START: ${{ steps.source-date.outputs.recent_start }}
           INDEXED_DATE: ${{ steps.discovery.outputs.indexed_date }}
         run: |
           if [ -z "$DEEPSEEK_API_KEY" ]; then
             echo "DEEPSEEK_API_KEY is not configured; deterministic admission already completed."
           else
             target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
-            python pipeline/generate_editorial_copy.py --review-queue --released-from "$BATCH_START" --released-through "$target" --limit 0 --batch-size 8
+            python pipeline/generate_editorial_copy.py --review-queue --released-from "$RECENT_START" --released-through "$target" --limit 0 --batch-size 8
           fi
 
       - name: Review requested source IDs immediately
@@ -113,34 +113,6 @@ jobs:
         run: |
           if [ -n "$DEEPSEEK_API_KEY" ]; then
             python pipeline/generate_editorial_copy.py --review-queue --ids "$REVIEW_IDS" --limit 0 --batch-size 8
-          fi
-
-      - name: Review rolling 90-day candidate backlog
-        if: ${{ inputs.metrics_only != true }}
-        id: rolling-candidate-review
-        continue-on-error: true
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
-          REVIEW_START: ${{ steps.source-date.outputs.review_start }}
-          REVIEW_END: ${{ steps.source-date.outputs.date }}
-        run: |
-          if [ -n "$DEEPSEEK_API_KEY" ]; then
-            python pipeline/generate_editorial_copy.py --review-queue --released-from "$REVIEW_START" --released-through "$REVIEW_END" --limit 64 --batch-size 8
-          fi
-
-      - name: Audit rolling 90-day public records
-        if: ${{ inputs.metrics_only != true }}
-        id: rolling-public-audit
-        continue-on-error: true
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
-          REVIEW_START: ${{ steps.source-date.outputs.review_start }}
-          REVIEW_END: ${{ steps.source-date.outputs.date }}
-        run: |
-          if [ -n "$DEEPSEEK_API_KEY" ]; then
-            python pipeline/generate_editorial_copy.py --review-public --released-from "$REVIEW_START" --released-through "$REVIEW_END" --limit 64 --batch-size 8
           fi
 
       - name: Report editorial review status
@@ -168,23 +140,6 @@ jobs:
       - name: Report canonical-name audit status
         if: ${{ inputs.metrics_only != true && inputs.audit_names_from != '' && steps.canonical-name-audit.outcome == 'failure' }}
         run: echo "::warning::Canonical-name audit failed; existing validated records remain unchanged."
-
-      - name: Continue editorial backfill
-        if: ${{ inputs.metrics_only != true }}
-        id: editorial-backfill
-        continue-on-error: true
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          DEEPSEEK_COPY_MODEL: deepseek-v4-flash
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          if [ -n "$DEEPSEEK_API_KEY" ]; then
-            python pipeline/generate_editorial_copy.py --limit 48 --batch-size 8
-          fi
-
-      - name: Report editorial backfill status
-        if: ${{ inputs.metrics_only != true && steps.editorial-backfill.outcome == 'failure' }}
-        run: echo "::warning::Editorial backfill failed; continuing with validated canonical records."
 
       - name: Reconcile reviewed records before enrichment
         if: ${{ inputs.metrics_only != true }}
