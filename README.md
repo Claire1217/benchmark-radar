@@ -26,7 +26,7 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-08-31 · benchmarks first released in August 2026</sub>
+<sub>Updated 2026-08-30 · benchmarks first released in August 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
@@ -45,9 +45,9 @@
 
 | General AI capabilities | Application fields |
 |---|---|
-| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 918<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 216<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 256<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 586<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 95<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 147<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 9 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 46<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 112<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 138<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 95<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 43 |
+| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 923<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 216<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 257<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 587<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 95<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 147<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 9 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 46<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 114<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 138<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 95<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 43 |
 
-**[Browse all 2,335 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,343 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
