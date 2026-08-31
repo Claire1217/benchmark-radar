@@ -60,6 +60,10 @@ jobs:
           test -n "$DEEPSEEK_API_KEY"
           python pipeline/generate_editorial_copy.py --limit 16 --batch-size 4
 
+      - name: Refresh public benchmark catalogs
+        continue-on-error: true
+        run: python pipeline/sync_catalogs.py
+
       - name: Reconcile with latest data and commit completed batches
         run: |
           cp data/editorial_copy.json "$RUNNER_TEMP/editorial_copy.json"

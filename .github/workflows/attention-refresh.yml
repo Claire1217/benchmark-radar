@@ -4,7 +4,7 @@ on:
   schedule:
     # Refresh the latest published batch every three hours during the Brisbane
     # day. The full 09:00 job remains the only run that discovers and reviews.
-    - cron: "0 12,15,18,21 * * *"
+    - cron: "0 10,12,15,18,21 * * *"
       timezone: "Australia/Brisbane"
   workflow_dispatch:
 
@@ -45,13 +45,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_metrics.py --today-only
+      - name: Create the daily full snapshot when missing
+        if: steps.snapshot.outputs.ready != 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python pipeline/enrich_metrics.py
       - name: Generate and validate the public view
-        if: steps.snapshot.outputs.ready == 'true'
         run: |
           python pipeline/generate_public_index.py
           make build
       - name: Commit refreshed Today attention
-        if: steps.snapshot.outputs.ready == 'true'
         run: |
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
@@ -59,7 +62,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No attention changes"
           else
-            git commit -m "data: refresh Today attention"
+            git commit -m "data: refresh public attention"
             git fetch origin main
             git rebase origin/main
             git push origin HEAD:main
