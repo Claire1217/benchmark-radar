@@ -71,6 +71,8 @@ def main() -> None:
             raise SystemExit(f"missing discovery asset: {name}")
     if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
         raise SystemExit("canonical production URL missing")
+    if '<link rel="icon" href="/benchmark-radar-mark.png"' not in html:
+        raise SystemExit("stable site-wide favicon URL missing")
     structured = re.search(r'<script type="application/ld\+json">\s*(.*?)\s*</script>', html, re.DOTALL)
     if not structured:
         raise SystemExit("structured data missing")
