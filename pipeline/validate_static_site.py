@@ -67,7 +67,7 @@ def main() -> None:
         raise SystemExit("Library, Saved, or Trends navigation missing")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
-    for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "benchmarks/index.html", "detail.css", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
+    for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
         if not (OUTPUT / name).exists():
             raise SystemExit(f"missing discovery asset: {name}")
     if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
@@ -87,12 +87,8 @@ def main() -> None:
         raise SystemExit("public benchmark Dataset schema missing")
     sitemap = ET.parse(OUTPUT / "sitemap.xml")
     urls = sitemap.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")
-    detail_pages = list((OUTPUT / "benchmarks").glob("*/index.html"))
-    if len(detail_pages) < 1000 or len(urls) != len(detail_pages) + 3:
-        raise SystemExit("crawlable benchmark pages or sitemap inventory incomplete")
-    lastmods = [item.text for item in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod")]
-    if any(not value or value < "1900-01-01" for value in lastmods):
-        raise SystemExit("sitemap contains an invalid or placeholder lastmod date")
+    if len(urls) != 2 or (OUTPUT / "benchmarks").exists():
+        raise SystemExit("unexpected generated detail pages or sitemap entries")
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 
 
