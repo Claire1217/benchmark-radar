@@ -46,6 +46,13 @@ def record_path(record: dict) -> str:
     return f"benchmarks/{identifier}/"
 
 
+def public_date(value: object) -> str | None:
+    text = str(value or "")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", text) or text < "1900-01-01":
+        return None
+    return text
+
+
 def resource_links(record: dict) -> str:
     links = record.get("links") or {}
     candidates = [
@@ -73,14 +80,14 @@ def detail_page(record: dict) -> str:
     tags_html = "".join(f"<span>{escape(str(tag))}</span>" for tag in [*domains, *capabilities, *publishers][:8])
     why = record.get("whyItMatters")
     motivation = record.get("motivation")
-    released = record.get("releasedAt") or "Unknown"
+    released = public_date(record.get("releasedAt")) or "Unknown"
     readiness = record.get("readiness") or "Unknown"
     schema = {
         "@context": "https://schema.org", "@type": "WebPage", "@id": f"{canonical}#webpage",
         "url": canonical, "name": f"{name} Benchmark", "description": description,
         "isPartOf": {"@id": f"{BASE_URL}/#website"},
         "about": {"@type": "Thing", "name": name, "description": description},
-        "datePublished": record.get("releasedAt"), "publisher": {"@id": f"{BASE_URL}/#publisher"},
+        "datePublished": public_date(record.get("releasedAt")), "publisher": {"@id": f"{BASE_URL}/#publisher"},
     }
     schema = {key: value for key, value in schema.items() if value is not None}
     return f'''<!doctype html>
@@ -113,7 +120,7 @@ def write_feed(records: list[dict], data_as_of: str) -> None:
 
 def write_sitemap(records: list[dict], data_as_of: str) -> None:
     entries = [(f"{BASE_URL}/", data_as_of), (f"{BASE_URL}/about/", None), (f"{BASE_URL}/benchmarks/", data_as_of)]
-    entries.extend((f"{BASE_URL}/{record_path(record)}", record.get("releasedAt")) for record in records)
+    entries.extend((f"{BASE_URL}/{record_path(record)}", public_date(record.get("releasedAt"))) for record in records)
     body = "".join(f"  <url><loc>{xml_escape(url)}</loc>{f'<lastmod>{lastmod}</lastmod>' if lastmod else ''}</url>\n" for url, lastmod in entries)
     (OUTPUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n', encoding="utf-8")
 

@@ -90,6 +90,9 @@ def main() -> None:
     detail_pages = list((OUTPUT / "benchmarks").glob("*/index.html"))
     if len(detail_pages) < 1000 or len(urls) != len(detail_pages) + 3:
         raise SystemExit("crawlable benchmark pages or sitemap inventory incomplete")
+    lastmods = [item.text for item in sitemap.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}lastmod")]
+    if any(not value or value < "1900-01-01" for value in lastmods):
+        raise SystemExit("sitemap contains an invalid or placeholder lastmod date")
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 
 
