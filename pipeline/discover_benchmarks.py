@@ -104,7 +104,7 @@ def publication_batch_dates(target: str) -> list[str]:
 
 
 def has_reviewable_evidence(value: str) -> bool:
-    """Coarse evidence gate only; semantic admission remains an AI decision."""
+    """Coarse evidence gate for deterministic admission and automated audit."""
     return bool(
         BENCHMARK_WORD.search(value)
         and AI_CONTEXT.search(value)

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Index benchmark releases from arXiv's official OAI-PMH feed.
 
-The pipeline is intentionally conservative: it publishes only papers whose
-title/abstract contain explicit release language and benchmark evidence. Other
-matches go to a review queue. It never invents code, data, dates, or adoption
-signals.
+The pipeline collects source-grounded candidates. A deterministic admission
+stage publishes explicit high-confidence releases; lower-confidence matches
+remain available for automated audit. It never invents code, data, dates, or
+adoption signals.
 """
 
 from __future__ import annotations
@@ -1125,8 +1125,9 @@ def index_papers(
     indexed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     publish_threshold = float(config["thresholds"]["publish"])
     review_threshold = float(config["thresholds"]["review"])
-    # Deterministic rules are high-recall candidate prioritization only. New
-    # Rules only discover candidates. Curated evidence determines publication.
+    # Deterministic recognition builds the candidate pool. The separate
+    # auto-admission stage applies the configured publication threshold so a
+    # missing model key can never freeze the public release date.
     accepted: list[dict[str, Any]] = []
     review: list[dict[str, Any]] = []
     for paper in papers:
