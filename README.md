@@ -3,6 +3,7 @@
 <p align="center">Track the benchmarks shaping AI. Follow new public releases and the evaluations adopted by leading model labs.</p>
 
 <p align="center">
+  <strong>Official website:</strong>
   <strong><a href="https://benchmark-radar.com/#radar">Open Radar →</a></strong>
   &nbsp;·&nbsp;
   <strong><a href="https://benchmark-radar.com/#library">Browse Library →</a></strong>

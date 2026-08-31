@@ -66,7 +66,7 @@ def main() -> None:
         raise SystemExit("Library, Saved, or Trends navigation missing")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
-    for name in ("robots.txt", "sitemap.xml", "llms.txt", "social-preview.png"):
+    for name in ("robots.txt", "sitemap.xml", "llms.txt", "social-preview.png", "about/index.html"):
         if not (OUTPUT / name).exists():
             raise SystemExit(f"missing discovery asset: {name}")
     if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
@@ -74,8 +74,18 @@ def main() -> None:
     structured = re.search(r'<script type="application/ld\+json">\s*(.*?)\s*</script>', html, re.DOTALL)
     if not structured:
         raise SystemExit("structured data missing")
-    json.loads(structured.group(1))
+    schema = json.loads(structured.group(1))
+    website = next(item for item in schema["@graph"] if item.get("@type") == "WebSite")
+    if website.get("name") != "Benchmark Radar" or "benchmark-radar" not in website.get("alternateName", []):
+        raise SystemExit("Benchmark Radar site-name signals missing")
+    if "Benchmark Radar" not in document_title(html):
+        raise SystemExit("Benchmark Radar missing from page title")
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
+
+
+def document_title(html: str) -> str:
+    match = re.search(r"<title>(.*?)</title>", html, re.DOTALL | re.IGNORECASE)
+    return match.group(1).strip() if match else ""
 
 
 if __name__ == "__main__":
