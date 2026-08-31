@@ -49,3 +49,13 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build URL inventory
+        run: make build
+      - name: Notify IndexNow about recent changes
+        run: python3 pipeline/submit_indexnow.py --sitemap _site/sitemap.xml --key 3bf256ad2bac3dbab62facad3a131fdd --days 8

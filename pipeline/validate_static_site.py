@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,7 +67,7 @@ def main() -> None:
         raise SystemExit("Library, Saved, or Trends navigation missing")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
-    for name in ("robots.txt", "sitemap.xml", "llms.txt", "social-preview.png", "about/index.html"):
+    for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "benchmarks/index.html", "detail.css", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
         if not (OUTPUT / name).exists():
             raise SystemExit(f"missing discovery asset: {name}")
     if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
@@ -82,6 +83,13 @@ def main() -> None:
         raise SystemExit("Benchmark Radar site-name signals missing")
     if "Benchmark Radar" not in document_title(html):
         raise SystemExit("Benchmark Radar missing from page title")
+    if not any(item.get("@type") == "Dataset" for item in schema["@graph"]):
+        raise SystemExit("public benchmark Dataset schema missing")
+    sitemap = ET.parse(OUTPUT / "sitemap.xml")
+    urls = sitemap.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")
+    detail_pages = list((OUTPUT / "benchmarks").glob("*/index.html"))
+    if len(detail_pages) < 1000 or len(urls) != len(detail_pages) + 3:
+        raise SystemExit("crawlable benchmark pages or sitemap inventory incomplete")
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 
 
