@@ -10,12 +10,12 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-31 · **Benchmark releases:** 1502
+**Snapshot:** 2026-08-31 · **Benchmark releases:** 1503
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (10)
-- [Biology & Drug Discovery](#biology--drug-discovery) (101)
+- [Biology & Drug Discovery](#biology--drug-discovery) (102)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (45)
 - [Finance](#finance) (52)
@@ -51,6 +51,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **ECGQuest** (2026-08-31) — ECGQuest provides a reproducible benchmark for contextual ECG knowledge and shows that parameter-efficient fine-tuning can make smaller language models competitive with substantially larger commercial models. [Paper](https://arxiv.org/abs/2608.30893)
 - **MEDSEGBENCHMARKER** (2026-08-30) — We present MEDSEGBENCHMARKER (MSB), a configuration-driven framework for controlled benchmarking of 2D MIS. [Paper](https://arxiv.org/abs/2608.29677)
 - **SPAR-Bench** (2026-08-28) — We construct SPAR-Bench, eight probes over multi-organ abdominal CT that separate coordinate localization, relational reasoning, and spatial queries, and apply them to five architectural configurations and three medical… [Paper](https://arxiv.org/abs/2608.28092)
+- **VIPER** (2026-08-26) — To address it, we introduce VIPER, the first expert-curated benchmark for vision-language model evaluation in toxicologic pathology. [Paper](https://arxiv.org/abs/2608.26382) · [Code](https://github.com/mahmoodlab/viper)
 - **MC-CXR** (2026-08-25) — We introduce Multi-Context Chest X-ray (MC-CXR), a benchmark of 240 cases expanded into 2,522 instances that isolates context-induced disruption through paired perturbation. [Paper](https://arxiv.org/abs/2608.24118)
 - **HealthBench-Psych** (2026-08-25) — We introduce HealthBench-Psych and HealthBench-Psych-Hard. [Paper](https://arxiv.org/abs/2608.25071) · [Code](https://github.com/mindbench-ai/healthbench-psych) · [Data](https://huggingface.co/datasets/mindbench-ai/healthbench-psych)
 - **TSWAP Thai Wellness Benchmark** (2026-08-24) — We release the first Thai traditional-medicine/wellness retrieval benchmark (50 questions with gold document IDs; Recall@5 = 0.88), production QA logs (91.1% test-retest pass over 259 cases), and a 71-question frontier… [Paper](http://arxiv.org/abs/2608.22917v1) · [Data](https://huggingface.co/datasets/iapp/tswap-wellness-benchmark)
@@ -264,7 +265,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **UTILMEM** (2026-08-31) — Here, we introduce UtilMem, a diagnostic benchmark comprising 1,717 instances across five domains, designed to evaluate four underexplored aspects of memory utilization: reasoning over dense histories, identifying impli… [Paper](https://arxiv.org/abs/2608.30508) · [Code](https://github.com/peijunallin/UtilMem)
+- **UtilMem** (2026-08-31) — Here, we introduce UtilMem, a diagnostic benchmark comprising 1,717 instances across five domains, designed to evaluate four underexplored aspects of memory utilization: reasoning over dense histories, identifying impli… [Paper](https://arxiv.org/abs/2608.30508) · [Code](https://github.com/peijunallin/UtilMem)
 - **UFPR-PEs** (2026-08-31) — To bridge this gap, we present UFPR-PEs, a benchmark for face recognition bias evaluation using public videos of elected Brazilian politicians annotated with official self-declared race/color categories. [Paper](https://arxiv.org/abs/2608.30688)
 - **SemiMat** (2026-08-31) — We present SemiMat, a controlled benchmark for semi-supervised materials property regression, and MatRank, a reliability-weighted objective for continuous pseudo-label uncertainty. [Paper](https://arxiv.org/abs/2608.30682) · [Code](https://github.com/littlepeachs/SemiMat)
 - **STVG-CompBench** (2026-08-31) — Built on this engine, we introduce STVG-CompBench, a benchmark stratified by explicit difficulty levels that jointly capture temporal complexity and spatial interference. [Paper](https://arxiv.org/abs/2608.30584)
