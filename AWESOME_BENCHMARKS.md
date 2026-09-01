@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-08-30 · **Benchmark releases:** 1451
+**Snapshot:** 2026-08-31 · **Benchmark releases:** 1451
 
 ## Contents
 
