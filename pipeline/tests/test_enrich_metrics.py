@@ -129,6 +129,29 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(records[0]["ranking"]["today"]["level"]["components"]["llmAttentionForecast"]["role"], "bonus")
 
     @patch("enrich_metrics.closest_history", return_value=None)
+    def test_latest_attention_uses_bounded_forecast_when_signals_are_unavailable(self, _history) -> None:
+        records = [{
+            "id": "forecast-only", "releasedAt": "2026-08-24", "links": {},
+            "attentionForecast": {"score": 80},
+        }]
+        raw = {
+            "forecast-only": {
+                "hfPaperUpvotes": None, "githubStars": None, "githubScope": None,
+                "hfDatasetDownloads": None, "hfDailySubmittedAt": None,
+            }
+        }
+
+        rank_records(records, raw, date(2026, 8, 26), "2026-08-24")
+
+        latest = records[0]["ranking"]["today"]
+        self.assertEqual(latest["score"], 20)
+        self.assertIsNone(latest["rank"])
+        self.assertEqual(latest["confidence"], "Low")
+        self.assertEqual(
+            latest["level"]["components"]["llmAttentionForecast"]["value"], 80
+        )
+
+    @patch("enrich_metrics.closest_history", return_value=None)
     def test_single_real_signal_is_ranked_with_low_confidence(self, _history) -> None:
         records = [
             {"id": "popular", "releasedAt": "2026-07-28", "links": {}},

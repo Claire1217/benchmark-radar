@@ -119,6 +119,22 @@ jobs:
         if: ${{ inputs.metrics_only != true && steps.editorial-review.outcome == 'failure' }}
         run: echo "::warning::Editorial review service failed; keeping candidates queued for the later daily retry."
 
+      - name: Forecast attention for the latest public records
+        if: ${{ inputs.metrics_only != true }}
+        continue-on-error: true
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_COPY_MODEL: deepseek-v4-pro
+          REQUESTED_DATE: ${{ inputs.date }}
+          SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
+          RECENT_START: ${{ steps.source-date.outputs.recent_start }}
+          INDEXED_DATE: ${{ steps.discovery.outputs.indexed_date }}
+        run: |
+          if [ -n "$DEEPSEEK_API_KEY" ]; then
+            target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
+            python pipeline/generate_editorial_copy.py --review-public --released-from "$RECENT_START" --released-through "$target" --limit 0 --batch-size 8
+          fi
+
       - name: Audit published canonical names
         if: ${{ inputs.metrics_only != true && inputs.audit_names_from != '' }}
         id: canonical-name-audit

@@ -401,7 +401,7 @@ def rank_records(
             # observations shrink to neutral instead of gaining redistributed weight.
             observed_composite = weighted_attention(observed_normalized, weights)
             composite = observed_composite
-            if forecast_bonus_weight and observed_composite is not None:
+            if forecast_bonus_weight:
                 forecast_value = (record.get("attentionForecast") or {}).get("score")
                 forecast_percentile = (
                     max(0.0, min(1.0, float(forecast_value) / 100.0))
@@ -414,10 +414,15 @@ def rank_records(
                     "role": "bonus",
                     "maxContribution": forecast_bonus_weight,
                 }
-                composite = (
-                    observed_composite * (1.0 - forecast_bonus_weight)
-                    + forecast_percentile * forecast_bonus_weight
-                )
+                if observed_composite is not None:
+                    composite = (
+                        observed_composite * (1.0 - forecast_bonus_weight)
+                        + forecast_percentile * forecast_bonus_weight
+                    )
+                elif forecast_value is not None:
+                    # A source-reviewed launch forecast provides a bounded,
+                    # low-confidence provisional score until public signals arrive.
+                    composite = forecast_percentile * forecast_bonus_weight
             score = round(100 * composite + 1e-9) if composite is not None else None
             confidence = (
                 "High" if coverage >= 0.75 and observed >= 2
@@ -436,7 +441,7 @@ def rank_records(
                 components[signal]["normalized"] is not None
                 for signal in ("githubStars", "hfDatasetDownloads")
             )
-            if composite is not None and (allow_hf_only_rank or has_durable_signal):
+            if composite is not None and observed > 0 and (allow_hf_only_rank or has_durable_signal):
                 scored.append((composite, record))
         scored.sort(key=lambda item: (item[0], item[1]["releasedAt"]), reverse=True)
         for position, (_, record) in enumerate(scored, 1):
