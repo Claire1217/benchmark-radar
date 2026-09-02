@@ -85,6 +85,12 @@ def main() -> None:
         raise SystemExit("Benchmark Radar missing from page title")
     if not any(item.get("@type") == "Dataset" for item in schema["@graph"]):
         raise SystemExit("public benchmark Dataset schema missing")
+    repository = next(
+        (item for item in schema["@graph"] if item.get("@type") == "SoftwareSourceCode"),
+        None,
+    )
+    if not repository or repository.get("codeRepository") != "https://github.com/Claire1217/benchmark-radar":
+        raise SystemExit("official GitHub repository schema missing")
     sitemap = ET.parse(OUTPUT / "sitemap.xml")
     urls = sitemap.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")
     if len(urls) != 2 or (OUTPUT / "benchmarks").exists():
