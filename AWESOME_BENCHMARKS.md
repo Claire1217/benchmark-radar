@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-02 · **Benchmark releases:** 1529
+**Snapshot:** 2026-09-02 · **Benchmark releases:** 1534
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (10)
-- [Biology & Drug Discovery](#biology--drug-discovery) (102)
+- [Biology & Drug Discovery](#biology--drug-discovery) (103)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (46)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1046)
+- [General AI](#general-ai) (1049)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (7)
 - [Materials & Chemistry](#materials--chemistry) (12)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (110)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (95)
+- [Software & AI Compute](#software--ai-compute) (96)
 
 ## Autonomous Driving
 
@@ -65,6 +65,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **CoMedBench** (2026-08-13) — We introduce CoMedBench, a reproducible benchmark that evaluates a family of generators under a common clinical-validity framework and one shared training and evaluation engine, spanning static tabular and temporal down… [Paper](https://arxiv.org/abs/2608.12805) · [HF](https://huggingface.co/papers/2608.12805)
 - **Gaze-Co** (2026-08-11) — We develop a scalable data engine to generate Gaze-Co (Gaze Estimation with Concepts), a dataset and benchmark of 120K high-quality, prompt-annotated image pairs. [Paper](https://arxiv.org/abs/2608.11367) · [Code](https://github.com/IrohXu/GazeAnywhere) · [Data](https://huggingface.co/datasets/IrohXu/Gaze-Co-Benchmark)
 - **TAF-MED** (2026-08-10) — We introduce TAF-MED, a physician-reviewed benchmark of 500 fixed three-turn scenarios, and evaluate eight LLMs across 4,000 conversations. [Paper](https://arxiv.org/abs/2608.10258) · [HF](https://huggingface.co/papers/2608.10258)
+- **EHR2Dial-Triage** (2026-08-10) — We introduce EHR2Dial-Triage, an agentic conversation-generation framework and benchmark grounded in MIMIC-IV-ED. [Paper](https://arxiv.org/abs/2608.09024)
 - **CliniCARE-Bench** (2026-08-07) — We introduce CliniCARE-Bench (Clinical Calibrated Audit of Medical Reasoning in EHR), a benchmark for retrospective clinical audit: 25 clinician-validated scenarios instantiated as 750 patient-specific cases over real-p… [Paper](https://arxiv.org/abs/2608.07796) · [HF](https://huggingface.co/papers/2608.07796)
 - **EpiBench** (2026-08-06) — To address this gap, we introduce EpiBench, a closed-book, sequence-based, and automatically scorable benchmark for evaluating epitope reasoning in LLMs. [Paper](https://arxiv.org/abs/2608.06022) · [HF](https://huggingface.co/papers/2608.06022)
 - **MS-MLB** (2026-08-04) — This paper presents MS-MLB (Multiple Sclerosis Machine Learning Benchmark), a reproducible open benchmark for machine learning based MS research classification from whole blood RNA expression data. [Paper](https://arxiv.org/abs/2608.05196) · [HF](https://huggingface.co/papers/2608.05196) · [Code](https://github.com/duckyquang/MS-MLB)
@@ -552,11 +553,14 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **KVDiagnosis** (2026-08-10) — We present KVDiagnosis, a diagnostic dataset and benchmark with three contributions. [Paper](https://arxiv.org/abs/2608.09412) · [Code](https://github.com/ChosenQC/KVDiagnosis)
 - **Guardian Crawler** (2026-08-10) — We present Guardian Crawler, a reproducible retrieval-first testbed for controlled experiments on knowledge discovery and evidence-grounded summarization over synthetic web-like corpora. [Paper](https://arxiv.org/abs/2608.08994) · [HF](https://huggingface.co/papers/2608.08994)
 - **Evo-Bench** (2026-08-10) — To address these challenges, we introduce Evo-Bench, the first benchmark designed to evaluate models' intrinsic harness-evolving capabilities across Search, Office, and General agent domains. [Paper](https://arxiv.org/abs/2608.09096) · [HF](https://huggingface.co/papers/2608.09096) · [Code](https://github.com/RUCAIBox/Evo-Bench)
+- **EmoSBench** (2026-08-10) — We introduce EmoSBench, the first comprehensive EI evaluation benchmark for SLMs constructed upon the four-branch theoretical model, covering Perceiving, Understanding, Using, and Managing Emotion across ten sub-tasks. [Paper](https://arxiv.org/abs/2608.09189)
 - **ELBench** (2026-08-10) — We introduce ELBench, the first benchmark to evaluate all four requirements (General Capability, Safety and Trustworthiness, Basic Education, and High-Level Cultivation) on the same models under a common protocol, combi… [Paper](https://arxiv.org/abs/2608.09548) · [HF](https://huggingface.co/papers/2608.09548) · [Data](https://huggingface.co/datasets/ZeroLoss-Lab/ELBench)
 - **ComboShoppingBench** (2026-08-10) — We introduce ComboShoppingBench, an agentic shopping benchmark for open-ended yet verifiable basket construction in a simulated commerce and takeout environment. [Paper](https://arxiv.org/abs/2608.09282) · [HF](https://huggingface.co/papers/2608.09282)
+- **CircuitReason-1k** (2026-08-10) — We introduce \benchmark, a benchmark of 1,000 authentic textbook problems for evaluating this complete long-horizon visual-to-symbolic reasoning process. [Paper](https://arxiv.org/abs/2608.09374)
 - **ChronoState** (2026-08-10) — We introduce ChronoState, a compositional temporal-state benchmark in which symbolic state appears in the prompt, elapsed seconds tau are supplied through a hidden chronometric-injection channel, and the model selects a… [Paper](https://arxiv.org/abs/2608.09124) · [HF](https://huggingface.co/papers/2608.09124)
 - **CADEngBench** (2026-08-10) — We present CADEngBench, a two-track benchmark for these capabilities. [Paper](https://arxiv.org/abs/2608.09296) · [HF](https://huggingface.co/papers/2608.09296)
 - **Avalon-ToM-Bench** (2026-08-10) — We present Avalon-ToM-Bench, a fine-grained benchmark that operationalizes ToM through the asymmetric-information mechanics of The Resistance: Avalon. [Paper](https://arxiv.org/abs/2608.09638) · [HF](https://huggingface.co/papers/2608.09638)
+- **ActBench** (2026-08-10) — We define behavioral safety and introduce ActBench, a self-evolving benchmark that evaluates such behavior risk from execution trajectories rather than final responses. [Paper](https://arxiv.org/abs/2608.09476) · [Code](https://github.com/zjuicsr/ActBench)
 - **SkillSafe-Bench** (2026-08-09) — We introduce SkillSafe-Bench, a controlled benchmark that scores skill-merged models on static refusal, adaptive jailbreak robustness, and capability retention under a conservative two-judge AND rule. [Paper](https://arxiv.org/abs/2608.08542) · [HF](https://huggingface.co/papers/2608.08542)
 - **SkillReason-Bench** (2026-08-09) — To address this gap, we introduce SkillReason-Bench, a large-scale cross-domain benchmark containing 3,729 queries and a retrieval corpus of 61,228 skills spanning nine domains. [Paper](https://arxiv.org/abs/2608.08640) · [HF](https://huggingface.co/papers/2608.08640)
 - **PluginEval** (2026-08-09) — In this paper, we introduce PluginEval, a benchmark constructed through a two-stage framework that systematically mitigates these limitations. [Paper](https://arxiv.org/abs/2608.08700) · [HF](https://huggingface.co/papers/2608.08700)
@@ -1544,6 +1548,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **DDBench** (2026-08-14) — We introduce DDBench, a code-repair benchmark of 60 historical bugs mined from 13 open-source distributed systems, partitioned into three difficulty tiers. [Paper](https://arxiv.org/abs/2608.14863)
 - **Vero** (2026-08-13) — To bridge this gap, we introduce Vero, the first benchmark to evaluate joint implementation and proof synthesis at the repository level. [Paper](https://arxiv.org/abs/2608.13522) · [HF](https://huggingface.co/papers/2608.13522) · [Code](https://github.com/sunblaze-ucb/vero)
 - **Edit2TikZ** (2026-08-13) — We introduce Edit2TikZ, a comprehensive benchmark for scientific figure editing tasks, featuring 1,548 diverse and high-quality samples. [Paper](https://arxiv.org/abs/2608.13441) · [HF](https://huggingface.co/papers/2608.13441) · [Code](https://github.com/Solunny/Edit2TikZ)
+- **SWE-RPG** (2026-08-10) — To address this gap, we introduce SWE-RPG, a repository-level benchmark that combines executable patch evaluation with validated ground-truth references (GTs) for (1) Requirement Clarification and (2) Implementation Pla… [Paper](https://arxiv.org/abs/2608.09072) · [Code](https://github.com/Xin-Zhou-smu/SWE-RPG-Bench)
 - **SWE-Bench ProMax** (2026-08-10) — We introduce SWE-Bench ProMax, an expert-curated, multilingual code refactoring benchmark of 170 instances drawn from real commits across seven programming languages (Python, Java, TypeScript, Go, C, C++, and Rust). [Paper](https://arxiv.org/abs/2608.09802) · [HF](https://huggingface.co/papers/2608.09802) · [Data](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax)
 - **Active-SWE** (2026-08-05) — To address this, we introduce Active-SWE, a benchmark for evaluating coding agents on proactively discovering and fixing multiple bugs without report guidance, covering 1,663 tasks across six bug categories and eight la… [Paper](https://arxiv.org/abs/2608.04682) · [HF](https://huggingface.co/papers/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE)
 - **SeGaBench** (2026-08-04) — We introduce SeGaBench, an executable benchmark containing 100 synthetic and 20 source-backed cases spanning low-level assumptions, data-structure invariants, and high-level semantic lifting. [Paper](https://arxiv.org/abs/2608.03983) · [HF](https://huggingface.co/papers/2608.03983)

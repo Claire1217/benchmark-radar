@@ -109,7 +109,7 @@
       "aliases": [
         "Who Judges the Judges? A Chinese Safety QA Benchmark for Evaluating LLM Responses and Safety Judges"
       ],
-      "oneLine": "C-SafeQA evaluates response-level Chinese safety using 538 base queries and 8,877 adversarial queries answered by four LLMs, yielding 37,660 query-response records labeled safe, unsafe, or disputed, and supports auditing seven automated safety judges.",
+      "oneLine": "Evaluates Chinese LLM response safety using 538 base and 8,877 adversarial queries across 37,660 query-response records labeled safe, unsafe, or disputed, with model and safety-judge scoring against reference labels.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -189,23 +189,246 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "C-SafeQA evaluates response-level Chinese safety using 538 base queries and 8,877 adversarial queries answered by four LLMs, yielding 37,660 query-response records labeled safe, unsafe, or disputed, and supports auditing seven automated safety judges.",
-      "whyItMatters": "By grounding evaluation in response labels rather than query risk, it addresses linguistic variation and adversarial transformations in Chinese harmful-content assessment, and provides shared reference labels for comparing safety judges.",
-      "evaluationMode": "score_submission",
+      "description": "Evaluates Chinese LLM response safety using 538 base and 8,877 adversarial queries across 37,660 query-response records labeled safe, unsafe, or disputed, with model and safety-judge scoring against reference labels.",
+      "whyItMatters": "Provides response-level Chinese safety evaluation with adversarial transformations and expert-adjudicated labels, enabling comparison of both target models and automated safety judges on recall and false positive trade-offs.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 72,
-        "confidence": "Medium",
+        "score": 55,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a narrowly defined Chinese safety evaluation gap with public artifacts, likely drawing attention from safety researchers despite the limited topical breadth."
+        "reason": "The benchmark's large adversarial query set and focus on safety judge auditing may draw attention from safety-focused researchers, though Chinese-specific scope limits breadth."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named C-SafeQA with a stable scoring contract for target models and judges, and public release of dataset, code, and scripts.",
+        "decisionReason": "The benchmark has a formally named release, public dataset and code for recomputation, and a stable evaluation and scoring contract despite excluding construction and private adjudication details.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce C-SafeQA, a policy-grounded benchmark for response-level Chinese safety evaluation."
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": 0,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.01210",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-02T06:30:32.214812Z",
+        "attemptedAt": "2026-09-02T06:30:32.214812Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "fresh",
+            "observedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 44,
+          "rank": 7,
+          "coverage": 0.45,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 44,
+            "rank": 7,
+            "coverage": 0.45,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.25,
+                "normalization": "percentile",
+                "percentile": 0.25
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 72,
+                "percentile": 0.72,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-31",
+            "windowDays": 1,
+            "elapsedDays": 2
+          }
+        },
+        "30d": {
+          "score": 35,
+          "rank": null,
+          "coverage": 0.3,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 35,
+            "rank": null,
+            "coverage": 0.3,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 43,
+          "rank": null,
+          "coverage": 0.15,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 43,
+            "rank": null,
+            "coverage": 0.15,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-02T05:21:28.568523Z",
+        "inputHash": "8c3d3cc805b6a5b9fc8776dc6936659c07b502296231906516b937d46da4c806"
       }
     },
     {
@@ -339,7 +562,7 @@
       "name": "TempCloze",
       "paperTitle": "TempCloze: Can Video-LLMs Identify the Missing Middle?",
       "aliases": [],
-      "oneLine": "TempCloze evaluates visual temporal reasoning in Video-LLMs via a cloze task: given beginning and ending clips, models select the true missing middle from four candidates across 1,521 videos and three distractor dimensions.",
+      "oneLine": "Evaluates Video-LLM visual temporal reasoning through a video cloze task where models select the true missing middle clip from four candidates across 1,521 videos and three distractor dimensions.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -418,23 +641,246 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "TempCloze evaluates visual temporal reasoning in Video-LLMs via a cloze task: given beginning and ending clips, models select the true missing middle from four candidates across 1,521 videos and three distractor dimensions.",
-      "whyItMatters": "It reduces linguistic shortcuts by using video cloze with same-source distractors, isolating temporal alignment, progression, and semantic reasoning in dynamic visual understanding.",
-      "evaluationMode": "score_submission",
+      "description": "Evaluates Video-LLM visual temporal reasoning through a video cloze task where models select the true missing middle clip from four candidates across 1,521 videos and three distractor dimensions.",
+      "whyItMatters": "Reduces language shortcuts in temporal reasoning evaluation by using visual-only cloze tasks, isolating alignment, semantic, and progression bottlenecks in video understanding.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
         "score": 65,
-        "confidence": "Medium",
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Video temporal reasoning is a growing area and the cloze design is novel, likely attracting moderate attention from the multimodal community."
+        "reason": "The benchmark's unique visual cloze design and broad model evaluation across proprietary and open-source Video-LLMs may generate interest in the vision-language community."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named TempCloze in an EMNLP 2026 Findings paper with defined task and distractor taxonomy; public reuse path inferred from described benchmark, but no artifact link in input.",
+        "decisionReason": "The benchmark is formally named, offers a reusable video cloze dataset and scoring protocol, and presents a stable evaluation contract despite no explicit artifact evidence in the input.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce TempCloze, a video cloze benchmark for evaluating visual temporal reasoning in Video-LLMs."
+        "canonicalNameEvidence": "we introduce TempCloze, a video cloze benchmark for evaluating visual temporal reasoning in Video-LLMs."
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.01515",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-08-31T04:56:28.279469Z",
+        "attemptedAt": "2026-09-02T06:30:32.214812Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 16,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 16,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 65,
+                "percentile": 0.65,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-31",
+            "windowDays": 1,
+            "elapsedDays": 2
+          }
+        },
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-02T05:21:28.568523Z",
+        "inputHash": "7999c3469efff9fce6cafe42bdda38e4a6e29f38adb62ab36b0fe00416e445df"
       }
     },
     {
@@ -903,7 +1349,7 @@
       "name": "SCILAWS-BENCH",
       "paperTitle": "Can LLMs Discover Scientific Laws in Real and Parallel Worlds?",
       "aliases": [],
-      "oneLine": "SCILAWS-BENCH evaluates scientific law discovery across 118 problems from 381 papers, with 291 candidate laws and ~8M data points in real and parallel settings that assess predictive fit and scientific validity.",
+      "oneLine": "Evaluates LLM scientific law discovery over 118 problems from 381 papers and 8M data points, using two settings: proposing laws from fixed observations and actively querying residual-calibrated worlds to recover synthesized hidden laws.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -988,24 +1434,255 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "SCILAWS-BENCH evaluates scientific law discovery across 118 problems from 381 papers, with 291 candidate laws and ~8M data points in real and parallel settings that assess predictive fit and scientific validity.",
-      "whyItMatters": "It targets a critical AI-for-science capability using paper-grounded problems and real data, distinguishing predictive fit from validity, and provides a reusable protocol for law discovery.",
+      "description": "Evaluates LLM scientific law discovery over 118 problems from 381 papers and 8M data points, using two settings: proposing laws from fixed observations and actively querying residual-calibrated worlds to recover synthesized hidden laws.",
+      "whyItMatters": "Offers a paper-grounded, two-mode protocol for assessing scientific discovery that separates predictive fit from scientific validity, exposing memorization effects and selection bottlenecks in LLMs.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 78,
-        "confidence": "Medium",
+        "score": 60,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The scientific discovery evaluation addresses a high-profile AI capability and includes a public project page, likely generating notable interest in the AI for science community."
+        "reason": "The benchmark's scale and focus on AI for scientific discovery may attract attention from interdisciplinary researchers, though the active world querying setup may limit quick adoption."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named SCILAWS-BENCH with a detailed two-setting evaluation protocol and a public project page including code.",
+        "decisionReason": "The benchmark has a formal name, a project page, and a defined evaluation contract that includes held-out predictive fit and scientific validity, supporting reusable fixed-record and active discovery settings.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We therefore introduce SCILAWS-BENCH, a benchmark for scientific law discovery built from published research and real scientific data."
-      }
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.01552",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-08-31T04:56:28.279469Z",
+        "attemptedAt": "2026-09-02T06:30:32.214812Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 20,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 20,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 78,
+                "percentile": 0.78,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-31",
+            "windowDays": 1,
+            "elapsedDays": 2
+          }
+        },
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-02T05:21:28.568523Z",
+        "inputHash": "3be9e4db8dc4196b01fa0c183d83590d3c3682b317657a9bad183dea14fb1fed"
+      },
+      "publishers": [
+        {
+          "name": "Yiyi Huang",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://yiyihum.github.io/SciLaws-Bench",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_rpcbench_c42d6a6c",
@@ -1546,7 +2223,7 @@
       "name": "InSight",
       "paperTitle": "InSight: A Benchmark for Agentic Claim Verification in Interactive Visualizations",
       "aliases": [],
-      "oneLine": "InSight evaluates agents that must interact with web-based visualizations to verify natural language claims as supported, refuted, or not verifiable, using 21,349 claims and fully interactive environments.",
+      "oneLine": "Evaluates multimodal agents on claim verification over 297 interactive HTML visualizations, requiring navigation and interaction to classify 500 test propositions as true, false, or not verifiable, with an extended pool of 20,849 additional propositions.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1624,23 +2301,247 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "InSight evaluates agents that must interact with web-based visualizations to verify natural language claims as supported, refuted, or not verifiable, using 21,349 claims and fully interactive environments.",
-      "whyItMatters": "It addresses the gap in evaluating multimodal agents on dynamic, interactive data analysis rather than static images, and provides interaction traces as reasoning proxies.",
+      "description": "Evaluates multimodal agents on claim verification over 297 interactive HTML visualizations, requiring navigation and interaction to classify 500 test propositions as true, false, or not verifiable, with an extended pool of 20,849 additional propositions.",
+      "whyItMatters": "Shifts claim verification from static images to interactive environments, using interaction traces as reasoning proxies and providing infrastructure to score open-source and closed-source vision-language models.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 80,
+        "score": 62,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Agentic benchmark with open-source code and a novel interactive evaluation task is likely to attract attention from embodied AI and multimodal communities."
+        "reason": "The availability of code and a ready-to-run environment, combined with a timely agentic multimodal task, is likely to generate moderate early attention from model evaluation communities."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named InSight with a public GitHub repository containing data, code, and instructions, and accepted at EMNLP.",
+        "decisionReason": "The repository includes the test set, extended data, visualizations, and runnable code, establishing a public reusable benchmark with a clear three-way classification scoring contract.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce InSight, a benchmark for agentic claim verification over interactive visualizations."
+        "canonicalNameEvidence": "we introduce InSight, a benchmark for agentic claim verification over interactive visualizations."
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.01383",
+        "githubStars": 0,
+        "githubRepo": "https://github.com/maevehutch/insight",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-02T06:30:32.214812Z",
+        "attemptedAt": "2026-09-02T06:30:32.214812Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 53,
+          "rank": 3,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 53,
+            "rank": 3,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.3333333333333333,
+                "normalization": "percentile",
+                "percentile": 0.3333333333333333
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 80,
+                "percentile": 0.8,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-31",
+            "windowDays": 1,
+            "elapsedDays": 2
+          }
+        },
+        "30d": {
+          "score": 23,
+          "rank": 120,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 120,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 313,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 313,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-02T05:21:28.568523Z",
+        "inputHash": "132b482864ccdc2471ee40035fa8355e67213f4af48c090a55c4550564766078"
       }
     },
     {
@@ -1737,12 +2638,12 @@
         "horizon": "7d",
         "reason": "Open QA evaluation is a broad area but the lack of a public link may limit immediate attention, though the taxonomy could be of interest."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named CAP-Correctness released as a benchmark with a clear taxonomy, and the paper introduces reusable datasets and a metric; but public link not provided.",
+        "decisionReason": "No artifactEvidence is provided, so there is no credible public path to run or inspect the benchmark, and the release cannot be confirmed beyond the paper claim.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "Second, we release CAP-Correctness, an 8.8k-example benchmark spanning widely used QA datasets"
       }
@@ -2260,12 +3161,12 @@
         "horizon": "7d",
         "reason": "Domain-specific Korean banking benchmark may attract limited attention outside financial NLP, though longitudinal reconstruction is a novel task."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named FinLifeBench with two well-defined tasks and consensus QA; public release mentioned in abstract but no link provided.",
+        "decisionReason": "No artifactEvidence is provided, so there is no credible public path to obtain the benchmark data or reproduce the evaluation.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce FinLifeBench, which evaluates two tasks over the same cumulative dialogue"
       }
@@ -3209,7 +4110,7 @@
       "aliases": [
         "A Benchmark for Vehicle Attribute Classification in Cross-Domain Surveillance Scenarios"
       ],
-      "oneLine": "UVIB is a benchmark for vehicle attribute classification with 84,835 images across three tasks: front/rear orientation, VMMR suitability, and color clarity, using mixed-domain, cross-domain, and cross-dataset protocols.",
+      "oneLine": "Evaluates vehicle attribute classification for front/rear orientation, VMMR suitability, and color clarity using binary annotations across images from seven Brazilian datasets.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -3301,24 +4202,516 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "UVIB is a benchmark for vehicle attribute classification with 84,835 images across three tasks: front/rear orientation, VMMR suitability, and color clarity, using mixed-domain, cross-domain, and cross-dataset protocols.",
-      "whyItMatters": "It fills the need for operational robustness evaluation in real surveillance scenarios, where domain shift is a critical factor beyond in-domain accuracy.",
+      "description": "Evaluates vehicle attribute classification for front/rear orientation, VMMR suitability, and color clarity using binary annotations across images from seven Brazilian datasets.",
+      "whyItMatters": "Provides a unified annotation scheme and cross-domain protocols to measure operational robustness of vehicle analysis models beyond in-domain accuracy.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 40,
-        "confidence": "Low",
+        "score": 45,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark focuses on vehicle attribute classification in surveillance, a specialized computer vision domain, with moderate interest from ITS and domain adaptation researchers."
+        "reason": "The availability of a public code repository and the practical relevance of vehicle attribute analysis in ITS domains are likely to generate moderate interest."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-09-02T05:21:28.568523Z",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "A named benchmark with unified annotations and evaluation protocols, publicly available via a code repository, supporting reusable evaluation.",
+        "decisionReason": "The paper explicitly names the benchmark, provides a public GitHub repository link, and describes evaluation protocols, indicating a reusable dataset with stable scoring.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "This paper introduces Unconstrained Vehicle Identification Benchmark (UVIB)"
-      }
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.01584",
+        "githubStars": 1,
+        "githubRepo": "https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-02T06:30:32.214812Z",
+        "attemptedAt": "2026-09-02T06:30:32.214812Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-02T06:30:32.214812Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 56,
+          "rank": 2,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 56,
+            "rank": 2,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 1,
+                "normalized": 0.8333333333333334,
+                "normalization": "percentile",
+                "percentile": 0.8333333333333334
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 40,
+                "percentile": 0.4,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-31",
+            "windowDays": 1,
+            "elapsedDays": 2
+          }
+        },
+        "30d": {
+          "score": 28,
+          "rank": 93,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 28,
+            "rank": 93,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 1,
+                "normalized": 0.10323645750017778,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 28,
+          "rank": 256,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 28,
+            "rank": 256,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 1,
+                "normalized": 0.09434039834931938,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-02T05:21:28.568523Z",
+        "inputHash": "6a8145f1f522e5c72795b849a6e7cd71ee0dfa9b82f954a6e4d685121e515623"
+      },
+      "publishers": [
+        {
+          "name": "UFPR-IPASP-PR",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/",
+          "role": "benchmark-publisher"
+        }
+      ]
+    },
+    {
+      "id": "bm_veriocrbench_5a8d8252",
+      "familyId": "bmf_d9e18303f187",
+      "name": "VeriOCRBench",
+      "paperTitle": "Beyond Blind Compliance: Benchmarking Task Verification in OCR Reasoning",
+      "aliases": [],
+      "oneLine": "Evaluates OCR-grounded task verification with 1,800 human-verified samples including 1,600 trap-injected invalid tasks and 200 controls, scored via TVR, DA, and ORR.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.00232",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-02T06:08:17.638044Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-31",
+      "firstSeenAt": "2026-09-02",
+      "indexedAt": "2026-09-02T06:07:51.555843Z",
+      "sourceUpdatedAt": "2026-08-31T18:39:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.00232",
+        "paper": "https://arxiv.org/abs/2609.00232",
+        "pdf": "https://arxiv.org/pdf/2609.00232",
+        "project": null,
+        "code": "https://github.com/zy001122/Beyond-Blind-Compliance",
+        "data": null
+      },
+      "motivation": "Multimodal Large Language Models (MLLMs) have achieved strong performance on OCR-centric document understanding and text-rich visual reasoning benchmarks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.00232",
+        "url": "https://arxiv.org/abs/2609.00232",
+        "title": "Beyond Blind Compliance: Benchmarking Task Verification in OCR Reasoning",
+        "authors": [
+          "Yue Zhou",
+          "Yuan Wu",
+          "Yi Chang"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce VeriOCRBench, a 1,800-sample human-verified benchmark built from source images drawn from 8 OCR-related datasets and spanning 8 real-world image domains, with controlled, image-grounded diagnostic tasks.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": true,
+      "evaluationMode": "score_submission",
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:55:39.257777Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark is explicitly named, has a stable scoring contract with three defined metrics, and provides an accessible GitHub repository with clear run instructions.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce VeriOCRBench, a 1,800-sample human-verified benchmark"
+      },
+      "attention": {
+        "asOf": "2026-09-02",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.00232",
+        "githubStars": 0,
+        "githubRepo": "https://github.com/zy001122/Beyond-Blind-Compliance",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-02T05:12:51.621571Z",
+        "attemptedAt": "2026-09-02T05:12:51.621571Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-02T05:12:51.621571Z"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-02T05:12:51.621571Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 23,
+          "rank": 122,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 122,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 315,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 315,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "description": "Evaluates OCR-grounded task verification with 1,800 human-verified samples including 1,600 trap-injected invalid tasks and 200 controls, scored via TVR, DA, and ORR.",
+      "whyItMatters": "Exposes reliability gaps in MLLMs when handling invalid OCR tasks, with decoupled metrics for verification, diagnosis, and over-refusal.",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The inclusion of 15 MLLMs and a public code release positions this benchmark for moderate attention in the multimodal reasoning evaluation community."
+      },
+      "publishers": [
+        {
+          "name": "zy001122",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/zy001122/Beyond-Blind-Compliance",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_utilmem_d6cec83c",
@@ -45196,6 +46589,597 @@
         "decisionReason": "Released with code and data, and defines a diagnostic protocol with fixed rules and metrics; intended for ongoing model comparison.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present KVDiagnosis, a diagnostic dataset and benchmark"
+      }
+    },
+    {
+      "id": "bm_emosbench_d26ab0ed",
+      "familyId": "bmf_6842e11fc2c5",
+      "name": "EmoSBench",
+      "paperTitle": "EmoS: A Theory-Grounded Framework for Evaluating and Aligning Emotional Intelligence in Spoken Language Models",
+      "aliases": [],
+      "oneLine": "EmoSBench evaluates emotional intelligence in spoken language models across four theoretical branches: perceiving, understanding, using, and managing emotion, with ten subtasks.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "ACM Multimedia 2026 (MM '26)",
+        "evidence": "Accepted at ACM Multimedia 2026 (MM '26)",
+        "evidenceUrl": "https://arxiv.org/abs/2608.09189",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "ACM Multimedia 2026 (MM '26)",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted at ACM Multimedia 2026 (MM '26)",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2608.09189",
+              "observedAt": "2026-08-19T11:05:13.395391Z",
+              "rawValue": "Accepted at ACM Multimedia 2026 (MM '26)",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-08-10",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-10T06:58:30Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "evaluates_only",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.09189",
+        "paper": "https://arxiv.org/abs/2608.09189",
+        "pdf": "https://arxiv.org/pdf/2608.09189",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Despite significant advances in instruction-following and auditory comprehension, the evaluation of Emotional Intelligence (EI) in Spoken Language Models (SLMs) remains confined to rudimentary paralinguistic perception, lacking a systematic, theory-driven cognitive framework.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.09189",
+        "url": "https://arxiv.org/abs/2608.09189",
+        "title": "EmoS: A Theory-Grounded Framework for Evaluating and Aligning Emotional Intelligence in Spoken Language Models",
+        "authors": [
+          "Junyu Wang",
+          "Siyuan Zhang",
+          "Peiyuan Jiang",
+          "Jian Zong",
+          "Jingyu Zhang",
+          "Tianrui Wang",
+          "Yuqin Lin",
+          "Zhenghui Chen",
+          "Shuqing Xie",
+          "Ziyang Ma",
+          "Meng Ge",
+          "Xiaobao Wang",
+          "Longbiao Wang",
+          "and Jianwu Dang"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce EmoSBench, the first comprehensive EI evaluation benchmark for SLMs constructed upon the four-branch theoretical model, covering Perceiving, Understanding, Using, and Managing Emotion across ten sub-tasks.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "named entity is a model, method, framework, or dataset used in evaluation"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "EmoSBench evaluates emotional intelligence in spoken language models across four theoretical branches: perceiving, understanding, using, and managing emotion, with ten subtasks.",
+      "whyItMatters": "Provides the first theory-driven evaluation standard for emotional intelligence in speech models, exposing significant gaps between current systems and human performance.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 61,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Emotional intelligence in speech models is a timely topic and the benchmark's acceptance at a major conference supports early visibility."
+      },
+      "publishers": [
+        {
+          "name": "ACM Multimedia 2026",
+          "organizationType": "benchmark-organization",
+          "sourceUrl": "https://arxiv.org/abs/2608.09189",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:54:07.291235Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "EmoSBench is formally introduced as an evaluation benchmark with a defined structure and scoring based on accuracy, and the paper is accepted at ACM Multimedia 2026, supporting a public comparison path.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce EmoSBench, the first comprehensive EI evaluation benchmark for SLMs"
+      }
+    },
+    {
+      "id": "bm_elicited-ehr-grounded-longitudinal-interac_ec19f117",
+      "familyId": "bmf_05d55fa1ee05",
+      "name": "EHR2Dial-Triage",
+      "paperTitle": "ELICITED: EHR-grounded Longitudinal Interactive Conversations for Information-seeking Triage Evaluation and Decision-making",
+      "aliases": [
+        "ELICITED: EHR-grounded Longitudinal Interactive Conversations for Information-seeking Triage Evaluation and Decision-making"
+      ],
+      "oneLine": "EHR2Dial-Triage evaluates triage conversations grounded in EHR data across information elicitation, evidence use, five-level Emergency Severity Index prediction, and patient-facing communication.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.09024",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-10",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-10T02:26:06Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.09024",
+        "paper": "https://arxiv.org/abs/2608.09024",
+        "pdf": "https://arxiv.org/pdf/2608.09024",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Emergency-department (ED) triage requires clinicians to rapidly identify patients who need immediate attention, determine who can safely wait, and prioritize limited clinical resources.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.09024",
+        "url": "https://arxiv.org/abs/2608.09024",
+        "title": "ELICITED: EHR-grounded Longitudinal Interactive Conversations for Information-seeking Triage Evaluation and Decision-making",
+        "authors": [
+          "Haohao Zhu",
+          "Xiaolin Shi",
+          "Jiayu Zhou"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce EHR2Dial-Triage, an agentic conversation-generation framework and benchmark grounded in MIMIC-IV-ED.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "EHR2Dial-Triage evaluates triage conversations grounded in EHR data across information elicitation, evidence use, five-level Emergency Severity Index prediction, and patient-facing communication.",
+      "whyItMatters": "Enables controlled study of dynamic clinical information acquisition and reasoning in triage, moving beyond static acuity prediction to interactive evaluation.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 39,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Clinical NLP benchmarks have moderate community interest, but limited public artifact evidence at release lowers early attention."
+      },
+      "publishers": [
+        {
+          "name": "MIMIC-IV-ED",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2608.09024",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:54:07.291235Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark is explicitly named and grounded in MIMIC-IV-ED, with defined evaluation axes, indicating a fixed protocol usable by other teams.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce EHR2Dial-Triage, an agentic conversation-generation framework and benchmark grounded in MIMIC-IV-ED."
+      }
+    },
+    {
+      "id": "bm_circuitreason-1k-benchmarking-long-horizon_0cd98566",
+      "familyId": "bmf_84460fcb7389",
+      "name": "CircuitReason-1k",
+      "paperTitle": "CircuitReason-1k: Benchmarking Long-Horizon Visual-to-Symbolic Reasoning inElectrical Circuits",
+      "aliases": [
+        "CircuitReason-1k: Benchmarking Long-Horizon Visual-to-Symbolic Reasoning inElectrical Circuits"
+      ],
+      "oneLine": "Evaluates long-horizon visual-to-symbolic reasoning on 1,000 authentic circuit problems, combining typed scoring with multi-model semantic consensus, covering topology grounding, physical modeling, and symbolic computation.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.09374",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-10",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-10T09:55:08Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.09374",
+        "paper": "https://arxiv.org/abs/2608.09374",
+        "pdf": "https://arxiv.org/pdf/2608.09374",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Electrical circuit analysis requires more than recognizing components in an image.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.09374",
+        "url": "https://arxiv.org/abs/2608.09374",
+        "title": "CircuitReason-1k: Benchmarking Long-Horizon Visual-to-Symbolic Reasoning inElectrical Circuits",
+        "authors": [
+          "Xinqi Yang",
+          "Kang An",
+          "Tengyue Wang",
+          "Zhongyu Yang",
+          "Chenxu Du",
+          "Yuanchi Zhu",
+          "Hebao Zhu",
+          "Ziliang Wang",
+          "Faqiang Qian",
+          "Yunli Yang",
+          "Qibing Ren"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce \\benchmark, a benchmark of 1,000 authentic textbook problems for evaluating this complete long-horizon visual-to-symbolic reasoning process.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates long-horizon visual-to-symbolic reasoning on 1,000 authentic circuit problems, combining typed scoring with multi-model semantic consensus, covering topology grounding, physical modeling, and symbolic computation.",
+      "whyItMatters": "Fills the gap between visual perception and sustained symbolic reasoning in electrical circuits, providing a testbed for multimodal models to handle coupled equations, conventions, and long dependency chains.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a challenging intersection of vision and symbolic reasoning, likely to draw moderate attention from the multimodal model community within the first week."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:54:07.291235Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Formally named benchmark with a defined task suite, scoring protocol, and public code release.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "CircuitReason-1k: Benchmarking Long-Horizon Visual-to-Symbolic Reasoning inElectrical Circuits"
+      }
+    },
+    {
+      "id": "bm_actbench_33a6cb88",
+      "familyId": "bmf_9c06921b8b0c",
+      "name": "ActBench",
+      "paperTitle": "ActBench: Self-Evolving Benchmark of Behavioral Safety in Cowork Agents",
+      "aliases": [],
+      "oneLine": "Self-evolving benchmark of behavioral safety in cowork agents, evaluating risk from execution trajectories across 600 cases, 213 scenarios, 15 risk behaviors, and 48 web-service APIs.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Safety"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.09476",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-10",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-10T11:45:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.75,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.09476",
+        "paper": "https://arxiv.org/abs/2608.09476",
+        "pdf": "https://arxiv.org/pdf/2608.09476",
+        "project": null,
+        "code": "https://github.com/zjuicsr/ActBench",
+        "data": null
+      },
+      "motivation": "Cowork agents may complete benign tasks while disclosing protected data, manipulating unauthorized state, invocate unauthorized API.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.09476",
+        "url": "https://arxiv.org/abs/2608.09476",
+        "title": "ActBench: Self-Evolving Benchmark of Behavioral Safety in Cowork Agents",
+        "authors": [
+          "Hongwei Yao",
+          "Yiming Liu",
+          "Meihui Chen",
+          "Jieling Chen",
+          "Zikun Chen",
+          "Yiling He",
+          "Wangze Ni",
+          "Cong Wang",
+          "Kui Ren"
+        ],
+        "categories": [
+          "cs.CR",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We define behavioral safety and introduce ActBench, a self-evolving benchmark that evaluates such behavior risk from execution trajectories rather than final responses.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Self-evolving benchmark of behavioral safety in cowork agents, evaluating risk from execution trajectories across 600 cases, 213 scenarios, 15 risk behaviors, and 48 web-service APIs.",
+      "whyItMatters": "Provides a standardized assessment of behavioral safety beyond final responses, enabling comparison of agent robustness against task-reachable attacks.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 70,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a timely topic in agent safety with a large trajectory dataset and public tooling, likely attracting attention from AI safety and agent evaluation communities."
+      },
+      "publishers": [
+        {
+          "name": "Zhejiang University ICSR",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/zjuicsr/ActBench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:54:07.291235Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Formally named benchmark with released cases, trajectory runner, scorers, and public Hugging Face dataset; includes stable scoring metrics.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "The project and benchmark are named **ActBench** and live in `ZJUICSR/ActBench`."
+      }
+    },
+    {
+      "id": "bm_a-unified-issue-resolution-benchmark-for-r_de70fd7d",
+      "familyId": "bmf_6c301d49c3b1",
+      "name": "SWE-RPG",
+      "paperTitle": "A Unified Issue Resolution Benchmark for Requirement Clarification, Planning, and Code Generation for Coding Agents",
+      "aliases": [
+        "A Unified Issue Resolution Benchmark for Requirement Clarification, Planning, and Code Generation for Coding Agents"
+      ],
+      "oneLine": "A repository-level dataset and protocol evaluating issue resolution through requirement clarification, implementation planning, code generation, and artifact submission, with 163 tasks across 31 Python and Java repositories and validated intermediate ground-truth references.",
+      "area": "Code & Software",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Planning",
+        "Code generation"
+      ],
+      "topics": [
+        "Code"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.09072",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-10",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-10T03:22:04Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.09072",
+        "paper": "https://arxiv.org/abs/2608.09072",
+        "pdf": "https://arxiv.org/pdf/2608.09072",
+        "project": null,
+        "code": "https://github.com/Xin-Zhou-smu/SWE-RPG-Bench",
+        "data": null
+      },
+      "motivation": "Large language model-powered coding agents are increasingly used to modify existing code repositories, for example, by adding features or fixing bugs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.09072",
+        "url": "https://arxiv.org/abs/2608.09072",
+        "title": "A Unified Issue Resolution Benchmark for Requirement Clarification, Planning, and Code Generation for Coding Agents",
+        "authors": [
+          "Xin Zhou",
+          "Chun Yong Chong",
+          "Kisub Kim",
+          "Yun Peng",
+          "Rui Shu",
+          "Zihan Wu",
+          "Xu Han",
+          "Guowen Yuan",
+          "Zeyang Zhuang",
+          "Jounghoon Kim",
+          "Jeongjin Ju",
+          "Seongmin Ju",
+          "Taein Yoon",
+          "and David Lo"
+        ],
+        "categories": [
+          "cs.SE",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address this gap, we introduce SWE-RPG, a repository-level benchmark that combines executable patch evaluation with validated ground-truth references (GTs) for (1) Requirement Clarification and (2) Implementation Planning.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "A repository-level dataset and protocol evaluating issue resolution through requirement clarification, implementation planning, code generation, and artifact submission, with 163 tasks across 31 Python and Java repositories and validated intermediate ground-truth references.",
+      "whyItMatters": "Existing repository benchmarks only check whether final patches pass tests, concealing where coding agents fail; intermediate ground truths enable diagnosing implicit requirement recovery as the main bottleneck and guide improvements in planning and code generation for iterative repository editing.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 75,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a widely recognized pain point in coding-agent evaluation with a sizeable multi-repository task set and immediate published code, so repository-modification researchers are likely to inspect and discuss it quickly."
+      },
+      "publishers": [
+        {
+          "name": "SMU",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/Xin-Zhou-smu/SWE-RPG-Bench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-02T08:54:07.291235Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The paper explicitly introduces SWE-RPG as a benchmark, provides a stable scoring contract combining executable patch evaluation with validated intermediate references, and states that benchmark data and evaluation code are available at the public GitHub repository.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "we introduce SWE-RPG, a repository-level benchmark"
       }
     },
     {
