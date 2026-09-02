@@ -30,6 +30,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Reconcile the latest reviews before scoring
+        run: python pipeline/apply_overrides.py
       - name: Check that the morning snapshot exists
         id: snapshot
         run: |
