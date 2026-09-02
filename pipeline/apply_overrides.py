@@ -9,6 +9,19 @@ from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records
 
 
 EDITORIAL_COPY_PATH = Path(__file__).resolve().parents[1] / "data/editorial_copy.json"
+DERIVED_ATTENTION_FIELDS = {"attention", "ranking", "watch"}
+
+
+def curated_records_without_derived_attention() -> list[dict]:
+    """Reviewed source facts must never replace freshly computed attention data."""
+    return [
+        {
+            key: value
+            for key, value in record.items()
+            if key not in DERIVED_ATTENTION_FIELDS
+        }
+        for record in curated_records()
+    ]
 
 
 def restore_official_heading_name(record: dict) -> None:
@@ -56,7 +69,11 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
 def main() -> None:
     payload = read_json(DATA_PATH)
     # Generated copy fills gaps; source-reviewed overrides always win last.
-    records = apply_curated_overrides(apply_editorial_copy(upsert(payload.get("records", []), curated_records())))
+    records = apply_curated_overrides(
+        apply_editorial_copy(
+            upsert(payload.get("records", []), curated_records_without_derived_attention())
+        )
+    )
     for record in records:
         if not public_release_ready(record):
             record["displayEligible"] = False

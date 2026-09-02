@@ -55,6 +55,8 @@ jobs:
       - name: Generate and validate every public view
         run: |
           make generate
+          python pipeline/enrich_metrics.py --rerank-only
+          make generate
           make build
       - name: Commit refreshed Today attention
         run: |

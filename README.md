@@ -30,7 +30,12 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **StudyBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00787) · [Code](https://github.com/thunlp/StudyBench)</sub> | Mathematics & Formal Sciences | 1 HF votes · 1 GitHub stars |
+| 1 | **Unconstrained Vehicle Identification Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.01584) · [Code](https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/)</sub> | Multimodal Perception | 1 GitHub stars |
+| 2 | **RPCBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00918) · [Code](https://github.com/ZhongruChen/RPCBench)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 3 | **InSight**<br><sub>[Paper](https://arxiv.org/abs/2609.01383) · [Code](https://github.com/maevehutch/insight)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 4 | **CopyShield**<br><sub>[Paper](https://arxiv.org/abs/2609.01161) · [Code](https://github.com/spotai-mbzuai/CopyShield.git)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 5 | **CordisBench**<br><sub>[Paper](https://arxiv.org/abs/2609.01600) · [Code](https://github.com/sileod/cordis-bench)</sub> | Knowledge & Reasoning | 0 GitHub stars · 66 dataset downloads |
+| 6 | **StudyBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00787) · [Code](https://github.com/thunlp/StudyBench)</sub> | Mathematics & Formal Sciences | 1 HF votes · 1 GitHub stars |
 
 ### Explore the library
 
