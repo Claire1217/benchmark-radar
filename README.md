@@ -26,10 +26,11 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-01 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-02 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
+| 1 | **StudyBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00787) · [Code](https://github.com/thunlp/StudyBench)</sub> | Mathematics & Formal Sciences | 1 HF votes · 1 GitHub stars |
 
 ### Explore the library
 
