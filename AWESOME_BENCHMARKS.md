@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-03 · **Benchmark releases:** 1557
+**Snapshot:** 2026-09-03 · **Benchmark releases:** 1564
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (11)
-- [Biology & Drug Discovery](#biology--drug-discovery) (103)
+- [Biology & Drug Discovery](#biology--drug-discovery) (104)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (47)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1070)
+- [General AI](#general-ai) (1076)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (7)
 - [Materials & Chemistry](#materials--chemistry) (12)
@@ -67,6 +67,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Gaze-Co** (2026-08-11) — We develop a scalable data engine to generate Gaze-Co (Gaze Estimation with Concepts), a dataset and benchmark of 120K high-quality, prompt-annotated image pairs. [Paper](https://arxiv.org/abs/2608.11367) · [Code](https://github.com/IrohXu/GazeAnywhere) · [Data](https://huggingface.co/datasets/IrohXu/Gaze-Co-Benchmark)
 - **TAF-MED** (2026-08-10) — We introduce TAF-MED, a physician-reviewed benchmark of 500 fixed three-turn scenarios, and evaluate eight LLMs across 4,000 conversations. [Paper](https://arxiv.org/abs/2608.10258) · [HF](https://huggingface.co/papers/2608.10258)
 - **EHR2Dial-Triage** (2026-08-10) — We introduce EHR2Dial-Triage, an agentic conversation-generation framework and benchmark grounded in MIMIC-IV-ED. [Paper](https://arxiv.org/abs/2608.09024)
+- **TomaBench** (2026-08-09) — To address this gap, we introduce TomaMMU, a large-scale Tomato leaf disease MultiModal Understanding dataset, alongside TomaBench, a benchmark for evaluating VLMs on tomato disease understanding. [Paper](https://arxiv.org/abs/2608.08727) · [Data](https://huggingface.co/datasets/enalis/TomaMMU)
 - **CliniCARE-Bench** (2026-08-07) — We introduce CliniCARE-Bench (Clinical Calibrated Audit of Medical Reasoning in EHR), a benchmark for retrospective clinical audit: 25 clinician-validated scenarios instantiated as 750 patient-specific cases over real-p… [Paper](https://arxiv.org/abs/2608.07796) · [HF](https://huggingface.co/papers/2608.07796)
 - **EpiBench** (2026-08-06) — To address this gap, we introduce EpiBench, a closed-book, sequence-based, and automatically scorable benchmark for evaluating epitope reasoning in LLMs. [Paper](https://arxiv.org/abs/2608.06022) · [HF](https://huggingface.co/papers/2608.06022)
 - **MS-MLB** (2026-08-04) — This paper presents MS-MLB (Multiple Sclerosis Machine Learning Benchmark), a reproducible open benchmark for machine learning based MS research classification from whole blood RNA expression data. [Paper](https://arxiv.org/abs/2608.05196) · [HF](https://huggingface.co/papers/2608.05196) · [Code](https://github.com/duckyquang/MS-MLB)
@@ -584,10 +585,15 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **CADEngBench** (2026-08-10) — We present CADEngBench, a two-track benchmark for these capabilities. [Paper](https://arxiv.org/abs/2608.09296) · [HF](https://huggingface.co/papers/2608.09296)
 - **Avalon-ToM-Bench** (2026-08-10) — We present Avalon-ToM-Bench, a fine-grained benchmark that operationalizes ToM through the asymmetric-information mechanics of The Resistance: Avalon. [Paper](https://arxiv.org/abs/2608.09638) · [HF](https://huggingface.co/papers/2608.09638)
 - **ActBench** (2026-08-10) — We define behavioral safety and introduce ActBench, a self-evolving benchmark that evaluates such behavior risk from execution trajectories rather than final responses. [Paper](https://arxiv.org/abs/2608.09476) · [Code](https://github.com/zjuicsr/ActBench)
+- **Teaching Monster Challenge** (2026-08-09) — To measure it, we introduce the Teaching Monster Challenge, the first instructional video generation benchmark to treat the learner persona as an explicit evaluation criterion. [Paper](https://arxiv.org/abs/2608.08852)
+- **TIDE** (2026-08-09) — We present TIDE, an expert-verified benchmark of 3,050 QA pairs over 644 official customs instruments issued between 1969 and 2025 by the Government of Bangladesh, covering eight task types over deeply code-mixed docume… [Paper](https://arxiv.org/abs/2608.08512) · [Code](https://github.com/icsetepa44/TIDE)
 - **SkillSafe-Bench** (2026-08-09) — We introduce SkillSafe-Bench, a controlled benchmark that scores skill-merged models on static refusal, adaptive jailbreak robustness, and capability retention under a conservative two-judge AND rule. [Paper](https://arxiv.org/abs/2608.08542) · [HF](https://huggingface.co/papers/2608.08542)
 - **SkillReason-Bench** (2026-08-09) — To address this gap, we introduce SkillReason-Bench, a large-scale cross-domain benchmark containing 3,729 queries and a retrieval corpus of 61,228 skills spanning nine domains. [Paper](https://arxiv.org/abs/2608.08640) · [HF](https://huggingface.co/papers/2608.08640)
 - **PluginEval** (2026-08-09) — In this paper, we introduce PluginEval, a benchmark constructed through a two-stage framework that systematically mitigates these limitations. [Paper](https://arxiv.org/abs/2608.08700) · [HF](https://huggingface.co/papers/2608.08700)
+- **LongVLBench** (2026-08-09) — To address deficient evaluations in the field, we also introduce LongVLBench, a new benchmark derived from video narratives that demands holistic, narrative-level reasoning. [Paper](https://arxiv.org/abs/2608.08630) · [Code](https://github.com/ShareLab-SII/VLZip)
+- **ForestBench** (2026-08-09) — Each forest is a benchmark-provided collection of verified-success graphs: it records diverse ways in which representative MAS methods can complete the task, rather than prescribing a unique optimal process. [Paper](https://arxiv.org/abs/2608.08605)
 - **FitAQA** (2026-08-09) — We introduce FitAQA, a systematic benchmark for evaluating MLLMs in fitness AQA, containing 2,219 videos and 5,512 QA instances across 30 bodyweight exercises. [Paper](https://arxiv.org/abs/2608.08736) · [HF](https://huggingface.co/papers/2608.08736)
+- **EnergyBridge** (2026-08-09) — We present EnergyBridge, a benchmark and agent framework connecting capacity reporting, household authorization, and physical execution. [Paper](https://arxiv.org/abs/2608.08691) · [Code](https://github.com/Agentic-Intelligence-Lab/EnergyBridge)
 - **Doc2DB-Bench** (2026-08-09) — We introduce Doc2DB-Bench, a benchmark for Document-to-Database construction, containing 203 long-document instances across 42 schemas and seven domain groups, with 117 entity tables, 132 relationship tables, 7,341 rows… [Paper](https://arxiv.org/abs/2608.08459) · [HF](https://huggingface.co/papers/2608.08459) · [Code](https://github.com/SetonLiang/Doc2DB-Bench)
 - **CAP** (2026-08-09) — We introduce CAP, a scalable benchmark for evaluating browser agents on cross-site, human-like web tasks that require non-trivial UI interactions and visual understanding. [Paper](https://arxiv.org/abs/2608.08392) · [HF](https://huggingface.co/papers/2608.08392)
 - **VQABench** (2026-08-08) — To fill this gap, we present VQABench, the first systematic benchmark that treats client-side input preprocessing as a controlled variable for cloud-VLM-based VQA. [Paper](https://arxiv.org/abs/2608.07861) · [HF](https://huggingface.co/papers/2608.07861)
@@ -596,6 +602,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **SurakshaEval** (2026-08-08) — To address this gap, we introduce SurakshaEval, a novel safety benchmark composed of human-written prompts spanning real-world scenarios, explicitly designed for ten major Indian languages - Assamese, Bengali, Gujarati,… [Paper](https://arxiv.org/abs/2608.07862) · [HF](https://huggingface.co/papers/2608.07862) · [Code](https://github.com/debobanerjee/SurakshaEval)
 - **OBLIVION** (2026-08-08) — We introduce OBLIVION, a controlled benchmark and defense harness for revoked-skill resurrection. [Paper](https://arxiv.org/abs/2608.08264) · [HF](https://huggingface.co/papers/2608.08264)
 - **NCP-Bench** (2026-08-08) — We introduce NCP-Bench, a benchmark of 100 narrative environments derived from movie synopses. [Paper](https://arxiv.org/abs/2608.08160) · [HF](https://huggingface.co/papers/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)
+- **CV-FSS** (2026-08-08) — To study this failure mode, in this work, we introduce CV-FSS, a benchmark that pairs sequential panoramas from five rural regions with aligned OSM maps, on which single-frame methods degrade drastically. [Paper](https://arxiv.org/abs/2608.07835)
 - **TeXFix-Bench** (2026-08-07) — We present TeXFix-Bench, a multi-format benchmark for LLM-based full-source document repair grounded in a mined fault taxonomy. [Paper](https://arxiv.org/abs/2608.07617) · [HF](https://huggingface.co/papers/2608.07617)
 - **SkySeaLand** (2026-08-07) — SkySeaLand provides a compact benchmark for mixed land--maritime transportation detection, while SkyDet establishes a documented low-footprint reference rather than a state-of-the-art accuracy claim. [Paper](https://arxiv.org/abs/2608.07382) · [HF](https://huggingface.co/papers/2608.07382)
 - **RegionDet** (2026-08-07) — To address this gap, we introduce Region Detection, a task that extends conventional object detection beyond object instances, and construct RegionDet, a benchmark for region target localization. [Paper](https://arxiv.org/abs/2608.06850) · [HF](https://huggingface.co/papers/2608.06850)
