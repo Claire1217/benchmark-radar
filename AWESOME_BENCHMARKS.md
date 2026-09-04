@@ -10,18 +10,18 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-04 · **Benchmark releases:** 1575
+**Snapshot:** 2026-09-03 · **Benchmark releases:** 1584
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (11)
 - [Biology & Drug Discovery](#biology--drug-discovery) (104)
 - [Chip Design & EDA](#chip-design--eda) (8)
-- [Cybersecurity](#cybersecurity) (47)
+- [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1086)
+- [General AI](#general-ai) (1093)
 - [Logistics & Operations](#logistics--operations) (8)
-- [Manufacturing & Process Control](#manufacturing--process-control) (7)
+- [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (12)
 - [Mathematics & Formal Science](#mathematics--formal-science) (20)
 - [Mobile & Personal Computing](#mobile--personal-computing) (7)
@@ -165,6 +165,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Cybersecurity
 
+- **PatchBench** (2026-09-03) — To handle these issues, we propose PatchBench, a new benchmark for evaluating AI agents on realistic vulnerability patching tasks. [Paper](https://arxiv.org/abs/2609.04075)
 - **SPADE** (2026-09-02) — Existing intrusion detection research either defends the infrastructure side or targets V2V Basic Safety Message (BSM) / Cooperative Awareness Message (CAM) misbehavior, leaving the onboard CV perspective on SPaT integr… [Paper](https://arxiv.org/abs/2609.02741) · [Code](https://github.com/jdinovo/SPADE)
 - **SDARE-Bench** (2026-09-01) — To address these gaps, we introduce SDARE-Bench, the first scenario-based benchmark evaluating both stigma detection and open-ended response generation in LLMs, comprising 1,138 dyadic queries and 1,388 group dialogue. [Paper](https://arxiv.org/abs/2609.01548)
 - **InfraOcc** (2026-08-31) — We build InfraOcc, to our knowledge, the first real-world infrastructure-side semantic occupancy benchmark, with dense voxel annotations for 290 multi-modal sequences in a fixed roadside frame, a static-dynamic decouple… [Paper](https://arxiv.org/abs/2608.30657) · [Code](https://github.com/yanglei18/InfraOcc)
@@ -271,14 +272,21 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
+- **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
+- **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
 - **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
 - **LongCounsel-8** (2026-09-03) — To address these challenges, we introduce LongCounsel-8, a benchmark suite of three independently generated datasets totaling 7,749 five-session counseling trajectories, grounded in real-world client profiles, depressio… [Paper](https://arxiv.org/abs/2609.03507) · [Data](https://huggingface.co/datasets/hiddensev/LongCounsel-8)
+- **Last Translation Benchmark** (2026-09-03) — We introduce the Last Translation Benchmark, a collection of human-authored and peer-reviewed examples (texts, images, audio, videos) that break leading machine translation models. [Paper](https://arxiv.org/abs/2609.04173)
 - **LOCOMO-CONV** (2026-09-03) — We introduce LOCOMO-CONV, a conversa- tional memory benchmark derived from Lo- CoMo with four query styles: dialog, implicit, counterfactual, and composed. [Paper](https://arxiv.org/abs/2609.03467)
 - **KC-Bench** (2026-09-03) — We introduce KC-Bench, a controlled multi-turn benchmark for measuring this capability across world-knowledge conflicts, input inconsistencies, and multi-source temporal conflicts. [Paper](https://arxiv.org/abs/2609.03588)
+- **GBA-GCs** (2026-09-03) — We address this gap by introducing GBA-GCs, a metropolitan-scale multimodal benchmark for locally grounded gated/open community recognition in China's Greater Bay Area, covering 37,444 residential compounds with aligned… [Paper](https://arxiv.org/abs/2609.03804) · [Code](https://github.com/MinweiZhao/GBA-GCs)
 - **FrameBench** (2026-09-03) — To address this question, we introduce FrameBench, a benchmark grounded in frame semantics. [Paper](https://arxiv.org/abs/2609.03370) · [Code](https://github.com/SasanoLab/FrameBench)
+- **FailBench** (2026-09-03) — We introduce FailBench, a benchmark for robot failure detection comprising 2,197 manipulation attempts across 14 public sources (12 real-world, 2 simulated). [Paper](https://arxiv.org/abs/2609.03611)
 - **FPCO-Dialog** (2026-09-03) — We introduce FPCO-Dialog, a benchmark for evaluating correction and cooperation behavior in VLMs under repeated false premises. [Paper](https://arxiv.org/abs/2609.03331) · [Code](https://github.com/lab-klc/FPCO-Dialog)
 - **CulturalMenuBench** (2026-09-03) — To probe this distinction, we introduce CulturalMenuBench, a benchmark of 4,870 items in 10 languages across 18 regions; its 10 tasks pair final-dish and step-by-step cooking images with ingredients, procedural text, an… [Paper](https://arxiv.org/abs/2609.03526) · [Code](https://github.com/BobTsang-NLP/CulturalMenuBench)
 - **CHIARO** (2026-09-03) — We introduce CHIARO, a 1,000 human-annotated sentence benchmark for contrastive emotion inference grounded in appraisal theory. [Paper](https://arxiv.org/abs/2609.03394) · [Code](https://github.com/cincynlp/Chiaro)
+- **AD-Diff Bench** (2026-09-03) — To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench. [Paper](https://arxiv.org/abs/2609.03677) · [Code](https://github.com/KIT-MRT/AD-Diff)
 - **dense500** (2026-09-02) — To evaluate the task and benchmark Genesis, we introduce dense500, a fully observed multi-scale pyramid dataset spanning diverse geographic regions, together with a suite of pyramid-level metrics. [Paper](https://arxiv.org/abs/2609.02683) · [Code](https://github.com/mvrl/genesis)
 - **VMetaphor-Bench** (2026-09-02) — To bridge this gap, we introduce VMetaphor-Bench, the first benchmark for evaluating visual metaphor generation in T2I models. [Paper](https://arxiv.org/abs/2609.02502)
 - **TIC-Bench** (2026-09-02) — To bridge this gap, we introduce a novel benchmark, TIC-Bench (deeply interleaved Text-Image Contexts), designed to evaluate the capability of models to integrate text-image clues and recover the ground truth facts with… [Paper](https://arxiv.org/abs/2609.02573) · [Data](https://huggingface.co/datasets/pino10010/TIC-Bench)
@@ -1371,6 +1379,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Manufacturing & Process Control
 
+- **RealCADBench** (2026-09-03) — We introduce RealCADBench, a benchmark for intent-to-program CAD modeling from real industrial design intents. [Paper](https://arxiv.org/abs/2609.03773)
 - **PLCBENCH** (2026-08-27) — We present PLCBENCH, to our knowledge, the first real-PLC hardware-in-the-loop (HIL) framework for characterizing this cyber-to-physical capability and its boundaries. [Paper](https://arxiv.org/abs/2608.26882)
 - **ADeptS-Bench** (2026-08-25) — We introduce ADeptS-Bench, a dual-stream trustworthiness benchmark, grounded in the ADEPTS capability framework and general population user studies. [Paper](https://arxiv.org/abs/2608.26204) · [HF](https://huggingface.co/papers/2608.26204)
 - **PRISM** (2026-08-18) — In contrast to datasets collected in household or laboratory settings, PRISM provides a realistic benchmark for multimodal perception and control under high-precision industrial constraints, and serves as a foundation f… [Paper](https://arxiv.org/abs/2608.17962) · [HF](https://huggingface.co/papers/2608.17962)
