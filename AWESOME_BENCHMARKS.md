@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-04 · **Benchmark releases:** 1584
+**Snapshot:** 2026-09-04 · **Benchmark releases:** 1587
 
 ## Contents
 
@@ -19,10 +19,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1093)
+- [General AI](#general-ai) (1095)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
-- [Materials & Chemistry](#materials--chemistry) (12)
+- [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (20)
 - [Mobile & Personal Computing](#mobile--personal-computing) (7)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
@@ -622,8 +622,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **NCP-Bench** (2026-08-08) — We introduce NCP-Bench, a benchmark of 100 narrative environments derived from movie synopses. [Paper](https://arxiv.org/abs/2608.08160) · [HF](https://huggingface.co/papers/2608.08160) · [Code](https://github.com/yingpengma/NCP-Bench)
 - **CV-FSS** (2026-08-08) — To study this failure mode, in this work, we introduce CV-FSS, a benchmark that pairs sequential panoramas from five rural regions with aligned OSM maps, on which single-frame methods degrade drastically. [Paper](https://arxiv.org/abs/2608.07835)
 - **TeXFix-Bench** (2026-08-07) — We present TeXFix-Bench, a multi-format benchmark for LLM-based full-source document repair grounded in a mined fault taxonomy. [Paper](https://arxiv.org/abs/2608.07617) · [HF](https://huggingface.co/papers/2608.07617)
+- **SurveyReview** (2026-08-07) — To address this gap, we propose SurveyReview, a reviewer-aligned, multi-dimensional benchmark and dataset for survey evaluation. [Paper](https://arxiv.org/abs/2608.07641)
 - **SkySeaLand** (2026-08-07) — SkySeaLand provides a compact benchmark for mixed land--maritime transportation detection, while SkyDet establishes a documented low-footprint reference rather than a state-of-the-art accuracy claim. [Paper](https://arxiv.org/abs/2608.07382) · [HF](https://huggingface.co/papers/2608.07382)
 - **RegionDet** (2026-08-07) — To address this gap, we introduce Region Detection, a task that extends conventional object detection beyond object instances, and construct RegionDet, a benchmark for region target localization. [Paper](https://arxiv.org/abs/2608.06850) · [HF](https://huggingface.co/papers/2608.06850)
+- **MacroBench** (2026-08-07) — To evaluate MerC, we introduce the first macro translation benchmark, MacroBench, with test cases based on macros randomly sampled from real-world C programs. [Paper](https://arxiv.org/abs/2608.06705)
 - **LitTraceQA** (2026-08-07) — We present LitTraceQA, a benchmark for literature-grounded question answering over scientific papers. [Paper](https://arxiv.org/abs/2608.07370) · [HF](https://huggingface.co/papers/2608.07370)
 - **HeatCast** (2026-08-07) — We introduce HeatCast, a Landsat-based benchmark for monthly LST forecasting across 124 U.S. [Paper](https://arxiv.org/abs/2608.07640) · [HF](https://huggingface.co/papers/2608.07640)
 - **HarnessSafe** (2026-08-07) — To this end, we present HarnessSafe, a benchmark comprising 328 executable cases across seven persistent-carrier families and evaluated on most mainstream agent harnesses. [Paper](https://arxiv.org/abs/2608.06984) · [HF](https://huggingface.co/papers/2608.06984)
@@ -1391,6 +1393,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 ## Materials & Chemistry
 
 - **SciMIF** (2026-08-26) — In this work, we introduce SciMIF, a novel benchmark designed to evaluate the capability of MLLMs in following complex scientific instructions. [Paper](https://arxiv.org/abs/2608.25973) · [Code](https://github.com/shenye7436/SciMIF)
+- **Science Edge Evaluation** (2026-08-07) — Here we introduce Science Edge Evaluation (SEE), a multimodal benchmark of expert-curated questions grounded in peer-reviewed literature and experimental practice in chemistry, biology, and materials science. [Paper](https://arxiv.org/abs/2608.06931)
 - **onepot-Bench** (2026-08-03) — We introduce onepot-Bench 0, a proprietary benchmark suite for evaluating language models on synthetic chemistry capabilities relevant to wet-lab execution. [Paper](https://arxiv.org/abs/2608.02595) · [HF](https://huggingface.co/papers/2608.02595)
 - **Chem World** (2026-07-30) — In this work, we introduce Chem World, a comprehensive benchmark for chemical property prediction that integrates 17 diverse chemical datasets with over 800,000 molecular samples, covering various properties including d… [Paper](https://arxiv.org/abs/2607.28079) · [HF](https://huggingface.co/papers/2607.28079)
 - **HEDGEHOG** (2026-07-14) — We introduce HEDGEHOG, a unified six-stage filtration benchmark that is inspired by industrial hit identification workflows: (i) preprocessing; (ii) physicochemical descriptor screening; (iii) structural alerts and grap… [Paper](https://arxiv.org/abs/2607.13155) · [HF](https://huggingface.co/papers/2607.13155)
