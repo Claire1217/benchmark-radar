@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-03 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-04 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 157 GitHub stars |
-| 2 | **Unconstrained Vehicle Identification Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.01584) · [Code](https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/)</sub> | Multimodal Perception | 1 GitHub stars |
-| 3 | **MultiGhostBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02379) · [Code](https://github.com/GrecoMT/MultiGhostBench)</sub> | Knowledge & Reasoning | 1 GitHub stars |
-| 4 | **RPCBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00918) · [Code](https://github.com/ZhongruChen/RPCBench)</sub> | Knowledge & Reasoning | 0 GitHub stars |
-| 5 | **InSight**<br><sub>[Paper](https://arxiv.org/abs/2609.01383) · [Code](https://github.com/maevehutch/insight)</sub> | Knowledge & Reasoning | 0 GitHub stars |
-| 6 | **SPADE**<br><sub>[Paper](https://arxiv.org/abs/2609.02741) · [Code](https://github.com/jdinovo/SPADE)</sub> | Safety & Trustworthiness | 0 GitHub stars |
-| 7 | **Sim2Signal**<br><sub>[Paper](https://arxiv.org/abs/2609.01676) · [Code](https://github.com/Red-Pheonix/Sim2RealTSCBenchMark)</sub> | Knowledge & Reasoning | 0 GitHub stars |
-| 8 | **AIB**<br><sub>[Paper](https://arxiv.org/abs/2609.02277) · [Code](https://github.com/gillosae/aib)</sub> | Multimodal Perception | 0 GitHub stars |
-| 9 | **LongLSMDC**<br><sub>[Paper](https://arxiv.org/abs/2609.01725) · [Code](https://github.com/multimodal-ai-lab/Cue2Narrate)</sub> | Multimodal Perception | 0 GitHub stars |
-| 10 | **CopyShield**<br><sub>[Paper](https://arxiv.org/abs/2609.01161) · [Code](https://github.com/spotai-mbzuai/CopyShield.git)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 1 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 158 GitHub stars |
+| 2 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
+| 3 | **Unconstrained Vehicle Identification Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.01584) · [Code](https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/)</sub> | Multimodal Perception | 2 GitHub stars |
+| 4 | **FPCO-Dialog**<br><sub>[Paper](https://arxiv.org/abs/2609.03331) · [Code](https://github.com/lab-klc/FPCO-Dialog)</sub> | Multimodal Perception | 1 GitHub stars |
+| 5 | **MultiGhostBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02379) · [Code](https://github.com/GrecoMT/MultiGhostBench)</sub> | Knowledge & Reasoning | 1 GitHub stars |
+| 6 | **FrameBench**<br><sub>[Paper](https://arxiv.org/abs/2609.03370) · [Code](https://github.com/SasanoLab/FrameBench)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 7 | **CulturalMenuBench**<br><sub>[Paper](https://arxiv.org/abs/2609.03526) · [Code](https://github.com/BobTsang-NLP/CulturalMenuBench)</sub> | Multimodal Perception | 0 GitHub stars |
+| 8 | **CHIARO**<br><sub>[Paper](https://arxiv.org/abs/2609.03394) · [Code](https://github.com/cincynlp/Chiaro)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 9 | **SPADE**<br><sub>[Paper](https://arxiv.org/abs/2609.02741) · [Code](https://github.com/jdinovo/SPADE)</sub> | Safety & Trustworthiness | 0 GitHub stars |
+| 10 | **Sim2Signal**<br><sub>[Paper](https://arxiv.org/abs/2609.01676) · [Code](https://github.com/Red-Pheonix/Sim2RealTSCBenchMark)</sub> | Knowledge & Reasoning | 0 GitHub stars |
 
 ### Explore the library
 
