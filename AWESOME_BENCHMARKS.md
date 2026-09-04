@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-03 · **Benchmark releases:** 1564
+**Snapshot:** 2026-09-03 · **Benchmark releases:** 1575
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (47)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1076)
+- [General AI](#general-ai) (1086)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (7)
 - [Materials & Chemistry](#materials--chemistry) (12)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (110)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (96)
+- [Software & AI Compute](#software--ai-compute) (97)
 
 ## Autonomous Driving
 
@@ -271,15 +271,25 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
+- **LongCounsel-8** (2026-09-03) — To address these challenges, we introduce LongCounsel-8, a benchmark suite of three independently generated datasets totaling 7,749 five-session counseling trajectories, grounded in real-world client profiles, depressio… [Paper](https://arxiv.org/abs/2609.03507) · [Data](https://huggingface.co/datasets/hiddensev/LongCounsel-8)
+- **LOCOMO-CONV** (2026-09-03) — We introduce LOCOMO-CONV, a conversa- tional memory benchmark derived from Lo- CoMo with four query styles: dialog, implicit, counterfactual, and composed. [Paper](https://arxiv.org/abs/2609.03467)
+- **KC-Bench** (2026-09-03) — We introduce KC-Bench, a controlled multi-turn benchmark for measuring this capability across world-knowledge conflicts, input inconsistencies, and multi-source temporal conflicts. [Paper](https://arxiv.org/abs/2609.03588)
+- **FrameBench** (2026-09-03) — To address this question, we introduce FrameBench, a benchmark grounded in frame semantics. [Paper](https://arxiv.org/abs/2609.03370) · [Code](https://github.com/SasanoLab/FrameBench)
+- **FPCO-Dialog** (2026-09-03) — We introduce FPCO-Dialog, a benchmark for evaluating correction and cooperation behavior in VLMs under repeated false premises. [Paper](https://arxiv.org/abs/2609.03331) · [Code](https://github.com/lab-klc/FPCO-Dialog)
+- **CulturalMenuBench** (2026-09-03) — To probe this distinction, we introduce CulturalMenuBench, a benchmark of 4,870 items in 10 languages across 18 regions; its 10 tasks pair final-dish and step-by-step cooking images with ingredients, procedural text, an… [Paper](https://arxiv.org/abs/2609.03526) · [Code](https://github.com/BobTsang-NLP/CulturalMenuBench)
+- **CHIARO** (2026-09-03) — We introduce CHIARO, a 1,000 human-annotated sentence benchmark for contrastive emotion inference grounded in appraisal theory. [Paper](https://arxiv.org/abs/2609.03394) · [Code](https://github.com/cincynlp/Chiaro)
+- **dense500** (2026-09-02) — To evaluate the task and benchmark Genesis, we introduce dense500, a fully observed multi-scale pyramid dataset spanning diverse geographic regions, together with a suite of pyramid-level metrics. [Paper](https://arxiv.org/abs/2609.02683) · [Code](https://github.com/mvrl/genesis)
 - **VMetaphor-Bench** (2026-09-02) — To bridge this gap, we introduce VMetaphor-Bench, the first benchmark for evaluating visual metaphor generation in T2I models. [Paper](https://arxiv.org/abs/2609.02502)
 - **TIC-Bench** (2026-09-02) — To bridge this gap, we introduce a novel benchmark, TIC-Bench (deeply interleaved Text-Image Contexts), designed to evaluate the capability of models to integrate text-image clues and recover the ground truth facts with… [Paper](https://arxiv.org/abs/2609.02573) · [Data](https://huggingface.co/datasets/pino10010/TIC-Bench)
 - **T2LSC-Bench** (2026-09-02) — We introduce T2LSC-Bench, a controlled diagnostic benchmark comprising 50 seed subjects and 1,200 prompt cases per model, yielding 7,160 evaluated images across six models. [Paper](https://arxiv.org/abs/2609.02255)
 - **StatFormBench** (2026-09-02) — We then introduce StatFormBench, a benchmark built from five cross-domain statistics textbooks and a data science case library, covering diverse problem types, data representations, and scenario styles. [Paper](https://arxiv.org/abs/2609.01982) · [Code](https://github.com/THU-CongLab/StatFormBench) · [Data](https://huggingface.co/datasets/THU-CongLab/StatFormBench)
 - **RIG-BENCH** (2026-09-02) — We introduce RIG-BENCH, a novel comprehensive benchmark that systematically evaluates Reasoning-driven Image Generation (RIG) across four cognitively demanding domains: Concept-based, Transformation-based, Pattern & Str… [Paper](https://arxiv.org/abs/2609.02864)
+- **ObserverBench** (2026-09-02) — We present ObserverBench, a benchmark framework for testing whether an internal estimator---an observer---is adequate for the intervention, control, or safety task it directs. [Paper](https://arxiv.org/abs/2609.03026)
 - **MultiGhostBench** (2026-09-02) — We introduce MultiGhostBench, a multilingual benchmark comprising 928 books generated by five recent LLMs across six languages and three scripts, with an average length of approximately 59K words per book. [Paper](https://arxiv.org/abs/2609.02379) · [Code](https://github.com/GrecoMT/MultiGhostBench)
+- **LexIssue** (2026-09-02) — Based on this formulation, we construct LexIssue, a benchmark containing 430 real-world Chinese civil litigation cases and 1,303 expert-annotated disputed legal issues. [Paper](https://arxiv.org/abs/2609.02954)
 - **LeakageBench** (2026-09-02) — We introduce LeakageBench, a challenge set of 500 document images with 11,954 GDPR-aligned PII annotations spanning direct identifiers, linkage keys, and contextual re-identification surfaces. [Paper](https://arxiv.org/abs/2609.02207)
 - **GeoStore** (2026-09-02) — We introduce GeoStore, to our knowledge the first benchmark dedicated to this asymmetric, fine-grained, open-set formulation, and show that global-descriptor methods tuned for symmetric VPR are systematically limited on… [Paper](https://arxiv.org/abs/2609.02012)
-- **Genesis** (2026-09-02) — To evaluate the task and benchmark Genesis, we introduce dense500, a fully observed multi-scale pyramid dataset spanning diverse geographic regions, together with a suite of pyramid-level metrics. [Paper](https://arxiv.org/abs/2609.02683) · [Code](https://github.com/mvrl/genesis)
 - **DocHop** (2026-09-02) — We introduce DocHop, a benchmark for integrated chart--context reasoning in document-style images. [Paper](https://arxiv.org/abs/2609.02059)
 - **Counter-GEO-Bench** (2026-09-02) — Therefore, we present Counter-GEO-Bench, a defense benchmark that pairs 247 human-verified, quality-gated queries with information-preserving and information-distorting GEO rewrites, and evaluates defenses on attack suc… [Paper](https://arxiv.org/abs/2609.02316)
 - **CivBench** (2026-09-02) — We present CivBench, an open-source benchmark for evaluating language model agents in long-horizon, tool-mediated environments through the Model Context Protocol (MCP). [Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)
@@ -1546,6 +1556,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **KhatianDoc** (2026-09-03) — We introduce KhatianDoc, a four-task benchmark built from 107 real RS Khatian records from the Vumi (land) Office of Munshiganj, Bangladesh: symbol recognition, base-16-to-decimal conversion, structured field extraction… [Paper](https://arxiv.org/abs/2609.03597) · [Data](https://huggingface.co/datasets/RaiyanKhaan/KhatianDoc)
 - **DSEffi-Bench** (2026-08-31) — We introduce DSEffi-Bench, the first benchmark specifically targeting execution efficiency in LLM-generated DS code, comprising 1,000 instances across 10+ DS libraries with stress-testing harnesses and human-validated r… [Paper](https://arxiv.org/abs/2608.30248)
 - **XREPOTEST** (2026-08-26) — We introduce XREPOTEST, a multilingual repository-level benchmark for unit test generation spanning five underexplored languages: Rust, Go, Julia, PHP, and Ruby. [Paper](https://arxiv.org/abs/2608.25939) · [Code](https://github.com/solis-team/XRepoTest)
 - **EASEL** (2026-08-26) — We propose EASEL, a benchmark evaluating a controlled instance of dexterous visual tool use that adopts reference-guided visual reconstruction as its primary proxy task: the agent incrementally paints a canvas to match… [Paper](https://arxiv.org/abs/2608.25417)
