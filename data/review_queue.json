@@ -1,13 +1,944 @@
 {
-  "generatedAt": "2026-09-04T06:14:17.752605Z",
-  "sourceDate": "2026-09-03",
+  "generatedAt": "2026-09-05T00:35:52.348793Z",
+  "sourceDate": "2026-09-04",
   "sourceWindow": {
-    "from": "2026-09-03",
-    "to": "2026-09-03"
+    "from": "2026-09-04",
+    "to": "2026-09-04"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 1703,
+  "candidateCount": 1705,
   "candidates": [
+    {
+      "id": "bm_snowflake-cortex-dbx-genie-agents-benchmar_42e1a0a8",
+      "familyId": "bmf_3c4b1fd201ff",
+      "name": "snowflake-cortex-dbx-genie-agents-benchmark",
+      "paperTitle": "snowflake-cortex-dbx-genie-agents-benchmark",
+      "aliases": [],
+      "oneLine": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Finance"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T16:31:25Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+        "paper": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+        "code": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark"
+      },
+      "motivation": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool efficiency, and document retrieval.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+        "url": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+        "title": "snowflake-cortex-dbx-genie-agents-benchmark",
+        "authors": [
+          "curious-bigcat"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool efficiency, and document retrieval.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool efficiency, and document retrieval. # Cortex Agent vs Databricks Genie -- AI Agent Benchmark Comparative benchmark of **Snowflake Cortex Agent** vs **Databricks Genie** on complex, multi-source financial services workloads. ## Benchmark: CRE Portfolio Stress & Workout **Scenario:** Pacific Northwest Bank (PNB), a $28B regional bank, aggressively grew its CRE lending book from $3.2B to $8.7B (2019-2022). A 2023 office market crash (vacancy 12% to 31%) triggers cascading defaults, an OCC Consent Order, and a $2.1B workout pipeline. **Dataset:** 3.6M rows across 18 tables, 30 documents (23 synthetic + 7 real regulatory PDFs) ## Results (Measured) | Metric | Cortex Agent | Databricks Genie | Delta | |---|---|---|---| | Accuracy | 95% | 55% | +40pp | | Groundedness | 100% (0 hallucinations) | 71% (35 ungrounded claims) | +29pp | | Avg Latency | 41s | 255s | 6.2x faster | | Tool Calls | 35 | 74 | 2.1x fewer | | Tool Success Rate | 94% | 76% | +18pp | | Doc Retrieval | 100% (5/5) | 0% (0/13) | Complete failure | Cortex latency and tokens measured from `SNOWFLAKE.ACCOUNT_USAGE.SNOWFLAKE_COWORK_USAGE_HISTORY`. Databricks latency and tokens measured from agent trace spans. See `reports/cre_benchmark_report.md` for full methodology and per-question detail. ## Repository Structure ``` genie_cortex/ ├── README.md ├── config/ │ ├── cortex_agent/ │ │ ├── cre_semantic_view.sql # Semantic View DDL (18 tables, VQRs, metrics) │ │ └── cre_setup_guide.md # Snowflake setup (tables, search, agent) │ └── genie_agent/ │ └── cre_setup_guide.md # Databricks setup (3-agent hierarchy) ├── data/cre/ │ ├── tables/ # 18 parquet files (3.6M rows) │ └── docs/ │ ├── bank_documents/ # 13 internal bank documents │ ├── case_files/ # 10 case-specific documents │ └── real_regulations/ # 7 real OCC/FDIC/Fed regulatory PDFs ├── questions/ │ └── cre_benchmark_questions.md # 10 benchmark questions (G01-G10) └── reports/ ├── cre_benchmark_report.md # Full comparison report └── cre_charts/ # 8 PNG charts (brand-colored) ``` ## Tables (18 tables, 3.6M rows) | Table | Rows | Description | |-------|------|-------------| | tbl_loan_mstr | 45,005 | Master loan records (the anchor table) | | tbl_borrower | 12,000 | Borrower entities | | tbl_collateral | 36,165 | Collateral properties with appraisal values | | tbl_appraisal | 107,060 | Appraisal history (multiple per property) | | tbl_payment | 1,807,511 | Monthly loan payments | | tbl_covenant | 94,302 | Loan covenants (DSCR, LTV, occupancy, etc.) | | tbl_covenant_test | 903,972 | Covenant compliance test results | | tbl_risk_rating | 142,167 | Risk rating migration history | | tbl_provision | 177,259 | ALLL/CECL provision calculations | | tbl_workout | 3,504 | Loan workout/restructuring records | | tbl_reo | 613 | Real estate owned (foreclosed properties) | | tbl_charge_off | 1,943 | Loan charge-offs and recoveries | | tbl_exam_finding | 3,500 | OCC/internal audit examination findings | | tbl_capital | 26 | Quarterly capital adequacy snapshots | | tbl_concentration | 208 | Portfolio concentration metrics by segment | | tbl_branch | 29 | Bank branches (PNW region) | | tbl_analyst | 350 | Loan officers and credit analysts | | tbl_audit_log | 278,600 | Internal audit trail | All coded columns use abbreviated values (e.g., `loan_typ_cd`: CRE_OFFC, CRE_MLTF; `risk_rtg_cd`: 1-PASS through 8-LOSS; `loan_sts_cd`: ACTV, DLQ30, NACC, WKOT, FCLS, CHGOFF). ## Documents (30 files) ### Bank Documents (13 files) | File | Description | |------|-------------| | credit_committee_memo_cascadia_tower.txt | Credit committee approval for $85M Cascadia Tower loan | | appraisal_report_cascadia_tower_2023.txt | JLL reappraisal: 40.5% value decline ($131M to $78M) | | occ_consent_order_2023_ce_0847.txt | OCC Consent Order: 420% CRE concentration, 23% UW exceptions, ALLL shortfall | | internal_audit_report_cre_lending_2023.txt | Internal audit: 23% exception rate with branch-level breakdown | | board_risk_committee_minutes_q4_2023.txt | Board minutes: consent order response, capital plan, dividend suspension | | alll_methodology_memo_2023.txt | ALLL methodology with Q-factor history and segment-level reserves | | stress_test_severe_adverse_2023.txt | Stress test: CET1 projected to 6.1% under severe adverse | | regulatory_capital_plan_occ_submission.txt | Capital plan: $175M sub debt + $412M loan sale + RWA optimization | | credit_risk_review_annual_2023.txt | Annual review: 34% of CRE office rated SM+ (up from 6% in 2021) | | appraiser_engagement_letter.txt | JLL engagement for portfolio-wide reappraisal of 180 properties | | board_resolution_dividend_suspension.txt | Board resolution suspending quarterly dividend | | examiner_report_capital_adequacy.txt | OCC examiner capital review: rating 3 (Less Than Satisfactory) | | environmental_phase1_cascadia_tower.txt | Phase I ESA for Cascadia Tower (clean report) | ### Case Files (10 files) | File | Description | |------|-------------| | covenant_compliance_letter_cascadia_q3_2023.txt | Breach notice: 4 covenant violations on Cascadia Tower | | workout_proposal_cascadia_tower.txt | Restructuring: $16.5M principal reduction, maturity extension | | borrower_financials_cascadia_holdings.txt | Cascadia Holdings operating statement: NOI collapse ($10.2M to $0.4M) | | foreclosure_timeline_mercer_industrial.txt | 18-month foreclosure timeline for $32M Mercer Industrial Park | | loan_sale_term_sheet_performing_pool.txt | $412M loan pool sale to Blackstone at 92 cents on dollar | | non_accrual_memo_cedar_point.txt | Non-accrual recommendation for $19M Cedar Point Office Complex | | modification_agreement_pacific_heights.txt | Loan mod for $28M multifamily: rate reduction, maturity extension | | participation_agreement_seattle_mixed_use.txt | ",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
+          "url": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_personal-benchmark_af73b19a",
+      "familyId": "bmf_dee2b051fe9b",
+      "name": "Personal-Benchmark",
+      "paperTitle": "Personal-Benchmark",
+      "aliases": [],
+      "oneLine": "Personal-Benchmark A local-first VS Code extension for building a private, personal LLM coding benchmark.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/pomess/Personal-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T13:36:58Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/pomess/Personal-Benchmark",
+        "paper": "https://github.com/pomess/Personal-Benchmark",
+        "code": "https://github.com/pomess/Personal-Benchmark"
+      },
+      "motivation": "Personal-Benchmark A local-first VS Code extension for building a private, personal LLM coding benchmark.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:pomess/personal-benchmark",
+        "url": "https://github.com/pomess/Personal-Benchmark",
+        "title": "Personal-Benchmark",
+        "authors": [
+          "pomess"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Personal-Benchmark A local-first VS Code extension for building a private, personal LLM coding benchmark.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Personal-Benchmark A local-first VS Code extension for building a private, personal LLM coding benchmark. benchmark claude-code codex github-copilot llm local-first vscode-extension # Personal Benchmark Status: `0.0.9` preview; live prompt recommendations available This project is a local-first VS Code extension that will capture opted-in AI coding episodes and turn selected work into reproducible, personally relevant LLM benchmark cases. Created by **Bruno Manzano**. Source: [github.com/pomess/Personal-Benchmark](https://github.com/pomess/Personal-Benchmark) The system is deliberately hybrid: the extension provides consent, status, review, and reports; provider-specific hook adapters capture documented events; an editor-independent core handles redaction, storage, Git evidence, case construction, and evaluation. The current preview adds a prominent Live Recommendation panel. It can analyze a task manually or receive `UserPromptSubmit` events from VS Code Chat, Claude Code, and Codex, then recommend an installed model family and reasoning profile locally. The classifier is deterministic and explainable; it makes no network request. ## Settled Product Rules - GitHub Copilot, Claude Code, and OpenAI Codex are the first capture sources. - Every repository requires explicit opt-in. - Raw data remains local and is redacted before persistence. - Unpromoted traces expire after 90 days. - Episodes are inferred, then corrected or approved by the developer. - Tests plus developer approval gate benchmark promotion. - Rejected attempts and corrections remain labeled evidence. - Bugs, features, and refactors are eligible only with a discriminating executable verifier. - Agent and patch tracks share a corpus but report separate results. - Correctness, personal preferences, and process diagnostics remain separate scores. - A frozen core supports comparisons over time; recent cases enter a rolling holdout. ## Documents - [Domain glossary](CONTEXT.md) - [Solution landscape](docs/research.md) - [Extension-led capture decision](docs/adr/0001-extension-led-local-capture.md) - [Evaluation design decision](docs/adr/0002-separate-evaluation-tracks-and-scores.md) - [Implementation plan](docs/implementation-plan.md) ## Install the Preview 1. Download the latest `.vsix` from [GitHub Releases](https://github.com/pomess/Personal-Benchmark/releases). 2. In VS Code, run **Extensions: Install from VSIX...**. 3. Open the Personal Benchmark icon in the Activity Bar. ## Development ```bash cd extension npm install npm test ``` Build an installable package with: ```bash npx @vscode/vsce package ``` ## Next Step Expand the proven prompt boundary into complete provider episodes: tool calls, outcomes, Git fingerprints, candidate review, and reproducible benchmark promotion. The extension source and installable preview are under [extension](extension/).",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:pomess/personal-benchmark",
+          "url": "https://github.com/pomess/Personal-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_pepevolve-rbp-benchmark_114c74d7",
+      "familyId": "bmf_5c5d4a9a3db5",
+      "name": "PepEVOLVE-RBP-Benchmark",
+      "paperTitle": "PepEVOLVE-RBP-Benchmark",
+      "aliases": [],
+      "oneLine": "1.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T09:21:39.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark",
+        "paper": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark",
+        "data": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark"
+      },
+      "motivation": "1.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:merck/pepevolve-rbp-benchmark",
+        "url": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark",
+        "title": "PepEVOLVE-RBP-Benchmark",
+        "authors": [
+          "Merck"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Dataset Overview Dataset Name: PepEVOLVE-RBP-Benchmark Summary: Benchmark dataset for evaluating macrocyclic peptide optimization methods on the Rev-binding peptide (RBP) task.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "1. Dataset Overview Dataset Name: PepEVOLVE-RBP-Benchmark Summary: Benchmark dataset for evaluating macrocyclic peptide optimization methods on the Rev-binding peptide (RBP) task. Contains generated peptide sequences (in both SMILES and CHUCKLES representations) and multi-objective scoring components produced by PepEVOLVE (4 configurations: self-mask single-agent, self-mask multi-agent, neighbor-mask single-agent, neighbor-mask multi-agent) and PepINVENT during… See the full description on the dataset page: https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:merck/pepevolve-rbp-benchmark",
+          "url": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-benchmarks-tracker_3251ab0c",
+      "familyId": "bmf_618f9e06cd44",
+      "name": "llm-benchmarks-tracker",
+      "paperTitle": "llm-benchmarks-tracker",
+      "aliases": [],
+      "oneLine": "llm-benchmarks-tracker Sourced, schema-validated catalogue of LLM & agent benchmarks: what each tests, saturation & contamination status, top scores with provenance (official / independent / self-reported).",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning",
+        "Geometric reasoning",
+        "Factuality"
+      ],
+      "topics": [
+        "Multimodal",
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/alloevil/llm-benchmarks-tracker",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T11:07:04Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "introduces",
+      "links": {
+        "report": "https://github.com/alloevil/llm-benchmarks-tracker",
+        "paper": "https://github.com/alloevil/llm-benchmarks-tracker",
+        "project": "https://alloevil.github.io/llm-benchmarks-tracker/",
+        "code": "https://github.com/alloevil/llm-benchmarks-tracker"
+      },
+      "motivation": "llm-benchmarks-tracker Sourced, schema-validated catalogue of LLM & agent benchmarks: what each tests, saturation & contamination status, top scores with provenance (official / independent / self-reported).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:alloevil/llm-benchmarks-tracker",
+        "url": "https://github.com/alloevil/llm-benchmarks-tracker",
+        "title": "llm-benchmarks-tracker",
+        "authors": [
+          "alloevil"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "| Benchmark | Released | Domains | Status | Top score | System | Source | |---|---|---|---|---|---|---| | [BenchCAD](https://benchcad.com/leaderboard) | 2026-05 | multimodal, code, reasoning | active | 0.843 | Claude Fable 5.1 (max, Python tools) | [self-reported](https://benchcad.com/leaderboard) | | [AA-Omniscience](https://artificialanalysis.ai/evaluations/omniscience) | 2025-11 | knowledge, factuality | active | 44 | GPT-6 Astra (high) | [independent](https://artificialanalysis.ai/evaluation",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "llm-benchmarks-tracker Sourced, schema-validated catalogue of LLM & agent benchmarks: what each tests, saturation & contamination status, top scores with provenance (official / independent / self-reported). JSON API + site. agent-benchmark ai-agents arc-agi awesome-list benchmark dataset evaluation gpqa humanitys-last-exam json-schema large-language-models leaderboard llm llm-evaluation swe-bench # LLM Benchmarks Tracker **A sourced, schema-validated catalogue of how language models and agents are measured.** [**Browse the site**](https://alloevil.github.io/llm-benchmarks-tracker/) · [**中文**](README.zh-CN.md) · [**JSON API**](https://alloevil.github.io/llm-benchmarks-tracker/api/v1/index.json) · [**Add a result**](https://github.com/alloevil/llm-benchmarks-tracker/issues/new?template=result.yml) · [**Changelog**](CHANGELOG.md) [![CI](https://github.com/alloevil/llm-benchmarks-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/alloevil/llm-benchmarks-tracker/actions/workflows/ci.yml) [![Pages](https://github.com/alloevil/llm-benchmarks-tracker/actions/workflows/pages.yml/badge.svg)](https://alloevil.github.io/llm-benchmarks-tracker/) [![Release](https://img.shields.io/github/v/release/alloevil/llm-benchmarks-tracker)](https://github.com/alloevil/llm-benchmarks-tracker/releases) [![Last commit](https://img.shields.io/github/last-commit/alloevil/llm-benchmarks-tracker)](https://github.com/alloevil/llm-benchmarks-tracker/commits/main) [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![LLM Benchmarks Tracker](static/og.png)](https://alloevil.github.io/llm-benchmarks-tracker/) For every benchmark: what it tests, whether it still discriminates between frontier systems (`status`), how exposed its test set is (`contamination_risk`), a measured human baseline when one exists, and who reported the top score under which conditions. **31** model benchmarks · **23** agent benchmarks · **18** evaluators · **250** sourced results · updated 2026-09-04 **Why another list?** Most benchmark pages copy vendor slide numbers with no provenance. Here every result row carries a source URL, a source *kind* (official leaderboard / paper / independent re-run / developer self-report / aggregator), the access date, and the evaluation conditions (tools, reasoning effort, scaffold, pass@k). Numbers without a source do not get in. | Resource | URL | |---|---| | Site | · [中文](https://alloevil.github.io/llm-benchmarks-tracker/zh/) | | API index | | | All benchmarks + SOTA | | | Per-benchmark ledger | `https://alloevil.github.io/llm-benchmarks-tracker/api/v1/results/ .json` | | Schemas | [`schema/`](schema/) (JSON Schema 2020-12) | ## Contents - [Model benchmarks](#model-benchmarks) - [Agent benchmarks](#agent-benchmarks) - [Evaluators](#evaluators) - [Timeline](#timeline) - [Data model](#data-model) - [Using the data](#using-the-data) - [Contributing](#contributing) ## Model benchmarks Static prompt-and-response scoring of the model itself. *Top score* is the best row in the results ledger, not a model ranking; conditions differ between rows. Newest first. | Benchmark | Released | Domains | Status | Top score | System | Source | |---|---|---|---|---|---|---| | [BenchCAD](https://benchcad.com/leaderboard) | 2026-05 | multimodal, code, reasoning | active | 0.843 | Claude Fable 5.1 (max, Python tools) | [self-reported](https://benchcad.com/leaderboard) | | [AA-Omniscience](https://artificialanalysis.ai/evaluations/omniscience) | 2025-11 | knowledge, factuality | active | 44 | GPT-6 Astra (high) | [independent](https://artificialanalysis.ai/evaluations/omniscience) | | [GDPval](https://openai.com/index/gdpval/) | 2025-09 | general-assistant, knowledge, instruction-following | active | 74.1% | GPT-5.2 Pro | [self-reported](https://openai.com/index/introducing-gpt-5-2/) | | [HealthBench](https://openai.com/index/healthbench/) | 2025-05 | knowledge, safety, instruction-following | active | 59.9% | o3 | [paper](https://arxiv.org/abs/2505.08775) | | [ARC-AGI-2](https://arcprize.org/leaderboard) | 2025-03 | reasoning | saturating | 95% | GPT-6 Astra (Max) | [official](https://arcprize.org/leaderboard) | | [ScreenSpot-Pro](https://gui-agent.github.io/grounding-leaderboard/) | 2025-01 | computer-use, multimodal | saturating | 92.7% | GPT-6 Astra | [self-reported](https://openai.com/index/gpt-6-astra/) | | [Humanity's Last Exam](https://lastexam.ai/) | 2025-01 | knowledge, reasoning, science, math, multimodal | active | 65% | Claude Fable 5.1 (with tools) | [self-reported](https://www.anthropic.com/claude-fable-and-mythos-5-1) | | [Aider Polyglot](https://aider.chat/docs/leaderboards/) | 2024-12 | code, instruction-following | saturating | 88% | gpt-5 (high) | [official](https://aider.chat/docs/leaderboards/) | | [SimpleQA](https://openai.com/index/introducing-simpleqa/) | 2024-11 | factuality, knowledge | active | 62.5% | gpt-4.5-preview-2025-02-27 | [self-reported](https://github.com/openai/simple-evals) | | [FrontierMath](https://epoch.ai/benchmarks/frontiermath-tiers-1-3-v2) | 2024-11 | math, reasoning, research | saturating | 93.7% | gpt-6-astra (max) | [independent](https://epoch.ai/benchmarks/frontiermath-tiers-1-3-v2) | | [MMMU-Pro](https://mmmu-benchmark.github.io/#leaderboard) | 2024-09 | multimodal, knowledge, reasoning | active | 86.9% | Chance Vision 1.5 | [self-reported](https://mmmu-benchmark.github.io/) | | [MMLU-Pro](https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro) | 2024-06 | knowledge, reasoning | saturating | 91% | Gemini 3.1 Pro (High) | [independent](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | | [RULER](https://github.com/NVIDIA/RULER) | 2024-04 | long-context | saturating | 95.1% | Jamba-1.5-large | [official](https://github.com/NVIDIA/RULER) | | [LiveCodeBench](https://livecodebench.github.io/leaderboard.html) | 2024-03 | code, reasoning | active | 93.5% | DeepSeek-V4-Pro (Think Max) | [self-reported](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | | [BFC",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:alloevil/llm-benchmarks-tracker",
+          "url": "https://github.com/alloevil/llm-benchmarks-tracker"
+        }
+      ]
+    },
+    {
+      "id": "bm_leaf-classification-ml_81a59c47",
+      "familyId": "bmf_65cae5ead648",
+      "name": "leaf-classification-ml",
+      "paperTitle": "leaf-classification-ml",
+      "aliases": [],
+      "oneLine": "leaf-classification-ml Reproducible multiclass leaf-classification benchmark with six ML models and bilingual portfolio reports data-science jupyter-notebook machine-learning multiclass-classification nested-cross-validation python scikit-…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Mouloud08/leaf-classification-ml",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T16:59:51Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Mouloud08/leaf-classification-ml",
+        "paper": "https://github.com/Mouloud08/leaf-classification-ml",
+        "project": "https://www.kaggle.com/competitions/leaf-classification/data",
+        "code": "https://github.com/Mouloud08/leaf-classification-ml"
+      },
+      "motivation": "leaf-classification-ml Reproducible multiclass leaf-classification benchmark with six ML models and bilingual portfolio reports data-science jupyter-notebook machine-learning multiclass-classification nested-cross-validation python scikit-learn # Leaf Classification — Multiclass ML Benchmark An end-to-end comparison of six supervised-learning models on the Kaggle Leaf Classification dataset.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:mouloud08/leaf-classification-ml",
+        "url": "https://github.com/Mouloud08/leaf-classification-ml",
+        "title": "leaf-classification-ml",
+        "authors": [
+          "Mouloud08"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "leaf-classification-ml Reproducible multiclass leaf-classification benchmark with six ML models and bilingual portfolio reports data-science jupyter-notebook machine-learning multiclass-classification nested-cross-validation python scikit-learn # Leaf Classification — Multiclass ML Benchmark An end-to-end comparison of six supervised-learning models on the Kaggle Leaf Classification dataset.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "leaf-classification-ml Reproducible multiclass leaf-classification benchmark with six ML models and bilingual portfolio reports data-science jupyter-notebook machine-learning multiclass-classification nested-cross-validation python scikit-learn # Leaf Classification — Multiclass ML Benchmark An end-to-end comparison of six supervised-learning models on the Kaggle Leaf Classification dataset. This repository is the personal portfolio edition of an IFT712 *Techniques d'apprentissage* project, curated and authored by [Mouloud Serir](https://github.com/Mouloud08). The project combines a reusable Python experiment pipeline with eight fully executed notebooks and bilingual reports. It emphasizes reproducible model selection: tuning is evaluated with nested cross-validation, and exploratory results are kept separate from confirmatory estimates. ## Result at a glance | Dataset | Benchmark | Best confirmatory result | | --- | --- | --- | | 990 labelled leaves · 99 species · 192 numeric features | Perceptron, logistic regression, SVM, random forest, decision tree, MLP | Tuned logistic regression: **macro-F1 0.9787 ± 0.0198**, **accuracy 0.9848** | The reported values are means across the outer folds of nested cross-validation; the uncertainty shown for macro-F1 is one standard deviation. See the [global comparison notebook](notebooks/08_Comparaison_Globale.ipynb) for the model-by-model evidence and diagnostics. ![Nested cross-validation comparison of the six tuned models](assets/model-comparison-en.png) ## Start here - [English portfolio report](report/pdf/leaf-classification-portfolio-en.pdf) - [Rapport portfolio en français](report/pdf/leaf-classification-portfolio-fr.pdf) - [Global model comparison notebook](notebooks/08_Comparaison_Globale.ipynb) - [Dataset provenance and integrity](data/README.md) ## What the project covers The dataset represents each specimen with 64 margin, 64 shape, and 64 texture descriptors. The study compares six model families under a shared evaluation framework: 1. Perceptron 2. Logistic regression 3. Support vector machine (SVM) 4. Random forest 5. Decision tree 6. Multilayer perceptron (MLP) The workflow includes deterministic data preparation, baseline and improved variants, hyperparameter tuning, nested cross-validation, out-of-fold predictions, multiclass diagnostics, learning curves, confusion analysis, and a final cross-model comparison. The default random seed is `42`. ## Repository architecture ```text . ├── assets/ # Portfolio visuals used by this README ├── data/ # Included Kaggle training CSV and provenance notes ├── notebooks/ # EDA, six model studies, and the global comparison ├── report/ # Bilingual LaTeX sources, build script, and final PDFs ├── src/ # Data, models, evaluation, experiments, plots, and CLI └── tests/ # Unit, integration, methodology, and artifact checks ``` Generated experiment artifacts are written to `results/` and intentionally ignored by Git. The notebooks retain their checked outputs so the analysis can be reviewed directly on GitHub without rerunning the full benchmark. ## Reproduce the project ### 1. Install Python 3.10 or newer is required. From the repository root: ```powershell python -m venv .venv .\\.venv\\Scripts\\Activate.ps1 python -m pip install --upgrade pip python -m pip install -e \".[dev]\" ``` For the exact dependency set used by CI, install the hash-locked environment: ```powershell python -m pip install --require-hashes -r requirements-lock.txt python -m pip install --no-build-isolation --no-deps -e . ``` On macOS or Linux, activate the environment with `source .venv/bin/activate` instead. The checked training data is already available at `data/raw/train.csv`. Its shape and SHA-256 fingerprint are documented in [data/README.md](data/README.md). ### 2. Use the command-line pipeline ```powershell leaf-classification --help leaf-classification --all ``` The module form is equivalent and works without the installed console wrapper: ```powershell python -m src --models regression_logistique svm mlp ``` Useful options include `--skip-existing`, `--force`, `--no-tuning`, `--no-figures`, and `--output-root`. Running every nested-CV study is compute-intensive; start with one model when validating a new environment. ### 3. Review or rerun the notebooks ```powershell jupyter notebook notebooks/08_Comparaison_Globale.ipynb ``` Notebook `01` introduces the data, notebooks `02`–`07` study one model each, and notebook `08` consolidates the comparison and conclusions. ### 4. Run quality checks ```powershell python -m ruff check src tests report/build.py report/generate_localized_figures.py python -m ruff format --check src tests report/build.py report/generate_localized_figures.py python -m pytest -q ``` ### 5. Build the bilingual reports A local LaTeX distribution with `latexmk` is required. ```powershell python report/build.py --language all python report/build.py --language all --check ``` Use `--language en` or `--language fr` to build one edition, and `--clean` to remove local report build products. ## Data source The included `train.csv` comes from Kaggle's [Leaf Classification competition](https://www.kaggle.com/competitions/leaf-classification/data). Kaggle's [competition rules](https://www.kaggle.com/competitions/leaf-classification/rules) govern use of the competition data. The dataset is third-party material and is not covered by the project's copyright notice. ## Author and rights **Mouloud Serir** · [GitHub @Mouloud08](https://github.com/Mouloud08) This curated repository and both portfolio reports are presented as Mouloud Serir's personal portfolio work. Project materials are all rights reserved; see [NOTICE.md](NOTICE.md). Third-party dataset rights remain with their respective owners.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:mouloud08/leaf-classification-ml",
+          "url": "https://github.com/Mouloud08/leaf-classification-ml"
+        }
+      ]
+    },
+    {
+      "id": "bm_edgemosaic_837772bc",
+      "familyId": "bmf_36c07c428248",
+      "name": "EdgeMosaic",
+      "paperTitle": "EdgeMosaic",
+      "aliases": [],
+      "oneLine": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Mobile & Personal Computing",
+        "Finance"
+      ],
+      "primaryDomain": "Mobile & Personal Computing",
+      "industrySectors": [
+        "Consumer Technology",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/michailfragkiskos/EdgeMosaic",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T17:56:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/michailfragkiskos/EdgeMosaic",
+        "paper": "https://github.com/michailfragkiskos/EdgeMosaic",
+        "code": "https://github.com/michailfragkiskos/EdgeMosaic"
+      },
+      "motivation": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:michailfragkiskos/edgemosaic",
+        "url": "https://github.com/michailfragkiskos/EdgeMosaic",
+        "title": "EdgeMosaic",
+        "authors": [
+          "michailfragkiskos"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 26
+        }
+      },
+      "evidence": {
+        "snippet": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports. ai android benchmark devtools edge evaluation inference jvm kotlin latency machine-learning manifest on-device performance python reporting tflite thermal EdgeMosaic Assemble a mosaic of on-device AI benchmarks — one tile per delegate. Python stdlib CLI + Kotlin JVM/Android core · zero third-party dependencies manifest → plan → samples → report --- ## Why a mosaic? On-device inference is never a single number. The *same* model behaves like a different animal depending on the **delegate** it runs on (CPU, GPU, NNAPI, XNNPACK…), the **thread count**, the **batch size**, and — crucially on phones — the **thermal envelope** at the moment of measurement. A GPU delegate that wins on a cold device may lose after ninety seconds of sustained load as the SoC throttles. EdgeMosaic treats every (model, delegate, config) combination as one **tile**. Lay the tiles side by side and a picture emerges: which backend is genuinely fastest, which stays coolest, which is leanest on memory, and where the thermal cliff hides. The tooling is deliberately small and boring so it runs anywhere — a CI runner, a laptop, or wired up next to a real device farm. --- ## The two halves EdgeMosaic is intentionally split into two runtimes that **never import each other**. They agree only on a pair of tiny line-based text protocols. This keeps the device-side code (Kotlin) free of any host tooling, and keeps the host-side orchestration (Python) free of any Android baggage. | Half | Language | Role | Dependencies | |---|---|---|---| | **Host CLI** | Python 3.9+ | Validate manifests, build plans, aggregate samples, render reports | **stdlib only** | | **Device core** | Kotlin (JVM/Android friendly) | Parse plans, record samples, compute percentiles, emit interchange | **stdlib only** | The contract between them is text: ``` # plan protocol (host builds it, device consumes it) PLAN mobilenet-v3-small-sweep RUN mobilenet-v3-small gpu batch=1 threads=4 warmup=5 iters=50 # sample protocol (device emits it, host consumes it) SAMPLE mobilenet-v3-small gpu latency_ms=9.9 mem_mb=88.7 temp_c=46.1 ``` Because both sides parse the same grammar and use the **same percentile definition** (linear interpolation between closest ranks), a p50 computed on the phone equals the p50 computed on the host for identical samples. No surprises when you cross the boundary. --- ## Quick start (host CLI) The Python side needs nothing but a stock interpreter. ```bash cd python # 1. validate a model manifest python -m edgemosaic validate ../examples/mobilenet.manifest.json # 2. build a benchmark plan (delegates × batches × threads) python -m edgemosaic plan ../examples/mobilenet.manifest.json \\ --batches 1 --threads 1,4 --out ../examples/plan.txt # 3. aggregate raw SAMPLE lines into per-run statistics python -m edgemosaic aggregate ../examples/samples.txt # 4. render a JSON + Markdown report with a leaderboard python -m edgemosaic report ../examples/samples.txt \\ --title \"MobileNet sweep\" \\ --json ../examples/report.json \\ --md ../examples/report.md ``` Everything pipes. `aggregate` and `report` accept `-` for stdin: ```bash your-device-runner | python -m edgemosaic report - --md report.md ``` Or drive the whole flow with the Makefile: ```bash make demo # validate + plan + report ``` --- ## A tile up close Here is one row of the mosaic, straight out of `report`: ``` | Model | Delegate | n | p50 ms | p90 ms | p99 ms | peak MB | peak C | ips | throttled | |--------------------|----------|---|--------|--------|--------|---------|--------|--------|-----------| | mobilenet-v3-small | nnapi | 3 | 8.1 | 8.34 | 8.394 | 74.1 | 42.6 | 123.46 | no | | mobilenet-v3-small | gpu | 3 | 9.9 | 10.06 | 10.096 | 89.0 | 47.3 | 101.01 | yes | | mobilenet-v3-small | cpu | 4 | 18.6 | 20.61 | 21.231 | 62.2 | 40.2 | 53.76 | no | ``` Read the tiles together and the story is obvious: **NNAPI** is both the fastest *and* the coolest here; **GPU** is quick but crosses the 45 °C throttle line and burns the most memory; **CPU** is slow but thermally calm. The Markdown report distils this into a leaderboard: ``` ## Leaderboard - Fastest (p50): mobilenet-v3-small via nnapi (8.1 ms) - Coolest (peak C): mobilenet-v3-small via xnnpack - Leanest (peak MB): mobilenet-v3-small via cpu > ⚠️ Thermal throttling detected in at least one run. ``` --- ## Manifests A manifest is a small JSON document describing the model under test. The validator is **non-throwing**: it collects *every* problem so you can fix them in one pass, and it distinguishes hard **errors** from soft **warnings**. ```json { \"name\": \"mobilenet-v3-small\", \"version\": \"1.2.0\", \"format\": \"tflite\", \"quantization\": \"int8\", \"size_mb\": 4.7, \"delegates\": [\"cpu\", \"gpu\", \"nnapi\", \"xnnpack\"], \"inputs\": [ { \"name\": \"image\", \"shape\": [1, 224, 224, 3], \"dtype\": \"uint8\" } ] } ``` | Field | Required | Notes | |---|---|---| | `name` | ✅ | non-empty string | | `version` | ✅ | non-empty string | | `format` | ✅ | one of `tflite`, `onnx`, `torchscript`, `ggml`, `coreml` | | `delegates` | ✅ | non-empty list; unknown entries → warning | | `quantization` | – | `none` / `fp16` / `int8` / `int4` / `dynamic` | | `size_mb` | – | positive; > 2 GB → warning | | `inputs` | – | list of tensor specs | Invalid manifests exit non-zero, so `validate` slots straight into a CI gate: ``` [E] format: unknown format 'bogus'; expected one of ['coreml', 'ggml', 'onnx', 'tflite', 'torchscript'] [E] delegates: must be a non-empty list [E] size_mb: must be positive -> INVALID (3 error(s), 0 warning(s)) ``` --- ## The Kotlin core The device-side core is plain Kotlin with no Android SDK types in its public surface, so it compiles as a vanilla JVM library and drops into an Android module unchanged. Four small pieces: - **`PlanParser`** — turns the `PLAN` / `RUN` text into `RunSpec` objects. - **`BenchmarkRecorder`** — records `Sample`s (or",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:michailfragkiskos/edgemosaic",
+          "url": "https://github.com/michailfragkiskos/EdgeMosaic"
+        }
+      ]
+    },
+    {
+      "id": "bm_clinical-record-conformance_0b8ed128",
+      "familyId": "bmf_e9ab65d47944",
+      "name": "clinical-record-conformance",
+      "paperTitle": "clinical-record-conformance",
+      "aliases": [],
+      "oneLine": "clinical-record-conformance A two-layer benchmark for clinical documentation conformance: does a source-aware validator loop beat prompt-only generation once you also require the output to be grounded?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/shenjiayi692-maker/clinical-record-conformance",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T17:38:09Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/shenjiayi692-maker/clinical-record-conformance",
+        "paper": "https://github.com/shenjiayi692-maker/clinical-record-conformance",
+        "project": "https://www.nhc.gov.cn/yzygj/c100068/201002/766b58f0dd9242d3b62276e5c88d27dc.shtml",
+        "code": "https://github.com/shenjiayi692-maker/clinical-record-conformance"
+      },
+      "motivation": "clinical-record-conformance A two-layer benchmark for clinical documentation conformance: does a source-aware validator loop beat prompt-only generation once you also require the output to be grounded?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:shenjiayi692-maker/clinical-record-conformance",
+        "url": "https://github.com/shenjiayi692-maker/clinical-record-conformance",
+        "title": "clinical-record-conformance",
+        "authors": [
+          "shenjiayi692-maker"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "clinical-record-conformance A two-layer benchmark for clinical documentation conformance: does a source-aware validator loop beat prompt-only generation once you also require the output to be grounded?",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "clinical-record-conformance A two-layer benchmark for clinical documentation conformance: does a source-aware validator loop beat prompt-only generation once you also require the output to be grounded? Fully synthetic data. benchmark evaluation grounding healthcare llm structured-output # Clinical Record Conformance A public reconstruction of a two-layer clinical documentation conformance pipeline: public national requirements provide the baseline, while a wholly synthetic departmental template defines the evaluation fields and implementation-specific constraints. The repository contains no private source code, hospital template, patient data, or institutional result. Prompt-only free-text generation achieved the highest raw conformance rate, at the cost of inventing content for 10 of 12 fields absent from the source. The source-aware constrained pipeline had lower raw conformance, and that was the correct behavior: it exposed 11 missing facts as violations instead of silently completing them. Retries recovered 100% of model extraction or formatting failures and 0% of source-information absences, so the validator should route failures, not blindly retry them. The paired input-shape experiment was a null result. Synthetic fragmentation rearranged and interrupted the facts but preserved them; it did not consistently reduce conformance. In Arm C, fragmented input was nominally higher on raw conformance by one record out of 20, but that record passed by filling an absent visit time. On the joint metric, narrative and fragmented Arm C were both 70%, and both reached 100% on the 14 complete-source pairs. This benchmark therefore separates two mechanisms: information loss produces visible gaps, while word-order disruption alone did not show a consistent effect. | Arm | Method | **Conformant and grounded** | Raw conformance | Source-grounded records | Required-field population | Unsupported fills | Cost | |---|---|---:|---:|---:|---:|---:|---:| | A | Prose standard, free-text output | **78.3%** | 93.3% | 83.3% | 100.0% | **10 / 12** | $0.1958 | | B | Strict JSON template, one attempt | **76.7%** | 76.7% | 98.3% | 98.3% | **1 / 12** | $0.3525 | | C | JSON template plus source-aware validator loop | **80.0%** | 81.7% | 98.3% | 98.3% | **1 / 12** | $0.3704 | `conformant_and_grounded` requires both a clean validator result and no unsupported fill of a manifest-controlled omission. Changing from raw conformance to this joint metric reverses the A-versus-C ranking. It is deliberately narrower than a general factuality score: the benchmark can mechanically judge only the fields it intentionally omitted. “Required-field population” likewise means that a required section contains text; it does not imply that the text is complete, correct, or supported. The full Arm C pipeline cost **1.9×** as much as prompt-only Arm A. That is the observed cost of the entire constrained pipeline, not a causal price for grounding alone: template-only Arm B already accounts for most of the gap, while C's three second attempts added **5.1%** over B. The trade-off is therefore explicit rather than free—better source grounding and failure routing required more inference spend. These numbers come from the committed 60-record run in [`results/final_run.jsonl`](results/final_run.jsonl), using `gpt-4o-2024-08-06`, seed 7, and temperature 0.2. The 183-line attempt log and [`results/report.md`](results/report.md) contain latency, cost, grounding, per-rule, recovery, and human-review details. ## Public standard and synthetic template Every rule has a `source` field. The two allowed provenance layers are intentionally different: - Public baseline: the National Health Commission's [《病历书写基本规范》](https://www.nhc.gov.cn/yzygj/c100068/201002/766b58f0dd9242d3b62276e5c88d27dc.shtml), issued as 卫医政发〔2010〕11号. Rule mappings cite the applicable article, including Article 9 for numeric 24-hour date/time notation, Articles 12–15 for outpatient and emergency records, and Article 18 for admission-record content definitions. - Department layer: `illustrative departmental template (synthetic)`. Section layout, exact character limits, ASCII vital-sign encoding, closed disposition vocabulary, treatment timestamp rule, and section order are fictional evaluation choices. They do not transcribe a customer's template. For example: ```json { \"id\": \"IM-REQ-001\", \"type\": \"required\", \"source\": \"《病历书写基本规范》第十八条第（二）项\", \"message\": \"主诉不得为空\" } ``` The top-level `provenance` object in each file documents both layers, and schema loading fails if a rule lacks `source`. The schemas remain evaluation subsets rather than complete clinical-record specifications. ## Ground truth for missing information [`data/manifest.json`](data/manifest.json) records the dictation path, case ID, input style, source-fact fingerprint, intentionally omitted required fields, and the rule ID expected to expose each omission. Dot notation represents a required subfield such as `vital_signs.SpO2`. This makes unsupported completion mechanical rather than subjective: if the manifest says a fact is absent and the generated field contains it, the evaluator counts an unsupported fill. Plausible phrases such as “no known allergies,” inferred arrival times, or guessed dispositions do not receive credit. One Arm C first attempt still populated an absent fact. The manifest caught it. Prompt instructions alone therefore do not guarantee grounding; the benchmark keeps this failure visible rather than post-processing it away with ground-truth knowledge. ## Validator as a diagnostic layer Arm C does not retry every failure: - `required` failures are routed directly to `human_review_rule_ids`. - A `numeric_fields` failure is also routed to human review when the source dictation lacks one of the required numeric facts. - Only model-repairable parse, formatting, terminology, or ordering failures are returned as rule messages in a new stateless generation request, with a maximum of three attempts. This policy pr",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:shenjiayi692-maker/clinical-record-conformance",
+          "url": "https://github.com/shenjiayi692-maker/clinical-record-conformance"
+        }
+      ]
+    },
+    {
+      "id": "bm_azure-infrastructure-agent-benchmark_eaf001d5",
+      "familyId": "bmf_315619b4407b",
+      "name": "azure-infrastructure-agent-benchmark",
+      "paperTitle": "azure-infrastructure-agent-benchmark",
+      "aliases": [],
+      "oneLine": "azure-infrastructure-agent-benchmark AzureInfraBench: reproducible AI-agent evaluation for Azure, Terraform, OpenTofu, Bicep, AKS, cloud networking, FinOps and reliability.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Manufacturing & Process Control",
+        "Finance"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Manufacturing",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/AAH20/azure-infrastructure-agent-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T17:47:37Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/AAH20/azure-infrastructure-agent-benchmark",
+        "paper": "https://github.com/AAH20/azure-infrastructure-agent-benchmark",
+        "project": "https://a2zsoc.com/",
+        "code": "https://github.com/AAH20/azure-infrastructure-agent-benchmark"
+      },
+      "motivation": "azure-infrastructure-agent-benchmark AzureInfraBench: reproducible AI-agent evaluation for Azure, Terraform, OpenTofu, Bicep, AKS, cloud networking, FinOps and reliability.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:aah20/azure-infrastructure-agent-benchmark",
+        "url": "https://github.com/AAH20/azure-infrastructure-agent-benchmark",
+        "title": "azure-infrastructure-agent-benchmark",
+        "authors": [
+          "AAH20"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "azure-infrastructure-agent-benchmark AzureInfraBench: reproducible AI-agent evaluation for Azure, Terraform, OpenTofu, Bicep, AKS, cloud networking, FinOps and reliability.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "azure-infrastructure-agent-benchmark AzureInfraBench: reproducible AI-agent evaluation for Azure, Terraform, OpenTofu, Bicep, AKS, cloud networking, FinOps and reliability. # AzureInfraBench — Azure Infrastructure Agent Benchmark [![Benchmark CI](https://github.com/AAH20/azure-infrastructure-agent-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/AAH20/azure-infrastructure-agent-benchmark/actions/workflows/ci.yml) A reproducible benchmark for evaluating AI agents on **Microsoft Azure**, **Terraform**, **OpenTofu**, **Bicep**, **AKS**, **cloud networking**, **FinOps**, **site reliability engineering**, **cloud security**, and **infrastructure as code**. > **Current evidence boundary:** release `2026.09-mvp` contains three deterministic task bundles and six reference submissions. It does not yet publish scores for Codex, Claude, NVIDIA NIM, Microsoft Foundry or other models. Reference-human metadata is illustrative and not an independently timed study. ## Why AzureInfraBench Prompt-to-code demonstrations do not establish that an agent can safely operate production infrastructure. AzureInfraBench evaluates repository-level outcomes against architecture, networking, reliability, cost, operations and safety requirements. Every task includes: - A realistic incident or change request - Business and technical constraints - A machine-readable scoring contract - A known-good submission - An unsafe negative control - Deterministic checks - Explicit evidence boundaries ## Run it ```bash python3 -m pip install . azure-infra-bench list --tasks tasks azure-infra-bench evaluate \\ tasks/private-dns-repair \\ tasks/private-dns-repair/submissions/gold ``` Run the complete reference suite: ```bash bash scripts/validate.sh ``` The evaluator exits with code `2` for a failed submission when `--fail-on-error` is used. ## MVP task matrix | Task | Level | Family | Primary skills | |---|---|---|---| | `private-dns-repair` | Principal | Repair | Private Endpoint DNS, VNet linking, rollback, cost ceiling | | `aks-production-resilience` | Architect | Optimize | Autoscaling, availability zones, control-plane exposure, FinOps | | `logging-retention-finops` | Practitioner | Operate | Log Analytics retention, ingestion quota, access control, runbooks | The roadmap expands this corpus to 30 reviewed tasks before any claim of broad Azure coverage. ## Scoring Checks are assigned to domains and weighted within each task. A submission passes when: ```text raw score >= 80 AND every hard gate passes ``` A failed hard gate sets the reported score to zero. This prevents an agent from compensating for public exposure or unrestricted network access with excellent documentation elsewhere. Example: ```text # AzureInfraBench: private-dns-repair Result: PASS Score: 100.00 Unsafe: no ``` Machine-readable reports include: - Total and domain score - Hard-gate outcome - Agent and model identifiers - Tokens, execution time and model cost when declared - Cost per successful task - Every passed and failed check ## Architecture ```mermaid flowchart LR T[Versioned task bundle] --> A[Agent scaffold] A --> P[Submission patch] P --> E[Deterministic evaluator] E --> V[IaC and policy checks] E --> N[Network and reliability assertions] E --> B[Business and FinOps assertions] V --> G{Hard gates and weighted score} N --> G B --> G G --> R[Evidence JSON] R --> L[Reproducible leaderboard roadmap] ``` See [benchmark protocol](docs/protocol.md), [task authoring](docs/task-authoring.md), and [roadmap](docs/roadmap.md). ## Agent and model evaluation contract Every measured run should declare: ```json { \"agent\": \"agent-and-version\", \"model\": \"provider/model-version\", \"token_count\": 12000, \"model_cost_usd\": 1.25, \"duration_seconds\": 380 } ``` Future adapters may evaluate NVIDIA NIM/Nemotron, Microsoft Foundry models, OpenAI/Codex, Anthropic/Claude, OpenRouter-compatible providers and local vLLM models. Model output cannot modify the scorer or reveal held-out checks. ## What makes a credible leaderboard - Exact model and agent versions - Frozen task release - Clean execution environment - No access to gold submissions - Held-out checks separated from public development checks - Repeated runs for Pass@k - Token, cost and duration accounting - Published failure categories - Reproduction instructions - Chronological releases to reduce contamination The MVP keeps all checks public to make the harness auditable. It is a development set, not a contamination-resistant leaderboard. ## Distribution - Installable Python CLI - Hermetic Docker entry point - GitHub Actions validation - JSON reports for downstream dashboards - Hugging Face dataset export roadmap - Static public leaderboard roadmap - Vendor challenge suites for Azure, NVIDIA and agent frameworks ## Relationship to A2Z SOC projects Existing Azure landing-zone, modernization, networking, AI-factory, disaster-recovery, FinOps, SOC and GRC repositories can contribute anonymized tasks. This turns a portfolio of implementations into a continually evolving evaluation corpus. For Azure architecture, platform engineering and private agent-evaluation engagements, visit [A2Z SOC](https://a2zsoc.com/). ## License MIT. Task provenance and third-party fixtures must be reviewed individually before inclusion. See [LICENSE](LICENSE) and [SECURITY.md](SECURITY.md).",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:aah20/azure-infrastructure-agent-benchmark",
+          "url": "https://github.com/AAH20/azure-infrastructure-agent-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_arbiter-live-benchmark_da807f7d",
+      "familyId": "bmf_40d645db5487",
+      "name": "arbiter-live-benchmark",
+      "paperTitle": "arbiter-live-benchmark",
+      "aliases": [],
+      "oneLine": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents",
+        "Safety"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/paragon-ux/arbiter-live-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T20:50:57Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/paragon-ux/arbiter-live-benchmark",
+        "paper": "https://github.com/paragon-ux/arbiter-live-benchmark",
+        "code": "https://github.com/paragon-ux/arbiter-live-benchmark"
+      },
+      "motivation": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:paragon-ux/arbiter-live-benchmark",
+        "url": "https://github.com/paragon-ux/arbiter-live-benchmark",
+        "title": "arbiter-live-benchmark",
+        "authors": [
+          "paragon-ux"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety. agent-continuity arbiter benchmark git-worktrees live-execution multi-agent orchestration sqlite waymark zero-dependencies # Arbiter Live Benchmark: Multi-Agent Orchestration & Continuity Testbed > **Empirical Multi-Agent Benchmark:** Scientifically validates multi-agent workspace orchestration across isolated Git worktrees. Validates **>75% token reduction** via Waymark in-flight continuity ( [!IMPORTANT] > **The 1:1:1 Invariant Contract**: > Every concurrent agent worker provisioned by **Arbiter** operates in exactly **one isolated Git worktree** and records exactly **one active Waymark trajectory**. Context compaction reloads static rules via **`AGENTS.md Compact Reload`** and in-flight hops via **`Waymark`** without mutating the task lease or crossing branch boundaries. --- ## Empirical Token Calibration To guarantee that token counting remains strictly accurate and independent of closed-source third-party dependencies, Arbiter Live Benchmark employs a calibrated character-to-token heuristic (`3.80 chars/token`) empirically evaluated against real frontier tokenizers (`cl100k_base`, Claude 3.5 Sonnet, and Gemini 2.0 Flash) on genuine codebase ASTs: | Target File | Chars | TikToken (cl100k) | Claude 3.5 Sonnet | Gemini 2.0 Flash | Arbiter Canonical | Deviation vs Real Mean | | :--- | :--- | :--- | :--- | :--- | :--- | :--- | | `src/auth.ts` | 2,752 | 740 | 717 | 728 | 724 | **-0.57%** | | `src/crypto.ts` | 1,489 | 400 | 388 | 394 | 392 | **-0.51%** | | `src/session.ts`| 2,104 | 566 | 548 | 557 | 554 | **-0.54%** | | `src/tokens.ts` | 1,842 | 495 | 480 | 487 | 485 | **-0.48%** | *Run calibration verification anytime:* ```bash npm run calibrate ``` *Empirical Calibration Result:* Evaluated against compiled OpenAI TikToken `cl100k_base` BPE tokenizer (`@dqbd/tiktoken`), confirming empirical code ratio of 4.2 chars/token across microservice and pipeline target repositories. --- ## Three-Tier Execution Architecture ``` +-------------------------------------------------------------------------------+ | Tier 1: Live Arbiter Engine Execution (DeterministicAdapter) | | • Executes real Arbiter WorktreeManager, TaskGraph, MergeQueue, LeaseWatchdog | | • Provisions real ephemeral Git worktrees, feature branches, and SQLite WAL | | • Measures genuine token consumption from realistic target codebases | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 1.5: Headless Subprocess MCP Runner (SubprocessMcpAdapter) | | • Spawns real OS child processes communicating via JSON-RPC 2.0 stdio | | • Exercises Arbiter's native MCP server tools (claim_task, complete_task) | | • $0 API cost, verified in cloud CI without external LLM credentials | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 2: Live Agent Runner (LiveAgyAdapter) | | • Spawns local Antigravity CLI (`agy`) across isolated worktrees | | • Leverages user subscription ($0 API fees) for real LLM reasoning | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 3: Comparative Baselines | | • DockerIsolatedAdapter: Quantifies containerization startup overhead | | • NaiveMutexAdapter: Negative baseline demonstrating lock contention & chaos | | • ProcessPoolAdapter: Worker process pool without worktree filesystem isolation | +-------------------------------------------------------------------------------+ ``` --- ## Quick Start & CLI Reference ### Prerequisites - **Node.js $\\ge 22.0.0$** (pure ESM and native `node:sqlite`) - **Git $\\ge 2.20$** ### Installation & Verification ```bash git clone https://github.com/paragon-ux/arbiter-live-benchmark.git cd arbiter-live-benchmark npm install npm run verify ``` ### Running Benchmarks via CLI ```bash # Run all 22 scenarios in deterministic mode (default) npm run benchmark # Run with 10-trial statistical aggregation (Median, P95, StdDev) node dist/src/cli/index.js --all --trials 10 # Run with step-by-step trace logging node dist/src/cli/index.js --all --verbose # Run comparative baseline comparison against golden reference npm run compare node dist/src/cli/index.js --all --compare # Run in Tier 1.5 Subprocess MCP mode (real OS child processes) node dist/src/cli/index.js --scenario 008-agent-semantic-correctness --mode subprocess_mcp # Run in Tier 3 Comparative Docker mode node dist/src/cli/index.js --scenario 015-docker-isolated-overhead --mode docker # Export benchmark results to JSON node dist/src/cli/index.js --all --json results/benchmark.json ``` --- ## Zero Runtime Dependencies Arbiter Live Benchmark requires **0 third-party runtime npm dependencies**. It is built exclusively on Node 22 native modules (`node:sqlite`, `node:child_process`, `node:fs`, `node:crypto`) plus the local sibling `arbiter` package.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:paragon-ux/arbiter-live-benchmark",
+          "url": "https://github.com/paragon-ux/arbiter-live-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-coding-platform-benchmark_d224f755",
+      "familyId": "bmf_874d9cff32c1",
+      "name": "ai-coding-platform-benchmark",
+      "paperTitle": "ai-coding-platform-benchmark",
+      "aliases": [],
+      "oneLine": "ai-coding-platform-benchmark # ai-coding-platform-benchmark 4 major questions Q1.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "sourceUpdatedAt": "2026-09-04T23:56:37Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark",
+        "paper": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark",
+        "code": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark"
+      },
+      "motivation": "ai-coding-platform-benchmark # ai-coding-platform-benchmark 4 major questions Q1.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:heesoo-kim97/ai-coding-platform-benchmark",
+        "url": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark",
+        "title": "ai-coding-platform-benchmark",
+        "authors": [
+          "heesoo-kim97"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-coding-platform-benchmark # ai-coding-platform-benchmark 4 major questions Q1.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-coding-platform-benchmark # ai-coding-platform-benchmark 4 major questions Q1. Speed Which platform builds the required application fastest? Q2. Accuracy Which platform produces the most functionally correct application? Q3. Efficiency Which platform requires the fewest prompts/iterations and lowest cost? Q4. Reliability Which platform introduces the fewest defects when modifying existing code? Speed Vs Quality Does faster generation actually lead to more defects? Prompts vs Accuracy Does additional iteration improve quality? Cost vs Quality Does spending more AI compute actually produce better results? Complexity vs Performance Does the performance gap between platforms widen as requirements become more complex? Brainstorming: Test replit, Lovable, Bolt, Claude Screen Recording - record the experiement on OBS Studio. For later use to demonstrate the experiement Important: - Prompt: Have the script of the inital prompt that was provided to AI - Screenshot: first generated application (result) - Major error: If something fails, capture the error - Correction prompt: Shows how you instructed the AI to fix it. - Final application: shows the completed result - Raw experiment log: | Trial | Platform | Event | Timestamp | Duration | Prompt # | Result | | ----- | -------- | -------------- | --------- | -------: | -------: | ------- | | 01 | Bolt | Initial prompt | 10:02:15 | — | 1 | Started | | 01 | Bolt | First build | 10:11:43 | 9:28 | 1 | Partial | | 01 | Bolt | Fix filter | 10:15:20 | 3:37 | 2 | Passed | | 01 | Bolt | Add KPI | 10:18:44 | 3:24 | 3 | Passed |",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:heesoo-kim97/ai-coding-platform-benchmark",
+          "url": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark"
+        }
+      ]
+    },
     {
       "id": "bm_worldreward-bench_c6484dea",
       "familyId": "bmf_8705dffcf6c1",
@@ -39,13 +970,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03952",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T14:53:53Z",
       "adoption30d": null,
       "heat": null,
@@ -137,7 +1068,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03254",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [
         {
@@ -148,7 +1079,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03254",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Accepted at EMNLP 2026 Industry Track. The code is available at https://github.com/ntt-dkiku/llm-revision-propagation",
               "level": "author-claim"
             }
@@ -157,8 +1088,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T01:29:39Z",
       "adoption30d": null,
       "heat": null,
@@ -207,189 +1138,6 @@
       "candidatePriority": "normal"
     },
     {
-      "id": "bm_urban-boundaries-social-barriers-a-benchma_4d199b68",
-      "familyId": "bmf_4d4bb244cf7d",
-      "name": "Urban Boundaries, Social Barriers: A Benchmark and Vision-Centric Framework for Mapping Gated Communities and Equity Implications",
-      "paperTitle": "Urban Boundaries, Social Barriers: A Benchmark and Vision-Centric Framework for Mapping Gated Communities and Equity Implications",
-      "aliases": [],
-      "oneLine": "Communities are fundamental spatial units that shape urban form and social life.",
-      "area": "Multimodal",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Multimodal"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.03804",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
-      "sourceUpdatedAt": "2026-09-03T13:08:51Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.55,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.03804",
-        "paper": "https://arxiv.org/abs/2609.03804",
-        "pdf": "https://arxiv.org/pdf/2609.03804",
-        "project": null,
-        "code": "https://github.com/MinweiZhao/GBA-GCs",
-        "data": null
-      },
-      "motivation": "Communities are fundamental spatial units that shape urban form and social life.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.03804",
-        "url": "https://arxiv.org/abs/2609.03804",
-        "title": "Urban Boundaries, Social Barriers: A Benchmark and Vision-Centric Framework for Mapping Gated Communities and Equity Implications",
-        "authors": [
-          "Minwei Zhao",
-          "Weiming Zhang",
-          "Jiawang Du",
-          "Qiming Liu",
-          "Weiming Zhuang",
-          "Pei Nie",
-          "Cai Wu"
-        ],
-        "categories": [
-          "cs.CV"
-        ]
-      },
-      "evidence": {
-        "snippet": "We address this gap by introducing GBA-GCs, a metropolitan-scale multimodal benchmark for locally grounded gated/open community recognition in China's Greater Bay Area, covering 37,444 residential compounds with aligned boundary polygons, high-resolution satellite imagery, Chinese metadata, and structured attributes, together with expert-verified labels, inter-annotator reliability, and official evaluation splits.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Communities are fundamental spatial units that shape urban form and social life. Whether a residential compound is spatially open or enclosed affects mobility, access to public services, and equity, yet studies of Chinese fengbi xiaoqu remain largely qualitative or small-scale, limiting reproducible city-scale analysis. We address this gap by introducing GBA-GCs, a metropolitan-scale multimodal benchmark for locally grounded gated/open community recognition in China's Greater Bay Area, covering 37,444 residential compounds with aligned boundary polygons, high-resolution satellite imagery, Chinese metadata, and structured attributes, together with expert-verified labels, inter-annotator reliability, and official evaluation splits. Built on this benchmark, we present Multimodal Classifier for Gated Community (MCGC), a vision-centric multimodal framework based on DINOv3-SAT that fuses imagery, text, and structured cues via modality-aware cross-attention and adaptive gating to mitigate modality imbalance. MCGC consistently outperforms strong unimodal and multimodal baselines. Finally, we apply the validated model to metropolitan-scale mapping and report equity-oriented findings including spatial clustering of GCs, privatized green space, and reduced pedestrian connectivity. The benchmark, code, and release documentation are available at https://github.com/MinweiZhao/GBA-GCs.",
-        "comments": "ECCV 2026 camera-ready version"
-      },
-      "candidatePriority": "normal"
-    },
-    {
-      "id": "bm_understanding-autonomous-driving-datasets-_149f7829",
-      "familyId": "bmf_f0f0dfe79110",
-      "name": "Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language",
-      "paperTitle": "Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language",
-      "aliases": [],
-      "oneLine": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains.",
-      "area": "Vision & 3D",
-      "applicationDomains": [
-        "General AI",
-        "Autonomous Driving"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [
-        "Automotive"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.CV"
-      ],
-      "construction": "Transform Existing",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.03677",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
-      "sourceUpdatedAt": "2026-09-03T11:15:23Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.7,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.03677",
-        "paper": "https://arxiv.org/abs/2609.03677",
-        "pdf": "https://arxiv.org/pdf/2609.03677",
-        "project": null,
-        "code": "https://github.com/KIT-MRT/AD-Diff",
-        "data": null
-      },
-      "motivation": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.03677",
-        "url": "https://arxiv.org/abs/2609.03677",
-        "title": "Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language",
-        "authors": [
-          "Julian Truetsch",
-          "Felix Hauser",
-          "Christoph Stiller",
-          "Frank Bieder"
-        ],
-        "categories": [
-          "cs.CV",
-          "cs.CL",
-          "cs.LG",
-          "cs.NE",
-          "cs.RO"
-        ]
-      },
-      "evidence": {
-        "snippet": "To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains. For example, domain shift between locations could lead to the operating environment being misaligned with the training data, resulting in potentially dangerous performance degradation. Yet, existing data analysis pipelines largely rely on metadata, predefined labels, or manual inspection, which provide limited semantic insight or do not scale. This paper studies set difference captioning: given two subsets of images, the goal is to produce a natural-language hypothesis describing differences between the target and reference set. Building on a two-stage formulation, we adapt the method to autonomous driving by focusing on object-centric patches derived from object detection, which simplifies aggregation and enables attribution of differences to specific object instances or categories. To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench. Low-concentration experiments assess the suitability of set-difference-captioning approaches to sparse, real-world differences. We restrict our experiments to open-weight models to support reproducibility and ease of deployment. The proposed benchmark and analysis provide a step towards practical, human-interpretable dataset introspection for autonomous driving datasets. Our implementation and benchmark dataset are available at https://github.com/KIT-MRT/AD-Diff",
-        "comments": "9 pages, 5 figures, submitted to the IEEE Open Journal of Intelligent Transportation Systems (OJ-ITS), our implementation and benchmark dataset are available at https://github.com/KIT-MRT/AD-Diff"
-      },
-      "candidatePriority": "normal"
-    },
-    {
       "id": "bm_towards-numerical-tohtn-planning-with-smt-_e2836682",
       "familyId": "bmf_29faf6ea6f3a",
       "name": "Towards Numerical TOHTN Planning with SMT-based HTN-SAT Encoding",
@@ -422,7 +1170,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03938",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -433,7 +1181,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2609.03938",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Proceedings of the 9th ICAPS Workshop on Hierarchical Planning (HPlan 2026)",
               "level": "strong-author-metadata"
             }
@@ -441,8 +1189,8 @@
         }
       ],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T14:44:37Z",
       "adoption30d": null,
       "heat": null,
@@ -519,13 +1267,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03410",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T06:15:15Z",
       "adoption30d": null,
       "heat": null,
@@ -857,98 +1605,6 @@
       ]
     },
     {
-      "id": "bm_statebench_8e2244ba",
-      "familyId": "bmf_73bbcdc58298",
-      "name": "Statebench",
-      "paperTitle": "Do Video Generators Track the World Across Segments? A Benchmark and Method for World-State Reasoning in Video Continuation",
-      "aliases": [],
-      "oneLine": "Video generators build long videos by composing shorter parts, either by generating segments one after another or by autoregressively extending chunks.",
-      "area": "Vision & 3D",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [
-        "Reasoning"
-      ],
-      "topics": [
-        "Reasoning"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.03673",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
-      "sourceUpdatedAt": "2026-09-03T11:09:46Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "High",
-      "recognitionConfidence": 0.95,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.03673",
-        "paper": "https://arxiv.org/abs/2609.03673",
-        "pdf": "https://arxiv.org/pdf/2609.03673",
-        "project": null,
-        "code": "https://github.com/AMAP-ML/StateAgent",
-        "data": null
-      },
-      "motivation": "Video generators build long videos by composing shorter parts, either by generating segments one after another or by autoregressively extending chunks.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.03673",
-        "url": "https://arxiv.org/abs/2609.03673",
-        "title": "Do Video Generators Track the World Across Segments? A Benchmark and Method for World-State Reasoning in Video Continuation",
-        "authors": [
-          "Yingmao Miao",
-          "Pengfei Zhang",
-          "Chaoran Xu",
-          "Meng Yu",
-          "Jing Tang",
-          "Xiangxiang Chu",
-          "Chao Shen",
-          "Chenhao Lin"
-        ],
-        "categories": [
-          "cs.CV"
-        ]
-      },
-      "evidence": {
-        "snippet": "To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states.",
-        "reasonCodes": [
-          "exact named benchmark artifact released in abstract",
-          "benchmark release stated in one sentence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Video generators build long videos by composing shorter parts, either by generating segments one after another or by autoregressively extending chunks. Each new part usually depends on memories of historical observations, such as recent frames, selected key frames, memory banks, or cached features. These memories preserve visible evidence from the past, but current generators do not reliably turn such evidence into a world-state interface: what holds in the video world after previous actions and how it should change under the next prompt. A past frame remains valid history, but it may not describe the state needed by the next segment; some states must instead be inferred from occluded or implicit changes rather than copied from a directly observed frame. This creates a simple but overlooked question for video continuation: given a previous video, its prompt, and a new prompt, can a model generate a continuation that reflects the state determined by both the historical video and the new prompt? To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. We further propose Stateagent, which explicitly maintains an entity-state representation, updates it under the new prompt, grounds the predicted post-action state as a future end frame, and renders the next video. Experiments show that our method improves controlled video continuation by raising the all-case state score (SCS-All) from 45.2 to 69.3, and also benefits story generation at the one-minute scale. Code is avaliable at https://github.com/AMAP-ML/StateAgent.",
-        "comments": ""
-      },
-      "candidatePriority": "high"
-    },
-    {
       "id": "bm_stair-structure-aware-information-retrieve_c9317f46",
       "familyId": "bmf_5fcdf82fb01c",
       "name": "STAIR (STructure Aware Information Retriever): A novel dataset and LLM based retriever for document structure augmentation",
@@ -981,13 +1637,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03874",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T14:02:53Z",
       "adoption30d": null,
       "heat": null,
@@ -1314,92 +1970,6 @@
       ]
     },
     {
-      "id": "bm_principia_eb88a792",
-      "familyId": "bmf_03c87d9a6cfc",
-      "name": "Principia",
-      "paperTitle": "Principia: Relational Physics Tests for Video Models",
-      "aliases": [],
-      "oneLine": "Evaluating physical reasoning in video models is difficult because absolute motion measurements depend on frame rate, object scale, and camera calibration, all of which are often ambiguous or unavailable in generated video.",
-      "area": "Vision & 3D",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.CV"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.04200",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
-      "sourceUpdatedAt": "2026-09-03T17:59:50Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "High",
-      "recognitionConfidence": 1.0,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.04200",
-        "paper": "https://arxiv.org/abs/2609.04200",
-        "pdf": "https://arxiv.org/pdf/2609.04200",
-        "project": "https://principiabench.github.io/",
-        "code": null,
-        "data": null
-      },
-      "motivation": "Evaluating physical reasoning in video models is difficult because absolute motion measurements depend on frame rate, object scale, and camera calibration, all of which are often ambiguous or unavailable in generated video.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.04200",
-        "url": "https://arxiv.org/abs/2609.04200",
-        "title": "Principia: Relational Physics Tests for Video Models",
-        "authors": [
-          "Varun Varma Thozhiyoor",
-          "Shivam Tripathi",
-          "Venkatesh Babu Radhakrishnan",
-          "Anand Bhattad"
-        ],
-        "categories": [
-          "cs.CV"
-        ]
-      },
-      "evidence": {
-        "snippet": "We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects.",
-        "reasonCodes": [
-          "exact coined title identity tied to benchmark evidence",
-          "benchmark release stated in one sentence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Evaluating physical reasoning in video models is difficult because absolute motion measurements depend on frame rate, object scale, and camera calibration, all of which are often ambiguous or unavailable in generated video. We propose a different approach. When two objects in the same scene obey the same physical law, their motions must satisfy predictable relationships, and these relationships hold independent of calibration. We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. Principia spans eight phenomena - gravity, restitution, friction, rotational inertia, projectile motion, momentum, pendulum, and mass-spring oscillation - across translational, rotational, collisional, and oscillatory dynamics, using real-world scenes recorded under controlled protocols. We also introduce a calibration-independent consistency score that quantifies physical violation directly in image space. Across thousands of generations from six state-of-the-art video generators, no model exceeds 0.42 on Principia despite all scoring around 0.8 on VBench. Vision-language models are evaluated on their ability to detect relational physics violations, with the best model achieving only 67% accuracy and most performing near chance level.",
-        "comments": "Project Page: https://principiabench.github.io/"
-      },
-      "candidatePriority": "high"
-    },
-    {
       "id": "bm_openrouter-model-picker_cb546008",
       "familyId": "bmf_29f897f78800",
       "name": "openrouter-model-picker",
@@ -1521,13 +2091,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03445",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T07:02:17Z",
       "adoption30d": null,
       "heat": null,
@@ -1607,7 +2177,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03511",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [
         {
@@ -1618,7 +2188,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03511",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Accepted at EMNLP 2026 (Findings - Long paper)",
               "level": "author-claim"
             }
@@ -1627,8 +2197,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T08:10:43Z",
       "adoption30d": null,
       "heat": null,
@@ -1866,89 +2436,6 @@
       ]
     },
     {
-      "id": "bm_last-translation-benchmark_d81900c1",
-      "familyId": "bmf_308de371cd6c",
-      "name": "Last Translation Benchmark",
-      "paperTitle": "Last Translation Benchmark",
-      "aliases": [],
-      "oneLine": "For scientific progress, we need benchmarks that test the limits of state-of-the-art models, and evaluation methods that inform us about failure cases.",
-      "area": "Speech & Audio",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.CL"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.04173",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
-      "sourceUpdatedAt": "2026-09-03T17:54:45Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.45,
-      "relation": "evaluates_only",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.04173",
-        "paper": "https://arxiv.org/abs/2609.04173",
-        "pdf": "https://arxiv.org/pdf/2609.04173",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "For scientific progress, we need benchmarks that test the limits of state-of-the-art models, and evaluation methods that inform us about failure cases.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.04173",
-        "url": "https://arxiv.org/abs/2609.04173",
-        "title": "Last Translation Benchmark",
-        "authors": [
-          "Vil\\'em Zouhar and Niyati Bafna and Mukund Choudhary and Maike Z\\\"ufle and Sara Rajaee and Pinzhen Chen and Jannis Vamvas and Sara Papi and Ona de Gibert and Bhavitvya Malik and Eliya Habba and Orfeas Menis Mastromichalakis and Patr\\'icia Schmidtov\\'a and Michelle Wastl and Sheriff Issaka and Leshem Choshen and Stella Biderman and Antonis Anastasopoulos and Jan Niehues and Rico Sennrich and Mrinmaya Sachan and Ond\\v{r}ej Bojar and Kenton Murray and J\\\"org Tiedemann and Alham Fikri Aji and Philipp Koehn and Christof Monz and Alexandra Birch and Sowmya Vajjala and Chalamalasetti Kranti and Cristina Espa\\~na-Bonet and Nobin Sarwar and David Kacz\\'er and Shunta Asano and Malik Marmonier and Daban Q. Jaff and Vaisakhi Mishra and Hend Al- Khalifa and Gabriele Sarti and Sourajit Saha and Nils Rehlinger and Juan Daniel Cuervo Villa and Jonathan Tonglet and Saugata Purkayastha and Dominik Mach\\'a\\v{c}ek and Jagannathan Ramanujam and Heejin Do and Zuzana Nadova and Fred Philippy and Fabian Retkowski and Maria Lymperaiou and Silvia Casola and Hanna Yukhymenko and Shubhashis Roy Dipta and Sangwon Ryu and Andr\\'es Jerez and Ron Keinan and Shuaib Shuaib Yusuf and Avantica Vempati and Maria Carmen Staiano and Sukannya Purkayastha and Adrian Cosma and Vitalii Babenko and Erivan Inan and Aviral Nigam and Wafa Aissa and Fatima Haouari and Venkata Prasanth Kumar Gummadi and Mehdi Jafarzadeh and Valentin Scourneau and Lukas Edman and Kaiser Sun and Shaomu Tan and Mohammad Sadegh Gholizadeh and Johannes-Rudolf David and Dipankar Srirag and Javier Garc\\'ia Gilabert and Ruta Binkyte and Manar Ali and Ana-Maria Bucur and Sabry E. Farrag and Youssef Saber and Yihong Liu and Jean Maillard and Cojocaru Nicoleta and Xiaochuang Yuan and Sina Ahmadi and Philipp Mondorf and Kaustubh Dhole and Roman Wixinger and Shenbin Qian and Manuel Tuor and Sergey Troshin and Jonathan Yahav and Fida Mohammad Thoker and Amir Arsalan Rezapour and Lance Calvin Lim Gamboa and Manon Reusens and K\\\"atriin Kukk and Koel Dutta Chowdhury and Giuseppe Gallipoli and Christian Hoang and Shaswati Saha and Seth Aycock and Jan Koco\\'n and Bo Chen and Linh Vu and Vatsal Venkatkrishna and Arafat Ahsan and Luan Thanh Nguyen and Hassan Soliman and Daryna Dementieva and Theresia Veronika Rampisela and Ngoc Quynh Tram Do and Marius Huber and Kazuki Egashira and Azmine Toushik Wasi and Vladislav Poritski and Mike Zhang and Deep Shah and Paul Gavrikov and Luis Frentzen Salim and David Africa and R. Damanhuri and Bello Umar Bello and Anumit Garg and Gengyu Rao and Pawan Sasanka Ammanamanchi and Kamile Dementaviciute and Andrianos Michail and L D M S Sai Teja and Dawei Zhu and Yi Fan and Wei Liu and Farhan Farsi and Elias Herranen and Sankalan Pal Chowdhury and Karen Sanchez and Farzad Shami and Ashok Urlana and Zimu Wang and Tomasz Limisiewicz and Priyaranjan Pattnayak and Marii Ojastu and Hongbin Na and Emilian Radoi and Chenyi Zhao and Carlos Hinojosa and Andrea Gregor de Varda and Zaid Alyafeai and Reem Alzahrani and Nehal Kathrotia and Alex Fl\\\"uckiger and Ulysses Sekai Tully Carr and Jimson Paulo Layacan and Guy Kaplan and Ritwik Tiwari and Rishit Dagli and Oksana Volchek and Isaac R Caswell and Bowen Yi and Blanka K\\\"ov\\'er and Amir Hossein Yari and Aicha Chorana and Zhengxiang Wang and Selja Ker\\\"anen and Samuel Simko and Joy Olusanya and Jenny Chim and Enzo Doyen and Vivek Harsha Lakkamaneni and Sophia Conrad and Pouya Sadeghi and Panayiotis Panayiotou and Luis Lara and Jannatul Nayem and Eran Yahav and Debanshu Das and Antonia Karamolegkou and Anmol Goel and Aishik Mandal and Tommaso Cerruti and Raoyuan Zhao and Mykola Haltiuk and Thura Aung and Naser Almousa and Amir Hossein Kargaran and Rachel Bawden and Qiaoyuan Zheng and Mateusz Lango and Beni Egressy and Fidel Rodr\\'iguez Vel\\'asquez and Natchapon Jongwiriyanurak and Minh Ngoc Do and Marco Gaido and Lena Libon and Dzmitry Kuzmin and Badal Nyalang and Antoine Taroni and Andrei Niculae and Abdulaziz Nura Kani and Rushikesh Zawar and Marek \\v{S}uppa and Beatrice Savoldi and Andreas Simons and Rayyan Merchant and Ilai Yaron Levy and Francesco Pinto and Ziyi Yang and Yolanda Xavier and Samuel Frontull and Muhammad Ravi Shulthan Habibi and Kenneth Enevoldsen and Harris Abdul Majid and Francesca Padovani and Tim Graf and Tatiana Bielakova and Sharifa Djurabaeva and Shaoxiong Ji and Raia Abu Ahmad and Pavel Stepachev and Jirui Qi and Ayush Sunil Munot and Alireza Pakniat and Ayla Rigouts Terryn and Yuxing Lu and Yurii Paniv and Xiyan Fu and Tosin Adewumi and Sunisth Kumar and St\\'ephane J.P.S. Thunus and Shree Harsha Bokkahalli Satish and Shayan Bali and Prakhar Gupta and Papa Abdou Karim Karou Diallo and Matija Akrap and Marko Culjak and Krist\\'yna Onderkov\\'a and Joseph Attieh and Esrael Teferi Tensay and Elisabeth Fittschen and Beno\\^it Sagot and Jingwei Ni and Yu Fan"
-        ],
-        "categories": [
-          "cs.CL"
-        ]
-      },
-      "evidence": {
-        "snippet": "We introduce the Last Translation Benchmark, a collection of human-authored and peer-reviewed examples (texts, images, audio, videos) that break leading machine translation models.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "named entity is a model, method, framework, or dataset used in evaluation"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "For scientific progress, we need benchmarks that test the limits of state-of-the-art models, and evaluation methods that inform us about failure cases. As models get stronger, standard benchmarks for machine translation are approaching saturation. Further, automatic translation metrics are unreliable, vulnerable to reward-hacking, and provide unactionable assessments. Even gold human evaluation is not problem-free, because it often lacks reproducibility, objectivity, and scalability. Overall, this prevents us from tracking objective progress in the field and identifying pathways for improvement. We introduce the Last Translation Benchmark, a collection of human-authored and peer-reviewed examples (texts, images, audio, videos) that break leading machine translation models. We also present a new evaluation approach: each example comes with handcrafted verification rules describing concrete failure cases on that example, therefore allowing reliable and actionable future evaluation. The Last Translation Benchmark is a live dataset that accepts ongoing contributions. The latest version is LTBv1, containing accepted contributions prior to September 1st 2026, with future releases planned as new data is continuously collected.",
-        "comments": "typeset in Typst"
-      },
-      "candidatePriority": "normal"
-    },
-    {
       "id": "bm_laguqa-github-io_883ae8bb",
       "familyId": "bmf_5326316f391f",
       "name": "LaguQA.github.io",
@@ -2171,13 +2658,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03967",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T15:03:36Z",
       "adoption30d": null,
       "heat": null,
@@ -2437,7 +2924,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03580",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [
         {
@@ -2448,7 +2935,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03580",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Accepted to EMNLP Findings 2026",
               "level": "author-claim"
             }
@@ -2457,8 +2944,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T09:27:54Z",
       "adoption30d": null,
       "heat": null,
@@ -2630,13 +3117,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03553",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T08:54:47Z",
       "adoption30d": null,
       "heat": null,
@@ -2996,13 +3483,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03654",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T10:52:56Z",
       "adoption30d": null,
       "heat": null,
@@ -3085,13 +3572,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03423",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T06:28:02Z",
       "adoption30d": null,
       "heat": null,
@@ -3167,13 +3654,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03438",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T06:48:41Z",
       "adoption30d": null,
       "heat": null,
@@ -3446,7 +3933,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03407",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [
         {
@@ -3457,7 +3944,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03407",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Accepted by EMNLP 2026 findings",
               "level": "author-claim"
             }
@@ -3466,8 +3953,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T06:07:00Z",
       "adoption30d": null,
       "heat": null,
@@ -3740,13 +4227,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.04147",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-03T17:40:20Z",
       "adoption30d": null,
       "heat": null,
@@ -3829,13 +4316,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02421",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-02T10:42:18Z",
       "adoption30d": null,
       "heat": null,
@@ -4101,13 +4588,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03142",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-02T20:25:21Z",
       "adoption30d": null,
       "heat": null,
@@ -4289,7 +4776,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02377",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [
         {
@@ -4300,7 +4787,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.02377",
-              "observedAt": "2026-09-04T06:13:54.443310Z",
+              "observedAt": "2026-09-05T00:35:36.066177Z",
               "rawValue": "Accepted to ECCV 2026",
               "level": "author-claim"
             }
@@ -4309,8 +4796,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-02",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-02T09:50:06Z",
       "adoption30d": null,
       "heat": null,
@@ -4930,13 +5417,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02349",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-02T09:23:23Z",
       "adoption30d": null,
       "heat": null,
@@ -6209,13 +6696,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02402",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-04T06:13:54.443310Z"
+        "verifiedAt": "2026-09-05T00:35:36.066177Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
-      "firstSeenAt": "2026-09-04",
-      "indexedAt": "2026-09-04T06:13:54.443310Z",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T00:35:36.066177Z",
       "sourceUpdatedAt": "2026-09-02T10:14:32Z",
       "adoption30d": null,
       "heat": null,
@@ -43315,177 +43802,6 @@
       }
     },
     {
-      "id": "bm_translation-tag-team-formal-rules-and-llms_f128dee7",
-      "familyId": "bmf_ec174d85987a",
-      "name": "Translation Tag Team: Formal Rules and LLMs Translate More Macros Together than Apart",
-      "paperTitle": "Translation Tag Team: Formal Rules and LLMs Translate More Macros Together than Apart",
-      "aliases": [],
-      "oneLine": "Modern critical software infrastructure is largely written in C.",
-      "area": "Code & Software",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.SE"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2608.06705",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-19T11:05:13.395391Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-07",
-      "firstSeenAt": "2026-08-19",
-      "indexedAt": "2026-08-19T11:05:13.395391Z",
-      "sourceUpdatedAt": "2026-08-10T13:49:15Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.6,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2608.06705",
-        "paper": "https://arxiv.org/abs/2608.06705",
-        "pdf": "https://arxiv.org/pdf/2608.06705",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Modern critical software infrastructure is largely written in C.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2608.06705",
-        "url": "https://arxiv.org/abs/2608.06705",
-        "title": "Translation Tag Team: Formal Rules and LLMs Translate More Macros Together than Apart",
-        "authors": [
-          "Brent Pappas and Joseph Zalusky and Zachary Burkett and Paul Gazzillo"
-        ],
-        "categories": [
-          "cs.SE"
-        ]
-      },
-      "evidence": {
-        "snippet": "To evaluate MerC, we introduce the first macro translation benchmark, MacroBench, with test cases based on macros randomly sampled from real-world C programs.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Modern critical software infrastructure is largely written in C. Since C lacks memory safety, researchers are investigating automatic translation of C to safer languages like Rust. But real-world C software consists of more than just C code, often using named code fragments called macros which are not part of the C language proper. State-of-the-art techniques avoid translating macros by preprocessing C code first before translating it. But this approach produces translations that are dissimilar to the original C code, because preprocessing inlines all macro definitions. To preserve macro usage in translated code, we study the language features that macros and C share and distill them into the first formally-specified translator, MerC. To evaluate MerC, we introduce the first macro translation benchmark, MacroBench, with test cases based on macros randomly sampled from real-world C programs. We find that MerC supports 50% of MacroBench's macro test cases. We also use MacroBench to evaluate how effective large language models (LLMs) are at performing the previously-unstudied task of macro translation. LLMs translate 22% to 77% more of MacroBench than MerC, but with 8% and 28% of these translations being incorrect translations requiring additional validation by developers. In contrast, MerC only produces correct translations. Our key insight is that running MerC first then using LLMs on the remainder reaps greater benefits than using either technique alone. This tag team approach has an average failure rate 32% lower than that of LLMs, while also translating an average of 51% more test cases than MerC.",
-        "comments": "13 pages, 7 figures, 2 tables, 8 listings, conference. To be published in ASE 2026"
-      }
-    },
-    {
-      "id": "bm_surveyreview-a-reviewer-aligned-benchmark-_02cc2f3c",
-      "familyId": "bmf_7e2603c8bdce",
-      "name": "SurveyReview: A Reviewer-Aligned Benchmark for Survey Evaluators",
-      "paperTitle": "SurveyReview: A Reviewer-Aligned Benchmark for Survey Evaluators",
-      "aliases": [],
-      "oneLine": "The rapid advancement of large language models has transformed survey writing from a months-long manual effort into an automated process.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.CL"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2608.07641",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-19T11:05:13.395391Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-07",
-      "firstSeenAt": "2026-08-19",
-      "indexedAt": "2026-08-19T11:05:13.395391Z",
-      "sourceUpdatedAt": "2026-08-07T16:11:46Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.7,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2608.07641",
-        "paper": "https://arxiv.org/abs/2608.07641",
-        "pdf": "https://arxiv.org/pdf/2608.07641",
-        "project": "https://surveyreview.github.io",
-        "code": null,
-        "data": null
-      },
-      "motivation": "The rapid advancement of large language models has transformed survey writing from a months-long manual effort into an automated process.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2608.07641",
-        "url": "https://arxiv.org/abs/2608.07641",
-        "title": "SurveyReview: A Reviewer-Aligned Benchmark for Survey Evaluators",
-        "authors": [
-          "Yuheng Zhang",
-          "Yuanchun Wang",
-          "Fanjin Zhang",
-          "Ruyu Zhao",
-          "Juanzi Li",
-          "Jie Tang",
-          "Jing Zhang"
-        ],
-        "categories": [
-          "cs.CL"
-        ]
-      },
-      "evidence": {
-        "snippet": "To address this gap, we propose SurveyReview, a reviewer-aligned, multi-dimensional benchmark and dataset for survey evaluation.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "The rapid advancement of large language models has transformed survey writing from a months-long manual effort into an automated process. As generation scales, reliable evaluation becomes the bottleneck, and LLMs are increasingly used as survey evaluators. However, existing approaches largely rely on off-the-shelf LLM-as-a-judge methods without systematic alignment to human reviewers, and there remains a lack of systematic frameworks for quantifying alignment with human reviewers. To address this gap, we propose SurveyReview, a reviewer-aligned, multi-dimensional benchmark and dataset for survey evaluation. We collect and annotate 675 survey papers with 1,630 review reports. We structure authentic peer-review reports by converting free-form comments into four-dimensional scores (Readability, Criticalness, Comprehensiveness, Structure) paired with supporting rationales. We further release standardized train/test splits and an evaluation protocol to measure alignment between automatic evaluators and human reviewers. To validate the benchmark, we develop SurveyAlign, a strong baseline evaluator by fine-tuning Qwen3-32B with LoRA on our annotated data, augmented with external knowledge for knowledge-intensive dimensions. On the test set, SurveyAlign substantially improves reviewer alignment over prompt-based judging with GPT-5.2, reducing average MSE from 2.28 to 1.38 and MAE from 1.15 to 0.69 across all four dimensions. Our contributions are twofold: (1) we establish the first multi-dimensional, reviewer-aligned dataset with a reproducible evaluation framework for survey reviewing; (2) we develop a strong baseline evaluator that substantially improves alignment with human reviewers, providing a competitive reference for future research. Our code and data are available at https://surveyreview.github.io",
-        "comments": ""
-      }
-    },
-    {
       "id": "bm_spatiotemporal-agility-time-constrained-re_803fef3c",
       "familyId": "bmf_f93f080620c2",
       "name": "Spatiotemporal Agility: Time-Constrained Reinforcement Learning for Vision-Guided Dynamic Quadrupedal Interception",
@@ -43570,114 +43886,6 @@
       "demo": false,
       "reviewContext": {
         "abstract": "Legged robots require robust agility to perceive and interact with complex and dynamic environments within a constrained time. However, most existing quadruped locomotion works rely on velocity-tracking policy, which struggle to reach precise targets within strict temporal constraints. Moreover, integrating real-time perception with agile locomotion for highly dynamic targets remains challenging due to sensor latency and processing delays. To concretely study and benchmark such agility in dynamic settings, we introduce a challenging ball-catching task for legged robots. This paper proposes an integrated framework that combines a vision module for landing point and time prediction with a direct position and time conditioned RL locomotion policy, instead of intermediate velocity commands. Beyond the method design, this work presents a system-level contribution that completes real-time robotic interception system that integrates multi-camera perception, online trajectory prediction, low-latency target communication, and sim-to-real locomotion control into a closed-loop deployment pipeline. By explicitly predicting the future spatial-temporal target, our approach mitigates perception latency during dynamic interception. We conducted extensive ball-catching experiments for the legged robot. Through comparative experiments against a velocity-tracking baseline, our direct target-conditioned approach achieves a higher success rate in catching balls with predicted landing spots within 2 meters and flight times between 0.8 and 1.2 seconds. This shows that the robot has successfully completed the dynamic ball-catching task under our tested setup. Furthermore, our policy exhibits a smaller performance gap after deployment, suggesting improved sim-to-real behavior in these trials.",
-        "comments": ""
-      }
-    },
-    {
-      "id": "bm_science-edge-evaluation-see-the-missing-st_165cace2",
-      "familyId": "bmf_6546f9012d85",
-      "name": "Science Edge Evaluation: SEE the Missing Step Toward Real Scientific Discovery",
-      "paperTitle": "Science Edge Evaluation: SEE the Missing Step Toward Real Scientific Discovery",
-      "aliases": [],
-      "oneLine": "Large language models (LLMs) are increasingly involved in scientific discovery, yet it remains unclear whether they can support complex real laboratory science.",
-      "area": "Multimodal",
-      "applicationDomains": [
-        "Materials & Chemistry"
-      ],
-      "primaryDomain": "Materials & Chemistry",
-      "industrySectors": [
-        "Materials & Chemicals"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "AI Scientist",
-        "Multimodal"
-      ],
-      "construction": "Transform Existing",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2608.06931",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-08-19T11:05:13.395391Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-08-07",
-      "firstSeenAt": "2026-08-19",
-      "indexedAt": "2026-08-19T11:05:13.395391Z",
-      "sourceUpdatedAt": "2026-08-07T08:06:31Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.45,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2608.06931",
-        "paper": "https://arxiv.org/abs/2608.06931",
-        "pdf": "https://arxiv.org/pdf/2608.06931",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Large language models (LLMs) are increasingly involved in scientific discovery, yet it remains unclear whether they can support complex real laboratory science.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2608.06931",
-        "url": "https://arxiv.org/abs/2608.06931",
-        "title": "Science Edge Evaluation: SEE the Missing Step Toward Real Scientific Discovery",
-        "authors": [
-          "Taolin Han",
-          "Yuchen Zhang",
-          "Jinghang Wang",
-          "Yun Wu",
-          "Wai Yuet Chiu",
-          "Zhaohai Li",
-          "Yifei Zhang",
-          "Jinxin Wang",
-          "Yuhao Zhou",
-          "Chen Zhao",
-          "Jiajia Li",
-          "Jiaxin Li",
-          "Qile Jin",
-          "Kewei Sun",
-          "Shuang Wu",
-          "Weiqi Zhai",
-          "Renquan Lv",
-          "Junchao Li",
-          "Ruodan Chen",
-          "Qingteng Chen",
-          "Zhibo Yang",
-          "Hu Wei",
-          "Lin Qu",
-          "Shuai Bai",
-          "and Bing Zhao"
-        ],
-        "categories": [
-          "cs.AI"
-        ]
-      },
-      "evidence": {
-        "snippet": "Here we introduce Science Edge Evaluation (SEE), a multimodal benchmark of expert-curated questions grounded in peer-reviewed literature and experimental practice in chemistry, biology, and materials science.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Large language models (LLMs) are increasingly involved in scientific discovery, yet it remains unclear whether they can support complex real laboratory science. Here we introduce Science Edge Evaluation (SEE), a multimodal benchmark of expert-curated questions grounded in peer-reviewed literature and experimental practice in chemistry, biology, and materials science. Evaluation of 19 multimodal large language models (MLLMs) shows that even the best-performing model reaches only 48.7% accuracy. Moreover, general-purpose models outperform science-specialized models on average. In the visual-agent evaluation, the use of tools increases the best accuracy to 52.7%. Tool use can expand the information available to models, but more information does not necessarily lead to reliable scientific reasoning. The key challenge is whether models can manage tool-derived information within the boundaries of the original experimental evidence. Together, these findings reveal that current MLLMs still cannot reliably make justified and evidence-bounded inferences from experimental results, which is an essential capability in real scientific discovery. Bridging this gap requires MLLMs to transition from explaining established scientific concepts to deriving novel and evidence-based insights from experimental data.",
         "comments": ""
       }
     },
@@ -155782,9 +155990,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-09-04T06:14:18.155872Z",
+    "evaluatedAt": "2026-09-05T00:35:52.752547Z",
     "publishThreshold": 0.85,
-    "promoted": 4,
-    "remainingForAudit": 1703
+    "promoted": 0,
+    "remainingForAudit": 1705
   }
 }

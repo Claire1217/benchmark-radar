@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-04 · **Benchmark releases:** 1587
+**Snapshot:** 2026-09-04 · **Benchmark releases:** 1588
 
 ## Contents
 
@@ -24,7 +24,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (20)
-- [Mobile & Personal Computing](#mobile--personal-computing) (7)
+- [Mobile & Personal Computing](#mobile--personal-computing) (8)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (110)
 - [Scientific Facilities](#scientific-facilities) (1)
@@ -1431,6 +1431,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mobile & Personal Computing
 
+- **EdgeMosaic** (2026-09-04) — EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports. [Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)
 - **MobileWorldSafety** (2026-08-18) — To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. [Paper](https://arxiv.org/abs/2608.17659) · [HF](https://huggingface.co/papers/2608.17659) · [Code](https://anonymous.4open.science/r/Anonymous_sub-C887) · [Data](https://anonymous.4open.science/r/Anonymous_sub-C887)
 - **MindEdit-Bench** (2026-07-01) — We introduce MindEdit-Bench, a benchmark of six spatial reasoning tasks built from three-photo smartphone triplets of newly captured indoor scenes via an automatic in-the-wild 3D scene-graph extraction pipeline. [Paper](https://arxiv.org/abs/2607.00491) · [HF](https://huggingface.co/papers/2607.00491) · [Data](https://huggingface.co/datasets/ZODAOfficial/MindEdit-Bench)
 - **HeraBench** (2026-06-18) — To evaluate this capability, we introduce \textbf{HeraBench}, a fault-injected benchmark that constructs cross-device workflows over Linux and Android devices and injects strategy- and device-level failures. [Paper](https://arxiv.org/abs/2606.20487) · [HF](https://huggingface.co/papers/2606.20487)
