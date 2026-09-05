@@ -1,13 +1,113 @@
 {
-  "generatedAt": "2026-09-05T00:35:52.348793Z",
+  "generatedAt": "2026-09-05T06:02:16.753990Z",
   "sourceDate": "2026-09-04",
   "sourceWindow": {
     "from": "2026-09-04",
     "to": "2026-09-04"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 1705,
+  "candidateCount": 1706,
   "candidates": [
+    {
+      "id": "bm_swarm-path-planning_c8c67ce1",
+      "familyId": "bmf_398f59ac31c4",
+      "name": "swarm-path-planning",
+      "paperTitle": "swarm-path-planning",
+      "aliases": [],
+      "oneLine": "swarm-path-planning Multi-agent path finding for drone swarms and robot fleets: Conflict-Based Search with prioritising, bypassing and disjoint splitting, bounded-suboptimal ECBS, optimal formation assignment, and delay-robust execution.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Robotics & Embodied AI",
+        "Logistics & Operations"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Robotics",
+        "Logistics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Planning"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Pratyush150/swarm-path-planning",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
+      "sourceUpdatedAt": "2026-09-05T05:27:24Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "evaluates_only",
+      "links": {
+        "report": "https://github.com/Pratyush150/swarm-path-planning",
+        "paper": "https://github.com/Pratyush150/swarm-path-planning",
+        "project": "https://pratyush150.github.io",
+        "code": "https://github.com/Pratyush150/swarm-path-planning"
+      },
+      "motivation": "swarm-path-planning Multi-agent path finding for drone swarms and robot fleets: Conflict-Based Search with prioritising, bypassing and disjoint splitting, bounded-suboptimal ECBS, optimal formation assignment, and delay-robust execution.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:pratyush150/swarm-path-planning",
+        "url": "https://github.com/Pratyush150/swarm-path-planning",
+        "title": "swarm-path-planning",
+        "authors": [
+          "Pratyush150"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Measured on the standard MAPF benchmark.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence",
+          "named entity is a model, method, framework, or dataset used in evaluation"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "swarm-path-planning Multi-agent path finding for drone swarms and robot fleets: Conflict-Based Search with prioritising, bypassing and disjoint splitting, bounded-suboptimal ECBS, optimal formation assignment, and delay-robust execution. Measured on the standard MAPF benchmark. cbs conflict-based-search drone-swarm ecbs fleet-management hungarian-algorithm mapf multi-agent-path-finding path-planning python robotics swarm warehouse-robotics # swarm-path-planning Plan collision-free paths for a whole fleet at once. A thousand drones have to fly a choreographed show and none of them may touch; a hundred warehouse robots have to cross the same aisle; six agricultural drones have to share one field. This is the solver underneath that, written from scratch on NumPy and measured on the standard public MAPF benchmark. ![python](https://img.shields.io/badge/python-3.9%2B-blue) ![numpy](https://img.shields.io/badge/core-NumPy%20only-informational) ![scipy](https://img.shields.io/badge/SciPy-optional-lightgrey) ![benchmark](https://img.shields.io/badge/benchmark-movingai%20MAPF-brightgreen) ![licence](https://img.shields.io/badge/licence-MIT-green) No MAPF library, no planning framework, no OMPL. Conflict-Based Search, ECBS, prioritised planning, the Hungarian algorithm and the execution layer are all implemented here, and every one of them is checked against something independent: an exhaustive joint-space search for optimality, SciPy for the assignment, and the published movingai benchmark instances for the numbers. ![30 agents crossing random-32-32-20 without colliding](benchmarks/output/swarm-demo.gif) 30 agents on `random-32-32-20`, the standard small MAPF benchmark map, planned by ECBS with a suboptimality factor of 1.1: sum-of-costs 637, which is 1.024x a proven lower bound, makespan 48, solved in 0.4 s. Every frame is generated by `benchmarks/make_figures.py`; the plan is re-validated afterwards by code that shares nothing with the solver, and it reports zero conflicts. ## The problem One robot going somewhere is a solved problem: A*, forty lines, done. The moment there are two, the problem changes shape. Their optimal paths cross, and now you need a plan for *both* that is collision-free at every instant. With *k* robots the joint state space is *V^k* -- twenty agents on the 819 free cells of a 32x32 benchmark map is around 10^58 joint states, with a branching factor of 5^20 per step. You cannot search that. Finding an optimal sum-of-costs plan is NP-hard, and the naive fixes fail in specific, expensive ways: * **Plan them one at a time, each avoiding the last** (prioritised planning) is fast and is what a lot of shipped systems do. It is also *incomplete*: there are solvable instances it cannot solve in **any** priority order, so no amount of retrying rescues it. There is one in the test suite, three cells wide. * **Re-plan when they collide** deadlocks in a corridor, because the thing that has to happen -- one robot backing into an alcove it has no reason to enter -- is never locally attractive. * **Give them all different altitudes** works until you have more robots than altitudes, and it costs battery for every metre climbed. The real answer is to decompose: plan agents separately, detect the collisions in the joint plan, and add the minimum constraint that resolves each one. That is Conflict-Based Search, and this repository implements it properly -- with the improvements (prioritising conflicts, bypassing, disjoint splitting, admissible conflict-graph heuristics) that move it from a textbook algorithm to something that solves useful instance sizes, plus the bounded-suboptimal variant that real systems actually run. ## What it does * **Space-time A\\*** with a true-distance heuristic from a backward Dijkstra sweep per goal, correct wait actions, and constraint handling that gets edge constraints and delayed goal arrival right. * **CBS**, optimal, with **prioritising conflicts**, **bypassing**, **disjoint splitting** and **CG / DG conflict-graph heuristics**, each independently switchable so their value can be measured rather than assumed. * **ECBS**, bounded-suboptimal, focal search at both levels, with a hard guarantee: the returned plan costs at most `w` times the optimum. Verified against a brute-force optimum for w in {1.0, 1.05, 1.2, 1.5, 2.0, 3.0}. * **Prioritised planning** and a random-restart variant, as the fast baseline, with its incompleteness demonstrated on a constructed instance rather than described. * **Unlabelled (anonymous) MAPF**: when a show morphs between formations, any drone may take any slot, so the goal assignment is a minimum-cost matching. Our own Hungarian algorithm, plus a bottleneck variant that minimises the *longest* flight rather than the total. * **Execution**: an Action Dependency Graph that keeps the plan safe when a vehicle runs late, continuous-time trajectory smoothing under velocity and acceleration limits, and an exact minimum-separation check between trajectories rather than a per-timestep cell comparison. * **Measurement**: a sweep over the public benchmark maps with a stated time budget, success rate against agent count, runtime distributions, and solution cost against a proven lower bound. ## Quickstart ```bash git clone https://github.com/Pratyush150/swarm-path-planning cd swarm-path-planning pip install -r requirements.txt # numpy is the only hard requirement python3 -m swarmplan.cli demo # no data, no network, ~2 seconds ``` The benchmark instances and the figures need the public benchmark set: ```bash python3 tools/fetch_benchmarks.py --all # ~19 MB from movingai.com python3 -m swarmplan.cli solve --map random-32-32-20 --agents 20 python3 benchmarks/run.py --quick # a few minutes python3 benchmarks/make_figures.py --all # the animations and charts ``` ## How it works ``` .map / .scen formations (ring, text, block) | | v v +-----------------+ +------------------------+ | GridMap / | | assignment/ | | Grid3D | | Hungarian matching | | (Se",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:pratyush150/swarm-path-planning",
+          "url": "https://github.com/Pratyush150/swarm-path-planning"
+        }
+      ]
+    },
     {
       "id": "bm_snowflake-cortex-dbx-genie-agents-benchmar_42e1a0a8",
       "familyId": "bmf_3c4b1fd201ff",
@@ -45,14 +145,14 @@
         "evidenceUrl": "https://github.com/curious-bigcat/snowflake-cortex-dbx-genie-agents-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
-      "sourceUpdatedAt": "2026-09-04T16:31:25Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
+      "sourceUpdatedAt": "2026-09-05T05:58:15Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
@@ -91,7 +191,7 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool efficiency, and document retrieval. # Cortex Agent vs Databricks Genie -- AI Agent Benchmark Comparative benchmark of **Snowflake Cortex Agent** vs **Databricks Genie** on complex, multi-source financial services workloads. ## Benchmark: CRE Portfolio Stress & Workout **Scenario:** Pacific Northwest Bank (PNB), a $28B regional bank, aggressively grew its CRE lending book from $3.2B to $8.7B (2019-2022). A 2023 office market crash (vacancy 12% to 31%) triggers cascading defaults, an OCC Consent Order, and a $2.1B workout pipeline. **Dataset:** 3.6M rows across 18 tables, 30 documents (23 synthetic + 7 real regulatory PDFs) ## Results (Measured) | Metric | Cortex Agent | Databricks Genie | Delta | |---|---|---|---| | Accuracy | 95% | 55% | +40pp | | Groundedness | 100% (0 hallucinations) | 71% (35 ungrounded claims) | +29pp | | Avg Latency | 41s | 255s | 6.2x faster | | Tool Calls | 35 | 74 | 2.1x fewer | | Tool Success Rate | 94% | 76% | +18pp | | Doc Retrieval | 100% (5/5) | 0% (0/13) | Complete failure | Cortex latency and tokens measured from `SNOWFLAKE.ACCOUNT_USAGE.SNOWFLAKE_COWORK_USAGE_HISTORY`. Databricks latency and tokens measured from agent trace spans. See `reports/cre_benchmark_report.md` for full methodology and per-question detail. ## Repository Structure ``` genie_cortex/ ├── README.md ├── config/ │ ├── cortex_agent/ │ │ ├── cre_semantic_view.sql # Semantic View DDL (18 tables, VQRs, metrics) │ │ └── cre_setup_guide.md # Snowflake setup (tables, search, agent) │ └── genie_agent/ │ └── cre_setup_guide.md # Databricks setup (3-agent hierarchy) ├── data/cre/ │ ├── tables/ # 18 parquet files (3.6M rows) │ └── docs/ │ ├── bank_documents/ # 13 internal bank documents │ ├── case_files/ # 10 case-specific documents │ └── real_regulations/ # 7 real OCC/FDIC/Fed regulatory PDFs ├── questions/ │ └── cre_benchmark_questions.md # 10 benchmark questions (G01-G10) └── reports/ ├── cre_benchmark_report.md # Full comparison report └── cre_charts/ # 8 PNG charts (brand-colored) ``` ## Tables (18 tables, 3.6M rows) | Table | Rows | Description | |-------|------|-------------| | tbl_loan_mstr | 45,005 | Master loan records (the anchor table) | | tbl_borrower | 12,000 | Borrower entities | | tbl_collateral | 36,165 | Collateral properties with appraisal values | | tbl_appraisal | 107,060 | Appraisal history (multiple per property) | | tbl_payment | 1,807,511 | Monthly loan payments | | tbl_covenant | 94,302 | Loan covenants (DSCR, LTV, occupancy, etc.) | | tbl_covenant_test | 903,972 | Covenant compliance test results | | tbl_risk_rating | 142,167 | Risk rating migration history | | tbl_provision | 177,259 | ALLL/CECL provision calculations | | tbl_workout | 3,504 | Loan workout/restructuring records | | tbl_reo | 613 | Real estate owned (foreclosed properties) | | tbl_charge_off | 1,943 | Loan charge-offs and recoveries | | tbl_exam_finding | 3,500 | OCC/internal audit examination findings | | tbl_capital | 26 | Quarterly capital adequacy snapshots | | tbl_concentration | 208 | Portfolio concentration metrics by segment | | tbl_branch | 29 | Bank branches (PNW region) | | tbl_analyst | 350 | Loan officers and credit analysts | | tbl_audit_log | 278,600 | Internal audit trail | All coded columns use abbreviated values (e.g., `loan_typ_cd`: CRE_OFFC, CRE_MLTF; `risk_rtg_cd`: 1-PASS through 8-LOSS; `loan_sts_cd`: ACTV, DLQ30, NACC, WKOT, FCLS, CHGOFF). ## Documents (30 files) ### Bank Documents (13 files) | File | Description | |------|-------------| | credit_committee_memo_cascadia_tower.txt | Credit committee approval for $85M Cascadia Tower loan | | appraisal_report_cascadia_tower_2023.txt | JLL reappraisal: 40.5% value decline ($131M to $78M) | | occ_consent_order_2023_ce_0847.txt | OCC Consent Order: 420% CRE concentration, 23% UW exceptions, ALLL shortfall | | internal_audit_report_cre_lending_2023.txt | Internal audit: 23% exception rate with branch-level breakdown | | board_risk_committee_minutes_q4_2023.txt | Board minutes: consent order response, capital plan, dividend suspension | | alll_methodology_memo_2023.txt | ALLL methodology with Q-factor history and segment-level reserves | | stress_test_severe_adverse_2023.txt | Stress test: CET1 projected to 6.1% under severe adverse | | regulatory_capital_plan_occ_submission.txt | Capital plan: $175M sub debt + $412M loan sale + RWA optimization | | credit_risk_review_annual_2023.txt | Annual review: 34% of CRE office rated SM+ (up from 6% in 2021) | | appraiser_engagement_letter.txt | JLL engagement for portfolio-wide reappraisal of 180 properties | | board_resolution_dividend_suspension.txt | Board resolution suspending quarterly dividend | | examiner_report_capital_adequacy.txt | OCC examiner capital review: rating 3 (Less Than Satisfactory) | | environmental_phase1_cascadia_tower.txt | Phase I ESA for Cascadia Tower (clean report) | ### Case Files (10 files) | File | Description | |------|-------------| | covenant_compliance_letter_cascadia_q3_2023.txt | Breach notice: 4 covenant violations on Cascadia Tower | | workout_proposal_cascadia_tower.txt | Restructuring: $16.5M principal reduction, maturity extension | | borrower_financials_cascadia_holdings.txt | Cascadia Holdings operating statement: NOI collapse ($10.2M to $0.4M) | | foreclosure_timeline_mercer_industrial.txt | 18-month foreclosure timeline for $32M Mercer Industrial Park | | loan_sale_term_sheet_performing_pool.txt | $412M loan pool sale to Blackstone at 92 cents on dollar | | non_accrual_memo_cedar_point.txt | Non-accrual recommendation for $19M Cedar Point Office Complex | | modification_agreement_pacific_heights.txt | Loan mod for $28M multifamily: rate reduction, maturity extension | | participation_agreement_seattle_mixed_use.txt | ",
+        "abstract": "snowflake-cortex-dbx-genie-agents-benchmark Benchmark comparing Snowflake Cortex Agent vs Databricks Genie on a CRE lending dataset -- 18 tables, 30 documents, 10 complex multi-part questions measuring accuracy, groundedness, latency, tool efficiency, and document retrieval. # Cortex Agent vs Databricks Genie -- AI Agent Benchmark Comparative benchmark of **Snowflake Cortex Agent** vs **Databricks Genie** on complex, multi-source financial services workloads. ## Benchmark: CRE Portfolio Stress & Workout **Scenario:** Pacific Northwest Bank (PNB), a $28B regional bank, aggressively grew its CRE lending book from $3.2B to $8.7B (2019-2022). A 2023 office market crash (vacancy 12% to 31%) triggers cascading defaults, an OCC Consent Order, and a $2.1B workout pipeline. **Dataset:** 3.6M rows across 18 tables, 30 documents (23 synthetic + 7 real regulatory PDFs) ## Results (Measured) | Metric | Cortex Agent | Databricks Genie | Delta | |---|---|---|---| | Accuracy | 95% | 55% | +40pp | | Groundedness | 100% (0 hallucinations) | 71% (35 ungrounded claims) | +29pp | | Avg Latency | 41s | 255s | 6.2x faster | | Tool Calls | 35 | 74 | 2.1x fewer | | Tool Success Rate | 94% | 76% | +18pp | | Doc Retrieval | 100% (5/5) | 0% (0/13) | Complete failure | All metrics measured using each platform's native observability: Snowflake via account usage views, Databricks via agent trace spans. Both capture wall-clock latency, token consumption, and tool call activity. See `reports/cre_benchmark_report.md` for full methodology and per-question detail. ## Repository Structure ``` genie_cortex/ ├── README.md ├── config/ │ ├── cortex_agent/ │ │ ├── cre_semantic_view.sql # Semantic View DDL (18 tables, VQRs, metrics) │ │ └── cre_setup_guide.md # Snowflake setup (tables, search, agent) │ └── genie_agent/ │ └── cre_setup_guide.md # Databricks setup (3-agent hierarchy) ├── data/cre/ │ ├── tables/ # 18 parquet files (3.6M rows) │ └── docs/ │ ├── bank_documents/ # 13 internal bank documents │ ├── case_files/ # 10 case-specific documents │ └── real_regulations/ # 7 real OCC/FDIC/Fed regulatory PDFs ├── questions/ │ └── cre_benchmark_questions.md # 10 benchmark questions (G01-G10) └── reports/ ├── cre_benchmark_report.md # Full comparison report └── cre_charts/ # 8 PNG charts (brand-colored) ``` ## Tables (18 tables, 3.6M rows) | Table | Rows | Description | |-------|------|-------------| | tbl_loan_mstr | 45,005 | Master loan records (the anchor table) | | tbl_borrower | 12,000 | Borrower entities | | tbl_collateral | 36,165 | Collateral properties with appraisal values | | tbl_appraisal | 107,060 | Appraisal history (multiple per property) | | tbl_payment | 1,807,511 | Monthly loan payments | | tbl_covenant | 94,302 | Loan covenants (DSCR, LTV, occupancy, etc.) | | tbl_covenant_test | 903,972 | Covenant compliance test results | | tbl_risk_rating | 142,167 | Risk rating migration history | | tbl_provision | 177,259 | ALLL/CECL provision calculations | | tbl_workout | 3,504 | Loan workout/restructuring records | | tbl_reo | 613 | Real estate owned (foreclosed properties) | | tbl_charge_off | 1,943 | Loan charge-offs and recoveries | | tbl_exam_finding | 3,500 | OCC/internal audit examination findings | | tbl_capital | 26 | Quarterly capital adequacy snapshots | | tbl_concentration | 208 | Portfolio concentration metrics by segment | | tbl_branch | 29 | Bank branches (PNW region) | | tbl_analyst | 350 | Loan officers and credit analysts | | tbl_audit_log | 278,600 | Internal audit trail | All coded columns use abbreviated values (e.g., `loan_typ_cd`: CRE_OFFC, CRE_MLTF; `risk_rtg_cd`: 1-PASS through 8-LOSS; `loan_sts_cd`: ACTV, DLQ30, NACC, WKOT, FCLS, CHGOFF). ## Documents (30 files) ### Bank Documents (13 files) | File | Description | |------|-------------| | credit_committee_memo_cascadia_tower.txt | Credit committee approval for $85M Cascadia Tower loan | | appraisal_report_cascadia_tower_2023.txt | JLL reappraisal: 40.5% value decline ($131M to $78M) | | occ_consent_order_2023_ce_0847.txt | OCC Consent Order: 420% CRE concentration, 23% UW exceptions, ALLL shortfall | | internal_audit_report_cre_lending_2023.txt | Internal audit: 23% exception rate with branch-level breakdown | | board_risk_committee_minutes_q4_2023.txt | Board minutes: consent order response, capital plan, dividend suspension | | alll_methodology_memo_2023.txt | ALLL methodology with Q-factor history and segment-level reserves | | stress_test_severe_adverse_2023.txt | Stress test: CET1 projected to 6.1% under severe adverse | | regulatory_capital_plan_occ_submission.txt | Capital plan: $175M sub debt + $412M loan sale + RWA optimization | | credit_risk_review_annual_2023.txt | Annual review: 34% of CRE office rated SM+ (up from 6% in 2021) | | appraiser_engagement_letter.txt | JLL engagement for portfolio-wide reappraisal of 180 properties | | board_resolution_dividend_suspension.txt | Board resolution suspending quarterly dividend | | examiner_report_capital_adequacy.txt | OCC examiner capital review: rating 3 (Less Than Satisfactory) | | environmental_phase1_cascadia_tower.txt | Phase I ESA for Cascadia Tower (clean report) | ### Case Files (10 files) | File | Description | |------|-------------| | covenant_compliance_letter_cascadia_q3_2023.txt | Breach notice: 4 covenant violations on Cascadia Tower | | workout_proposal_cascadia_tower.txt | Restructuring: $16.5M principal reduction, maturity extension | | borrower_financials_cascadia_holdings.txt | Cascadia Holdings operating statement: NOI collapse ($10.2M to $0.4M) | | foreclosure_timeline_mercer_industrial.txt | 18-month foreclosure timeline for $32M Mercer Industrial Park | | loan_sale_term_sheet_performing_pool.txt | $412M loan pool sale to Blackstone at 92 cents on dollar | | non_accrual_memo_cedar_point.txt | Non-accrual recommendation for $19M Cedar Point Office Complex | | modification_agreement_pacific_heights.txt | Loan mod for $28M multifamily: rate reduction, maturity extension | |",
         "comments": ""
       },
       "candidatePriority": "normal",
@@ -136,13 +236,13 @@
         "evidenceUrl": "https://github.com/pomess/Personal-Benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T13:36:58Z",
       "adoption30d": null,
       "heat": null,
@@ -226,13 +326,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/Merck/PepEVOLVE-RBP-Benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T09:21:39.000Z",
       "adoption30d": null,
       "heat": null,
@@ -322,13 +422,13 @@
         "evidenceUrl": "https://github.com/alloevil/llm-benchmarks-tracker",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T11:07:04Z",
       "adoption30d": null,
       "heat": null,
@@ -415,13 +515,13 @@
         "evidenceUrl": "https://github.com/Mouloud08/leaf-classification-ml",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T16:59:51Z",
       "adoption30d": null,
       "heat": null,
@@ -476,99 +576,6 @@
       ]
     },
     {
-      "id": "bm_edgemosaic_837772bc",
-      "familyId": "bmf_36c07c428248",
-      "name": "EdgeMosaic",
-      "paperTitle": "EdgeMosaic",
-      "aliases": [],
-      "oneLine": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Mobile & Personal Computing",
-        "Finance"
-      ],
-      "primaryDomain": "Mobile & Personal Computing",
-      "industrySectors": [
-        "Consumer Technology",
-        "Financial Services"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Aggregate Existing",
-      "annotation": "Mixed",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/michailfragkiskos/EdgeMosaic",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-04",
-      "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
-      "sourceUpdatedAt": "2026-09-04T17:56:03Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/michailfragkiskos/EdgeMosaic",
-        "paper": "https://github.com/michailfragkiskos/EdgeMosaic",
-        "code": "https://github.com/michailfragkiskos/EdgeMosaic"
-      },
-      "motivation": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:michailfragkiskos/edgemosaic",
-        "url": "https://github.com/michailfragkiskos/EdgeMosaic",
-        "title": "EdgeMosaic",
-        "authors": [
-          "michailfragkiskos"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 26
-        }
-      },
-      "evidence": {
-        "snippet": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports. ai android benchmark devtools edge evaluation inference jvm kotlin latency machine-learning manifest on-device performance python reporting tflite thermal EdgeMosaic Assemble a mosaic of on-device AI benchmarks — one tile per delegate. Python stdlib CLI + Kotlin JVM/Android core · zero third-party dependencies manifest → plan → samples → report --- ## Why a mosaic? On-device inference is never a single number. The *same* model behaves like a different animal depending on the **delegate** it runs on (CPU, GPU, NNAPI, XNNPACK…), the **thread count**, the **batch size**, and — crucially on phones — the **thermal envelope** at the moment of measurement. A GPU delegate that wins on a cold device may lose after ninety seconds of sustained load as the SoC throttles. EdgeMosaic treats every (model, delegate, config) combination as one **tile**. Lay the tiles side by side and a picture emerges: which backend is genuinely fastest, which stays coolest, which is leanest on memory, and where the thermal cliff hides. The tooling is deliberately small and boring so it runs anywhere — a CI runner, a laptop, or wired up next to a real device farm. --- ## The two halves EdgeMosaic is intentionally split into two runtimes that **never import each other**. They agree only on a pair of tiny line-based text protocols. This keeps the device-side code (Kotlin) free of any host tooling, and keeps the host-side orchestration (Python) free of any Android baggage. | Half | Language | Role | Dependencies | |---|---|---|---| | **Host CLI** | Python 3.9+ | Validate manifests, build plans, aggregate samples, render reports | **stdlib only** | | **Device core** | Kotlin (JVM/Android friendly) | Parse plans, record samples, compute percentiles, emit interchange | **stdlib only** | The contract between them is text: ``` # plan protocol (host builds it, device consumes it) PLAN mobilenet-v3-small-sweep RUN mobilenet-v3-small gpu batch=1 threads=4 warmup=5 iters=50 # sample protocol (device emits it, host consumes it) SAMPLE mobilenet-v3-small gpu latency_ms=9.9 mem_mb=88.7 temp_c=46.1 ``` Because both sides parse the same grammar and use the **same percentile definition** (linear interpolation between closest ranks), a p50 computed on the phone equals the p50 computed on the host for identical samples. No surprises when you cross the boundary. --- ## Quick start (host CLI) The Python side needs nothing but a stock interpreter. ```bash cd python # 1. validate a model manifest python -m edgemosaic validate ../examples/mobilenet.manifest.json # 2. build a benchmark plan (delegates × batches × threads) python -m edgemosaic plan ../examples/mobilenet.manifest.json \\ --batches 1 --threads 1,4 --out ../examples/plan.txt # 3. aggregate raw SAMPLE lines into per-run statistics python -m edgemosaic aggregate ../examples/samples.txt # 4. render a JSON + Markdown report with a leaderboard python -m edgemosaic report ../examples/samples.txt \\ --title \"MobileNet sweep\" \\ --json ../examples/report.json \\ --md ../examples/report.md ``` Everything pipes. `aggregate` and `report` accept `-` for stdin: ```bash your-device-runner | python -m edgemosaic report - --md report.md ``` Or drive the whole flow with the Makefile: ```bash make demo # validate + plan + report ``` --- ## A tile up close Here is one row of the mosaic, straight out of `report`: ``` | Model | Delegate | n | p50 ms | p90 ms | p99 ms | peak MB | peak C | ips | throttled | |--------------------|----------|---|--------|--------|--------|---------|--------|--------|-----------| | mobilenet-v3-small | nnapi | 3 | 8.1 | 8.34 | 8.394 | 74.1 | 42.6 | 123.46 | no | | mobilenet-v3-small | gpu | 3 | 9.9 | 10.06 | 10.096 | 89.0 | 47.3 | 101.01 | yes | | mobilenet-v3-small | cpu | 4 | 18.6 | 20.61 | 21.231 | 62.2 | 40.2 | 53.76 | no | ``` Read the tiles together and the story is obvious: **NNAPI** is both the fastest *and* the coolest here; **GPU** is quick but crosses the 45 °C throttle line and burns the most memory; **CPU** is slow but thermally calm. The Markdown report distils this into a leaderboard: ``` ## Leaderboard - Fastest (p50): mobilenet-v3-small via nnapi (8.1 ms) - Coolest (peak C): mobilenet-v3-small via xnnpack - Leanest (peak MB): mobilenet-v3-small via cpu > ⚠️ Thermal throttling detected in at least one run. ``` --- ## Manifests A manifest is a small JSON document describing the model under test. The validator is **non-throwing**: it collects *every* problem so you can fix them in one pass, and it distinguishes hard **errors** from soft **warnings**. ```json { \"name\": \"mobilenet-v3-small\", \"version\": \"1.2.0\", \"format\": \"tflite\", \"quantization\": \"int8\", \"size_mb\": 4.7, \"delegates\": [\"cpu\", \"gpu\", \"nnapi\", \"xnnpack\"], \"inputs\": [ { \"name\": \"image\", \"shape\": [1, 224, 224, 3], \"dtype\": \"uint8\" } ] } ``` | Field | Required | Notes | |---|---|---| | `name` | ✅ | non-empty string | | `version` | ✅ | non-empty string | | `format` | ✅ | one of `tflite`, `onnx`, `torchscript`, `ggml`, `coreml` | | `delegates` | ✅ | non-empty list; unknown entries → warning | | `quantization` | – | `none` / `fp16` / `int8` / `int4` / `dynamic` | | `size_mb` | – | positive; > 2 GB → warning | | `inputs` | – | list of tensor specs | Invalid manifests exit non-zero, so `validate` slots straight into a CI gate: ``` [E] format: unknown format 'bogus'; expected one of ['coreml', 'ggml', 'onnx', 'tflite', 'torchscript'] [E] delegates: must be a non-empty list [E] size_mb: must be positive -> INVALID (3 error(s), 0 warning(s)) ``` --- ## The Kotlin core The device-side core is plain Kotlin with no Android SDK types in its public surface, so it compiles as a vanilla JVM library and drops into an Android module unchanged. Four small pieces: - **`PlanParser`** — turns the `PLAN` / `RUN` text into `RunSpec` objects. - **`BenchmarkRecorder`** — records `Sample`s (or",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:michailfragkiskos/edgemosaic",
-          "url": "https://github.com/michailfragkiskos/EdgeMosaic"
-        }
-      ]
-    },
-    {
       "id": "bm_clinical-record-conformance_0b8ed128",
       "familyId": "bmf_e9ab65d47944",
       "name": "clinical-record-conformance",
@@ -601,13 +608,13 @@
         "evidenceUrl": "https://github.com/shenjiayi692-maker/clinical-record-conformance",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T17:38:09Z",
       "adoption30d": null,
       "heat": null,
@@ -698,13 +705,13 @@
         "evidenceUrl": "https://github.com/AAH20/azure-infrastructure-agent-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T17:47:37Z",
       "adoption30d": null,
       "heat": null,
@@ -759,28 +766,25 @@
       ]
     },
     {
-      "id": "bm_arbiter-live-benchmark_da807f7d",
-      "familyId": "bmf_40d645db5487",
-      "name": "arbiter-live-benchmark",
-      "paperTitle": "arbiter-live-benchmark",
+      "id": "bm_arbiter-benchmark_a38bf6b7",
+      "familyId": "bmf_a0f1627d7933",
+      "name": "arbiter-benchmark",
+      "paperTitle": "arbiter-benchmark",
       "aliases": [],
-      "oneLine": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
-      "area": "Safety & Trustworthiness",
+      "oneLine": "arbiter-benchmark Instrumented multi-agent benchmark suite scientifically validating Arbiter workspace orchestration, Waymark continuity, and fail-closed conflict quarantine.",
+      "area": "Language & Knowledge",
       "applicationDomains": [
-        "Software & AI Compute"
+        "General AI"
       ],
-      "primaryDomain": "Software & AI Compute",
-      "industrySectors": [
-        "Software & Cloud"
-      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
       "domainCuration": {
         "state": "auto",
         "method": "rules-v1"
       },
       "capabilities": [],
       "topics": [
-        "Agents",
-        "Safety"
+        "Agents"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
@@ -789,35 +793,36 @@
         "status": "unverified",
         "venue": null,
         "evidence": null,
-        "evidenceUrl": "https://github.com/paragon-ux/arbiter-live-benchmark",
+        "evidenceUrl": "https://github.com/paragon-ux/arbiter-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
-      "sourceUpdatedAt": "2026-09-04T20:50:57Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
+      "sourceUpdatedAt": "2026-09-05T05:28:10Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
       "recognitionConfidence": 0.4,
-      "relation": "unclear",
+      "relation": "aggregates",
       "links": {
-        "report": "https://github.com/paragon-ux/arbiter-live-benchmark",
-        "paper": "https://github.com/paragon-ux/arbiter-live-benchmark",
-        "code": "https://github.com/paragon-ux/arbiter-live-benchmark"
+        "report": "https://github.com/paragon-ux/arbiter-benchmark",
+        "paper": "https://github.com/paragon-ux/arbiter-benchmark",
+        "project": "https://img.shields.io/badge/version-2.1.0-blue.svg",
+        "code": "https://github.com/paragon-ux/arbiter-benchmark"
       },
-      "motivation": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
+      "motivation": "arbiter-benchmark Instrumented multi-agent benchmark suite scientifically validating Arbiter workspace orchestration, Waymark continuity, and fail-closed conflict quarantine.",
       "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
       "metrics": [],
       "source": {
         "type": "github",
-        "id": "github:paragon-ux/arbiter-live-benchmark",
-        "url": "https://github.com/paragon-ux/arbiter-live-benchmark",
-        "title": "arbiter-live-benchmark",
+        "id": "github:paragon-ux/arbiter-benchmark",
+        "url": "https://github.com/paragon-ux/arbiter-benchmark",
+        "title": "arbiter-benchmark",
         "authors": [
           "paragon-ux"
         ],
@@ -827,7 +832,7 @@
         }
       },
       "evidence": {
-        "snippet": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety.",
+        "snippet": "arbiter-benchmark Instrumented multi-agent benchmark suite scientifically validating Arbiter workspace orchestration, Waymark continuity, and fail-closed conflict quarantine.",
         "reasonCodes": [
           "discovered via github",
           "benchmark term in abstract",
@@ -839,11 +844,16 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "arbiter-live-benchmark Live empirical multi-agent orchestration benchmark validating Arbiter worktree coordination, Waymark continuity, and fail-closed merge safety. agent-continuity arbiter benchmark git-worktrees live-execution multi-agent orchestration sqlite waymark zero-dependencies # Arbiter Live Benchmark: Multi-Agent Orchestration & Continuity Testbed > **Empirical Multi-Agent Benchmark:** Scientifically validates multi-agent workspace orchestration across isolated Git worktrees. Validates **>75% token reduction** via Waymark in-flight continuity ( [!IMPORTANT] > **The 1:1:1 Invariant Contract**: > Every concurrent agent worker provisioned by **Arbiter** operates in exactly **one isolated Git worktree** and records exactly **one active Waymark trajectory**. Context compaction reloads static rules via **`AGENTS.md Compact Reload`** and in-flight hops via **`Waymark`** without mutating the task lease or crossing branch boundaries. --- ## Empirical Token Calibration To guarantee that token counting remains strictly accurate and independent of closed-source third-party dependencies, Arbiter Live Benchmark employs a calibrated character-to-token heuristic (`3.80 chars/token`) empirically evaluated against real frontier tokenizers (`cl100k_base`, Claude 3.5 Sonnet, and Gemini 2.0 Flash) on genuine codebase ASTs: | Target File | Chars | TikToken (cl100k) | Claude 3.5 Sonnet | Gemini 2.0 Flash | Arbiter Canonical | Deviation vs Real Mean | | :--- | :--- | :--- | :--- | :--- | :--- | :--- | | `src/auth.ts` | 2,752 | 740 | 717 | 728 | 724 | **-0.57%** | | `src/crypto.ts` | 1,489 | 400 | 388 | 394 | 392 | **-0.51%** | | `src/session.ts`| 2,104 | 566 | 548 | 557 | 554 | **-0.54%** | | `src/tokens.ts` | 1,842 | 495 | 480 | 487 | 485 | **-0.48%** | *Run calibration verification anytime:* ```bash npm run calibrate ``` *Empirical Calibration Result:* Evaluated against compiled OpenAI TikToken `cl100k_base` BPE tokenizer (`@dqbd/tiktoken`), confirming empirical code ratio of 4.2 chars/token across microservice and pipeline target repositories. --- ## Three-Tier Execution Architecture ``` +-------------------------------------------------------------------------------+ | Tier 1: Live Arbiter Engine Execution (DeterministicAdapter) | | • Executes real Arbiter WorktreeManager, TaskGraph, MergeQueue, LeaseWatchdog | | • Provisions real ephemeral Git worktrees, feature branches, and SQLite WAL | | • Measures genuine token consumption from realistic target codebases | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 1.5: Headless Subprocess MCP Runner (SubprocessMcpAdapter) | | • Spawns real OS child processes communicating via JSON-RPC 2.0 stdio | | • Exercises Arbiter's native MCP server tools (claim_task, complete_task) | | • $0 API cost, verified in cloud CI without external LLM credentials | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 2: Live Agent Runner (LiveAgyAdapter) | | • Spawns local Antigravity CLI (`agy`) across isolated worktrees | | • Leverages user subscription ($0 API fees) for real LLM reasoning | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 3: Comparative Baselines | | • DockerIsolatedAdapter: Quantifies containerization startup overhead | | • NaiveMutexAdapter: Negative baseline demonstrating lock contention & chaos | | • ProcessPoolAdapter: Worker process pool without worktree filesystem isolation | +-------------------------------------------------------------------------------+ ``` --- ## Quick Start & CLI Reference ### Prerequisites - **Node.js $\\ge 22.0.0$** (pure ESM and native `node:sqlite`) - **Git $\\ge 2.20$** ### Installation & Verification ```bash git clone https://github.com/paragon-ux/arbiter-live-benchmark.git cd arbiter-live-benchmark npm install npm run verify ``` ### Running Benchmarks via CLI ```bash # Run all 22 scenarios in deterministic mode (default) npm run benchmark # Run with 10-trial statistical aggregation (Median, P95, StdDev) node dist/src/cli/index.js --all --trials 10 # Run with step-by-step trace logging node dist/src/cli/index.js --all --verbose # Run comparative baseline comparison against golden reference npm run compare node dist/src/cli/index.js --all --compare # Run in Tier 1.5 Subprocess MCP mode (real OS child processes) node dist/src/cli/index.js --scenario 008-agent-semantic-correctness --mode subprocess_mcp # Run in Tier 3 Comparative Docker mode node dist/src/cli/index.js --scenario 015-docker-isolated-overhead --mode docker # Export benchmark results to JSON node dist/src/cli/index.js --all --json results/benchmark.json ``` --- ## Zero Runtime Dependencies Arbiter Live Benchmark requires **0 third-party runtime npm dependencies**. It is built exclusively on Node 22 native modules (`node:sqlite`, `node:child_process`, `node:fs`, `node:crypto`) plus the local sibling `arbiter` package.",
+        "abstract": "arbiter-benchmark Instrumented multi-agent benchmark suite scientifically validating Arbiter workspace orchestration, Waymark continuity, and fail-closed conflict quarantine. agent-continuity arbiter benchmark git-worktrees multi-agent orchestration sqlite waymark zero-dependencies # Arbiter Benchmark: Multi-Agent Orchestration & Continuity Testbed [![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](package.json) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Node.js](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg)](package.json) [![Zero Runtime Dependencies](https://img.shields.io/badge/dependencies-0-success.svg)](package.json) > **Empirical Multi-Agent Benchmark:** Scientifically validates multi-agent workspace orchestration across isolated Git worktrees. Validates **>75% token reduction** via Waymark in-flight continuity ( [!IMPORTANT] > **The 1:1:1 Invariant Contract**: > Every concurrent agent worker provisioned by **Arbiter** operates in exactly **one isolated Git worktree** and records exactly **one active Waymark trajectory**. Context compaction reloads static rules via **`AGENTS.md Compact Reload`** and in-flight hops via **`Waymark`** without mutating the task lease or crossing branch boundaries. --- ## Three-Tier Execution Architecture ``` +-------------------------------------------------------------------------------+ | Tier 1: Deterministic Replay Engine (Seeded PRNG) | | • Sub-5ms seeded Mulberry32 replay simulation with pre-recorded fixtures | | • 0 external dependencies, 0 API cost, runs on all CI matrix runners | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 1.5: Headless Subprocess MCP Runner (New in v1.1.0) | | • Spawns real OS child processes communicating via JSON-RPC 2.0 stdio | | • Exercises real Git worktrees, SQLite WAL writes, and filesystem locks | | • $0 API cost, verified in cloud CI without external LLM credentials | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 2: Live Agent Runner | | • Spawns local Antigravity CLI (`agy`) across isolated worktrees | | • Leverages user subscription ($0 API fees) for real LLM reasoning | +---------------------------------------+---------------------------------------+ | +---------------------------------------v---------------------------------------+ | Tier 3: Comparative Baselines (New in v2.0.0) | | • DockerIsolatedAdapter: Quantifies containerization startup overhead | | • NaiveMutexAdapter: Negative baseline demonstrating lock contention & chaos | | • ProcessPoolAdapter: Worker process pool without worktree filesystem isolation | +-------------------------------------------------------------------------------+ ``` --- ## Quick Start & CLI Reference ### Prerequisites - **Node.js $\\ge 22.0.0$** (pure ESM and native `node:sqlite`) - **Git $\\ge 2.20$** ### Installation & Verification ```bash git clone https://github.com/paragon-ux/arbiter-benchmark.git cd arbiter-benchmark npm ci npm run verify ``` ### Running Benchmarks via CLI ```bash # Run all 18 scenarios in deterministic mode (default) npm run benchmark # Run with 10-trial statistical aggregation (Median, P95, StdDev) node dist/src/cli/index.js --all --trials 10 # Run with step-by-step trace logging node dist/src/cli/index.js --all --verbose # Run comparative baseline comparison against golden reference npm run compare node dist/src/cli/index.js --all --compare # Run in Tier 1.5 Subprocess MCP mode (real OS child processes) node dist/src/cli/index.js --scenario 008-agent-semantic-correctness --mode subprocess_mcp # Run in Tier 3 Comparative Docker mode node dist/src/cli/index.js --scenario 015-docker-isolated-overhead --mode docker # Export benchmark results to JSON node dist/src/cli/index.js --all --json results/benchmark.json ``` --- ## Zero Runtime Dependencies Arbiter Benchmark requires **0 runtime npm dependencies**. It is built entirely on Node 22 native modules: - `node:sqlite` (Embedded database for DAG states and metrics) - `node:child_process` (Process supervision and Git worktree management) - `node:fs` and `node:path` (File system operations) - `node:crypto` (Seeded Mulberry32 PRNG and SHA-256 fingerprinting)",
         "comments": ""
       },
       "candidatePriority": "normal",
       "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:paragon-ux/arbiter-benchmark",
+          "url": "https://github.com/paragon-ux/arbiter-benchmark"
+        },
         {
           "type": "github",
           "id": "github:paragon-ux/arbiter-live-benchmark",
@@ -882,13 +892,13 @@
         "evidenceUrl": "https://github.com/heesoo-kim97/ai-coding-platform-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:40.407230Z"
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-04",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:40.407230Z",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
       "sourceUpdatedAt": "2026-09-04T23:56:37Z",
       "adoption30d": null,
       "heat": null,
@@ -940,6 +950,98 @@
       ]
     },
     {
+      "id": "bm_agent-capability-benchmark_874a2c57",
+      "familyId": "bmf_b6737683a3b5",
+      "name": "agent-capability-benchmark",
+      "paperTitle": "agent-capability-benchmark",
+      "aliases": [],
+      "oneLine": "agent-capability-benchmark Outcome-verified, vendor-neutral benchmark for agent capability infrastructure agent-infrastructure ai-agents benchmark evals mcp python sandbox tool-use Outcome-verified evaluation for agent capability infrastru…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/MiltonHeYan/agent-capability-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-05T06:02:01.860844Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-05",
+      "indexedAt": "2026-09-05T06:02:01.860844Z",
+      "sourceUpdatedAt": "2026-09-05T04:15:25Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/MiltonHeYan/agent-capability-benchmark",
+        "paper": "https://github.com/MiltonHeYan/agent-capability-benchmark",
+        "code": "https://github.com/MiltonHeYan/agent-capability-benchmark"
+      },
+      "motivation": "agent-capability-benchmark Outcome-verified, vendor-neutral benchmark for agent capability infrastructure agent-infrastructure ai-agents benchmark evals mcp python sandbox tool-use Outcome-verified evaluation for agent capability infrastructure.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:miltonheyan/agent-capability-benchmark",
+        "url": "https://github.com/MiltonHeYan/agent-capability-benchmark",
+        "title": "agent-capability-benchmark",
+        "authors": [
+          "MiltonHeYan"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 2
+        }
+      },
+      "evidence": {
+        "snippet": "agent-capability-benchmark Outcome-verified, vendor-neutral benchmark for agent capability infrastructure agent-infrastructure ai-agents benchmark evals mcp python sandbox tool-use Outcome-verified evaluation for agent capability infrastructure.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "agent-capability-benchmark Outcome-verified, vendor-neutral benchmark for agent capability infrastructure agent-infrastructure ai-agents benchmark evals mcp python sandbox tool-use Outcome-verified evaluation for agent capability infrastructure. Hold the agent fixed. Change the capability provider. Verify what actually happened. Agent Capability Benchmark measures whether capability infrastructure lets a fixed AI agent complete real, externally verifiable work. It evaluates the full path from capability discovery and account connection to execution, recovery, policy compliance, and final state—not self-reported integration counts or success claims. > [!IMPORTANT] > This project is pre-alpha. The contracts and reference runtime are executable; production test-tenant backends and official provider results are not published yet. If this is a problem you want solved, [star the repository](https://github.com/MiltonHeYan/agent-capability-benchmark) and join the [design discussions](https://github.com/MiltonHeYan/agent-capability-benchmark/discussions). ## Quick start Requirements: Python 3.11 or newer. ```bash git clone https://github.com/MiltonHeYan/agent-capability-benchmark.git cd agent-capability-benchmark python -m venv .venv && source .venv/bin/activate python -m pip install -e \".[dev]\" make check ``` Validate the public task suite: ```bash capability-bench validate tasks/public ``` ## The benchmark contract | | Fixed inside a comparison block | Varied | Independently verified | |---|---|---|---| | **What** | Agent runner, model, prompt, task, fixture, limits, verifier | Capability provider and its thin adapter | External state, policy boundaries, duplicates, cost ceilings | | **Why** | Isolate the capability layer's contribution | Compare like with like | Prevent false success from becoming a pass | An agent saying “done” is never sufficient evidence. A run passes only when the trusted verifier observes the declared outcome. ## How it works ```mermaid flowchart LR T[Versioned task] --> R[Fixed AgentRunner] A[Provider adapter] -->|CapabilityBundle| R R --> P[Capability provider] P --> X[Dedicated test tenant] S[Sandbox control plane] -->|execution lease| A S -->|baseline + final state| V[Independent verifier] X --> V ``` The execution plane receives only run-scoped capability handles. Verifier and cleanup credentials stay in the trusted control plane. Each external object is namespaced by `run_id`, and final-state collection still runs after timeouts or transport failures. ## What is measured - **Verified completion** — did the expected external state actually exist? - **Discovery and schemas** — could the agent find and correctly call the capability? - **Authentication** — were the correct account, scope, and recovery path used? - **Safety and governance** — were approval, data, and spending boundaries respected? - **Recovery and idempotency** — did retries avoid duplicate or contradictory side effects? - **Operational quality** — latency, calls, retries, tokens, and observable cost. Optional tracks cover authentication, memory, payments, governance, identity, sandboxed computation, and full-stack workflows. Non-eligible products are reported as `not_eligible`, not failed. ## What is not measured - General model intelligence or prompt-writing quality - Self-reported feature or integration counts - A provider result produced with a provider-selected agent - A single opaque score that hides safety, reliability, latency, or cost - Outcomes that cannot be checked independently ## Project status | Component | Status | |---|---| | Benchmark principles and v0.1 protocol | Implemented | | Machine-readable task and evidence schemas | Implemented | | Public task contracts | 12 tasks across 6 tracks | | Deterministic verifier and loopback fixtures | Implemented and tested | | Provider adapter / agent runner separation | Implemented and tested, including JSONL subprocess driver | | Sandbox and test-tenant control-plane contract | Implemented and tested | | Production service backends | Planned | | Repeated-run statistics and official results | Planned | ## Repository map ```text adapters/ Provider integration boundary and manifests agent_capability_benchmark/ Harness, contracts, verifier, and CLI docs/ Methodology and architecture runners/ Fixed agent-engine integrations spec/ Machine-readable schemas tasks/public/ Public benchmark task definitions tests/ Contract and runtime tests verifiers/ Independent outcome-verification guidance ``` Start with the [benchmark specification](docs/benchmark-v0.1.md), then use the [documentation map](docs/README.md) to go deeper. ## Contributing This repository is looking for maintainers interested in agent infrastructure, evaluation, authentication, sandboxes, developer tooling, and applied security. For a scoped first contribution, browse [`good first issue`](https://github.com/MiltonHeYan/agent-capability-benchmark/labels/good%20first%20issue) or [`help wanted`](https://github.com/MiltonHeYan/agent-capability-benchmark/labels/help%20wanted). Good ways to begin: - [Propose a vendor-neutral task](https://github.com/MiltonHeYan/agent-capability-benchmark/issues/new?template=task_proposal.yml) - [Propose a runner, adapter, verifier, or sandbox integration](https://github.com/MiltonHeYan/agent-capability-benchmark/issues/new?template=integration_proposal.yml) - Improve a deterministic verifier or add a regression test - Review the methodology in [Discussions](https://github.com/MiltonHeYan/agent-capability-benchmark/discussions) Read [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and [GOVERNANCE.md](GOVERNANCE.md) for the path from contributor to maintainer. ## Community and support - **GitHub Discussions** — methodology, architecture, roadmap, and long-form questions - **GitHub Issues** — reproducible bugs and scoped proposals - **Security reporting** — follow [SECURITY.md](SECURITY.md); never post credentials or fixture secrets ## Citation Research and e",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:miltonheyan/agent-capability-benchmark",
+          "url": "https://github.com/MiltonHeYan/agent-capability-benchmark"
+        }
+      ]
+    },
+    {
       "id": "bm_worldreward-bench_c6484dea",
       "familyId": "bmf_8705dffcf6c1",
       "name": "WorldReward-Bench",
@@ -970,13 +1072,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03952",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T14:53:53Z",
       "adoption30d": null,
       "heat": null,
@@ -1068,7 +1170,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03254",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [
         {
@@ -1079,7 +1181,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03254",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Accepted at EMNLP 2026 Industry Track. The code is available at https://github.com/ntt-dkiku/llm-revision-propagation",
               "level": "author-claim"
             }
@@ -1089,7 +1191,7 @@
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T01:29:39Z",
       "adoption30d": null,
       "heat": null,
@@ -1170,7 +1272,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03938",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -1181,7 +1283,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2609.03938",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Proceedings of the 9th ICAPS Workshop on Hierarchical Planning (HPlan 2026)",
               "level": "strong-author-metadata"
             }
@@ -1190,7 +1292,7 @@
       ],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T14:44:37Z",
       "adoption30d": null,
       "heat": null,
@@ -1267,13 +1369,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03410",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T06:15:15Z",
       "adoption30d": null,
       "heat": null,
@@ -1637,13 +1739,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03874",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T14:02:53Z",
       "adoption30d": null,
       "heat": null,
@@ -2091,13 +2193,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03445",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T07:02:17Z",
       "adoption30d": null,
       "heat": null,
@@ -2177,7 +2279,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03511",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [
         {
@@ -2188,7 +2290,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03511",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Accepted at EMNLP 2026 (Findings - Long paper)",
               "level": "author-claim"
             }
@@ -2198,7 +2300,7 @@
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T08:10:43Z",
       "adoption30d": null,
       "heat": null,
@@ -2658,13 +2760,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03967",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T15:03:36Z",
       "adoption30d": null,
       "heat": null,
@@ -2924,7 +3026,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03580",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [
         {
@@ -2935,7 +3037,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03580",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Accepted to EMNLP Findings 2026",
               "level": "author-claim"
             }
@@ -2945,7 +3047,7 @@
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T09:27:54Z",
       "adoption30d": null,
       "heat": null,
@@ -3117,13 +3219,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03553",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T08:54:47Z",
       "adoption30d": null,
       "heat": null,
@@ -3483,13 +3585,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03654",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T10:52:56Z",
       "adoption30d": null,
       "heat": null,
@@ -3572,13 +3674,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03423",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T06:28:02Z",
       "adoption30d": null,
       "heat": null,
@@ -3654,13 +3756,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03438",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T06:48:41Z",
       "adoption30d": null,
       "heat": null,
@@ -3933,7 +4035,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03407",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [
         {
@@ -3944,7 +4046,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.03407",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Accepted by EMNLP 2026 findings",
               "level": "author-claim"
             }
@@ -3954,7 +4056,7 @@
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T06:07:00Z",
       "adoption30d": null,
       "heat": null,
@@ -4227,13 +4329,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.04147",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-03",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-03T17:40:20Z",
       "adoption30d": null,
       "heat": null,
@@ -4316,13 +4418,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02421",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-02T10:42:18Z",
       "adoption30d": null,
       "heat": null,
@@ -4588,13 +4690,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.03142",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-02T20:25:21Z",
       "adoption30d": null,
       "heat": null,
@@ -4776,7 +4878,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02377",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [
         {
@@ -4787,7 +4889,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.02377",
-              "observedAt": "2026-09-05T00:35:36.066177Z",
+              "observedAt": "2026-09-05T06:01:57.490252Z",
               "rawValue": "Accepted to ECCV 2026",
               "level": "author-claim"
             }
@@ -4797,7 +4899,7 @@
       "publications": [],
       "releasedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-02T09:50:06Z",
       "adoption30d": null,
       "heat": null,
@@ -5203,6 +5305,11 @@
           "type": "github",
           "id": "github:ishaangoyal0010/llm-benchmark-suite",
           "url": "https://github.com/Ishaangoyal0010/llm-benchmark-suite"
+        },
+        {
+          "type": "github",
+          "id": "github:chrissie-1/llm-benchmark-suite",
+          "url": "https://github.com/Chrissie-1/llm-benchmark-suite"
         }
       ]
     },
@@ -5417,13 +5524,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02349",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-02T09:23:23Z",
       "adoption30d": null,
       "heat": null,
@@ -6696,13 +6803,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.02402",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-05T00:35:36.066177Z"
+        "verifiedAt": "2026-09-05T06:01:57.490252Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-02",
       "firstSeenAt": "2026-09-05",
-      "indexedAt": "2026-09-05T00:35:36.066177Z",
+      "indexedAt": "2026-09-05T06:01:57.490252Z",
       "sourceUpdatedAt": "2026-09-02T10:14:32Z",
       "adoption30d": null,
       "heat": null,
@@ -155990,9 +156097,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-09-05T00:35:52.752547Z",
+    "evaluatedAt": "2026-09-05T06:02:17.159779Z",
     "publishThreshold": 0.85,
     "promoted": 0,
-    "remainingForAudit": 1705
+    "remainingForAudit": 1706
   }
 }
