@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-05 · **Benchmark releases:** 1588
+**Snapshot:** 2026-09-05 · **Benchmark releases:** 1592
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (11)
-- [Biology & Drug Discovery](#biology--drug-discovery) (104)
+- [Biology & Drug Discovery](#biology--drug-discovery) (105)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1095)
+- [General AI](#general-ai) (1098)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -68,6 +68,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **TAF-MED** (2026-08-10) — We introduce TAF-MED, a physician-reviewed benchmark of 500 fixed three-turn scenarios, and evaluate eight LLMs across 4,000 conversations. [Paper](https://arxiv.org/abs/2608.10258) · [HF](https://huggingface.co/papers/2608.10258)
 - **EHR2Dial-Triage** (2026-08-10) — We introduce EHR2Dial-Triage, an agentic conversation-generation framework and benchmark grounded in MIMIC-IV-ED. [Paper](https://arxiv.org/abs/2608.09024)
 - **TomaBench** (2026-08-09) — To address this gap, we introduce TomaMMU, a large-scale Tomato leaf disease MultiModal Understanding dataset, alongside TomaBench, a benchmark for evaluating VLMs on tomato disease understanding. [Paper](https://arxiv.org/abs/2608.08727) · [Data](https://huggingface.co/datasets/enalis/TomaMMU)
+- **Explanation Stability of Test-Time Adaptation in Computational Pathology: A Large-Scale Benchmark** (2026-08-07) — We release the metric, protocol, and full benchmark to support future work on adaptation methods that are not only accurate, but also stable and clinically auditable. [Paper](https://arxiv.org/abs/2608.07062) · [Code](https://github.com/bahumanyarg11/tta-explanation-stability-pipeline)
 - **CliniCARE-Bench** (2026-08-07) — We introduce CliniCARE-Bench (Clinical Calibrated Audit of Medical Reasoning in EHR), a benchmark for retrospective clinical audit: 25 clinician-validated scenarios instantiated as 750 patient-specific cases over real-p… [Paper](https://arxiv.org/abs/2608.07796) · [HF](https://huggingface.co/papers/2608.07796)
 - **EpiBench** (2026-08-06) — To address this gap, we introduce EpiBench, a closed-book, sequence-based, and automatically scorable benchmark for evaluating epitope reasoning in LLMs. [Paper](https://arxiv.org/abs/2608.06022) · [HF](https://huggingface.co/papers/2608.06022)
 - **MS-MLB** (2026-08-04) — This paper presents MS-MLB (Multiple Sclerosis Machine Learning Benchmark), a reproducible open benchmark for machine learning based MS research classification from whole blood RNA expression data. [Paper](https://arxiv.org/abs/2608.05196) · [HF](https://huggingface.co/papers/2608.05196) · [Code](https://github.com/duckyquang/MS-MLB)
@@ -272,7 +273,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
+- **StateBench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
 - **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
@@ -627,12 +628,15 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **RegionDet** (2026-08-07) — To address this gap, we introduce Region Detection, a task that extends conventional object detection beyond object instances, and construct RegionDet, a benchmark for region target localization. [Paper](https://arxiv.org/abs/2608.06850) · [HF](https://huggingface.co/papers/2608.06850)
 - **MacroBench** (2026-08-07) — To evaluate MerC, we introduce the first macro translation benchmark, MacroBench, with test cases based on macros randomly sampled from real-world C programs. [Paper](https://arxiv.org/abs/2608.06705)
 - **LitTraceQA** (2026-08-07) — We present LitTraceQA, a benchmark for literature-grounded question answering over scientific papers. [Paper](https://arxiv.org/abs/2608.07370) · [HF](https://huggingface.co/papers/2608.07370)
+- **ISYV-Bench** (2026-08-07) — Building on ICQ, we present ISYV (I Seek You in Videos), a systematic solution comprising three components: (1) ISYV-Bench, a challenging evaluation benchmark with 1,377 real-world complex videos and 1,377 question-answ… [Paper](https://arxiv.org/abs/2608.07417)
 - **HeatCast** (2026-08-07) — We introduce HeatCast, a Landsat-based benchmark for monthly LST forecasting across 124 U.S. [Paper](https://arxiv.org/abs/2608.07640) · [HF](https://huggingface.co/papers/2608.07640)
 - **HarnessSafe** (2026-08-07) — To this end, we present HarnessSafe, a benchmark comprising 328 executable cases across seven persistent-carrier families and evaluated on most mainstream agent harnesses. [Paper](https://arxiv.org/abs/2608.06984) · [HF](https://huggingface.co/papers/2608.06984)
 - **GraphVerse** (2026-08-07) — To bridge the gap, we introduce GraphVerse, a unified benchmark that jointly evaluates perception, visual reasoning, and text-based graph reasoning in MLLMs under both single-image and paired-image settings. [Paper](https://arxiv.org/abs/2608.06769) · [HF](https://huggingface.co/papers/2608.06769) · [Code](https://github.com/sunyuanfu/GraphVerse)
+- **GeoBenchLLM** (2026-08-07) — In this paper, we present \benchName, a comprehensive benchmark for probing LLMs on geo-related tasks. [Paper](https://arxiv.org/abs/2608.07411) · [Code](https://github.com/Rfr2003/GeoBenchLLM)
 - **Generative Embedding Benchmark** (2026-08-07) — To address this gap, we introduce the Generative Embedding Benchmark (GEB), in which a decoder answers questions using only a frozen embedding and question text, without access to the original image or intermediate visu… [Paper](https://arxiv.org/abs/2608.06972) · [HF](https://huggingface.co/papers/2608.06972)
 - **BinJudgeBench** (2026-08-07) — We introduce BinJudgeBench, the first expert-annotated, reference-free evaluation benchmark based on multi-dimensional human judgment, where LLM-as-a-Judge achieves an average correlation of 63.20\% with human judgment,… [Paper](https://arxiv.org/abs/2608.07038) · [HF](https://huggingface.co/papers/2608.07038)
 - **ArchEGraph** (2026-08-07) — We present ArchEGraph, a large-scale benchmark dataset that represents buildings as heterogeneous graphs with aligned geometry, topology, weather, and zone-level thermal loads. [Paper](https://arxiv.org/abs/2608.06772) · [HF](https://huggingface.co/papers/2608.06772)
+- **AVCap-Bench** (2026-08-07) — To address these challenges, we propose: (1) AVCap-100K, a high-quality dataset of 100K temporally aligned, detail-rich audio-video captions; (2) AVCap, a model optimized via Detail-Aware GRPO (Da-GRPO) that achieves st… [Paper](https://arxiv.org/abs/2608.06930)
 - **TradeVerse** (2026-08-06) — We introduce TradeVerse, a benchmark built from the World Trade Organisation (WTO) specific trade concerns, where member states challenge one another and exchange arguments over multiple rounds, sometimes for years. [Paper](https://arxiv.org/abs/2608.06549) · [HF](https://huggingface.co/papers/2608.06549)
 - **StreamArena** (2026-08-06) — We introduce StreamArena, a benchmark for hour-scale, interactive streaming video understanding. [Paper](https://arxiv.org/abs/2608.05703) · [HF](https://huggingface.co/papers/2608.05703) · [Code](https://github.com/JIA-Lab-research/StreamArena)
 - **StepJack** (2026-08-06) — With this pipeline, we build StepJack, a CUA safety benchmark with 480 test examples. [Paper](https://arxiv.org/abs/2608.06477) · [HF](https://huggingface.co/papers/2608.06477) · [Code](https://github.com/BorealisAI/StepJack)
