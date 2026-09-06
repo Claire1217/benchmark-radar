@@ -273,7 +273,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **StateBench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
+- **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
 - **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
