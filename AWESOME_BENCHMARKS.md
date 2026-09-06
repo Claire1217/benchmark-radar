@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-05 · **Benchmark releases:** 1592
+**Snapshot:** 2026-09-05 · **Benchmark releases:** 1597
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (53)
-- [General AI](#general-ai) (1098)
+- [General AI](#general-ai) (1103)
 - [Logistics & Operations](#logistics--operations) (8)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -273,7 +273,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
+- **StateBench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
 - **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
@@ -637,9 +637,14 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **BinJudgeBench** (2026-08-07) — We introduce BinJudgeBench, the first expert-annotated, reference-free evaluation benchmark based on multi-dimensional human judgment, where LLM-as-a-Judge achieves an average correlation of 63.20\% with human judgment,… [Paper](https://arxiv.org/abs/2608.07038) · [HF](https://huggingface.co/papers/2608.07038)
 - **ArchEGraph** (2026-08-07) — We present ArchEGraph, a large-scale benchmark dataset that represents buildings as heterogeneous graphs with aligned geometry, topology, weather, and zone-level thermal loads. [Paper](https://arxiv.org/abs/2608.06772) · [HF](https://huggingface.co/papers/2608.06772)
 - **AVCap-Bench** (2026-08-07) — To address these challenges, we propose: (1) AVCap-100K, a high-quality dataset of 100K temporally aligned, detail-rich audio-video captions; (2) AVCap, a model optimized via Detail-Aware GRPO (Da-GRPO) that achieves st… [Paper](https://arxiv.org/abs/2608.06930)
+- **VideoArgus-Bench** (2026-08-06) — We further construct VideoArgus-Bench, containing 1,026 curated input instances built from 653 high-quality images and 416 high-quality videos, with all benchmark rubrics pre-generated, frozen, and released. [Paper](https://arxiv.org/abs/2608.05485)
+- **TrajErrBench** (2026-08-06) — We further construct TrajErrBench, a benchmark of 486 manually annotated failed trajectories from Tau2Bench and SWE-Bench Pro, covering realistic tool-use and coding scenarios. [Paper](https://arxiv.org/abs/2608.06346)
 - **TradeVerse** (2026-08-06) — We introduce TradeVerse, a benchmark built from the World Trade Organisation (WTO) specific trade concerns, where member states challenge one another and exchange arguments over multiple rounds, sometimes for years. [Paper](https://arxiv.org/abs/2608.06549) · [HF](https://huggingface.co/papers/2608.06549)
+- **TAU-Bench** (2026-08-06) — We therefore introduce TAU-Bench, a track-centric benchmark for jointly evaluating anomaly instance tracking and fine-grained anomaly understanding. [Paper](https://arxiv.org/abs/2608.05699)
 - **StreamArena** (2026-08-06) — We introduce StreamArena, a benchmark for hour-scale, interactive streaming video understanding. [Paper](https://arxiv.org/abs/2608.05703) · [HF](https://huggingface.co/papers/2608.05703) · [Code](https://github.com/JIA-Lab-research/StreamArena)
 - **StepJack** (2026-08-06) — With this pipeline, we build StepJack, a CUA safety benchmark with 480 test examples. [Paper](https://arxiv.org/abs/2608.06477) · [HF](https://huggingface.co/papers/2608.06477) · [Code](https://github.com/BorealisAI/StepJack)
+- **SkillTV-Bench** (2026-08-06) — We therefore introduce SkillTV-Bench, a 681-case benchmark of real agent trajectories from 50 tasks across eleven domains, designed to evaluate skill-aware trajectory verification for both LLM-as-a-Judge and Agent-as-a-… [Paper](https://arxiv.org/abs/2608.05573) · [Code](https://github.com/HanZhi306/SkillTV-Bench)
+- **M$^3$R-Bench** (2026-08-06) — However, existing benchmarks mainly evaluate metaphor understanding through isolated subtasks and lack evidence-grounded explanations, making it difficult to assess whether models establish mappings grounded in visual a… [Paper](https://arxiv.org/abs/2608.05817) · [Code](https://github.com/hongshi4/M3R-Bench)
 - **LangChoiceBench** (2026-08-06) — To bridge this gap, we introduce LangChoiceBench, a project-level code-generation benchmark for measuring Python preference, recommendation-implementation consistency, and language diversity. [Paper](https://arxiv.org/abs/2608.06041) · [HF](https://huggingface.co/papers/2608.06041)
 - **HarnessOpt-Bench** (2026-08-06) — We introduce HarnessOpt-Bench, a benchmark for end-to-end harness optimization under expensive and stochastic evaluation. [Paper](https://arxiv.org/abs/2608.06301) · [HF](https://huggingface.co/papers/2608.06301)
 - **EcoAgent-Bench** (2026-08-06) — We introduce EcoAgent-Bench, in which every task specifies priced actions and an explicit budget. [Paper](https://arxiv.org/abs/2608.05519) · [HF](https://huggingface.co/papers/2608.05519)
