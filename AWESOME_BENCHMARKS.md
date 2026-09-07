@@ -10,21 +10,21 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-05 · **Benchmark releases:** 1597
+**Snapshot:** 2026-09-06 · **Benchmark releases:** 1604
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (11)
-- [Biology & Drug Discovery](#biology--drug-discovery) (105)
+- [Biology & Drug Discovery](#biology--drug-discovery) (106)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
-- [Finance](#finance) (53)
-- [General AI](#general-ai) (1103)
-- [Logistics & Operations](#logistics--operations) (8)
+- [Finance](#finance) (54)
+- [General AI](#general-ai) (1106)
+- [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (20)
-- [Mobile & Personal Computing](#mobile--personal-computing) (8)
+- [Mobile & Personal Computing](#mobile--personal-computing) (9)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (110)
 - [Scientific Facilities](#scientific-facilities) (1)
@@ -47,6 +47,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Biology & Drug Discovery
 
+- **MMTClinic** (2026-09-04) — To fill this gap, we present MMTClinic, a benchmark designed to evaluate large language models (LLMs) on complex reasoning and question-answering tasks involving clinical time-series. [Paper](https://arxiv.org/abs/2609.04842)
 - **OmissionBench** (2026-08-31) — We release the benchmark, prompts and judgements. [Paper](https://arxiv.org/abs/2608.31016) · [Code](https://github.com/composo-ai/omission-bench) · [Data](https://huggingface.co/datasets/ComposoAI/OmissionBench)
 - **Evidence Package Benchmark** (2026-08-31) — We introduce the Evidence Package Benchmark, integrating 1,870 packages across six heterogeneous sources with explicit modality masks and evidence permissions. [Paper](https://arxiv.org/abs/2608.31014)
 - **ECGQuest** (2026-08-31) — ECGQuest provides a reproducible benchmark for contextual ECG knowledge and shows that parameter-efficient fine-tuning can make smaller language models competitive with substantially larger commercial models. [Paper](https://arxiv.org/abs/2608.30893)
@@ -217,6 +218,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **FinalityBench** (2026-09-04) — We present FinalityBench, an executable benchmark for that decision. [Paper](https://arxiv.org/abs/2609.04706) · [Code](https://github.com/abhisheksharma2411/finalitybench)
 - **FinLifeBench** (2026-09-01) — We introduce FinLifeBench, which evaluates two tasks over the same cumulative dialogue: reconstructing every life-event instance with its first-establishing session and reconstructing a complete 34-path financial state… [Paper](https://arxiv.org/abs/2609.01198)
 - **LiveMacroEval** (2026-08-31) — To address this, we introduce LiveMacroEval, a live, contamination-resistant benchmark in which LLM agents produce hourly nowcasts for sixteen major U.S. [Paper](https://arxiv.org/abs/2608.30110)
 - **FinExam-10K** (2026-08-28) — We introduce FinExam-10K, to our knowledge the largest reported English benchmark for this setting, with 10,198 expert-reannotated questions spanning CFA Levels I-III and FRM Parts I-II. [Paper](https://arxiv.org/abs/2608.28155)
@@ -273,7 +275,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **StateBench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
+- **PRISM-Bench** (2026-09-04) — We present PRISM-Bench, the first audio-centric diagnostic benchmark for T2AV generation. [Paper](https://arxiv.org/abs/2609.04867)
+- **MM-IFEval-Pro** (2026-09-04) — To address these gaps, we present MM-IFEval-Pro, a multimodal instruction-following benchmark covering Chinese and English tasks as well as diverse instruction hijacking cases. [Paper](https://arxiv.org/abs/2609.04859)
+- **KoNA** (2026-09-04) — In this paper, we introduce KoNA, a benchmark for evaluating selective non-compliance in VLMs across five categories: False Premise, Visual Inaccessibility, Universal Unknown, Task Feasibility, and Safety. [Paper](https://arxiv.org/abs/2609.04720) · [Code](https://github.com/mz-kim/KoNA)
+- **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
 - **Mind the Gap: Robustness Risks in PII Detection Systems** (2026-09-03) — Motivated by these findings, we propose a hybrid detection pipeline with a QA-driven feedback loop for iterative risk mitigation, and release our benchmark to support OOD-aware evaluation of PII systems. [Paper](https://arxiv.org/abs/2609.03464)
@@ -1379,6 +1384,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Logistics & Operations
 
+- **ERPBench** (2026-09-04) — We introduce ERPBench, an execution-instrumented benchmark for enterprise decision agents in a six-round Enterprise Resource Planning (ERP) simulation with coupled pricing, production, procurement, inventory, finance, a… [Paper](https://arxiv.org/abs/2609.04667) · [Code](https://github.com/GAIR-NLP/erp-bench)
 - **E-Commerce Bench** (2026-08-31) — We introduce E-Commerce Bench, the first open-source benchmark that integrates multi-round counterpart negotiation and dynamic events into a year-long business operation. [Paper](https://arxiv.org/abs/2608.30730) · [Code](https://github.com/QwenLM/E-CommerceBench)
 - **MultiGlobeQA** (2026-08-04) — We introduce MultiGlobeQA, a multilingual benchmark of 46,060 question-answer pairs spanning 14 spatial-function families and 15 answer formats, with execution-based ground truth over three knowledge graphs. [Paper](https://arxiv.org/abs/2608.03882) · [HF](https://huggingface.co/papers/2608.03882)
 - **MapReason-OSM** (2026-06-21) — We present MapReason-OSM, a benchmark and evaluation harness for graph-verifiable mobility decisions on self-rendered OpenStreetMap panels. [Paper](https://arxiv.org/abs/2606.22597) · [HF](https://huggingface.co/papers/2606.22597) · [Code](https://github.com/Vi-Sri/mapreason-osm)
@@ -1440,6 +1446,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mobile & Personal Computing
 
+- **ElderBench** (2026-09-04) — To address this gap, we present ElderBench, the first benchmark for evaluating mobile GUI agents in authentic elderly-oriented scenarios. [Paper](https://arxiv.org/abs/2609.04850)
 - **EdgeMosaic** (2026-09-04) — EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports. [Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)
 - **MobileWorldSafety** (2026-08-18) — To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. [Paper](https://arxiv.org/abs/2608.17659) · [HF](https://huggingface.co/papers/2608.17659) · [Code](https://anonymous.4open.science/r/Anonymous_sub-C887) · [Data](https://anonymous.4open.science/r/Anonymous_sub-C887)
 - **MindEdit-Bench** (2026-07-01) — We introduce MindEdit-Bench, a benchmark of six spatial reasoning tasks built from three-photo smartphone triplets of newly captured indoor scenes via an automatic in-the-wild 3D scene-graph extraction pipeline. [Paper](https://arxiv.org/abs/2607.00491) · [HF](https://huggingface.co/papers/2607.00491) · [Data](https://huggingface.co/datasets/ZODAOfficial/MindEdit-Bench)
