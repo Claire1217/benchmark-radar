@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-06 · **Benchmark releases:** 1613
+**Snapshot:** 2026-09-06 · **Benchmark releases:** 1616
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (54)
-- [General AI](#general-ai) (1111)
+- [General AI](#general-ai) (1114)
 - [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -657,8 +657,11 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **M$^3$R-Bench** (2026-08-06) — However, existing benchmarks mainly evaluate metaphor understanding through isolated subtasks and lack evidence-grounded explanations, making it difficult to assess whether models establish mappings grounded in visual a… [Paper](https://arxiv.org/abs/2608.05817) · [Code](https://github.com/hongshi4/M3R-Bench)
 - **LangChoiceBench** (2026-08-06) — To bridge this gap, we introduce LangChoiceBench, a project-level code-generation benchmark for measuring Python preference, recommendation-implementation consistency, and language diversity. [Paper](https://arxiv.org/abs/2608.06041) · [HF](https://huggingface.co/papers/2608.06041)
 - **HarnessOpt-Bench** (2026-08-06) — We introduce HarnessOpt-Bench, a benchmark for end-to-end harness optimization under expensive and stochastic evaluation. [Paper](https://arxiv.org/abs/2608.06301) · [HF](https://huggingface.co/papers/2608.06301)
+- **GB/T-Bench** (2026-08-06) — To bridge this gap, we introduce GB/T-Bench, the first benchmark for the structured review of national standard documents. [Paper](https://arxiv.org/abs/2608.06312)
 - **EcoAgent-Bench** (2026-08-06) — We introduce EcoAgent-Bench, in which every task specifies priced actions and an explicit budget. [Paper](https://arxiv.org/abs/2608.05519) · [HF](https://huggingface.co/papers/2608.05519)
 - **C-SUITEBENCH** (2026-08-06) — We introduce C-SUITEBENCH, a controlled multimodal benchmark that includes five decision tasks under paired text-only and multimodal conditions across 50 scenarios. [Paper](https://arxiv.org/abs/2608.05864) · [HF](https://huggingface.co/papers/2608.05864)
+- **BFI-Adapt** (2026-08-06) — To enable systematic comparison, we introduce BFI-Adapt, a reusable benchmark for scoring the directional fidelity of event-induced personality change, and use it to rank 14 models. [Paper](https://arxiv.org/abs/2608.06485)
+- **VA-EvoBench** (2026-08-05) — We further introduce VA-EvoBench, covering eight video distributions with separate evolution and held-out splits. [Paper](https://arxiv.org/abs/2608.04587) · [Code](https://github.com/Alibaba-VELLDEPTH/MetaVideoAgent)
 - **Skill-Use** (2026-08-05) — We introduce Skill-Use, a benchmark that evaluates skill use under progressive disclosure, where an agent sees only a skill's name and short description and must retrieve the full procedure before following it. [Paper](https://arxiv.org/abs/2608.04828) · [HF](https://huggingface.co/papers/2608.04828)
 - **OmniEdit-Bench** (2026-08-05) — To address these issues, we introduce a comprehensive and structured benchmark for IVE. [Paper](https://arxiv.org/abs/2608.05049) · [HF](https://huggingface.co/papers/2608.05049)
 - **NOLLI** (2026-08-05) — We introduce NOLLI, a procedurally generated English-Korean puzzle benchmark designed to diagnose where Korean performance gaps arise. [Paper](https://arxiv.org/abs/2608.04397) · [HF](https://huggingface.co/papers/2608.04397) · [Code](https://github.com/HAE-RAE/NOLLI)
@@ -1471,7 +1474,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **RoboSPA** (2026-09-04) — We introduce \textbf{RoboSPA} (\textbf{Robo}t \textbf{S}patial-\textbf{P}rocedural \textbf{A}ssessment), a large-scale robotic manipulation dataset and benchmark for diagnosing embodied reasoning in VLA models. [Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)
 - **ROBORMBENCH** (2026-09-04) — To measure this failure mode, we introduce ROBORMBENCH, a benchmark with 2,390 real-robot trajectories, ground-truth progress labels, and 21,673 verified paraphrases spanning lexical, syntactic, and action-goal rewrites. [Paper](https://arxiv.org/abs/2609.05401)
 - **One Word, Different Action** (2026-09-04) — We introduce One Word, Different Action, a real-robot benchmark built on physical decision states and executable actions, using task-preserving and task-changing instruction pairs to jointly evaluate Decision Invariance… [Paper](https://arxiv.org/abs/2609.05260)
-- **LIBERO-Recover** (2026-09-04) — To address this gap, we introduce LIBERO-Recover Benchmark, a large scale benchmark for failure recovery in robotic manipulation. [Paper](https://arxiv.org/abs/2609.05178)
+- **LIBERO-Recover Benchmark** (2026-09-04) — To address this gap, we introduce LIBERO-Recover Benchmark, a large scale benchmark for failure recovery in robotic manipulation. [Paper](https://arxiv.org/abs/2609.05178)
 - **Peg-in-Bench** (2026-09-01) — This paper introduces a reconfigurable peg-in-hole benchmark designed to evaluate task generalization in high-precision insertion. [Paper](https://arxiv.org/abs/2609.00906) · [Code](https://github.com/aistairc/peg-in-bench)
 - **SeqAlign3DVG** (2026-08-31) — We introduce SeqAlign3DVG, a novel benchmark dedicated to temporally ordered and strictly observation-aligned image-based 3D visual grounding. [Paper](https://arxiv.org/abs/2608.30451)
 - **Behavior-Skill** (2026-08-31) — We present Behavior-Skill, a benchmark that reformulates the learning and evaluation of long-horizon tasks around executable constituent skills. [Paper](https://arxiv.org/abs/2608.30536) · [Code](https://github.com/nubot-nudt/Behavior-Skill)
