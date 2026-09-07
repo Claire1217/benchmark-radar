@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-07 · **Benchmark releases:** 1604
+**Snapshot:** 2026-09-06 · **Benchmark releases:** 1613
 
 ## Contents
 
@@ -19,14 +19,14 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (54)
-- [General AI](#general-ai) (1106)
+- [General AI](#general-ai) (1111)
 - [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (20)
 - [Mobile & Personal Computing](#mobile--personal-computing) (9)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (110)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (114)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
 - [Software & AI Compute](#software--ai-compute) (97)
@@ -275,9 +275,14 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **WearableQA** (2026-09-04) — We introduce WearableQA, a benchmark comprising 4,084 10-option multiple-choice questions constructed from the wearable time series, blood biomarkers, and demographics of 200 real users, each with up to 500 days of dail… [Paper](https://arxiv.org/abs/2609.05405)
+- **TruthInsightBench** (2026-09-04) — We present TruthInsightBench, a benchmark configured for discovery. [Paper](https://arxiv.org/abs/2609.05079) · [Code](https://github.com/TruthInsight-stack/TruthInsightBench)
+- **SciDocBench** (2026-09-04) — We introduce SciDocBench, a workflow-centered benchmark for scientific document understanding. [Paper](https://arxiv.org/abs/2609.05141) · [Code](https://github.com/InternLM/SciDocBench)
 - **PRISM-Bench** (2026-09-04) — We present PRISM-Bench, the first audio-centric diagnostic benchmark for T2AV generation. [Paper](https://arxiv.org/abs/2609.04867)
 - **MM-IFEval-Pro** (2026-09-04) — To address these gaps, we present MM-IFEval-Pro, a multimodal instruction-following benchmark covering Chinese and English tasks as well as diverse instruction hijacking cases. [Paper](https://arxiv.org/abs/2609.04859)
 - **KoNA** (2026-09-04) — In this paper, we introduce KoNA, a benchmark for evaluating selective non-compliance in VLMs across five categories: False Premise, Visual Inaccessibility, Universal Unknown, Task Feasibility, and Safety. [Paper](https://arxiv.org/abs/2609.04720) · [Code](https://github.com/mz-kim/KoNA)
+- **KOPA-Bench** (2026-09-04) — We introduce the Korean Open Public API Benchmark (KOPA-Bench), comprising 145 real-world tasks. [Paper](https://arxiv.org/abs/2609.05395)
+- **European-IFEval** (2026-09-04) — We introduce EuroAlpaca, a task-preserving localisation pipeline and near-parallel resource covering 50 European languages and regional varieties, together with European-IFEval, a multilingual benchmark for verifiable i… [Paper](https://arxiv.org/abs/2609.05043)
 - **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
@@ -1463,6 +1468,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **RoboSPA** (2026-09-04) — We introduce \textbf{RoboSPA} (\textbf{Robo}t \textbf{S}patial-\textbf{P}rocedural \textbf{A}ssessment), a large-scale robotic manipulation dataset and benchmark for diagnosing embodied reasoning in VLA models. [Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)
+- **ROBORMBENCH** (2026-09-04) — To measure this failure mode, we introduce ROBORMBENCH, a benchmark with 2,390 real-robot trajectories, ground-truth progress labels, and 21,673 verified paraphrases spanning lexical, syntactic, and action-goal rewrites. [Paper](https://arxiv.org/abs/2609.05401)
+- **One Word, Different Action** (2026-09-04) — We introduce One Word, Different Action, a real-robot benchmark built on physical decision states and executable actions, using task-preserving and task-changing instruction pairs to jointly evaluate Decision Invariance… [Paper](https://arxiv.org/abs/2609.05260)
+- **LIBERO-Recover** (2026-09-04) — To address this gap, we introduce LIBERO-Recover Benchmark, a large scale benchmark for failure recovery in robotic manipulation. [Paper](https://arxiv.org/abs/2609.05178)
 - **Peg-in-Bench** (2026-09-01) — This paper introduces a reconfigurable peg-in-hole benchmark designed to evaluate task generalization in high-precision insertion. [Paper](https://arxiv.org/abs/2609.00906) · [Code](https://github.com/aistairc/peg-in-bench)
 - **SeqAlign3DVG** (2026-08-31) — We introduce SeqAlign3DVG, a novel benchmark dedicated to temporally ordered and strictly observation-aligned image-based 3D visual grounding. [Paper](https://arxiv.org/abs/2608.30451)
 - **Behavior-Skill** (2026-08-31) — We present Behavior-Skill, a benchmark that reformulates the learning and evaluation of long-horizon tasks around executable constituent skills. [Paper](https://arxiv.org/abs/2608.30536) · [Code](https://github.com/nubot-nudt/Behavior-Skill)
