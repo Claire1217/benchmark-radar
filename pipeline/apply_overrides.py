@@ -4,7 +4,7 @@
 from pathlib import Path
 import re
 
-from generate_editorial_copy import public_release_ready, publisher_identity_is_distinct
+from generate_editorial_copy import publisher_identity_is_distinct
 from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records, read_json, upsert, write_json
 
 
@@ -75,8 +75,6 @@ def main() -> None:
         )
     )
     for record in records:
-        if not public_release_ready(record):
-            record["displayEligible"] = False
         restore_official_heading_name(record)
         record["capabilities"] = [
             capability

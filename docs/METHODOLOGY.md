@@ -124,3 +124,10 @@ submissionStatus: available | unavailable | unknown
 Readiness remains separate: `Paper only`, `Inspectable`, `Runnable`, or
 `Maintained`. Conference acceptance and publication evidence are also separate
 from Benchmark type and attention.
+
+
+## Day-one artifact admission (2026-09-09)
+
+GitHub stars, Hugging Face downloads and likes are attention signals, not admission requirements. New artifact-only releases go through editorial review, even with zero adoption or no paper. The reviewer must supply source-matched excerpts for the task, scoring rules and public reuse or external evaluation path. A results UI, vendor report with withheld scoring, roadmap or a single-model experiment on an existing benchmark does not establish that path.
+
+The saved review controls public eligibility; the frontend does not repeat popularity gates. Existing releases retain their explicit eligibility until re-audited. The new admission policy invalidates previous review fingerprints so recent queued candidates are reviewed again. Evidence quotes validate source attribution, not execution: public availability and reproducibility remain bounded by the supplied artifact evidence.

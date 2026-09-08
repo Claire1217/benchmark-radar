@@ -50,21 +50,8 @@ def public_release_ready(record: dict[str, Any]) -> bool:
     ):
         return True
 
-    source_signals = source.get("publicSignals") or {}
-    attention = record.get("attention") or {}
-    stars = max(
-        int(source_signals.get("githubStars") or 0),
-        int(attention.get("githubStars") or 0),
-    )
-    downloads = max(
-        int(source_signals.get("hfDatasetDownloads") or 0),
-        int(attention.get("hfDatasetDownloads") or 0),
-    )
-    likes = max(
-        int(source_signals.get("hfDatasetLikes") or 0),
-        int(attention.get("hfDatasetLikes") or 0),
-    )
-    return stars >= 25 or downloads >= 1000 or likes >= 10
+    # Artifact-only releases go through evidence-based editorial review.
+    return False
 
 
 def automatically_publishable(record: dict[str, Any], threshold: float) -> bool:

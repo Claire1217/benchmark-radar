@@ -47,18 +47,29 @@ class DeepSeekReviewTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             validate_copy({"1": {"officialLinks": {}}}, rows)
 
-    def test_new_github_repo_needs_independent_release_or_strong_adoption(self) -> None:
-        repo = {
-            "source": {"type": "github", "publicSignals": {"githubStars": 0}},
-            "links": {"code": "https://github.com/example/bench"},
-        }
+    def test_popularity_never_substitutes_for_review(self):
+        repo = {"source": {"type": "github", "publicSignals": {"githubStars": 10000}}}
         self.assertFalse(public_release_ready(repo))
-        self.assertTrue(public_release_ready({**repo, "links": {**repo["links"], "paper": "https://arxiv.org/abs/2608.00001"}}))
-        self.assertTrue(public_release_ready({**repo, "source": {"type": "github", "publicSignals": {"githubStars": 25}}}))
-        self.assertTrue(public_release_ready({**repo, "attention": {"githubStars": 25}}))
-        dataset = {"source": {"type": "huggingface"}, "links": {"data": "https://huggingface.co/datasets/example/bench"}, "attention": {"hfDatasetDownloads": 62, "hfDatasetLikes": 0}}
-        self.assertFalse(public_release_ready(dataset))
-        self.assertTrue(public_release_ready({**dataset, "attention": {"hfDatasetDownloads": 1000, "hfDatasetLikes": 0}}))
+        decision = {**self.valid_decision(), "evaluationEvidenceVerified": True}
+        self.assertTrue(public_release_ready({"source": {"type": "github"}}, decision))
+        self.assertTrue(public_release_ready({"source": {"type": "huggingface"}}, decision))
+        self.assertFalse(public_release_ready(repo, {**decision, "decision": "defer"}))
+
+    def test_artifact_review_requires_verbatim_evaluation_evidence(self):
+        row = {**self.valid_decision(), "sourceId": "1", "description": "Evaluates agents.",
+               "whyItMatters": "Supports comparison.", "publishers": []}
+        source = {"sourceType": "github", "title": "ExampleBench: A repeatable evaluation",
+                  "artifactEvidence": [{"status": "available", "excerpt":
+                      "Fixed suite of ten tasks. Scored using exact match. Public task data and evaluator are released."}]}
+        with self.assertRaises(generate_editorial_copy.ReviewValidationError):
+            validate_copy({"1": source}, [row])
+        row["evaluationEvidence"] = {"task": "Fixed suite of ten tasks.", "scoring": "Scored using exact match.",
+                                     "reuse": "Public task data and evaluator are released."}
+        validate_copy({"1": source}, [row])
+        self.assertTrue(row["evaluationEvidenceVerified"])
+        row["evaluationEvidence"]["scoring"] = "There is a public hidden-test evaluation server."
+        with self.assertRaises(generate_editorial_copy.ReviewValidationError):
+            validate_copy({"1": source}, [row])
 
     def test_unsupported_publisher_is_dropped_without_blocking_copy(self) -> None:
         rows = [{

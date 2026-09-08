@@ -27,7 +27,7 @@ OUTPUT_PATH = ROOT / "data/editorial_copy.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-26.2"
-ADMISSION_POLICY_VERSION = "2026-08-26.4"
+ADMISSION_POLICY_VERSION = "2026-09-09.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -88,8 +88,10 @@ def artifact_excerpt(kind: str, url: str) -> dict[str, Any]:
         fetch_url = f"https://huggingface.co/datasets/{parts[1]}/{parts[2]}/raw/main/README.md"
     try:
         with urlopen(Request(fetch_url, headers=headers), timeout=30) as response:
-            raw = response.read(12000).decode("utf-8", errors="replace")
-        clean = " ".join(re.sub(r"<[^>]+>", " ", raw).split())[:6000]
+            raw = response.read(48000).decode("utf-8", errors="replace")
+        clean = " ".join(re.sub(r"<[^>]+>", " ", raw).split())
+        if len(clean) > 16000:
+            clean = clean[:10000] + " [middle omitted] " + clean[-6000:]
         return {"kind": kind, "url": url, "status": "available", "excerpt": clean}
     except (HTTPError, URLError, TimeoutError):
         return {"kind": kind, "url": url, "status": "unverified", "excerpt": ""}
@@ -136,6 +138,12 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                             "type": "string",
                             "enum": ["score_submission", "public_reusable", "viewpoint_probe", "uses_existing", "not_benchmark", "unclear"],
                         },
+                        "evaluationEvidence": {
+                            "type": "object",
+                            "properties": {key: {"type": "string", "maxLength": 240} for key in ("task", "scoring", "reuse")},
+                            "required": ["task", "scoring", "reuse"],
+                            "additionalProperties": False,
+                        },
                         "stableScoringContract": {"type": "boolean"},
                         "publicReusePath": {"type": "boolean"},
                         "description": {"type": "string", "maxLength": 220},
@@ -167,7 +175,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                             },
                         },
                     },
-                    "required": ["sourceId", "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "attentionForecast", "publishers"],
+                    "required": ["evaluationEvidence", "sourceId", "canonicalName", "canonicalNameSource", "canonicalNameEvidence", "decision", "benchmarkMode", "stableScoringContract", "publicReusePath", "description", "whyItMatters", "decisionReason", "attentionForecast", "publishers"],
                     "additionalProperties": False,
                 },
             }
@@ -184,7 +192,12 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "score_submission means an ongoing public benchmark intended for model comparison; public_reusable means a fixed public dataset/protocol usable by other teams. "
         "A viewpoint_probe primarily exists to support one paper's finding and lacks a standalone public comparison path; exclude it from the public site. "
         "uses_existing and not_benchmark must also be excluded. Defer when evidence or artifacts are unclear. "
-        "A newly created GitHub repository or Hugging Face dataset page is discovery evidence, not by itself a formal release: defer it unless the input also supplies an independent paper, OpenReview, Hugging Face paper, official benchmark site, or clear strong public adoption. "
+        "A new GitHub or Hugging Face release may qualify on day one with zero stars, downloads or likes and no paper. Popularity is NEVER an admission criterion. "
+        "For publish, evaluationEvidence must give three short verbatim excerpts from supplied evidence proving the task, scoring rules and actual public reuse or external submission path. Otherwise defer, using empty evidence fields where missing. "
+        "A leaderboard UI, manually entered result numbers or report verification script is not an evaluator or external submission path. "
+        "Exclude vendor self-test reports with withheld inputs and scoring, and single-model optimization experiments using existing benchmarks without a distinct reusable evaluation protocol. "
+        "Defer roadmap-only suites and prototypes without released task inputs and a usable scoring path. Count only implemented tasks; distinguish synthetic fixtures from measured results. "
+        "Read limitations and withheld-artifact statements as carefully as release claims. Do not infer full truth-data coverage from a directory diagram. "
         "Public attention and author prestige must never change benchmark identity. The word benchmark alone is insufficient. "
         "canonicalName must reproduce the official human-readable benchmark name from the paper title, abstract, or official README, preserving capitalization. "
         "Return canonicalNameSource and a short verbatim canonicalNameEvidence quote proving that exact name. The quote must come from the selected source. "
@@ -280,6 +293,14 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
             or normalize_name(canonical_name) not in normalize_name(name_evidence)
         ):
             raise ReviewValidationError(f"Unsupported canonical name for {row.get('sourceId')}")
+        if row.get("decision") == "publish" and source.get("sourceType") in {"github", "huggingface"}:
+            evidence = row.get("evaluationEvidence") or {}
+            available = " ".join(str(item.get("excerpt") or "") for item in source.get("artifactEvidence", []) if item.get("status") == "available")
+            for key in ("task", "scoring", "reuse"):
+                quote = str(evidence.get(key) or "").strip()
+                if len(quote) < 12 or normalize_evidence(quote) not in normalize_evidence(available):
+                    raise ReviewValidationError(f"Unsupported evaluation evidence for {row.get('sourceId')}:{key}")
+            row["evaluationEvidenceVerified"] = True
         row["canonicalName"] = canonical_name
         row["canonicalNameEvidence"] = name_evidence
         forecast = row["attentionForecast"]
@@ -370,23 +391,11 @@ def publishable(row: dict[str, Any]) -> bool:
     )
 
 
-def public_release_ready(record: dict[str, Any]) -> bool:
-    """Artifact-registry discoveries need independent release evidence or adoption."""
-    source_type = (record.get("source") or {}).get("type")
-    if source_type not in {"github", "huggingface"}:
+def public_release_ready(record: dict[str, Any], decision: dict[str, Any] | None = None) -> bool:
+    """New artifact discoveries require source-grounded review, never popularity."""
+    if (record.get("source") or {}).get("type") not in {"github", "huggingface"}:
         return True
-    links = record.get("links") or {}
-    paper_hosts = {"arxiv.org", "www.arxiv.org", "openreview.net"}
-    has_paper = any(urlparse(str(links.get(key) or "")).netloc.casefold() in paper_hosts for key in ("report", "paper", "project"))
-    has_hf_paper = bool(links.get("hfPaper"))
-    stars = max(
-        int((((record.get("source") or {}).get("publicSignals") or {}).get("githubStars")) or 0),
-        int(((record.get("attention") or {}).get("githubStars")) or 0),
-    )
-    source_signals = ((record.get("source") or {}).get("publicSignals") or {})
-    downloads = max(int(source_signals.get("hfDatasetDownloads") or 0), int(((record.get("attention") or {}).get("hfDatasetDownloads")) or 0))
-    likes = max(int(source_signals.get("hfDatasetLikes") or 0), int(((record.get("attention") or {}).get("hfDatasetLikes")) or 0))
-    return has_paper or has_hf_paper or stars >= 25 or downloads >= 1000 or likes >= 10
+    return bool(decision and publishable(decision) and decision.get("evaluationEvidenceVerified") is True)
 
 
 def upsert_curated(
@@ -417,7 +426,7 @@ def upsert_curated(
             continue
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
-        if not public_release_ready(source):
+        if not public_release_ready(source, decision):
             if audit_existing:
                 record = by_source.get(source_id) or {
                     key: value for key, value in source.items()
@@ -431,7 +440,7 @@ def upsert_curated(
                     "model": model,
                     "decisionReason": (
                         "The formal benchmark name is source-grounded, but the public release "
-                        "does not yet meet the independent evidence or adoption threshold."
+                        "does not yet have verified task, scoring and public reuse evidence."
                     ),
                 }
                 by_source[source_id] = record
@@ -452,6 +461,8 @@ def upsert_curated(
         record["capabilities"] = [value for value in record.get("capabilities", []) if value != "Evaluation"]
         record["curation"] = {
             "state": "ai-reviewed",
+            "evaluationEvidence": decision.get("evaluationEvidence", {}),
+            "admissionPolicyVersion": ADMISSION_POLICY_VERSION,
             "reviewedAt": now,
             "model": model,
             "decisionReason": decision["decisionReason"],
@@ -595,6 +606,8 @@ def main() -> None:
         for row in rows:
             source = source_by_id[row["sourceId"]]
             existing["bySourceId"][row["sourceId"]] = {
+                "evaluationEvidence": row.get("evaluationEvidence", {}),
+                "evaluationEvidenceVerified": row.get("evaluationEvidenceVerified", False),
                 "decision": row["decision"],
                 "canonicalName": row["canonicalName"],
                 "canonicalNameSource": row["canonicalNameSource"],
