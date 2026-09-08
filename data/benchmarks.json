@@ -126,20 +126,21 @@
         "horizon": "7d",
         "reason": "The niche focus on NetDevOps agent evaluation and lack of traditional leaderboard metrics may limit early visibility despite the public repository."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "source-reviewed-defer",
         "evaluationEvidence": {
           "task": "The benchmark presents the agent with the following stages: - Stage 1 - Information gathering - Stage 2 - Basic setup - Stage 3 - Update devices - Stage 4 - Configure underlay VPN - Stage 5 - Setup overlay - Stage 6 - Setup L2VPN - Stage 7 - Internet VRF - Stage 8 - High availability - Stage 9 - Centralized zone-based firewalling - Stage 10 - PWHT - Stage 11 - iPOE authentication - Stage 12 - Evaluation",
           "scoring": "The benchmark does not produce a traditional numeric score. Instead, each run creates artifacts: a branch, commit history, ADRs, evaluation notes, templates, and state information. These materials provide most of the meaningful signal.",
           "reuse": "Please fetch this URL and perform the task within https://raw.githubusercontent.com/AndersBallegaard/agentic-netdevops-benchmark/refs/heads/main/LLM.txt"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-08T16:33:53.925756Z",
+        "reviewedAt": "2026-09-08T16:57:34.057731Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a repeatable task suite with explicit stages and a public run instruction via LLM.txt, enabling other teams to execute and evaluate agents on the same setup.",
+        "decisionReason": "Primary-source review: public task stages and run artifacts are available, but the cited scoring evidence describes artifacts rather than a defined scoring rubric or pass/fail contract. Hold until a comparable evaluation rule is verified.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# Agentic NetDevOps Benchmark"
+        "canonicalNameEvidence": "# Agentic NetDevOps Benchmark",
+        "method": "primary-source-review-v1"
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
@@ -602,20 +603,21 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "source-reviewed-exclude",
         "evaluationEvidence": {
           "task": "End-to-end model optimization pipeline for a DistilBERT sentiment classifier: PyTorch to ONNX export, dynamic INT8 quantization, and static (calibration-based) INT8 quantization, with accuracy, latency, and size benchmarked at every step on a fixed evaluation set.",
           "scoring": "| Variant | Accuracy | Latency (mean) | Latency (p95) | Size | |---|---|---|---|---| | PyTorch FP32 | 91.0% | 94.7ms | 207.2ms | 255.4MB | | ONNX Runtime FP32 | 91.0% | 43.8ms | 61.4ms | 256.2MB | | ONNX Dynamic INT8 | 90.0% | 22.4ms | 26.0ms | 64.7MB | | ONNX Static INT8 | 89.0% | 37.7ms | 68.4ms | 134.7MB |",
           "reuse": "Reproduce Run in order in Google Colab: 1. `baseline.py` - load model, establish FP32 accuracy/latency/size baseline 2. `onnx_export.py` - export to ONNX, verify correctness vs. PyTorch 3. `reshape_sizes.py` - fix a size-measurement bug (ONNX external data file) 4. `dynamic_quantization.py` - dynamic INT8 quantization + benchmark 5. `static_quantization.py` - static INT8 quantization + benchmark"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-08T16:44:51.831810Z",
+        "reviewedAt": "2026-09-08T16:57:34.057602Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Provides a released reproducible task suite with fixed evaluation samples, latency measurement protocol, and clearly defined scoring metrics for model variants.",
+        "decisionReason": "Primary-source review: this is a single DistilBERT quantization experiment on 200 existing SST-2 examples, not a new reusable benchmark family.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# DistilBERT ONNX Quantization Benchmark End-to-end model optimization pipeline for a DistilBERT sentiment classifier: PyTorch to ONNX export, dynamic INT8 quantization, and static (calibration-based) INT8 quantization, with accuracy, latency, and size benchmarked at every step on a fixed evaluation set."
+        "canonicalNameEvidence": "# DistilBERT ONNX Quantization Benchmark End-to-end model optimization pipeline for a DistilBERT sentiment classifier: PyTorch to ONNX export, dynamic INT8 quantization, and static (calibration-based) INT8 quantization, with accuracy, latency, and size benchmarked at every step on a fixed evaluation set.",
+        "method": "primary-source-review-v1"
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
