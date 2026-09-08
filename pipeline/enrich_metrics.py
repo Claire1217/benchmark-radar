@@ -614,9 +614,17 @@ def main() -> None:
     attempted_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     only_ids = {item.strip() for item in (args.only_ids or "").split(",") if item.strip()}
     if args.today_only:
+        if not snapshot_path.exists():
+            raise RuntimeError("--today-only requires an existing snapshot for the observation date.")
+        snapshot_ids = {
+            item["benchmarkId"] for item in read_json(snapshot_path).get("records", [])
+        }
+        # Reviews can admit older records after the morning snapshot. Fetch
+        # these once as well, so the subsequent full rerank has coverage.
         only_ids.update(
             record["id"] for record in records
-            if latest_batch_start <= record.get("releasedAt", "") <= latest_source_date
+            if record["id"] not in snapshot_ids
+            or latest_batch_start <= record.get("releasedAt", "") <= latest_source_date
         )
         if not only_ids:
             print(f"no Today records for latest release {latest_source_date}")

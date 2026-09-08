@@ -22,6 +22,41 @@ from enrich_metrics import (
 
 
 class MetricTests(unittest.TestCase):
+    def test_today_refresh_fills_missing_history_without_refetching_existing_history(self):
+        from contextlib import ExitStack
+        from argparse import Namespace
+        for latest in ("2026-09-08", "2026-09-07"):
+            with self.subTest(latest=latest), tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+                root = Path(directory)
+                records = [{"id": key, "releasedAt": released, "links": {}}
+                           for key, released in (("old", "2026-08-01"), ("missing", "2026-08-02"), ("new", "2026-09-08"))]
+                def raw(key):
+                    return dict(benchmarkId=key, hfPaperUpvotes=None, hfDailySubmittedAt=None,
+                                hfPaperUrl=None, githubRepo=None, githubStars=None, githubScope=None,
+                                hfDataset=None, hfDatasetDownloads=None, hfDatasetLikes=None, signalStatus={})
+                existing = [raw("old"), raw("new")]
+                data = root / "benchmarks.json"
+                data.write_text(json.dumps({"manifest": {}, "records": records}))
+                snapshot = root / "2026-09-08.json"
+                snapshot.write_text(json.dumps({"records": existing}))
+                stack.enter_context(patch.object(enrich_metrics, "DATA_PATH", data))
+                stack.enter_context(patch.object(enrich_metrics, "METRICS_DIR", root))
+                stack.enter_context(patch.object(enrich_metrics, "publication_today", return_value=date(2026, 9, 8)))
+                stack.enter_context(patch.object(enrich_metrics, "effective_latest_batch", return_value={"from": latest, "to": latest}))
+                stack.enter_context(patch.object(enrich_metrics, "latest_snapshot_before", return_value=None))
+                fetch = stack.enter_context(patch.object(enrich_metrics, "enrich_one", side_effect=lambda r, *a: raw(r["id"])))
+                args = Namespace(rerank_only=False, today_only=True, date=None, only_ids=None, github_limit=0, workers=1)
+                stack.enter_context(patch.object(enrich_metrics, "parse_args", return_value=args))
+                enrich_metrics.main()
+                self.assertEqual({c.args[0]["id"] for c in fetch.call_args_list}, {"missing", "new"} if latest == "2026-09-08" else {"missing"})
+                saved = {r["benchmarkId"]: r for r in json.loads(snapshot.read_text())["records"]}
+                self.assertEqual(set(saved), {"old", "missing", "new"})
+                self.assertEqual({k: v for k, v in saved["old"].items() if k != "signalStatus"},
+                                 {k: v for k, v in existing[0].items() if k != "signalStatus"})
+                args.today_only = False
+                args.rerank_only = True
+                enrich_metrics.main()
+
     def test_restricted_provider_response_is_an_unavailable_signal(self) -> None:
         for status in (401, 403):
             with self.subTest(status=status), patch(
