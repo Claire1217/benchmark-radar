@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-07 · **Benchmark releases:** 1616
+**Snapshot:** 2026-09-07 · **Benchmark releases:** 1622
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (11)
-- [Biology & Drug Discovery](#biology--drug-discovery) (106)
+- [Biology & Drug Discovery](#biology--drug-discovery) (107)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (54)
-- [General AI](#general-ai) (1114)
+- [General AI](#general-ai) (1118)
 - [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (114)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (97)
+- [Software & AI Compute](#software--ai-compute) (98)
 
 ## Autonomous Driving
 
@@ -72,6 +72,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Explanation Stability of Test-Time Adaptation in Computational Pathology: A Large-Scale Benchmark** (2026-08-07) — We release the metric, protocol, and full benchmark to support future work on adaptation methods that are not only accurate, but also stable and clinically auditable. [Paper](https://arxiv.org/abs/2608.07062) · [Code](https://github.com/bahumanyarg11/tta-explanation-stability-pipeline)
 - **CliniCARE-Bench** (2026-08-07) — We introduce CliniCARE-Bench (Clinical Calibrated Audit of Medical Reasoning in EHR), a benchmark for retrospective clinical audit: 25 clinician-validated scenarios instantiated as 750 patient-specific cases over real-p… [Paper](https://arxiv.org/abs/2608.07796) · [HF](https://huggingface.co/papers/2608.07796)
 - **EpiBench** (2026-08-06) — To address this gap, we introduce EpiBench, a closed-book, sequence-based, and automatically scorable benchmark for evaluating epitope reasoning in LLMs. [Paper](https://arxiv.org/abs/2608.06022) · [HF](https://huggingface.co/papers/2608.06022)
+- **RESPClinBench** (2026-08-05) — Objective: To develop RESPClinBench, a real-world scenario-based benchmark for respiratory clinical decision-making, and evaluate seven contemporary large language models across AECOPD-PIM and PNBIM. [Paper](https://arxiv.org/abs/2608.04514)
 - **MS-MLB** (2026-08-04) — This paper presents MS-MLB (Multiple Sclerosis Machine Learning Benchmark), a reproducible open benchmark for machine learning based MS research classification from whole blood RNA expression data. [Paper](https://arxiv.org/abs/2608.05196) · [HF](https://huggingface.co/papers/2608.05196) · [Code](https://github.com/duckyquang/MS-MLB)
 - **CARE-Bench** (2026-08-04) — We introduce CARE-Bench, a source-grounded benchmark that evaluates sequential patient-facing triage as a four-label per-turn current-action task. [Paper](https://arxiv.org/abs/2608.03731) · [HF](https://huggingface.co/papers/2608.03731)
 - **SPIKE-Bench** (2026-08-03) — To address this evaluation blind spot, we introduce SPIKE-Bench, coupling 631 curated toxin-design prompts across seven functional categories with the SPIKE funnel, a three-stage protocol that filters output through com… [Paper](https://arxiv.org/abs/2608.02684) · [HF](https://huggingface.co/papers/2608.02684) · [Code](https://github.com/PKU-Alignment/SPIKE-Bench)
@@ -663,9 +664,13 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **BFI-Adapt** (2026-08-06) — To enable systematic comparison, we introduce BFI-Adapt, a reusable benchmark for scoring the directional fidelity of event-induced personality change, and use it to rank 14 models. [Paper](https://arxiv.org/abs/2608.06485)
 - **VA-EvoBench** (2026-08-05) — We further introduce VA-EvoBench, covering eight video distributions with separate evolution and held-out splits. [Paper](https://arxiv.org/abs/2608.04587) · [Code](https://github.com/Alibaba-VELLDEPTH/MetaVideoAgent)
 - **Skill-Use** (2026-08-05) — We introduce Skill-Use, a benchmark that evaluates skill use under progressive disclosure, where an agent sees only a skill's name and short description and must retrieve the full procedure before following it. [Paper](https://arxiv.org/abs/2608.04828) · [HF](https://huggingface.co/papers/2608.04828)
+- **SearchAuditBench** (2026-08-05) — We therefore introduce SearchAuditBench, a benchmark that evaluates whether LLM auditors can localize, attribute, and repair these failures, thereby reducing the human burden. [Paper](https://arxiv.org/abs/2608.05212)
 - **OmniEdit-Bench** (2026-08-05) — To address these issues, we introduce a comprehensive and structured benchmark for IVE. [Paper](https://arxiv.org/abs/2608.05049) · [HF](https://huggingface.co/papers/2608.05049)
 - **NOLLI** (2026-08-05) — We introduce NOLLI, a procedurally generated English-Korean puzzle benchmark designed to diagnose where Korean performance gaps arise. [Paper](https://arxiv.org/abs/2608.04397) · [HF](https://huggingface.co/papers/2608.04397) · [Code](https://github.com/HAE-RAE/NOLLI)
+- **MirageBench** (2026-08-05) — We introduce MirageBench, comprising 150 personas balanced across stereotypical, counter-stereotypical, and neutral profiles, 6 personalization tasks spanning an ``imagination gradient'', a four-way faithfulness taxonom… [Paper](https://arxiv.org/abs/2608.04570)
 - **LUNAR** (2026-08-05) — To address this gap, we introduce LUNAR, the first benchmark for evaluating how LLMs personalize responses from longitudinal app interaction histories across universal daily-life domains, including clothing, food, housi… [Paper](https://arxiv.org/abs/2608.05246) · [HF](https://huggingface.co/papers/2608.05246)
+- **IslamicTurathBench** (2026-08-05) — We introduce IslamicTurathBench (ISTB), a multi-task, multi-discipline dataset for evaluating LLMs on classical Islamic scholarship. [Paper](https://arxiv.org/abs/2608.04703)
+- **HERA** (2026-08-05) — We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmar… [Paper](https://arxiv.org/abs/2608.05138)
 - **EuroExec** (2026-08-05) — We dedicate more than 4,000 human expert hours to evaluate a selection of six frontier LLMs on a member of this class of problems: EuroExec, our introduced human expert-based benchmark composed of 413 open-ended long-fo… [Paper](https://arxiv.org/abs/2608.04549) · [HF](https://huggingface.co/papers/2608.04549)
 - **EgoAfford** (2026-08-05) — We introduce EgoAfford, a benchmark designed to connect these three aspects. [Paper](https://arxiv.org/abs/2608.04533) · [HF](https://huggingface.co/papers/2608.04533)
 - **ContextWeave** (2026-08-05) — We introduce ContextWeave, a longitudinal benchmark that evaluates whether recalled experience improves downstream agent performance in realistic office-work streams. [Paper](https://arxiv.org/abs/2608.04830) · [HF](https://huggingface.co/papers/2608.04830)
@@ -1632,6 +1637,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Edit2TikZ** (2026-08-13) — We introduce Edit2TikZ, a comprehensive benchmark for scientific figure editing tasks, featuring 1,548 diverse and high-quality samples. [Paper](https://arxiv.org/abs/2608.13441) · [HF](https://huggingface.co/papers/2608.13441) · [Code](https://github.com/Solunny/Edit2TikZ)
 - **SWE-RPG** (2026-08-10) — To address this gap, we introduce SWE-RPG, a repository-level benchmark that combines executable patch evaluation with validated ground-truth references (GTs) for (1) Requirement Clarification and (2) Implementation Pla… [Paper](https://arxiv.org/abs/2608.09072) · [Code](https://github.com/Xin-Zhou-smu/SWE-RPG-Bench)
 - **SWE-Bench ProMax** (2026-08-10) — We introduce SWE-Bench ProMax, an expert-curated, multilingual code refactoring benchmark of 170 instances drawn from real commits across seven programming languages (Python, Java, TypeScript, Go, C, C++, and Rust). [Paper](https://arxiv.org/abs/2608.09802) · [HF](https://huggingface.co/papers/2608.09802) · [Data](https://huggingface.co/datasets/swe-bench-promax/SWE-Bench-ProMax)
+- **RepoProbe** (2026-08-05) — This work introduces RepoProbe, a novel benchmark for evaluating repository-level code understanding through open-ended Q&A using GitHub Discussions, which focuses on open-ended architectural inquiries rather than defec… [Paper](https://arxiv.org/abs/2608.04783) · [Code](https://github.com/Tencent-Hunyuan/RepoProbe)
 - **Active-SWE** (2026-08-05) — To address this, we introduce Active-SWE, a benchmark for evaluating coding agents on proactively discovering and fixing multiple bugs without report guidance, covering 1,663 tasks across six bug categories and eight la… [Paper](https://arxiv.org/abs/2608.04682) · [HF](https://huggingface.co/papers/2608.04682) · [Code](https://github.com/XLearning-SCU/Active-SWE)
 - **SeGaBench** (2026-08-04) — We introduce SeGaBench, an executable benchmark containing 100 synthetic and 20 source-backed cases spanning low-level assumptions, data-structure invariants, and high-level semantic lifting. [Paper](https://arxiv.org/abs/2608.03983) · [HF](https://huggingface.co/papers/2608.03983)
 - **CodeAssay** (2026-08-04) — We present CodeAssay, a taxonomy-first benchmark of 185 Python tasks across ten software-engineering categories. [Paper](https://arxiv.org/abs/2608.03535) · [HF](https://huggingface.co/papers/2608.03535)

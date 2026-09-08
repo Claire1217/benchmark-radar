@@ -33516,7 +33516,7 @@
       "aliases": [
         "RuleWeaver: Benchmarking Rule-Centered Scenario Reasoning for Large Language Models"
       ],
-      "oneLine": "Evaluates rule-centered scenario reasoning through corpus-derived IF-THEN rules, composed into QA instances with rubric-based answer quality, rule recall, and rule precision scoring.",
+      "oneLine": "RuleWeaver evaluates rule-centered scenario reasoning through scenario QA instances built from IF-THEN rules, with scoring based on answer correctness, rubric-based quality, rule recall, and rule precision.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -33610,18 +33610,18 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates rule-centered scenario reasoning through corpus-derived IF-THEN rules, composed into QA instances with rubric-based answer quality, rule recall, and rule precision scoring.",
-      "whyItMatters": "Provides process-level evaluation beyond final-answer correctness, exposing where models fail to apply complex rules in domain scenarios.",
-      "evaluationMode": "public_reusable",
+      "description": "RuleWeaver evaluates rule-centered scenario reasoning through scenario QA instances built from IF-THEN rules, with scoring based on answer correctness, rubric-based quality, rule recall, and rule precision.",
+      "whyItMatters": "It addresses the gap in benchmarks that overlook the role of rules in scenario reasoning, offering process-level metrics to distinguish models' rule understanding beyond final answers.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
         "score": 65,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Accepted at EMNLP 2026 Findings and available code are likely to generate interest among LLM evaluation researchers."
+        "reason": "The benchmark targets an underexplored reasoning aspect and provides code plus dataset, likely attracting NLP community interest, though the topic is niche."
       },
       "publishers": [
         {
-          "name": "NLP Lab",
+          "name": "SharkSpicy-NLP",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/SharkSpicy-NLP/RuleWeaver",
           "role": "benchmark-publisher"
@@ -33630,11 +33630,409 @@
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-08-31T07:23:36.749451Z",
+        "reviewedAt": "2026-09-08T08:58:25.506689Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Named benchmark with released code and dataset, formal scoring rubrics, and a public GitHub path for reproduction.",
-        "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "this paper introduces RuleWeaver, a benchmark construction framework for evaluating rule-centered scenario reasoning"
+        "decisionReason": "The benchmark has a formal name, code and dataset are publicly available, and it defines clear scoring metrics for repeated evaluation.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "RuleWeaver: Benchmarking Rule-Centered Scenario Reasoning for Large Language Models"
+      },
+      "attention": {
+        "asOf": "2026-09-08",
+        "hfPaperUpvotes": 0,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2608.26832",
+        "githubStars": 28,
+        "githubRepo": "https://github.com/SharkSpicy-NLP/RuleWeaver",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-08T01:38:09.842216Z",
+        "attemptedAt": "2026-09-08T01:38:09.842216Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "fresh",
+            "observedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 35,
+          "rank": 69,
+          "coverage": 0.85,
+          "confidence": "High",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 35,
+            "rank": 69,
+            "coverage": 0.85,
+            "confidence": "High",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 28,
+                "normalized": 0.5015207485401589,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 40,
+          "rank": 136,
+          "coverage": 0.7,
+          "confidence": "Medium",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 40,
+            "rank": 136,
+            "coverage": 0.7,
+            "confidence": "Medium",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 28,
+                "normalized": 0.45500181975044757,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-08-31T07:23:36.749451Z",
+        "inputHash": "5cf98e41bd1413778c84681f04bff9ae4e392e5c3341d3f6dbbd619fa723b5fd"
+      }
+    },
+    {
+      "id": "bm_revico_34e02af8",
+      "familyId": "bmf_3ee719669886",
+      "name": "ReViCo",
+      "paperTitle": "ReViCo: Unveiling the Limitations of VLMs in Visual Text Understanding via Error Correction",
+      "aliases": [],
+      "oneLine": "Vision Language Models (VLMs) have shown great success in general visual tasks, yet they still struggle to deeply understand text within images.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.27154",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-08T06:12:53.942187Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-27",
+      "firstSeenAt": "2026-08-30",
+      "indexedAt": "2026-08-30T06:59:55.242506Z",
+      "sourceUpdatedAt": "2026-08-27T14:06:11Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.27154",
+        "paper": "https://arxiv.org/abs/2608.27154",
+        "pdf": "https://arxiv.org/pdf/2608.27154",
+        "project": null,
+        "code": null,
+        "data": null,
+        "hfPaper": "https://huggingface.co/papers/2608.27154"
+      },
+      "motivation": "Vision Language Models (VLMs) have shown great success in general visual tasks, yet they still struggle to deeply understand text within images.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.27154",
+        "url": "https://arxiv.org/abs/2608.27154",
+        "title": "ReViCo: Unveiling the Limitations of VLMs in Visual Text Understanding via Error Correction",
+        "authors": [
+          "Bojun Zhang",
+          "Junhong Liang",
+          "Feifei Zhai",
+          "Fengxian Ji",
+          "Yu Zhou"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "In this paper, we introduce ReViCo (Real Visual Correction), a benchmark designed to evaluate VLM text understanding through a novel task of visual text error correction.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-09-08T08:58:25.506689Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "The benchmark is stated to be introduced in the paper, but no public artifact or comparison path is provided, making it primarily a viewpoint probe supporting the paper's findings.",
+        "model": "deepseek-v4-pro"
+      },
+      "attention": {
+        "asOf": "2026-09-08",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2608.27154",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-07T01:28:43.988909Z",
+        "attemptedAt": "2026-09-08T01:38:09.842216Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -33645,7 +34043,7 @@
       "aliases": [
         "RATIO: A Benchmark for Retrieval Across Typed Ideation Operations in Scientific Literature"
       ],
-      "oneLine": "Evaluates retrieval models on three ideation moves—Address, Broaden, Specify—using relevance judgments derived from full-text scientific papers across computer science literature.",
+      "oneLine": "Evaluates retrieval of scientific literature passages relevant to three ideation operations: Address, Broaden, and Specify, using millions of full-text computer science papers.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -33719,24 +34117,445 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates retrieval models on three ideation moves—Address, Broaden, Specify—using relevance judgments derived from full-text scientific papers across computer science literature.",
-      "whyItMatters": "Defines relevance by operations that support literature-grounded ideation, enabling training and evaluation of retrieval systems tailored to scientific inspiration.",
-      "evaluationMode": "score_submission",
+      "description": "Evaluates retrieval of scientific literature passages relevant to three ideation operations: Address, Broaden, and Specify, using millions of full-text computer science papers.",
+      "whyItMatters": "Defines operation-specific relevance beyond topical similarity, enabling assessment of retrieval systems that support scientific ideation and literature-grounded inspiration.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 59,
-        "confidence": "Low",
+        "score": 72,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark spans multiple ideation moves and is built from millions of papers, which may attract attention from retrieval and scientific NLP communities despite lacking a direct artifact link."
+        "reason": "Large-scale construction across CS literature, novel ideation-based relevance taxonomy, and explicit retrieval evaluation framework are likely to draw broad information retrieval and scientific NLP interest."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-08-31T07:23:36.749451Z",
+        "reviewedAt": "2026-09-08T08:58:25.506689Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper formally introduces RATIO as a benchmark with defined moves, construction recipe, and experiments; it provides a scalable framework intended for ongoing model comparison. No direct artifact link is supplied, but the abstract indicates a public benchmark with stable evaluation.",
+        "decisionReason": "The paper declares a large-scale benchmark with defined relevance operations, a scalable construction recipe, and a stable evaluation framework intended for training and evaluation.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce RATIO (Retrieval Across Typed Ideation Operations), a large-scale benchmark"
+      },
+      "attention": {
+        "asOf": "2026-09-08",
+        "hfPaperUpvotes": 0,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2608.27394",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-08T01:38:09.842216Z",
+        "attemptedAt": "2026-09-08T01:38:09.842216Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "fresh",
+            "observedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 35,
+          "rank": null,
+          "coverage": 0.3,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 35,
+            "rank": null,
+            "coverage": 0.3,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 43,
+          "rank": null,
+          "coverage": 0.15,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 43,
+            "rank": null,
+            "coverage": 0.15,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-08-31T07:23:36.749451Z",
+        "inputHash": "2740e80d7ded8a1da3da3f9c8766e8aecb8cf055ea47942f41cf9406b24d9f07"
       }
+    },
+    {
+      "id": "bm_r2m-bench_1ea8e143",
+      "familyId": "bmf_4bb72cc2e03a",
+      "name": "R2M-Bench",
+      "paperTitle": "R2M-Bench: Evaluating Revisit Memory via Relative Consistency in Interactive Video World Models",
+      "aliases": [],
+      "oneLine": "Evaluates revisit memory in interactive video world models using relative consistency: for each detected return, compares revisit pair with gap-matched non-revisit and short-range control pairs to compute MemoryGain and Normalized Memory Ratio across appearance, identity, geometry, and state.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.27328",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-08T06:12:53.942187Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-27",
+      "firstSeenAt": "2026-08-30",
+      "indexedAt": "2026-08-30T06:59:55.242506Z",
+      "sourceUpdatedAt": "2026-08-27T16:26:29Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.27328",
+        "paper": "https://arxiv.org/abs/2608.27328",
+        "pdf": "https://arxiv.org/pdf/2608.27328",
+        "project": null,
+        "code": "https://github.com/AMAP-ML/R2MBench",
+        "data": null,
+        "hfPaper": "https://huggingface.co/papers/2608.27328"
+      },
+      "motivation": "High similarity between first-visit and return frames does not necessarily show that a video world model remembered the scene; the intervening rollout may simply have changed very little.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.27328",
+        "url": "https://arxiv.org/abs/2608.27328",
+        "title": "R2M-Bench: Evaluating Revisit Memory via Relative Consistency in Interactive Video World Models",
+        "authors": [
+          "Qiwen Gu",
+          "Bingjie Gao",
+          "Rui Chen",
+          "Geng Li",
+          "Jifan Li",
+          "Qishuai Wen",
+          "Li Niu",
+          "Jing Tang",
+          "Xiangxiang Chu",
+          "Junqiao Zhao"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce \\emph{R2M-Bench} (\\textbf{R}elative \\textbf{R}evisit \\textbf{M}emory Benchmark), a benchmark of observable revisit-selective consistency.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": true,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:58:25.506689Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Benchmark has a formal name, defined scoring metrics, 300 instances, evaluates multiple models, and provides code link for reproducibility.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce \\emph{R2M-Bench} (\\textbf{R}elative \\textbf{R}evisit \\textbf{M}emory Benchmark)"
+      },
+      "attention": {
+        "asOf": "2026-09-08",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2608.27328",
+        "githubStars": null,
+        "githubRepo": "https://github.com/AMAP-ML/R2MBench",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-07T01:28:43.988909Z",
+        "attemptedAt": "2026-09-08T01:38:09.842216Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "githubStars": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "description": "Evaluates revisit memory in interactive video world models using relative consistency: for each detected return, compares revisit pair with gap-matched non-revisit and short-range control pairs to compute MemoryGain and Normalized Memory Ratio across appearance, identity, geometry, and state.",
+      "whyItMatters": "Provides a calibration method that isolates revisit-specific consistency from generic temporal stability, addressing slow-motion shortcut and enabling more meaningful comparison of video world models' memory capabilities.",
+      "attentionForecast": {
+        "score": 65,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a specific evaluation gap in video world models, offers clear metrics and code, and could attract interest from researchers in video generation and world models, though the topic is relatively niche."
+      },
+      "publishers": [
+        {
+          "name": "AMAP-ML",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://github.com/AMAP-ML/R2MBench",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_plcbench_fb7005e5",
@@ -33744,7 +34563,7 @@
       "name": "PLCBENCH",
       "paperTitle": "PLCBench: Can Autonomous LLM Agents Turn PLC Access into Sustained Physical Impact?",
       "aliases": [],
-      "oneLine": "A hardware-in-the-loop framework evaluating LLM agents across commercial PLCs and physical process simulations, with deterministic scoring for PLC interaction, process-linked manipulation, and sustained physical impact.",
+      "oneLine": "Evaluates autonomous LLM agents on real programmable logic controllers connected to closed-loop process simulations, measuring their ability to achieve sustained physical impact through fixed diagnostic flags applied to runner, communication, PLC-object, and process records.",
       "area": "Agents & Tool Use",
       "applicationDomains": [
         "Manufacturing & Process Control",
@@ -33829,23 +34648,178 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A hardware-in-the-loop framework evaluating LLM agents across commercial PLCs and physical process simulations, with deterministic scoring for PLC interaction, process-linked manipulation, and sustained physical impact.",
-      "whyItMatters": "Existing evaluations stop before measuring sustained physical impact, leaving cyber-physical risk unquantified for autonomous agents targeting ICS environments.",
-      "evaluationMode": "public_reusable",
+      "description": "Evaluates autonomous LLM agents on real programmable logic controllers connected to closed-loop process simulations, measuring their ability to achieve sustained physical impact through fixed diagnostic flags applied to runner, communication, PLC-object, and process records.",
+      "whyItMatters": "Addresses the lack of evaluations that extend beyond digital tasks or software exploitation to sustained cyber-physical effects, providing a reproducible way to assess LLM-driven threats to industrial control systems and identify intervention points for defense.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 65,
+        "score": 62,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Novel real-world cyber-physical agent evaluation with strong release claims likely attracts security researchers and practitioners within the first week."
+        "reason": "The first real-PLC hardware-in-the-loop benchmark for LLM agents in industrial control systems addresses a high-stakes security gap with detailed reproducibility support, likely attracting attention from security and AI evaluation communities."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
-        "reviewedAt": "2026-08-31T07:23:36.749451Z",
+        "reviewedAt": "2026-09-08T08:58:25.506689Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Declared benchmark with released code, software-only pipeline, deterministic evaluator, and reusable hardware/software setup; does not emphasize ongoing submission leaderboard but supports independent reproduction.",
+        "decisionReason": "Formally named PLCBENCH with a deterministic evaluator, fixed scoring rules, and released code plus a software-only reproduction pipeline, enabling other teams to run and compare results.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We present PLCBENCH, to our knowledge, the first real-PLC hardware-in-the-loop (HIL) framework"
+        "canonicalNameEvidence": "We present PLCBENCH, to our knowledge, the first real-PLC hardware-in-the-loop (HIL) framework for characterizing this cyber-to-physical capability and its boundaries."
+      },
+      "attention": {
+        "asOf": "2026-09-08",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2608.26882",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-07T01:28:43.988909Z",
+        "attemptedAt": "2026-09-08T01:38:09.842216Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-08T01:38:09.842216Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-08-31T07:23:36.749451Z",
+        "inputHash": "02d6e53d0aebf0b5266d7e2f249cf1923e91d6da0d522a9695d8187add13d5bd"
       }
     },
     {
@@ -65564,6 +66538,643 @@
         "decisionReason": "The benchmark is formally named, has defined splits, an evaluator, and is released with code and annotations in the repository.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We further introduce VA-EvoBench, covering eight video distributions with separate evolution and held-out splits."
+      }
+    },
+    {
+      "id": "bm_teaching-nemotron-greek-mining-a-corpus-ad_afa07bfd",
+      "familyId": "bmf_e50e65001558",
+      "name": "HERA",
+      "paperTitle": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
+      "aliases": [
+        "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains"
+      ],
+      "oneLine": "HERA evaluates retrieval-augmented generation for Modern Greek across legal, energy, financial, and medical specialist domains using mined corpora and expert-judged answers.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "eess.AS"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.05138",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-05T17:56:40Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.05138",
+        "paper": "https://arxiv.org/abs/2608.05138",
+        "pdf": "https://arxiv.org/pdf/2608.05138",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Modern Greek is absent from NVIDIA's Nemotron retrieval models and from major multilingual retrieval benchmarks, despite being important for retrieval-augmented generation (RAG) in legal, energy, financial, and medical applications.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.05138",
+        "url": "https://arxiv.org/abs/2608.05138",
+        "title": "Teaching Nemotron Greek: Mining a Corpus, Adapting Retrieval, and Grounding Generation for Modern Greek across Specialist Domains",
+        "authors": [
+          "Ayoub Kirouane",
+          "Christos Petrocheilos"
+        ],
+        "categories": [
+          "eess.AS",
+          "cs.AI",
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We present an end-to-end adaptation of the Nemotron retrieval stack for Modern Greek, including corpus mining, synthetic supervision, retrieval model training, reranker adaptation, reader fine-tuning, and a new benchmark called HERA.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "HERA evaluates retrieval-augmented generation for Modern Greek across legal, energy, financial, and medical specialist domains using mined corpora and expert-judged answers.",
+      "whyItMatters": "It fills the absence of Greek retrieval-augmented generation benchmarks, providing a foundation for measuring domain-specific retrieval and grounded generation quality in an underserved language.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 62,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "A first large-scale benchmark for Greek RAG in multiple specialist domains, with released models and broad applicability within NLP communities, supports moderate attention."
+      },
+      "publishers": [
+        {
+          "name": "NVIDIA",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://arxiv.org/abs/2608.05138",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark is named in the abstract, has defined evaluation tasks with scoring (nDCG@10, answer correctness), and the authors state they release the benchmark and models.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We also introduce HERA, the first large-scale Greek benchmark for retrieval-augmented generation"
+      }
+    },
+    {
+      "id": "bm_searchauditbench_2dd8deb6",
+      "familyId": "bmf_daecf0ea3bc7",
+      "name": "SearchAuditBench",
+      "paperTitle": "SearchAuditor: Auditing and Attributing Failures in Long-Horizon Search Agents",
+      "aliases": [],
+      "oneLine": "SearchAuditBench evaluates LLM auditors on localizing, attributing, and repairing failures in long-horizon search agent trajectories using expert-annotated error steps, root causes, and repair rubrics.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.05212",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-05T09:09:00Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "evaluates_only",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.05212",
+        "paper": "https://arxiv.org/abs/2608.05212",
+        "pdf": "https://arxiv.org/pdf/2608.05212",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Deep search agents tackle challenging questions through long-horizon web interactions, a process that is both complex and fragile: small reasoning errors may propagate through long, noisy trajectories into fluent but incorrect answers.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.05212",
+        "url": "https://arxiv.org/abs/2608.05212",
+        "title": "SearchAuditor: Auditing and Attributing Failures in Long-Horizon Search Agents",
+        "authors": [
+          "Zhixiang Liang",
+          "Yifei Liu",
+          "Yidan Huang",
+          "Haozhe Zhao",
+          "Beichen Huang",
+          "Jiaqi Wang",
+          "Nan Duan",
+          "Qiong Cao"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We therefore introduce SearchAuditBench, a benchmark that evaluates whether LLM auditors can localize, attribute, and repair these failures, thereby reducing the human burden.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "evaluation protocol evidence",
+          "named entity is a model, method, framework, or dataset used in evaluation"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "SearchAuditBench evaluates LLM auditors on localizing, attributing, and repairing failures in long-horizon search agent trajectories using expert-annotated error steps, root causes, and repair rubrics.",
+      "whyItMatters": "It provides a structured way to measure auditing quality for complex search-agent failures, reducing reliance on manual inspection of lengthy traces.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Auditing long-horizon search agents is a niche but timely problem; the benchmark's scale and expert annotations may draw interest from agent evaluation researchers."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark is formally named in the abstract, includes a defined protocol with expert annotations and grading rubrics, and is intended for objective comparison of auditing models.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We therefore introduce SearchAuditBench, a benchmark that evaluates whether LLM auditors can localize, attribute, and repair these failures"
+      }
+    },
+    {
+      "id": "bm_respclinbench_a30c7e6b",
+      "familyId": "bmf_9778b444b093",
+      "name": "RESPClinBench",
+      "paperTitle": "RESPClinBench: Benchmarking Multimodal Clinical Decision-Making and Longitudinal Disease Management in Respiratory Specialty Care",
+      "aliases": [],
+      "oneLine": "Evaluates clinical decision-making in respiratory specialty care using 623 multimodal cases, including AECOPD-PIM with 427 open-ended COPD cases and PNBIM with 196 pulmonary nodule cases that combine chest CT with clinical information.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.04514",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-06T01:21:33Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.65,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.04514",
+        "paper": "https://arxiv.org/abs/2608.04514",
+        "pdf": "https://arxiv.org/pdf/2608.04514",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Background: Respiratory specialty care requires multimodal interpretation, longitudinal risk assessment, guideline-concordant intervention, and whole-course management, which are poorly represented by examination-oriented medical benchmarks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.04514",
+        "url": "https://arxiv.org/abs/2608.04514",
+        "title": "RESPClinBench: Benchmarking Multimodal Clinical Decision-Making and Longitudinal Disease Management in Respiratory Specialty Care",
+        "authors": [
+          "Mouxiao Bian and Zhi Chen and Ruiyao Chen and Lu Lu and Hengrui Liang and Chaoyi Huang and Yiluo Lin and Jingru Ding and Yun Zhong and Yueming Su and Jie Xu"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "Objective: To develop RESPClinBench, a real-world scenario-based benchmark for respiratory clinical decision-making, and evaluate seven contemporary large language models across AECOPD-PIM and PNBIM.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates clinical decision-making in respiratory specialty care using 623 multimodal cases, including AECOPD-PIM with 427 open-ended COPD cases and PNBIM with 196 pulmonary nodule cases that combine chest CT with clinical information.",
+      "whyItMatters": "Addresses the gap in examination-oriented medical benchmarks by testing long-horizon disease management and multimodal interpretation in respiratory care.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 62,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses an underexplored high-stakes medical specialty with detailed safety evaluations, but no artifact links are provided beyond the paper, which may limit immediate reuse."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The paper provides a formal benchmark definition, scoring protocol, and performance evaluation across models, indicating a reusable evaluation object.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "To develop RESPClinBench, a real-world scenario-based benchmark for respiratory clinical decision-making"
+      }
+    },
+    {
+      "id": "bm_repoprobe_4f581859",
+      "familyId": "bmf_c7b217d2f7a8",
+      "name": "RepoProbe",
+      "paperTitle": "RepoProbe: Benchmarking Architecture-Aware Repository Comprehension with Checklists",
+      "aliases": [],
+      "oneLine": "Evaluates repository-level code understanding via 500 open-ended questions derived from GitHub Discussions across 50 repositories, scored with checklist-based verification for factual correctness and clarity.",
+      "area": "Code & Software",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.SE"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026)",
+        "evidence": "Accepted to the 41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026). Replication package: https://github.com/Tencent-Hunyuan/RepoProbe",
+        "evidenceUrl": "https://arxiv.org/abs/2608.04783",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026)",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted to the 41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026). Replication package: https://github.com/Tencent-Hunyuan/RepoProbe",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2608.04783",
+              "observedAt": "2026-08-19T11:05:13.395391Z",
+              "rawValue": "Accepted to the 41st IEEE/ACM International Conference on Automated Software Engineering (ASE 2026). Replication package: https://github.com/Tencent-Hunyuan/RepoProbe",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-06T09:16:21Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.8,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.04783",
+        "paper": "https://arxiv.org/abs/2608.04783",
+        "pdf": "https://arxiv.org/pdf/2608.04783",
+        "project": null,
+        "code": "https://github.com/Tencent-Hunyuan/RepoProbe",
+        "data": null
+      },
+      "motivation": "The integration of Large Language Models (LLMs) into software engineering has shifted the focus from function-level generation to repository-scale assistance.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.04783",
+        "url": "https://arxiv.org/abs/2608.04783",
+        "title": "RepoProbe: Benchmarking Architecture-Aware Repository Comprehension with Checklists",
+        "authors": [
+          "Yuexi Yang",
+          "Alyssa Wu",
+          "Ji Luo",
+          "Richeng Xuan",
+          "Zhichao Hu",
+          "Yuhong Liu",
+          "Zhen Qin"
+        ],
+        "categories": [
+          "cs.SE",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "This work introduces RepoProbe, a novel benchmark for evaluating repository-level code understanding through open-ended Q&A using GitHub Discussions, which focuses on open-ended architectural inquiries rather than defect reporting.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates repository-level code understanding via 500 open-ended questions derived from GitHub Discussions across 50 repositories, scored with checklist-based verification for factual correctness and clarity.",
+      "whyItMatters": "Addresses limitations of defect-centric benchmarks that allow shortcut pattern matching by focusing on architectural comprehension, providing objective item-level scoring that improves reliability over scalar LLM-as-a-Judge ratings.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 85,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Accepted to a prestigious software engineering conference and provides a code and dataset release, likely attracting attention from LLM evaluation and software engineering researchers."
+      },
+      "publishers": [
+        {
+          "name": "Tencent Hunyuan",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://github.com/Tencent-Hunyuan/RepoProbe",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Formal benchmark with a clear scoring protocol, released replication package, and explicit evaluation methodology suitable for model comparison.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "RepoProbe: Benchmarking Architecture-Aware Repository Comprehension with Checklists"
+      }
+    },
+    {
+      "id": "bm_miragebench_adb719c2",
+      "familyId": "bmf_991ed4a9392b",
+      "name": "MirageBench",
+      "paperTitle": "The Personalization Mirage: How LLMs Fabricate User Profiles, and Why Self-Monitoring Misleads",
+      "aliases": [],
+      "oneLine": "Evaluates LLM personalization faithfulness: 150 personas, 6 tasks, four-way faithfulness taxonomy, 12 models across 7 families, 143,616 judged claims.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.04570",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-05T08:00:54Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.65,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.04570",
+        "paper": "https://arxiv.org/abs/2608.04570",
+        "pdf": "https://arxiv.org/pdf/2608.04570",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Personalized LLMs with persistent memory are increasingly deployed, yet the faithfulness of their user models remains unexamined.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.04570",
+        "url": "https://arxiv.org/abs/2608.04570",
+        "title": "The Personalization Mirage: How LLMs Fabricate User Profiles, and Why Self-Monitoring Misleads",
+        "authors": [
+          "Yushi Sun",
+          "Yanjie Zhang",
+          "Rui Sheng"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce MirageBench, comprising 150 personas balanced across stereotypical, counter-stereotypical, and neutral profiles, 6 personalization tasks spanning an ``imagination gradient'', a four-way faithfulness taxonomy operationalized by an independent judge (validated against a blind human annotator on 400 claims: Cohen's kappa = 0.863 four-class, kappa = 0.900 binary), and a leaderboard of 12 models across 7 families on 143616 judged claims.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates LLM personalization faithfulness: 150 personas, 6 tasks, four-way faithfulness taxonomy, 12 models across 7 families, 143,616 judged claims.",
+      "whyItMatters": "Reveals pervasive over-inference in personalized LLMs and shows self-reported confidence misleads model comparison, supporting external verification.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "A counterintuitive self-monitoring finding in a hot personalization safety topic should attract moderate attention despite a narrow evaluation scope."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Explicit benchmark with released personas, tasks, taxonomy, and leaderboard; validated judge provides stable scoring and reusable path.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce MirageBench"
+      }
+    },
+    {
+      "id": "bm_islamicturathbench_0fa2de43",
+      "familyId": "bmf_a931a8963fd7",
+      "name": "IslamicTurathBench",
+      "paperTitle": "IslamicTurathBench: A Multi-Task, Multi-Discipline Benchmark for Evaluating Large Language Models on the Islamic Scholarly Tradition (turath)",
+      "aliases": [],
+      "oneLine": "Multi-task dataset of 3,465 QA items from 35 Islamic scholarly works, spanning 12 centuries and seven fields, with three difficulty levels and three task formats.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2608.04703",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-08-19T11:05:13.395391Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-08-05",
+      "firstSeenAt": "2026-08-19",
+      "indexedAt": "2026-08-19T11:05:13.395391Z",
+      "sourceUpdatedAt": "2026-08-05T11:12:48Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.65,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2608.04703",
+        "paper": "https://arxiv.org/abs/2608.04703",
+        "pdf": "https://arxiv.org/pdf/2608.04703",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Large language models (LLMs) are increasingly used for question answering, education, and research, including in religious and cultural domains where answers depend on specialised source traditions.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2608.04703",
+        "url": "https://arxiv.org/abs/2608.04703",
+        "title": "IslamicTurathBench: A Multi-Task, Multi-Discipline Benchmark for Evaluating Large Language Models on the Islamic Scholarly Tradition (turath)",
+        "authors": [
+          "Shahd Gaben",
+          "Heba Sbahi",
+          "Samer Rashwani",
+          "Abdessalam Bouchekif",
+          "Mutaz Al-Khatib",
+          "Emad Mohamed",
+          "Somaya Eltanbouly",
+          "and Mohammed Ghaly"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce IslamicTurathBench (ISTB), a multi-task, multi-discipline dataset for evaluating LLMs on classical Islamic scholarship.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Multi-task dataset of 3,465 QA items from 35 Islamic scholarly works, spanning 12 centuries and seven fields, with three difficulty levels and three task formats.",
+      "whyItMatters": "Provides expert-reviewed resources for evaluating LLMs in a culturally important, historically deep domain with reproducible scoring.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 18,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Niche religious domain benchmarking will attract limited broad attention but may see steady interest in specialized communities."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "reviewedAt": "2026-09-08T08:57:27.463024Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Paper presents a named dataset with public data and code, fixed questions, and clear evaluation axes; suitable for public reuse.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "IslamicTurathBench: A Multi-Task, Multi-Discipline Benchmark for Evaluating Large Language Models on the Islamic Scholarly Tradition (turath)"
       }
     },
     {
