@@ -26,7 +26,7 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-06 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-07 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
