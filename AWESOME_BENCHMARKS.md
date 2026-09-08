@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-07 · **Benchmark releases:** 1622
+**Snapshot:** 2026-09-08 · **Benchmark releases:** 1629
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (54)
-- [General AI](#general-ai) (1118)
+- [General AI](#general-ai) (1123)
 - [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (114)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (98)
+- [Software & AI Compute](#software--ai-compute) (100)
 
 ## Autonomous Driving
 
@@ -276,6 +276,11 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **Agentic NetDevOps Benchmark** (2026-09-08) — agentic-netdevops-benchmark A benchmark testing the ability for AI agents to perform netdevops tasks # Agentic NetDevOps Benchmark A benchmark designed to evaluate how AI agents perform on a deliberately atypical infras… [Paper](https://github.com/AndersBallegaard/agentic-netdevops-benchmark) · [Code](https://github.com/AndersBallegaard/agentic-netdevops-benchmark)
+- **overlooked-bench** (2026-09-07) — overlooked-bench An open, recurring benchmark of AI models on what mainstream evaluations skip: ethics and philosophy, niche academic domains, small/non-US organisational tasks, education beyond the university track, an… [Paper](https://github.com/kcelestinomaria/overlooked-bench) · [Code](https://github.com/kcelestinomaria/overlooked-bench)
+- **ChemE ML Benchmarks** (2026-09-07) — cheme-ml-benchmarks A standardized evaluation suite for comparing machine learning methods across different chemical engineering problems and issues under investigation or study. [Paper](https://github.com/yukevindai/cheme-ml-benchmarks) · [Code](https://github.com/yukevindai/cheme-ml-benchmarks)
+- **NLP Sentiment Analysis Benchmark** (2026-09-06) — nlp-sentiment-analysis-benchmark # NLP Sentiment Analysis Benchmark A reproducible NLP benchmarking project comparing three approaches to binary sentiment analysis on the **NLTK Movie Reviews dataset**: * **TF-IDF + Log… [Paper](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark) · [Code](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark)
+- **DistilBERT ONNX Quantization Benchmark** (2026-09-06) — distilbert-onnx-quantization-benchmark End-to-end ONNX quantization benchmark for DistilBERT — FP32 vs dynamic vs static INT8, comparing accuracy, latency, and model size tradeoffs deep-learning dynamic-quantization hug… [Paper](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark) · [Code](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark)
 - **WearableQA** (2026-09-04) — We introduce WearableQA, a benchmark comprising 4,084 10-option multiple-choice questions constructed from the wearable time series, blood biomarkers, and demographics of 200 real users, each with up to 500 days of dail… [Paper](https://arxiv.org/abs/2609.05405)
 - **TruthInsightBench** (2026-09-04) — We present TruthInsightBench, a benchmark configured for discovery. [Paper](https://arxiv.org/abs/2609.05079) · [Code](https://github.com/TruthInsight-stack/TruthInsightBench)
 - **SciDocBench** (2026-09-04) — We introduce SciDocBench, a workflow-centered benchmark for scientific document understanding. [Paper](https://arxiv.org/abs/2609.05141) · [Code](https://github.com/InternLM/SciDocBench)
@@ -1602,6 +1607,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **Agent Systems Benchmark (ASB)** (2026-09-06) — agent-systems-benchmark Linux systems benchmark for AI coding agents ai-agents benchmarking linux # Agent Systems Benchmark (ASB) ASB is a Linux terminal framework for measuring how AI coding agents scale: how many conc… [Paper](https://github.com/martin-beck/agent-systems-benchmark) · [Code](https://github.com/martin-beck/agent-systems-benchmark)
+- **AgentInfraBench** (2026-09-05) — ai-agent-infrastructure-benchmark Open benchmark for AI agent infrastructure security, sandbox isolation, recovery, evidence quality and cost per accepted outcome. [Paper](https://github.com/AAH20/ai-agent-infrastructure-benchmark) · [Code](https://github.com/AAH20/ai-agent-infrastructure-benchmark)
 - **KhatianDoc** (2026-09-03) — We introduce KhatianDoc, a four-task benchmark built from 107 real RS Khatian records from the Vumi (land) Office of Munshiganj, Bangladesh: symbol recognition, base-16-to-decimal conversion, structured field extraction… [Paper](https://arxiv.org/abs/2609.03597) · [Data](https://huggingface.co/datasets/RaiyanKhaan/KhatianDoc)
 - **DSEffi-Bench** (2026-08-31) — We introduce DSEffi-Bench, the first benchmark specifically targeting execution efficiency in LLM-generated DS code, comprising 1,000 instances across 10+ DS libraries with stress-testing harnesses and human-validated r… [Paper](https://arxiv.org/abs/2608.30248)
 - **XREPOTEST** (2026-08-26) — We introduce XREPOTEST, a multilingual repository-level benchmark for unit test generation spanning five underexplored languages: Rust, Go, Julia, PHP, and Ruby. [Paper](https://arxiv.org/abs/2608.25939) · [Code](https://github.com/solis-team/XRepoTest)
