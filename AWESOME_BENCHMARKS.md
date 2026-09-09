@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-08 · **Benchmark releases:** 1637
+**Snapshot:** 2026-09-09 · **Benchmark releases:** 1637
 
 ## Contents
 
@@ -283,7 +283,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **ChemE ML Benchmarks** (2026-09-07) — cheme-ml-benchmarks A standardized evaluation suite for comparing machine learning methods across different chemical engineering problems and issues under investigation or study. [Paper](https://github.com/yukevindai/cheme-ml-benchmarks) · [Code](https://github.com/yukevindai/cheme-ml-benchmarks)
 - **ProcArena** (2026-09-06) — In this paper, we present ProcArena, an execution-based benchmark covering both Direct and Interactive modes. [Paper](https://arxiv.org/abs/2609.06527)
 - **NLP Sentiment Analysis Benchmark** (2026-09-06) — nlp-sentiment-analysis-benchmark # NLP Sentiment Analysis Benchmark A reproducible NLP benchmarking project comparing three approaches to binary sentiment analysis on the **NLTK Movie Reviews dataset**: * **TF-IDF + Log… [Paper](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark) · [Code](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark)
-- **LANTERN** (2026-09-06) — We present LANTERN, a closed-loop benchmark for temporally grounded cooperative warnings. [Paper](https://arxiv.org/abs/2609.06368)
+- **LANTERN** (2026-09-06) — We present LANTERN, a closed-loop benchmark for temporally grounded cooperative warnings. [Paper](https://arxiv.org/abs/2609.06368) · [HF](https://huggingface.co/papers/2609.06368)
 - **DistilBERT ONNX Quantization Benchmark** (2026-09-06) — distilbert-onnx-quantization-benchmark End-to-end ONNX quantization benchmark for DistilBERT — FP32 vs dynamic vs static INT8, comparing accuracy, latency, and model size tradeoffs deep-learning dynamic-quantization hug… [Paper](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark) · [Code](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark)
 - **ChildGaze** (2026-09-06) — These results show that ChildGaze provides a reliable benchmark for studying collaborative behavior in naturalistic child-adult and peer interactions. [Paper](https://arxiv.org/abs/2609.06353)
 - **WearableQA** (2026-09-04) — We introduce WearableQA, a benchmark comprising 4,084 10-option multiple-choice questions constructed from the wearable time series, blood biomarkers, and demographics of 200 real users, each with up to 500 days of dail… [Paper](https://arxiv.org/abs/2609.05405)
