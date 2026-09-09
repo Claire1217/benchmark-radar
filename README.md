@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-08 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-09 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 167 GitHub stars |
-| 2 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 25 GitHub stars |
-| 3 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
-| 4 | **GBA-GCs**<br><sub>[Paper](https://arxiv.org/abs/2609.03804) · [Code](https://github.com/MinweiZhao/GBA-GCs)</sub> | Multimodal Perception | 5 GitHub stars |
-| 5 | **Unconstrained Vehicle Identification Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.01584) · [Code](https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/)</sub> | Multimodal Perception | 1 GitHub stars |
-| 6 | **MultiGhostBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02379) · [Code](https://github.com/GrecoMT/MultiGhostBench)</sub> | Knowledge & Reasoning | 1 GitHub stars |
-| 7 | **AD-Diff Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.03677) · [Code](https://github.com/KIT-MRT/AD-Diff)</sub> | Multimodal Perception | 1 GitHub stars |
-| 8 | **FPCO-Dialog**<br><sub>[Paper](https://arxiv.org/abs/2609.03331) · [Code](https://github.com/lab-klc/FPCO-Dialog)</sub> | Multimodal Perception | 1 GitHub stars |
-| 9 | **CordisBench**<br><sub>[Paper](https://arxiv.org/abs/2609.01600) · [Code](https://github.com/sileod/cordis-bench)</sub> | Knowledge & Reasoning | 1 GitHub stars · 128 dataset downloads |
-| 10 | **RPCBench**<br><sub>[Paper](https://arxiv.org/abs/2609.00918) · [Code](https://github.com/ZhongruChen/RPCBench)</sub> | Knowledge & Reasoning | 0 GitHub stars |
+| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Multimodal Perception | 2 HF votes |
+| 2 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 178 dataset downloads |
+| 3 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 167 GitHub stars |
+| 4 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 25 GitHub stars |
+| 5 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
+| 6 | **SAFIRE**<br><sub>[Paper](https://arxiv.org/abs/2609.07823) · [Code](https://github.com/RISys-Lab/SAFIRE)</sub> | Safety & Trustworthiness | 5 GitHub stars |
+| 7 | **GBA-GCs**<br><sub>[Paper](https://arxiv.org/abs/2609.03804) · [Code](https://github.com/MinweiZhao/GBA-GCs)</sub> | Multimodal Perception | 5 GitHub stars |
+| 8 | **Statebench**<br><sub>[Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)</sub> | Multimodal Perception | Public signals not measured yet |
+| 9 | **TIC-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.02573)</sub> | Multimodal Perception | Public signals not measured yet |
+| 10 | **Unconstrained Vehicle Identification Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.01584) · [Code](https://github.com/UFPR-IPASP-PR/uvib-vehicle-attributes/)</sub> | Multimodal Perception | 1 GitHub stars |
 
 ### Explore the library
 

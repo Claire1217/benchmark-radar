@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-08 · **Benchmark releases:** 1676
+**Snapshot:** 2026-09-09 · **Benchmark releases:** 1676
 
 ## Contents
 
@@ -51,7 +51,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **RevalExo** (2026-09-08) — To support development and evaluation under realistic clinical constraints and daily mobility demands, we introduce RevalExo, a functional daily-activity benchmark for inertial and visual locomotion mode recognition. [Paper](https://arxiv.org/abs/2609.08090)
 - **OntologyBench** (2026-09-08) — We introduce OntologyBench, a tiered biomedical retrieval benchmark comprising 471,854 training and 125,744 evaluation query-document relevance pairs across concept grounding, relational retrieval, and compositional phe… [Paper](https://arxiv.org/abs/2609.08174)
 - **ObGynLongBench** (2026-09-07) — To bridge this gap, we introduce ObGynLongBench, a rule-grounded long-context EHR benchmark for obstetric and gynecologic decision-making, comprising 1,500 clinical decision-point cases from 976 real pregnancy EHR histo… [Paper](https://arxiv.org/abs/2609.07601) · [Code](https://github.com/xiangjun2003/ObgynLongbench)
-- **HealthLoopQA** (2026-09-07) — To address this, we introduce HealthLoopQA, a comprehensive diagnostic benchmark for evaluating LLM reasoning over continuous diabetes monitoring data. [Paper](https://arxiv.org/abs/2609.06976)
+- **HealthLoopQA** (2026-09-07) — To address this, we introduce HealthLoopQA, a comprehensive diagnostic benchmark for evaluating LLM reasoning over continuous diabetes monitoring data. [Paper](https://arxiv.org/abs/2609.06976) · [HF](https://huggingface.co/papers/2609.06976)
 - **MMTClinic** (2026-09-04) — To fill this gap, we present MMTClinic, a benchmark designed to evaluate large language models (LLMs) on complex reasoning and question-answering tasks involving clinical time-series. [Paper](https://arxiv.org/abs/2609.04842)
 - **OmissionBench** (2026-08-31) — We release the benchmark, prompts and judgements. [Paper](https://arxiv.org/abs/2608.31016) · [Code](https://github.com/composo-ai/omission-bench) · [Data](https://huggingface.co/datasets/ComposoAI/OmissionBench)
 - **Evidence Package Benchmark** (2026-08-31) — We introduce the Evidence Package Benchmark, integrating 1,870 packages across six heterogeneous sources with explicit modality masks and evidence permissions. [Paper](https://arxiv.org/abs/2608.31014)
