@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-09 · **Benchmark releases:** 1676
+**Snapshot:** 2026-09-09 · **Benchmark releases:** 1679
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (58)
-- [General AI](#general-ai) (1150)
+- [General AI](#general-ai) (1153)
 - [Logistics & Operations](#logistics--operations) (10)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -298,6 +298,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **DriveMotion** (2026-09-08) — We introduce DriveMotion, a multi-source benchmark for continuous driver motion forecasting. [Paper](https://arxiv.org/abs/2609.08117) · [Data](https://huggingface.co/datasets/HenryYHW/DriveMotion)
 - **CutCraft** (2026-09-08) — We introduce CutCraft, the first benchmark for editing-technique execution in multi-shot audio-video generation. [Paper](https://arxiv.org/abs/2609.08275) · [Code](https://github.com/AlibabaResearch/cut-craft-bench)
 - **Agentic NetDevOps Benchmark** (2026-09-08) — agentic-netdevops-benchmark A benchmark testing the ability for AI agents to perform netdevops tasks # Agentic NetDevOps Benchmark A benchmark designed to evaluate how AI agents perform on a deliberately atypical infras… [Paper](https://github.com/AndersBallegaard/agentic-netdevops-benchmark) · [Code](https://github.com/AndersBallegaard/agentic-netdevops-benchmark)
+- **Agent Memory Benchmark** (2026-09-08) — agent-memory-benchmark Vendor-neutral benchmark of agent memory systems (Mem0, LangMem, Cognee, Graphiti, Letta) against oracle, window and file-search baselines on LongMemEval, at zero API cost # Agent Memory Benchmark… [Paper](https://github.com/datapace-ai/agent-memory-benchmark) · [Code](https://github.com/datapace-ai/agent-memory-benchmark)
 - **xDailyBench** (2026-09-07) — We introduce xDailyBench, a benchmark of 248 carefully curated tasks spanning 51 scenarios across personal life, white-collar work, learning and research, and cross-domain activities. [Paper](https://arxiv.org/abs/2609.07784)
 - **overlooked-bench** (2026-09-07) — overlooked-bench An open, recurring benchmark of AI models on what mainstream evaluations skip: ethics and philosophy, niche academic domains, small/non-US organisational tasks, education beyond the university track, an… [Paper](https://github.com/kcelestinomaria/overlooked-bench) · [Code](https://github.com/kcelestinomaria/overlooked-bench)
 - **TabBench-Bio** (2026-09-07) — We introduce TabBench-Bio, a living and interactive benchmark of 43 biomedical datasets spanning multiple domains. [Paper](https://arxiv.org/abs/2609.07441)
@@ -318,7 +319,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **BuddyVQA** (2026-09-06) — With this regard, we introduce BuddyVQA, a benchmark for companion-style question answering (QA) on egocentric streaming video. [Paper](https://arxiv.org/abs/2609.06721) · [Code](https://github.com/QHUni/BuddyVQA)
 - **AuthBench** (2026-09-06) — We introduce AuthBench, a large-scale multilingual benchmark for authorship representation that is designed to make this evaluation broad, standardized, and realistic. [Paper](https://arxiv.org/abs/2609.06771) · [Code](https://github.com/mao-code/AuthBench) · [Data](https://huggingface.co/datasets/MaoXun/AuthBench)
 - **WearableQA** (2026-09-04) — We introduce WearableQA, a benchmark comprising 4,084 10-option multiple-choice questions constructed from the wearable time series, blood biomarkers, and demographics of 200 real users, each with up to 500 days of dail… [Paper](https://arxiv.org/abs/2609.05405)
+- **WeBench-MMGenEdit** (2026-09-04) — To address these limitations, we present WeAgent-MMGenEdit, a full-stack recipe including a multimodal harness, a scalable data construction pipeline, a comprehensive benchmark, and post-training methods for the agent p… [Paper](https://arxiv.org/abs/2609.05171)
 - **TruthInsightBench** (2026-09-04) — We present TruthInsightBench, a benchmark configured for discovery. [Paper](https://arxiv.org/abs/2609.05079) · [Code](https://github.com/TruthInsight-stack/TruthInsightBench)
+- **TIER** (2026-09-04) — We introduce TIER, a Threat Implicitness Benchmark for behavioral safety evaluation of LLMs. [Paper](https://arxiv.org/abs/2609.05117)
 - **SciDocBench** (2026-09-04) — We introduce SciDocBench, a workflow-centered benchmark for scientific document understanding. [Paper](https://arxiv.org/abs/2609.05141) · [Code](https://github.com/InternLM/SciDocBench)
 - **PRISM-Bench** (2026-09-04) — We present PRISM-Bench, the first audio-centric diagnostic benchmark for T2AV generation. [Paper](https://arxiv.org/abs/2609.04867)
 - **MM-IFEval-Pro** (2026-09-04) — To address these gaps, we present MM-IFEval-Pro, a multimodal instruction-following benchmark covering Chinese and English tasks as well as diverse instruction hijacking cases. [Paper](https://arxiv.org/abs/2609.04859)

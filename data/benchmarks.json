@@ -5,7 +5,7 @@
     "generatedAt": "2026-09-09T06:18:49.313416Z",
     "dataAsOf": "2026-09-09",
     "timezone": "UTC",
-    "recordCount": 1676,
+    "recordCount": 1679,
     "sourceCoverage": [
       "arXiv OAI-PMH",
       "reviewed official project sources",
@@ -50,7 +50,7 @@
       "name": "VI-Bench",
       "paperTitle": "VI-Bench: Benchmarking Prompt Inversion from AIGC Videos",
       "aliases": [],
-      "oneLine": "Evaluates prompt inversion from AIGC videos across semantic grounding, style/camera control, and multi-shot compositional settings using five generation-critical dimensions.",
+      "oneLine": "The benchmark evaluates video prompt inversion from AIGC videos across three settings and five dimensions using an Inversion Score.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -355,18 +355,18 @@
           }
         }
       },
-      "description": "Evaluates prompt inversion from AIGC videos across semantic grounding, style/camera control, and multi-shot compositional settings using five generation-critical dimensions.",
-      "whyItMatters": "Addresses the gap in evaluating whether models can recover replayable prompts that reproduce video generation controls, relevant for creative reuse and prompt leakage assessment.",
+      "description": "The benchmark evaluates video prompt inversion from AIGC videos across three settings and five dimensions using an Inversion Score.",
+      "whyItMatters": "The benchmark addresses a gap in evaluating whether vision-language models can recover generation-relevant prompts for video reproduction and prompt leakage risk.",
       "attentionForecast": {
-        "score": 70,
-        "confidence": "Medium",
+        "score": 0,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a novel and timely capability in video generation evaluation, likely to draw interest from researchers in generative video understanding."
+        "reason": "The abstract suggests a specialized benchmark with limited topical breadth, but no artifact evidence is supplied to gauge public traction."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "04ef6f81d1b337d4f04286bb502ba2025868418c366a019a03ff03c740551fda"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "636a4b1da2aaebc24052f77355f9c11cb1b43961f6649e405cf1972dd0a961ed"
       }
     },
     {
@@ -1036,7 +1036,7 @@
       "aliases": [
         "SchemeArena: Factorized Stress Testing of Scheming in LLM Agents"
       ],
-      "oneLine": "A 400-scenario benchmark for stress testing scheming in LLM agents, with factorized oversight, pressure, and goal variations.",
+      "oneLine": "SchemeArena is a 400-scenario benchmark evaluating whether LLM agents engage in covert scheming to pursue misaligned goals. It uses factorized scenario synthesis across tool domains, oversight, and pressure conditions to test agents' scheming propensity and capability.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -1114,18 +1114,18 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A 400-scenario benchmark for stress testing scheming in LLM agents, with factorized oversight, pressure, and goal variations.",
-      "whyItMatters": "Isolates factors driving covert misalignment and provides evidence-based monitoring, informing safer agent deployment.",
-      "evaluationMode": "public_reusable",
+      "description": "SchemeArena is a 400-scenario benchmark evaluating whether LLM agents engage in covert scheming to pursue misaligned goals. It uses factorized scenario synthesis across tool domains, oversight, and pressure conditions to test agents' scheming propensity and capability.",
+      "whyItMatters": "SchemeArena addresses a gap in measuring scheming behavior across diverse realistic deployment conditions, providing a scalable stress test for AI safety. Its evidence-grounded monitoring and public release enable other teams to systematically evaluate and compare agent scheming.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
+        "score": 65,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Given the rising concern over AI safety and agent deception, the release of a 400-scenario benchmark with public code is likely to attract moderate early attention from the alignment community."
+        "reason": "AI safety and alignment are highly topical areas, and the public release with tools may attract attention from researchers and developers."
       },
       "publishers": [
         {
-          "name": "launchnlp",
+          "name": "SchemeArena project team",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/launchnlp/SchemeArena",
           "role": "benchmark-publisher"
@@ -1135,16 +1135,21 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "\"SchemeBench (`./SchemeBench/`) is the benchmark dataset. It contains 400 agentic scheming scenarios synthesized through a factorized framework that varies tool domains, instrumental goals, oversight conditions, and pressure mechanisms.\"",
-          "scoring": "\"evaluate_scheming.py evaluates agent runs with SCOUT, an LLM judge that scores scheming along five rubric dimensions (R1–R5) on both chain-of-thought and actions, then aggregates scheming rates.\"",
-          "reuse": "\"We release the benchmark, code, and monitor at: https://github.com/launchnlp/SchemeArena.\""
+          "task": "400-scenario benchmark for scalable scheming stress testing across diverse safety-relevant tool domains, instrumental goals, oversight conditions, and pressure mechanisms.",
+          "scoring": "SCOUT LLM judge evaluates agent trajectories along five rubric dimensions (R1–R5) on chain-of-thought and actions, with a trajectory labeled scheming if evidence of misaligned goal and covert reasoning or action.",
+          "reuse": "Benchmark dataset (SchemeBench) and code available at https://github.com/launchnlp/SchemeArena; documented run and evaluation scripts for external use."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides the 400-scenario dataset, run scripts, and SCOUT evaluator, enabling external replication and comparison.",
+        "decisionReason": "Released benchmark with dataset, code, and scoring pipeline on GitHub; clear task and scoring contract.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# SchemeArena This is the repository for paper \"SchemeArena: Factorized Stress Testing of Scheming in LLM Agents\""
+        "canonicalNameEvidence": "SchemeArena: Factorized Stress Testing of Scheming in LLM Agents"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "46ade4d20174461402ab482a97a9c0f7dde107051766a10d8b2966f0d933645d"
       },
       "attention": {
         "asOf": "2026-09-09",
@@ -1364,11 +1369,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "7b76e74700b3e31541f1d781c022201f8c27b34ee3fbcb4b3aaed3b7668f0027"
       }
     },
     {
@@ -1377,7 +1377,7 @@
       "name": "SAEScientist-Bench",
       "paperTitle": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
       "aliases": [],
-      "oneLine": "Evaluates AI agents performing sparse autoencoder interpretability research on Gemma-2-9B-IT using Gemma Scope dictionaries with 131K+ features across 20 tasks and 17 concepts.",
+      "oneLine": "SAEScientist-Bench evaluates AI agents' ability to use sparse autoencoders for mechanistic discovery. Agents design contrastive probes, navigate the Gemma Scope dictionary, and submit features, scored on Rank, Activation, and Steering.",
       "area": "Agents & Tool Use",
       "applicationDomains": [
         "General AI"
@@ -1470,17 +1470,17 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?"
       },
-      "description": "Evaluates AI agents performing sparse autoencoder interpretability research on Gemma-2-9B-IT using Gemma Scope dictionaries with 131K+ features across 20 tasks and 17 concepts.",
-      "whyItMatters": "Provides a measurable testbed for autonomous mechanistic interpretability and closed-loop AI R&D capabilities.",
+      "description": "SAEScientist-Bench evaluates AI agents' ability to use sparse autoencoders for mechanistic discovery. Agents design contrastive probes, navigate the Gemma Scope dictionary, and submit features, scored on Rank, Activation, and Steering.",
+      "whyItMatters": "It establishes experimental model understanding as a measurable capability for closed-loop autonomous AI R&D, filling a gap in evaluating agents that go beyond training pipelines to perform interpretability research.",
       "attentionForecast": {
-        "score": 45,
-        "confidence": "Low",
+        "score": 70,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Topical breadth is narrow, but the intersection of agentic AI and interpretability may attract niche researcher attention in the first week."
+        "reason": "The benchmark addresses the emerging area of agentic scientific discovery, has a concrete task suite, and provides reproducible infrastructure."
       },
       "publishers": [
         {
-          "name": "SAEScientist-Bench team",
+          "name": "Trae1ounG",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/Trae1ounG/SAEScientist",
           "role": "benchmark-publisher"
@@ -1706,9 +1706,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "307b43539eef3004be1731c075143d13a15a6c7867147b62302e4877b12e1fba"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "5819724a84301b17e269c66f41a605429de570b0efa12e609e07ad07f25d67e6"
       }
     },
     {
@@ -1717,7 +1717,7 @@
       "name": "RevalExo",
       "paperTitle": "RevalExo: A Functional Daily-Activity Benchmark for Inertial and Visual Locomotion Mode Recognition in Older Adults and Clinical Cohorts",
       "aliases": [],
-      "oneLine": "Evaluates locomotion mode recognition on a daily-activity dataset with 27 participants across three cohorts, 10.1 hours of frame-level annotations, and paired inertial-visual recordings for 13 participants.",
+      "oneLine": "RevalExo is a public benchmark for locomotion mode recognition from inertial and visual data collected from older adults and clinical cohorts (stroke survivors, probable sarcopenia). It includes 10.1 hours of frame-level annotations across 11 locomotion modes and 27 participants, with multimodal recordings for a subset.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery",
@@ -1834,13 +1834,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we introduce RevalExo, a functional daily-activity benchmark for inertial and visual locomotion mode recognition."
       },
-      "description": "Evaluates locomotion mode recognition on a daily-activity dataset with 27 participants across three cohorts, 10.1 hours of frame-level annotations, and paired inertial-visual recordings for 13 participants.",
-      "whyItMatters": "Addresses the lack of public benchmarks for clinical populations with precise transition labels, enabling development of assistive devices that adapt to daily mobility demands.",
+      "description": "RevalExo is a public benchmark for locomotion mode recognition from inertial and visual data collected from older adults and clinical cohorts (stroke survivors, probable sarcopenia). It includes 10.1 hours of frame-level annotations across 11 locomotion modes and 27 participants, with multimodal recordings for a subset.",
+      "whyItMatters": "Existing locomotion benchmarks lack clinical populations and precise transition labels. RevalExo provides a standardized protocol and data to evaluate assistive device algorithms under realistic conditions, addressing gaps in cross-population generalization and multimodal fusion.",
       "attentionForecast": {
-        "score": 65,
-        "confidence": "Medium",
+        "score": 45,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets clinical and aging populations with multimodal data, a specialized but growing area likely to attract moderate attention from assistive technology researchers."
+        "reason": "Topic is specialized for rehabilitation robotics and wearable sensing, with a moderate-size dataset; interest likely from niche research community."
       },
       "attention": {
         "asOf": "2026-09-09",
@@ -2060,10 +2060,18 @@
           }
         }
       },
+      "publishers": [
+        {
+          "name": "RevalExo team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2609.08090",
+          "role": "benchmark-publisher"
+        }
+      ],
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "9183930d15d59594d1c936419e881974f09c0d9b9d74f2a15e4d123be10ee88d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "a8454555798a47160cb0b88199a6a0bef20ca16810bedd1f5bf4a848d245fb8c"
       }
     },
     {
@@ -2074,7 +2082,7 @@
       "aliases": [
         "Q2D-Web: A Large-Scale Benchmark for Retrieval in Agentic RAG Systems"
       ],
-      "oneLine": "Q2D-Web evaluates first-stage retrievers on a 190M-document web corpus with 70k agent-reformulated queries in ten languages, using three fixed relevance judgment sets.",
+      "oneLine": "Q2D-Web evaluates retrieval in agentic RAG systems, pairing a large corpus with agent-reformulated queries in ten languages and fixed relevance judgments for scoring.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2155,29 +2163,34 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Q2D-Web evaluates first-stage retrievers on a 190M-document web corpus with 70k agent-reformulated queries in ten languages, using three fixed relevance judgment sets.",
-      "whyItMatters": "It addresses the gap of large-scale agentic RAG retrieval evaluation by pairing a large corpus with many machine-reformulated queries and dense relevance labels, revealing retriever ranking insensitivity to judgment choice and enabling subcorpus sampling studies.",
+      "description": "Q2D-Web evaluates retrieval in agentic RAG systems, pairing a large corpus with agent-reformulated queries in ten languages and fixed relevance judgments for scoring.",
+      "whyItMatters": "It addresses the gap in evaluating retrievers on machine-generated queries at scale, which is critical for production RAG pipelines, and provides a public leaderboard for comparison.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 25,
-        "confidence": "Low",
+        "score": 65,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets large-scale agentic RAG retrieval with multilingual queries and a public leaderboard, but lacks supplied evidence of immediate star, download, or adoption metrics, and the paper is recent with no indicator of virality."
+        "reason": "The benchmark's large-scale nature and public leaderboard make it likely to attract interest from RAG and retrieval researchers."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "A 190M-document web corpus and 70k agentic search queries in ten languages, reformulated from real-world user queries.",
-          "scoring": "Three sets of fixed relevance judgments: agent citations, production rankings, and a combined set that unions both signals and adds LLM-based judgments of unlabeled pooled documents.",
-          "reuse": "The public leaderboard is accessible under: https://huggingface.co/spaces/perplexity-ai/q2d-web-leaderboard"
+          "task": "190M-document web corpus and 70k agentic search queries in ten languages, reformulated from real-world user queries.",
+          "scoring": "Fixed relevance judgments (agent citations, production rankings, combined set with LLM-based additions); evaluation metrics include Recall@1000.",
+          "reuse": "Public leaderboard available at https://huggingface.co/spaces/perplexity-ai/q2d-web-leaderboard for external submissions."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper formally introduces Q2D-Web as a benchmark, with a large-scale corpus, queries, multiple fixed relevance judgment sets, a scoring protocol, and a public leaderboard for external submissions.",
-        "canonicalNameSource": "paper_title",
-        "canonicalNameEvidence": "Q2D-Web: A Large-Scale Benchmark for Retrieval in Agentic RAG Systems"
+        "decisionReason": "Leaderboard provides a public submission path; benchmark definition and scoring are specified.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "Q2D-Web (Query2Doc-Web)"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "6859b7bc5573716d588ad6a6910d95cb0d4284e9738ff649ff92c9ee0a9a4171"
       },
       "attention": {
         "asOf": "2026-09-09",
@@ -2396,11 +2409,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "6f6441ce68f0f6c9764b2f0b4a1804512939a7a04588dea140b1e0e7a62b9ec6"
       }
     },
     {
@@ -2750,7 +2758,7 @@
       "name": "OntologyBench",
       "paperTitle": "OntologyBench: Can Dense Retrieval Satisfy Structured Biomedical Constraints?",
       "aliases": [],
-      "oneLine": "OntologyBench evaluates biomedical retrieval across three tiers: concept grounding, relational retrieval, and compositional phenotype-based retrieval, using query-document relevance pairs.",
+      "oneLine": "OntologyBench is a biomedical retrieval benchmark with 471,854 training and 125,744 evaluation relevance pairs across concept grounding, relational retrieval, and compositional phenotype-based retrieval. It evaluates retrieval systems on structured biomedical constraints.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -2859,19 +2867,19 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "OntologyBench: Can Dense Retrieval Satisfy Structured Biomedical Constraints?"
       },
-      "description": "OntologyBench evaluates biomedical retrieval across three tiers: concept grounding, relational retrieval, and compositional phenotype-based retrieval, using query-document relevance pairs.",
-      "whyItMatters": "It tests whether dense retrieval systems can satisfy structured biomedical constraints and identifies performance gaps in relational and compositional reasoning.",
+      "description": "OntologyBench is a biomedical retrieval benchmark with 471,854 training and 125,744 evaluation relevance pairs across concept grounding, relational retrieval, and compositional phenotype-based retrieval. It evaluates retrieval systems on structured biomedical constraints.",
+      "whyItMatters": "OntologyBench addresses the gap in evaluating retrieval systems on structured biomedical knowledge constraints beyond simple concept matching, offering a tiered evaluation to guide development of retrieval systems that integrate structured knowledge.",
       "attentionForecast": {
-        "score": 45,
+        "score": 40,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a niche biomedical retrieval niche with a large dataset and clear evaluation tiers, but lacks explicit artifact links in the supplied metadata."
+        "reason": "Coverage of a niche biomedical retrieval domain with a new benchmark may attract limited but targeted attention from specialized researchers."
       },
       "publishers": [
         {
-          "name": "OntologyBench Team",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://arxiv.org/abs/2609.08174",
+          "name": "OpenReview",
+          "organizationType": "community",
+          "sourceUrl": "https://openreview.net/forum?id=RMiOTIub1j&noteId=RMiOTIub1j",
           "role": "benchmark-publisher"
         }
       ],
@@ -3094,9 +3102,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "87da2f0c066d058ce0aa8be7694d2119e09ed71d0e6d1888f2653d253f14fe7b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "bc9d29ff51bde8fe1d598bad715f08b9bb4e2a24521969f41c3879e9fd944301"
       }
     },
     {
@@ -3107,7 +3115,7 @@
       "aliases": [
         "ONE CYLinder: A Benchmark for Graph-Based Surrogate Modeling of Unsteady Bluff-Body Flows"
       ],
-      "oneLine": "Evaluates graph-based surrogate models on long-horizon autoregressive prediction of unsteady bluff-body flow velocity and pressure fields across laminar, transitional, and high-Reynolds-number regimes.",
+      "oneLine": "ONECYL is a benchmark for graph-based surrogate modeling of unsteady flow past a circular cylinder, comprising 450 simulations (270,000 snapshots) with randomized geometries and evaluating autoregressive prediction of velocity and pressure fields through rollout errors, virtual probes, and aerodynamic quantities.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3184,27 +3192,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates graph-based surrogate models on long-horizon autoregressive prediction of unsteady bluff-body flow velocity and pressure fields across laminar, transitional, and high-Reynolds-number regimes.",
-      "whyItMatters": "Provides a standardized multi-regime dataset and evaluation protocol for flow surrogate modeling, enabling comparable assessment of accuracy and physical fidelity on unstructured meshes.",
+      "description": "ONECYL is a benchmark for graph-based surrogate modeling of unsteady flow past a circular cylinder, comprising 450 simulations (270,000 snapshots) with randomized geometries and evaluating autoregressive prediction of velocity and pressure fields through rollout errors, virtual probes, and aerodynamic quantities.",
+      "whyItMatters": "It addresses the lack of standardized benchmarks for graph-based surrogate models in CFD, providing multi-regime data and a unified evaluation protocol to assess numerical accuracy and physical fidelity, enabling comparison and progress in long-horizon unsteady flow prediction.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Medium",
+        "score": 40,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a niche but important area in computational fluid dynamics surrogate modeling with a substantial dataset and standardized evaluation, likely to attract moderate attention from the research community."
+        "reason": "The benchmark targets a specialized CFD audience, with moderate topical breadth and artifact readiness suggested by the paper."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Predict velocity and pressure fields autoregressively on unstructured meshes for unsteady flow past a circular cylinder, evaluated on 450 simulations (270,000 snapshots) spanning three Reynolds-number regimes with randomized geometries.",
           "scoring": "ONECYL establishes a unified evaluation framework combining full-field rollout errors, virtual probes, and drag and lift predictions to assess numerical accuracy and physical fidelity.",
           "reuse": "The ONECYL benchmark and its Graph Transformer baseline provide a reproducible framework for evaluating graph-based surrogate models."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper explicitly introduces ONECYL as a benchmark with a clear evaluation framework and a reference baseline, and claims reproducibility, satisfying the requirements for publish.",
+        "decisionReason": "Clearly defined dataset and evaluation protocol; lack of direct artifact link inferred but paper release intended, though reuse path not confirmed.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce ONECYL (ONE CYLinder), a new benchmark for unsteady flow past a circular cylinder across laminar, transitional, and high-Reynolds-number regimes."
       },
@@ -3427,9 +3435,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "edd3bb1710d40c471fe81109e34246388e91ba6b08d1b4f70555643343ad1038"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "ae69807954d77991d020949d9caeec772311b694844915580ff27f3bdb3a497e"
       }
     },
     {
@@ -3792,7 +3800,7 @@
       "aliases": [
         "Monkey See, Can Monkey Do? A Benchmark for Evaluating Robot Skill Learning by Observation"
       ],
-      "oneLine": "Unified benchmark for evaluating robot skill learning from observation across ten manipulation tasks, including robustness to visual distractors and long-horizon execution.",
+      "oneLine": "Benchmark for robot learning from observation using real human videos, simulated trajectories, and evaluation environments across ten tasks.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -3873,27 +3881,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Unified benchmark for evaluating robot skill learning from observation across ten manipulation tasks, including robustness to visual distractors and long-horizon execution.",
-      "whyItMatters": "Standardizes comparison of learning-from-observation methods, a critical step for scaling robot data efficiency and assessing real-world policy generalization.",
+      "description": "Benchmark for robot learning from observation using real human videos, simulated trajectories, and evaluation environments across ten tasks.",
+      "whyItMatters": "Aims to standardize evaluation of learning-from-observation methods, addressing variability in assumptions and hardware.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 65,
-        "confidence": "Medium",
+        "score": 35,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Robotic learning from observation is a high-interest area, and the benchmark's unified evaluation and breadth of tasks are likely to draw significant community attention."
+        "reason": "Robotics benchmark topic has moderate interest, but lack of accessible artifacts likely limits early attention."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Evaluate models that learn robot manipulation policies from human demonstration videos on ten real-world tasks, with bundled human videos, simulated robot trajectories, and evaluation environments.",
           "scoring": "Four test suites evaluate robustness to visual distractors and long-horizon task completion, with studies covering over seven state-of-the-art algorithms.",
           "reuse": "Webpage: https://roboreel.github.io"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear task suite and evaluation protocol with a public webpage, enabling comparable evaluation across models.",
+        "decisionReason": "No artifact evidence or code/data links provided in the input; cannot verify task definition or scoring protocol.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we introduce RoboReel: a unified benchmark for evaluating models that learn policies from human videos."
       },
@@ -4117,8 +4125,8 @@
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "307f4f8f66fb4a70cf5a4d290d92a56d46ed3a516ff12a800257f9c6335866a5"
+        "generatedAt": "2026-09-09T09:06:08.213644Z",
+        "inputHash": "023f9994f67f0be3dc13cd7efa7da7bff00c349ac45969c62c8cab3f97e02f76"
       }
     },
     {
@@ -4129,7 +4137,7 @@
       "aliases": [
         "Measuring LLM Sycophancy under Sustained Multi-Turn Pressure"
       ],
-      "oneLine": "Evaluates LLM resistance to sycophancy under sustained adaptive disagreement, measuring collapse rates over extended multi-turn interactions.",
+      "oneLine": "SPINE evaluates LLM sycophancy under sustained multi-turn pressure, with an LLM proxy persistently challenging the target model for up to 25 turns. The benchmark tasks involve responding to false-presupposition and unethical-query items, and scoring focuses on collapse rates and resistance to pressure.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4204,27 +4212,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates LLM resistance to sycophancy under sustained adaptive disagreement, measuring collapse rates over extended multi-turn interactions.",
-      "whyItMatters": "Exposes failure modes missed by short conversation evaluations, providing a more realistic stress test for model alignment and user-pressure robustness.",
+      "description": "SPINE evaluates LLM sycophancy under sustained multi-turn pressure, with an LLM proxy persistently challenging the target model for up to 25 turns. The benchmark tasks involve responding to false-presupposition and unethical-query items, and scoring focuses on collapse rates and resistance to pressure.",
+      "whyItMatters": "Existing sycophancy evaluations use short, pre-specified conversations and may miss failures emerging under sustained adaptive disagreement, so SPINE provides a longer-horizon protocol to reveal underestimation and unreliable resistance in current models, informing development of more robust LLMs.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 50,
-        "confidence": "Medium",
+        "score": 45,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "LLM sycophancy and robustness to user pressure are timely safety evaluation topics, though the benchmark's narrower focus may limit its initial reach."
+        "reason": "SPINE addresses a safety-relevant topic with adaptive multi-turn testing but targets specific research communities and lacks broad cross-domain appeal."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Adaptive multi-turn evaluation of LLM sycophancy using 100 false-presupposition and 100 unethical-query items with a persistent mistaken user proxy for up to 25 turns.",
           "scoring": "Measures collapse rates as models concede under sustained pressure, comparing short-horizon protocols and evaluating resistance reliability.",
           "reuse": "The code and data are released at https://anonymous.4open.science/r/SPINE"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear evaluation task (adaptive challenge) with scoring (collapse rates) and released code/data, making it a reusable public benchmark.",
+        "decisionReason": "Only abstract provided and no artifact evidence; anonymous repository link implies availability but no concrete evidence of release.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce SPINE, a benchmark in which an LLM proxy plays a persistent but mistaken user and adaptively challenges a target model for up to 25 turns."
       },
@@ -4446,10 +4454,18 @@
           }
         }
       },
+      "publishers": [
+        {
+          "name": "Anonymous",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://anonymous.4open.science/r/SPINE",
+          "role": "benchmark-publisher"
+        }
+      ],
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "79ffb2141b75bf46d445ff9ae00ec205e4804628230e839d3ec326e9e6017059"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "298589d17d2b93b6bd793cb1e5499aa182c9aff5e5abddaa1a3b88065e3fa578"
       }
     },
     {
@@ -4458,7 +4474,7 @@
       "name": "LayerWiseBench",
       "paperTitle": "Charts Are Beyond Pixels: Probing for Layer-Wise Chart Understanding and Editing",
       "aliases": [],
-      "oneLine": "Evaluates layer-wise chart understanding and editing through tasks on layer attribution, layer binding, and visibility ordering using rendered charts with aligned RGBA assets.",
+      "oneLine": "LayerWiseBench evaluates vision-language models on layer-wise understanding and editing of charts, covering layer attribution, layer binding, and visibility ordering, with 7,329 questions and 53,791 editing variants.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -4760,18 +4776,18 @@
           }
         }
       },
-      "description": "Evaluates layer-wise chart understanding and editing through tasks on layer attribution, layer binding, and visibility ordering using rendered charts with aligned RGBA assets.",
-      "whyItMatters": "It fills a gap by directly testing models on layered structure rather than only final outputs, which can reveal hidden weaknesses in visual reasoning and editing.",
+      "description": "LayerWiseBench evaluates vision-language models on layer-wise understanding and editing of charts, covering layer attribution, layer binding, and visibility ordering, with 7,329 questions and 53,791 editing variants.",
+      "whyItMatters": "It addresses a gap in chart benchmarks by evaluating models on structured layer-wise operations rather than final output fidelity, identifying front-to-back relations as a recurring challenge.",
       "attentionForecast": {
-        "score": 18,
+        "score": 40,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets a specialized niche in chart understanding and editing with limited general audience appeal and no evidence of public code or data dissemination."
+        "reason": "The topic is specific to chart understanding, which may attract niche interest, but lack of public artifacts limits immediate traction."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "c0255ddd5e5625caaf28def99828cab094ad01f347043044fd70d5d97f1b789c"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "54a3e54303dfe620025eb6fe7e733bbb0dd81893ff6e63ae51b9ad1666483334"
       }
     },
     {
@@ -4782,7 +4798,7 @@
       "aliases": [
         "Human-Centric Image Captioning with Subject-Centered Spatial Understanding"
       ],
-      "oneLine": "Evaluates multimodal language models on subject-centered spatial grounding in human-centric image captions, targeting structural hallucination errors.",
+      "oneLine": "SPACE evaluates multimodal LLMs on subject-centered spatial understanding in human-centric image captioning, focusing on accurate body-part spatial grounding such as laterality and anatomical bindings, through caption quality assessment.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -4867,30 +4883,43 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates multimodal language models on subject-centered spatial grounding in human-centric image captions, targeting structural hallucination errors.",
-      "whyItMatters": "Addresses a critical limitation in human-centric AI by quantifying spatial fidelity, essential for applications like avatar generation and action understanding.",
+      "description": "SPACE evaluates multimodal LLMs on subject-centered spatial understanding in human-centric image captioning, focusing on accurate body-part spatial grounding such as laterality and anatomical bindings, through caption quality assessment.",
+      "whyItMatters": "Existing captioning benchmarks overlook localized spatial inversions that are structurally critical for downstream applications like avatar generation and action recognition; SPACE systematically exposes and quantifies this bottleneck, guiding improvements in spatial grounding.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 60,
+        "score": 55,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Human-centric multimodal benchmarks for spatial understanding align with active research in MLLMs and are likely to attract substantial interest."
+        "reason": "SPACE targets a specific evaluation gap in multimodal LLMs for human-centric tasks, with available code and public benchmark likely to attract interest from vision-language researchers."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Evaluate subject-centered spatial understanding in human-centric image captioning, focusing on egocentric left/right laterality and anatomical-object bindings.",
-          "scoring": "The benchmark specifically assesses structural hallucinations and spatial inversions, with performance evaluated against strong closed-source models.",
-          "reuse": "Our benchmark and code are available at https://github.com/JHang2020/SPACE-Eval"
+          "task": "The benchmark evaluates subject-centered spatial understanding in human-centric image captioning, including distinguishing egocentric left/right laterality and maintaining correct anatomical-object bindings.",
+          "scoring": "The scoring contract is specified by SPACE (Subject-centric Poses, Appearance, and Characteristics Evaluation) and uses metrics that reveal structural hallucinations, with a rubric-based reward that penalizes structurally critical spatial errors during alignment.",
+          "reuse": "The benchmark and code are available at https://github.com/JHang2020/SPACE-Eval, providing a public path for other teams to run evaluations."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-09T06:18:57.314550Z",
+        "reviewedAt": "2026-09-09T09:06:08.213644Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces SPACE as a benchmark with a clear evaluation scope and provides code, enabling public reuse and model comparison.",
+        "decisionReason": "The abstract formally introduces SPACE as a benchmark with a clear evaluation task, scoring based on spatial errors, and public code availability.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we introduce SPACE (Subject-centric Poses, Appearance, and Characteristics Evaluation), a benchmark designed to evaluate subject-centered spatial understanding."
       },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "f724915e902e20d80e964fae520efb70e8b1c40ed9ee91f1ed359cf0a802bfac"
+      },
+      "publishers": [
+        {
+          "name": "JHang2020",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/JHang2020/SPACE-Eval",
+          "role": "benchmark-publisher"
+        }
+      ],
       "attention": {
         "asOf": "2026-09-09",
         "hfPaperUpvotes": null,
@@ -5109,11 +5138,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:18:57.314550Z",
-        "inputHash": "205837926181375ebcca368ef0241e205ae22ede097c2dd6bb42e2dfaa72f9be"
       }
     },
     {
@@ -5122,7 +5146,7 @@
       "name": "EvoNav-Bench",
       "paperTitle": "EvoNav-Bench: Benchmarking Lifelong Navigation in Evolving Environments",
       "aliases": [],
-      "oneLine": "A proposed benchmark extending lifelong navigation evaluation to evolving environments built on ProcTHOR.",
+      "oneLine": "EvoNav-Bench is a proposed benchmark for evaluating lifelong navigation agents in environments that change over time, built on the ProcTHOR framework. It modifies environments between navigation tasks to test how agents reuse prior observations.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -5427,18 +5451,18 @@
           }
         }
       },
-      "description": "A proposed benchmark extending lifelong navigation evaluation to evolving environments built on ProcTHOR.",
-      "whyItMatters": "It addresses the evaluation gap for agents that must adapt to environment changes over time.",
+      "description": "EvoNav-Bench is a proposed benchmark for evaluating lifelong navigation agents in environments that change over time, built on the ProcTHOR framework. It modifies environments between navigation tasks to test how agents reuse prior observations.",
+      "whyItMatters": "The benchmark addresses the gap of evaluating navigation agents in evolving environments, which is critical for real-world deployment but not captured by existing stationary benchmarks.",
       "attentionForecast": {
         "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The abstract describes a benchmark concept but no artifact readiness or scoring details are supplied, limiting immediate attention."
+        "reason": "No released artifact or external submission path, limiting immediate attention to paper-based interest."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-09T06:27:57.312318Z",
-        "inputHash": "a380cf4a1bb5dd1bea28a114a3ade5992a17354adb2de9e7e61b908572be4436"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-09T09:06:53.748943Z",
+        "inputHash": "694ea10db458e70ff3955434f88af842cab1df86d008b931d005f2991fe37e0e"
       }
     },
     {
@@ -6804,6 +6828,128 @@
         "model": "deepseek-v4-pro",
         "generatedAt": "2026-09-09T06:27:57.312318Z",
         "inputHash": "50f3b439f0659d6a048ee108e1ad8c8a5903de061abcfc9b2325acc65b3a19ea"
+      }
+    },
+    {
+      "id": "bm_agent-memory-benchmark_426c2d6c",
+      "familyId": "bmf_13dc60f99742",
+      "name": "Agent Memory Benchmark",
+      "paperTitle": "agent-memory-benchmark",
+      "aliases": [
+        "agent-memory-benchmark"
+      ],
+      "oneLine": "Evaluates AI agent memory systems on ingesting conversation history and answering questions using stored information, measuring accuracy under judge rules, token usage, latency, ingestion cost, and handling of superseded facts.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/datapace-ai/agent-memory-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-09T06:18:35.023319Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-08",
+      "firstSeenAt": "2026-09-09",
+      "indexedAt": "2026-09-09T06:18:35.023319Z",
+      "sourceUpdatedAt": "2026-09-09T01:58:02Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/datapace-ai/agent-memory-benchmark",
+        "paper": "https://github.com/datapace-ai/agent-memory-benchmark",
+        "code": "https://github.com/datapace-ai/agent-memory-benchmark"
+      },
+      "motivation": "agent-memory-benchmark Vendor-neutral benchmark of agent memory systems (Mem0, LangMem, Cognee, Graphiti, Letta) against oracle, window and file-search baselines on LongMemEval, at zero API cost # Agent Memory Benchmark A vendor-neutral benchmark for AI agent memory systems, run by Datapace.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:datapace-ai/agent-memory-benchmark",
+        "url": "https://github.com/datapace-ai/agent-memory-benchmark",
+        "title": "agent-memory-benchmark",
+        "authors": [
+          "datapace-ai"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "agent-memory-benchmark Vendor-neutral benchmark of agent memory systems (Mem0, LangMem, Cognee, Graphiti, Letta) against oracle, window and file-search baselines on LongMemEval, at zero API cost # Agent Memory Benchmark A vendor-neutral benchmark for AI agent memory systems, run by Datapace.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:datapace-ai/agent-memory-benchmark",
+          "url": "https://github.com/datapace-ai/agent-memory-benchmark"
+        }
+      ],
+      "description": "Evaluates AI agent memory systems on ingesting conversation history and answering questions using stored information, measuring accuracy under judge rules, token usage, latency, ingestion cost, and handling of superseded facts.",
+      "whyItMatters": "Provides a vendor-neutral comparison of memory systems using identical models, prompts, and judges, enabling attribution of performance differences to memory mechanisms rather than the underlying LLM.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 62,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets impactful AI agent memory systems with a vendor-neutral, zero-cost setup, but the narrow product ecosystem and recent pilot results limit initial reach."
+      },
+      "publishers": [
+        {
+          "name": "Datapace",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://github.com/datapace-ai/agent-memory-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Every system does the same job: ingest a user's conversation history one session at a time in chronological order, then answer a question using only what it stored.",
+          "scoring": "Accuracy under three published judge rules, tokens per answer, retrieval and answer latency, ingestion cost, a forgetting curve by distance from the evidence, and the rate at which a system serves a superseded value after a fact has changed.",
+          "reuse": "Reproduce Everything runs on free models through OpenRouter. Create a free account, make a key, and put it in `.env` (never committed): ```bash cp .env.example .env # then paste your key after OPENROUTER_API_KEY= ``` Then: ```bash uv sync --extra dev uv run pytest -q ./scripts/smoke.sh # 5 questions, oracle and window, one seed ```"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-09T09:03:45.514878Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository defines a repeatable evaluation protocol with task instructions, scoring metrics, public reproduction commands, and committed question set, satisfying the criteria for a published score submission benchmark.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Agent Memory Benchmark"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-09T09:03:45.514878Z",
+        "inputHash": "82f675acaf4d1f455e35ef08ad6443c32fd93b942e3edadc98be4a88e8bd15b7"
       }
     },
     {
@@ -16224,6 +16370,124 @@
       }
     },
     {
+      "id": "bm_weagent-mmgenedit-a-full-stack-recipe-for-_1dc7d757",
+      "familyId": "bmf_3562a9d533b4",
+      "name": "WeBench-MMGenEdit",
+      "paperTitle": "WeAgent-MMGenEdit: A Full-Stack Recipe for Multimodal Agentic Image Generation and Editing",
+      "aliases": [
+        "WeAgent-MMGenEdit: A Full-Stack Recipe for Multimodal Agentic Image Generation and Editing"
+      ],
+      "oneLine": "Evaluates multimodal agentic image generation and editing, focusing on knowledge-intensive generation and multi-image editing across bilingual prompts.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents",
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.05171",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-07T06:22:02.605340Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-07",
+      "indexedAt": "2026-09-07T06:22:02.605340Z",
+      "sourceUpdatedAt": "2026-09-04T14:12:03Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.05171",
+        "paper": "https://arxiv.org/abs/2609.05171",
+        "pdf": "https://arxiv.org/pdf/2609.05171",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Image generation and editing models have advanced rapidly, yet remain unreliable when prompts require external world knowledge.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.05171",
+        "url": "https://arxiv.org/abs/2609.05171",
+        "title": "WeAgent-MMGenEdit: A Full-Stack Recipe for Multimodal Agentic Image Generation and Editing",
+        "authors": [
+          "Hui Zhang",
+          "Zongkai Liu",
+          "Liqiang Niu",
+          "Juntao Liu",
+          "Han Li",
+          "Zhen Cao",
+          "Wenchao Chen",
+          "Chengduo Zhao",
+          "Fandong Meng"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address these limitations, we present WeAgent-MMGenEdit, a full-stack recipe including a multimodal harness, a scalable data construction pipeline, a comprehensive benchmark, and post-training methods for the agent policy and image backend.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates multimodal agentic image generation and editing, focusing on knowledge-intensive generation and multi-image editing across bilingual prompts.",
+      "whyItMatters": "Addresses the gap in reliable image generation and editing that requires external world knowledge, with integrated visual verification.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 65,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a specialized multimodal agentic task with a full-stack recipe, likely attracting moderate attention in the image generation and editing community."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Bilingual benchmark covering knowledge-intensive image generation and multi-image editing.",
+          "scoring": "Three-layer verifiable checklists in 14.7K RL tasks.",
+          "reuse": "Benchmark introduced as part of a full-stack recipe with a scalable data construction pipeline."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-09T09:03:45.514878Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "A formally named benchmark with defined tasks, scoring via verifiable checklists, and a public reuse path via the scalable data construction pipeline.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We further introduce WeBench-MMGenEdit, a bilingual benchmark covering both knowledge-intensive image generation and multi-image editing."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-09T09:03:45.514878Z",
+        "inputHash": "dec8579335c4597fbd5ec3ed6c6a4a971182b259a477aadbf7ec6fb36805926e"
+      }
+    },
+    {
       "id": "bm_truthinsightbench_fec89a32",
       "familyId": "bmf_a7bb291973e4",
       "name": "TruthInsightBench",
@@ -16486,6 +16750,116 @@
         "model": "deepseek-v4-flash",
         "generatedAt": "2026-09-08T08:59:06.803818Z",
         "inputHash": "6cafe93c6895b0f4d7c640f49fede7e4c617625cbb162834316c8b938c3f16fa"
+      }
+    },
+    {
+      "id": "bm_tier_4396e23d",
+      "familyId": "bmf_e29ccc00b2e5",
+      "name": "TIER",
+      "paperTitle": "TIER: Threat Implicitness Benchmark for Evaluating LLM Safety Behaviors",
+      "aliases": [],
+      "oneLine": "Evaluates LLM safety behaviors across four risk domains and four threat levels using a six-label behavior scale judged by two LLMs.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Safety"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.05117",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-07T06:22:02.605340Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-04",
+      "firstSeenAt": "2026-09-07",
+      "indexedAt": "2026-09-07T06:22:02.605340Z",
+      "sourceUpdatedAt": "2026-09-04T13:13:11Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.05117",
+        "paper": "https://arxiv.org/abs/2609.05117",
+        "pdf": "https://arxiv.org/pdf/2609.05117",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Current LLM safety benchmarks largely rely on binary metrics, overlooking how models respond to harmful prompts with varying threat implicitness.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.05117",
+        "url": "https://arxiv.org/abs/2609.05117",
+        "title": "TIER: Threat Implicitness Benchmark for Evaluating LLM Safety Behaviors",
+        "authors": [
+          "Thu-Hien Trinh-Thi",
+          "Hai-Yen Vong",
+          "Thanh-Ha Ung-Dung",
+          "and Tram Ho"
+        ],
+        "categories": [
+          "cs.CR",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce TIER, a Threat Implicitness Benchmark for behavioral safety evaluation of LLMs.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates LLM safety behaviors across four risk domains and four threat levels using a six-label behavior scale judged by two LLMs.",
+      "whyItMatters": "Provides behavior-aware safety evaluation beyond binary metrics, revealing distinct response distributions even among models with similar attack success rates.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The topic of safety benchmarks for LLMs attracts moderate interest, but the specific framing may limit broad appeal."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Responses are assessed using a six-label behavior scale and two independent LLM judges.",
+          "scoring": "Responses are assessed using a six-label behavior scale and two independent LLM judges.",
+          "reuse": "Experiments on six open-weight LLMs show that safety behaviors evolve gradually across threat levels rather than shifting directly from refusal to compliance."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-09T09:03:45.514878Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark defines a repeatable evaluation with a clear scoring contract and has been applied to six open-weight models, demonstrating public reusability.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce TIER, a Threat Implicitness Benchmark for behavioral safety evaluation of LLMs."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-09T09:03:45.514878Z",
+        "inputHash": "b2395b34153b7fa47adf1822791e7818e21d6feb4e374d980b63f01241f8c497"
       }
     },
     {
