@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-08 · **Benchmark releases:** 1629
+**Snapshot:** 2026-09-08 · **Benchmark releases:** 1637
 
 ## Contents
 
@@ -18,8 +18,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Biology & Drug Discovery](#biology--drug-discovery) (107)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
-- [Finance](#finance) (54)
-- [General AI](#general-ai) (1123)
+- [Finance](#finance) (56)
+- [General AI](#general-ai) (1126)
 - [Logistics & Operations](#logistics--operations) (9)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (114)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (100)
+- [Software & AI Compute](#software--ai-compute) (103)
 
 ## Autonomous Driving
 
@@ -219,6 +219,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **Synthetic Data Generator Benchmark (Credit Risk)** (2026-09-07) — synthetic-data-benchmark Benchmarking synthetic tabular data generators (Gaussian Copula, CTGAN, LLM) on fidelity, utility, and privacy, using the Give Me Some Credit dataset. [Paper](https://github.com/Mervecaliskann/synthetic-data-benchmark) · [Code](https://github.com/Mervecaliskann/synthetic-data-benchmark)
+- **Agentic Infrastructure ChangeBench** (2026-09-05) — agentic-infrastructure-change-benchmark Vendor-neutral benchmark for AI agents proposing cloud, Kubernetes, network and Infrastructure as Code changes. [Paper](https://github.com/AAH20/agentic-infrastructure-change-benchmark) · [Code](https://github.com/AAH20/agentic-infrastructure-change-benchmark)
 - **FinalityBench** (2026-09-04) — We present FinalityBench, an executable benchmark for that decision. [Paper](https://arxiv.org/abs/2609.04706) · [Code](https://github.com/abhisheksharma2411/finalitybench)
 - **FinLifeBench** (2026-09-01) — We introduce FinLifeBench, which evaluates two tasks over the same cumulative dialogue: reconstructing every life-event instance with its first-establishing session and reconstructing a complete 34-path financial state… [Paper](https://arxiv.org/abs/2609.01198)
 - **LiveMacroEval** (2026-08-31) — To address this, we introduce LiveMacroEval, a live, contamination-resistant benchmark in which LLM agents produce hourly nowcasts for sixteen major U.S. [Paper](https://arxiv.org/abs/2608.30110)
@@ -279,8 +281,11 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Agentic NetDevOps Benchmark** (2026-09-08) — agentic-netdevops-benchmark A benchmark testing the ability for AI agents to perform netdevops tasks # Agentic NetDevOps Benchmark A benchmark designed to evaluate how AI agents perform on a deliberately atypical infras… [Paper](https://github.com/AndersBallegaard/agentic-netdevops-benchmark) · [Code](https://github.com/AndersBallegaard/agentic-netdevops-benchmark)
 - **overlooked-bench** (2026-09-07) — overlooked-bench An open, recurring benchmark of AI models on what mainstream evaluations skip: ethics and philosophy, niche academic domains, small/non-US organisational tasks, education beyond the university track, an… [Paper](https://github.com/kcelestinomaria/overlooked-bench) · [Code](https://github.com/kcelestinomaria/overlooked-bench)
 - **ChemE ML Benchmarks** (2026-09-07) — cheme-ml-benchmarks A standardized evaluation suite for comparing machine learning methods across different chemical engineering problems and issues under investigation or study. [Paper](https://github.com/yukevindai/cheme-ml-benchmarks) · [Code](https://github.com/yukevindai/cheme-ml-benchmarks)
+- **ProcArena** (2026-09-06) — In this paper, we present ProcArena, an execution-based benchmark covering both Direct and Interactive modes. [Paper](https://arxiv.org/abs/2609.06527)
 - **NLP Sentiment Analysis Benchmark** (2026-09-06) — nlp-sentiment-analysis-benchmark # NLP Sentiment Analysis Benchmark A reproducible NLP benchmarking project comparing three approaches to binary sentiment analysis on the **NLTK Movie Reviews dataset**: * **TF-IDF + Log… [Paper](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark) · [Code](https://github.com/anisha-das-kts/nlp-sentiment-analysis-benchmark)
+- **LANTERN** (2026-09-06) — We present LANTERN, a closed-loop benchmark for temporally grounded cooperative warnings. [Paper](https://arxiv.org/abs/2609.06368)
 - **DistilBERT ONNX Quantization Benchmark** (2026-09-06) — distilbert-onnx-quantization-benchmark End-to-end ONNX quantization benchmark for DistilBERT — FP32 vs dynamic vs static INT8, comparing accuracy, latency, and model size tradeoffs deep-learning dynamic-quantization hug… [Paper](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark) · [Code](https://github.com/Parth-Udawant/distilbert-onnx-quantization-benchmark)
+- **ChildGaze** (2026-09-06) — These results show that ChildGaze provides a reliable benchmark for studying collaborative behavior in naturalistic child-adult and peer interactions. [Paper](https://arxiv.org/abs/2609.06353)
 - **WearableQA** (2026-09-04) — We introduce WearableQA, a benchmark comprising 4,084 10-option multiple-choice questions constructed from the wearable time series, blood biomarkers, and demographics of 200 real users, each with up to 500 days of dail… [Paper](https://arxiv.org/abs/2609.05405)
 - **TruthInsightBench** (2026-09-04) — We present TruthInsightBench, a benchmark configured for discovery. [Paper](https://arxiv.org/abs/2609.05079) · [Code](https://github.com/TruthInsight-stack/TruthInsightBench)
 - **SciDocBench** (2026-09-04) — We introduce SciDocBench, a workflow-centered benchmark for scientific document understanding. [Paper](https://arxiv.org/abs/2609.05141) · [Code](https://github.com/InternLM/SciDocBench)
@@ -1607,6 +1612,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **O.W.L. & N.E.W.T. Bench** (2026-09-08) — newt-bench validate newt-bench run --provider ollama --model YOUR_MODEL newt-bench site build newt-bench site serve --port 8080 ``` Each run stores its raw responses, metadata, summary and Markdown report under `results… [Paper](https://github.com/VSBDev/little-hermione) · [Code](https://github.com/VSBDev/little-hermione) · [Data](https://huggingface.co/datasets/irioder/littleHermione-benchmark)
+- **strategy-benchmark** (2026-09-07) — strategy-benchmark A reproducible benchmark: do gated-evidence GTM strategy claims survive adversarial scrutiny better than a naive LLM strategist's? [Paper](https://github.com/derrtaderr/strategy-benchmark) · [Code](https://github.com/derrtaderr/strategy-benchmark)
+- **Samuel_Collins_CV_Benchmarking** (2026-09-06) — Samuel_Collins_CV_Benchmarking Benchmark classical ML and neural-network image classifiers through one public function. [Paper](https://github.com/srcollins785/Samuel_Collins_CV_Benchmarking) · [Code](https://github.com/srcollins785/Samuel_Collins_CV_Benchmarking)
 - **Agent Systems Benchmark (ASB)** (2026-09-06) — agent-systems-benchmark Linux systems benchmark for AI coding agents ai-agents benchmarking linux # Agent Systems Benchmark (ASB) ASB is a Linux terminal framework for measuring how AI coding agents scale: how many conc… [Paper](https://github.com/martin-beck/agent-systems-benchmark) · [Code](https://github.com/martin-beck/agent-systems-benchmark)
 - **AgentInfraBench** (2026-09-05) — ai-agent-infrastructure-benchmark Open benchmark for AI agent infrastructure security, sandbox isolation, recovery, evidence quality and cost per accepted outcome. [Paper](https://github.com/AAH20/ai-agent-infrastructure-benchmark) · [Code](https://github.com/AAH20/ai-agent-infrastructure-benchmark)
 - **KhatianDoc** (2026-09-03) — We introduce KhatianDoc, a four-task benchmark built from 107 real RS Khatian records from the Vumi (land) Office of Munshiganj, Bangladesh: symbol recognition, base-16-to-decimal conversion, structured field extraction… [Paper](https://arxiv.org/abs/2609.03597) · [Data](https://huggingface.co/datasets/RaiyanKhaan/KhatianDoc)
