@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-10 · **Benchmark releases:** 1707
+**Snapshot:** 2026-09-10 · **Benchmark releases:** 1710
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (12)
-- [Biology & Drug Discovery](#biology--drug-discovery) (112)
+- [Biology & Drug Discovery](#biology--drug-discovery) (113)
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (59)
-- [General AI](#general-ai) (1173)
+- [General AI](#general-ai) (1174)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (120)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (107)
+- [Software & AI Compute](#software--ai-compute) (108)
 
 ## Autonomous Driving
 
@@ -53,6 +53,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **OntologyBench** (2026-09-08) — We introduce OntologyBench, a tiered biomedical retrieval benchmark comprising 471,854 training and 125,744 evaluation query-document relevance pairs across concept grounding, relational retrieval, and compositional phe… [Paper](https://arxiv.org/abs/2609.08174)
 - **ObGynLongBench** (2026-09-07) — To bridge this gap, we introduce ObGynLongBench, a rule-grounded long-context EHR benchmark for obstetric and gynecologic decision-making, comprising 1,500 clinical decision-point cases from 976 real pregnancy EHR histo… [Paper](https://arxiv.org/abs/2609.07601) · [Code](https://github.com/xiangjun2003/ObgynLongbench)
 - **HealthLoopQA** (2026-09-07) — To address this, we introduce HealthLoopQA, a comprehensive diagnostic benchmark for evaluating LLM reasoning over continuous diabetes monitoring data. [Paper](https://arxiv.org/abs/2609.06976)
+- **PetQA: Benchmarking Veterinary Knowledge and Clinical Reasoning** (2026-09-04) — We introduce PetQA, a Korean long-form question-answering (QA) benchmark for evaluating veterinary knowledge and clinical reasoning in large language models (LLMs) and large vision-language models (LVLMs). [Paper](https://arxiv.org/abs/2609.04598)
 - **MMTClinic** (2026-09-04) — To fill this gap, we present MMTClinic, a benchmark designed to evaluate large language models (LLMs) on complex reasoning and question-answering tasks involving clinical time-series. [Paper](https://arxiv.org/abs/2609.04842)
 - **OmissionBench** (2026-08-31) — We release the benchmark, prompts and judgements. [Paper](https://arxiv.org/abs/2608.31016) · [Code](https://github.com/composo-ai/omission-bench) · [Data](https://huggingface.co/datasets/ComposoAI/OmissionBench)
 - **Evidence Package Benchmark** (2026-08-31) — We introduce the Evidence Package Benchmark, integrating 1,870 packages across six heterogeneous sources with explicit modality masks and evidence permissions. [Paper](https://arxiv.org/abs/2608.31014)
@@ -292,7 +293,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **SPOT-THE-SHIFT** (2026-09-09) — We introduce SPOT-THE-SHIFT, a human-verified benchmark for grounded image difference captioning of long-term changes in real-world driving scenes. [Paper](https://arxiv.org/abs/2609.10356)
 - **SEA-SpeechBench** (2026-09-09) — We introduce SEA-SpeechBench, to the best of our knowledge, the first large-scale multitask benchmark that evaluates speech understanding in 11 SEA languages through 97,194 samples across 99 evaluation sets and 597 hour… [Paper](https://arxiv.org/abs/2609.09672)
 - **Research Attention Prediction (RAP)** (2026-09-09) — We introduce Research Attention Prediction (RAP), a rolling benchmark covering 278 AI/ML fields and 1,390 episodes. [Paper](https://arxiv.org/abs/2609.10092)
-- **RESCUE** (2026-09-09) — We construct RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark) from real couple and family interview conversations, containing 191 samples, 7,079 annotated turns, and 1,064.8… [Paper](https://arxiv.org/abs/2609.09657)
+- **RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark)** (2026-09-09) — We construct RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark) from real couple and family interview conversations, containing 191 samples, 7,079 annotated turns, and 1,064.8… [Paper](https://arxiv.org/abs/2609.09657)
 - **PRAGMA** (2026-09-09) — To study this challenge, we introduce PRAGMA, a benchmark for evaluating personalized guidance in long-term conversations. [Paper](https://arxiv.org/abs/2609.09664)
 - **NetArtifactBench** (2026-09-09) — To make this property measurable, we introduce NetArtifactBench, which tests whether AI agents can repair inconsistent records derived from public network-system artifacts while preserving claims that remain supported. [Paper](https://arxiv.org/abs/2609.09849)
 - **MetroLLM-Bench** (2026-09-09) — We introduce MetroLLM-Bench, a 955-case benchmark for testing language models as the policy layer of a transit kiosk. [Paper](https://arxiv.org/abs/2609.10016) · [Code](https://github.com/continker/metrollm-bench)
@@ -350,6 +351,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **KoNA** (2026-09-04) — In this paper, we introduce KoNA, a benchmark for evaluating selective non-compliance in VLMs across five categories: False Premise, Visual Inaccessibility, Universal Unknown, Task Feasibility, and Safety. [Paper](https://arxiv.org/abs/2609.04720) · [Code](https://github.com/mz-kim/KoNA)
 - **KOPA-Bench** (2026-09-04) — We introduce the Korean Open Public API Benchmark (KOPA-Bench), comprising 145 real-world tasks. [Paper](https://arxiv.org/abs/2609.05395)
 - **European-IFEval** (2026-09-04) — We introduce EuroAlpaca, a task-preserving localisation pipeline and near-parallel resource covering 50 European languages and regional varieties, together with European-IFEval, a multilingual benchmark for verifiable i… [Paper](https://arxiv.org/abs/2609.05043)
+- **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — We introduce $\tau^\tau$-bench (pronounced hyper-tau-bench), a benchmark that makes agent construction the task. [Paper](https://arxiv.org/abs/2609.04611)
 - **Statebench** (2026-09-03) — To answer this question, we introduce Statebench, a benchmark that targets this gap by testing continuations over three state categories: past-visible states, occluded-process states, and complex-transition states. [Paper](https://arxiv.org/abs/2609.03673) · [Code](https://github.com/AMAP-ML/StateAgent)
 - **SWE-Gate** (2026-09-03) — We introduce SWE-Gate, a repository-level benchmark for software engineering agents that explicitly evaluates review constraint compliance alongside functional correctness. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **Principia** (2026-09-03) — We introduce Principia, a benchmark that evaluates Newtonian physics through relational consistency between paired objects. [Paper](https://arxiv.org/abs/2609.04200)
@@ -1678,8 +1680,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
-- **Φ-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **VidHalLoc** (2026-09-09) — We introduce VidHalLoc, a benchmark that evaluates hallucination detection methods under a unified diagnostic evaluation protocol using 2,000 adversarial hallucination samples across Video Question Answering and Video C… [Paper](https://arxiv.org/abs/2609.09895) · [Data](https://huggingface.co/datasets/wesfggfd/VidHalLoc)
+- **EDGE-BENCH** (2026-09-09) — edge-model-compression-benchmark Benchmarking AI model compression techniques for edge deployment using CIFAR-100 ResNet-18, comparing INT8 quantization, pruning, and knowledge distillation based on accuracy, model size… [Paper](https://github.com/suresh4330/edge-model-compression-benchmark) · [Code](https://github.com/suresh4330/edge-model-compression-benchmark)
+- **$\Phi$-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **SWE-Bench Pro Verified** (2026-09-08) — We present \textbf{SWE-Bench Pro Verified}, a verified version of SWE-Bench Pro that addresses both problems. [Paper](https://arxiv.org/abs/2609.08149)
 - **O.W.L. & N.E.W.T. Bench** (2026-09-08) — newt-bench validate newt-bench run --provider ollama --model YOUR_MODEL newt-bench site build newt-bench site serve --port 8080 ``` Each run stores its raw responses, metadata, summary and Markdown report under `results… [Paper](https://github.com/VSBDev/little-hermione) · [Code](https://github.com/VSBDev/little-hermione) · [Data](https://huggingface.co/datasets/irioder/littleHermione-benchmark)
 - **strategy-benchmark** (2026-09-07) — strategy-benchmark A reproducible benchmark: do gated-evidence GTM strategy claims survive adversarial scrutiny better than a naive LLM strategist's? [Paper](https://github.com/derrtaderr/strategy-benchmark) · [Code](https://github.com/derrtaderr/strategy-benchmark)

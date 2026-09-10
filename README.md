@@ -35,7 +35,7 @@
 | 3 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 178 dataset downloads |
 | 4 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 169 GitHub stars |
 | 5 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 26 GitHub stars |
-| 6 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 4 HF votes · 54 GitHub stars |
+| 6 | **$\Phi$-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 4 HF votes · 54 GitHub stars |
 | 7 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
 | 8 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 20 HF votes · 9 GitHub stars |
 | 9 | **SAFIRE**<br><sub>[Paper](https://arxiv.org/abs/2609.07823) · [Code](https://github.com/RISys-Lab/SAFIRE)</sub> | Safety & Trustworthiness | 5 GitHub stars |
@@ -45,9 +45,9 @@
 
 | General AI capabilities | Application fields |
 |---|---|
-| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 1,032<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 235<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 265<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 676<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 110<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 150<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 11 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 48<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 131<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 154<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 105<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 49 |
+| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 1,032<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 236<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 266<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 677<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 110<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 149<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 11 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 48<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 131<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 155<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 105<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 49 |
 
-**[Browse all 2,598 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,600 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
