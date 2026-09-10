@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-10 · **Benchmark releases:** 1699
+**Snapshot:** 2026-09-09 · **Benchmark releases:** 1707
 
 ## Contents
 
@@ -19,17 +19,17 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (8)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (59)
-- [General AI](#general-ai) (1168)
+- [General AI](#general-ai) (1173)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (21)
-- [Mobile & Personal Computing](#mobile--personal-computing) (9)
+- [Mobile & Personal Computing](#mobile--personal-computing) (10)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (119)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (120)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (106)
+- [Software & AI Compute](#software--ai-compute) (107)
 
 ## Autonomous Driving
 
@@ -287,6 +287,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **YallaMorph** (2026-09-09) — We introduce YallaMorph, a large-scale benchmark for Arabic morphological generation covering verbs, nouns, adjectives, their cliticized forms, and invalid configurations. [Paper](https://arxiv.org/abs/2609.10153)
+- **Urban Driving-Face Scene Gaze (UD-FSG)** (2026-09-09) — To train this model, we propose a benchmark driver gaze dataset, Urban Driving-Face Scene Gaze (UD-FSG), comprising synchronized driver-face and traffic-scene images, scene objects bounding boxes, and gaze labels in ter… [Paper](https://arxiv.org/abs/2609.10139)
+- **SPOT-THE-SHIFT** (2026-09-09) — We introduce SPOT-THE-SHIFT, a human-verified benchmark for grounded image difference captioning of long-term changes in real-world driving scenes. [Paper](https://arxiv.org/abs/2609.10356)
 - **SEA-SpeechBench** (2026-09-09) — We introduce SEA-SpeechBench, to the best of our knowledge, the first large-scale multitask benchmark that evaluates speech understanding in 11 SEA languages through 97,194 samples across 99 evaluation sets and 597 hour… [Paper](https://arxiv.org/abs/2609.09672)
 - **Research Attention Prediction (RAP)** (2026-09-09) — We introduce Research Attention Prediction (RAP), a rolling benchmark covering 278 AI/ML fields and 1,390 episodes. [Paper](https://arxiv.org/abs/2609.10092)
 - **RESCUE** (2026-09-09) — We construct RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark) from real couple and family interview conversations, containing 191 samples, 7,079 annotated turns, and 1,064.8… [Paper](https://arxiv.org/abs/2609.09657)
@@ -295,8 +298,10 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **MetroLLM-Bench** (2026-09-09) — We introduce MetroLLM-Bench, a 955-case benchmark for testing language models as the policy layer of a transit kiosk. [Paper](https://arxiv.org/abs/2609.10016) · [Code](https://github.com/continker/metrollm-bench)
 - **LexAgentHallu** (2026-09-09) — To address these limitations, we introduce LexAgentHallu, a legal agentic hallucination benchmark designed to evaluate to what extent and how legal agents fail along multi-step trajectories. [Paper](https://arxiv.org/abs/2609.09754)
 - **JuryBench** (2026-09-09) — To support the analysis, we introduce JuryBench, a benchmark containing controversial criminal cases in U.S. [Paper](https://arxiv.org/abs/2609.09887) · [Code](https://github.com/choyingw/JuryBench)
+- **IdeaAMBIG** (2026-09-09) — We introduce IdeaAMBIG, a benchmark of 660 evidence-grounded instances: 163 real-world gaps from reproducibility reports and GitHub issues, and 497 controlled synthetic gaps injected into codification-ready references. [Paper](https://arxiv.org/abs/2609.10539)
 - **DasanCallDial** (2026-09-09) — To address this, we introduce DasanCallDial, the first large-scale Korean benchmark dataset specifically curated for dialogue-level ASR error correction. [Paper](https://arxiv.org/abs/2609.09889)
 - **CapQuiz** (2026-09-09) — We introduce CapQuiz, a novel reference-free benchmark that assesses captions based on their utility in answering human-verified, fine-grained, multiple-choice questions derived from the video. [Paper](https://arxiv.org/abs/2609.09973)
+- **Candor-LR** (2026-09-09) — To shift the field toward realistic dialogue, we introduce Candor-LR, a conversational benchmark derived from the CANDOR corpus of 1,656 natural dyadic videoconferences. [Paper](https://arxiv.org/abs/2609.10394)
 - **5-Dialects-BN** (2026-09-09) — We address this gap with 5-Dialects-BN, the first multi-annotation Bangla dialect benchmark to align Romanized transliteration with dialectal text, Standard Bangla, English, and subjectivity labels across five regional… [Paper](https://arxiv.org/abs/2609.09964)
 - **VI-Bench** (2026-09-08) — To address this gap, we introduce VI-Bench, a benchmark built from 16.1 million real-user prompts and 900 human-verified AIGC videos. [Paper](https://arxiv.org/abs/2609.08079)
 - **SciFigure2Code** (2026-09-08) — We introduce SciFigure2Code, an AI-reconstructed benchmark that instead evaluates presentation recovery: generating editable Python programs that preserve how a scientific panel is arranged and read. [Paper](https://arxiv.org/abs/2609.08155)
@@ -308,7 +313,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Q2D-Web** (2026-09-08) — To overcome these evaluation gaps, we introduce Q2D-Web (Query2Doc-Web), a large-scale agentic retrieval benchmark consisting of a 190M-document web corpus and 70k agentic search queries in ten languages, reformulated f… [Paper](https://arxiv.org/abs/2609.08887)
 - **Particle Event Classification with Classical and Hybrid Quantum Models: A Reproducible Benchmark** (2026-09-08) — ## Motivation A clean methodological testbed with known ground truth and controllable overlap, noise, and imbalance — before introducing quantum circuits where fair comparison is harder. [Paper](https://github.com/starswithboutaina/particle-event-quantum-benchmark) · [Code](https://github.com/starswithboutaina/particle-event-quantum-benchmark)
 - **ONECYL** (2026-09-08) — We introduce ONECYL (ONE CYLinder), a new benchmark for unsteady flow past a circular cylinder across laminar, transitional, and high-Reynolds-number regimes. [Paper](https://arxiv.org/abs/2609.08947)
-- **MotionBlind** (2026-09-08) — We introduce MotionBlind, a contrastive benchmark of self-recorded video for physically grounded motion(speed, magnitude, and direction), the variables a world model must predict. [Paper](https://arxiv.org/abs/2609.09528) · [HF](https://huggingface.co/papers/2609.09528)
+- **MotionBlind** (2026-09-08) — We introduce MotionBlind, a contrastive benchmark of self-recorded video for physically grounded motion(speed, magnitude, and direction), the variables a world model must predict. [Paper](https://arxiv.org/abs/2609.09528)
 - **MMPIBench** (2026-09-08) — We present MMPIBench, a reproducible benchmark that measures what happens next. [Paper](https://arxiv.org/abs/2609.09404)
 - **LayerWiseBench** (2026-09-08) — We present LayerWiseBench, a benchmark organized around three core concepts, layer attribution, layer binding, and visibility ordering, that structure its chart-understanding and chart-editing evaluations. [Paper](https://arxiv.org/abs/2609.08657)
 - **HybridDeepResearch** (2026-09-08) — We introduce HybridDeepResearch, to our knowledge the first deep-research benchmark that requires both web search and SQL to form a complete, verifiable answer. [Paper](https://arxiv.org/abs/2609.09410) · [Code](https://github.com/Snowflake-AI-Research/HybridDeepResearch) · [Data](https://huggingface.co/datasets/Snowflake/HybridDeepResearch)
@@ -1523,6 +1528,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mobile & Personal Computing
 
+- **JarvisGUI** (2026-09-09) — We introduce JarvisGUI, a dynamic benchmark that evaluates GUI agents on cross-device workflows requiring coordinated interaction across heterogeneous platforms, including Android, Windows, and Ubuntu. [Paper](https://arxiv.org/abs/2609.10451)
 - **ElderBench** (2026-09-04) — To address this gap, we present ElderBench, the first benchmark for evaluating mobile GUI agents in authentic elderly-oriented scenarios. [Paper](https://arxiv.org/abs/2609.04850)
 - **EdgeMosaic** (2026-09-04) — EdgeMosaic Rapid on-device AI evaluation lab: manifest validation, benchmark plans, latency/memory/thermal aggregation, JSON+Markdown reports. [Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)
 - **MobileWorldSafety** (2026-08-18) — To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. [Paper](https://arxiv.org/abs/2608.17659) · [HF](https://huggingface.co/papers/2608.17659) · [Code](https://anonymous.4open.science/r/Anonymous_sub-C887) · [Data](https://anonymous.4open.science/r/Anonymous_sub-C887)
@@ -1540,6 +1546,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **FolDeX** (2026-09-09) — We introduce FolDeX, a physical-world benchmark built entirely from real-robot data, with garment folding as its primary task. [Paper](https://arxiv.org/abs/2609.10243)
 - **RoboReel** (2026-09-08) — To address these challenges, we introduce RoboReel: a unified benchmark for evaluating models that learn policies from human videos. [Paper](https://arxiv.org/abs/2609.08209)
 - **EvoNav-Bench** (2026-09-08) — In this paper, we present EvoNav-Bench, which extends the GOAT-Bench style LN formulation in the context of evolving environments. [Paper](https://arxiv.org/abs/2609.08292)
 - **AGOS-Bench** (2026-09-08) — To study this underexplored problem, we introduce AGOS-Bench, the first dedicated benchmark for evaluating whether general-purpose Vision-Language Models (VLMs) can integrate aerial discoveries and ground-level verifica… [Paper](https://arxiv.org/abs/2609.08402)
@@ -1671,6 +1678,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **Φ-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **VidHalLoc** (2026-09-09) — We introduce VidHalLoc, a benchmark that evaluates hallucination detection methods under a unified diagnostic evaluation protocol using 2,000 adversarial hallucination samples across Video Question Answering and Video C… [Paper](https://arxiv.org/abs/2609.09895) · [Data](https://huggingface.co/datasets/wesfggfd/VidHalLoc)
 - **SWE-Bench Pro Verified** (2026-09-08) — We present \textbf{SWE-Bench Pro Verified}, a verified version of SWE-Bench Pro that addresses both problems. [Paper](https://arxiv.org/abs/2609.08149)
 - **O.W.L. & N.E.W.T. Bench** (2026-09-08) — newt-bench validate newt-bench run --provider ollama --model YOUR_MODEL newt-bench site build newt-bench site serve --port 8080 ``` Each run stores its raw responses, metadata, summary and Markdown report under `results… [Paper](https://github.com/VSBDev/little-hermione) · [Code](https://github.com/VSBDev/little-hermione) · [Data](https://huggingface.co/datasets/irioder/littleHermione-benchmark)
