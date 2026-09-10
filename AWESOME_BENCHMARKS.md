@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-09 · **Benchmark releases:** 1699
+**Snapshot:** 2026-09-10 · **Benchmark releases:** 1699
 
 ## Contents
 
@@ -308,7 +308,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Q2D-Web** (2026-09-08) — To overcome these evaluation gaps, we introduce Q2D-Web (Query2Doc-Web), a large-scale agentic retrieval benchmark consisting of a 190M-document web corpus and 70k agentic search queries in ten languages, reformulated f… [Paper](https://arxiv.org/abs/2609.08887)
 - **Particle Event Classification with Classical and Hybrid Quantum Models: A Reproducible Benchmark** (2026-09-08) — ## Motivation A clean methodological testbed with known ground truth and controllable overlap, noise, and imbalance — before introducing quantum circuits where fair comparison is harder. [Paper](https://github.com/starswithboutaina/particle-event-quantum-benchmark) · [Code](https://github.com/starswithboutaina/particle-event-quantum-benchmark)
 - **ONECYL** (2026-09-08) — We introduce ONECYL (ONE CYLinder), a new benchmark for unsteady flow past a circular cylinder across laminar, transitional, and high-Reynolds-number regimes. [Paper](https://arxiv.org/abs/2609.08947)
-- **MotionBlind** (2026-09-08) — We introduce MotionBlind, a contrastive benchmark of self-recorded video for physically grounded motion(speed, magnitude, and direction), the variables a world model must predict. [Paper](https://arxiv.org/abs/2609.09528)
+- **MotionBlind** (2026-09-08) — We introduce MotionBlind, a contrastive benchmark of self-recorded video for physically grounded motion(speed, magnitude, and direction), the variables a world model must predict. [Paper](https://arxiv.org/abs/2609.09528) · [HF](https://huggingface.co/papers/2609.09528)
 - **MMPIBench** (2026-09-08) — We present MMPIBench, a reproducible benchmark that measures what happens next. [Paper](https://arxiv.org/abs/2609.09404)
 - **LayerWiseBench** (2026-09-08) — We present LayerWiseBench, a benchmark organized around three core concepts, layer attribution, layer binding, and visibility ordering, that structure its chart-understanding and chart-editing evaluations. [Paper](https://arxiv.org/abs/2609.08657)
 - **HybridDeepResearch** (2026-09-08) — We introduce HybridDeepResearch, to our knowledge the first deep-research benchmark that requires both web search and SQL to form a complete, verifiable answer. [Paper](https://arxiv.org/abs/2609.09410) · [Code](https://github.com/Snowflake-AI-Research/HybridDeepResearch) · [Data](https://huggingface.co/datasets/Snowflake/HybridDeepResearch)
