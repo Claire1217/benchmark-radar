@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-11 · **Benchmark releases:** 1732
+**Snapshot:** 2026-09-11 · **Benchmark releases:** 1734
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (59)
-- [General AI](#general-ai) (1191)
+- [General AI](#general-ai) (1192)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (122)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (109)
+- [Software & AI Compute](#software--ai-compute) (110)
 
 ## Autonomous Driving
 
@@ -301,6 +301,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **MindTopo** (2026-09-10) — We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology: continuity, separation, order, enclosure, and knots. [Paper](https://arxiv.org/abs/2609.11900) · [HF](https://huggingface.co/papers/2609.11900)
 - **MMGait** (2026-09-10) — We present MMGait, a large-scale multi-sensor benchmark that brings visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence. [Paper](https://arxiv.org/abs/2609.11601)
 - **Local agent benchmark (tools + loop + coding)** (2026-09-10) — llms-benchmark The bench scores small local LLM models as an agent over an OpenAI-compatible chat/completions API: whether it calls harness tools correctly, can run a tool-result-next-step loop, and makes progress on a… [Paper](https://github.com/diovoib/llms-benchmark) · [Code](https://github.com/diovoib/llms-benchmark)
+- **Indian Agent Benchmark** (2026-09-10) — indian-agent-benchmark Indian multilingual computer-use agent benchmark with simulated web environments, task trajectories, evaluation, and training-ready datasets. [Paper](https://github.com/imaginationai31-sys/indian-agent-benchmark) · [Code](https://github.com/imaginationai31-sys/indian-agent-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — greencalculus-benchmark How wrong are LLMs about emission factors — and how often do they name the wrong source for a number? [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
 - **DeFiFlowBench** (2026-09-10) — We introduce DeFiFlowBench, a benchmark of 207 team-authored prompts for natural-language DeFi workflow synthesis. [Paper](https://arxiv.org/abs/2609.11504) · [Code](https://github.com/Varun-2538/Koan)
 - **Database Normalization Benchmark** (2026-09-10) — We introduce a Database Normalization Benchmark (DNBENCH), comprising 3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF. [Paper](https://arxiv.org/abs/2609.11141)
@@ -1701,6 +1702,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **Failure-Transparent Agents** (2026-09-10) — ai-agents ai-evaluation benchmark guardrails hallucination llm reproducibility tool-use When a required tool fails, does the model admit it—or claim success anyway? [Paper](https://github.com/junru-zhu/failure-transparent-agents) · [Code](https://github.com/junru-zhu/failure-transparent-agents)
 - **Φ-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **VidHalLoc** (2026-09-09) — We introduce VidHalLoc, a benchmark that evaluates hallucination detection methods under a unified diagnostic evaluation protocol using 2,000 adversarial hallucination samples across Video Question Answering and Video C… [Paper](https://arxiv.org/abs/2609.09895) · [Data](https://huggingface.co/datasets/wesfggfd/VidHalLoc)
 - **EDGE-BENCH** (2026-09-09) — edge-model-compression-benchmark Benchmarking AI model compression techniques for edge deployment using CIFAR-100 ResNet-18, comparing INT8 quantization, pruning, and knowledge distillation based on accuracy, model size… [Paper](https://github.com/suresh4330/edge-model-compression-benchmark) · [Code](https://github.com/suresh4330/edge-model-compression-benchmark)
