@@ -10,23 +10,23 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-10 · **Benchmark releases:** 1710
+**Snapshot:** 2026-09-10 · **Benchmark releases:** 1723
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (12)
 - [Biology & Drug Discovery](#biology--drug-discovery) (113)
-- [Chip Design & EDA](#chip-design--eda) (8)
+- [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (59)
-- [General AI](#general-ai) (1174)
+- [General AI](#general-ai) (1184)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (21)
 - [Mobile & Personal Computing](#mobile--personal-computing) (10)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (120)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (122)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
 - [Software & AI Compute](#software--ai-compute) (108)
@@ -164,6 +164,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Chip Design & EDA
 
+- **steam-review-sentiment** (2026-09-10) — steam-review-sentiment Six-model sentiment benchmark and aspect-based sentiment analysis of Steam game reviews. [Paper](https://github.com/qbalhkim/steam-review-sentiment) · [Code](https://github.com/qbalhkim/steam-review-sentiment)
 - **OmniRouting** (2026-08-05) — To bridge this gap, we introduce OmniRouting, the first large-scale benchmark designed to evaluate LLMs on printed-circuit-board (PCB) routing reasoning under real-world industrial design-rule, manufacturability, and co… [Paper](https://arxiv.org/abs/2608.04434) · [HF](https://huggingface.co/papers/2608.04434)
 - **ParasGB** (2026-07-25) — To address this gap, we introduce ParasGB, the first open-source benchmark suite for pre-layout parasitic parameter prediction on circuit graphs. [Paper](https://arxiv.org/abs/2607.23225) · [HF](https://huggingface.co/papers/2607.23225) · [Code](https://github.com/ShenShan123/ParasGB.git)
 - **CLOSER-Bench** (2026-07-18) — We introduce CLOSER-Bench, a controlled evaluation protocol for budgeted cross-stage design closure. [Paper](https://arxiv.org/abs/2607.16632) · [HF](https://huggingface.co/papers/2607.16632)
@@ -288,12 +289,21 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **VWG-Bench** (2026-09-10) — We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks. [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
+- **TransClean** (2026-09-10) — Building on the observed patterns, we construct TransClean, a controlled benchmark of 9,900 pairs of noisy and clean translation outputs, comprising 8,800 synthetically generated instances and 1,100 manually curated aut… [Paper](https://arxiv.org/abs/2609.11399)
+- **SemVerBench** (2026-09-10) — We introduce SemVerBench, the first benchmark of LLM version-constraint resolution semantics across three ecosystems (npm, PEP 440, Cargo): 240 machine-checkable items with unique answers, built author-neutrally from fo… [Paper](https://arxiv.org/abs/2609.11180)
+- **Sci-MMR** (2026-09-10) — We introduce Sci-MMR, a benchmark for multi-step evidence-grounded scientific reasoning built on structured argument graphs linking scientific claims, citation-grounded knowledge, visual evidence, and supporting regions. [Paper](https://arxiv.org/abs/2609.11243)
+- **PNI-3D Multimodal CAD & Geometric Robustness Benchmark** (2026-09-10) — PNI-3D: Multimodal CAD & Geometric AI Benchmark PNI-3D is a benchmark dataset designed for testing fine-grained 3D CAD matching, multimodal embedding alignment, and geometric retrieval under real-world sensor distortion… [Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark) · [Data](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)
+- **NovGauge** (2026-09-10) — We present NovGauge, a human-anchored benchmark for fine-grained novelty assessment diagnosis. [Paper](https://arxiv.org/abs/2609.11234)
+- **Mr.LHDR** (2026-09-10) — We introduce Mr.LHDR (Multimodal real-world Long-Horizon Deep Research), a benchmark for evaluating real-world deep research over long, irreducible chains of interdependent evidence across eight categories. [Paper](https://arxiv.org/abs/2609.11318) · [Code](https://github.com/minghaoguo20/Mr-LHDR-eval)
+- **Emission-factor accuracy benchmark** (2026-09-10) — greencalculus-benchmark How wrong are LLMs about emission factors — and how often do they name the wrong source for a number? [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
+- **Database Normalization Benchmark** (2026-09-10) — We introduce a Database Normalization Benchmark (DNBENCH), comprising 3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF. [Paper](https://arxiv.org/abs/2609.11141)
 - **YallaMorph** (2026-09-09) — We introduce YallaMorph, a large-scale benchmark for Arabic morphological generation covering verbs, nouns, adjectives, their cliticized forms, and invalid configurations. [Paper](https://arxiv.org/abs/2609.10153)
 - **Urban Driving-Face Scene Gaze (UD-FSG)** (2026-09-09) — To train this model, we propose a benchmark driver gaze dataset, Urban Driving-Face Scene Gaze (UD-FSG), comprising synchronized driver-face and traffic-scene images, scene objects bounding boxes, and gaze labels in ter… [Paper](https://arxiv.org/abs/2609.10139)
 - **SPOT-THE-SHIFT** (2026-09-09) — We introduce SPOT-THE-SHIFT, a human-verified benchmark for grounded image difference captioning of long-term changes in real-world driving scenes. [Paper](https://arxiv.org/abs/2609.10356)
 - **SEA-SpeechBench** (2026-09-09) — We introduce SEA-SpeechBench, to the best of our knowledge, the first large-scale multitask benchmark that evaluates speech understanding in 11 SEA languages through 97,194 samples across 99 evaluation sets and 597 hour… [Paper](https://arxiv.org/abs/2609.09672)
 - **Research Attention Prediction (RAP)** (2026-09-09) — We introduce Research Attention Prediction (RAP), a rolling benchmark covering 278 AI/ML fields and 1,390 episodes. [Paper](https://arxiv.org/abs/2609.10092)
-- **RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark)** (2026-09-09) — We construct RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark) from real couple and family interview conversations, containing 191 samples, 7,079 annotated turns, and 1,064.8… [Paper](https://arxiv.org/abs/2609.09657)
+- **RESCUE** (2026-09-09) — We construct RESCUE (Relation-aware Emotional Support Conversation Understanding and Evaluation Benchmark) from real couple and family interview conversations, containing 191 samples, 7,079 annotated turns, and 1,064.8… [Paper](https://arxiv.org/abs/2609.09657)
 - **PRAGMA** (2026-09-09) — To study this challenge, we introduce PRAGMA, a benchmark for evaluating personalized guidance in long-term conversations. [Paper](https://arxiv.org/abs/2609.09664)
 - **NetArtifactBench** (2026-09-09) — To make this property measurable, we introduce NetArtifactBench, which tests whether AI agents can repair inconsistent records derived from public network-system artifacts while preserving claims that remain supported. [Paper](https://arxiv.org/abs/2609.09849)
 - **MetroLLM-Bench** (2026-09-09) — We introduce MetroLLM-Bench, a 955-case benchmark for testing language models as the policy layer of a transit kiosk. [Paper](https://arxiv.org/abs/2609.10016) · [Code](https://github.com/continker/metrollm-bench)
@@ -303,6 +313,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **DasanCallDial** (2026-09-09) — To address this, we introduce DasanCallDial, the first large-scale Korean benchmark dataset specifically curated for dialogue-level ASR error correction. [Paper](https://arxiv.org/abs/2609.09889)
 - **CapQuiz** (2026-09-09) — We introduce CapQuiz, a novel reference-free benchmark that assesses captions based on their utility in answering human-verified, fine-grained, multiple-choice questions derived from the video. [Paper](https://arxiv.org/abs/2609.09973)
 - **Candor-LR** (2026-09-09) — To shift the field toward realistic dialogue, we introduce Candor-LR, a conversational benchmark derived from the CANDOR corpus of 1,656 natural dyadic videoconferences. [Paper](https://arxiv.org/abs/2609.10394)
+- **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722)
 - **5-Dialects-BN** (2026-09-09) — We address this gap with 5-Dialects-BN, the first multi-annotation Bangla dialect benchmark to align Romanized transliteration with dialectal text, Standard Bangla, English, and subjectivity labels across five regional… [Paper](https://arxiv.org/abs/2609.09964)
 - **VI-Bench** (2026-09-08) — To address this gap, we introduce VI-Bench, a benchmark built from 16.1 million real-user prompts and 900 human-verified AIGC videos. [Paper](https://arxiv.org/abs/2609.08079)
 - **SciFigure2Code** (2026-09-08) — We introduce SciFigure2Code, an AI-reconstructed benchmark that instead evaluates presentation recovery: generating editable Python programs that preserve how a scientific panel is arranged and read. [Paper](https://arxiv.org/abs/2609.08155)
@@ -1548,6 +1559,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **EgoGenEval** (2026-09-10) — We introduce EgoGenEval, a geometry-grounded, pose-free benchmark designed to evaluate the physical consistency of visual generators under ego-motion, and organize our study into two parts. [Paper](https://arxiv.org/abs/2609.11172) · [Code](https://github.com/InternRobotics/EgoGenEval)
+- **ReactHuman** (2026-09-09) — We introduce ReactHuman, the first physics-grounded benchmark for human-like reactive decision-making, in which the evaluated MLLM acts as the brain of a simulated humanoid facing sudden household hazards; it spans 17 e… [Paper](https://arxiv.org/abs/2609.10895) · [Data](https://huggingface.co/datasets/Alan123/reacthuman-benchmark-scaled)
 - **FolDeX** (2026-09-09) — We introduce FolDeX, a physical-world benchmark built entirely from real-robot data, with garment folding as its primary task. [Paper](https://arxiv.org/abs/2609.10243)
 - **RoboReel** (2026-09-08) — To address these challenges, we introduce RoboReel: a unified benchmark for evaluating models that learn policies from human videos. [Paper](https://arxiv.org/abs/2609.08209)
 - **EvoNav-Bench** (2026-09-08) — In this paper, we present EvoNav-Bench, which extends the GOAT-Bench style LN formulation in the context of evolving environments. [Paper](https://arxiv.org/abs/2609.08292)
@@ -1680,9 +1693,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Software & AI Compute
 
+- **Φ-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **VidHalLoc** (2026-09-09) — We introduce VidHalLoc, a benchmark that evaluates hallucination detection methods under a unified diagnostic evaluation protocol using 2,000 adversarial hallucination samples across Video Question Answering and Video C… [Paper](https://arxiv.org/abs/2609.09895) · [Data](https://huggingface.co/datasets/wesfggfd/VidHalLoc)
 - **EDGE-BENCH** (2026-09-09) — edge-model-compression-benchmark Benchmarking AI model compression techniques for edge deployment using CIFAR-100 ResNet-18, comparing INT8 quantization, pruning, and knowledge distillation based on accuracy, model size… [Paper](https://github.com/suresh4330/edge-model-compression-benchmark) · [Code](https://github.com/suresh4330/edge-model-compression-benchmark)
-- **$\Phi$-Bench** (2026-09-09) — To address this gap, we present $\Phi$-Bench, a benchmark for systematically evaluating LLMs on engineering the LLM infrastructure stack. [Paper](https://arxiv.org/abs/2609.10226)
 - **SWE-Bench Pro Verified** (2026-09-08) — We present \textbf{SWE-Bench Pro Verified}, a verified version of SWE-Bench Pro that addresses both problems. [Paper](https://arxiv.org/abs/2609.08149)
 - **O.W.L. & N.E.W.T. Bench** (2026-09-08) — newt-bench validate newt-bench run --provider ollama --model YOUR_MODEL newt-bench site build newt-bench site serve --port 8080 ``` Each run stores its raw responses, metadata, summary and Markdown report under `results… [Paper](https://github.com/VSBDev/little-hermione) · [Code](https://github.com/VSBDev/little-hermione) · [Data](https://huggingface.co/datasets/irioder/littleHermione-benchmark)
 - **strategy-benchmark** (2026-09-07) — strategy-benchmark A reproducible benchmark: do gated-evidence GTM strategy claims survive adversarial scrutiny better than a naive LLM strategist's? [Paper](https://github.com/derrtaderr/strategy-benchmark) · [Code](https://github.com/derrtaderr/strategy-benchmark)
