@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-10 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-11 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 2,106 dataset downloads |
-| 2 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 178 dataset downloads |
-| 3 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 5 HF votes · 54 GitHub stars |
-| 4 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 169 GitHub stars |
-| 5 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 26 GitHub stars |
-| 6 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
-| 7 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 20 HF votes · 9 GitHub stars |
-| 8 | **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction**<br><sub>[Paper](https://arxiv.org/abs/2609.04611)</sub> | Agents | 9 HF votes · 12 GitHub stars |
-| 9 | **SAFIRE**<br><sub>[Paper](https://arxiv.org/abs/2609.07823) · [Code](https://github.com/RISys-Lab/SAFIRE)</sub> | Safety & Trustworthiness | 5 GitHub stars |
-| 10 | **GBA-GCs**<br><sub>[Paper](https://arxiv.org/abs/2609.03804) · [Code](https://github.com/MinweiZhao/GBA-GCs)</sub> | Multimodal Perception | 5 GitHub stars |
+| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Multimodal Perception | 37 HF votes · 51 GitHub stars |
+| 2 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 9 HF votes · 56 GitHub stars |
+| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 229 dataset downloads |
+| 4 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 181 dataset downloads |
+| 5 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 28 GitHub stars |
+| 6 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 173 GitHub stars |
+| 7 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Robotics & Embodied Intelligence | 99 dataset downloads |
+| 8 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 32 dataset downloads |
+| 9 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 3 HF votes · 2,100 dataset downloads |
+| 10 | **SAEScientist-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.09113) · [Code](https://github.com/Trae1ounG/SAEScientist)</sub> | Agents | 16 HF votes · 15 GitHub stars |
 
 ### Explore the library
 

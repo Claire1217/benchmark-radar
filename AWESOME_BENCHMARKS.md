@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-10 · **Benchmark releases:** 1723
+**Snapshot:** 2026-09-11 · **Benchmark releases:** 1723
 
 ## Contents
 
@@ -313,7 +313,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **DasanCallDial** (2026-09-09) — To address this, we introduce DasanCallDial, the first large-scale Korean benchmark dataset specifically curated for dialogue-level ASR error correction. [Paper](https://arxiv.org/abs/2609.09889)
 - **CapQuiz** (2026-09-09) — We introduce CapQuiz, a novel reference-free benchmark that assesses captions based on their utility in answering human-verified, fine-grained, multiple-choice questions derived from the video. [Paper](https://arxiv.org/abs/2609.09973)
 - **Candor-LR** (2026-09-09) — To shift the field toward realistic dialogue, we introduce Candor-LR, a conversational benchmark derived from the CANDOR corpus of 1,656 natural dyadic videoconferences. [Paper](https://arxiv.org/abs/2609.10394)
-- **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722)
+- **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722) · [HF](https://huggingface.co/papers/2609.10722)
 - **5-Dialects-BN** (2026-09-09) — We address this gap with 5-Dialects-BN, the first multi-annotation Bangla dialect benchmark to align Romanized transliteration with dialectal text, Standard Bangla, English, and subjectivity labels across five regional… [Paper](https://arxiv.org/abs/2609.09964)
 - **VI-Bench** (2026-09-08) — To address this gap, we introduce VI-Bench, a benchmark built from 16.1 million real-user prompts and 900 human-verified AIGC videos. [Paper](https://arxiv.org/abs/2609.08079)
 - **SciFigure2Code** (2026-09-08) — We introduce SciFigure2Code, an AI-reconstructed benchmark that instead evaluates presentation recovery: generating editable Python programs that preserve how a scientific panel is arranged and read. [Paper](https://arxiv.org/abs/2609.08155)
