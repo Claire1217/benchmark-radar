@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-10 · **Benchmark releases:** 1732
+**Snapshot:** 2026-09-11 · **Benchmark releases:** 1732
 
 ## Contents
 
@@ -298,7 +298,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **PNI-3D Multimodal CAD & Geometric Robustness Benchmark** (2026-09-10) — PNI-3D: Multimodal CAD & Geometric AI Benchmark PNI-3D is a benchmark dataset designed for testing fine-grained 3D CAD matching, multimodal embedding alignment, and geometric retrieval under real-world sensor distortion… [Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark) · [Data](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)
 - **NovGauge** (2026-09-10) — We present NovGauge, a human-anchored benchmark for fine-grained novelty assessment diagnosis. [Paper](https://arxiv.org/abs/2609.11234)
 - **Mr.LHDR** (2026-09-10) — We introduce Mr.LHDR (Multimodal real-world Long-Horizon Deep Research), a benchmark for evaluating real-world deep research over long, irreducible chains of interdependent evidence across eight categories. [Paper](https://arxiv.org/abs/2609.11318) · [Code](https://github.com/minghaoguo20/Mr-LHDR-eval)
-- **MindTopo** (2026-09-10) — We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology: continuity, separation, order, enclosure, and knots. [Paper](https://arxiv.org/abs/2609.11900)
+- **MindTopo** (2026-09-10) — We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology: continuity, separation, order, enclosure, and knots. [Paper](https://arxiv.org/abs/2609.11900) · [HF](https://huggingface.co/papers/2609.11900)
 - **MMGait** (2026-09-10) — We present MMGait, a large-scale multi-sensor benchmark that brings visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence. [Paper](https://arxiv.org/abs/2609.11601)
 - **Local agent benchmark (tools + loop + coding)** (2026-09-10) — llms-benchmark The bench scores small local LLM models as an agent over an OpenAI-compatible chat/completions API: whether it calls harness tools correctly, can run a tool-result-next-step loop, and makes progress on a… [Paper](https://github.com/diovoib/llms-benchmark) · [Code](https://github.com/diovoib/llms-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — greencalculus-benchmark How wrong are LLMs about emission factors — and how often do they name the wrong source for a number? [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
