@@ -84,3 +84,7 @@ The public website has no login, analytics, or cookies. Saved benchmarks remain 
 No open-source code or data license has been selected yet. Public visibility permits inspection, but does not itself grant reuse rights. Code and third-party-derived metadata will receive separate, explicit terms before the project invites broad reuse.
 
 </details>
+
+## Agent CLI
+
+Query benchmark usage evidence with `./benchmark-reader search gpqa` and `./benchmark-reader show lib_gpqa_diamond`. Both commands return JSON. See the [CLI contract and data definitions](docs/CLI.md) for source coverage, version alignment, pagination and unknown values.

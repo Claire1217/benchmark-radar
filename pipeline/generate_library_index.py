@@ -250,6 +250,15 @@ def main() -> None:
         },
         "records": records,
     }
+    # Attach imported evidence without converting it into popularity or adoption scores.
+    if (ROOT / "data/usage/manifest.json").exists():
+        from usage_store import UsageStore
+        usage = UsageStore(ROOT / "data", library=records)
+        for record in records:
+            keys = usage.entities[record["id"]].get("usageSourceIds", [])
+            if keys:
+                record["reportedUsage"] = {**usage.summary(keys), "sourceIds": keys}
+        payload["manifest"]["usageDatasetVersion"] = usage.manifest["datasetVersion"]
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(
         f"records={len(records)} classics={payload['manifest']['classicRecordCount']} "
