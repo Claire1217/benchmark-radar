@@ -32,14 +32,14 @@
 |---:|---|---|---|
 | 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Multimodal Perception | 2 HF votes |
 | 2 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 5 HF votes · 54 GitHub stars |
-| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 229 dataset downloads |
+| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 406 dataset downloads |
 | 4 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 178 dataset downloads |
 | 5 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 28 GitHub stars |
 | 6 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 173 GitHub stars |
 | 7 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Robotics & Embodied Intelligence | 99 dataset downloads |
 | 8 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
-| 9 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 3 HF votes · 2,100 dataset downloads |
-| 10 | **SAEScientist-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.09113) · [Code](https://github.com/Trae1ounG/SAEScientist)</sub> | Agents | 0 HF votes · 2 GitHub stars |
+| 9 | **PNI-3D Multimodal CAD & Geometric Robustness Benchmark**<br><sub>[Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)</sub> | Knowledge & Reasoning | 18 dataset downloads |
+| 10 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 3 HF votes · 2,100 dataset downloads |
 
 ### Explore the library
 
