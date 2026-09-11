@@ -10,16 +10,16 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-11 · **Benchmark releases:** 1723
+**Snapshot:** 2026-09-10 · **Benchmark releases:** 1732
 
 ## Contents
 
 - [Autonomous Driving](#autonomous-driving) (12)
-- [Biology & Drug Discovery](#biology--drug-discovery) (113)
+- [Biology & Drug Discovery](#biology--drug-discovery) (114)
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (59)
-- [General AI](#general-ai) (1184)
+- [General AI](#general-ai) (1191)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -29,7 +29,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Robotics & Embodied AI](#robotics--embodied-ai) (122)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
-- [Software & AI Compute](#software--ai-compute) (108)
+- [Software & AI Compute](#software--ai-compute) (109)
 
 ## Autonomous Driving
 
@@ -48,6 +48,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Biology & Drug Discovery
 
+- **LogiMed-RoB** (2026-09-10) — We introduce LogiMed-RoB, a benchmark grounded in Cochrane Risk of Bias (RoB) 2.0 expert logic, comprising 860 randomized controlled trials (RCTs) and 14,820 queries. [Paper](https://arxiv.org/abs/2609.11185)
 - **PhenoNormBench** (2026-09-09) — We also construct PhenoNormBench, a unified benchmark comprising 13,390 samples from seven Human Phenotype Ontology datasets. [Paper](https://arxiv.org/abs/2609.10055) · [Code](https://github.com/zhelishisongjie/OntologyAligner)
 - **RevalExo** (2026-09-08) — To support development and evaluation under realistic clinical constraints and daily mobility demands, we introduce RevalExo, a functional daily-activity benchmark for inertial and visual locomotion mode recognition. [Paper](https://arxiv.org/abs/2609.08090)
 - **OntologyBench** (2026-09-08) — We introduce OntologyBench, a tiered biomedical retrieval benchmark comprising 471,854 training and 125,744 evaluation query-document relevance pairs across concept grounding, relational retrieval, and compositional phe… [Paper](https://arxiv.org/abs/2609.08174)
@@ -293,11 +294,18 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **TransClean** (2026-09-10) — Building on the observed patterns, we construct TransClean, a controlled benchmark of 9,900 pairs of noisy and clean translation outputs, comprising 8,800 synthetically generated instances and 1,100 manually curated aut… [Paper](https://arxiv.org/abs/2609.11399)
 - **SemVerBench** (2026-09-10) — We introduce SemVerBench, the first benchmark of LLM version-constraint resolution semantics across three ecosystems (npm, PEP 440, Cargo): 240 machine-checkable items with unique answers, built author-neutrally from fo… [Paper](https://arxiv.org/abs/2609.11180)
 - **Sci-MMR** (2026-09-10) — We introduce Sci-MMR, a benchmark for multi-step evidence-grounded scientific reasoning built on structured argument graphs linking scientific claims, citation-grounded knowledge, visual evidence, and supporting regions. [Paper](https://arxiv.org/abs/2609.11243)
+- **RAG-Safety-Bench** (2026-09-10) — We introduce RAG-Safety-Bench, a benchmark to measure the safety impact of RAG on LLM models. [Paper](https://arxiv.org/abs/2609.11758)
 - **PNI-3D Multimodal CAD & Geometric Robustness Benchmark** (2026-09-10) — PNI-3D: Multimodal CAD & Geometric AI Benchmark PNI-3D is a benchmark dataset designed for testing fine-grained 3D CAD matching, multimodal embedding alignment, and geometric retrieval under real-world sensor distortion… [Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark) · [Data](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)
 - **NovGauge** (2026-09-10) — We present NovGauge, a human-anchored benchmark for fine-grained novelty assessment diagnosis. [Paper](https://arxiv.org/abs/2609.11234)
 - **Mr.LHDR** (2026-09-10) — We introduce Mr.LHDR (Multimodal real-world Long-Horizon Deep Research), a benchmark for evaluating real-world deep research over long, irreducible chains of interdependent evidence across eight categories. [Paper](https://arxiv.org/abs/2609.11318) · [Code](https://github.com/minghaoguo20/Mr-LHDR-eval)
+- **MindTopo** (2026-09-10) — We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology: continuity, separation, order, enclosure, and knots. [Paper](https://arxiv.org/abs/2609.11900)
+- **MMGait** (2026-09-10) — We present MMGait, a large-scale multi-sensor benchmark that brings visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence. [Paper](https://arxiv.org/abs/2609.11601)
+- **Local agent benchmark (tools + loop + coding)** (2026-09-10) — llms-benchmark The bench scores small local LLM models as an agent over an OpenAI-compatible chat/completions API: whether it calls harness tools correctly, can run a tool-result-next-step loop, and makes progress on a… [Paper](https://github.com/diovoib/llms-benchmark) · [Code](https://github.com/diovoib/llms-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — greencalculus-benchmark How wrong are LLMs about emission factors — and how often do they name the wrong source for a number? [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
+- **DeFiFlowBench** (2026-09-10) — We introduce DeFiFlowBench, a benchmark of 207 team-authored prompts for natural-language DeFi workflow synthesis. [Paper](https://arxiv.org/abs/2609.11504) · [Code](https://github.com/Varun-2538/Koan)
 - **Database Normalization Benchmark** (2026-09-10) — We introduce a Database Normalization Benchmark (DNBENCH), comprising 3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF. [Paper](https://arxiv.org/abs/2609.11141)
+- **ChurnBench** (2026-09-10) — We present ChurnBench, an open-source benchmark that generates a four-source enterprise data fabric as a timeline rather than a snapshot. [Paper](https://arxiv.org/abs/2609.11515) · [Code](https://github.com/vsingh45/churnbench)
+- **AssayBench-Loop** (2026-09-10) — Here, we introduce AssayBench-Loop, a large-scale benchmark for adaptive hit discovery comprising 1,389 CRISPR screens across five phenotype categories. [Paper](https://arxiv.org/abs/2609.11877)
 - **YallaMorph** (2026-09-09) — We introduce YallaMorph, a large-scale benchmark for Arabic morphological generation covering verbs, nouns, adjectives, their cliticized forms, and invalid configurations. [Paper](https://arxiv.org/abs/2609.10153)
 - **Urban Driving-Face Scene Gaze (UD-FSG)** (2026-09-09) — To train this model, we propose a benchmark driver gaze dataset, Urban Driving-Face Scene Gaze (UD-FSG), comprising synchronized driver-face and traffic-scene images, scene objects bounding boxes, and gaze labels in ter… [Paper](https://arxiv.org/abs/2609.10139)
 - **SPOT-THE-SHIFT** (2026-09-09) — We introduce SPOT-THE-SHIFT, a human-verified benchmark for grounded image difference captioning of long-term changes in real-world driving scenes. [Paper](https://arxiv.org/abs/2609.10356)
@@ -313,7 +321,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **DasanCallDial** (2026-09-09) — To address this, we introduce DasanCallDial, the first large-scale Korean benchmark dataset specifically curated for dialogue-level ASR error correction. [Paper](https://arxiv.org/abs/2609.09889)
 - **CapQuiz** (2026-09-09) — We introduce CapQuiz, a novel reference-free benchmark that assesses captions based on their utility in answering human-verified, fine-grained, multiple-choice questions derived from the video. [Paper](https://arxiv.org/abs/2609.09973)
 - **Candor-LR** (2026-09-09) — To shift the field toward realistic dialogue, we introduce Candor-LR, a conversational benchmark derived from the CANDOR corpus of 1,656 natural dyadic videoconferences. [Paper](https://arxiv.org/abs/2609.10394)
-- **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722) · [HF](https://huggingface.co/papers/2609.10722)
+- **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722)
 - **5-Dialects-BN** (2026-09-09) — We address this gap with 5-Dialects-BN, the first multi-annotation Bangla dialect benchmark to align Romanized transliteration with dialectal text, Standard Bangla, English, and subjectivity labels across five regional… [Paper](https://arxiv.org/abs/2609.09964)
 - **VI-Bench** (2026-09-08) — To address this gap, we introduce VI-Bench, a benchmark built from 16.1 million real-user prompts and 900 human-verified AIGC videos. [Paper](https://arxiv.org/abs/2609.08079)
 - **SciFigure2Code** (2026-09-08) — We introduce SciFigure2Code, an AI-reconstructed benchmark that instead evaluates presentation recovery: generating editable Python programs that preserve how a scientific panel is arranged and read. [Paper](https://arxiv.org/abs/2609.08155)
@@ -1700,6 +1708,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **O.W.L. & N.E.W.T. Bench** (2026-09-08) — newt-bench validate newt-bench run --provider ollama --model YOUR_MODEL newt-bench site build newt-bench site serve --port 8080 ``` Each run stores its raw responses, metadata, summary and Markdown report under `results… [Paper](https://github.com/VSBDev/little-hermione) · [Code](https://github.com/VSBDev/little-hermione) · [Data](https://huggingface.co/datasets/irioder/littleHermione-benchmark)
 - **strategy-benchmark** (2026-09-07) — strategy-benchmark A reproducible benchmark: do gated-evidence GTM strategy claims survive adversarial scrutiny better than a naive LLM strategist's? [Paper](https://github.com/derrtaderr/strategy-benchmark) · [Code](https://github.com/derrtaderr/strategy-benchmark)
 - **Clouda OCR Benchmark** (2026-09-07) — clouda-ocr-benchmark Reproducible Arabic OCR benchmark by Clouda OCR — distorted documents, normalized Arabic CER, model comparisons, methodology, and public audit artifacts. [Paper](https://github.com/sahrasayed3-crypto/clouda-ocr-benchmark) · [Code](https://github.com/sahrasayed3-crypto/clouda-ocr-benchmark)
+- **Agentic Security Benchmark** (2026-09-07) — agentic-security-benchmark A corpus and harness for measuring what an agentic-AI security product actually stops. [Paper](https://github.com/gitayg/agentic-security-benchmark) · [Code](https://github.com/gitayg/agentic-security-benchmark)
 - **Samuel_Collins_CV_Benchmarking** (2026-09-06) — Samuel_Collins_CV_Benchmarking Benchmark classical ML and neural-network image classifiers through one public function. [Paper](https://github.com/srcollins785/Samuel_Collins_CV_Benchmarking) · [Code](https://github.com/srcollins785/Samuel_Collins_CV_Benchmarking)
 - **Agent Systems Benchmark (ASB)** (2026-09-06) — agent-systems-benchmark Linux systems benchmark for AI coding agents ai-agents benchmarking linux # Agent Systems Benchmark (ASB) ASB is a Linux terminal framework for measuring how AI coding agents scale: how many conc… [Paper](https://github.com/martin-beck/agent-systems-benchmark) · [Code](https://github.com/martin-beck/agent-systems-benchmark)
 - **AgentInfraBench** (2026-09-05) — ai-agent-infrastructure-benchmark Open benchmark for AI agent infrastructure security, sandbox isolation, recovery, evidence quality and cost per accepted outcome. [Paper](https://github.com/AAH20/ai-agent-infrastructure-benchmark) · [Code](https://github.com/AAH20/ai-agent-infrastructure-benchmark)
