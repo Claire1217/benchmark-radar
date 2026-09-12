@@ -2,12 +2,132 @@
   "schemaVersion": "1.0",
   "records": [
     {
+      "id": "bm_metric-bench_e77780e5",
+      "familyId": "bmf_c327ee6b71e1",
+      "name": "Metric-Bench Test",
+      "paperTitle": "Metric-Bench",
+      "aliases": [
+        "Metric-Bench"
+      ],
+      "oneLine": "A test set of 1,340 questions over 134 indoor RGB images requiring metric measurements of referred objects or distances between objects, with numeric JSON reference answers.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-12T00:52:13.701164Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-12",
+      "indexedAt": "2026-09-12T00:52:13.701164Z",
+      "sourceUpdatedAt": "2026-09-11T10:28:44.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
+        "paper": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
+        "data": "https://huggingface.co/datasets/yulingxi/Metric-Bench"
+      },
+      "motivation": "Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:yulingxi/metric-bench",
+        "url": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
+        "title": "Metric-Bench",
+        "authors": [
+          "yulingxi"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:yulingxi/metric-bench",
+          "url": "https://huggingface.co/datasets/yulingxi/Metric-Bench"
+        }
+      ],
+      "description": "A test set of 1,340 questions over 134 indoor RGB images requiring metric measurements of referred objects or distances between objects, with numeric JSON reference answers.",
+      "whyItMatters": "Fills a gap in evaluating spatial metric understanding from visual inputs with explicit anchors, enabling comparable assessment of visual measurement models.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a specific multimodal spatial reasoning niche and is openly accessible on Hugging Face, likely attracting moderate interest from vision-language model researchers."
+      },
+      "publishers": [
+        {
+          "name": "yulingxi",
+          "organizationType": "community",
+          "sourceUrl": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements.",
+          "scoring": "This release provides reference answers but does not ship an official scoring implementation or specify a paper-equivalent acceptance threshold.",
+          "reuse": "The intended use is held-out evaluation of visual metric estimation with supplied anchors."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-12T00:52:37.627645Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The dataset provides a fixed evaluation task with reference answers and is publicly available for reuse by other teams, qualifying as a public reusable benchmark despite lacking an official scoring script.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements."
+      }
+    },
+    {
       "id": "bm_vwg-bench_fa3de0ff",
       "familyId": "bmf_6b6465e00623",
       "name": "VWG-Bench",
       "paperTitle": "From Evaluation to Enhancement: Benchmarking and Improving Think-with-Video Reasoning for Video Generative Models",
       "aliases": [],
-      "oneLine": "Evaluates image-to-video generation across 9 reasoning dimensions and 38 tasks using 380 test samples and five 1–5 metrics.",
+      "oneLine": "Evaluates video generation models on image-to-video reasoning across 9 dimensions and 38 tasks, measuring quality, progress consistency, rule following, progress-goal realization, and last-frame-goal realization.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -110,23 +230,23 @@
         "state": "ai-reviewed",
         "evaluationEvidence": {
           "task": "The test split contains 380 initial images and structured annotations organized into 9 reasoning dimensions and 38 ten-sample task groups.",
-          "scoring": "The bundled evaluation_code package evaluates five 1–5 metrics when applicable: video quality; progress consistency; implicit-rule following; progress-goal realization; last-frame-goal realization.",
-          "reuse": "To evaluate generated videos: cd evaluation_code; export GEMINI_API_KEY=...; bash scripts/eval_vwg.sh .. /path/to/generated_videos outputs/results.jsonl 0,1,2"
+          "scoring": "The bundled evaluation_code/ package evaluates five 1-5 metrics when applicable: video quality, progress consistency, implicit-rule following, progress-goal realization, last-frame-goal realization.",
+          "reuse": "The dataset is available at https://huggingface.co/datasets/KlingTeam/VWG-Bench, including evaluation_code for local validation and generation evaluation."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T00:52:53.785364Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Dataset and evaluation toolkit are publicly released on Hugging Face, defining a reusable benchmark with clear scoring metrics.",
+        "decisionReason": "Formally named benchmark with stable 380-sample test set, defined scoring metrics, and publicly accessible dataset and evaluation code.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce VWG-Bench (Video World Generalist Benchmark)"
+        "canonicalNameEvidence": "We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks."
       },
-      "description": "Evaluates image-to-video generation across 9 reasoning dimensions and 38 tasks using 380 test samples and five 1–5 metrics.",
-      "whyItMatters": "Provides structured annotations and evaluation code to assess rule following, physical constraints, and goal realization in video generation.",
+      "description": "Evaluates video generation models on image-to-video reasoning across 9 dimensions and 38 tasks, measuring quality, progress consistency, rule following, progress-goal realization, and last-frame-goal realization.",
+      "whyItMatters": "Addresses the gap in systematic evaluation of think-with-video reasoning, providing structured metrics and reusable code for comparison and improvement.",
       "attentionForecast": {
-        "score": 62,
+        "score": 45,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a trending area of video reasoning and is accompanied by a public dataset and reproducibility scripts."
+        "reason": "Broad video reasoning scope and practical evaluation toolkit may draw moderate interest, but single-community focus limits immediate spread."
       },
       "publishers": [
         {
@@ -135,7 +255,348 @@
           "sourceUrl": "https://huggingface.co/datasets/KlingTeam/VWG-Bench",
           "role": "benchmark-publisher"
         }
-      ]
+      ],
+      "attention": {
+        "asOf": "2026-09-11",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.11242",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": 406,
+        "hfDatasetLikes": 1,
+        "hfDataset": "KlingTeam/VWG-Bench",
+        "observedAt": "2026-09-11T12:23:23.267513Z",
+        "attemptedAt": "2026-09-11T12:23:23.267513Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-11T12:23:23.267513Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "fresh",
+            "observedAt": "2026-09-11T12:23:23.267513Z"
+          },
+          "hfDatasetLikes": {
+            "state": "fresh",
+            "observedAt": "2026-09-11T12:23:23.267513Z"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 53,
+          "rank": 3,
+          "coverage": 0.05,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 53,
+            "rank": 3,
+            "coverage": 0.05,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": 406,
+                "normalized": 0.75,
+                "normalization": "percentile",
+                "percentile": 0.75
+              },
+              "llmAttentionForecast": {
+                "value": 55,
+                "percentile": 0.55,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-10",
+            "windowDays": 1,
+            "elapsedDays": 1
+          },
+          "datasetDownloadRank": 1,
+          "datasetRankPopulation": 2
+        },
+        "30d": {
+          "score": 52,
+          "rank": 22,
+          "coverage": 0.15,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 52,
+            "rank": 22,
+            "coverage": 0.15,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 406,
+                "normalized": 0.6151846071448699,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 11,
+          "datasetRankPopulation": 42
+        },
+        "90d": {
+          "score": 50,
+          "rank": 61,
+          "coverage": 0.3,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 50,
+            "rank": 61,
+            "coverage": 0.3,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 406,
+                "normalized": 0.4981448575060773,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 24,
+          "datasetRankPopulation": 77
+        }
+      }
+    },
+    {
+      "id": "bm_visual-rag-benchmark_df083a55",
+      "familyId": "bmf_9aff9a50e904",
+      "name": "Visual RAG Benchmark",
+      "paperTitle": "visual-rag-benchmark",
+      "aliases": [
+        "visual-rag-benchmark"
+      ],
+      "oneLine": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/james-a-watson/visual-rag-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-11T06:20:17.513010Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-10",
+      "firstSeenAt": "2026-09-11",
+      "indexedAt": "2026-09-11T06:20:17.513010Z",
+      "sourceUpdatedAt": "2026-09-10T16:55:15Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/james-a-watson/visual-rag-benchmark",
+        "paper": "https://github.com/james-a-watson/visual-rag-benchmark",
+        "code": "https://github.com/james-a-watson/visual-rag-benchmark"
+      },
+      "motivation": "visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:james-a-watson/visual-rag-benchmark",
+        "url": "https://github.com/james-a-watson/visual-rag-benchmark",
+        "title": "visual-rag-benchmark",
+        "authors": [
+          "james-a-watson"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:james-a-watson/visual-rag-benchmark",
+          "url": "https://github.com/james-a-watson/visual-rag-benchmark"
+        }
+      ],
+      "description": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
+      "whyItMatters": "Exposes the performance gap between text-based and table-based RAG, and offers a reusable set of table-focused questions to guide improvements in multimodal retrieval and generation.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "A focused multimodal RAG benchmark on a niche domain with full code and results transparency may draw moderate interest from practitioners despite limited academic visibility during release week.",
+        "publishers": []
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Results are across the 103-question evaluation set described below: 56 text, 45 table and 2 diagram.",
+          "scoring": "Correctness is measured using LLM-as-a-judge, following Zheng et al. The question, the true answer and the generated answer are passed to a judge model prompted to return \"Y\" or \"N\".",
+          "reuse": "python scripts/summarise_results.py # recompute correctness for every run"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-12T00:52:37.627645Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The README documents a fixed 103-question benchmark with clear scoring (LLM judge, ROUGE-1, retrieval accuracy) and provides code and scripts for other teams to run the evaluation.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Visual RAG Benchmark"
+      }
     },
     {
       "id": "bm_transclean_110295c3",
@@ -232,9 +693,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-11T00:52:53.785364Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "Insufficient evidence of public release of dataset or evaluation tooling.",
+        "decisionReason": "The benchmark is introduced but no artifact evidence is supplied to confirm the task inputs, scoring protocol, or public reuse path are released.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -342,18 +803,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Reviews for the **10 most-reviewed games on Steam** — Dota 2, Payday 2, Terraria, Left 4 Dead 2, Rocket League, Warframe, Undertale, Grand Theft Auto V, Portal 2 and Garry's Mod.",
           "scoring": "| Model | Accuracy | Macro F1 | |---|---|---| | **DistilBERT** (fine-tuned) | **88.53%** | **88.40%** |",
           "reuse": "The balanced dataset is committed as `data/steam_reviews_clean_downsampled.csv` (2 MB)."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T00:48:49.405936Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository releases a dataset, defines evaluation metrics, and provides notebooks for reproducible scoring, satisfying public reuse criteria.",
+        "decisionReason": "Coursework project using existing Steam reviews as a one-off model comparison, not a stable benchmark with external submission path.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Steam Review Sentiment Analysis *Sentiment Analysis of Steam Game Reviews: Extending Deep-Learning Benchmarks with Aspect-Based Sentiment Analysis*"
       }
@@ -456,9 +917,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-11T00:52:53.785364Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "No artifact or release link is available for the benchmark data or evaluator.",
+        "decisionReason": "The abstract describes 240 machine-checkable items and a labeling oracle, but no public reuse path or scoring rules are detailed in the supplied evidence.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -654,9 +1115,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-11T06:25:08.028122Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "The paper introduces a benchmark concept and reports results on five models, but no task inputs, evaluator code, or external submission path are provided in the supplied evidence.",
+        "decisionReason": "No evaluation details, code, data, or public submission path are provided beyond the title and abstract.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -879,9 +1340,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-11T00:52:53.785364Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "No artifact or release link is provided.",
+        "decisionReason": "Insufficient evidence to confirm the benchmark defines repeatable evaluation objects, comparable scoring rules, or a credible public path for other teams to run or inspect it.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -893,7 +1354,7 @@
       "aliases": [
         "Mr.LHDR: A Benchmark for Multimodal Real-World Long-Horizon Deep Research Agents"
       ],
-      "oneLine": "Evaluates deep research agents on long-horizon tasks requiring interdependent multimodal evidence integration across eight categories, with scoring on final answers and intermediate conclusions.",
+      "oneLine": "Evaluates multimodal agents on long-horizon deep research over question-answer pairs with dependency-checked intermediate conclusions across eight categories.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -976,14 +1437,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates deep research agents on long-horizon tasks requiring interdependent multimodal evidence integration across eight categories, with scoring on final answers and intermediate conclusions.",
-      "whyItMatters": "Addresses the gap in evaluating sustained, dependency-heavy research processes; reveals that final-answer accuracy overestimates complete success, highlighting the need for dependency-aware metrics.",
+      "description": "Evaluates multimodal agents on long-horizon deep research over question-answer pairs with dependency-checked intermediate conclusions across eight categories.",
+      "whyItMatters": "Measures partial, dependency-consistent progress beyond final-answer accuracy, addressing a gap in assessing reasoning chains in deep research.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 60,
-        "confidence": "Medium",
+        "score": 35,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The release targets a novel long-horizon multimodal research setup with concrete metrics and a public repository, likely attracting interest from the agent evaluation community."
+        "reason": "Strong artifact availability and a defined evaluation contract may draw moderate attention from researchers tracking deep research agents."
       },
       "publishers": [
         {
@@ -997,14 +1458,14 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Each question is constructed from a hidden Node-Relation graph and requires an average of 12.1 necessary intermediate conclusions with a mean dependency depth of 10.4 before reaching a short, unique, and verifiable answer.",
-          "scoring": "Mr.LHDR evaluates both final answers and the correctness of intermediate conclusions under annotated dependencies using Overall Accuracy (OA), Strict Accuracy (SA), Checklist Score (CS), and Dependency-Aware Checklist Score (DACS).",
-          "reuse": "Code is available at https://github.com/minghaoguo20/Mr-LHDR-eval, providing a public submission path for other teams."
+          "task": "102 real-world research questions across eight categories with an irreducible checklist of necessary intermediate conclusions and a verified dependency graph.",
+          "scoring": "Four metrics: Overall Accuracy (OA), Strict Accuracy (SA), Checklist Score (CS), and Dependency-Aware Checklist Score (DACS), computed per item then averaged.",
+          "reuse": "Code available at https://github.com/minghaoguo20/Mr-LHDR-eval, with scripts to run models, judge answers, and score results."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T06:25:08.028122Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear evaluation object with a scoring contract and provides a public code repository, enabling external submissions and comparisons.",
+        "decisionReason": "The benchmark defines tasks, scoring metrics, and a public code repository with a runnable evaluation pipeline, enabling external comparison.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce Mr.LHDR (Multimodal real-world Long-Horizon Deep Research), a benchmark for evaluating real-world deep research over long, irreducible chains of interdependent evidence across eight categories."
       },
@@ -1309,19 +1770,19 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "displayEligible": true,
+      "displayEligible": false,
       "evaluationMode": "score_submission",
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Gait recognition across single-modal, cross-modal directed retrieval, and multi-modal fusion settings using a shared impostor-augmented protocol.",
           "scoring": "Comparison of recognition performance (e.g., rank-based retrieval accuracy) under each modality and fusion configuration within the shared protocol.",
           "reuse": "The benchmark is presented as a common testbed, implying dataset and protocol release for evaluation and comparison by other teams, although artifact links are not provided."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T06:25:08.028122Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named benchmark with defined evaluation object, scoring protocol, and stated common testbed purpose; no artifact evidence present but explicit release claim and stable contract are sufficient.",
+        "decisionReason": "Evaluation protocol and public artifact availability are unclear; only an abstract is available without links to code, data, or scoring documentation.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present MMGait, a large-scale multi-sensor benchmark that brings visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence."
       },
@@ -1426,19 +1887,19 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "displayEligible": true,
+      "displayEligible": false,
       "evaluationMode": "public_reusable",
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "MindTopo contains 11,030 instances across 13 procedurally generated task types with controllable difficulty.",
           "scoring": "MindTopo evaluates each property at two cognitive levels. Reasoning asks a model to identify topological relations or infer how they change. Planning instantiates a foundation model as a closed-loop agent whose policy selects environment actions.",
           "reuse": "Our website is at https://mind-topo.github.io/"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T09:02:33.555618Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The abstract explicitly introduces MindTopo as a benchmark with defined tasks, scoring levels, and a public project website, providing a repeatable evaluation path.",
+        "decisionReason": "Only a project page is linked with no artifact evidence, leaving evaluation and scoring contracts unspecified.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology"
       },
@@ -2448,19 +2909,19 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "displayEligible": true,
+      "displayEligible": false,
       "evaluationMode": "public_reusable",
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "We introduce DeFiFlowBench, a benchmark of 207 team-authored prompts for natural-language DeFi workflow synthesis.",
           "scoring": "It measures graph coverage, configuration completeness, and declared safety predicates, then tests supported trade configurations on a local EVM.",
           "reuse": "https://github.com/Varun-2538/Koan"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T06:25:08.028122Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Named benchmark with released prompts, defined metrics, and public code repository supporting reuse.",
+        "decisionReason": "Associated code repository is a platform product without specific benchmark data or scoring implementation for the described prompts.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "DeFiFlowBench: Benchmarking and Improving Safe Executability in Natural-Language DeFi Workflow Synthesis"
       },
@@ -2487,7 +2948,7 @@
       "name": "ChurnBench",
       "paperTitle": "ChurnBench: A Drift-Aware Benchmark Demonstrating That Refresh Scheduling, Not Cache Age, Governs Staleness in Agentic AI",
       "aliases": [],
-      "oneLine": "Evaluates agentic systems over a simulated enterprise data fabric with temporal drift, measuring accuracy, cost, latency, and a new freshness error metric derived from the ground-truth ledger.",
+      "oneLine": "Measures staleness errors in agentic AI answers under temporal drift across heterogeneous enterprise data sources.",
       "area": "Code & Software",
       "applicationDomains": [
         "General AI"
@@ -2559,14 +3020,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates agentic systems over a simulated enterprise data fabric with temporal drift, measuring accuracy, cost, latency, and a new freshness error metric derived from the ground-truth ledger.",
-      "whyItMatters": "Addresses a gap in retrieval benchmarks by making staleness measurable, showing that refresh scheduling rather than cache age governs correctness, which matters for production AI system design.",
-      "evaluationMode": "score_submission",
+      "description": "Measures staleness errors in agentic AI answers under temporal drift across heterogeneous enterprise data sources.",
+      "whyItMatters": "Quantifies freshness error in RAG and agent systems, distinguishing scheduling from cache-age effects on correctness.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Medium",
+        "score": 40,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The novelty of measuring freshness error in agentic systems and its relevance to production AI may attract attention from applied ML and systems researchers."
+        "reason": "Agentic AI benchmarking is active, and the strong reproducibility setup for drift and staleness may attract deployment-focused researchers."
       },
       "publishers": [
         {
@@ -2580,16 +3041,17 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Generates a four-source enterprise data fabric as a timeline, with mutations recorded in an append-only ground-truth ledger; evaluation tasks ask about licenses, users, consumption events, cost centers, and contracts over time.",
-          "scoring": "Accuracy vs. ledger ground truth, cost per task, latency, and a distinct freshness error metric that compares answers against both the evaluation timestamp and the effective retrieval timestamp.",
-          "reuse": "Code is open source on GitHub with docker compose setup, dataset generation, task generation, execution, and scoring commands, and committed result data including the ground-truth ledger."
+          "task": "Enterprise data fabric across SQL, NoSQL, REST API, and documents, with queries about freshness across simulated timelines.",
+          "scoring": "Accuracy against a ground-truth ledger and freshness error measure correct answer at true time vs. effective retrieval time.",
+          "reuse": "Docker-compose infrastructure, dataset generation, snapshots, task creation, and scoring scripts are publicly available.",
+          "reuse_note": "Paper draft and code in repository; committed result data for verification."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T09:02:33.555618Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Provides an open-source harness, full ground-truth ledger, and committed result data, allowing reproducibility and extension for future comparisons.",
-        "canonicalNameSource": "paper_title",
-        "canonicalNameEvidence": "ChurnBench: A Drift-Aware Benchmark Demonstrating That Refresh Scheduling, Not Cache Age, Governs Staleness in Agentic AI"
+        "decisionReason": "The repository offers a repeatable environment, generated tasks, and a clear scoring method based on ground-truth ledgers.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We present ChurnBench, an open-source benchmark that generates a four-source enterprise data fabric as a timeline rather than a snapshot."
       },
       "attention": {
         "asOf": "2026-09-11",
@@ -2910,18 +3372,18 @@
         "horizon": "7d",
         "reason": "Focused benchmark in database normalization with a multi-agent method may interest niche academic communities but likely not broad audiences initially."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF",
           "scoring": "DNBENCH uses a three-axis protocol to measure semantic equivalence, structural accuracy, and logical validity",
           "reuse": "All artifacts will be released upon acceptance"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T06:25:08.028122Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper defines a named benchmark with explicit task data, scoring protocol, and promises release upon acceptance, technically satisfying publish despite no immediate artifacts.",
+        "decisionReason": "No artifact evidence, code, or public reuse path is supplied, so the benchmark's availability and scoring protocol cannot be verified.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce a Database Normalization Benchmark (DNBENCH)"
       },
@@ -9687,18 +10149,18 @@
         "horizon": "7d",
         "reason": "Specialized benchmark in formal theorem proving with unique domain coverage, likely to attract interest from the math-AI community."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "StochBench is a Lean 4 benchmark of 450 graduate stochastic-processes problems covering finite and countable Markov chains, renewal processes, random walks, martingales, stopping times, queues, Brownian motion, stochastic calculus, weak convergence, and Poisson and continuous-time Markov processes.",
           "scoring": "The benchmark reports proof rate, with an Opus 4.8-based agent achieving 34.9% proof rate under a 15-minute per-problem limit.",
           "reuse": "StochBench provides a domain-specific benchmark for formal theorem proving, enabling evaluation of different LLM-based provers on stochastic processes problems."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-10T00:47:52.312826Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "StochBench is explicitly introduced as a Lean 4 benchmark with defined problems and scoring via proof rate, suitable for comparing theorem-proving agents.",
+        "decisionReason": "No artifact evidence or public submission path is supplied, preventing verification of task availability or evaluation protocol.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce StochBench, a Lean 4 benchmark of 450 graduate stochastic-processes problems at varying abstraction levels, each paired with its natural-language source."
       }
@@ -12323,18 +12785,18 @@
         "horizon": "7d",
         "reason": "Security-focused benchmark with increasing relevance as multimodal agents deploy widely."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "MMPIBench delivers a fixed set of attacks through six visual carriers (OCR text, overlays, EXIF metadata, QR codes, fake interfaces, and hybrids) and records how far each injected instruction travels through the agent, from perception through planning to the tool call.",
           "scoring": "Across 720 runs covering six frameworks, five foundation models, six carriers, and four attacker objectives, attacks complete in approximately 1% of runs but are attempted in 12.8%.",
           "reuse": "MMPIBench is a reproducible benchmark that can be used to evaluate multimodal prompt injection attacks across agentic AI frameworks."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-10T00:47:52.312826Z",
+        "reviewedAt": "2026-09-12T00:56:20.009268Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "MMPIBench is a named, reproducible benchmark with a fixed attack set and defined scoring across frameworks and models.",
+        "decisionReason": "No artifact evidence, code, or public reuse path is supplied, so the benchmark's content and scoring method cannot be confirmed.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present MMPIBench, a reproducible benchmark that measures what happens next."
       }

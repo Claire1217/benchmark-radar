@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-11 · **Benchmark releases:** 1734
+**Snapshot:** 2026-09-11 · **Benchmark releases:** 1736
 
 ## Contents
 
@@ -18,8 +18,8 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Biology & Drug Discovery](#biology--drug-discovery) (114)
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
-- [Finance](#finance) (59)
-- [General AI](#general-ai) (1192)
+- [Finance](#finance) (60)
+- [General AI](#general-ai) (1193)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -228,6 +228,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Finance
 
+- **Visual RAG Benchmark** (2026-09-10) — visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables. [Paper](https://github.com/james-a-watson/visual-rag-benchmark) · [Code](https://github.com/james-a-watson/visual-rag-benchmark)
 - **LLM Benchmark Panel** (2026-09-08) — llm-benchmark-panel # LLM Benchmark Panel ![CI](https://github.com/yunusbaysal/llm-benchmark-panel/actions/workflows/ci.yml/badge.svg) ![Coverage](https://img.shields.io/badge/coverage-87%25-brightgreen) ![Python](https… [Paper](https://github.com/yunusbaysal/llm-benchmark-panel) · [Code](https://github.com/yunusbaysal/llm-benchmark-panel)
 - **Vishing-Tactics-Bench** (2026-09-07) — We present Vishing-Tactics-Bench, a benchmark grounded in Endsley's situation-awareness (SA) framework that recasts vishing defense from after-the-fact fraud classification to harm projection: predicting at each turn wh… [Paper](https://arxiv.org/abs/2609.07151)
 - **Synthetic Data Generator Benchmark (Credit Risk)** (2026-09-07) — synthetic-data-benchmark Benchmarking synthetic tabular data generators (Gaussian Copula, CTGAN, LLM) on fidelity, utility, and privacy, using the Give Me Some Credit dataset. [Paper](https://github.com/Mervecaliskann/synthetic-data-benchmark) · [Code](https://github.com/Mervecaliskann/synthetic-data-benchmark)
@@ -290,6 +291,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **Metric-Bench Test** (2026-09-11) — Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements. [Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench) · [Data](https://huggingface.co/datasets/yulingxi/Metric-Bench)
 - **VWG-Bench** (2026-09-10) — We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks. [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **TransClean** (2026-09-10) — Building on the observed patterns, we construct TransClean, a controlled benchmark of 9,900 pairs of noisy and clean translation outputs, comprising 8,800 synthetically generated instances and 1,100 manually curated aut… [Paper](https://arxiv.org/abs/2609.11399)
 - **SemVerBench** (2026-09-10) — We introduce SemVerBench, the first benchmark of LLM version-constraint resolution semantics across three ecosystems (npm, PEP 440, Cargo): 240 machine-checkable items with unique answers, built author-neutrally from fo… [Paper](https://arxiv.org/abs/2609.11180)
@@ -304,7 +306,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Indian Agent Benchmark** (2026-09-10) — indian-agent-benchmark Indian multilingual computer-use agent benchmark with simulated web environments, task trajectories, evaluation, and training-ready datasets. [Paper](https://github.com/imaginationai31-sys/indian-agent-benchmark) · [Code](https://github.com/imaginationai31-sys/indian-agent-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — greencalculus-benchmark How wrong are LLMs about emission factors — and how often do they name the wrong source for a number? [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
 - **DeFiFlowBench** (2026-09-10) — We introduce DeFiFlowBench, a benchmark of 207 team-authored prompts for natural-language DeFi workflow synthesis. [Paper](https://arxiv.org/abs/2609.11504) · [Code](https://github.com/Varun-2538/Koan)
-- **Database Normalization Benchmark** (2026-09-10) — We introduce a Database Normalization Benchmark (DNBENCH), comprising 3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF. [Paper](https://arxiv.org/abs/2609.11141)
+- **DNBENCH** (2026-09-10) — We introduce a Database Normalization Benchmark (DNBENCH), comprising 3,275 samples for evaluating LLM-driven database normalization from 1NF to BCNF. [Paper](https://arxiv.org/abs/2609.11141)
 - **ChurnBench** (2026-09-10) — We present ChurnBench, an open-source benchmark that generates a four-source enterprise data fabric as a timeline rather than a snapshot. [Paper](https://arxiv.org/abs/2609.11515) · [Code](https://github.com/vsingh45/churnbench)
 - **AssayBench-Loop** (2026-09-10) — Here, we introduce AssayBench-Loop, a large-scale benchmark for adaptive hit discovery comprising 1,389 CRISPR screens across five phenotype categories. [Paper](https://arxiv.org/abs/2609.11877)
 - **YallaMorph** (2026-09-09) — We introduce YallaMorph, a large-scale benchmark for Arabic morphological generation covering verbs, nouns, adjectives, their cliticized forms, and invalid configurations. [Paper](https://arxiv.org/abs/2609.10153)
