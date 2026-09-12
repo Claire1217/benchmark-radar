@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-12 · **Benchmark releases:** 1736
+**Snapshot:** 2026-09-11 · **Benchmark releases:** 1737
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (60)
-- [General AI](#general-ai) (1193)
+- [General AI](#general-ai) (1194)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -291,6 +291,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
 - **Metric-Bench Test** (2026-09-11) — Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements. [Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench) · [Data](https://huggingface.co/datasets/yulingxi/Metric-Bench)
 - **VWG-Bench** (2026-09-10) — We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks. [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **TransClean** (2026-09-10) — Building on the observed patterns, we construct TransClean, a controlled benchmark of 9,900 pairs of noisy and clean translation outputs, comprising 8,800 synthetically generated instances and 1,100 manually curated aut… [Paper](https://arxiv.org/abs/2609.11399)

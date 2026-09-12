@@ -122,6 +122,116 @@
       }
     },
     {
+      "id": "bm_agent-injection-bench_e2b88690",
+      "familyId": "bmf_e29a0421d407",
+      "name": "agent-injection-bench",
+      "paperTitle": "agent-injection-bench",
+      "aliases": [],
+      "oneLine": "Evaluates tool-calling agents against 24 prompt-injection scenarios with deterministic success conditions and reports both compromise and over-refusal rates across channels and defenses.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/sentinelden/agent-injection-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-12T06:07:19.373480Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-12",
+      "indexedAt": "2026-09-12T06:07:19.373480Z",
+      "sourceUpdatedAt": "2026-09-12T03:26:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/sentinelden/agent-injection-bench",
+        "paper": "https://github.com/sentinelden/agent-injection-bench",
+        "project": "https://img.shields.io/pypi/v/agent-injection-bench",
+        "code": "https://github.com/sentinelden/agent-injection-bench"
+      },
+      "motivation": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:sentinelden/agent-injection-bench",
+        "url": "https://github.com/sentinelden/agent-injection-bench",
+        "title": "agent-injection-bench",
+        "authors": [
+          "sentinelden"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:sentinelden/agent-injection-bench",
+          "url": "https://github.com/sentinelden/agent-injection-bench"
+        }
+      ],
+      "description": "Evaluates tool-calling agents against 24 prompt-injection scenarios with deterministic success conditions and reports both compromise and over-refusal rates across channels and defenses.",
+      "whyItMatters": "Provides a reproducible, judge-free measurement of prompt-injection resistance that distinguishes compromise from over-refusal, allowing meaningful comparison across agent stacks and defenses.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 64,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a timely security issue with a practical tool and novel methodology, likely attracting attention from AI safety and agent developers."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Every attack here declares its channel, and results are broken down by it.",
+          "scoring": "Here, **every attack declares a machine-checkable success condition**: a canary string, a named tool call, a secret reaching a sink.",
+          "reuse": "Run against any OpenAI-compatible endpoint. export AIB_BASE_URL=https://api.example.com/v1 export AIB_API_KEY=... aib run --target openai-compat:model=your-model --defense spotlight"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-12T06:07:43.688260Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The benchmark has a released dataset, harness, and scoring rules, with public commands for running against arbitrary agents and valid submission paths.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# agent-injection-bench"
+      }
+    },
+    {
       "id": "bm_vwg-bench_fa3de0ff",
       "familyId": "bmf_6b6465e00623",
       "name": "VWG-Bench",
@@ -929,7 +1039,7 @@
       "name": "Sci-MMR",
       "paperTitle": "Sci-MMR: Benchmarking Multi-Step Evidence-Grounded Scientific Reasoning in Multimodal Agents",
       "aliases": [],
-      "oneLine": "Autonomous research agents are increasingly expected to search the literature, analyze experimental evidence, and generate scientific hypotheses.",
+      "oneLine": "Evaluates multi-step evidence-grounded scientific reasoning using 235 multimodal tasks built on structured argument graphs linking claims, knowledge, visual evidence, and supporting regions.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -1021,14 +1131,179 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "displayEligible": false,
+      "displayEligible": true,
       "evaluationMode": "public_reusable",
       "curation": {
-        "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-11T00:52:53.785364Z",
-        "policy": "source-evidence-v2",
-        "decisionReason": "Insufficient evidence of public release of dataset or evaluation code.",
-        "model": "deepseek-v4-pro"
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "235 multi-hop reasoning tasks spanning four scientific disciplines, with an average of nine figure panels per task",
+          "scoring": "answer accuracy and complete-evidence recovery rate, revealing over 20% gap",
+          "reuse": "Evaluating eight frontier multimodal models demonstrates use beyond a single paper"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-12T06:08:51.273940Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Formally named benchmark with 235 tasks, explicit scoring contract, and evidence of use across eight models.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce Sci-MMR, a benchmark for multi-step evidence-grounded scientific reasoning"
+      },
+      "attention": {
+        "asOf": "2026-09-12",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.11243",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-11T12:23:23.267513Z",
+        "attemptedAt": "2026-09-12T01:46:06.616968Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-12T01:46:06.616968Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "description": "Evaluates multi-step evidence-grounded scientific reasoning using 235 multimodal tasks built on structured argument graphs linking claims, knowledge, visual evidence, and supporting regions.",
+      "whyItMatters": "Captures evidence acquisition and integration failures that answer-only metrics miss, revealing a 20% overestimation of reasoning capabilities in multimodal research agents.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche multimodal reasoning benchmark without supplied code or data links, likely to attract modest attention from the research community."
       }
     },
     {
@@ -2569,18 +2844,18 @@
         "horizon": "7d",
         "reason": "Synthetic multilingual agent benchmark may interest a regional niche but lacks public results or paper, limiting immediate visibility."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "The benchmark now includes **50 runnable synthetic e-commerce tasks** covering English, Hindi, Hinglish, Tamil, Bengali, Telugu, and Marathi.",
           "scoring": "Measure task success from 0–100",
           "reuse": "Run locally ```bash python backend/server.py ``` Then open `http://localhost:8000` in a browser."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-11T09:00:09.423366Z",
+        "reviewedAt": "2026-09-12T06:08:51.273940Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark with runnable tasks, defined scoring (0-100), and local execution instructions enabling other teams to apply it.",
+        "decisionReason": "The repository describes 50 synthetic tasks and a 0–100 scoring range but does not include the actual task inputs, labels, or an evaluation script; it only provides a backend server and unit tests, making it impossible for others to score submissions.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Indian Agent Benchmark A synthetic, multilingual benchmark for evaluating computer-use AI agents on realistic web tasks."
       }
