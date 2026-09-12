@@ -39,7 +39,7 @@
 | 7 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 173 GitHub stars |
 | 8 | **KhatianDoc**<br><sub>[Paper](https://arxiv.org/abs/2609.03597)</sub> | Multimodal Perception | 24 dataset downloads |
 | 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 25 HF votes · 15 GitHub stars |
-| 10 | **PNI-3D Multimodal CAD & Geometric Robustness Benchmark**<br><sub>[Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)</sub> | Knowledge & Reasoning | 18 dataset downloads |
+| 10 | **Metric-Bench Test**<br><sub>[Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench)</sub> | Knowledge & Reasoning | 23 dataset downloads |
 
 ### Explore the library
 
