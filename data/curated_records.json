@@ -601,7 +601,7 @@
       "aliases": [
         "visual-rag-benchmark"
       ],
-      "oneLine": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
+      "oneLine": "End-to-end evaluation of retrieval-augmented generation on reference tables, with text and table question subsets.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Finance"
@@ -682,30 +682,184 @@
           "url": "https://github.com/james-a-watson/visual-rag-benchmark"
         }
       ],
-      "description": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
-      "whyItMatters": "Exposes the performance gap between text-based and table-based RAG, and offers a reusable set of table-focused questions to guide improvements in multimodal retrieval and generation.",
+      "description": "End-to-end evaluation of retrieval-augmented generation on reference tables, with text and table question subsets.",
+      "whyItMatters": "Closes the gap in measuring RAG degradation on structured tabular data versus continuous text.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
+        "score": 35,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A focused multimodal RAG benchmark on a niche domain with full code and results transparency may draw moderate interest from practitioners despite limited academic visibility during release week.",
-        "publishers": []
+        "reason": "A focused niche benchmark with limited initial reach, but the GitHub release and clear reproducibility may draw moderate attention from RAG practitioners."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Results are across the 103-question evaluation set described below: 56 text, 45 table and 2 diagram.",
+          "task": "benchmark/paper_question_set.json 103 QA pairs — the published evaluation set benchmark/question_set.json 154 QA pairs — later, more table-weighted extension",
           "scoring": "Correctness is measured using LLM-as-a-judge, following Zheng et al. The question, the true answer and the generated answer are passed to a judge model prompted to return \"Y\" or \"N\".",
-          "reuse": "python scripts/summarise_results.py # recompute correctness for every run"
+          "reuse": "python scripts/summarise_results.py # recompute correctness for every run python scripts/summarise_results.py --failures simple_text # inspect what the baseline got wrong"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-12T00:52:37.627645Z",
+        "reviewedAt": "2026-09-12T08:46:48.144646Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The README documents a fixed 103-question benchmark with clear scoring (LLM judge, ROUGE-1, retrieval accuracy) and provides code and scripts for other teams to run the evaluation.",
-        "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# Visual RAG Benchmark"
+        "decisionReason": "Released question sets, scoring script, and raw results provide a repeatable, public evaluation protocol.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables."
+      },
+      "attention": {
+        "asOf": "2026-09-12",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": 0,
+        "githubRepo": "https://github.com/james-a-watson/visual-rag-benchmark",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-12T01:46:06.616968Z",
+        "attemptedAt": "2026-09-12T01:46:06.616968Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-12T01:46:06.616968Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 23,
+          "rank": 144,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 144,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 336,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 336,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-12T00:52:37.627645Z",
+        "inputHash": "47037f2a4f6036bd2e40def4869a67157632c9b55a029c1b53d36ce4654696b9"
       }
     },
     {

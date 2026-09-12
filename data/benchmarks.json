@@ -52,7 +52,7 @@
       "aliases": [
         "Metric-Bench"
       ],
-      "oneLine": "A test set of 1,340 questions over 134 indoor RGB images requiring metric measurements of referred objects or distances between objects, with numeric JSON reference answers.",
+      "oneLine": "Evaluates visual metric estimation on indoor RGB images with explicit anchor measurements. Each item gives an image and an English question asking for a physical object measurement or an inter-object distance, with numeric JSON reference answers across nine question types.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -131,23 +131,15 @@
           "url": "https://huggingface.co/datasets/yulingxi/Metric-Bench"
         }
       ],
-      "description": "A test set of 1,340 questions over 134 indoor RGB images requiring metric measurements of referred objects or distances between objects, with numeric JSON reference answers.",
-      "whyItMatters": "Fills a gap in evaluating spatial metric understanding from visual inputs with explicit anchors, enabling comparable assessment of visual measurement models.",
+      "description": "Evaluates visual metric estimation on indoor RGB images with explicit anchor measurements. Each item gives an image and an English question asking for a physical object measurement or an inter-object distance, with numeric JSON reference answers across nine question types.",
+      "whyItMatters": "Measures whether vision-language models can recover physical dimensions and spatial quantities from images given metric anchors, a capability underrepresented in general visual question answering evaluation. Results are reported by question type over a fixed held-out test split.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
-        "confidence": "Medium",
+        "score": 22,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a specific multimodal spatial reasoning niche and is openly accessible on Hugging Face, likely attracting moderate interest from vision-language model researchers."
+        "reason": "A self-published Metric-Bench Test revision derived from ScanNet with no benchmark paper, author list or external release organization named."
       },
-      "publishers": [
-        {
-          "name": "yulingxi",
-          "organizationType": "community",
-          "sourceUrl": "https://huggingface.co/datasets/yulingxi/Metric-Bench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -389,9 +381,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:52:37.627645Z",
-        "inputHash": "54147dbf124954328b8393ef44bccc98da9167f70a8d500e129b5a9c0b403448"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "b00135a02ad2085e0f946005176e1f202ab39e31f9a2ed55852c3b5bdb3a885b"
       }
     },
     {
@@ -400,7 +392,7 @@
       "name": "agent-injection-bench",
       "paperTitle": "agent-injection-bench",
       "aliases": [],
-      "oneLine": "Evaluates tool-calling agents against 24 prompt-injection scenarios with deterministic success conditions and reports both compromise and over-refusal rates across channels and defenses.",
+      "oneLine": "Evaluates prompt-injection robustness of tool-calling agent stacks using a 24-scenario corpus (21 adversarial, 3 control) delivered through channels such as tool results, documents, web pages, filenames and multi-turn dialogue, with deterministic canary, tool-call, exfiltration and refusal success conditions; results report compromise and over-refusal rates per defense.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -479,14 +471,14 @@
           "url": "https://github.com/sentinelden/agent-injection-bench"
         }
       ],
-      "description": "Evaluates tool-calling agents against 24 prompt-injection scenarios with deterministic success conditions and reports both compromise and over-refusal rates across channels and defenses.",
-      "whyItMatters": "Provides a reproducible, judge-free measurement of prompt-injection resistance that distinguishes compromise from over-refusal, allowing meaningful comparison across agent stacks and defenses.",
+      "description": "Evaluates prompt-injection robustness of tool-calling agent stacks using a 24-scenario corpus (21 adversarial, 3 control) delivered through channels such as tool results, documents, web pages, filenames and multi-turn dialogue, with deterministic canary, tool-call, exfiltration and refusal success conditions; results report compromise and over-refusal rates per defense.",
+      "whyItMatters": "Published prompt-injection results are hard to compare and reproduce because they often score prompts rather than injection channels, rely on LLM judges, and report a single compromise figure that penalizes nothing for an agent that refuses everything. A deterministic, channel-aware corpus with paired over-refusal controls gives teams a reproducible number for comparing model-and-prompt stacks and defenses.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 64,
+        "score": 38,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a timely security issue with a practical tool and novel methodology, likely attracting attention from AI safety and agent developers."
+        "reason": "A released, dependency-light prompt-injection benchmark with a small deterministic corpus and an open submission path may attract agent-security practitioners, though its deliberately small 24-scenario scope and niche topic limit broader attention."
       },
       "displayEligible": true,
       "curation": {
@@ -721,10 +713,18 @@
           }
         }
       },
+      "publishers": [
+        {
+          "name": "Sentinel Den",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://github.com/sentinelden/agent-injection-bench",
+          "role": "benchmark-publisher"
+        }
+      ],
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T06:07:43.688260Z",
-        "inputHash": "8d4ac6022dbd586a18c54eef043c70037fbd4da133ea38448240c1f8ab33e5fd"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "8a0571683d1eeecbe3d09ce806c30f4c70628608fd9a79c2c5e840fcf2ab79f3"
       }
     },
     {
@@ -733,7 +733,7 @@
       "name": "VWG-Bench",
       "paperTitle": "From Evaluation to Enhancement: Benchmarking and Improving Think-with-Video Reasoning for Video Generative Models",
       "aliases": [],
-      "oneLine": "Evaluates video generation models on image-to-video reasoning across 9 dimensions and 38 tasks, measuring quality, progress consistency, rule following, progress-goal realization, and last-frame-goal realization.",
+      "oneLine": "Image-to-video reasoning evaluation over 380 initial images organized into 9 reasoning dimensions and 38 ten-sample task groups. Bundled evaluation code scores generated videos on fluency, progress consistency, implicit-rule following and goal realization using a 1-5 metric range.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -846,22 +846,14 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce VWG-Bench (Video World Generalist Benchmark), a comprehensive benchmark spanning 9 reasoning dimensions and 38 fine-grained tasks."
       },
-      "description": "Evaluates video generation models on image-to-video reasoning across 9 dimensions and 38 tasks, measuring quality, progress consistency, rule following, progress-goal realization, and last-frame-goal realization.",
-      "whyItMatters": "Addresses the gap in systematic evaluation of think-with-video reasoning, providing structured metrics and reusable code for comparison and improvement.",
+      "description": "Image-to-video reasoning evaluation over 380 initial images organized into 9 reasoning dimensions and 38 ten-sample task groups. Bundled evaluation code scores generated videos on fluency, progress consistency, implicit-rule following and goal realization using a 1-5 metric range.",
+      "whyItMatters": "Separates rule-following and goal-realization failures from visual rendering quality in video generative models, giving a diagnostic profile rather than a single quality score.",
       "attentionForecast": {
-        "score": 45,
+        "score": 55,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Broad video reasoning scope and practical evaluation toolkit may draw moderate interest, but single-community focus limits immediate spread."
+        "reason": "Addresses video-generation reasoning with a released dataset and evaluation toolkit, a multi-dimension taxonomy and an organizational dataset host."
       },
-      "publishers": [
-        {
-          "name": "KlingTeam",
-          "organizationType": "company-research-lab",
-          "sourceUrl": "https://huggingface.co/datasets/KlingTeam/VWG-Bench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "attention": {
         "asOf": "2026-09-11",
         "hfPaperUpvotes": null,
@@ -1019,9 +1011,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "0e9de981218b7fcf1d545499490f6190f2e297305e1be7e93c1311fcd4eeb60f"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "8235b18c56babe0b1cd995abc887b55f428183f955af8b6cafcc704cd0e0cf60"
       }
     },
     {
@@ -1032,7 +1024,7 @@
       "aliases": [
         "visual-rag-benchmark"
       ],
-      "oneLine": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
+      "oneLine": "A per-page QA evaluation of retrieval-augmented generation (RAG) systems over reference tables, using questions drawn from EU Water Framework Directive documents and scoring generated answers with LLM-as-a-judge and ROUGE metrics.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Finance"
@@ -1113,30 +1105,34 @@
           "url": "https://github.com/james-a-watson/visual-rag-benchmark"
         }
       ],
-      "description": "Evaluates end-to-end retrieval-augmented generation on reference tables through 103 text, table, and diagram questions, scoring correctness with an LLM judge, ROUGE-1, and retrieval accuracy.",
-      "whyItMatters": "Exposes the performance gap between text-based and table-based RAG, and offers a reusable set of table-focused questions to guide improvements in multimodal retrieval and generation.",
+      "description": "A per-page QA evaluation of retrieval-augmented generation (RAG) systems over reference tables, using questions drawn from EU Water Framework Directive documents and scoring generated answers with LLM-as-a-judge and ROUGE metrics.",
+      "whyItMatters": "Standard RAG pipelines lose table structure during text serialisation, causing degraded answer correctness on table-heavy queries; a table-focused evaluation could expose that capability gap, but the artifact lacks a released, reusable task and scoring package.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
-        "confidence": "Medium",
+        "score": 12,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "A focused multimodal RAG benchmark on a niche domain with full code and results transparency may draw moderate interest from practitioners despite limited academic visibility during release week.",
-        "publishers": []
+        "reason": "The release targets a specialized RAG-over-tables niche with a full repository but no formal benchmark declaration, limiting broad day-one attention."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Results are across the 103-question evaluation set described below: 56 text, 45 table and 2 diagram.",
+          "task": "benchmark/paper_question_set.json 103 QA pairs — the published evaluation set benchmark/question_set.json 154 QA pairs — later, more table-weighted extension",
           "scoring": "Correctness is measured using LLM-as-a-judge, following Zheng et al. The question, the true answer and the generated answer are passed to a judge model prompted to return \"Y\" or \"N\".",
-          "reuse": "python scripts/summarise_results.py # recompute correctness for every run"
+          "reuse": "python scripts/summarise_results.py # recompute correctness for every run python scripts/summarise_results.py --failures simple_text # inspect what the baseline got wrong"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-12T00:52:37.627645Z",
+        "reviewedAt": "2026-09-12T08:46:48.144646Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The README documents a fixed 103-question benchmark with clear scoring (LLM judge, ROUGE-1, retrieval accuracy) and provides code and scripts for other teams to run the evaluation.",
-        "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# Visual RAG Benchmark"
+        "decisionReason": "Released question sets, scoring script, and raw results provide a repeatable, public evaluation protocol.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "05dd929fcd9b1d713fae5129d263bf75c7b45a1c6648b3a9fa7a26714446d6c3"
       },
       "attention": {
         "asOf": "2026-09-12",
@@ -1287,11 +1283,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:52:37.627645Z",
-        "inputHash": "47037f2a4f6036bd2e40def4869a67157632c9b55a029c1b53d36ce4654696b9"
       }
     },
     {
@@ -1300,7 +1291,7 @@
       "name": "TransClean",
       "paperTitle": "TransClean: A Benchmark for Detecting and Extracting Clean Translations from Large Language Model Outputs",
       "aliases": [],
-      "oneLine": "A controlled benchmark of noisy and clean translation output pairs for detecting and extracting clean translations from large language model outputs.",
+      "oneLine": "Evaluates extraction of clean translations from LLM outputs. The benchmark contains 9,900 pairs of noisy and clean translation outputs across 22 language pairs and 12 noise patterns, covering span-based and LLM-based extraction scoring.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1544,18 +1535,18 @@
           }
         }
       },
-      "description": "A controlled benchmark of noisy and clean translation output pairs for detecting and extracting clean translations from large language model outputs.",
-      "whyItMatters": "It evaluates the ability to clean noisy machine translation outputs, a practical problem in production LLM applications.",
+      "description": "Evaluates extraction of clean translations from LLM outputs. The benchmark contains 9,900 pairs of noisy and clean translation outputs across 22 language pairs and 12 noise patterns, covering span-based and LLM-based extraction scoring.",
+      "whyItMatters": "Translation outputs from LLMs often include labels, explanations or repeated text beyond the translation, and no dedicated benchmark previously measured how well such noise can be removed. A comparable task set lets teams check extraction methods against a common reference.",
       "attentionForecast": {
-        "score": 20,
-        "confidence": "Low",
+        "score": 41,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a focused machine translation cleaning task and lacks evidence of public artifacts or broad topical appeal."
+        "reason": "The benchmark addresses a broadly encountered machine translation noise problem with a sizable controlled set across 22 language pairs, though it is a niche evaluation target without a linked standalone artifact."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "6509d5f3ac24e78d7c6119728f0ca5592d8826f691d0b503c6e0ecbbc9cc735e"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "0f8224d5d6ec91ec738ed7b2ca4309133e1d61e808e892d94d9ba8e690482ff7"
       }
     },
     {
@@ -1831,7 +1822,7 @@
       "name": "SemVerBench",
       "paperTitle": "SemVerBench: Benchmarking LLM Comprehension of Version-Constraint Resolution Semantics",
       "aliases": [],
-      "oneLine": "Benchmark for LLM version-constraint resolution semantics across npm, PEP 440, and Cargo ecosystems.",
+      "oneLine": "Evaluates whether language models resolve software version constraints such as ^1.2.3 or >=2.0,<3 across npm, PEP 440 and Cargo. It comprises 240 machine-checkable items with unique answers, oracle-labeled, and scores per-mechanism resolution behavior across models.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2078,18 +2069,18 @@
           }
         }
       },
-      "description": "Benchmark for LLM version-constraint resolution semantics across npm, PEP 440, and Cargo ecosystems.",
-      "whyItMatters": "Evaluates how well LLMs handle version constraint resolution, relevant for dependency management tasks.",
+      "description": "Evaluates whether language models resolve software version constraints such as ^1.2.3 or >=2.0,<3 across npm, PEP 440 and Cargo. It comprises 240 machine-checkable items with unique answers, oracle-labeled, and scores per-mechanism resolution behavior across models.",
+      "whyItMatters": "Coding agents routinely decide whether a version satisfies a constraint, but their grasp of version-constraint semantics had not been measured directly against machine-checkable ground truth. Per-mechanism results reveal which constraint forms are reliably resolved and where resolution should be delegated to an external resolver.",
       "attentionForecast": {
-        "score": 25,
-        "confidence": "Low",
+        "score": 52,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets a niche cross-ecosystem versioning semantics topic with a small item set and no evident dissemination channel."
+        "reason": "The benchmark targets a common developer-agent task with clear machine-checkable scoring across three package ecosystems, giving it strong practical relevance, though it is a focused 240-item suite."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "0769445541d8a29085f89e350c4249891b27984837b8bb3825857d47e0b227f5"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "01bb12c8275cb6ca359173cc3b662e8c1de6a41c82c9d7590ace5292df0b221f"
       }
     },
     {
@@ -2098,7 +2089,7 @@
       "name": "Sci-MMR",
       "paperTitle": "Sci-MMR: Benchmarking Multi-Step Evidence-Grounded Scientific Reasoning in Multimodal Agents",
       "aliases": [],
-      "oneLine": "Evaluates multi-step evidence-grounded scientific reasoning using 235 multimodal tasks built on structured argument graphs linking claims, knowledge, visual evidence, and supporting regions.",
+      "oneLine": "Evaluates multi-step evidence-grounded scientific reasoning in multimodal agents over structured argument graphs linking claims, citations, visual evidence and supporting regions. It contains 235 multi-hop tasks across four disciplines, scored on both final-answer accuracy and complete-evidence recovery.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -2206,13 +2197,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce Sci-MMR, a benchmark for multi-step evidence-grounded scientific reasoning"
       },
-      "description": "Evaluates multi-step evidence-grounded scientific reasoning using 235 multimodal tasks built on structured argument graphs linking claims, knowledge, visual evidence, and supporting regions.",
-      "whyItMatters": "Captures evidence acquisition and integration failures that answer-only metrics miss, revealing a 20% overestimation of reasoning capabilities in multimodal research agents.",
+      "description": "Evaluates multi-step evidence-grounded scientific reasoning in multimodal agents over structured argument graphs linking claims, citations, visual evidence and supporting regions. It contains 235 multi-hop tasks across four disciplines, scored on both final-answer accuracy and complete-evidence recovery.",
+      "whyItMatters": "Answer-only evaluation cannot distinguish correct conclusions reached without supporting evidence from ones grounded in traceable figure panels and citations. Reporting evidence recovery alongside accuracy exposes where agents acquire incomplete evidence or fail to integrate it.",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Low",
+        "score": 57,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Niche multimodal reasoning benchmark without supplied code or data links, likely to attract modest attention from the research community."
+        "reason": "The benchmark addresses scientific multimodal agent reasoning with a substantial set of figure-heavy multi-hop tasks and a distinct evidence-recovery metric, a topic of wide current interest, though task counts are modest."
       },
       "attention": {
         "asOf": "2026-09-12",
@@ -2365,9 +2356,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T06:08:51.273940Z",
-        "inputHash": "1e50f230d33715e8b953bf4a8453b80328d7ee6b802f2f19850ad86b9099f319"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "7c6736c3dc35dcb073732686f7be85a8cf2bb04dc167102b27d8932c9d59539e"
       }
     },
     {
@@ -2376,7 +2367,7 @@
       "name": "RAG-Safety-Bench",
       "paperTitle": "RAG-Safety-Bench: Reliable Evaluation of Retrieval-Augmented LLM Safety",
       "aliases": [],
-      "oneLine": "Evaluates the safety impact of retrieval-augmented generation on LLM models.",
+      "oneLine": "RAG-Safety-Bench measures the safety impact of retrieval-augmented generation on large language models across four conditions that separate retriever quality from retrieval content: non-RAG, RAG with an oracle harmful-answer document, RAG with related but non-answering documents, and RAG with random safe documents.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -2609,18 +2600,18 @@
           }
         }
       },
-      "description": "Evaluates the safety impact of retrieval-augmented generation on LLM models.",
-      "whyItMatters": "Measures how retrieval augmentation affects LLM safety, addressing a gap in safe deployment of RAG systems.",
+      "description": "RAG-Safety-Bench measures the safety impact of retrieval-augmented generation on large language models across four conditions that separate retriever quality from retrieval content: non-RAG, RAG with an oracle harmful-answer document, RAG with related but non-answering documents, and RAG with random safe documents.",
+      "whyItMatters": "Practitioners deploying retrieval-augmented systems need to know whether adding trusted documents changes the safety of generated responses, and whether baseline guardrails transfer to retrieval conditions. A controlled comparison of retrieval conditions would support that decision.",
       "attentionForecast": {
-        "score": 5,
+        "score": 28,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The title and abstract suggest a niche safety evaluation topic with no artifacts or evidence of community engagement."
+        "reason": "Attention is likely driven by the timely topic of retrieval-augmented generation safety and the benchmark's four-condition diagnostic design, with no supplied signal of artifact availability or community activity."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "c9ca96905856ebc60107acc327f9def144266f5a9a2396a4db8a1bf49c50bf95"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "13c93ad6c943ecacd4fca2cf2ff100d04125f7f81d39d0c2c18c0c14066d5967"
       }
     },
     {
@@ -2913,7 +2904,7 @@
       "name": "NovGauge",
       "paperTitle": "NovGauge: A Fine-Grained Benchmark for Diagnosing LLMs' Capability in Paper Novelty Assessment",
       "aliases": [],
-      "oneLine": "A benchmark for diagnosing LLM capability in assessing paper novelty.",
+      "oneLine": "NovGauge diagnoses large language models' novelty assessment in peer review across three labeled dimensions: task, problem, and method. It comprises 619 paper pairs and 50 multi-paper sets drawn from ICLR reviewer overlap claims and survey co-citations, and applies a cascading diagnostic pipeline that verifies per-dimension correctness, evidence grounding, and logical support.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3157,18 +3148,18 @@
           }
         }
       },
-      "description": "A benchmark for diagnosing LLM capability in assessing paper novelty.",
-      "whyItMatters": "Fine-grained novelty assessment diagnosis could help identify specific weaknesses in language models evaluating scientific contributions.",
+      "description": "NovGauge diagnoses large language models' novelty assessment in peer review across three labeled dimensions: task, problem, and method. It comprises 619 paper pairs and 50 multi-paper sets drawn from ICLR reviewer overlap claims and survey co-citations, and applies a cascading diagnostic pipeline that verifies per-dimension correctness, evidence grounding, and logical support.",
+      "whyItMatters": "As language models are used in peer review, holistic novelty scores conceal which dimension a model misjudges and whether cited evidence actually supports its judgment. A dimension-level diagnostic with faithfulness verification would let reviewers and builders distinguish correct judgments from unsupported ones.",
       "attentionForecast": {
-        "score": 0,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The abstract provides only a high-level description without details on task specification, scoring, or accessibility, limiting likely initial attention."
+        "reason": "Attention is likely driven by the peer-review and LLM evaluation audience plus the benchmark's focus on novelty judgments and evidence faithfulness, with no supplied artifact links or community signals to amplify reach."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "3a2e57c5ae14857c522bf584900f7f11795299e9d93ab52a01527b335283beab"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "60dc5d8a6065659fb19a8710ae7ea4652eb13c951c3d925568af522899973bf2"
       }
     },
     {
@@ -3179,7 +3170,7 @@
       "aliases": [
         "Mr.LHDR: A Benchmark for Multimodal Real-World Long-Horizon Deep Research Agents"
       ],
-      "oneLine": "Evaluates multimodal agents on long-horizon deep research over question-answer pairs with dependency-checked intermediate conclusions across eight categories.",
+      "oneLine": "Mr.LHDR evaluates long-horizon multimodal deep research agents on 102 real-world questions across eight categories, each paired with a short verifiable answer and a checklist of necessary intermediate conclusions organized into a dependency graph. It scores final answers and intermediate conclusions using Overall Accuracy, Strict Accuracy, Checklist Score, and Dependency-Aware Checklist Score, with multimodal evidence requiring at least one non-text element that changes the reasoning state.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -3262,15 +3253,23 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates multimodal agents on long-horizon deep research over question-answer pairs with dependency-checked intermediate conclusions across eight categories.",
-      "whyItMatters": "Measures partial, dependency-consistent progress beyond final-answer accuracy, addressing a gap in assessing reasoning chains in deep research.",
+      "description": "Mr.LHDR evaluates long-horizon multimodal deep research agents on 102 real-world questions across eight categories, each paired with a short verifiable answer and a checklist of necessary intermediate conclusions organized into a dependency graph. It scores final answers and intermediate conclusions using Overall Accuracy, Strict Accuracy, Checklist Score, and Dependency-Aware Checklist Score, with multimodal evidence requiring at least one non-text element that changes the reasoning state.",
+      "whyItMatters": "Final-answer accuracy alone overstates research success when agents must chain many interdependent, multimodal conclusions. Mr.LHDR supplies a dependency-aware scoring path so developers can see where non-text evidence integration and long chains break down rather than only whether the last answer matched.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Low",
+        "score": 66,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Strong artifact availability and a defined evaluation contract may draw moderate attention from researchers tracking deep research agents."
+        "reason": "Attention is likely driven by the active deep research agent area, the multimodal long-horizon task design, released code and dataset with a runnable pipeline, and comparisons across many model systems."
       },
+      "publishers": [
+        {
+          "name": "Mr-LHDR Team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/minghaoguo20/Mr-LHDR-eval",
+          "role": "benchmark-publisher"
+        }
+      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -3438,9 +3437,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "35745ad491f52f0e98b1b64d1fcf368c337398917e1cd8d9d28220ab1f4acac1"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "97ef928c2233e42b94ebafa5b01d9bfbca9cb2184c22d9e0e9ce32396b3384a4"
       }
     },
     {
@@ -3449,7 +3448,7 @@
       "name": "MMGait",
       "paperTitle": "MMGait: Benchmarking and Unifying Gait Recognition across Heterogeneous Modalities",
       "aliases": [],
-      "oneLine": "Benchmark covering gait recognition across visible, infrared, depth, LiDAR, and radar modalities with sequence-level correspondence.",
+      "oneLine": "MMGait is a large-scale multi-sensor gait recognition benchmark bringing visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence, used to evaluate single-modal, cross-modal and multi-modal gait recognition under a shared impostor-augmented protocol.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -3540,14 +3539,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present MMGait, a large-scale multi-sensor benchmark that brings visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence."
       },
-      "description": "Benchmark covering gait recognition across visible, infrared, depth, LiDAR, and radar modalities with sequence-level correspondence.",
-      "whyItMatters": "Enables cross-modal gait recognition evaluation but lacks sufficient detail on scoring and public access.",
+      "description": "MMGait is a large-scale multi-sensor gait recognition benchmark bringing visible, infrared, depth, LiDAR, and radar observations into sequence-level correspondence, used to evaluate single-modal, cross-modal and multi-modal gait recognition under a shared impostor-augmented protocol.",
+      "whyItMatters": "Existing gait recognition evaluation is RGB-centered and cannot systematically test heterogeneous photometric, geometric and motion cues; a multi-sensor testbed would let teams compare modality-specific and fused recognition under comparable conditions.",
       "attentionForecast": {
-        "score": 10,
+        "score": 38,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Limited artifact evidence and scope specificity may restrict early attention from researchers.",
-        "reason_note": "Benchmark focuses on multiple sensor modalities for gait recognition, which may attract interest from a subset of researchers."
+        "reason": "A heterogeneous multi-sensor gait recognition testbed with cross-modal and fusion settings may draw attention from gait and multimodal sensing researchers, though its initial reach is limited by the absence of supplied release artifacts."
       },
       "attention": {
         "asOf": "2026-09-12",
@@ -3700,9 +3698,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "52719352f01a63f8470e739c19043478a035294ae4d7dfa258a34c5b3c9dbde2"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "1430e764522b18a70eb045b01d97f6ec31b408e7b3cee07fe8564f98d586fed7"
       }
     },
     {
@@ -3711,7 +3709,7 @@
       "name": "MindTopo",
       "paperTitle": "MindTopo: Can Foundation Models Reason in Topological Space?",
       "aliases": [],
-      "oneLine": "Benchmark assessing topological intuition through five properties grounded in cognitive science and formal topology.",
+      "oneLine": "MindTopo evaluates foundation models on topological intuition across continuity, separation, order, enclosure and knots, with 11,030 instances in 13 procedurally generated task types. Each property is tested at a reasoning level and a closed-loop planning level in which a model selects environment actions.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3813,13 +3811,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce MindTopo, a benchmark of topological intuition across five properties grounded in cognitive science and formal topology"
       },
-      "description": "Benchmark assessing topological intuition through five properties grounded in cognitive science and formal topology.",
-      "whyItMatters": "Probes an underexplored reasoning area, but no public task set, evaluator, or reuse path is provided.",
+      "description": "MindTopo evaluates foundation models on topological intuition across continuity, separation, order, enclosure and knots, with 11,030 instances in 13 procedurally generated task types. Each property is tested at a reasoning level and a closed-loop planning level in which a model selects environment actions.",
+      "whyItMatters": "Foundation-model evaluation has concentrated on metric or viewpoint-dependent spatial relations, leaving topological relations largely untested; a controlled suite spanning reasoning and closed-loop planning gives a way to compare models on deformation-invariant spatial understanding.",
       "attentionForecast": {
-        "score": 5,
-        "confidence": "Low",
+        "score": 62,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A narrow, abstract evaluation target with sparse artifact evidence may draw limited immediate attention."
+        "reason": "Broad topical scope spanning spatial reasoning, agent planning and generative augmentation, plus a released 11k-instance suite, is likely to draw moderate early attention from multimodal and spatial-reasoning researchers."
       },
       "attention": {
         "asOf": "2026-09-11",
@@ -3972,9 +3970,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-12T00:56:20.009268Z",
-        "inputHash": "aed5e51f24aea009d367bd41f097415c93ce3821c347c0880134cdbcc3a43012"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "ac126142ca730dd5c312b464e3f6fb41e25177e2974b35d834c1ffa572fb809b"
       }
     },
     {
@@ -3985,7 +3983,7 @@
       "aliases": [
         "llms-benchmark"
       ],
-      "oneLine": "Evaluates small local LLMs as agent engines over an OpenAI-compatible chat/completions API, testing tool invocation, tool-result-next-step loops, and a longer coding task with explicit self-review.",
+      "oneLine": "A local harness that drives a small served LLM through tool-calling suites and a coding task, checking tool-call validity, loop behavior and task progress through an OpenAI-compatible chat endpoint.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4064,14 +4062,14 @@
           "url": "https://github.com/diovoib/llms-benchmark"
         }
       ],
-      "description": "Evaluates small local LLMs as agent engines over an OpenAI-compatible chat/completions API, testing tool invocation, tool-result-next-step loops, and a longer coding task with explicit self-review.",
-      "whyItMatters": "Provides a repeatable, local, tool-focused protocol for isolating model behavior from server or template defects, enabling fair comparison of small agents with explicit judge criteria.",
+      "description": "A local harness that drives a small served LLM through tool-calling suites and a coding task, checking tool-call validity, loop behavior and task progress through an OpenAI-compatible chat endpoint.",
+      "whyItMatters": "Teams deploying small local models as agent engines need a way to check whether a model calls harness tools correctly and sustains a tool-result loop; a runnable harness provides that check without relying on hosted APIs.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 22,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Given the niche audience for local agent tool-use evaluation and the lack of promotional language or community signals, the project is likely to attract only limited attention in its first week."
+        "reason": "The record is deferred, so no public attention forecast applies."
       },
       "displayEligible": true,
       "curation": {
@@ -4089,9 +4087,9 @@
         "canonicalNameEvidence": "# Local agent benchmark (tools + loop + coding)"
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-11T09:02:33.555618Z",
-        "inputHash": "841129bbadc129c886600ae4751775bf10d830c8161e4c0819fee75903799152"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-12T08:48:32.409307Z",
+        "inputHash": "8bb3ce73f2aad5135289ec0549aec127e9e91237120e4b5afa25444f78fac22f"
       },
       "attention": {
         "asOf": "2026-09-11",
