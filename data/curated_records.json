@@ -9,7 +9,7 @@
       "aliases": [
         "hil-safety-benchmark"
       ],
-      "oneLine": "Evaluates human-in-the-loop safety in tool-using agents across 1,000 synthetic task-reply cases, measuring consultation quality, authorization handling, and post-feedback action safety.",
+      "oneLine": "Evaluates human-in-the-loop safety for tool-using agents on 250 synthetic tasks across 24 domains with 1,000 fixed human-reply cases.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -87,29 +87,247 @@
           "url": "https://github.com/yanliang-li/hil-safety-benchmark"
         }
       ],
-      "description": "Evaluates human-in-the-loop safety in tool-using agents across 1,000 synthetic task-reply cases, measuring consultation quality, authorization handling, and post-feedback action safety.",
-      "whyItMatters": "Provides a repeatable environment for assessing when agents should ask humans, whether questions identify relevant scope, and how approvals are bound to safe actions, addressing a missing benchmark for human-in-the-loop agent safety.",
+      "description": "Evaluates human-in-the-loop safety for tool-using agents on 250 synthetic tasks across 24 domains with 1,000 fixed human-reply cases.",
+      "whyItMatters": "Provides a repeatable safety benchmark for when agents should ask for help, what they ask, and how they act after human input.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 42,
+        "score": 55,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses agent safety with a concrete executable release and detailed empirical results, but is presented as a working draft from an anonymous repository without established distribution channels."
+        "reason": "The benchmark addresses timely human-in-the-loop safety and is packaged with Docker evaluation, a working paper, and multiple protocol families."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
           "task": "The current V4 dataset contains **250 synthetic tasks × 4 fixed human replies = 1,000 cases**, across 24 application domains and 20 attack families.",
-          "scoring": "It studies when an agent asks for human input, whether its question identifies the relevant action and scope, and how it acts after the reply.",
-          "reuse": "The completed **5,760-attempt** matrix contains 5,551 valid runs and 209 failed attempts: actual Codex, Claude Code, Hermes Agent, and DeepSeek Harness CLIs × three requested model IDs (`deepseek-v4-flash`, `glm-5.2`, `qwen3.7-max`) × 80 cases × neutral/defense × three repeats."
+          "scoring": "| Measure | Neutral | Prompt guard | |---|---:|---:| | Unsafe attack success ↓ | 18/80 | 8/80 | | Benign task completion ↑ | 76/80 | 76/80 |",
+          "reuse": "The complete matrix and score-replay audit are available; the earlier GPT pilot is not pooled with these runs."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-13T00:35:00.032940Z",
+        "reviewedAt": "2026-09-13T06:31:18.769897Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The GitHub repository provides a frozen dataset, scoring code, and documented multi-model evaluations, enabling external teams to run the benchmark.",
+        "decisionReason": "Has an executable dataset, defined scoring metrics, and a public code path for running and inspecting evaluation.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# InterveneBench / HIL Safety Benchmark"
+        "canonicalNameEvidence": "# InterveneBench / HIL Safety Benchmark An executable research benchmark for human-in-the-loop safety in tool-using agents."
+      },
+      "attention": {
+        "asOf": "2026-09-13",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": 0,
+        "githubRepo": "https://github.com/yanliang-li/hil-safety-benchmark",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-13T01:36:51.692703Z",
+        "attemptedAt": "2026-09-13T01:36:51.692703Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-13T01:36:51.692703Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 48,
+          "rank": 1,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 48,
+            "rank": 1,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 42,
+                "percentile": 0.42,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-12",
+            "windowDays": 1,
+            "elapsedDays": 1
+          }
+        },
+        "30d": {
+          "score": 23,
+          "rank": 135,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 135,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 335,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 335,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -802,18 +1020,18 @@
         "horizon": "7d",
         "reason": "A focused niche benchmark with limited initial reach, but the GitHub release and clear reproducibility may draw moderate attention from RAG practitioners."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "benchmark/paper_question_set.json 103 QA pairs — the published evaluation set benchmark/question_set.json 154 QA pairs — later, more table-weighted extension",
           "scoring": "Correctness is measured using LLM-as-a-judge, following Zheng et al. The question, the true answer and the generated answer are passed to a judge model prompted to return \"Y\" or \"N\".",
           "reuse": "python scripts/summarise_results.py # recompute correctness for every run python scripts/summarise_results.py --failures simple_text # inspect what the baseline got wrong"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-12T08:46:48.144646Z",
+        "reviewedAt": "2026-09-13T06:31:18.769897Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released question sets, scoring script, and raw results provide a repeatable, public evaluation protocol.",
+        "decisionReason": "Published dataset, code, and instructions for reproducing the evaluation, though scoring relies on LLM judge.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "visual-rag-benchmark End-to-end evaluation of retrieval-augmented generation on reference tables."
       },
