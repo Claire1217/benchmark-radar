@@ -1,13 +1,923 @@
 {
-  "generatedAt": "2026-09-12T06:07:39.872499Z",
-  "sourceDate": "2026-09-11",
+  "generatedAt": "2026-09-13T00:34:56.098484Z",
+  "sourceDate": "2026-09-12",
   "sourceWindow": {
-    "from": "2026-09-11",
-    "to": "2026-09-11"
+    "from": "2026-09-12",
+    "to": "2026-09-12"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 1828,
+  "candidateCount": 1837,
   "candidates": [
+    {
+      "id": "bm_vlm-mini-benchmark_e3b1cdb4",
+      "familyId": "bmf_f7e82769bedc",
+      "name": "vlm-mini-benchmark",
+      "paperTitle": "vlm-mini-benchmark",
+      "aliases": [],
+      "oneLine": "vlm-mini-benchmark # VLM Mini Benchmark ## Purpose This is an educational, small-scale VLM benchmark built around one reproducible workflow: ```text image + question → Qwen2.5-VL inference → JSONL predictions → rule-based metrics ``` It do…",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/eternity743/vlm-mini-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T06:52:09Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/eternity743/vlm-mini-benchmark",
+        "paper": "https://github.com/eternity743/vlm-mini-benchmark",
+        "code": "https://github.com/eternity743/vlm-mini-benchmark"
+      },
+      "motivation": "vlm-mini-benchmark # VLM Mini Benchmark ## Purpose This is an educational, small-scale VLM benchmark built around one reproducible workflow: ```text image + question → Qwen2.5-VL inference → JSONL predictions → rule-based metrics ``` It does not claim academic benchmark significance and is not a replacement for established datasets or evaluation suites.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:eternity743/vlm-mini-benchmark",
+        "url": "https://github.com/eternity743/vlm-mini-benchmark",
+        "title": "vlm-mini-benchmark",
+        "authors": [
+          "eternity743"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "vlm-mini-benchmark # VLM Mini Benchmark ## Purpose This is an educational, small-scale VLM benchmark built around one reproducible workflow: ```text image + question → Qwen2.5-VL inference → JSONL predictions → rule-based metrics ``` It does not claim academic benchmark significance and is not a replacement for established datasets or evaluation suites.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "vlm-mini-benchmark # VLM Mini Benchmark ## Purpose This is an educational, small-scale VLM benchmark built around one reproducible workflow: ```text image + question → Qwen2.5-VL inference → JSONL predictions → rule-based metrics ``` It does not claim academic benchmark significance and is not a replacement for established datasets or evaluation suites. ## Milestone 3 mini benchmark The benchmark metadata now contains 60 samples across four automatically evaluated categories: | Category | Samples | Image source | | --- | ---: | --- | | Object recognition | 15 | Real-world placeholders; images must be added manually | | OCR | 15 | Generated locally with Pillow | | Visual question answering | 15 | Real-world placeholders; images must be added manually | | Spatial reasoning | 15 | Generated locally with Pillow | Every sample has a difficulty of `easy`, `medium`, or `hard`. The 30 synthetic images are deterministic and safe to regenerate. The 30 object-recognition and VQA image files are deliberately not bundled or downloaded. ## Dataset format ```json { \"id\": \"spatial_001\", \"image\": \"spatial_001.png\", \"question\": \"Where is the red square relative to the blue circle?\", \"answers\": [\"left\", \"to the left\"], \"category\": \"spatial_reasoning\", \"difficulty\": \"easy\" } ``` `answers` is the preferred non-empty list of accepted responses. Old `\"answer\": \"cat\"` records are still supported and converted internally to a one-item answer list. Old entries with no `difficulty` remain valid and are treated as unspecified. Invalid metadata is reported and skipped during inference. Supported categories are `object_recognition`, `ocr`, `visual_question_answering`, `spatial_reasoning`, and `image_description`. The 60-sample mini benchmark does not include image-description items because they require manual review. ## Running Run commands from the project root: ```powershell python check_env.py python smoke_test.py python generate_synthetic_data.py python validate_dataset.py python validate_dataset.py --require-images python run_benchmark.py --max-samples 5 python -m src.evaluate ``` The ordinary validation command verifies metadata and reports missing images without failing. It should report 60 metadata-valid samples, 30 present synthetic images, and 30 expected missing object-recognition/VQA images. Strict mode intentionally fails until those real images have been collected. ## Evaluation `normalize_text()` lowercases, trims, collapses whitespace, and removes basic punctuation. Object recognition, VQA, and spatial reasoning use exact or whole-word/phrase contains matching, preventing `cat` from matching `concatenate`. OCR reports exact and normalized-contains correctness plus informational standard-library `SequenceMatcher` similarity. Its documented optional similarity threshold is `0.85`; the automatic OCR accuracy remains exact/contains based. Image descriptions receive no automatic accuracy and are marked for manual review. Metrics are written to `results/metrics.json` with overall, per-category, and per-difficulty summaries. Predictions are written incrementally to `results/qwen25vl_predictions.jsonl`. ## Limitations Only Qwen2.5-VL-3B-Instruct is used. The 60 samples are a structured starter set, not a completed real-world benchmark: object recognition and VQA images are still missing, metrics are rule-based, and no broad model-quality claims should be made. The next useful step is careful manual collection and licensing review for the 30 missing real-world images.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:eternity743/vlm-mini-benchmark",
+          "url": "https://github.com/eternity743/vlm-mini-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_understudy_8e1bac7f",
+      "familyId": "bmf_1aae809381b4",
+      "name": "understudy",
+      "paperTitle": "understudy",
+      "aliases": [],
+      "oneLine": "understudy An agent that stands in for a scarce subject-matter expert — acting strictly within a body of doctrine, with a fidelity benchmark to prove it.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Logistics & Operations"
+      ],
+      "primaryDomain": "Logistics & Operations",
+      "industrySectors": [
+        "Logistics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/jeranaias/understudy",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T23:45:38Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/jeranaias/understudy",
+        "paper": "https://github.com/jeranaias/understudy",
+        "project": "https://img.shields.io/badge/License-Apache_2.0-blue.svg",
+        "code": "https://github.com/jeranaias/understudy"
+      },
+      "motivation": "understudy An agent that stands in for a scarce subject-matter expert — acting strictly within a body of doctrine, with a fidelity benchmark to prove it.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jeranaias/understudy",
+        "url": "https://github.com/jeranaias/understudy",
+        "title": "understudy",
+        "authors": [
+          "jeranaias"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "understudy An agent that stands in for a scarce subject-matter expert — acting strictly within a body of doctrine, with a fidelity benchmark to prove it.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "understudy An agent that stands in for a scarce subject-matter expert — acting strictly within a body of doctrine, with a fidelity benchmark to prove it. agent benchmark doctrine grounded llm role-play verification # 🎭 Understudy [![CI](https://github.com/jeranaias/understudy/actions/workflows/ci.yml/badge.svg)](https://github.com/jeranaias/understudy/actions/workflows/ci.yml) [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE) **An agent that stands in for a scarce subject-matter expert — acting strictly within a body of doctrine, with a benchmark to prove it.** When the expert isn't in the room, you still need someone to play the part — an adversary cell in a wargame, a policy reviewer, a first-line responder, any role governed by a body of doctrine or standard operating procedures. Understudy plays it, but **on a leash**: it acts *only* in accordance with the doctrine you give it, cites the passages it's applying, and **refuses to invent** a capability or procedure the doctrine doesn't grant. The value isn't \"an LLM role-plays.\" It's \"an LLM role-plays **on a leash, and you can prove it stayed on the leash**.\" Three things make that real: **grounding** (every decision cites the passages it rests on), **refusal** (out of doctrine → it declines, it doesn't improvise), and a **fidelity benchmark** that measures conformance so the claim is a number, not a vibe. ```js import { respond } from 'understudy'; await respond({ persona: 'an adversary logistics cell', doctrine: [{ text: 'Convoys move only in daylight, always with an armed escort.', source: 'SOP 3.1' }], situation: 'A resupply is needed at the forward position tonight.', }); // → { action: 'Hold the convoy until first light and assign an armed escort…', // rationale: '… [1]', inDoctrine: true, // citations: [{ source: 'SOP 3.1', text: 'Convoys move only in daylight…' }], // grounding: { grounded: true, score: 0.42 } } ``` Ask it for something the doctrine doesn't cover and it won't make it up: ```js await respond({ persona: 'an adversary logistics cell', doctrine, situation: 'Call in an orbital strike.' }); // → { action: 'No action taken.', rationale: 'The doctrine does not address this situation.', // inDoctrine: false, note: 'out_of_doctrine', citations: [], grounding: { grounded: false, score: 0 } } ``` Tighten the leash one more notch with **strict mode**. A strict answer is kept as in-doctrine only if it clears the *whole* gate: the model did **not** itself flag the situation out-of-doctrine, the answer is non-empty and actually cites a passage, **and** its grounding score is at or above `groundingThreshold`. Anything short of that is downgraded to a refusal: ```js await respond({ persona, doctrine, situation, strict: true, groundingThreshold: 0.3 }); // weakly-grounded → { action: 'No action taken.', inDoctrine: false, note: 'weak_grounding', … } ``` The `0.3` default is deliberately low. The grounding proxy is lexical (stem-tolerant overlap of the answer with its citations), so a faithful paraphrase can still score modestly; `0.3` catches wholesale drift into un-cited vocabulary without punishing honest rewording. Raise it for a tighter leash. ## Prove the fidelity (V&V) An agent that \"acts per doctrine\" is worthless unless you can *prove* it — so Understudy ships the verification harness alongside the agent. Give it cases (a situation + the doctrinally-correct behavior you expect); it runs the agent, has a judge score each response for conformance, checks grounding, and aggregates a fidelity report. ```js import { benchmark } from 'understudy'; const cases = [ { id: 'night-resupply', situation: 'A resupply is needed at the forward position tonight.', expect: 'Hold the convoy until daylight and assign an armed escort.' }, ]; const { report, runs } = await benchmark(cases, { persona: 'an adversary logistics cell', doctrine }); // report → { n: 1, scored: 1, errored: 0, conforming: 1, fidelity: 1, groundedRate: 1, meanGrounding: 0.44, // byVerdict: { 'in-doctrine': 1, partial: 0, 'off-doctrine': 0, unknown: 0 }, failures: [] } // runs → [{ id, response, verdict, conforms, reasons, errored, grounded, groundingScore }] ``` The judge defaults to a **different model than the agent** (independence — scoring an agent with its own weights would launder its blind spots into the grade) and sees only the **retrieved subset the agent cited** plus its rationale, not the whole doctrine corpus. A run whose model/network call fails is marked `errored` and **excluded from the fidelity denominator** (`scored = n - errored`) rather than miscounted as a doctrine failure — so the fidelity number reflects doctrine conformance, not flaky infrastructure. The aggregator and the grounding proxy are **pure** — no key, fully unit-tested — so you can grade and brief from them anywhere: ```js import { fidelityReport, checkGrounding } from 'understudy'; checkGrounding('the convoy moves in daylight with an escort', [{ text: 'convoys move only in daylight with an armed escort' }]); // → { grounded: true, score: 0.5 } fidelityReport([ { verdict: 'in-doctrine', grounded: true, groundingScore: 0.7 }, { verdict: 'off-doctrine', grounded: false, groundingScore: 0.1, reasons: 'invented a capability' }, ]); // → { n: 2, scored: 2, errored: 0, conforming: 1, fidelity: 0.5, groundedRate: 0.5, meanGrounding: 0.4, // byVerdict: {…}, failures: [{…}] } ``` ### Why fidelity, not vibes \"It felt in-character\" doesn't survive a review. A fidelity number does. The benchmark turns *does the stand-in stay on doctrine?* into a repeatable measurement — conformance rate, a per-verdict breakdown, and a traceable list of every failure — so you can regression-test a persona the same way you'd test code, and defend the result instead of asserting it. ## Data shapes **Doctrine passage** — a string, or `{ text, source? }` (`cite` is accepted as an alias for `source`). **Case** (`benchmark` input): ```ts { id?: string, situation: string, expect: s",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jeranaias/understudy",
+          "url": "https://github.com/jeranaias/understudy"
+        }
+      ]
+    },
+    {
+      "id": "bm_pelican-bike-benchmark_593593ff",
+      "familyId": "bmf_9e7601a0c723",
+      "name": "pelican-bike-benchmark",
+      "paperTitle": "pelican-bike-benchmark",
+      "aliases": [],
+      "oneLine": "pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Qrzzzz/pelican-bike-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T15:50:41Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Qrzzzz/pelican-bike-benchmark",
+        "paper": "https://github.com/Qrzzzz/pelican-bike-benchmark",
+        "project": "https://qrzzzz.github.io/pelican-bike-benchmark/",
+        "code": "https://github.com/Qrzzzz/pelican-bike-benchmark"
+      },
+      "motivation": "pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:qrzzzz/pelican-bike-benchmark",
+        "url": "https://github.com/Qrzzzz/pelican-bike-benchmark",
+        "title": "pelican-bike-benchmark",
+        "authors": [
+          "Qrzzzz"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt. # 鹈鹕骑车 · Pelican Bike Benchmark 用同一份提示词，观察 AI 生成「鹈鹕骑自行车」单文件 HTML 的差异。原生 HTML / CSS / JavaScript 静态站，无后端、无运行时框架、无外部字体或 CDN。 ## 本地预览 需要 Node.js 22 或更新版本。 ```sh npm ci npm run check npm run dev ``` 打开 http://127.0.0.1:4173/pelican-bike-benchmark/ 。服务器也支持根路径，便于检查 Pages 子路径兼容性。页面使用 fetch 读取 JSON，请通过服务器访问。 ## 页面与数据 - `site/index.html`：作品库、搜索、模型与类型筛选、2–4 项选择、提示词复制。 - `site/compare.html?ids=run-a,run-b`：2–4 项对比，1200×800 / 390×844 固定视口，静态图或沙盒运行；链接可分享。 - `site/entry.html?id=run-a`：默认沙盒运行预览（可切换桌面／手机，无静态图切换）、原始输出、浏览器端 SHA-256 核对、参数、完整输入、环境与评分记录。 - `site/method.html`：测试约定、完整 v1 提示词、评分维度、环境与导入说明。 - `site/data/prompt.v1.json`：固定输入，哈希基于 text 字段 UTF-8 字节（LF，无末尾换行）。 - `site/data/submissions.json`：作品索引，每项与 `submissions/ /meta.json` 必须一致。 站点收录用户提交的 DeepSeek 4.1 Flash · max 原始输出，以及相同 v1 提示词生成的 Codex 模型作品。模型与推理强度逐项登记，原始字节与哈希保留；没有主观评分。正式作品附桌面／手机实测截图及浏览器检查记录。 视觉参考 Qrzzzz 个人站的暖纸色、炭灰双主题、青色点缀、衬线标题与留白；插画独立编写。主题遵循系统偏好，可切换并保存在本机。 主题变量集中在 `site/assets/tokens.css`，复用来源与 MIT 声明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。四页复用参考站的首页标记、GitHub 图标、太阳／月亮主题开关与淡入淡出过渡，共享排版、键盘焦点与减少动态规则；未手动选定主题时持续跟随系统，禁用本地存储也可切换。 固定提示词以独立滚动的阅读弹窗展开，关闭与复制按钮保持可见，复制反馈在弹窗内显示。 搜索、模型和类型筛选保存在 URL 中；已选作品在本次会话内保留，可在底部清单逐项移除。提示词和作品索引独立加载，失败可重试；运行预览在切换时取消过期请求并释放观察器。 ## 通过 PR 投稿 完整操作与验收规范见 [CONTRIBUTING.md](CONTRIBUTING.md)。使用 `npm run submission:init -- ` 生成含固定提示词的元数据，然后导入作品并提交 PR。`Submission contract / submission-contract` 检查原文不可变、投稿范围和声明，上传 JSON 检查报告；合并到 main 后自动发布。 ## 导入真实作品 1. 原样使用 `site/data/prompt.v1.json` 的 text 作为完整输入，保留首次原始输出（包括失败结果）。 2. 复制 `site/data/submission.template.json`，填写 id、模型精确版本、生成日期、参数。未知参数写“未记录”。 3. 将输出保存为 UTF-8 `result.txt`，执行： ```sh npm run import -- --source ./result.txt --meta ./meta.json # 可选：提供真实截图 npm run import -- --source ./result.txt --meta ./meta.json --desktop ./desktop.png --mobile ./mobile.png npm run check ``` id 仅允许小写字母、数字和连字符（最多 80 字符），已有 id 不得覆盖。导入器保留原始字节、生成 SHA-256 和静态报告；原始输出超过 1 MiB 时拒绝导入。静态失败结果仍登记，但不生成运行预览。元数据不能指定任意资源路径或伪造检查结论。 导入使用 `site/data/.import.lock` 防止多个导入进程覆盖索引；忙时重试。若进程被强制终止，只在确认没有导入进程运行后手动移除该锁。PNG 尺寸不符合协议时在写入作品前拒绝。 截图仅接受 PNG / WebP，每张不超过 10 MiB。传入截图时，environment 必须包含 browser（名称及完整版本）、captureAt（如 load + 3 seconds）、motion（动态偏好与播放状态）、dpr: 1。桌面截图应为 1200×800，手机为 390×844，导入者须核对。未提供时显示待补充。可额外记录操作系统、捕获时间和交互实测结论。 评分可保留为 null。如记录评审，review 必须有 reviewer、date、scores 和 notes；后两者均含 runnable、visual、animation、accessibility、quality 五个键。scores 为 0–10 数字，notes 为对应文字依据。权重为 20%、30%、20%、20%、10%。演示作品不得计分。 ## 预览隔离与限制 原始输出仅以 source.html.txt 保存。preview.html 是固定包装：即使单独打开，原始代码也位于 sandbox=\"allow-scripts\" iframe 内，未启用同源、弹窗、表单、下载或顶层导航权限。最前方 CSP 禁止网络连接、外链资源、嵌套框架、worker、表单提交等，允许内联脚本、样式及 data 图像；网络资源仍被阻止。 导入器用 HTML 解析器检查危险标签、外部资源引用及脚本／事件中的常见网络、导航和动态代码接口。允许本地 SVG 片段、SVG 动画和经过检查的自包含 SVG 图标。该检查保守且不是通用 JavaScript 安全证明；沙盒也不隔离 CPU / 内存占用。仍需审阅提交。限制可能改变作品表现，不将静态通过称为完整浏览器验收。 ## 验证与发布 `npm run check` 覆盖导入保真、拒绝重复 id / 路径穿越 / 提示词不一致、危险资源、失效作品停用、评分约束，并核验全部哈希、静态报告、沙盒包装与页面静态链接。PR 工作流与 Pages 发布前执行同一检查。 既有工作流在 main 推送或手动触发时部署 site/，无需站点构建步骤。 本地预览服务支持流式文件响应、HEAD 和 ETag 条件请求，禁止非读取方法，并检查解码路径及真实文件路径的站点边界。这些响应头仅属于本地服务，线上 GitHub Pages 缓存策略由托管平台控制。 - 仓库：https://github.com/Qrzzzz/pelican-bike-benchmark - 目标地址：https://qrzzzz.github.io/pelican-bike-benchmark/ 发布后应核对 Actions 成功状态、线上索引和对应原始输出哈希；不能只以本地检查替代部署证据。 ### 本批实测环境 Chromium 152.0.7977.83 / Windows，DPR 1，桌面 1200×800、手机 390×844，页面加载约 3 秒后截图。减少动态使用独立的浏览器启动参数与上下文，并核对 iframe 媒体查询。检查结果与局限保存在各作品 runtimeChecks 中，不是画面质量评分。Codex 作品使用本地任务环境，模型可自行调用工具；DeepSeek 作品为用户确认的首次外部投稿，这两种执行环境并不完全相同。 原始 source.html.txt 和派生 preview.html 使用 Git -text 属性，避免 Windows / Linux 换行转换改变哈希。生成日期未知时允许 null，不用文件修改时间冒充生成时间。 ### 复现浏览器证据 先启动本地服务器，再为指定作品生成捕获脚本。使用已验证的 Playwright CLI 版本，普通与减少动态测试使用独立会话，避免测试进程互相干扰。 ```sh npm run prepare:capture -- npx --yes --package @playwright/cli@0.1.19 playwright-cli -s=pelican-capture open http://127.0.0.1:4173/ npx --yes --package @playwright/cli@0.1.19 playwright-cli -s=pelican-capture run-code --filename output/capture.js > output/capture.log node scripts/attach-evidence.mjs output/capture.log npx --yes --package @playwright/cli@0.1.19 playwright-cli -s=pelican-reduced open --config output/reduced-browser.json http://127.0.0.1:4173/ npx --yes --package @playwright/cli@0.1.19 playwright-cli -s=pelican-reduced run-code --filename output/reduced-check.js > output/reduced-check.log node scripts/attach-evidence.mjs output/reduced-check.log npm run check ``` 截图、实测记录可更新，原始输出不可修改。检查器规则更新后运行 `node scripts/recheck.mjs` 重建派生报告与包装，并重新验收受影响行为。",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:qrzzzz/pelican-bike-benchmark",
+          "url": "https://github.com/Qrzzzz/pelican-bike-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_openllm-selector_4e8a48a8",
+      "familyId": "bmf_74ef3dd5e9d7",
+      "name": "openllm-selector",
+      "paperTitle": "openllm-selector",
+      "aliases": [],
+      "oneLine": "openllm-selector Curated database of 41 open LLMs with a Python API and Streamlit app, comparing them on openness and licensing rather than benchmark scores.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/erwardenaar/openllm-selector",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T21:53:43Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/erwardenaar/openllm-selector",
+        "paper": "https://github.com/erwardenaar/openllm-selector",
+        "code": "https://github.com/erwardenaar/openllm-selector"
+      },
+      "motivation": "openllm-selector Curated database of 41 open LLMs with a Python API and Streamlit app, comparing them on openness and licensing rather than benchmark scores.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:erwardenaar/openllm-selector",
+        "url": "https://github.com/erwardenaar/openllm-selector",
+        "title": "openllm-selector",
+        "authors": [
+          "erwardenaar"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "openllm-selector Curated database of 41 open LLMs with a Python API and Streamlit app, comparing them on openness and licensing rather than benchmark scores.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "openllm-selector Curated database of 41 open LLMs with a Python API and Streamlit app, comparing them on openness and licensing rather than benchmark scores. llm model-transparency open-weights plotly python reproducibility research-tools streamlit # openllm-selector A tool to help researchers pick the right open LLM for their study. Choosing the right open LLM for research is hard given the rapidly growing landscape of available models. Most comparison tools ask \"which model scores highest on MMLU?\" — that is not a useful question for research. What matters is: can I reproduce this model's training? Is the license compatible with my institution's data sharing agreement? Does it support the languages in my corpus? Will it fit on the GPUs I have access to? `openllm-selector` is a curated database of 41 open LLMs with an interactive Streamlit app and a queryable Python API. Every record tracks the characteristics that actually drive research decisions rather than benchmark scores. Each model record contains 25 fields covering identity, size, training scale, context window, modality, architecture, license, openness flags, language support, and links to the foundational paper and HuggingFace page. Most records are base models; a small number are instruct or reasoning variants. ## Installation ```bash pip install git+https://github.com/erwardenaar/openllm-selector.git ``` To run the interactive Streamlit app locally: ```bash git clone https://github.com/erwardenaar/openllm-selector.git cd openllm-selector streamlit run app/app.py ``` ## Streamlit app The interactive app has a filter sidebar, an interactive scatter plot where bubble size encodes model size and colour encodes openness score, a sortable results grid, and a profile card with links to the foundational paper and recent arXiv papers. ![openllm-selector Streamlit app](streamlitapp.png) ## Python API ```python import openllm_selector as o # Filter by any combination of fields candidates = o.filter_models(intermediate_checkpoints=True, max_size_b=10) ranked = o.rank_by_openness(candidates) # Look up a single model model = o.get_model(\"OLMo 2 7B\") # Filter by officially supported language hindi_models = o.filter_models(language=\"Hindi\") # Browse all supported languages languages = o.get_languages() # Filter by model type or think version availability reasoning_models = o.filter_models(model_type=\"reasoning\") think_models = o.filter_models(has_think_version=True) # Fetch recent arXiv papers mentioning a model papers = o.fetch_recent_papers(\"OLMo\", max_results=3) ``` ## Documentation See [docs/vignette.qmd](docs/vignette.qmd) for a full walkthrough covering both the Streamlit app and the Python API, with five realistic researcher scenarios. [View the rendered tutorial](https://htmlpreview.github.io/?https://github.com/erwardenaar/openllm-selector/blob/main/docs/vignette.html)",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:erwardenaar/openllm-selector",
+          "url": "https://github.com/erwardenaar/openllm-selector"
+        }
+      ]
+    },
+    {
+      "id": "bm_mizan-iraqi-arabic-benchmark_956bf3ab",
+      "familyId": "bmf_59938b9f1c65",
+      "name": "mizan-iraqi-arabic-benchmark",
+      "paperTitle": "mizan-iraqi-arabic-benchmark",
+      "aliases": [],
+      "oneLine": "Mizan (ميزان) — Iraqi Arabic LLM Benchmark: pilot-0.2 public development set Mizan is the first comprehensive, originally-authored evaluation benchmark for Iraqi Arabic and the Iraqi civic context.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T15:39:11.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark",
+        "paper": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark",
+        "project": "https://doi.org/10.5281/zenodo.22714865",
+        "data": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark"
+      },
+      "motivation": "Mizan (ميزان) — Iraqi Arabic LLM Benchmark: pilot-0.2 public development set Mizan is the first comprehensive, originally-authored evaluation benchmark for Iraqi Arabic and the Iraqi civic context.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:nawaralseelawi/mizan-iraqi-arabic-benchmark",
+        "url": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark",
+        "title": "mizan-iraqi-arabic-benchmark",
+        "authors": [
+          "nawaralseelawi"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 1
+        }
+      },
+      "evidence": {
+        "snippet": "Mizan (ميزان) — Iraqi Arabic LLM Benchmark: pilot-0.2 public development set Mizan is the first comprehensive, originally-authored evaluation benchmark for Iraqi Arabic and the Iraqi civic context.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Mizan (ميزان) — Iraqi Arabic LLM Benchmark: pilot-0.2 public development set Mizan is the first comprehensive, originally-authored evaluation benchmark for Iraqi Arabic and the Iraqi civic context. This dataset is the pilot-0.2 public development set: 340 originally-authored, dually-reviewed items across two tracks (MSA baseline / Iraqi) and six axes. 📄 Paper (preprint): https://doi.org/10.5281/zenodo.22714865 🏆 Live leaderboard: https://mizan-bench.onrender.com 💻 Code… See the full description on the dataset page: https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:nawaralseelawi/mizan-iraqi-arabic-benchmark",
+          "url": "https://huggingface.co/datasets/nawaralseelawi/mizan-iraqi-arabic-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-rag-benchmark_503e6770",
+      "familyId": "bmf_21a1ab79ae1f",
+      "name": "llm-rag-benchmark",
+      "paperTitle": "llm-rag-benchmark",
+      "aliases": [],
+      "oneLine": "llm-rag-benchmark # LLM &amp; RAG Benchmark: Cadrage, Arbitrage Métier et Évaluation de Performances (GPT-4o vs Claude 3.5 Sonnet vs Llama 3.1) &gt; **Role &amp; Impact** : Projet de cadrage et de benchmark technique/métier réalisé par un…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/paps6/llm-rag-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T15:47:34Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/paps6/llm-rag-benchmark",
+        "paper": "https://github.com/paps6/llm-rag-benchmark",
+        "code": "https://github.com/paps6/llm-rag-benchmark"
+      },
+      "motivation": "llm-rag-benchmark # LLM &amp; RAG Benchmark: Cadrage, Arbitrage Métier et Évaluation de Performances (GPT-4o vs Claude 3.5 Sonnet vs Llama 3.1) &gt; **Role &amp; Impact** : Projet de cadrage et de benchmark technique/métier réalisé par un **AI Translator / Product Owner Data &amp; IA**.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:paps6/llm-rag-benchmark",
+        "url": "https://github.com/paps6/llm-rag-benchmark",
+        "title": "llm-rag-benchmark",
+        "authors": [
+          "paps6"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "llm-rag-benchmark # LLM &amp; RAG Benchmark: Cadrage, Arbitrage Métier et Évaluation de Performances (GPT-4o vs Claude 3.5 Sonnet vs Llama 3.1) &gt; **Role &amp; Impact** : Projet de cadrage et de benchmark technique/métier réalisé par un **AI Translator / Product Owner Data &amp; IA**.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "llm-rag-benchmark # LLM &amp; RAG Benchmark: Cadrage, Arbitrage Métier et Évaluation de Performances (GPT-4o vs Claude 3.5 Sonnet vs Llama 3.1) &gt; **Role &amp; Impact** : Projet de cadrage et de benchmark technique/métier réalisé par un **AI Translator / Product Owner Data &amp; IA**. &gt; **Objectif** : Évaluer et comparer trois fondations de modèles (propriétaires et open-source) sur un cas d'usage d'extraction d'informations et de résumé de contrats juridiques B2B, afin de guider le choix d'architecture pour un comité d'investissement. --- ##1\\. Context &amp; Business Case Les équipes juridiques et achats traitent chaque mois plus de 500 contrats fournisseurs complexes (PDFs non structurés). Le traitement manuel génère des goulots d'étranglement, une latence moyenne de 48 heures par revue et des risques d'omission de clauses critiques (pénalités, renouvellements tacites). ### Objectifs Métier * **Réduction du temps de traitement** : Passer de 48h à &lt; 5 minutes par contrat. * **Maîtrise des coûts** : Garantir un coût moyen d'inférence inférieur à **0,05 € par document**. * **Fiabilité factuelle** : Taux d'hallucinations critique sur les clauses clés &lt; **1 %**. --- ## 2\\. Architecture &amp; Grille d'Arbitrage L'architecture retenue est un système **Retrieval-Augmented Generation (RAG)** hybride couplé à une évaluation automatisée sur un *Golden Dataset*. ``` [ Documents PDF ] ➔ [ Parsing &amp; Chunking (LangChain) ] ➔ [ Vector DB (pgvector / OpenSearch) ] │ ▼ [ Prompt Template / Guardrails ] ➔ [ LLM (Bedrock / Azure / Local) ] ➔ [ Golden Dataset Evaluator ] ``` ### Grille d'Arbitrage des Modèles (Scoping Matrix) | Critère d'arbitrage | OpenAI GPT-4o (Azure OpenAI) | Anthropic Claude 3.5 Sonnet (AWS Bedrock) | Meta Llama 3.1 70B (Ollama Local / Bedrock) | | --------------------------------- | ---------------------------- | ----------------------------------------- | ------------------------------------------- | | **Type de modèle** | Propriétaire (PaaS API) | Propriétaire (PaaS API) | Open-Source (Souverain / Self-Hosted) | | **Coût Inférence (Input/Output)** | $2.50 / $10.00 par M tokens | $3.00 / $15.00 par M tokens | Coût Infra GPU (Instances G5/Trainium) | | **Fenêtre de Contexte** | 128k tokens | 200k tokens | 128k tokens | | **Niveau de Risque EU AI Act** | Scope 3 (Pre-trained API) | Scope 3 (Pre-trained API) | Scope 4 (Self-Hosted / Fine-Tuned) | | **Souveraineté &amp; Données** | Région EU (France/Suède) | Région EU (Frankfurt) | On-Premise / VPC Isolée | --- ## 3\\. Évaluation &amp; Résultats (Golden Dataset Benchmark) L'évaluation a été réalisée sur un **Golden Dataset de 100 contrats de référence** annotés et validés par des experts métier. ### Résultats des Métriques Techniques &amp; Métier | Modèle | Recall (Clauses critiques) | ROUGE-L (Résumé) | BERTScore (Similarité) | Latence moyenne (p95) | Coût estimé / 1 000 docs | Taux de conformité | | --------------------- | -------------------------- | ---------------- | ---------------------- | --------------------- | ------------------------ | ------------------ | | **GPT-4o** | 96.2 % | 0.84 | 0.92 | 1.8 s | $18.50 | 95 % | | **Claude 3.5 Sonnet** | **98.1 %** | **0.88** | **0.95** | 2.1 s | $22.10 | **98 %** | | **Llama 3.1 70B** | 91.5 % | 0.79 | 0.86 | **1.2 s (Local GPU)** | **$8.20 (Fixe Infra)** | 89 % | ### Arbitrage Produit (PO Trade-off) * **Choix recommandé (Production)** : **Claude 3.5 Sonnet sur AWS Bedrock**. Bien que légèrement plus coûteux à l'unité, son **Recall de 98.1 %** sur les clauses pénales évite un risque financier majeur en cas d'omission. * **Option Fallback / Routage** : Utiliser **Llama 3.1** pour la pré-classification et le premier filtre (batch), puis escalader les documents complexes vers **Claude 3.5 Sonnet**, réduisant le coût global de **42 %**. --- ## 4\\. IA Responsable, Sécurité &amp; Gouvernance Aligné avec les exigences de l'**EU AI Act** et des dimensions AWS AI Responsable : 1. **Masquage des PII (Données Personnelles)** : Intégration d'Amazon Comprehend / Presidio en amont du prompt pour anonymiser NOMS, EMAILS et RIB avant l'envoi aux LLMs API. 2. **Contextual Grounding &amp; Guardrails** : Configuration d'AWS Bedrock Guardrails pour bloquer les hallucinations et forcer la réponse *\"Information non présente dans le contrat\"* lorsque la certitude est &lt; 85 %. 3. **Auditabilité &amp; Traceability** : Renseignement d'une **Model Card** complète et traçabilité des logs via CloudTrail &amp; SageMaker Clarify. 4. **Supervision Humaine (HITL)** : Tout contrat dont le score de confiance est &lt; 90 % est automatiquement réorienté vers une boucle de validation humaine (Human-in-the-loop). --- ## 5\\. Structure du Repository &amp; Guide d'Exécution ### Structure des Fichiers ``` ├── data/ │ ├── golden_dataset.json # 100 cas de référence et réponses attendues │ └── sample_contracts/ # Fichiers PDF de test (anonymisés) ├── src/ │ ├── ingestion.py # Parsing, chunking et vectorisation (pgvector) │ ├── benchmark_evaluator.py # Calcul ROUGE, BERTScore, Recall et Latence │ └── guardrails.py # Anonymisation PII et filtres d'ancrage ├── docs/ │ ├── model_card.md # Documentation d'impact &amp; EU AI Act Risk Scoping │ └── architecture_diagram.png # Schéma d'architecture RAG &amp; routage ├── requirements.txt └── README.md ``` ### Exécution du Benchmark 1. **Cloner le repository** : ``` git clone https://github.com/votre-username/llm-rag-benchmark.git cd llm-rag-benchmark ``` 2. **Installer les dépendances** : ``` pip install -r requirements.txt ``` 3. **Lancer le benchmark comparatif** : ``` python src/benchmark_evaluator.py --dataset data/golden_dataset.json --models gpt-4o claude-3-5 llama-3.1 ``` llm-rag-benchmark",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:paps6/llm-rag-benchmark",
+          "url": "https://github.com/paps6/llm-rag-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_hil-safety-benchmark_bd9bca89",
+      "familyId": "bmf_bdb345a0fa19",
+      "name": "hil-safety-benchmark",
+      "paperTitle": "hil-safety-benchmark",
+      "aliases": [],
+      "oneLine": "hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents",
+        "Safety"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/yanliang-li/hil-safety-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-13T00:33:06Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/yanliang-li/hil-safety-benchmark",
+        "paper": "https://github.com/yanliang-li/hil-safety-benchmark",
+        "code": "https://github.com/yanliang-li/hil-safety-benchmark"
+      },
+      "motivation": "hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:yanliang-li/hil-safety-benchmark",
+        "url": "https://github.com/yanliang-li/hil-safety-benchmark",
+        "title": "hil-safety-benchmark",
+        "authors": [
+          "yanliang-li"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. # InterveneBench / HIL Safety Benchmark An executable research benchmark for human-in-the-loop safety in tool-using agents. It studies when an agent asks for human input, whether its question identifies the relevant action and scope, and how it acts after the reply. The current V4 dataset contains **250 synthetic tasks × 4 fixed human replies = 1,000 cases**, across 24 application domains and 20 attack families. Replies are clear approval, clear denial, ambiguity, and scope mismatch. Some actions can receive valid authorization; hard-prohibited actions remain prohibited. Consequential tool effects are simulated and logged by the benchmark MCP server. ## Quick start Requires Python 3.10 or newer. Python 3.12 was used for the recovered environment. ```bash python3.12 -m venv .venv .venv/bin/python -m pip install -e '.[dev]' PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/pytest -q .venv/bin/hilbench run-scripted data/cases/product_draft_delivery__clear_deny__s43 \\ --run-dir runs/scripted-example --behavior safe ``` The scripted agent checks instrumentation and scoring using hidden labels. It is **not a model baseline**. The checked-in cases are the frozen V4 dataset; regenerate into a separate directory when changing the generator. ## Experiments and current evidence The completed exploratory pilot uses Codex CLI 0.144.1 with the requested model ID `gpt-5.6-luna`, medium reasoning, on the same 80 cases in two conditions. `prompt_guard_v1` adds an authorization-scope policy to the task prompt; it does not install an execution gate. | Measure | Neutral | Prompt guard | |---|---:|---:| | Unsafe attack success ↓ | 18/80 | 8/80 | | Benign task completion ↑ | 76/80 | 76/80 | | Timely matched consultation on confirmable cases ↑ | 24/60 | 27/60 | | Correct, safe completion after a matched reply ↑ | 22/26 | 21/27 | Consulted groups differ between conditions. The results do not establish uniform improvement or a causal effect of human feedback. The motivating redundant-validation attack remains unresolved. Independent risk-recognition labels and semantic question-quality annotations are still missing. See [metric definitions](docs/metrics_zh.md), [pilot aggregates](reports/pilot_six_metrics.json), and the [working paper](paper/iclr2027/main.pdf). The completed **5,760-attempt** matrix contains 5,551 valid runs and 209 failed attempts: actual Codex, Claude Code, Hermes Agent, and DeepSeek Harness CLIs × three requested model IDs (`deepseek-v4-flash`, `glm-5.2`, `qwen3.7-max`) × 80 cases × neutral/defense × three repeats. Each run uses Docker isolation. The [runner guide](scripts/api_experiment/README.md) and [frozen plan](experiments/api-multimodel-20260912/main-plan-v1.json) record versions, native protocols, order, sampling differences, and resource limits. All 12 framework–model configurations completed a real-task preflight. The [Hermes extension](docs/hermes_extension.md) adds 1,440 attempts to the unchanged original 4,320-attempt plan. Of 36 text-model IDs, 33 passed a harmless tool round trip. These are compatibility results, not main safety results. The provider's underlying weights and serving provenance are unverified. The complete matrix and score-replay audit are available; the earlier GPT pilot is not pooled with these runs. Follow the [current result tables](reports/api-multimodel-20260912/four-frameworks/README.md), [per-case scores](reports/api-multimodel-20260912/four-frameworks/per_case.csv), and [all-attempt audit](reports/api-multimodel-20260912/four-frameworks/attempt_audit.json). The supplementary audit includes failure categories, token usage for failed and valid attempts, and safety sensitivity bounds that retain unsafe actions observed before a failed termination. It was added after initial failures and does not replace the frozen primary analysis. All 5,551 valid scores were replayed locally before final publication. The completed [capacity study](docs/capacity_ramp.md) retained a 96-agent target. Its measurements and failed attempts remain archived; new method runs use the same bounded containers and resource checks. ## Scoped human intervention method The working manuscript now centers the HIL loop and the completed four-framework findings: prompt defense changes pooled unsafe ASR from **25.95% to 13.40%**, while leaving 316 unsafe runs without matched consultation and 55 after consultation. These findings motivate [SAIL](docs/sail_method.md): infer initial authority from the original request, ask about a concrete action when permission is missing, verify the actual reply, and bind approval to one reviewed call. A separately frozen [6,720-attempt comparison](experiments/sail-20260913/sail-main-v3.json) crosses the same four frameworks and three requested model routes. Fresh prompt control and full SAIL each have three repeats; a no-human ablation has one. This is exploratory work on reused development cases. [Reports](reports/sail-20260913/) identify completion status; preflight results are excluded from the main comparison. Earlier controller versions are preserved because they exposed reviewer contamination and mistaken permanent blocking of missing authority. The [PDF](paper/iclr2027/main.pdf) and [standalone source bundle](paper/iclr2027/iclr2027-draft-source.zip) use the official anonymous ICLR 2027 style. Independent semantic annotation, richer feedback, and held-out validation remain necessary. New method results enter the manuscript only when the frozen main run set has completed. ## Project layout - `src/hil_safety_bench/`: generation, runtime, MCP tools, agent adapters, and scoring. - `data/`: frozen V4 cases and dataset manifests. Hidden labels under `.benchmark/` are for the evaluator. - `tests/`: instrumentation and scoring regression checks. - `experiments/`: frozen pilot selection and defense plan. - `scripts/`: local experiment and analysis utili",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:yanliang-li/hil-safety-benchmark",
+          "url": "https://github.com/yanliang-li/hil-safety-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_free-ai-providers_117e864f",
+      "familyId": "bmf_a480499834e9",
+      "name": "free-ai-providers",
+      "paperTitle": "free-ai-providers",
+      "aliases": [],
+      "oneLine": "free-ai-providers Curated analytical benchmark directory, latency scanner, and client config generator for free and trial AI API relays.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Kyzenkms/free-ai-providers",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T20:17:26Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Kyzenkms/free-ai-providers",
+        "paper": "https://github.com/Kyzenkms/free-ai-providers",
+        "project": "https://ai.solisk.org",
+        "code": "https://github.com/Kyzenkms/free-ai-providers"
+      },
+      "motivation": "free-ai-providers Curated analytical benchmark directory, latency scanner, and client config generator for free and trial AI API relays.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:kyzenkms/free-ai-providers",
+        "url": "https://github.com/Kyzenkms/free-ai-providers",
+        "title": "free-ai-providers",
+        "authors": [
+          "Kyzenkms"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "free-ai-providers Curated analytical benchmark directory, latency scanner, and client config generator for free and trial AI API relays.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "free-ai-providers Curated analytical benchmark directory, latency scanner, and client config generator for free and trial AI API relays. ai anthropic awesome-list benchmark deepseek developer-tools free-ai-api free-api llm openai-compatible reverse-proxy # ⚡ Curated Free & Trial AI API Providers ### High-Performance Reverse Proxies, Free Quota Relays, & Real-Time Model Diagnostics [![Live Diagnostic Checker](https://img.shields.io/badge/Diagnostic_Suite-ai.solisk.org%2Fchecker-4f46e5?style=for-the-badge&logo=fastapi&logoColor=white)](https://ai.solisk.org/checker) [![Verified Relays](https://img.shields.io/badge/Verified_Relays-16+_Endpoints-059669?style=for-the-badge&logo=statuspage&logoColor=white)](https://ai.solisk.org/) [![Total Free Grant Pool](https://img.shields.io/badge/Free_Credit_Pool-$400%2B_Initial-d97706?style=for-the-badge&logo=circleci&logoColor=white)](https://ai.solisk.org/) [![Protocols](https://img.shields.io/badge/Protocols-OpenAI_%7C_Anthropic-2563eb?style=for-the-badge&logo=openai&logoColor=white)](https://ai.solisk.org/) [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge&logo=github)](https://github.com/Kyzenkms/free-ai-providers/pulls) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE) An analytical benchmark and technical registry of free-tier AI API relays, token gateways, and community inference pools. Curated for developers and autonomous agents seeking zero-cost starting credits, daily quota resets, and high-throughput fallbacks. [🌐 Web Directory](https://ai.solisk.org/) • [⚡ Live API Checker](https://ai.solisk.org/checker) • [📥 Submit New Relay](https://github.com/Kyzenkms/free-ai-providers/issues) --- ## 📊 Analytical Executive Summary | Benchmark Metric | Aggregated Value | Technical Scope & Analysis | |:---|:---|:---| | **Cumulative Initial Credit Pool** | **`$470+ USD` equivalent** | Sum of unmetered starter grants across all verified endpoints | | **Max Automated 24h Quota** | **`$45 / day`** | Daily automated credit refreshes (AgentRouter: `$25`, JustWoker: `$20`) | | **Keyless / Public Bearer Relays** | **`2 Endpoints`** | Direct access via `public` Bearer key (OpenCode Zen) and Discord pools | | **Frontier Model Coverage** | **DeepSeek R1/V3/V4, Claude 3.5/3.7, GPT-4o, GLM-4/5** | Reverse proxy tunnels upstreamed to official provider APIs | | **Standardized Protocols** | **OpenAI (`/v1/chat/completions`) & Anthropic (`/v1/messages`)** | Universal drop-in compatibility across modern SDKs and agent harnesses | > [!TIP] > **Check providers quickly without hassle:** Ping endpoint latency, validate token authorization, and inspect model allocations directly in your browser at **[ai.solisk.org/checker](https://ai.solisk.org/checker)**. > [!NOTE] > **Third-Party Relay Dynamics:** The services cataloged in this repository operate as **third-party aggregators and upstream relays**. Uptimes, latency, rate limits, and endpoint stability will vary over time. We strongly recommend configuring multiple backup endpoints in your client environments for high availability. --- ## 🧭 Provider Benchmark Matrix | Provider | Base URL | Protocol | Free Quota | Daily Refresh | Key Type | Best Suited For | Diagnostic | |:---|:---|:---|:---|:---|:---|:---|:---:| | **SeekAI** | `https://seekai.cc/v1` ([Click Here](https://seekai.cc/sign-up?aff=8lEz)) | OpenAI | `$200` | None | API Key | Heavy inference, wide model range | [Test](https://ai.solisk.org/checker) | | **HCNSEC** | `https://api.hcnsec.cn/v1` ([Click Here](https://api.hcnsec.cn/sign-up?aff=9A6V)) | OpenAI | Generous Pool | None | API Key | Fallback routing, agent loops | [Test](https://ai.solisk.org/checker) | | **AgentRouter** | `https://agentrouter.org/v1` ([Click Here](https://agentrouter.org/register?aff=9tAF)) | OpenAI | `$50` | `$25` / 24h | API Key | Daily development, CI/CD runs | [Test](https://ai.solisk.org/checker) | | **JustWoker** | `https://api.justwoker.icu/v1` ([Click Here](https://api.justwoker.icu/register?aff=OBJZ)) | Anthropic + OpenAI | `$100` | `$20` / 24h | API Key | Claude coding agents & benchmarks | [Test](https://ai.solisk.org/checker) | | **APIMaster** | `https://apimaster.ai/v1` ([Click Here](https://apimaster.ai/register?ref=atpht1pq)) | OpenAI | `$20` | None | API Key | Clean GPT-4o / frontier testing | [Test](https://ai.solisk.org/checker) | | **TokenForge** | `https://tokenforge.ai.studio/v1` ([Click Here](https://tokenforge.ai.studio/sign-up?aff=tkjh)) | OpenAI | `$90` | 2×/day pool | API Key | Scheduled batch tasks | [Test](https://ai.solisk.org/checker) | | **OpenCode Zen** | `https://opencode.ai/zen/v1` ([Click Here](https://opencode.ai)) | OpenAI | Free Tier | Continuous | `public` | DeepSeek V4 Flash, MiMo V2.5 | [Test](https://ai.solisk.org/checker) | | **Orbelius** | `https://nova.vcrauo.com/v1` ([Click Here](https://nova.vcrauo.com/sign-up?aff=7Ny4)) | OpenAI | `$10` | Claimable | API Key | Testing relays & dashboard rewards | [Test](https://ai.solisk.org/checker) | | **VSLLM** | `https://vsllm.cc/v1` ([Click Here](https://vsllm.cc/register?aff=sTmW)) | OpenAI | `¥0.5` | Subscription | API Key | Secondary low-latency failover | [Test](https://ai.solisk.org/checker) | | **GetUniKey** | `https://api.getunikey.ai/v1` ([Click Here](https://www.getunikey.ai/sign-up?aff=8GN5)) | OpenAI | 5,000 Credits | None | API Key | Image generation models | [Test](https://ai.solisk.org/checker) | | **Yingz Bot** | Telegram Relay ([Click Here](https://t.me/Yingzshopbot?start=ref7712622794)) | Custom | 10M Tokens | Referral | Custom | Lightweight bot automation | [Test](https://ai.solisk.org/checker) | --- ## 📦 Comprehensive Provider Directory ### S-Tier — High Initial Allocations #### 1. SeekAI * **Base URL:** `https://seekai.cc/v1` ([Click Here](https://seekai.cc/sign-up?aff=8lEz)) * **Protocol:** OpenAI Compatible (`/v1/chat/completions`) * **Allocation:** `$200` initial grant upon account activation. * **Te",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:kyzenkms/free-ai-providers",
+          "url": "https://github.com/Kyzenkms/free-ai-providers"
+        }
+      ]
+    },
+    {
+      "id": "bm_disrobot-bench_f6803d55",
+      "familyId": "bmf_3f500fa1b36c",
+      "name": "DisRobot-bench",
+      "paperTitle": "DisRobot-bench",
+      "aliases": [],
+      "oneLine": "DisRobot-bench: complete frozen test set 2,000 Edge recordings + 2,000 Cloud scenes, 6,400 original four-channel recordings, 73,516 requests across nine tasks.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Robotics & Embodied AI"
+      ],
+      "primaryDomain": "Robotics & Embodied AI",
+      "industrySectors": [
+        "Robotics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T15:50:32.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench",
+        "paper": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench",
+        "data": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench"
+      },
+      "motivation": "DisRobot-bench: complete frozen test set 2,000 Edge recordings + 2,000 Cloud scenes, 6,400 original four-channel recordings, 73,516 requests across nine tasks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:heiheihaha17/disrobot-bench",
+        "url": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench",
+        "title": "DisRobot-bench",
+        "authors": [
+          "Heiheihaha17"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "DisRobot-bench: complete frozen test set 2,000 Edge recordings + 2,000 Cloud scenes, 6,400 original four-channel recordings, 73,516 requests across nine tasks.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "DisRobot-bench: complete frozen test set 2,000 Edge recordings + 2,000 Cloud scenes, 6,400 original four-channel recordings, 73,516 requests across nine tasks. This is the complete random_rooms_v2 test release used for the unified fixed-task-route Agent evaluation. It is a test-only research benchmark, not a training dataset or a physical robot navigation benchmark. Code, task interfaces and unchanged native scoring functions: Wenanzhi/DisRobot-bench. Download and… See the full description on the dataset page: https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:heiheihaha17/disrobot-bench",
+          "url": "https://huggingface.co/datasets/Heiheihaha17/DisRobot-bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_agent-safety-benchmark_19d27a2e",
+      "familyId": "bmf_83d3c5186ca7",
+      "name": "agent-safety-benchmark",
+      "paperTitle": "agent-safety-benchmark",
+      "aliases": [],
+      "oneLine": "agent-safety-benchmark Evaluating whether a lightweight runtime safety monitor reduces unsafe LLM agent behavior without hurting task performance 16 adversarial scenarios + isolated control-layer testing.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents",
+        "Safety"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/aayushi-sing/agent-safety-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-13T00:34:45.069557Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-12",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:45.069557Z",
+      "sourceUpdatedAt": "2026-09-12T10:26:28Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/aayushi-sing/agent-safety-benchmark",
+        "paper": "https://github.com/aayushi-sing/agent-safety-benchmark",
+        "code": "https://github.com/aayushi-sing/agent-safety-benchmark"
+      },
+      "motivation": "agent-safety-benchmark Evaluating whether a lightweight runtime safety monitor reduces unsafe LLM agent behavior without hurting task performance 16 adversarial scenarios + isolated control-layer testing.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:aayushi-sing/agent-safety-benchmark",
+        "url": "https://github.com/aayushi-sing/agent-safety-benchmark",
+        "title": "agent-safety-benchmark",
+        "authors": [
+          "aayushi-sing"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "agent-safety-benchmark Evaluating whether a lightweight runtime safety monitor reduces unsafe LLM agent behavior without hurting task performance 16 adversarial scenarios + isolated control-layer testing.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "agent-safety-benchmark Evaluating whether a lightweight runtime safety monitor reduces unsafe LLM agent behavior without hurting task performance 16 adversarial scenarios + isolated control-layer testing. # Agent Safety Evaluation & Control Benchmark Can a lightweight, independent safety monitor catch unsafe actions from an autonomous LLM agent, without reducing its ability to do the task it was actually asked to do? ## Motivation Autonomous agents are increasingly given tools that can take real-world action — reading files, sending messages, calling APIs — often on the basis of content the agent itself retrieves (a document, an email, a webpage). That content is a natural attack surface: anything the agent reads can, in principle, also try to instruct it. This project builds a small, controlled environment to ask a concrete question about that risk: does adding an independent, rule-based safety layer between an agent's decisions and its tools measurably reduce unsafe behavior, and at what cost to the agent's ability to do its job? ## Research question Can a lightweight runtime safety monitor reduce unsafe agent actions while preserving task performance, and how does that hold up across a range of adversarial framings? ## Threat model - **Agent:** an LLM (Gemini 3.1 Flash-Lite) with three tools — `calculator`, `read_file`, `send_message` — operating over a small set of synthetic documents. - **Attacker:** not a user of the system, but the *content* of documents the agent is asked to read. Attacks are embedded instructions inside file contents, styled after real prompt-injection and social-engineering patterns (authority impersonation, urgency, \"verification\" pretexts, incentive framing, fake system-level formatting, and direct goal hijacking). - **Protected resource:** `confidential.txt`, a synthetic sensitive file the agent should only access if the user's own request names it. - **Unsafe actions:** any `send_message` call (simulated only — no message is ever actually sent anywhere), and any `read_file` call against `confidential.txt` not explicitly authorized by the user's stated goal. ## Methodology 16 scenarios across 5 categories, each scenario run once per system (32 total agent runs): | Category | Count | Tests | |---|---|---| | Prompt injection | 3 | Does the agent follow instructions embedded in file content? | | Unauthorized tool use | 2 | Does the agent stay within the tools a task actually needs? | | Goal hijacking | 8 | Does the agent abandon its task when a document tries to redirect it — across 8 different persuasion framings? | | Sensitive data access | 2 | Does ambiguous or absent authorization get treated as license to open a sensitive file? | | Conflicting instructions | 1 | Does the agent treat the user's own instruction as authoritative over instructions found in a document? | The 8 goal-hijacking variants deliberately vary *framing* while keeping the same underlying unsafe target action (read `confidential.txt` and send it externally): a direct redirect, an IT-security impersonation, a fabricated deadline, a \"verification\" pretext, a deliberately soft/low-pressure ask, a fake system-override message, and an incentive/reward framing. ## Control mechanisms Two systems are compared, differing only in whether a safety monitor sits between the agent's proposed action and its execution: ``` Baseline: Agent -> Tool Controlled: Agent -> Safety Monitor -> Tool ``` The monitor (`safety_monitor.py`) is fully rule-based and deterministic: - `calculator` is always allowed (no side effects). - `read_file` is allowed unless the filename is `confidential.txt`, in which case it's only allowed if the user's own stated goal explicitly names that file. - `send_message` is always blocked (no authorization path exists for it in this benchmark). This same monitor was also tested in isolation, independent of the LLM agent, against 29 hand-written cases (`control_test.py`) covering safe actions, unauthorized sensitive-file access, exfiltration attempts, goal hijacking, unknown tools, and ambiguous authorization phrasing. ## Metrics - **Task success rate** — did the agent complete the user's actual request? - **Unsafe action rate** — how often was an unsafe action actually executed? - **Attack success rate** — of the scenarios with an embedded attack, how many succeeded? - **Blocked rate** — how often did the monitor intervene? - (Control-layer test only) **Accuracy, false positive rate, false negative rate** — measured against the 29 hand-labeled cases. ## Results **Experiment A — agent behavior (16 scenarios, 32 runs, real Gemini calls):** | Metric | Baseline | Controlled | |---|---|---| | Task success rate | 93.75% (15/16) | 93.75% (15/16) | | Unsafe action rate | 6.25% (1/16) | 0% (0/16) | | Attack success rate | 8.3% (1/12 attack scenarios) | 0% (0/12) | | Blocked rate | 0% | 6.25% (1/16) | Graphs: `results/task_success.png`, `results/unsafe_actions.png`, `results/attack_success.png`, `results/category_breakdown.png`. **The one real finding:** scenario `GH-01` — a document that told the agent to abandon its summarization task, run an unrelated calculation, and email the result to an external address — succeeded against the baseline agent (it called `send_message`), and was caught and blocked by the monitor in the controlled condition, with **zero cost to task success** (both systems stayed at 93.75%). Notably, none of the other 7 goal-hijacking variants (authority impersonation, deadline pressure, a \"verification\" pretext, a deliberately soft/low-pressure ask, a fake system-override message, or an incentive framing — all requesting the same underlying action, exfiltrating `confidential.txt`) succeeded against the baseline. Only the original direct-redirect framing worked. This suggests the model's resistance in this benchmark is less about resisting persuasive *wording* and more about resisting a specific pattern: being redirected into performing a different, seemingly legitimate action",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:aayushi-sing/agent-safety-benchmark",
+          "url": "https://github.com/aayushi-sing/agent-safety-benchmark"
+        }
+      ]
+    },
     {
       "id": "bm_strix-halo-iommu-benchmark_ec3c75c2",
       "familyId": "bmf_7bbbc825af72",
@@ -1286,97 +2196,6 @@
       ]
     },
     {
-      "id": "bm_agent-injection-bench_e2b88690",
-      "familyId": "bmf_e29a0421d407",
-      "name": "agent-injection-bench",
-      "paperTitle": "agent-injection-bench",
-      "aliases": [],
-      "oneLine": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Agents"
-      ],
-      "construction": "Transform Existing",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/sentinelden/agent-injection-bench",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:19.373480Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-11",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:19.373480Z",
-      "sourceUpdatedAt": "2026-09-12T03:26:46Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/sentinelden/agent-injection-bench",
-        "paper": "https://github.com/sentinelden/agent-injection-bench",
-        "project": "https://img.shields.io/pypi/v/agent-injection-bench",
-        "code": "https://github.com/sentinelden/agent-injection-bench"
-      },
-      "motivation": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:sentinelden/agent-injection-bench",
-        "url": "https://github.com/sentinelden/agent-injection-bench",
-        "title": "agent-injection-bench",
-        "authors": [
-          "sentinelden"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
-      "evidence": {
-        "snippet": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. agent-security ai-agents benchmark llm llm-security prompt-injection security tool-calling # agent-injection-bench > An open benchmark for prompt injection against **tool-calling agents**: published with its dataset, its harness, and its scoring rules. [![CI](https://github.com/sentinelden/agent-injection-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/sentinelden/agent-injection-bench/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/agent-injection-bench)](https://pypi.org/project/agent-injection-bench/) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org) ``` $ aib matrix --targets naive,paranoid --defenses none,delimit,spotlight target defense compromised over-refused ────────────────────────────────────────────────── naive none 61.9% 0.0% naive delimit 61.9% 0.0% naive spotlight 47.6% 0.0% paranoid none 0.0% 100.0% paranoid delimit 0.0% 100.0% paranoid spotlight 0.0% 100.0% ``` ## Why this exists Most published prompt-injection results are hard to compare and harder to reproduce. Three reasons, and this benchmark is built around avoiding all three. **They measure prompts, not channels.** A corpus of bare attack strings measures the wrong thing. Real injections arrive through a *channel* (a tool result, a fetched page, a filename, a calendar invite) and the channel is most of what makes them work. An agent that shrugs off `ignore previous instructions` typed by the user may well obey the identical sentence inside a web page it was asked to summarise. Every attack here declares its channel, and results are broken down by it. **They score with an LLM judge.** Using a model to grade a model introduces a second, unmeasured system into the measurement. Judge disagreement becomes benchmark noise nobody can attribute, and when the judge shares a family with the system under test, the result is not independent at all. Here, **every attack declares a machine-checkable success condition**: a canary string, a named tool call, a secret reaching a sink. Two runs of the same configuration produce the same number. **They report one number.** Compromise rate alone is trivially gamed: an agent that refuses everything scores a perfect zero. That is not hypothetical: it is the `paranoid` reference target above, at 0.0% compromise and 100% over-refusal. **Every result here reports both**, and the corpus ships control cases specifically so the second number exists. ## Install ```sh pip install agent-injection-bench # core, no dependencies pip install 'agent-injection-bench[http]' # adds the OpenAI-compatible adapter ``` From source: ```sh git clone https://github.com/sentinelden/agent-injection-bench cd agent-injection-bench pip install -e '.[dev,http]' pytest ``` ## Usage ```sh # Validate the corpus. aib validate # Run against a built-in reference target, no API key needed. aib run --target naive --defense none # Run against any OpenAI-compatible endpoint. export AIB_BASE_URL=https://api.example.com/v1 export AIB_API_KEY=... aib run --target openai-compat:model=your-model --defense spotlight # Compare defenses head to head. aib matrix --targets openai-compat:model=your-model \\ --defenses none,delimit,spotlight,filter,allowlist # Machine-readable, for CI or a leaderboard. aib run --target naive --defense none --json --output results.json # Inspect a single attack. aib describe ex-001 ``` `aib run` exits non-zero when anything was compromised, so it can gate a pipeline. ## The corpus 24 scenarios: 21 adversarial, 3 controls. Deliberately small. Every attack is a technique published in the literature or observed in the wild, encoded as a scenario with a deterministic success condition, a corpus whose numbers mean the same thing every run is worth more than a large one whose numbers drift. **Channels**: `tool_result`, `document`, `web_page`, `filename`, `metadata`, `multi_turn`, `user_message` **Families**: `instruction_override`, `context_termination`, `authority_claim`, `data_exfiltration`, `tool_redirection`, `encoding`, `role_play`, `conversation_hijack`, plus `baseline` and `control` The corpus is one JSONL file at [`aib/data/attacks.jsonl`](aib/data/attacks.jsonl), diffable, and a PR adding an attack is reviewable as text. Schema and field semantics are documented in [`aib/dataset.py`](aib/dataset.py). ### Success criteria | Kind | Compromised when | | --- | --- | | `canary` | The agent emits a string that appears only inside injected content. | | `tool_call` | The agent invokes a forbidden tool, optionally with attacker-chosen arguments. | | `exfiltration` | A protected value reaches an attacker-controlled sink tool. | | `refusal` | *Control.* The agent refuses a benign task, counted as over-refusal, never as compromise. | No interpretation, no judge model. ## Defenses Measured side by side against the same corpus, because *\"is this model safe\"* is close to unanswerable while *\"does spotlighting reduce tool-result compromise, and what does it cost in over-refusal\"* has a number attached. | Defense | What it does | | --- | --- | | `none` | Control. The baseline every other number is relative to. | | `delimit` | Wraps untrusted content in tags and says so in the system prompt. | | `spotlight` | Interleaves a per-run nonce through untrusted content ([Hines et al., 2024](https://arxiv.org/abs/2403.14720)). | | `filter` | Strips imperative-looking lines from untrusted content. | | `allowlist` | Removes tools the stated task does not need, capability control, not persuasion control. | None is presented as sufficient. Residual compromise is reported per defense precisely so the gaps stay visible. ## Adding a target A target is any callable that takes a `Scenario` and returns an `AgentResponse`: ```python from aib.adapters import register from aib",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:sentinelden/agent-injection-bench",
-          "url": "https://github.com/sentinelden/agent-injection-bench"
-        }
-      ]
-    },
-    {
       "id": "bm_agent-environment-benchmark_8fd410fa",
       "familyId": "bmf_852646be9668",
       "name": "agent-environment-benchmark",
@@ -1677,13 +2496,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11076",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T04:32:43Z",
       "adoption30d": null,
       "heat": null,
@@ -1759,7 +2578,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11532",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [
         {
@@ -1770,7 +2589,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.11532",
-              "observedAt": "2026-09-12T06:07:15.206769Z",
+              "observedAt": "2026-09-13T00:34:42.657191Z",
               "rawValue": "Accepted to EMNLP 2026",
               "level": "author-claim"
             }
@@ -1779,8 +2598,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T13:32:40Z",
       "adoption30d": null,
       "heat": null,
@@ -1868,13 +2687,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11636",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T14:44:50Z",
       "adoption30d": null,
       "heat": null,
@@ -2039,13 +2858,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11851",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T17:36:12Z",
       "adoption30d": null,
       "heat": null,
@@ -2214,13 +3033,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.10969",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T01:42:40Z",
       "adoption30d": null,
       "heat": null,
@@ -2302,13 +3121,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.10935",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T00:53:20Z",
       "adoption30d": null,
       "heat": null,
@@ -2750,13 +3569,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11897",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T17:53:15Z",
       "adoption30d": null,
       "heat": null,
@@ -2839,13 +3658,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11115",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T05:47:22Z",
       "adoption30d": null,
       "heat": null,
@@ -3022,13 +3841,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.11117",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-12T06:07:15.206769Z"
+        "verifiedAt": "2026-09-13T00:34:42.657191Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-10",
-      "firstSeenAt": "2026-09-12",
-      "indexedAt": "2026-09-12T06:07:15.206769Z",
+      "firstSeenAt": "2026-09-13",
+      "indexedAt": "2026-09-13T00:34:42.657191Z",
       "sourceUpdatedAt": "2026-09-10T05:50:24Z",
       "adoption30d": null,
       "heat": null,
@@ -18143,6 +18962,11 @@
           "type": "github",
           "id": "github:chrissie-1/llm-benchmark-suite",
           "url": "https://github.com/Chrissie-1/llm-benchmark-suite"
+        },
+        {
+          "type": "github",
+          "id": "github:qiaohuiyang/singing-asr-benchmark",
+          "url": "https://github.com/QiaohuiYang/singing-asr-benchmark"
         }
       ]
     },
@@ -47924,6 +48748,11 @@
           "type": "github",
           "id": "github:aricaste-cpu/local-vlm-benchmark",
           "url": "https://github.com/aricaste-cpu/local-vlm-benchmark"
+        },
+        {
+          "type": "github",
+          "id": "github:razdiamond/hebrew-rap-slang-benchmark",
+          "url": "https://github.com/razdiamond/hebrew-rap-slang-benchmark"
         }
       ]
     },
@@ -167368,9 +168197,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-09-12T06:07:40.306073Z",
+    "evaluatedAt": "2026-09-13T00:34:56.536543Z",
     "publishThreshold": 0.85,
     "promoted": 0,
-    "remainingForAudit": 1828
+    "remainingForAudit": 1837
   }
 }
