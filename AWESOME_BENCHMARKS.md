@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-13 · **Benchmark releases:** 1738
+**Snapshot:** 2026-09-13 · **Benchmark releases:** 1739
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (60)
-- [General AI](#general-ai) (1195)
+- [General AI](#general-ai) (1196)
 - [Logistics & Operations](#logistics--operations) (11)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -291,6 +291,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **Pelican Bike Benchmark** (2026-09-12) — pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt. [Paper](https://github.com/Qrzzzz/pelican-bike-benchmark) · [Code](https://github.com/Qrzzzz/pelican-bike-benchmark)
 - **InterveneBench** (2026-09-12) — hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. [Paper](https://github.com/yanliang-li/hil-safety-benchmark) · [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
 - **Metric-Bench Test** (2026-09-11) — Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements. [Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench) · [Data](https://huggingface.co/datasets/yulingxi/Metric-Bench)
