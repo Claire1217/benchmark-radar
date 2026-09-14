@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-14 · **Benchmark releases:** 1753
+**Snapshot:** 2026-09-13 · **Benchmark releases:** 1757
 
 ## Contents
 
@@ -19,14 +19,14 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (60)
-- [General AI](#general-ai) (1207)
+- [General AI](#general-ai) (1209)
 - [Logistics & Operations](#logistics--operations) (12)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
 - [Mathematics & Formal Science](#mathematics--formal-science) (22)
 - [Mobile & Personal Computing](#mobile--personal-computing) (10)
 - [Quantum Computing & Control](#quantum-computing--control) (2)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (123)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (125)
 - [Scientific Facilities](#scientific-facilities) (1)
 - [Scientific Research & AI for Science](#scientific-research--ai-for-science) (2)
 - [Software & AI Compute](#software--ai-compute) (110)
@@ -291,18 +291,20 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
-- **Land-use relevance: small-LLM benchmark results** (2026-09-13) — Land-use relevance: small-LLM benchmark results Predictions and scores for small open-weight LLMs asked to judge whether a sentence about a place carries land-use, land-cover, or geographic-environment signal that could… [Paper](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance) · [Data](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance)
+- **Land-use relevance benchmark** (2026-09-13) — Land-use relevance: small-LLM benchmark results Predictions and scores for small open-weight LLMs asked to judge whether a sentence about a place carries land-use, land-cover, or geographic-environment signal that could… [Paper](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance) · [Data](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance)
 - **Pelican Bike Benchmark** (2026-09-12) — pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt. [Paper](https://github.com/Qrzzzz/pelican-bike-benchmark) · [Code](https://github.com/Qrzzzz/pelican-bike-benchmark)
 - **InterveneBench** (2026-09-12) — hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. [Paper](https://github.com/yanliang-li/hil-safety-benchmark) · [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
 - **ZipBench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
-- **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404) · [HF](https://huggingface.co/papers/2609.12404)
+- **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404)
 - **TraceJudgeBench** (2026-09-11) — We introduce TraceJudgeBench, a diagnostic benchmark for auditing citation-like artifacts in RAG and agent-workflow evaluation, covering content-equivalent pairs, citation ablations, correctness conflicts, human-validat… [Paper](https://arxiv.org/abs/2609.12439)
 - **SteerBench** (2026-09-11) — To evaluate full-duplex spoken steerability, we introduce SteerBench, a benchmark with 390 spoken prompts and 1,067 human-authored binary audio and text rubrics spanning tone, persona, style/accent, and speed/length. [Paper](https://arxiv.org/abs/2609.12623)
 - **ProactiveBench** (2026-09-11) — We introduce ProactiveBench, which evaluates models at one-second stream intervals without an explicit response cue. [Paper](https://arxiv.org/abs/2609.12658) · [Code](https://github.com/v0yager33/ProactiveBench)
 - **ParaRecover** (2026-09-11) — We introduce ParaRecover, a process-level benchmark for evaluating error localization and recovery in multi-turn parallel tool-use agents. [Paper](https://arxiv.org/abs/2609.12345) · [Code](https://github.com/gbw206/ParaRecover)
 - **OV-SGG-Bench** (2026-09-11) — To measure it we build OV-SGG-Bench, six axes scored across datasets that the priors standard recall rewards cannot satisfy. [Paper](https://arxiv.org/abs/2609.12552)
 - **Metric-Bench Test** (2026-09-11) — Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements. [Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench) · [Data](https://huggingface.co/datasets/yulingxi/Metric-Bench)
+- **MP-Bench** (2026-09-11) — To address this gap, we introduce Multiparty Bench (MP-Bench), the first benchmark specifically designed to objectively evaluate conversational speech systems as active participants within multi-party contexts. [Paper](https://arxiv.org/abs/2609.13076)
+- **K-Bench** (2026-09-11) — We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment. [Paper](https://arxiv.org/abs/2609.12808)
 - **HoliBench** (2026-09-11) — We present HoliBench, a modular benchmarking and deployment toolkit that jointly characterizes accuracy, latency, and energy across platforms from single-board computers to GPU servers. [Paper](https://arxiv.org/abs/2609.12412) · [Code](https://github.com/beesfleas/HoliBench)
 - **EgoMaize** (2026-09-11) — We introduce EgoMaize, a compact benchmark for first-person maize instance segmentation, where the task is to predict ownership consistent plant masks and plant-owned stem/tassel cues from close-range field images with… [Paper](https://arxiv.org/abs/2609.12350)
 - **Do LLMs Trust the Accuser or the Accusation? Measuring Belief Shifts in Werewolf** (2026-09-11) — We propose a belief-shift evaluation benchmark in Werewolf for analyzing communication skills through belief updating. [Paper](https://arxiv.org/abs/2609.12446)
@@ -1543,7 +1545,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mathematics & Formal Science
 
-- **ChitraMiti-12.8k** (2026-09-11) — We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
+- **ChitraMiti** (2026-09-11) — We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
 - **StochBench** (2026-09-08) — We introduce StochBench, a Lean 4 benchmark of 450 graduate stochastic-processes problems at varying abstraction levels, each paired with its natural-language source. [Paper](https://arxiv.org/abs/2609.09264)
 - **StudyBench** (2026-09-01) — We introduce StudyBench, a controlled physics benchmark that directly measures how efficiently a self-evolution method converts training material into capability. [Paper](https://arxiv.org/abs/2609.00787) · [Code](https://github.com/thunlp/StudyBench)
 - **ScienceArena** (2026-08-31) — We introduce \textsc{ScienceArena}, an olympiad-style benchmark from thirteen public science competitions in physics, chemistry, and biology, including IPhO and IChO 2025--2026, IBO 2023, USAPhO 2026, and USNCO 2025. [Paper](https://arxiv.org/abs/2608.30517)
@@ -1586,7 +1588,9 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Robotics & Embodied AI
 
+- **Sim2Real-AlgoBench** (2026-09-11) — Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot. [Paper](https://github.com/p20030920p/Sim2Real-AlgoBench) · [Code](https://github.com/p20030920p/Sim2Real-AlgoBench)
 - **GeoVAD-Bench** (2026-09-11) — To bridge this gap, we introduce GeoVAD-Bench, a diagnostic benchmark that pairs a fine-grained five-dimensional trajectory diagnosis covering perception, auxiliary quality, utilization, deductive reasoning, and final c… [Paper](https://arxiv.org/abs/2609.12606)
+- **Embodied-BenchForge** (2026-09-11) — We present Embodied-BenchForge, an agentic framework that transforms user-specified evaluation intents into complete embodied benchmark artifacts. [Paper](https://arxiv.org/abs/2609.13082)
 - **EgoGenEval** (2026-09-10) — We introduce EgoGenEval, a geometry-grounded, pose-free benchmark designed to evaluate the physical consistency of visual generators under ego-motion, and organize our study into two parts. [Paper](https://arxiv.org/abs/2609.11172) · [Code](https://github.com/InternRobotics/EgoGenEval)
 - **ReactHuman** (2026-09-09) — We introduce ReactHuman, the first physics-grounded benchmark for human-like reactive decision-making, in which the evaluated MLLM acts as the brain of a simulated humanoid facing sudden household hazards; it spans 17 e… [Paper](https://arxiv.org/abs/2609.10895) · [Data](https://huggingface.co/datasets/Alan123/reacthuman-benchmark-scaled)
 - **FolDeX** (2026-09-09) — We introduce FolDeX, a physical-world benchmark built entirely from real-robot data, with garment folding as its primary task. [Paper](https://arxiv.org/abs/2609.10243)

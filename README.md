@@ -26,28 +26,28 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-14 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-13 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Multimodal Perception | 39 HF votes · 53 GitHub stars |
-| 2 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 19 HF votes · 57 GitHub stars |
-| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 628 dataset downloads |
-| 4 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Robotics & Embodied Intelligence | 334 dataset downloads |
-| 5 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 185 dataset downloads |
-| 6 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 28 GitHub stars |
-| 7 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 178 GitHub stars |
-| 8 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Knowledge & Reasoning | 38 HF votes · 15 GitHub stars |
-| 9 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 6 HF votes · 2,317 dataset downloads |
-| 10 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 28 HF votes · 16 GitHub stars |
+| 1 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Robotics & Embodied Intelligence | 334 dataset downloads |
+| 2 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 406 dataset downloads |
+| 3 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 28 GitHub stars |
+| 4 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 178 dataset downloads |
+| 5 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 178 GitHub stars |
+| 6 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Knowledge & Reasoning | 38 HF votes · 15 GitHub stars |
+| 7 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 6 HF votes · 2,317 dataset downloads |
+| 8 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 5 HF votes · 54 GitHub stars |
+| 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 28 HF votes · 16 GitHub stars |
+| 10 | **PNI-3D Multimodal CAD & Geometric Robustness Benchmark**<br><sub>[Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)</sub> | Knowledge & Reasoning | 33 dataset downloads |
 
 ### Explore the library
 
 | General AI capabilities | Application fields |
 |---|---|
-| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 1,056<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 240<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 266<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 688<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 113<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 151<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 11 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 48<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 134<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 156<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 106<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 49 |
+| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 1,057<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 240<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 266<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 689<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 113<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 151<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 11 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 48<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 136<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 156<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 106<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 49 |
 
-**[Browse all 2,644 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,648 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find

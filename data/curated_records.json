@@ -4,12 +4,13 @@
     {
       "id": "bm_benchmark-llms-landuse-relevance_7050e5ea",
       "familyId": "bmf_71ba26e3b6a4",
-      "name": "Land-use relevance: small-LLM benchmark results",
+      "name": "Land-use relevance benchmark",
       "paperTitle": "benchmark-llms-landuse-relevance",
       "aliases": [
-        "benchmark-llms-landuse-relevance"
+        "benchmark-llms-landuse-relevance",
+        "Land-use relevance: small-LLM benchmark results"
       ],
-      "oneLine": "Evaluates small open-weight LLMs on judging whether a sentence about a place contains land-use, land-cover, or geographic-environment signal observable by remote sensing.",
+      "oneLine": "Evaluates small open-weight LLMs on judging whether a sentence about a place carries land-use, land-cover, or geographic-environment signal observable by remote sensing, using 154 labelled sentences and accuracy, balanced accuracy, F1, precision, recall, and Matthews correlation scores.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -87,14 +88,14 @@
           "url": "https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance"
         }
       ],
-      "description": "Evaluates small open-weight LLMs on judging whether a sentence about a place contains land-use, land-cover, or geographic-environment signal observable by remote sensing.",
-      "whyItMatters": "Provides a small labelled dataset and scoring protocol for comparing LLM performance on a remote-sensing relevance classification task.",
-      "evaluationMode": "public_reusable",
+      "description": "Evaluates small open-weight LLMs on judging whether a sentence about a place carries land-use, land-cover, or geographic-environment signal observable by remote sensing, using 154 labelled sentences and accuracy, balanced accuracy, F1, precision, recall, and Matthews correlation scores.",
+      "whyItMatters": "Provides a lightweight public comparison for remote-sensing relevance classification across small models, enabling reproducible screening without large compute budgets.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 30,
+        "score": 15,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Niche remote sensing and small LLM benchmarking topic with limited existing metadata suggesting broader community engagement."
+        "reason": "Narrow domain scope and small dataset likely limit initial visibility, while the GitHub code link may attract a modest developer audience."
       },
       "publishers": [
         {
@@ -108,16 +109,241 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Predictions and scores for small open-weight LLMs asked to judge whether a sentence about a place carries land-use, land-cover, or geographic-environment signal that could be observed by remote sensing.",
-          "scoring": "Leaderboard | model_id | accuracy | balanced_accuracy | f1 | precision | recall | matthews_corrcoef | unparsed_rate | truncated |",
-          "reuse": "The same benchmark and prompt, run under different settings: - `strict-8-tokens/`"
+          "task": "`benchmark.csv`; 154 labelled sentences; greedy decoding; `max_new_tokens=4096`; seed 0.",
+          "scoring": "Scores are recomputed from the published predictions.",
+          "reuse": "Code: https://github.com/NoeFlandre/benchmark-llms-landuse-relevance"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark dataset with 154 labelled sentences, explicit scoring metrics, and public reuse path for other teams to run the same evaluation.",
+        "decisionReason": "The Hugging Face dataset includes a labelled evaluation set, published model predictions, scoring metrics, and a linked code repository, providing a clear external submission path.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# Land-use relevance: small-LLM benchmark results"
+        "canonicalNameEvidence": "# Land-use relevance benchmark"
+      },
+      "attention": {
+        "asOf": "2026-09-14",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": 0,
+        "hfDatasetLikes": 0,
+        "hfDataset": "NoeFlandre/benchmark-llms-landuse-relevance",
+        "observedAt": "2026-09-14T01:54:58.773663Z",
+        "attemptedAt": "2026-09-14T01:54:58.773663Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "fresh",
+            "observedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "hfDatasetLikes": {
+            "state": "fresh",
+            "observedAt": "2026-09-14T01:54:58.773663Z"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 45,
+          "rank": 1,
+          "coverage": 0.05,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 45,
+            "rank": 1,
+            "coverage": 0.05,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "llmAttentionForecast": {
+                "value": 30,
+                "percentile": 0.3,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-13",
+            "windowDays": 1,
+            "elapsedDays": 1
+          },
+          "datasetDownloadRank": 1,
+          "datasetRankPopulation": 1
+        },
+        "30d": {
+          "score": 43,
+          "rank": 48,
+          "coverage": 0.15,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 43,
+            "rank": 48,
+            "coverage": 0.15,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 44,
+          "datasetRankPopulation": 44
+        },
+        "90d": {
+          "score": 35,
+          "rank": 188,
+          "coverage": 0.3,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 35,
+            "rank": 188,
+            "coverage": 0.3,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 78,
+          "datasetRankPopulation": 78
+        }
       }
     },
     {
@@ -582,7 +808,7 @@
       "name": "ZipBench",
       "paperTitle": "Zipbench: Low-Cost Framework for Compressing Comprehensive Benchmarks of Large Language Models",
       "aliases": [],
-      "oneLine": "Evaluates LLMs, VLMs, and agents on compressed versions of existing benchmarks, with ready-to-run small and tiny subsets.",
+      "oneLine": "Provides 100+ compact versions of text, multimodal, and agent benchmarks that reduce evaluation cost by 60–80% while preserving full-benchmark scores and model rankings through weighted item selection.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -673,18 +899,18 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates LLMs, VLMs, and agents on compressed versions of existing benchmarks, with ready-to-run small and tiny subsets.",
-      "whyItMatters": "Reduces benchmark evaluation cost by 60-80% while preserving score fidelity and model rankings, lowering barriers for researchers.",
-      "evaluationMode": "public_reusable",
+      "description": "Provides 100+ compact versions of text, multimodal, and agent benchmarks that reduce evaluation cost by 60–80% while preserving full-benchmark scores and model rankings through weighted item selection.",
+      "whyItMatters": "Enables low-cost, high-fidelity model evaluation across many tasks, making routine model comparison and fast screening practical without full benchmark compute.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Low",
+        "score": 75,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Accepted at EMNLP 2026 and addresses cost reduction for widely used benchmarks, likely to attract immediate interest."
+        "reason": "Broad applicability across text, multimodal, and agent benchmarks, combined with an EMNLP acceptance announcement, is likely to attract immediate evaluation community interest."
       },
       "publishers": [
         {
-          "name": "MilkThink Lab",
+          "name": "MilkThink-Lab",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/MilkThink-Lab/ZipBench",
           "role": "benchmark-publisher"
@@ -694,16 +920,414 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Provides compact versions of 100+ benchmark proxies spanning text, multimodal, and agent tasks, with small and tiny subsets.",
-          "scoring": "Scores are weighted estimates of full-benchmark scores with reported MAE and Spearman correlation.",
-          "reuse": "Code released at https://github.com/MilkThink-Lab/ZipBench with instructions to run evaluations."
+          "task": "100+ ready-to-use compact versions of text, multimodal, and agent benchmarks.",
+          "scoring": "Scores from `small` and `tiny` are **weighted estimates** of the corresponding full-benchmark scores.",
+          "reuse": "This repository provides ready-to-use evaluation for all three settings, together with the full benchmark-construction pipeline."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper presents a framework with theoretical guarantees and a public repository offering usable compact benchmarks.",
+        "decisionReason": "The GitHub repository includes ready-to-use configs for evaluation and a construction pipeline, with clear scoring and strong public reuse path.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "Zipbench: Low-Cost Framework for Compressing Comprehensive Benchmarks of Large Language Models"
+      },
+      "attention": {
+        "asOf": "2026-09-14",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.12475",
+        "githubStars": 4,
+        "githubRepo": "https://github.com/MilkThink-Lab/ZipBench",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-14T01:54:58.773663Z",
+        "attemptedAt": "2026-09-14T01:54:58.773663Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 36,
+          "rank": 63,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 36,
+            "rank": 63,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 4,
+                "normalized": 0.2397076310863079,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": 34,
+          "rank": 191,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 34,
+            "rank": 191,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 4,
+                "normalized": 0.2168709623550427,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      }
+    },
+    {
+      "id": "bm_vrl-bench_58e2cbeb",
+      "familyId": "bmf_7df8fc3cbc93",
+      "name": "VRL-Bench",
+      "paperTitle": "VRL-Bench: Benchmarking agents on computer control tasks under finite trial budgets",
+      "aliases": [],
+      "oneLine": "Learning from trial and error is a promising way to improve language agents on complex tasks such as computer control.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.12404",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-14T06:39:43.852630Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "indexedAt": "2026-09-14T06:39:43.852630Z",
+      "sourceUpdatedAt": "2026-09-11T03:54:02Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.12404",
+        "paper": "https://arxiv.org/abs/2609.12404",
+        "pdf": "https://arxiv.org/pdf/2609.12404",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Learning from trial and error is a promising way to improve language agents on complex tasks such as computer control.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.12404",
+        "url": "https://arxiv.org/abs/2609.12404",
+        "title": "VRL-Bench: Benchmarking agents on computer control tasks under finite trial budgets",
+        "authors": [
+          "Yu Bai",
+          "Yukai Miao",
+          "Dawei Wang",
+          "Li Chen",
+          "Yanyu Ren",
+          "Yuqian Shi",
+          "Dan Li",
+          "Ying Xiong",
+          "Chengqiu Tan",
+          "Run Zhou",
+          "Li Li"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "No artifact evidence is provided, so the evaluation task, scoring contract, and public reuse path cannot be verified.",
+        "model": "deepseek-v4-pro"
+      },
+      "attention": {
+        "asOf": "2026-09-14",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.12404",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-13T12:53:02.693952Z",
+        "attemptedAt": "2026-09-14T01:54:58.773663Z",
+        "status": "unavailable",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -807,18 +1431,18 @@
         "horizon": "7d",
         "reason": "The topic of LLM-as-a-judge bias and measurement is of niche but growing interest, and the paper provides concrete findings across multiple models, likely drawing attention from evaluation researchers."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Audit citation-like artifacts in RAG and agent-workflow evaluation through seven diagnostic conditions.",
           "scoring": "Metrics include worse-cited wins, correctness-conflict accuracy, and Tie resolution across prompt strengths, with human validation separating Tie meanings.",
           "reuse": "The supplementary artifact contains benchmark splits, prompts, raw judge outputs, validation summaries, and analysis, enabling other teams to reuse the benchmark."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark has a clearly defined diagnostic task, explicit scoring metrics, and released artifacts facilitating reuse and comparison.",
+        "decisionReason": "No artifact evidence is supplied to confirm a released task suite, scoring rules, or public reuse path.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce TraceJudgeBench, a diagnostic benchmark for auditing citation-like artifacts in RAG and agent-workflow evaluation, covering content-equivalent pairs, citation ablations, correctness conflicts, human-validated soft and moderate quality gaps, prompt-strength ladders, decoupled judging, and a controlled workflow-ranking probe."
       }
@@ -927,6 +1551,118 @@
       }
     },
     {
+      "id": "bm_sim2real-algobench_276f3760",
+      "familyId": "bmf_d59e3868fcea",
+      "name": "Sim2Real-AlgoBench",
+      "paperTitle": "Sim2Real-AlgoBench",
+      "aliases": [],
+      "oneLine": "A ROS 2 and Gazebo benchmark for a three-wheeled omnidirectional robot to search a known map for a marker and approach it, with interchangeable Nav2 planners scored on completion time, detections, path length, collisions, and clearance.",
+      "area": "Robotics & Embodied AI",
+      "applicationDomains": [
+        "Robotics & Embodied AI"
+      ],
+      "primaryDomain": "Robotics & Embodied AI",
+      "industrySectors": [
+        "Robotics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Robotics"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/p20030920p/Sim2Real-AlgoBench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-14T06:39:46.077603Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "indexedAt": "2026-09-14T06:39:46.077603Z",
+      "sourceUpdatedAt": "2026-09-13T06:58:25Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/p20030920p/Sim2Real-AlgoBench",
+        "paper": "https://github.com/p20030920p/Sim2Real-AlgoBench",
+        "project": "https://img.shields.io/badge/ROS%202-Jazzy-22314E?logo=ros&logoColor=white",
+        "code": "https://github.com/p20030920p/Sim2Real-AlgoBench"
+      },
+      "motivation": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:p20030920p/sim2real-algobench",
+        "url": "https://github.com/p20030920p/Sim2Real-AlgoBench",
+        "title": "Sim2Real-AlgoBench",
+        "authors": [
+          "p20030920p"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:p20030920p/sim2real-algobench",
+          "url": "https://github.com/p20030920p/Sim2Real-AlgoBench"
+        }
+      ],
+      "description": "A ROS 2 and Gazebo benchmark for a three-wheeled omnidirectional robot to search a known map for a marker and approach it, with interchangeable Nav2 planners scored on completion time, detections, path length, collisions, and clearance.",
+      "whyItMatters": "Provides a perceptual real-world task for robot navigation, focusing on autonomous environmental interaction rather than purely geometric planning.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche robotics benchmark with simple task and limited immediate appeal, likely to attract moderate attention from the robotics community."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "The robot gets a published start pose and exactly one start signal. It must search a known map for a green A4 wall marker, drive onto the yellow pad in front of it, and hold still for 3 s.",
+          "scoring": "The run ends on a **perceptual** condition, not a geometric one — which is what makes the simulation-to-hardware comparison meaningful.",
+          "reuse": "git clone https://github.com/p20030920p/Sim2Real-AlgoBench.git"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-14T06:40:30.289521Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository defines a repeatable task with published code and a stable scoring contract, allowing other teams to run the same benchmark.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Sim2Real-AlgoBench **A three-wheeled omnidirectional robot autonomy benchmark — one task, one interface contract, one metric set, scored in simulation and on hardware.**"
+      }
+    },
+    {
       "id": "bm_proactivebench_d1f3f8ef",
       "familyId": "bmf_b1897bd0920e",
       "name": "ProactiveBench",
@@ -1018,18 +1754,18 @@
         "horizon": "7d",
         "reason": "Proactive interaction in streaming video is an emerging evaluation angle and the paper reports a substantial gap in current systems, likely to generate interest in the vision-language community."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Evaluate streaming video models on proactive interaction: monitor a standing request and respond within an appropriate interval after a target event while otherwise remaining silent.",
           "scoring": "Event Sensitivity combines response and silence rates; four window-based subtasks distinguish early, in-window, and missed responses; Duplicate Counting penalizes omissions and repetitions.",
           "reuse": "Code and data are available at https://github.com/v0yager33/ProactiveBench, providing a public path for other teams to run the benchmark."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear task, explicit scoring methodologies, and releases code and data, enabling external use and comparison.",
+        "decisionReason": "The GitHub link is unverified and no artifact excerpt is provided, so the evaluation and reuse path cannot be established.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce ProactiveBench, which evaluates models at one-second stream intervals without an explicit response cue."
       }
@@ -1251,6 +1987,119 @@
       }
     },
     {
+      "id": "bm_mp-bench_04d97a7f",
+      "familyId": "bmf_268dd666db6d",
+      "name": "MP-Bench",
+      "paperTitle": "MP-Bench: Evaluating Voice Agents as a Multiparty Conversation Participant",
+      "aliases": [],
+      "oneLine": "Conversational voice agents have advanced significantly, offering increasingly natural human-machine interactions through both cascaded and end-to-end architectures.",
+      "area": "Speech & Audio",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "eess.AS"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "EMNLP 2026 Findings",
+        "evidence": "Accepted to EMNLP 2026 Findings",
+        "evidenceUrl": "https://arxiv.org/abs/2609.13076",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-09-14T06:39:43.852630Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "EMNLP 2026 Findings",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted to EMNLP 2026 Findings",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2609.13076",
+              "observedAt": "2026-09-14T06:39:43.852630Z",
+              "rawValue": "Accepted to EMNLP 2026 Findings",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "indexedAt": "2026-09-14T06:39:43.852630Z",
+      "sourceUpdatedAt": "2026-09-11T17:11:55Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.13076",
+        "paper": "https://arxiv.org/abs/2609.13076",
+        "pdf": "https://arxiv.org/pdf/2609.13076",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Conversational voice agents have advanced significantly, offering increasingly natural human-machine interactions through both cascaded and end-to-end architectures.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.13076",
+        "url": "https://arxiv.org/abs/2609.13076",
+        "title": "MP-Bench: Evaluating Voice Agents as a Multiparty Conversation Participant",
+        "authors": [
+          "Yi-Jen Shih",
+          "Shih-Yun Shan Kuan",
+          "Guan-Ting Lin",
+          "Kai-Wei Chang",
+          "Siddhant Arora",
+          "Shu-wen Yang",
+          "Abdelrahman Mohamed",
+          "Shinji Watanabe",
+          "Hung-yi Lee",
+          "David Harwath"
+        ],
+        "categories": [
+          "eess.AS",
+          "cs.AI",
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address this gap, we introduce Multiparty Bench (MP-Bench), the first benchmark specifically designed to objectively evaluate conversational speech systems as active participants within multi-party contexts.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "No artifact evidence is provided; the benchmark cannot be verified as released or reusable.",
+        "model": "deepseek-v4-pro"
+      }
+    },
+    {
       "id": "bm_metric-bench_e77780e5",
       "familyId": "bmf_c327ee6b71e1",
       "name": "Metric-Bench Test",
@@ -1346,18 +2195,18 @@
         "horizon": "7d",
         "reason": "Narrow benchmark for metric estimation, limited scenes, and no paper or strong community signals likely result in low initial attention."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements.",
           "scoring": "Ground truth uses a JSON string so scalar and vector answers share one stable column type.",
           "reuse": "This release provides reference answers but does not ship an official scoring implementation or specify a paper-equivalent acceptance threshold."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-13T09:41:17.153180Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Published as a Hugging Face dataset with a defined test split, ground-truth answers, and instructions for reuse, though scoring must be defined by users.",
+        "decisionReason": "The Hugging Face dataset contains a test split with clear task definition and reusable data, though lack of an official scoring implementation makes the scoring contract incomplete.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "pretty_name: Metric-Bench Test"
       },
@@ -1523,6 +2372,107 @@
       }
     },
     {
+      "id": "bm_k-bench_92156d34",
+      "familyId": "bmf_5a350d00e40c",
+      "name": "K-Bench",
+      "paperTitle": "K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments",
+      "aliases": [],
+      "oneLine": "K-Bench evaluates LLM unlearning in agentic deployments by measuring secret leakage across six ReAct agent channels under three secret locations: weights, prompt, and retrieval store.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.12808",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-14T06:39:43.852630Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "indexedAt": "2026-09-14T06:39:43.852630Z",
+      "sourceUpdatedAt": "2026-09-11T13:04:13Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.85,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.12808",
+        "paper": "https://arxiv.org/abs/2609.12808",
+        "pdf": "https://arxiv.org/pdf/2609.12808",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Unlearning benchmarks such as TOFU and MUSE certify forgetting by reading the model's final answer, where a model that refuses to answer already counts as having forgotten.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.12808",
+        "url": "https://arxiv.org/abs/2609.12808",
+        "title": "K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments",
+        "authors": [
+          "Guangsheng Yu and Yanna Jiang and Qin Wang and Baihe Ma and Xu Wang"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "K-Bench evaluates LLM unlearning in agentic deployments by measuring secret leakage across six ReAct agent channels under three secret locations: weights, prompt, and retrieval store.",
+      "whyItMatters": "It addresses the gap between model-level unlearning certificates and deployed agent behavior, exposing hidden leakage channels and enabling comparison of unlearning methods under realistic agent use.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche but timely AI safety topic with limited supplied evidence on artifact dissemination, suggesting moderate initial attention."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "K-Bench inspects all six channels a ReAct agent exposes, including its chain-of-thought (CoT), tool calls and tool observations, and elicited summary.",
+          "scoring": "The K-Score is computed separately for each source and credits forgetting only when the agent remains usable.",
+          "reuse": "On structured retrieval, the secret stays verbatim in the tool-observation channel and the aggregate leak rate is unchanged."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-14T06:40:30.289521Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The abstract explicitly introduces K-Bench as a benchmark with defined tasks, scoring via K-Score, and public experimental results demonstrating reuse.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment."
+      }
+    },
+    {
       "id": "bm_holibench_6d2d4ecd",
       "familyId": "bmf_b393809a6b64",
       "name": "HoliBench",
@@ -1613,18 +2563,18 @@
         "horizon": "7d",
         "reason": "The intersection of foundation models and IoT deployment is a hot topic, and the promise of a unified benchmarking toolkit across many platforms is likely to attract significant attention."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Jointly characterize foundation model accuracy, latency, and energy across heterogeneous edge and embedded platforms, supporting multiple model modalities, inference engines, and concurrency levels.",
           "scoring": "Reports accuracy, inference latency, and energy consumption; single-model profiles compose to predict combined pipeline latency and power within 1.2% and 2.5%.",
           "reuse": "The toolkit is released as open-source infrastructure, providing a platform abstraction layer and constraint-aware configuration selection for external deployment-aware evaluation."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper defines a clear benchmarking scope, describes profiling methodologies, and releases the toolkit for external reuse, supporting comparable evaluation.",
+        "decisionReason": "No explicit task suite, evaluator, or public scoring contract is described in the supplied evidence, despite a code link.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present HoliBench, a modular benchmarking and deployment toolkit that jointly characterizes accuracy, latency, and energy across platforms from single-board computers to GPU servers."
       }
@@ -1819,6 +2769,124 @@
         "policy": "source-evidence-v2",
         "decisionReason": "The paper introduces the benchmark but no artifact or public path is provided; without released data or code the benchmark cannot be reused.",
         "model": "deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "bm_embodied-bench_5c4c02cd",
+      "familyId": "bmf_494a81e5eb85",
+      "name": "Embodied-BenchForge",
+      "paperTitle": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction",
+      "aliases": [
+        "Embodied-Bench"
+      ],
+      "oneLine": "Evaluates embodied agents on Offline EQA and Interactive Embodied tracks, with 220 executable tasks and artifact-specific verification-driven scoring.",
+      "area": "Robotics & Embodied AI",
+      "applicationDomains": [
+        "Robotics & Embodied AI"
+      ],
+      "primaryDomain": "Robotics & Embodied AI",
+      "industrySectors": [
+        "Robotics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.13082",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-14T06:39:43.852630Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-11",
+      "firstSeenAt": "2026-09-14",
+      "indexedAt": "2026-09-14T06:39:43.852630Z",
+      "sourceUpdatedAt": "2026-09-11T17:16:01Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "evaluates_only",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.13082",
+        "paper": "https://arxiv.org/abs/2609.13082",
+        "pdf": "https://arxiv.org/pdf/2609.13082",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Agentic systems offer a promising way to automate embodied benchmark construction, but existing approaches typically cover isolated stages or remain specialized to predefined environments and task families.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.13082",
+        "url": "https://arxiv.org/abs/2609.13082",
+        "title": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction",
+        "authors": [
+          "Baoyang Jiang",
+          "Fengchun Zhang",
+          "Leyuan Wang",
+          "Haotian Li",
+          "Yida Wang",
+          "Zhe Ji",
+          "Jinshan Lai",
+          "Xi Ren",
+          "Danyang Li",
+          "Zheng Yang",
+          "Jianwei Hu",
+          "and Qiang Ma"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We present Embodied-BenchForge, an agentic framework that transforms user-specified evaluation intents into complete embodied benchmark artifacts.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "named entity is a model, method, framework, or dataset used in evaluation"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Evaluates embodied agents on Offline EQA and Interactive Embodied tracks, with 220 executable tasks and artifact-specific verification-driven scoring.",
+      "whyItMatters": "Addresses the lack of closed-loop benchmark construction with verification and repair, enabling robust multi-step embodied evaluation.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The niche topic and lack of explicit public links suggest moderate initial attention within embodied AI communities."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Constructs six benchmarks covering diverse embodied scenarios in the Offline EQA Track, together with one interactive benchmark containing 220 executable tasks in the Interactive Embodied Track.",
+          "scoring": "Evaluations of representative MLLMs and embodied agents show that the benchmarks distinguish model capabilities in both observation-based understanding and closed-loop execution.",
+          "reuse": "Quality assessment and ablations validate benchmark quality and the effectiveness of verification and repair, while repair and skill-reuse analyses demonstrate efficient localized recovery and cross-benchmark reusability."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-14T06:40:30.289521Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Provides clearly specified tasks, scoring, and a reusable construction workflow with verification evidence, matching a released benchmark.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction"
       }
     },
     {
@@ -2062,12 +3130,13 @@
     {
       "id": "bm_chitramiti-benchmarking-visual-grounding-a_190d3422",
       "familyId": "bmf_fb4b865f62fc",
-      "name": "ChitraMiti-12.8k",
+      "name": "ChitraMiti",
       "paperTitle": "ChitraMiti: Benchmarking Visual Grounding and Modality Reliance in Bengali Geometric Reasoning",
       "aliases": [
-        "ChitraMiti: Benchmarking Visual Grounding and Modality Reliance in Bengali Geometric Reasoning"
+        "ChitraMiti: Benchmarking Visual Grounding and Modality Reliance in Bengali Geometric Reasoning",
+        "ChitraMiti-12.8k"
       ],
-      "oneLine": "Benchmarks vision-language models on multimodal geometric reasoning in Bengali using synthetic and textbook-derived problems.",
+      "oneLine": "Evaluation of visual grounding and modality reliance in Bengali geometric reasoning using synthetic problems and textbook diagrams.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "Mathematics & Formal Science"
@@ -2145,14 +3214,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Benchmarks vision-language models on multimodal geometric reasoning in Bengali using synthetic and textbook-derived problems.",
-      "whyItMatters": "Addresses low-resource multimodal math evaluation and tests whether VLMs verify text against visual diagrams.",
+      "description": "Evaluation of visual grounding and modality reliance in Bengali geometric reasoning using synthetic problems and textbook diagrams.",
+      "whyItMatters": "It supplies a low-resource multilingual benchmark for visual-textual alignment and geometric understanding, addressing cross-lingual transfer for Bengali.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 65,
+        "score": 41,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Multimodal low-resource benchmark for a specific language may attract targeted research attention but broader appeal is limited."
+        "reason": "The benchmark's focus on low-resource Bengali geometric reasoning may draw interest from the multilingual NLP community."
       },
       "publishers": [
         {
@@ -2166,16 +3235,172 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Bengali planar geometry reasoning with diagram-only, diagram-plus-description, and description-only inputs from 12,874 synthetic problems and 500 textbook diagrams.",
-          "scoring": "Three-phase protocol separates input modalities; accuracy across five VLMs, including statistical analysis of description-only vs diagram-plus-description.",
-          "reuse": "Dataset and code are publicly available on Hugging Face at https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti."
+          "task": "ChitraMiti-12.8k contains 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions for visual grounding and modality reliance evaluation.",
+          "scoring": "The benchmark provides complementary NCTB-500 diagrams and ground-truth attributes to measure visual grounding and geometric reasoning.",
+          "reuse": "The dataset is published on Hugging Face at https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti, enabling reuse."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-14T00:40:50.737233Z",
+        "reviewedAt": "2026-09-14T06:44:31.931424Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Explicitly named benchmark with released dataset on Hugging Face, defined evaluation protocol, and reusable standardized tasks.",
-        "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from Bengali school textbooks."
+        "decisionReason": "The paper explicitly names a dataset with released data and ground truth, giving a publicly reusable protocol for scoring visual grounding.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "ChitraMiti: Benchmarking Visual Grounding and Modality Reliance in Bengali Geometric Reasoning"
+      },
+      "attention": {
+        "asOf": "2026-09-14",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": "https://huggingface.co/papers/2609.12509",
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": 16,
+        "hfDatasetLikes": 0,
+        "hfDataset": "RaiyanKhaan/ChitraMiti",
+        "observedAt": "2026-09-14T01:54:58.773663Z",
+        "attemptedAt": "2026-09-14T01:54:58.773663Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "fresh",
+            "observedAt": "2026-09-14T01:54:58.773663Z"
+          },
+          "hfDatasetLikes": {
+            "state": "fresh",
+            "observedAt": "2026-09-14T01:54:58.773663Z"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 47,
+          "rank": 44,
+          "coverage": 0.15,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 47,
+            "rank": 44,
+            "coverage": 0.15,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 16,
+                "normalized": 0.2899128428360774,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 30,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 43,
+          "datasetRankPopulation": 44
+        },
+        "90d": {
+          "score": 42,
+          "rank": 134,
+          "coverage": 0.3,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 42,
+            "rank": 134,
+            "coverage": 0.3,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 16,
+                "normalized": 0.2343752511298992,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 76,
+          "datasetRankPopulation": 78
+        }
       }
     },
     {
