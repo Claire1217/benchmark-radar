@@ -8,7 +8,7 @@ class LatestFeedTests(unittest.TestCase):
         root = pathlib.Path(__file__).resolve().parents[2]
         script = r'''
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const context={localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{})};
+const context={window:{},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{})};
 vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 vm.runInContext(`
 state.manifest={latestSourceDate:'2026-09-13',dataAsOf:'2026-09-15'};
