@@ -1,4 +1,4 @@
-"""Agent JSON commands: daily, hot, search and show."""
+"""Find benchmarks, explore hot releases, and inspect usage evidence."""
 import argparse
 import json
 import sys
@@ -6,6 +6,7 @@ import sqlite3
 from pathlib import Path
 from usage_store import UsageStore, norm, ROOT
 from search_index import SearchIndex, relevance_order
+from cli_output import emit
 from cli_discovery import valid_date, discover, attention, attention_order, keyword_match, domain_match
 
 class QueryError(Exception):
@@ -36,37 +37,59 @@ def labels(record, store):
 
 def run(argv=None):
     manifest = None
+    argv = list(sys.argv[1:] if argv is None else argv)
+    mode = 'json' if '--json' in argv or ('--text' not in argv and not sys.stdout.isatty()) else 'text'
+    args = None
     try:
-        parser = Parser(prog='benchmark-reader', description=__doc__)
+        if '--json' in argv and '--text' in argv:
+            raise QueryError('invalid_arguments', 'Choose either --json or --text.', 2)
+        parser = Parser(prog='benchmark-reader', description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
+                        epilog="""Examples:
+  benchmark-reader search "scientific coding"
+  benchmark-reader hot --window 7d --domain biology
+  benchmark-reader daily --date 2026-09-13
+  benchmark-reader show lib_gpqa_diamond --json
+
+Output: readable in a terminal; JSON when piped. Use --text or --json to pin it.
+Agent: use --json; inspect ok, error, coverage and nextOffset.
+Data: local checkout only. Run git pull to update. Hot means attention level, not growth.
+Run benchmark-reader COMMAND --help for command options.""")
+        def output_flags(p):
+            group = p.add_mutually_exclusive_group()
+            group.add_argument('--json', action='store_true', help='One JSON response; stable Agent interface')
+            group.add_argument('--text', action='store_true', help='Readable text, including when redirected')
+        output_flags(parser)
         sub = parser.add_subparsers(dest='command', required=True)
         for name in ('search', 'show'):
-            p = sub.add_parser(name)
+            p = sub.add_parser(name, help={'search':'Find by name, keywords or domain', 'show':'Inspect one identity and its usage evidence', 'daily':'List releases or discoveries for one day', 'hot':'Rank recent releases by current attention'}[name], description={'search':'Find benchmarks. Exact names first, then relevance. Domain filters use stored labels.', 'show':'Inspect an ID returned by search. Ambiguous names return candidate IDs.', 'daily':'Defaults to latest indexed release date. No previous-day fill.', 'hot':'Filter by release date, rank by current attention. Not a growth or historical-score chart.'}[name])
+            output_flags(p)
             p.add_argument('query', nargs='?' if name == 'search' else None, default='')
-            p.add_argument('--data-dir', type=Path, help='Directory containing library_index.json and usage/')
+            p.add_argument('--data-dir', type=Path, help='Local data directory (default: repository data/)')
             p.add_argument('--limit', type=positive, default=20 if name == 'search' else 50)
-            p.add_argument('--offset', type=nonnegative, default=0)
+            p.add_argument('--offset', type=nonnegative, default=0, help='Skip N results; use nextOffset from the previous response')
             if name == 'search':
-                p.add_argument('--domain')
+                p.add_argument('--domain', help='Stored domain label, e.g. biology, chemistry, coding')
                 p.add_argument('--sort', choices=['relevance', 'usage', 'attention', 'newest'], default='relevance')
                 p.add_argument('--expand', action='append', default=[], help='Explicit alternative search terms; repeatable')
         for name in ('daily', 'hot'):
-            p = sub.add_parser(name)
+            p = sub.add_parser(name, help={'search':'Find by name, keywords or domain', 'show':'Inspect one identity and its usage evidence', 'daily':'List releases or discoveries for one day', 'hot':'Rank recent releases by current attention'}[name], description={'search':'Find benchmarks. Exact names first, then relevance. Domain filters use stored labels.', 'show':'Inspect an ID returned by search. Ambiguous names return candidate IDs.', 'daily':'Defaults to latest indexed release date. No previous-day fill.', 'hot':'Filter by release date, rank by current attention. Not a growth or historical-score chart.'}[name])
+            output_flags(p)
             p.add_argument('query', nargs='?', default='')
-            p.add_argument('--domain')
+            p.add_argument('--domain', help='Stored domain label, e.g. biology, chemistry, coding')
             p.add_argument('--limit', type=positive, default=20)
-            p.add_argument('--offset', type=nonnegative, default=0)
+            p.add_argument('--offset', type=nonnegative, default=0, help='Skip N results; use nextOffset from the previous response')
             p.add_argument('--data-dir', type=Path, default=ROOT / 'data')
             if name == 'daily':
-                p.add_argument('--date', type=valid_date)
+                p.add_argument('--date', type=valid_date, help='YYYY-MM-DD; default: latest indexed source date')
                 p.add_argument('--basis', choices=['released', 'discovered'], default='released')
             else:
                 p.add_argument('--window', choices=['7d', '30d', '90d'], default='7d')
-                p.add_argument('--as-of', type=valid_date)
+                p.add_argument('--as-of', type=valid_date, help='Release-window end date; does not restore historical scores')
         args = parser.parse_args(argv)
         if args.command in {'daily', 'hot'}:
             payload = json.loads((args.data_dir / 'benchmarks_index.json').read_text())
             data = discover(payload, args)
-            print(json.dumps({'schemaVersion': '1.2', 'ok': True, 'data': data, 'coverage': payload['manifest'], 'error': None}, ensure_ascii=False))
+            emit({'schemaVersion': '1.2', 'ok': True, 'data': data, 'coverage': payload['manifest'], 'error': None}, args, mode)
             return 0
         store = UsageStore(args.data_dir)
         store.source_records = {r['id']: r for r in store.records}
@@ -114,13 +137,13 @@ def run(argv=None):
             count = len(data['observations'])
             data['observations'] = data['observations'][args.offset:args.offset+args.limit]
             data['pagination'] = {'observationTotal': count, 'nextOffset': args.offset+args.limit if args.offset+args.limit < count else None}
-        print(json.dumps({'schemaVersion': '1.2', 'ok': True, 'data': data, 'coverage': manifest, 'error': None}, ensure_ascii=False))
+        emit({'schemaVersion': '1.2', 'ok': True, 'data': data, 'coverage': manifest, 'error': None}, args, mode)
         return 0
     except QueryError as e:
         error = {'code': e.code, 'message': e.message, 'candidates': e.candidates}; status = e.status
     except (OSError, ValueError, KeyError, TypeError, sqlite3.Error) as e:
         error = {'code': 'invalid_database', 'message': str(e)}; status = 1
-    print(json.dumps({'schemaVersion': '1.2', 'ok': False, 'data': None, 'coverage': manifest, 'error': error}, ensure_ascii=False))
+    emit({'schemaVersion': '1.2', 'ok': False, 'data': None, 'coverage': manifest, 'error': error}, args, mode)
     return status
 
 if __name__ == '__main__':

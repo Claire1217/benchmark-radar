@@ -9,12 +9,38 @@ Run from a repository checkout with Python 3.10+; no packages or credentials req
 ./benchmark-reader show usage:model-reports:frontier_challenge --limit 10 --offset 0
 ```
 
-Four commands:
+## Choose your output
+
+| Reader | Command | Output |
+|---|---|---|
+| Human at a terminal | `./benchmark-reader search "scientific coding"` | Readable result list |
+| Human saving text | `./benchmark-reader hot --window 7d --text` | Same readable list when redirected |
+| Agent or script | `./benchmark-reader search "scientific coding" --json` | One structured JSON response |
+
+Default output is text on an interactive terminal and JSON otherwise, preserving existing piped consumers. Always specify `--json` in Agent instructions; use `--text` to force a readable preview. Both flags work before or after the command and cannot be combined. `--help` always prints ordinary help text and exits successfully.
+
+Text lists show name, stable ID, release date, attention and a short description/match explanation. Follow the printed ID with `show` to inspect evidence. Text detail summarizes usage and source links; JSON contains full observations and protocols. Unmeasured attention displays as `unmeasured`; an identity without linked usage evidence is described as unknown, not zero real-world adoption.
+
+Text errors go to stderr; JSON errors stay in the structured stdout envelope. Exit codes and JSON schema 1.2 are unchanged. Successful JSON output contains no banners or progress prose.
+
+## Pick a command
+
+| Intent | Command |
+|---|---|
+| Find a known name or explore a topic | `search QUERY` |
+| Inspect evidence for a selected result | `show ID` |
+| Read one day's releases | `daily --date YYYY-MM-DD` |
+| Read one day's first discoveries | `daily --date YYYY-MM-DD --basis discovered` |
+| Browse a week / three months of hot releases | `hot --window 7d` / `hot --window 90d` |
+
+Agent workflow: search → read IDs and coverage → show selected IDs → cite evidence. Use `data.nextOffset` for list pagination and `data.pagination.nextOffset` for show observation pagination; repeat the same filters with the new offset. Empty results are successful, not tool failures. Never interpret attention as relevance, adoption or scientific quality.
+
+Command details:
 
 - `search [query] [--domain LABEL]`: Weighted BM25 retrieval across names, aliases, descriptions and domain labels. Default `--sort relevance` puts exact primary names first, exact aliases next, then BM25 relevance. Explicit alternatives: `--sort usage|attention|newest`. Domain filters match stored labels, not a complete scientific taxonomy. Default limit 20.
 - `show ID_OR_EXACT_NAME`: identity, usage summary, evidence and source documents. Prefer an ID returned by search. Ambiguous names return candidates instead of choosing a version. Default observation limit 50.
 
-All commands accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow `nextOffset` until null. Show pagination applies only to observations; summary counts cover all observations. Commands perform no network requests. Standard output is one JSON object (except `--help`), with `schemaVersion`, `ok`, `data`, `coverage`, `error`. Exit codes: 0 success, 1 invalid database, 2 invalid arguments/ambiguous identity, 3 identity not found. Empty search is successful. Agents should inspect `ok`, preserve source IDs and cite returned evidence URLs.
+All commands accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow `nextOffset` until null. Show pagination applies only to observations; summary counts cover all observations. Commands perform no network requests. In JSON mode standard output is one JSON object (except `--help`), with `schemaVersion`, `ok`, `data`, `coverage`, `error`. Exit codes: 0 success, 1 invalid database, 2 invalid arguments/ambiguous identity, 3 identity not found. Empty search is successful. Agents should inspect `ok`, preserve source IDs and cite returned evidence URLs.
 
 ## Daily updates and hot lists
 
