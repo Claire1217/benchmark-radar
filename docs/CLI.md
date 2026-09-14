@@ -9,19 +9,11 @@ Run from a repository checkout with Python 3.10+; no packages or credentials req
 ./benchmark-reader show usage:model-reports:frontier_challenge --limit 10 --offset 0
 ```
 
-## Choose your output
+## Agent output contract
 
-| Reader | Command | Output |
-|---|---|---|
-| Human at a terminal | `./benchmark-reader search "scientific coding"` | Readable result list |
-| Human saving text | `./benchmark-reader hot --window 7d --text` | Same readable list when redirected |
-| Agent or script | `./benchmark-reader search "scientific coding" --json` | One structured JSON response |
+All queries return exactly one JSON object on stdout, including errors, whether called in a terminal, a pipe or an Agent tool. `--json` remains accepted as an optional explicit flag; there is no separate text mode. `--help` is ordinary readable help and exits successfully.
 
-Default output is text on an interactive terminal and JSON otherwise, preserving existing piped consumers. Always specify `--json` in Agent instructions; use `--text` to force a readable preview. Both flags work before or after the command and cannot be combined. `--help` always prints ordinary help text and exits successfully.
-
-Text lists show name, stable ID, release date, attention and a short description/match explanation. Follow the printed ID with `show` to inspect evidence. Text detail summarizes usage and source links; JSON contains full observations and protocols. Unmeasured attention displays as `unmeasured`; an identity without linked usage evidence is described as unknown, not zero real-world adoption.
-
-Text errors go to stderr; JSON errors stay in the structured stdout envelope. Exit codes and JSON schema 1.2 are unchanged. Successful JSON output contains no banners or progress prose.
+Read `ok` before using `data`. On failure inspect `error.code` and the process exit code. Successful queries contain no banners or progress prose. The JSON schema remains 1.2. Missing evidence and null metrics are not zero real-world adoption or influence.
 
 ## Pick a command
 
