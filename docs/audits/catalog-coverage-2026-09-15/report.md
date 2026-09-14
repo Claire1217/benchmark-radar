@@ -1,0 +1,384 @@
+# Catalog coverage audit — 2026-09-15
+
+Library: 2649 → 2861 records. 213 additions; 1 historical alias merges.
+
+Scope: BenchLM, LLM Stats, VerdictPal, Model Beats, Snorkel, Terminal-Bench, all 303 entries in the public Harbor registry, and the 11 datasets published by harborframework on Hugging Face. This does not claim to enumerate every dataset on Hugging Face or every benchmark on the internet.
+
+| Source | Directory rows | Accepted rows | Covered Library entries | New Library entries | Excluded |
+|---|---:|---:|---:|---:|---:|
+| benchlm | 435 | 435 | 412 | 16 | 0 |
+| llm-stats | 701 | 701 | 695 | 12 | 0 |
+| verdictpal | 38 | 35 | 35 | 7 | 3 |
+| modelbeats | 163 | 163 | 162 | 54 | 0 |
+| snorkel | 17 | 17 | 17 | 10 | 0 |
+| harbor | 303 | 171 | 161 | 127 | 132 |
+| tbench | 7 | 7 | 7 | 4 | 0 |
+| huggingface | 11 | 5 | 4 | 1 | 6 |
+
+New-entry counts overlap between sources and must not be summed. Every accepted source ID resolves to a Library record; missing references: 0.
+
+Root cause: prior saved catalogs were dated 2026-08-27. The old LLM Stats parser expected initialBenchmarks in server-rendered HTML; the current directory fetches the public JSON endpoint https://api.zeroeval.com/leaderboard/benchmarks. Refresh now uses that endpoint, preserves older catalog entries, and runs with the daily pipeline. Supplemental sources remain explicitly dated audited snapshots.
+
+Name matching preserves version/subset distinctions and the + suffix (e.g. RefCOCO versus RefCOCO+). Explicit source-backed aliases are retained. Unknown dates are not replaced with discovery dates. Terminal-Bench-Science 0.1 uses the official announcement date, 2026-08-27.
+
+Historical alias merges: [{'id': 'catalog_70090a3bc9b98ec7', 'name': 'ReverseEngBench'}]
+
+## Added benchmarks
+
+- AA Controlled Voice Arena — llm-stats
+- AA Provider Voice Arena — llm-stats
+- AA Terminal-Bench 4.0 — benchlm
+- AA-AnalystAgent — benchlm
+- aar — harbor
+- ADE-Bench — harbor
+- Agent Diff Review (VerdictPal Lab) — verdictpal
+- Agent Obs Harbor Core v3.1.4 — harbor
+- Agent Search — harbor
+- Agentic IF Index (Internal) — llm-stats
+- AI Builder Design Test (VerdictPal Lab) — verdictpal
+- ALE RSI Post-Training — harbor
+- algotune — harbor
+- Alibaba CTF Benchmark — harbor
+- AlpacaEval — modelbeats
+- AMC — modelbeats
+- ANLI — modelbeats
+- APEX-Agents 1.1 — harbor
+- APIBench (HuggingFace) — modelbeats
+- APIBench (TensorHub) — modelbeats
+- APIBench (TorchHub) — modelbeats
+- ApprenticeBench — benchlm
+- ARC-Challenge — modelbeats
+- arc-crm-6 — harbor
+- ARC-Easy — modelbeats
+- atm-bench-hard-sgm — harbor
+- autocodebench — harbor
+- AutoResearchExam — harbor
+- BenchCAD (Vision2Code) — modelbeats
+- bigcodebench-hard-complete — harbor
+- binary-audit — harbor
+- BIRD-SQL — modelbeats
+- bixbench-cli — harbor
+- Bug Hunt Bench — benchlm
+- bun-server-bench — harbor
+- cad-bench — harbor
+- CADGenBench Generation — benchlm
+- Chatbot Arena — modelbeats, verdictpal
+- chi-bench — harbor
+- Citation Fidelity (VerdictPal Lab) — verdictpal
+- COCO Captions — modelbeats
+- codepde — harbor
+- codeskills-bench — harbor
+- compilebench — harbor
+- compute-bazaar-bench — harbor
+- CounselBench-100 — harbor
+- crustbench — harbor
+- CWE-Bench — benchlm, llm-stats, modelbeats
+- CyberDefense Bench — harbor
+- dabstep — harbor
+- data-eng-bench — harbor
+- dealbench-100-suite — harbor
+- deveval — harbor
+- devopsbench-100 — harbor
+- devopsgym — harbor
+- domainbench-24 — harbor
+- DS-1000 — harbor, modelbeats
+- EEBench — benchlm
+- erpbench-100-suite — harbor
+- evoeval — harbor
+- FactoryBench-100 — harbor
+- featurebench — harbor
+- featurebench-lite — harbor
+- Finance Reasoning — snorkel
+- Flickr30k — modelbeats
+- FrontierBench — modelbeats
+- FrontierMath (Tier 4) — modelbeats
+- FrontierMath (Tiers 1-3) — modelbeats
+- FrontierSWE v2 — benchlm
+- Gaokao Math — modelbeats
+- gdb — harbor
+- Google Real-world Vulnerability Discovery — llm-stats
+- GQA — modelbeats
+- Gray Swan IPI Benchmark — llm-stats
+- haiku-hard — harbor
+- Harbor Index — harbor
+- harbor-index-1.0 — harbor
+- harness-bench-fast Harbor export — harbor
+- harvey-labs — harbor
+- HELM Safety — verdictpal
+- hil-bench — harbor
+- Horizon — harbor
+- horizon-1-public — harbor
+- HubBench 1.4.0 — harbor
+- HumanEval FIM — modelbeats
+- humanevalfix — harbor
+- Humanity's Last Exam (with tools) — llm-stats
+- hv-terminal-bench-2-1 — harbor
+- HWE-bench — harbor
+- Hypernym SWE-bench Artifact Replay — harbor
+- ineqmath — harbor
+- infra-bench-v1 — harbor
+- ITSMBench — harbor
+- JASTER — modelbeats
+- klyrune-bench — harbor
+- KoMT-Bench — modelbeats
+- kumo-1 — harbor
+- kumo-easy — harbor
+- kumo-hard — harbor
+- l1-l2-bench — harbor
+- labbench — harbor
+- LAMBADA — modelbeats
+- lamina-bench — harbor
+- lawbench — harbor
+- ledgerbench-100 — harbor
+- legacy-bench — harbor
+- litigation — harbor
+- LogicKor — modelbeats
+- Long-context translation — benchlm
+- longswebench-32k — harbor
+- medagentbench — harbor
+- MiniF2F (test) — modelbeats
+- MiniF2F (valid) — modelbeats
+- MLCR-AA — benchlm
+- mlgym-bench — harbor
+- MMBench (Chinese) — modelbeats
+- MMBench (English) — modelbeats
+- MMLU (EU-21 languages) — modelbeats
+- MMLU: Anatomy — modelbeats
+- MMLU: Clinical Knowledge — modelbeats
+- MMLU: Medical Genetics — modelbeats
+- modal-port-v1-eval-patched — harbor
+- monsterdog_ab_benchmark_v0_4_20260427T001200Z_1 — llm-stats
+- MRCR v2 256K-512K — benchlm
+- MRCR v2 512K-1M — benchlm
+- MRCR v2 8-needle (256K-512K) — modelbeats
+- multimedia-terminalbench — harbor
+- nl2repobench — harbor
+- o11y-bench — harbor
+- OK-VQA — modelbeats
+- open-design — harbor
+- OpenAssistant Bench — modelbeats
+- orca-bench-verified — harbor
+- otel-bench — harbor
+- ParseBench — llm-stats
+- PhysicianBench — harbor
+- product-bench — harbor
+- PubMedQA — modelbeats
+- PutnamBench — modelbeats
+- qcircuitbench — harbor
+- quixbugs — harbor
+- RACE-H — modelbeats
+- Rakuda — modelbeats
+- rating-generation-consistency — harbor
+- reasoning-gym-easy — harbor
+- reasoning-gym-hard — harbor
+- refav — harbor
+- RefCOCO — modelbeats
+- RefCOCO+ — modelbeats
+- replicationbench — harbor
+- RevBench — harbor
+- reward-hack-bench — harbor
+- reward-hack-bench-control — harbor
+- rexbench — harbor
+- RH SWE-bench — harbor
+- runebench — harbor
+- salesbench-100 — harbor
+- satbench — harbor
+- ScienceAgentBench — harbor
+- SEED-Bench — modelbeats
+- SemiKongBench-100 — harbor
+- Senior SWE-Bench (v2026.06) — harbor
+- sldbench — harbor
+- SlopCodeBench — harbor, snorkel
+- SnorkelFinance — snorkel
+- SnorkelGraph — snorkel
+- SnorkelSequences — snorkel
+- SnorkelSpatial — snorkel
+- SnorkelUnderwrite — snorkel
+- SnorkelWordle — snorkel
+- StoryCloze — modelbeats
+- StreamingBench — modelbeats
+- strongreject — harbor
+- SuperCLUE — modelbeats
+- SVGAP Reset Release — harbor
+- swe-atlas-rf — harbor
+- SWE-benchify-hard — harbor
+- SWE-kokkos-bench — harbor
+- swe-lancer-diamond-all — harbor
+- swe-lancer-diamond-ic — harbor
+- swe-lancer-diamond-manager — harbor
+- SWE-rebench-07-2026 — harbor
+- swe-rebench-leaderboard — harbor
+- swe-smith — harbor
+- swt-bench-verified — harbor
+- Tax Agent Bench — benchlm
+- tb21-code-debug — harbor
+- tb21-data-science — harbor
+- tb21-file-recovery — harbor
+- tb21-systems-security — harbor
+- Terminal-Bench 1.0 — tbench
+- Terminal-Bench 4.0 — benchlm, harbor, llm-stats, modelbeats, snorkel, tbench
+- Terminal-Bench Challenges — tbench
+- Terminal-Bench Lite — harbor
+- terminal-bench-pro — harbor
+- Terminal-Bench-Science (52-task Google DeepMind snapshot) — harbor
+- Terminal-Bench-Science 0.1 — benchlm, harbor, huggingface, llm-stats, modelbeats, snorkel, tbench, verdictpal
+- terminal_bench_aai — harbor
+- theagentcompany — harbor
+- TMax-15K-Harbor — harbor
+- usaco — harbor
+- USAMO — modelbeats
+- UserBench — harbor
+- Vals Finance Agent v2 — llm-stats
+- vector-edit-gym — harbor
+- Vicuna Bench — modelbeats
+- WebGen-Bench — harbor
+- WMT26 — benchlm
+- XWinograd — modelbeats
+- zenml-bench — harbor
+- τ²-Bench Retail — modelbeats
+- τ²-Bench Telecom — modelbeats
+- τ³-Bench Banking — modelbeats, verdictpal
+
+## Excluded directory entries
+
+- [AA output speed](https://verdictpal.com/benchmarks/aa-output-speed) — Serving-speed metric, not an evaluation task benchmark.
+- [AA time to first token](https://verdictpal.com/benchmarks/aa-ttft) — Serving-speed metric, not an evaluation task benchmark.
+- [hello-world](https://hub.harborframework.com/datasets/harbor/hello-world) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [registry-history-20260908](https://hub.harborframework.com/datasets/nlile/registry-history-20260908) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [tasktrove-exp-rpt-pymethods2test-large](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-pymethods2test-large) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-bash-withtests-gpt5mini-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-bash-withtests-gpt5mini-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h11-compositional-gradient-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h11-compositional-gradient-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h2-language-balanced-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h2-language-balanced-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h7-raw-volume-5k-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h7-raw-volume-5k-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-code-oracle-filtered](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-code-oracle-filtered) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-identity-following-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-identity-following-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-instruction-following-calendar](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-instruction-following-calendar) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-instruction-following-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-instruction-following-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-selfinstruct-naive-sandboxes-2-verified](https://hub.harborframework.com/datasets/openthoughts/tasktrove-selfinstruct-naive-sandboxes-2-verified) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [dw-dataset](https://hub.harborframework.com/datasets/tbench-dw-a-dw_1784073139_2608908/dw-dataset) — Public detail URL returned 404; identity not verified.
+- [dw2-dataset](https://hub.harborframework.com/datasets/tbench-dw2-a-dw2_1784073189_2619080/dw2-dataset) — Public detail URL returned 404; identity not verified.
+- [dw3-dataset](https://hub.harborframework.com/datasets/tbench-dw3-a-dw3_1784073253_2627946/dw3-dataset) — Public detail URL returned 404; identity not verified.
+- [xt-dataset](https://hub.harborframework.com/datasets/tbench-lbtest-a-xt_1784071893_2521724/xt-dataset) — Public detail URL returned 404; identity not verified.
+- [lbtest-dataset](https://hub.harborframework.com/datasets/tbench-lbtest-lb_1784071796_2517183/lbtest-dataset) — Public detail URL returned 404; identity not verified.
+- [pubcrack-dataset](https://hub.harborframework.com/datasets/tbench-pubcrack-a-pc_1784073251/pubcrack-dataset) — Public detail URL returned 404; identity not verified.
+- [rv-dataset](https://hub.harborframework.com/datasets/tbench-rv-a-rv_1784073719_2926154/rv-dataset) — Public detail URL returned 404; identity not verified.
+- [up-dataset](https://hub.harborframework.com/datasets/tbench-up-a-up_1784106749_3678887/up-dataset) — Public detail URL returned 404; identity not verified.
+- [up2-dataset](https://hub.harborframework.com/datasets/tbench-up2-a-up2_1784107856_4005736/up2-dataset) — Public detail URL returned 404; identity not verified.
+- [up3-dataset](https://hub.harborframework.com/datasets/tbench-up3-a-up3_1784108188_141385/up3-dataset) — Public detail URL returned 404; identity not verified.
+- [up4-dataset](https://hub.harborframework.com/datasets/tbench-up4-a-up4_1784108341_146593/up4-dataset) — Public detail URL returned 404; identity not verified.
+- [swe-gen-java](https://hub.harborframework.com/datasets/abundant/swe-gen-java) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [swe-gen-rust](https://hub.harborframework.com/datasets/abundant/swe-gen-rust) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [terminal-bench-3-test](https://hub.harborframework.com/datasets/bauerjustin/terminal-bench-3-test) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [swe-gen-cpp](https://hub.harborframework.com/datasets/abundant/swe-gen-cpp) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [swe-gen-go](https://hub.harborframework.com/datasets/abundant/swe-gen-go) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [generated-basic-production-traces](https://hub.harborframework.com/datasets/frontis/generated-basic-production-traces) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [UserBench-train400](https://hub.harborframework.com/datasets/userbench/UserBench-train400) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [LiteCoder-Terminal-RL-preview](https://hub.harborframework.com/datasets/LiteCoder/LiteCoder-rl) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [swe-gen-js](https://hub.harborframework.com/datasets/abundant/swe-gen-js) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [tb3-preview-v2](https://hub.harborframework.com/datasets/bauerjustin/tb3-preview-v2) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [bfcl_parity](https://hub.harborframework.com/datasets/gorilla/bfcl_parity) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [kumo-parity](https://hub.harborframework.com/datasets/kumo/kumo-parity) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [tasktrove-exp-rpt-stack-pytest-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-pytest-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [TMax-15K-Harbor-trial](https://hub.harborframework.com/datasets/tmax/TMax-15K-Harbor-trial) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [modal-port-v1-train-patched](https://hub.harborframework.com/datasets/vmax-modal/modal-port-v1-train-patched) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [task1_v3_1_stock_research_basket_rolling](https://hub.harborframework.com/datasets/ashantanu/task1_v3_1_stock_research_basket_rolling) — Individual experiment/case collection; independent benchmark identity not established.
+- [tasktrove-exp-rpt-curriculum-medium](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-curriculum-medium) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-e2egit-large](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-e2egit-large) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-exercism-python-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-exercism-python-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-multifile](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-multifile) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-nemotron-cpp](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-nemotron-cpp) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-pymethods2test-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-pymethods2test-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-php-large-v6](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-php-large-v6) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [termigen-environments](https://hub.harborframework.com/datasets/termigen/termigen-environments) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [vmax-tasks](https://hub.harborframework.com/datasets/vmax/vmax-tasks) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [task-aw](https://hub.harborframework.com/datasets/abhishek203/task-aw) — Individual experiment/case collection; independent benchmark identity not established.
+- [scientific-cases](https://hub.harborframework.com/datasets/itmo-autods/scientific-cases) — Individual experiment/case collection; independent benchmark identity not established.
+- [tasktrove-exp-rpt-curriculum-easy](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-curriculum-easy) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-curriculum-hard](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-curriculum-hard) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-ghactions-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-ghactions-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-issue](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-issue) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-nemotron-junit](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-nemotron-junit) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-pr-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-pr-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-scaffold-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-scaffold-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-dockerfile-gpt5mini-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-dockerfile-gpt5mini-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h6-test-quality-top25](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h6-test-quality-top25) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-agent-calendar](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-agent-calendar) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-math-advanced-calculations-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-math-advanced-calculations-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [seta-env](https://hub.harborframework.com/datasets/camel-ai/seta-env) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [test](https://hub.harborframework.com/datasets/cookbook/test) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [tasktrove-exp-rpt-stack-bash-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-bash-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-bash-withtests-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-bash-withtests-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-csharp-v5](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-csharp-v5) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-go-v4](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-go-v4) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-jest-large](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-jest-large) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-ruby-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-ruby-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-rust-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-rust-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-unitsyn-python-large](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-unitsyn-python-large) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-freelancer-projects-sandboxes-ta-rl-gpt-5-nano-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-freelancer-projects-sandboxes-ta-rl-gpt-5-nano-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-baseline-uniform-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-baseline-uniform-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-instruction-following-adversarial-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-instruction-following-adversarial-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nl2bash-tasks-cleaned-oracle](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nl2bash-tasks-cleaned-oracle) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-openswe-tasks-patched-v5-oracle-success](https://hub.harborframework.com/datasets/openthoughts/tasktrove-openswe-tasks-patched-v5-oracle-success) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-swegym-tasks-patched-validated-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-swegym-tasks-patched-validated-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tb-test](https://hub.harborframework.com/datasets/ryanmarten/tb-test) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [lb6-dev-pilot-issue18-rewardkit](https://hub.harborframework.com/datasets/shiv-eshwar/lb6-dev-pilot-issue18-rewardkit) — Individual experiment/case collection; independent benchmark identity not established.
+- [openpoly-tg-case](https://hub.harborframework.com/datasets/itmo-autods/openpoly-tg-case) — Individual experiment/case collection; independent benchmark identity not established.
+- [tasktrove-exp-rle-detailed-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-detailed-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rle-error-report-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-error-report-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rle-github-issue-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-github-issue-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rle-heavy-padding-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-heavy-padding-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rle-minimal-instructions-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-minimal-instructions-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-e2egit-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-e2egit-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-dockerfile-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-dockerfile-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-jest-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-jest-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-junit-v6](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-junit-v6) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-php-v2-v6](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-php-v2-v6) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-stack-pytest-large](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-stack-pytest-large) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-unitsyn-python-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-unitsyn-python-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h10-reward-staged-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h10-reward-staged-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h11-single-skill-only-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h11-single-skill-only-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h2-language-proportional](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h2-language-proportional) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h4-binary-easy](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h4-binary-easy) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h5-skill-diverse-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h5-skill-diverse-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h8-adversarial-tests-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h8-adversarial-tests-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h8-original-tests-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h8-original-tests-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-agent-workplace-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-agent-workplace-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-competitive-coding](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-competitive-coding) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-instruction-following-structured](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-instruction-following-structured) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-nemotron-gym-knowledge-web-search-mcqa](https://hub.harborframework.com/datasets/openthoughts/tasktrove-nemotron-gym-knowledge-web-search-mcqa) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-r2egym-patched-full-oracle](https://hub.harborframework.com/datasets/openthoughts/tasktrove-r2egym-patched-full-oracle) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-swe-rebench-patched-oracle](https://hub.harborframework.com/datasets/openthoughts/tasktrove-swe-rebench-patched-oracle) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-swe-rebench-v2-patched-oracle](https://hub.harborframework.com/datasets/openthoughts/tasktrove-swe-rebench-v2-patched-oracle) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-swesmith-oracle-filtered](https://hub.harborframework.com/datasets/openthoughts/tasktrove-swesmith-oracle-filtered) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [libragent-diverse-9](https://hub.harborframework.com/datasets/fritzprix/libragent-diverse-9) — Individual experiment/case collection; independent benchmark identity not established.
+- [unicode](https://hub.harborframework.com/datasets/grandsmile/unicode) — Individual experiment/case collection; independent benchmark identity not established.
+- [fdata-exit-case](https://hub.harborframework.com/datasets/itmo-autods/fdata-exit-case) — Individual experiment/case collection; independent benchmark identity not established.
+- [maize-yield-case](https://hub.harborframework.com/datasets/itmo-autods/maize-yield-case) — Individual experiment/case collection; independent benchmark identity not established.
+- [tasktrove-code-contests-noblock](https://hub.harborframework.com/datasets/openthoughts/tasktrove-code-contests-noblock) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-flat25-pseudocode-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-flat25-pseudocode-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-flat25-speed-bonus-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-flat25-speed-bonus-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-flat25-stackoverflow-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-flat25-stackoverflow-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-flat25-subtle-debug-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-flat25-subtle-debug-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rle-adversarial](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rle-adversarial) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-codenet-python-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-codenet-python-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-crosscodeeval-csharp-v4](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-crosscodeeval-csharp-v4) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-crosscodeeval-java](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-crosscodeeval-java) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-defects4j-v3-v4](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-defects4j-v3-v4) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-methods2test-large-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-methods2test-large-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-methods2test-large-v3](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-methods2test-large-v3) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-pr](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-pr) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-exp-rpt-taco-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-exp-rpt-taco-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-freelancer-projects-sandboxes-ta-rl-gpt-5-mini-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-freelancer-projects-sandboxes-ta-rl-gpt-5-mini-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-inferredbugs-sandboxes-verifier](https://hub.harborframework.com/datasets/openthoughts/tasktrove-inferredbugs-sandboxes-verifier) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-llm-verifier-freelancer](https://hub.harborframework.com/datasets/openthoughts/tasktrove-llm-verifier-freelancer) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h1-struggle-zone-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h1-struggle-zone-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h10-reward-binary-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h10-reward-binary-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [tasktrove-mix-h10-reward-proportional-v2](https://hub.harborframework.com/datasets/openthoughts/tasktrove-mix-h10-reward-proportional-v2) — TaskTrove training/ablation component, not an independent evaluation benchmark.
+- [Terminal-Bench](https://hub.harborframework.com/datasets/ryanmarten/tb4-preview) — Training, preview, integration test or sample-only artifact, not a separate released benchmark.
+- [Benchmarks we run ourselves .](https://verdictpal.com/benchmarks/lab) — Directory of benchmarks, not one benchmark.
+- [harborframework/terminal-bench-2-leaderboard](https://huggingface.co/datasets/harborframework/terminal-bench-2-leaderboard) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.
+- [harborframework/parity-experiments](https://huggingface.co/datasets/harborframework/parity-experiments) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.
+- [harborframework/harbor-datasets](https://huggingface.co/datasets/harborframework/harbor-datasets) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.
+- [harborframework/terminal-bench-science-lfs](https://huggingface.co/datasets/harborframework/terminal-bench-science-lfs) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.
+- [harborframework/harbor-mix](https://huggingface.co/datasets/harborframework/harbor-mix) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.
+- [harborframework/terminal-bench-lfs](https://huggingface.co/datasets/harborframework/terminal-bench-lfs) — Input/result mirror, aggregate registry, training mix or parity experiment; not an independent benchmark.

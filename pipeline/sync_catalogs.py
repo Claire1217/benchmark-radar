@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "catalog_records.json"
 BENCHLM_URL = "https://benchlm.ai/data/benchmarks.json"
-LLM_STATS_URL = "https://llm-stats.com/benchmarks"
+LLM_STATS_URL = "https://api.zeroeval.com/leaderboard/benchmarks"
 MIN_EXPECTED_ROWS = {"benchlm": 100, "llm-stats": 100}
 
 
@@ -26,11 +26,23 @@ def fetch(url: str) -> bytes:
 
 
 def normalized_name(value: str) -> str:
-    ascii_name = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().casefold()
+    ascii_name = unicodedata.normalize("NFKD", value.replace("+", " plus ").replace("τ", "tau").replace("²", "2").replace("³", "3")).encode("ascii", "ignore").decode().casefold()
     return re.sub(r"[^a-z0-9]+", "", ascii_name)
 
 
 def parse_llm_stats(body: bytes) -> list[dict]:
+    # The directory now loads this public JSON endpoint client-side.
+    try:
+        payload = json.loads(body)
+    except (ValueError, UnicodeDecodeError):
+        payload = None
+    if isinstance(payload, list) and all(isinstance(row, dict) and row.get("benchmark_id") for row in payload):
+        return payload
+    if isinstance(payload, dict):
+        for key in ("benchmarks", "data"):
+            rows = payload.get(key)
+            if isinstance(rows, list) and all(isinstance(row, dict) and row.get("benchmark_id") for row in rows):
+                return rows
     html = body.decode("utf-8", errors="replace")
     for match in re.finditer(r"self\.__next_f\.push\((\[.*?\])\)</script>", html, re.S):
         try:
@@ -136,9 +148,64 @@ def build_payload(benchlm_body: bytes, llm_stats_body: bytes, retrieved_at: str)
     }
 
 
+def merge_payloads(fresh: dict, previous: dict, supplemental: dict) -> dict:
+    """Refresh known sources without deleting older entries or curated supplemental rows."""
+    import copy
+    grouped = {}
+    by_source = {}
+    def refs(row):
+        return [(r["catalog"], r.get("sourceId") or r["url"]) for r in row.get("sourceRecords", [])]
+    for row in previous.get("records", []):
+        row = copy.deepcopy(row)
+        row["normalizedName"] = normalized_name(row["name"])
+        row.setdefault("firstSeenAt", previous.get("retrievedAt", "")[:10])
+        grouped[row["normalizedName"]] = row
+        for ref in refs(row):
+            by_source[ref] = row
+    for batch in (fresh, supplemental):
+        for incoming in batch.get("records", []):
+            incoming = copy.deepcopy(incoming)
+            key = normalized_name(incoming["name"])
+            existing = grouped.get(key)
+            if existing is None:
+                existing = next((by_source[ref] for ref in refs(incoming) if ref in by_source), None)
+            if existing is None:
+                existing = incoming
+                existing["normalizedName"] = key
+                existing.setdefault("firstSeenAt", batch.get("retrievedAt", fresh["retrievedAt"])[:10])
+                grouped[key] = existing
+            else:
+                old_name = existing["name"]
+                all_refs = {(r["catalog"], r.get("sourceId") or r["url"]): r for r in existing.get("sourceRecords", [])}
+                all_refs.update({(r["catalog"], r.get("sourceId") or r["url"]): r for r in incoming.get("sourceRecords", [])})
+                existing["sourceRecords"] = list(all_refs.values())
+                existing["aliases"] = sorted(set(existing.get("aliases", []) + incoming.get("aliases", []) + ([incoming["name"]] if incoming["name"] != old_name else [])))
+                existing["categories"] = sorted(set(existing.get("categories", []) + incoming.get("categories", [])))
+                for field in ("description", "modality", "releasedAt", "releaseEvidenceUrl", "links"):
+                    if incoming.get(field) and not (field == "description" and "task scope requires original-source review" in incoming[field] and existing.get(field)):
+                        existing[field] = incoming[field]
+                for field in ("modelCount", "starCount"):
+                    existing[field] = max(existing.get(field, 0), incoming.get(field, 0))
+            for ref in refs(existing):
+                by_source[ref] = existing
+    for row in grouped.values():
+        for field, default in (("aliases", []), ("categories", []), ("modelCount", 0), ("starCount", 0)):
+            row.setdefault(field, default)
+        row["sourceRecords"] = list({(r["catalog"], r.get("sourceId") or r["url"]): r for r in row.get("sourceRecords", [])}.values())
+    result = copy.deepcopy(fresh)
+    result["sources"] = {**previous.get("sources", {}), **fresh.get("sources", {}), **supplemental.get("sources", {})}
+    result["records"] = sorted(grouped.values(), key=lambda r: (r["name"].casefold(), r["id"]))
+    result["recordCount"] = len(result["records"])
+    return result
+
+
 def main() -> None:
     retrieved_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     payload = build_payload(fetch(BENCHLM_URL), fetch(LLM_STATS_URL), retrieved_at)
+    previous = json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
+    supplemental_path = ROOT / "data" / "supplemental_catalog_records.json"
+    supplemental = json.loads(supplemental_path.read_text()) if supplemental_path.exists() else {}
+    payload = merge_payloads(payload, previous, supplemental)
     temporary = OUTPUT.with_suffix(".tmp")
     temporary.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     temporary.replace(OUTPUT)

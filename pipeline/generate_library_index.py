@@ -30,7 +30,7 @@ MODEL_REPORT_LABELS = {
 
 
 def normalized_name(value: str) -> str:
-    ascii_name = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().casefold()
+    ascii_name = unicodedata.normalize("NFKD", value.replace("+", " plus ").replace("τ", "tau").replace("²", "2").replace("³", "3")).encode("ascii", "ignore").decode().casefold()
     return re.sub(r"[^a-z0-9]+", "", ascii_name)
 
 
@@ -103,10 +103,10 @@ def public_catalog(record: dict, first_seen: str) -> dict:
         "releasedAt": "0001-01-01",
         "releaseDatePrecision": "unknown",
         "firstRelease": {"year": None, "date": None},
-        "firstSeenAt": first_seen[:10],
+        "firstSeenAt": record.get("firstSeenAt", first_seen[:10]),
         "recognitionConfidence": 0.5,
         "links": {"report": report, "pdf": None, "project": None, "code": None, "data": None, "hfPaper": None},
-        "evidence": {"snippet": "Listed by BenchLM or llm-stats; original-source verification is pending.", "reasonCodes": ["external catalog listing"]},
+        "evidence": {"snippet": "Listed in a public benchmark catalog; original-source verification is pending.", "reasonCodes": ["external catalog listing"]},
         "dataStatus": "catalog-listed-unverified",
         "demo": False,
         "attention": {},
@@ -122,6 +122,12 @@ def public_catalog(record: dict, first_seen: str) -> dict:
         "modelReportReferences": [],
         "usageObservations": [],
     }
+    if record.get("releasedAt") and record.get("releaseEvidenceUrl"):
+        result["releasedAt"] = record["releasedAt"]
+        result["releaseDatePrecision"] = "day"
+        result["firstRelease"] = {"year": int(record["releasedAt"][:4]), "date": record["releasedAt"], "sourceUrl": record["releaseEvidenceUrl"]}
+    result["aliases"] = record.get("aliases", [])
+    result["links"].update(record.get("links", {}))
     result.update(normalize_taxonomy(result))
     return result
 
@@ -225,9 +231,9 @@ def main() -> None:
     catalog_only = 0
     catalog_merged = 0
     for source in catalogs.get("records", []):
-        existing = identities.get(source["normalizedName"])
+        existing = next((identities[key] for name in [source["name"], *source.get("aliases", [])] if (key := normalized_name(name)) in identities), None)
         if existing:
-            existing["catalogSources"] = source.get("sourceRecords", [])
+            existing["catalogSources"] = list({(ref["catalog"], ref.get("sourceId") or ref["url"]): ref for ref in [*existing.get("catalogSources", []), *source.get("sourceRecords", [])]}.values())
             existing["catalogCategories"] = source.get("categories", [])
             existing["catalogModelCount"] = max(existing.get("catalogModelCount", 0), source.get("modelCount", 0))
             existing["catalogStarCount"] = max(existing.get("catalogStarCount", 0), source.get("starCount", 0))
@@ -251,7 +257,7 @@ def main() -> None:
             "catalogMergedCount": catalog_merged,
             "catalogOnlyCount": catalog_only,
             "recentRecordCount": len(recent.get("records", [])),
-            "scope": "all-time Library, complete BenchLM and llm-stats catalogs, plus recent Radar records",
+            "scope": "all-time Library, BenchLM and llm-stats catalogs, audited supplemental public catalogs, and recent Radar records",
         },
         "records": records,
     }

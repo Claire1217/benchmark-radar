@@ -174,6 +174,16 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_metrics.py
 
+      - name: Refresh public benchmark catalogs
+        if: ${{ inputs.metrics_only != true }}
+        id: catalog-sync
+        continue-on-error: true
+        run: python pipeline/sync_catalogs.py
+
+      - name: Report catalog sync failure
+        if: ${{ steps.catalog-sync.outcome == 'failure' }}
+        run: echo "::warning::Catalog sync failed; retaining the previous complete catalog snapshot."
+
       - name: Generate public views once
         run: make generate
 
