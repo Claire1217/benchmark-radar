@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-13 · **Benchmark releases:** 1753
+**Snapshot:** 2026-09-14 · **Benchmark releases:** 1753
 
 ## Contents
 
@@ -296,7 +296,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **InterveneBench** (2026-09-12) — hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. [Paper](https://github.com/yanliang-li/hil-safety-benchmark) · [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
 - **ZipBench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
-- **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404)
+- **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404) · [HF](https://huggingface.co/papers/2609.12404)
 - **TraceJudgeBench** (2026-09-11) — We introduce TraceJudgeBench, a diagnostic benchmark for auditing citation-like artifacts in RAG and agent-workflow evaluation, covering content-equivalent pairs, citation ablations, correctness conflicts, human-validat… [Paper](https://arxiv.org/abs/2609.12439)
 - **SteerBench** (2026-09-11) — To evaluate full-duplex spoken steerability, we introduce SteerBench, a benchmark with 390 spoken prompts and 1,067 human-authored binary audio and text rubrics spanning tone, persona, style/accent, and speed/length. [Paper](https://arxiv.org/abs/2609.12623)
 - **ProactiveBench** (2026-09-11) — We introduce ProactiveBench, which evaluates models at one-second stream intervals without an explicit response cue. [Paper](https://arxiv.org/abs/2609.12658) · [Code](https://github.com/v0yager33/ProactiveBench)
