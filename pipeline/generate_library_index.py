@@ -13,6 +13,7 @@ import unicodedata
 from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
 from library_identity import merge_library_identities
+from library_release_dates import apply_release_dates
 from research_directions import annotate_records, direction_manifest
 
 
@@ -248,6 +249,9 @@ def main() -> None:
     identity_path = ROOT / "data" / "library_identity_merges.json"
     decisions = json.loads(identity_path.read_text()) if identity_path.exists() else {}
     records, identity_redirects = merge_library_identities(records, decisions)
+    release_path = ROOT / "data" / "library_release_dates.json"
+    if release_path.exists():
+        apply_release_dates(records, json.loads(release_path.read_text()))
     annotate_records(records)
     payload = {
         "manifest": {
