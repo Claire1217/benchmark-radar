@@ -25,6 +25,16 @@ class ResearchDirectionTests(unittest.TestCase):
         self.assertTrue({"ai-for-science", "ai-scientist", "tool-use", "agent-memory"} <= result.keys())
         self.assertEqual(record, before)
 
+    def test_naturebench_is_science_even_with_condensed_description(self):
+        record = {"name": "NatureBench", "description": "AI coding agents on 90 tasks distilled from Nature-family publications across 6 scientific domains."}
+        result = classify_directions(record)
+        self.assertIn("coding-agents", result)
+        self.assertIn("ai-for-science", result)
+        self.assertEqual(result["ai-for-science"]["sourceUrl"], "https://arxiv.org/abs/2606.24530")
+        annotate_records([record])
+        annotate_records([record])
+        self.assertEqual(record["researchDirections"].count("ai-for-science"), 1)
+
     def test_no_unknown_fallback(self):
         self.assertEqual(classify_directions({"name": "Unspecified", "description": ""}), {})
 

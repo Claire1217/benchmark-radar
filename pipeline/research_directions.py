@@ -99,6 +99,13 @@ def classify_directions(record):
             evidence = {"basis": "text-candidate", "excerpt": text[max(0, match.start()-50):match.end()+100]} if match else None
         if evidence:
             result[direction["id"]] = evidence
+    # Reviewed against the paper abstract; keep the coding-agent label as well.
+    if record.get("name") == "NatureBench":
+        result["ai-for-science"] = {
+            "basis": "primary-source-reviewed",
+            "sourceUrl": "https://arxiv.org/abs/2606.24530",
+            "excerpt": "90 tasks distilled from peer-reviewed Nature-family publications; coding agents evaluated on real scientific problems.",
+        }
     return result
 
 
