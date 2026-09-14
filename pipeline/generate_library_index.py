@@ -12,6 +12,7 @@ import unicodedata
 
 from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
+from library_identity import merge_library_identities
 from research_directions import annotate_records, direction_manifest
 
 
@@ -244,6 +245,9 @@ def main() -> None:
         identities[source["normalizedName"]] = item
         catalog_only += 1
     records = sorted(by_id.values(), key=lambda item: (item.get("name", "").casefold(), item["id"]))
+    identity_path = ROOT / "data" / "library_identity_merges.json"
+    decisions = json.loads(identity_path.read_text()) if identity_path.exists() else {}
+    records, identity_redirects = merge_library_identities(records, decisions)
     annotate_records(records)
     payload = {
         "manifest": {
@@ -255,7 +259,9 @@ def main() -> None:
             "catalogSourceRecordCount": sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values()),
             "catalogEntityCount": len(catalogs.get("records", [])),
             "catalogMergedCount": catalog_merged,
-            "catalogOnlyCount": catalog_only,
+            "catalogOnlyCount": sum(r.get("recordType") == "catalog-entry" for r in records),
+            "identityRedirects": identity_redirects,
+            "identityMergeCount": len(identity_redirects),
             "recentRecordCount": len(recent.get("records", [])),
             "scope": "all-time Library, BenchLM and llm-stats catalogs, audited supplemental public catalogs, and recent Radar records",
         },
