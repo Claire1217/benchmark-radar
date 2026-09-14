@@ -12,6 +12,7 @@ import unicodedata
 
 from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
+from research_directions import annotate_records, direction_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -235,9 +236,11 @@ def main() -> None:
         identities[source["normalizedName"]] = item
         catalog_only += 1
     records = sorted(by_id.values(), key=lambda item: (item.get("name", "").casefold(), item["id"]))
+    annotate_records(records)
     payload = {
         "manifest": {
             "schemaVersion": "1.0",
+            "researchTaxonomy": direction_manifest(records),
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
             "recordCount": len(records),
             "classicRecordCount": len(classics.get("records", [])),
