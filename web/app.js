@@ -72,9 +72,45 @@ function setup(){
 let typeOptions=[],typeCursor=-1;
 function typeDefinitions(){return [...researchDefinitions().map(d=>({id:d.id,name:d.name,kind:"direction",description:d.description||""})),...[...new Set(state.library.flatMap(r=>r.applicationDomains||[]))].sort().map(name=>({id:name,name,kind:"domain",description:"Application field"}))];}
 function syncType(){const d=typeDefinitions().find(d=>d.kind==="direction"?d.id===state.libraryDirection:d.id===state.libraryDomain);$("selected-type").replaceChildren();if(d){const b=document.createElement("button");b.textContent=d.name+" ×";b.onclick=()=>chooseType(null);$("selected-type").append(b);}}
-function chooseType(d){state.libraryDirection=d?.kind==="direction"?d.id:"";state.libraryDomain=d?.kind==="domain"?d.id:"";state.libraryScope="";state.libraryCapability="";state.libraryTopic="";state.librarySearch="";$("library-search").value="";$("type-query").value="";$("type-options").hidden=true;$("type-query").setAttribute("aria-expanded","false");$("type-query").removeAttribute("aria-activedescendant");const p=new URLSearchParams();if(d)p.set(d.kind,d.id);history.replaceState(null,"","#library"+(d?"?"+p:""));renderLibrary();}
-function showTypes(){const q=$("type-query").value.trim().toLowerCase(),aliases={"科学":"science","机器人":"robot","编程":"coding","智能体":"agent","ai4science":"ai for science"},needle=aliases[q]||q;typeOptions=typeDefinitions().filter(d=>!needle||(d.name+" "+d.id+" "+d.description).toLowerCase().includes(needle));typeCursor=-1;const list=$("type-options");list.replaceChildren();for(const [i,d] of typeOptions.entries()){const b=document.createElement("button");b.id="type-option-"+i;b.setAttribute("role","option");b.setAttribute("aria-selected","false");const count=state.library.filter(displayEligible).filter(r=>d.kind==="direction"?(r.researchDirections||[]).includes(d.id):(r.applicationDomains||[]).includes(d.id)).length;b.textContent=d.name+" · "+count+" benchmarks";b.onclick=()=>chooseType(d);list.append(b);}if(!typeOptions.length)list.textContent="No matching type. Try a different term.";list.hidden=false;$("type-query").setAttribute("aria-expanded","true");}
-function setupTypePicker(){const input=$("type-query");input.onfocus=showTypes;input.oninput=showTypes;input.onkeydown=e=>{if(e.key==="Escape"){$("type-options").hidden=true;input.setAttribute("aria-expanded","false");return;}if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if($("type-options").hidden)showTypes();typeCursor=Math.max(0,Math.min(typeOptions.length-1,typeCursor+(e.key==="ArrowDown"?1:-1)));[...$("type-options").children].forEach((b,i)=>b.setAttribute("aria-selected",String(i===typeCursor)));const active=$("type-option-"+typeCursor);if(active){input.setAttribute("aria-activedescendant",active.id);active.scrollIntoView({block:"nearest"});}}if(e.key==="Enter"&&typeOptions.length){e.preventDefault();chooseType(typeOptions[Math.max(0,typeCursor)]);}};document.addEventListener("click",e=>{if(!e.target.closest(".type-picker")){$("type-options").hidden=true;input.setAttribute("aria-expanded","false");}});}
+function closeTypes(){const input=$("library-search");$("type-options").hidden=true;input.setAttribute("aria-expanded","false");input.removeAttribute("aria-activedescendant");typeCursor=-1;}
+function chooseType(d){
+  state.libraryDirection=d?.kind==="direction"?d.id:"";state.libraryDomain=d?.kind==="domain"?d.id:"";
+  state.libraryScope="";state.libraryCapability="";state.libraryTopic="";
+  if(d){state.librarySearch="";$("library-search").value="";}
+  closeTypes();const p=new URLSearchParams();if(d)p.set(d.kind,d.id);
+  history.replaceState(null,"","#library"+(d?"?"+p:""));renderLibrary();
+}
+function showTypes(){
+  const input=$("library-search"),q=input.value.trim().toLowerCase();
+  const aliases={"科学":"science","机器人":"robot","编程":"coding","智能体":"agent","ai4science":"ai for science"},needle=aliases[q]||q;
+  typeOptions=typeDefinitions().filter(d=>!needle||(d.name+" "+d.id+" "+d.description).toLowerCase().includes(needle)).slice(0,8);
+  typeCursor=-1;input.removeAttribute("aria-activedescendant");const list=$("type-options");list.replaceChildren();
+  for(const [i,d] of typeOptions.entries()){
+    const b=document.createElement("button");b.type="button";b.tabIndex=-1;b.id="type-option-"+i;
+    b.setAttribute("role","option");b.setAttribute("aria-selected","false");
+    const count=state.library.filter(displayEligible).filter(r=>d.kind==="direction"?(r.researchDirections||[]).includes(d.id):(r.applicationDomains||[]).includes(d.id)).length;
+    b.textContent=d.name+" · Type · "+count;b.onclick=()=>chooseType(d);list.append(b);
+  }
+  list.hidden=!typeOptions.length;input.setAttribute("aria-expanded",String(!list.hidden));
+}
+function setupTypePicker(){
+  const input=$("library-search");input.onfocus=showTypes;
+  input.oninput=e=>{state.librarySearch=e.target.value.trim().toLowerCase();state.libraryVisible=LIBRARY_PAGE_SIZE;renderLibrary();showTypes();};
+  input.onkeydown=e=>{
+    if(e.isComposing)return;
+    if(e.key==="Escape"){closeTypes();return;}
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      if($("type-options").hidden)showTypes();if(!typeOptions.length)return;e.preventDefault();
+      typeCursor=Math.max(0,Math.min(typeOptions.length-1,typeCursor+(e.key==="ArrowDown"?1:-1)));
+      [...$("type-options").children].forEach((b,i)=>b.setAttribute("aria-selected",String(i===typeCursor)));
+      const active=$("type-option-"+typeCursor);if(active){input.setAttribute("aria-activedescendant",active.id);active.scrollIntoView({block:"nearest"});}
+    }
+    if(e.key==="Enter"){e.preventDefault();if(!$("type-options").hidden&&typeCursor>=0)chooseType(typeOptions[typeCursor]);else closeTypes();}
+    if(e.key==="Tab")closeTypes();
+  };
+  document.addEventListener("click",e=>{if(!e.target.closest(".type-picker"))closeTypes();});
+}
+
 
 function setupLibraryNavigation(){
   const eligibleRecords=state.library.filter(displayEligible);
@@ -101,7 +137,6 @@ function setupLibraryNavigation(){
     history.replaceState(null,"","#library"+(params.size?"?"+params:""));
     renderLibrary();
   };
-  $("library-search").oninput=e=>{state.librarySearch=e.target.value.toLowerCase();state.libraryVisible=LIBRARY_PAGE_SIZE;renderLibrary();};
   $("library-sort").onclick=e=>{const b=e.target.closest("[data-sort]");if(b){state.librarySort=b.dataset.sort;renderLibrary();}};setupTypePicker();
   $("library-more").onclick=()=>{state.libraryVisible+=LIBRARY_PAGE_SIZE;renderLibrary();};
   renderLibrary();
