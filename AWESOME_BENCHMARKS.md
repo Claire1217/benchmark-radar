@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-14 · **Benchmark releases:** 1757
+**Snapshot:** 2026-09-14 · **Benchmark releases:** 1758
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (60)
-- [General AI](#general-ai) (1209)
+- [General AI](#general-ai) (1210)
 - [Logistics & Operations](#logistics--operations) (12)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -291,19 +291,20 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## General AI
 
+- **apitest** (2026-09-13) — apitest Latency & throughput benchmark for AI APIs: TTFT, tok/s, stability and gateway overhead across OpenAI-compatible, Anthropic and Gemini endpoints, with a local web UI. [Paper](https://github.com/liningbest/apitest) · [Code](https://github.com/liningbest/apitest)
 - **Land-use relevance benchmark** (2026-09-13) — Land-use relevance: small-LLM benchmark results Predictions and scores for small open-weight LLMs asked to judge whether a sentence about a place carries land-use, land-cover, or geographic-environment signal that could… [Paper](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance) · [Data](https://huggingface.co/datasets/NoeFlandre/benchmark-llms-landuse-relevance)
 - **Pelican Bike Benchmark** (2026-09-12) — pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt. [Paper](https://github.com/Qrzzzz/pelican-bike-benchmark) · [Code](https://github.com/Qrzzzz/pelican-bike-benchmark)
 - **InterveneBench** (2026-09-12) — hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. [Paper](https://github.com/yanliang-li/hil-safety-benchmark) · [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
-- **ZipBench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
+- **Zipbench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
 - **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404)
 - **TraceJudgeBench** (2026-09-11) — We introduce TraceJudgeBench, a diagnostic benchmark for auditing citation-like artifacts in RAG and agent-workflow evaluation, covering content-equivalent pairs, citation ablations, correctness conflicts, human-validat… [Paper](https://arxiv.org/abs/2609.12439)
 - **SteerBench** (2026-09-11) — To evaluate full-duplex spoken steerability, we introduce SteerBench, a benchmark with 390 spoken prompts and 1,067 human-authored binary audio and text rubrics spanning tone, persona, style/accent, and speed/length. [Paper](https://arxiv.org/abs/2609.12623)
 - **ProactiveBench** (2026-09-11) — We introduce ProactiveBench, which evaluates models at one-second stream intervals without an explicit response cue. [Paper](https://arxiv.org/abs/2609.12658) · [Code](https://github.com/v0yager33/ProactiveBench)
 - **ParaRecover** (2026-09-11) — We introduce ParaRecover, a process-level benchmark for evaluating error localization and recovery in multi-turn parallel tool-use agents. [Paper](https://arxiv.org/abs/2609.12345) · [Code](https://github.com/gbw206/ParaRecover)
 - **OV-SGG-Bench** (2026-09-11) — To measure it we build OV-SGG-Bench, six axes scored across datasets that the priors standard recall rewards cannot satisfy. [Paper](https://arxiv.org/abs/2609.12552)
+- **Multiparty Bench (MP-Bench)** (2026-09-11) — To address this gap, we introduce Multiparty Bench (MP-Bench), the first benchmark specifically designed to objectively evaluate conversational speech systems as active participants within multi-party contexts. [Paper](https://arxiv.org/abs/2609.13076)
 - **Metric-Bench Test** (2026-09-11) — Metric-Bench Test Metric-Bench Test set evaluates metric spatial understanding from indoor RGB images and explicit anchor measurements. [Paper](https://huggingface.co/datasets/yulingxi/Metric-Bench) · [Data](https://huggingface.co/datasets/yulingxi/Metric-Bench)
-- **MP-Bench** (2026-09-11) — To address this gap, we introduce Multiparty Bench (MP-Bench), the first benchmark specifically designed to objectively evaluate conversational speech systems as active participants within multi-party contexts. [Paper](https://arxiv.org/abs/2609.13076)
 - **K-Bench** (2026-09-11) — We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment. [Paper](https://arxiv.org/abs/2609.12808)
 - **HoliBench** (2026-09-11) — We present HoliBench, a modular benchmarking and deployment toolkit that jointly characterizes accuracy, latency, and energy across platforms from single-board computers to GPU servers. [Paper](https://arxiv.org/abs/2609.12412) · [Code](https://github.com/beesfleas/HoliBench)
 - **EgoMaize** (2026-09-11) — We introduce EgoMaize, a compact benchmark for first-person maize instance segmentation, where the task is to predict ownership consistent plant masks and plant-owned stem/tassel cues from close-range field images with… [Paper](https://arxiv.org/abs/2609.12350)
