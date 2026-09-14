@@ -1,0 +1,81 @@
+{
+  "receipt": {
+    "case_id": "bixbench",
+    "benchmark": "BixBench",
+    "status": "completed",
+    "returned_model": "deepseek-v4-pro",
+    "response_id": "5af8cf68-9726-49c7-bed7-631a4aa89d65",
+    "usage": {
+      "prompt_tokens": 6034,
+      "completion_tokens": 2479,
+      "total_tokens": 8513,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 5522
+    },
+    "finish_reason": "stop",
+    "validation_errors": [
+      "ai_for_science: quote not found"
+    ],
+    "elapsed_seconds": 17.39
+  },
+  "response": {
+    "id": "5af8cf68-9726-49c7-bed7-631a4aa89d65",
+    "object": "chat.completion",
+    "created": 1789410410,
+    "model": "deepseek-v4-pro",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "{\n  \"benchmark\": \"BixBench\",\n  \"ai_for_science\": {\n    \"value\": true,\n    \"status\": \"inferred\",\n    \"reason\": \"BixBench 明确面向生物信息学任务，旨在评估 AI 智能体在真实世界生物信息学分析中的能力，包括探索生物数据集、执行多步骤计算分析、解释结果并回答研究问题，属于 AI for Science 范畴。\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"introduce BixBench, a benchmark designed to evaluate AI agents on real-world bioinformatics tasks\",\n        \"locator\": \"Announcing BixBench\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"BixBench is a benchmark designed to evaluate AI agents on real-world bioinformatics tasks.\",\n        \"locator\": \"README intro\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"This benchmark tests AI agents' ability to: - Explore biological datasets - Perform long, multi-step computational analyses - Interpret nuanced results in the context of a research question\",\n        \"locator\": \"README intro\"\n      }\n    ]\n  },\n  \"scientific_tasks\": {\n    \"value\": [\n      \"探索生物数据集\",\n      \"执行长时多步骤计算分析\",\n      \"解读细微结果并结合研究问题\",\n      \"生成科学假设并验证\",\n      \"执行代码（Python、R、Bash）\",\n      \"回答开放式或多选题\"\n    ],\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"Explore biological datasets - Perform long, multi-step computational analyses - Interpret nuanced results in the context of a research question\",\n        \"locator\": \"README intro\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"requiring them to navigate datasets, execute code (Python, R, Bash), generate scientific hypotheses, and validate them.\",\n        \"locator\": \"README intro\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"BixBench presents AI agents with open-ended or multiple-choice tasks\",\n        \"locator\": \"README intro\"\n      }\n    ]\n  },\n  \"disciplines\": {\n    \"value\": [\n      \"生物信息学\",\n      \"计算生物学\"\n    ],\n    \"scope\": \"multi\",\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"bioinformatics tasks\",\n        \"locator\": \"Announcing BixBench\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"Computational Biology\",\n        \"locator\": \"README title\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"BixBench addresses this opportunity for a real-world analytical research benchmark by providing a diverse set of 53 analytical scenarios\",\n        \"locator\": \"Why? The Need for a Bioinformatics Benchmark\"\n      }\n    ]\n  },\n  \"raw_materials\": {\n    \"value\": \"来自真实世界、已发表的 Jupyter notebooks 及相关数据（称为 capsules），包含研究假设、输入数据、分析代码；由生物信息学专家通过专业网络、研究机构和直接联系相关论文作者收集。\",\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"gathering a number of diverse, real-world analytical workflows from bioinformatics experts recruited through professional networks, research institutions, and direct outreach to authors of relevant bioinformatics papers.\",\n        \"locator\": \"Creating BixBench\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"The dataset contains 205 questions derived from 60 real-world, published Jupyter notebooks and related data (capsules).\",\n        \"locator\": \"README intro\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"These workflows and their associated data, which we term capsules , include the following primary components: A research hypothesis or question driving the analysis Input data to be analyzed in addressing the hypothesis Code capturing the analysis trajectory\",\n        \"locator\": \"Creating BixBench\"\n      }\n    ]\n  },\n  \"construction\": {\n    \"value\": [\n      \"收集真实生物信息学分析工作流（capsules），包含研究假设、输入数据、代码轨迹。\",\n      \"使用 LLM（Claude 3.5 Sonnet）基于分析轨迹生成研究问题，经由分析师审查（批准、拒绝或编辑），再用 LLM 过滤重复，最终得到 296 个（原始 v1.0）或 205 个（v1.5）问题。\"\n    ],\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"We first prompted a chat model (we used Claude 3.5 Sonnet for this) to generate several questions based on a provided analysis trajectory.\",\n        \"locator\": \"Generating Benchmark Tasks\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"We then asked analysts to review the generated questions for appropriateness, where they were given the ability to approve, reject, or edit any question.\",\n        \"locator\": \"Generating Benchmark Tasks\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"We then filtered for duplicate questions, again using an LLM, to arrive at the final diverse and non-redundant task set.\",\n        \"locator\": \"Generating Benchmark Tasks\"\n      },\n      {\n        \"source_id\": \"bix_card\",\n        \"quote\": \"In ongoing work, we found that many questions in the original dataset had insufficient detail to be answerable, especially in the preferred open-answer setting. To address this, we've extensively re-reviewed and revised a substantial portion of the benchmark.\",\n        \"locator\": \"IMPORTANT UPDATE\"\n      }\n    ]\n  },\n  \"ground_truth\": {\n    \"value\": \"每个 capsule 提供简要结果总结和评估假设支持与否的真/假答案；每个问题有理想答案（ideal_answer）和解释（explanation），由 LLM 生成并经人工审查。\",\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"each capsule provides a brief result summarizing findings and a true/false answer assessing support for the hypothesis.\",\n        \"locator\": \"Creating BixBench\"\n      },\n      {\n        \"source_id\": \"bix_card\",\n        \"quote\": \"- name: ideal_answer dtype: string\",\n        \"locator\": \"Hugging Face dataset features\"\n      },\n      {\n        \"source_id\": \"bix_card\",\n        \"quote\": \"- name: explanation dtype: string\",\n        \"locator\": \"Hugging Face dataset features\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"We then asked analysts to review the generated questions for appropriateness, where they were given the ability to approve, reject, or edit any question.\",\n        \"locator\": \"Generating Benchmark Tasks\"\n      }\n    ]\n  },\n  \"evaluation\": {\n    \"value\": \"通过评估智能体生成的轨迹（包括最终答案和 Jupyter notebook）进行；使用准确率衡量；开放式答案用 LLM-based grader 评分，选择题用精确匹配；支持多数投票和拒绝选项对比。\",\n    \"status\": \"source_supported\",\n    \"evidence\": [\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"BixBench evaluates agents' ability to create complex Jupyter notebooks for real-world bioinformatics research questions.\",\n        \"locator\": \"Agentic Evaluations\"\n      },\n      {\n        \"source_id\": \"bix_announcement\",\n        \"quote\": \"In open-answer format, Claude 3.5 Sonnet reached only 17% accuracy over the whole benchmark, besting GPT-4o at 9%.\",\n        \"locator\": \"Evaluating AI Models on BixBench\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"Grades the responses using LLM-based graders for open-ended answer or exact match for MCQs\",\n        \"locator\": \"Zero-shot Evaluations & Grading\"\n      },\n      {\n        \"source_id\": \"bix_readme\",\n        \"quote\": \"Run majority vote analysis (for MCQ questions)\",\n        \"locator\": \"Evaluate trajectories\"\n      }\n    ]\n  },\n  \"sizes\": [\n    {\n      \"value\": 53,\n      \"unit\": \"个分析场景（capsules）\",\n      \"version\": \"v1.0（原始论文）\",\n      \"source_id\": \"bix_announcement\",\n      \"quote\": \"a diverse set of 53 analytical scenarios\"\n    },\n    {\n      \"value\": 296,\n      \"unit\": \"个指导性研究问题\",\n      \"version\": \"v1.0（原始论文）\",\n      \"source_id\": \"bix_announcement\",\n      \"quote\": \"with 296 guiding research questions\"\n    },\n    {\n      \"value\": 205,\n      \"unit\": \"个问题\",\n      \"version\": \"v1.5（当前 main）\",\n      \"source_id\": \"bix_readme\",\n      \"quote\": \"The dataset contains 205 questions\"\n    },\n    {\n      \"value\": 60,\n      \"unit\": \"个真实世界的 Jupyter notebooks (capsules)\",\n      \"version\": \"v1.5（当前 main）\",\n      \"source_id\": \"bix_readme\",\n      \"quote\": \"derived from 60 real-world, published Jupyter notebooks and related data (capsules).\"\n    }\n  ],\n  \"conflicts\": [\n    {\n      \"description\": \"官方公告称有 53 个分析场景和 296 个研究问题；而 GitHub README（v1.5）称有 60 个 capsules 和 205 个问题。这可能是由于版本更新和修订所致，数据卡声明 v1.0 可通过标签访问。\",\n      \"evidence\": [\n        {\n          \"source_id\": \"bix_announcement\",\n          \"quote\": \"a diverse set of 53 analytical scenarios with 296 guiding research questions\"\n        },\n        {\n          \"source_id\": \"bix_readme\",\n          \"quote\": \"The dataset contains 205 questions derived from 60 real-world, published Jupyter notebooks and related data (capsules).\"\n        },\n        {\n          \"source_id\": \"bix_card\",\n          \"quote\": \"We've left the original question set accessible under the `v1.0` tag. The current updated set is at `main` and `v1.5`.\"\n        }\n      ]\n    }\n  ],\n  \"unknowns\": [\n    \"原始 v1.0 和 v1.5 之间胶囊数量变化的具体映射关系未在提供文档中明确说明（例如，60 个 capsules 是否包含原始 53 个，或有多少新增/移除）。\",\n    \"构建过程中生成问题所使用的具体提示词和人工审查标准未在提供材料中透露。\",\n    \"各胶囊对应的具体子领域或主题分布未在提供文档中列出。\"\n  ]\n}"
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 6034,
+      "completion_tokens": 2479,
+      "total_tokens": 8513,
+      "prompt_tokens_details": {
+        "cached_tokens": 512
+      },
+      "prompt_cache_hit_tokens": 512,
+      "prompt_cache_miss_tokens": 5522
+    },
+    "system_fingerprint": "a307abda487cd1b463329ccb945ce396"
+  },
+  "sources": [
+    {
+      "source_id": "bix_announcement",
+      "url": "https://www.futurehouse.org/research/bixbench",
+      "resolved_url": "https://www.futurehouse.org/research/bixbench",
+      "version": "initial announcement 2025-03-04",
+      "retrieved_at": "2026-09-14T18:26:49.693842+00:00",
+      "sha256": "f707ccdcc6c30ee67f6729b33404ecbde9c74cd928ec76caf4666f57b585f891",
+      "truncated": false
+    },
+    {
+      "source_id": "bix_readme",
+      "url": "https://raw.githubusercontent.com/Future-House/BixBench/main/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/Future-House/BixBench/main/README.md",
+      "version": "current README; includes version descriptions",
+      "retrieved_at": "2026-09-14T18:26:49.879516+00:00",
+      "sha256": "11490b8cd0d9387169d589ee06f17954aed8776502fbd2288bf699c4a549f8b7",
+      "truncated": false
+    },
+    {
+      "source_id": "bix_card",
+      "url": "https://huggingface.co/datasets/futurehouse/BixBench/raw/main/README.md",
+      "resolved_url": "https://huggingface.co/datasets/futurehouse/BixBench/raw/main/README.md",
+      "version": "current data card",
+      "retrieved_at": "2026-09-14T18:26:50.071880+00:00",
+      "sha256": "d0f593c483ec6dfbb5e17c1442be4220711c53575cd18d39beba7dc09a26e72e",
+      "truncated": false
+    }
+  ]
+}

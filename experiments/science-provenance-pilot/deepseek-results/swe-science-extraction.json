@@ -1,0 +1,236 @@
+{
+  "benchmark": "SWE-bench Science",
+  "ai_for_science": {
+    "value": true,
+    "status": "inferred",
+    "reason": "The benchmark explicitly targets scientific software engineering, requiring agents to preserve scientific contracts such as units, coordinate systems, numerical invariants, physical assumptions, and domain-specific workflows. Its objective is to evaluate whether coding agents can resolve engineering tasks while maintaining scientific validity, which constitutes a contribution to AI for Science.",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "SWE-bench Science: Can Coding Agents Resolve Engineering Tasks in Science?",
+        "locator": "title"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "failures in scientific code capable of compromising not only program behavior but also the evidence underlying scientific conclusions.",
+        "locator": "abstract"
+      },
+      {
+        "source_id": "science_readme",
+        "quote": "Scientific software is full of contracts that ordinary code benchmarks rarely expose: units, coordinate systems, numerical invariants, file-format semantics, physical assumptions, and domain-specific workflows.",
+        "locator": "Why This Benchmark section"
+      }
+    ]
+  },
+  "scientific_tasks": {
+    "value": [
+      "Issue-driven repair of real bugs while preserving scientific semantics",
+      "Expert-exploratory autonomous reasoning about unknown scientific root causes",
+      "Engineering-integration cross-module completion of end-to-end scientific workflows"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "Each task is organized into one of three paradigms: Issue-driven, Expert-exploratory, and Engineering-integration.",
+        "locator": "abstract"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "Issue-driven tasks focus on repairing known defects; Expert-exploratory tasks focus on autonomously reasoning about unknown root causes in scientific scenarios; Engineering-integration tasks focus on understanding architecture across files and connecting a complete multi-module capability chain.",
+        "locator": "Section 4.1"
+      }
+    ]
+  },
+  "disciplines": {
+    "value": [
+      "Chemistry",
+      "Materials Science and Engineering",
+      "Biology",
+      "Biomedical Engineering",
+      "Physics",
+      "Mathematics",
+      "Astronomy",
+      "Atmospheric Science",
+      "Civil Engineering",
+      "Surveying and Mapping Science and Technology",
+      "Geophysics",
+      "Mechanics",
+      "Electrical Engineering",
+      "Marine Science",
+      "Geography",
+      "Aeronautical and Astronautical Science and Technology",
+      "Nuclear Science and Technology",
+      "Computer Science and Technology",
+      "Statistics",
+      "Information and Communication Engineering"
+    ],
+    "scope": "multi",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "comprising 119 tasks from 98 GitHub repositories across 20 scientific domains.",
+        "locator": "abstract"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "Chemistry (n=24) Materials Science and Engineering (n=16) Biology (n=13) Biomedical Engineering (n=12) Physics (n=11) Mathematics (n=7) Astronomy (n=7) Atmospheric Science (n=5) Civil Engineering (n=5) Surveying and Mapping Science and Technology (n=3) Geophysics (n=3) Mechanics (n=3) Electrical Engineering (n=2) Marine Science (n=2) Geography (n=1) Aeronautical and Astronautical Science and Technology (n=1) Nuclear Science and Technology (n=1) Computer Science and Technology (n=1) Statistics (n=1) Information and Communication Engineering (n=1)",
+        "locator": "Figure 2(a)"
+      }
+    ]
+  },
+  "raw_materials": {
+    "value": "Real issues, pull requests, commit records, and related literature from candidate open-source scientific-computing repositories; source-code snapshots; scientific context; public tests.",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "1. Source Sampling and Screening. We collect real issues, pull requests (PRs), commit records, and related literature from candidate open-source scientific-computing repositories.",
+        "locator": "Section 4 Figure 4"
+      }
+    ]
+  },
+  "construction": {
+    "value": [
+      "Source sampling and screening",
+      "Snapshot freezing and reproduction",
+      "Public-material abstraction and information isolation",
+      "Hidden oracle and counter-calibration",
+      "Class-specific task re-design for Issue-driven, Expert-exploratory, and Engineering-integration paradigms"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "All raw tasks are first generated according to a unified and auditable four-stage construction process.",
+        "locator": "Section 4"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "1. Source Sampling and Screening. ... 2. Snapshot Freezing and Reproduction. ... 3. Public-Material Abstraction and Information Isolation. ... 4. Hidden Oracle and Counter-Calibration.",
+        "locator": "Figure 4"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "Raw tasks are further re-designed according to their fit with the three task paradigms.",
+        "locator": "Section 4"
+      }
+    ]
+  },
+  "ground_truth": {
+    "value": "Reference and alternative-valid patches, private tests, contract labels, scientific-rationale and localization support blocks, expected files, source and difficulty metadata.",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "Evaluator-only fields include private tests, contract labels, reference and alternative-valid patches, scientific-rationale and localization support blocks, expected files, source and difficulty metadata, contamination tier, and post-hoc annotations.",
+        "locator": "Section 3.1"
+      }
+    ]
+  },
+  "evaluation": {
+    "value": "Patch submission into clean evaluator container with public and private tests; metrics include PublicScore, PrivateScore, Fail2Pass, Pass2Pass, and Pass@1 (exact private-test success).",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "science_pdf",
+        "quote": "Private tests are mounted only after patch submission in a separate evaluator container.",
+        "locator": "Section 3.1"
+      },
+      {
+        "source_id": "science_pdf",
+        "quote": "For each task–attempt, PublicScore is the mean score across all applicable public test cases, and PrivateScore is the corresponding mean across private test cases. Fail2Pass is the fraction of previously failing private tests that pass after the repair, while Pass2Pass is the fraction of previously passing private tests that remain passing; Pass@1 is a binary exact-private-success measure that equals 1 only when every applicable private test passes.",
+        "locator": "Section 5 Evaluation"
+      }
+    ]
+  },
+  "sizes": [
+    {
+      "value": 119,
+      "unit": "task",
+      "version": "release (tasks numbered 001 through 119)",
+      "source_id": "science_readme",
+      "quote": "119 release tasks, numbered `001` through `119`"
+    },
+    {
+      "value": 98,
+      "unit": "GitHub repository",
+      "version": "release",
+      "source_id": "science_pdf",
+      "quote": "comprising 119 tasks from 98 GitHub repositories"
+    },
+    {
+      "value": 20,
+      "unit": "scientific domain",
+      "version": "release",
+      "source_id": "science_pdf",
+      "quote": "across 20 scientific domains"
+    },
+    {
+      "value": 52,
+      "unit": "Issue-driven task",
+      "version": "release",
+      "source_id": "science_pdf",
+      "quote": "The task set contains 52 Issue-driven, 49 Expert-exploratory, and 18 Engineering-integration tasks."
+    },
+    {
+      "value": 49,
+      "unit": "Expert-exploratory task",
+      "version": "release",
+      "source_id": "science_pdf",
+      "quote": "The task set contains 52 Issue-driven, 49 Expert-exploratory, and 18 Engineering-integration tasks."
+    },
+    {
+      "value": 18,
+      "unit": "Engineering-integration task",
+      "version": "release",
+      "source_id": "science_pdf",
+      "quote": "The task set contains 52 Issue-driven, 49 Expert-exploratory, and 18 Engineering-integration tasks."
+    },
+    {
+      "value": 96,
+      "unit": "default task (unrestricted license)",
+      "version": "release",
+      "source_id": "science_readme",
+      "quote": "Default selection | 96 tasks without a restricted-license gate"
+    },
+    {
+      "value": 23,
+      "unit": "restricted task (license opt-in)",
+      "version": "release",
+      "source_id": "science_readme",
+      "quote": "Restricted selection | 23 tasks available through explicit opt-in"
+    },
+    {
+      "value": 91,
+      "unit": "science-knowledge ablation task",
+      "version": "release",
+      "source_id": "science_readme",
+      "quote": "Science-knowledge ablation | 91 tasks marked by `science_knowledge_ablation`"
+    }
+  ],
+  "conflicts": [
+    {
+      "description": "PDF abstract states benchmark comprises 119 tasks from 98 GitHub repositories and 20 scientific domains; README also reports 20 domains but lists a total of 119 tasks with 96 default and 23 restricted subsets. The sizes for total tasks and domains are consistent, but the README additionally distinguishes default and restricted selections, not conflicting.",
+      "evidence": [
+        {
+          "source_id": "science_pdf",
+          "quote": "comprising 119 tasks from 98 GitHub repositories across 20 scientific domains",
+          "locator": "abstract"
+        },
+        {
+          "source_id": "science_readme",
+          "quote": "Default selection | 96 tasks without a restricted-license gate; Restricted selection | 23 tasks available through explicit opt-in",
+          "locator": "Release At A Glance"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "Exact provenance of each raw task beyond general sources (e.g., specific issues or PRs used for each task) is not disclosed in provided documents.",
+    "Complete list of all 98 GitHub repositories is not in supplied text.",
+    "Detailed criteria for screening out tasks (e.g., exact thresholds for 'overly simple fixes' or 'severe solution leakage') are not specified.",
+    "The scientific auxiliary information ablation task IDs are listed in the README as a materialization command but the full list is not in supply."
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "benchmark": "SciCode",
+  "ai_for_science": {
+    "value": true,
+    "status": "inferred",
+    "reason": "SciCode's explicit objective is to evaluate language models in generating code for realistic scientific research problems, covering multiple natural science disciplines and focusing on numerical methods, simulation of systems, and scientific calculation, which are core AI for Science activities.",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "SciCode is a challenging benchmark designed to evaluate the capabilities of language models (LMs) in generating code for solving realistic scientific research problems.",
+        "locator": "Introduction"
+      }
+    ]
+  },
+  "scientific_tasks": {
+    "value": [
+      "Numerical methods",
+      "Simulation of systems",
+      "Scientific calculation"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "SciCode mainly focuses on: 1. Numerical methods. 2. Simulation of systems. 3. Scientific calculation.",
+        "locator": "Overview"
+      }
+    ]
+  },
+  "disciplines": {
+    "value": [
+      "Physics",
+      "Math",
+      "Material Science",
+      "Biology",
+      "Chemistry"
+    ],
+    "scope": "multi",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "It has a diverse coverage of 16 subdomains from 6 domains: Physics, Math, Material Science, Biology, and Chemistry.",
+        "locator": "Introduction"
+      }
+    ]
+  },
+  "raw_materials": {
+    "value": "Real research problems converted into coding tasks, derived from scripts scientists use in their everyday workflow, many used in publications.",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "Unlike previous benchmarks that consist of exam-like question-answer pairs, SciCode is converted from real research problems.",
+        "locator": "Introduction"
+      },
+      {
+        "source_id": "scicode_site",
+        "quote": "SciCode is mainly drawn from the scripts that scientists use in their everyday workflow. Many of these have been used in one or more publications, demonstrating their robustness and correctness.",
+        "locator": "Overview"
+      }
+    ]
+  },
+  "construction": {
+    "value": [
+      "Problems decomposed into subproblems with optional background information",
+      "Scientist-annotated gold-standard solutions and test cases",
+      "Three rounds of validation by in-domain scientists, out-of-domain scientists, and GPT4"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "SciCode problems naturally factorize into multiple subproblems, each involving knowledge recall, reasoning, and code synthesis.",
+        "locator": "Introduction"
+      },
+      {
+        "source_id": "scicode_site",
+        "quote": "it offers optional descriptions specifying useful scientific background information and scientist-annotated gold-standard solutions and test cases for evaluation.",
+        "locator": "Introduction"
+      },
+      {
+        "source_id": "scicode_site",
+        "quote": "Each problem goes through 3 rounds of validation (i.e. by in-domain scientists, out-of-domain scientists, GPT4) for quality control.",
+        "locator": "Overview"
+      }
+    ]
+  },
+  "ground_truth": {
+    "value": "Scientist-annotated gold-standard solutions and test cases",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "scientist-annotated gold-standard solutions and test cases for evaluation",
+        "locator": "Introduction"
+      }
+    ]
+  },
+  "evaluation": {
+    "value": "Zero-shot prompts; standard setup without background knowledge and carrying over generated solutions; other setup with scientists' annotated background. Test cases include domain-specific tests from real scientific workflows and numerical cases.",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "scicode_site",
+        "quote": "We evaluate our model using zero-shot prompts.",
+        "locator": "Experiment Results"
+      },
+      {
+        "source_id": "scicode_site",
+        "quote": "The standard setup means the model is tested without background knowledge and carrying over generated solutions to previous subproblems.",
+        "locator": "Experiment Results"
+      },
+      {
+        "source_id": "scicode_site",
+        "quote": "The scientists' annotated background provides the necessary knowledge and reasoning steps to solve the problems, shifting the evaluation’s focus more towards the models’ coding and instruction-following capabilities.",
+        "locator": "Experiment Results"
+      }
+    ]
+  },
+  "sizes": [
+    {
+      "value": 80,
+      "unit": "main problems",
+      "version": "official site as of 2024-09 (from benchmark description)",
+      "source_id": "scicode_site",
+      "quote": "In total, SciCode contains 338 subproblems decomposed from 80 challenging main problems"
+    },
+    {
+      "value": 338,
+      "unit": "subproblems",
+      "version": "official site as of 2024-09 (from benchmark description)",
+      "source_id": "scicode_site",
+      "quote": "In total, SciCode contains 338 subproblems decomposed from 80 challenging main problems"
+    },
+    {
+      "value": 16,
+      "unit": "subdomains",
+      "version": "official site as of 2024-09 (from benchmark description)",
+      "source_id": "scicode_site",
+      "quote": "It has a diverse coverage of 16 subdomains from 6 domains"
+    },
+    {
+      "value": 5,
+      "unit": "domains listed (note: text says 6 domains but lists 5; likely typo)",
+      "version": "official site as of 2024-09 (from benchmark description)",
+      "source_id": "scicode_site",
+      "quote": "from 6 domains: Physics, Math, Material Science, Biology, and Chemistry"
+    }
+  ],
+  "conflicts": [
+    {
+      "description": "The number of domains is stated as 6, but the list contains only 5 domains (Physics, Math, Material Science, Biology, Chemistry).",
+      "evidence": [
+        {
+          "source_id": "scicode_site",
+          "quote": "from 6 domains: Physics, Math, Material Science, Biology, and Chemistry",
+          "locator": "Introduction"
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "Specific details of the test case design beyond domain-specific and numerical cases are not provided.",
+    "The exact evaluation metric (pass@k or accuracy) is not described in this snapshot."
+  ]
+}

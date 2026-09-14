@@ -1,0 +1,234 @@
+{
+  "benchmark": "BixBench",
+  "ai_for_science": {
+    "value": true,
+    "status": "inferred",
+    "reason": "BixBench 明确面向生物信息学任务，旨在评估 AI 智能体在真实世界生物信息学分析中的能力，包括探索生物数据集、执行多步骤计算分析、解释结果并回答研究问题，属于 AI for Science 范畴。",
+    "evidence": [
+      {
+        "source_id": "bix_announcement",
+        "quote": "introduce BixBench, a benchmark designed to evaluate AI agents on real-world bioinformatics tasks",
+        "locator": "Announcing BixBench"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "BixBench is a benchmark designed to evaluate AI agents on real-world bioinformatics tasks.",
+        "locator": "README intro"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "This benchmark tests AI agents' ability to: - Explore biological datasets - Perform long, multi-step computational analyses - Interpret nuanced results in the context of a research question",
+        "locator": "README intro"
+      }
+    ]
+  },
+  "scientific_tasks": {
+    "value": [
+      "探索生物数据集",
+      "执行长时多步骤计算分析",
+      "解读细微结果并结合研究问题",
+      "生成科学假设并验证",
+      "执行代码（Python、R、Bash）",
+      "回答开放式或多选题"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_readme",
+        "quote": "Explore biological datasets - Perform long, multi-step computational analyses - Interpret nuanced results in the context of a research question",
+        "locator": "README intro"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "requiring them to navigate datasets, execute code (Python, R, Bash), generate scientific hypotheses, and validate them.",
+        "locator": "README intro"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "BixBench presents AI agents with open-ended or multiple-choice tasks",
+        "locator": "README intro"
+      }
+    ]
+  },
+  "disciplines": {
+    "value": [
+      "生物信息学",
+      "计算生物学"
+    ],
+    "scope": "multi",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_announcement",
+        "quote": "bioinformatics tasks",
+        "locator": "Announcing BixBench"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "Computational Biology",
+        "locator": "README title"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "BixBench addresses this opportunity for a real-world analytical research benchmark by providing a diverse set of 53 analytical scenarios",
+        "locator": "Why? The Need for a Bioinformatics Benchmark"
+      }
+    ]
+  },
+  "raw_materials": {
+    "value": "来自真实世界、已发表的 Jupyter notebooks 及相关数据（称为 capsules），包含研究假设、输入数据、分析代码；由生物信息学专家通过专业网络、研究机构和直接联系相关论文作者收集。",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_announcement",
+        "quote": "gathering a number of diverse, real-world analytical workflows from bioinformatics experts recruited through professional networks, research institutions, and direct outreach to authors of relevant bioinformatics papers.",
+        "locator": "Creating BixBench"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "The dataset contains 205 questions derived from 60 real-world, published Jupyter notebooks and related data (capsules).",
+        "locator": "README intro"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "These workflows and their associated data, which we term capsules , include the following primary components: A research hypothesis or question driving the analysis Input data to be analyzed in addressing the hypothesis Code capturing the analysis trajectory",
+        "locator": "Creating BixBench"
+      }
+    ]
+  },
+  "construction": {
+    "value": [
+      "收集真实生物信息学分析工作流（capsules），包含研究假设、输入数据、代码轨迹。",
+      "使用 LLM（Claude 3.5 Sonnet）基于分析轨迹生成研究问题，经由分析师审查（批准、拒绝或编辑），再用 LLM 过滤重复，最终得到 296 个（原始 v1.0）或 205 个（v1.5）问题。"
+    ],
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_announcement",
+        "quote": "We first prompted a chat model (we used Claude 3.5 Sonnet for this) to generate several questions based on a provided analysis trajectory.",
+        "locator": "Generating Benchmark Tasks"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "We then asked analysts to review the generated questions for appropriateness, where they were given the ability to approve, reject, or edit any question.",
+        "locator": "Generating Benchmark Tasks"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "We then filtered for duplicate questions, again using an LLM, to arrive at the final diverse and non-redundant task set.",
+        "locator": "Generating Benchmark Tasks"
+      },
+      {
+        "source_id": "bix_card",
+        "quote": "In ongoing work, we found that many questions in the original dataset had insufficient detail to be answerable, especially in the preferred open-answer setting. To address this, we've extensively re-reviewed and revised a substantial portion of the benchmark.",
+        "locator": "IMPORTANT UPDATE"
+      }
+    ]
+  },
+  "ground_truth": {
+    "value": "每个 capsule 提供简要结果总结和评估假设支持与否的真/假答案；每个问题有理想答案（ideal_answer）和解释（explanation），由 LLM 生成并经人工审查。",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_announcement",
+        "quote": "each capsule provides a brief result summarizing findings and a true/false answer assessing support for the hypothesis.",
+        "locator": "Creating BixBench"
+      },
+      {
+        "source_id": "bix_card",
+        "quote": "- name: ideal_answer dtype: string",
+        "locator": "Hugging Face dataset features"
+      },
+      {
+        "source_id": "bix_card",
+        "quote": "- name: explanation dtype: string",
+        "locator": "Hugging Face dataset features"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "We then asked analysts to review the generated questions for appropriateness, where they were given the ability to approve, reject, or edit any question.",
+        "locator": "Generating Benchmark Tasks"
+      }
+    ]
+  },
+  "evaluation": {
+    "value": "通过评估智能体生成的轨迹（包括最终答案和 Jupyter notebook）进行；使用准确率衡量；开放式答案用 LLM-based grader 评分，选择题用精确匹配；支持多数投票和拒绝选项对比。",
+    "status": "source_supported",
+    "evidence": [
+      {
+        "source_id": "bix_readme",
+        "quote": "BixBench evaluates agents' ability to create complex Jupyter notebooks for real-world bioinformatics research questions.",
+        "locator": "Agentic Evaluations"
+      },
+      {
+        "source_id": "bix_announcement",
+        "quote": "In open-answer format, Claude 3.5 Sonnet reached only 17% accuracy over the whole benchmark, besting GPT-4o at 9%.",
+        "locator": "Evaluating AI Models on BixBench"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "Grades the responses using LLM-based graders for open-ended answer or exact match for MCQs",
+        "locator": "Zero-shot Evaluations & Grading"
+      },
+      {
+        "source_id": "bix_readme",
+        "quote": "Run majority vote analysis (for MCQ questions)",
+        "locator": "Evaluate trajectories"
+      }
+    ]
+  },
+  "sizes": [
+    {
+      "value": 53,
+      "unit": "个分析场景（capsules）",
+      "version": "v1.0（原始论文）",
+      "source_id": "bix_announcement",
+      "quote": "a diverse set of 53 analytical scenarios"
+    },
+    {
+      "value": 296,
+      "unit": "个指导性研究问题",
+      "version": "v1.0（原始论文）",
+      "source_id": "bix_announcement",
+      "quote": "with 296 guiding research questions"
+    },
+    {
+      "value": 205,
+      "unit": "个问题",
+      "version": "v1.5（当前 main）",
+      "source_id": "bix_readme",
+      "quote": "The dataset contains 205 questions"
+    },
+    {
+      "value": 60,
+      "unit": "个真实世界的 Jupyter notebooks (capsules)",
+      "version": "v1.5（当前 main）",
+      "source_id": "bix_readme",
+      "quote": "derived from 60 real-world, published Jupyter notebooks and related data (capsules)."
+    }
+  ],
+  "conflicts": [
+    {
+      "description": "官方公告称有 53 个分析场景和 296 个研究问题；而 GitHub README（v1.5）称有 60 个 capsules 和 205 个问题。这可能是由于版本更新和修订所致，数据卡声明 v1.0 可通过标签访问。",
+      "evidence": [
+        {
+          "source_id": "bix_announcement",
+          "quote": "a diverse set of 53 analytical scenarios with 296 guiding research questions"
+        },
+        {
+          "source_id": "bix_readme",
+          "quote": "The dataset contains 205 questions derived from 60 real-world, published Jupyter notebooks and related data (capsules)."
+        },
+        {
+          "source_id": "bix_card",
+          "quote": "We've left the original question set accessible under the `v1.0` tag. The current updated set is at `main` and `v1.5`."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "原始 v1.0 和 v1.5 之间胶囊数量变化的具体映射关系未在提供文档中明确说明（例如，60 个 capsules 是否包含原始 53 个，或有多少新增/移除）。",
+    "构建过程中生成问题所使用的具体提示词和人工审查标准未在提供材料中透露。",
+    "各胶囊对应的具体子领域或主题分布未在提供文档中列出。"
+  ]
+}
