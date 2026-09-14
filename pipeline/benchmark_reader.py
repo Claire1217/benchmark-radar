@@ -1,9 +1,10 @@
-"""Two deterministic JSON commands for agents: search and show."""
+"""Agent JSON commands: daily, hot, search and show."""
 import argparse
 import json
 import sys
 from pathlib import Path
-from usage_store import UsageStore, norm
+from usage_store import UsageStore, norm, ROOT
+from cli_discovery import valid_date, discover, attention, attention_order, keyword_match, domain_match
 
 class QueryError(Exception):
     def __init__(self, code, message, status, candidates=None):
@@ -44,28 +45,46 @@ def run(argv=None):
             p.add_argument('--offset', type=nonnegative, default=0)
             if name == 'search':
                 p.add_argument('--domain')
+                p.add_argument('--sort', choices=['usage', 'attention', 'newest'], default='usage')
+        for name in ('daily', 'hot'):
+            p = sub.add_parser(name)
+            p.add_argument('query', nargs='?', default='')
+            p.add_argument('--domain')
+            p.add_argument('--limit', type=positive, default=20)
+            p.add_argument('--offset', type=nonnegative, default=0)
+            p.add_argument('--data-dir', type=Path, default=ROOT / 'data')
+            if name == 'daily':
+                p.add_argument('--date', type=valid_date)
+                p.add_argument('--basis', choices=['released', 'discovered'], default='released')
+            else:
+                p.add_argument('--window', choices=['7d', '30d', '90d'], default='7d')
+                p.add_argument('--as-of', type=valid_date)
         args = parser.parse_args(argv)
+        if args.command in {'daily', 'hot'}:
+            payload = json.loads((args.data_dir / 'benchmarks_index.json').read_text())
+            data = discover(payload, args)
+            print(json.dumps({'schemaVersion': '1.1', 'ok': True, 'data': data, 'coverage': payload['manifest'], 'error': None}, ensure_ascii=False))
+            return 0
         store = UsageStore(args.data_dir)
         store.source_records = {r['id']: r for r in store.records}
         manifest = store.manifest
         records = list(store.entities.values())
         if args.command == 'search':
-            query = norm(args.query)
             found = []
             for r in records:
-                names = [r['name'], *r.get('aliases', [])]
-                if query and not any(query in norm(n) for n in names):
+                if r.get('displayEligible') is False or r.get('evaluationMode') == 'viewpoint_probe':
                     continue
                 domains = labels(r, store)
-                if args.domain:
-                    target = norm(args.domain)
-                    tokens = ('science', 'scientific') if target == 'science' else (target,)
-                    if not any(token in norm(d) for token in tokens for d in domains):
-                        continue
+                if not keyword_match(args.query, r, domains) or not domain_match(args.domain, domains):
+                    continue
                 found.append({'id': r['id'], 'name': r['name'], 'domains': domains,
-                              'sourceIds': r.get('usageSourceIds', []), 'usage': store.summary(r.get('usageSourceIds', []))})
+                              'releasedAt': r.get('releasedAt'), 'description': r.get('oneLine') or r.get('description'), 'links': r.get('links', {}), 'attention': attention(r), 'sourceIds': r.get('usageSourceIds', []), 'usage': store.summary(r.get('usageSourceIds', []))})
             found.sort(key=lambda r: (-r['usage']['reportedLabCount'], r['name'].casefold(), r['id']))
-            data = {'results': found[args.offset:args.offset+args.limit], 'total': len(found),
+            if args.sort == 'attention':
+                found.sort(key=attention_order)
+            elif args.sort == 'newest':
+                found.sort(key=lambda r: r.get('releasedAt') or '', reverse=True)
+            data = {'sort': args.sort, 'results': found[args.offset:args.offset+args.limit], 'total': len(found),
                     'nextOffset': args.offset+args.limit if args.offset+args.limit < len(found) else None}
         else:
             if args.query in store.entities:
@@ -84,13 +103,13 @@ def run(argv=None):
             count = len(data['observations'])
             data['observations'] = data['observations'][args.offset:args.offset+args.limit]
             data['pagination'] = {'observationTotal': count, 'nextOffset': args.offset+args.limit if args.offset+args.limit < count else None}
-        print(json.dumps({'schemaVersion': '1.0', 'ok': True, 'data': data, 'coverage': manifest, 'error': None}, ensure_ascii=False))
+        print(json.dumps({'schemaVersion': '1.1', 'ok': True, 'data': data, 'coverage': manifest, 'error': None}, ensure_ascii=False))
         return 0
     except QueryError as e:
         error = {'code': e.code, 'message': e.message, 'candidates': e.candidates}; status = e.status
     except (OSError, ValueError, KeyError, TypeError) as e:
         error = {'code': 'invalid_database', 'message': str(e)}; status = 1
-    print(json.dumps({'schemaVersion': '1.0', 'ok': False, 'data': None, 'coverage': manifest, 'error': error}, ensure_ascii=False))
+    print(json.dumps({'schemaVersion': '1.1', 'ok': False, 'data': None, 'coverage': manifest, 'error': error}, ensure_ascii=False))
     return status
 
 if __name__ == '__main__':

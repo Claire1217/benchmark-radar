@@ -9,12 +9,34 @@ Run from a repository checkout with Python 3.10+; no packages or credentials req
 ./benchmark-reader show usage:model-reports:frontier_challenge --limit 10 --offset 0
 ```
 
-Only two commands:
+Four commands:
 
-- `search [query] [--domain LABEL]`: normalized name/alias substring search. Domain filters match available labels, not a complete scientific taxonomy. Results sort by observed reporting-organization count, then name and ID. Default limit 20.
+- `search [query] [--domain LABEL]`: Keyword search across names, aliases, descriptions and domain labels; whitespace-separated terms must all match. Use `--sort usage|attention|newest` (default usage). Domain filters match available labels, not a complete scientific taxonomy. Results sort by observed reporting-organization count, then name and ID. Default limit 20.
 - `show ID_OR_EXACT_NAME`: identity, usage summary, evidence and source documents. Prefer an ID returned by search. Ambiguous names return candidates instead of choosing a version. Default observation limit 50.
 
-Both accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow `nextOffset` until null. Show pagination applies only to observations; summary counts cover all observations. Commands perform no network requests. Standard output is one JSON object (except `--help`), with `schemaVersion`, `ok`, `data`, `coverage`, `error`. Exit codes: 0 success, 1 invalid database, 2 invalid arguments/ambiguous identity, 3 identity not found. Empty search is successful. Agents should inspect `ok`, preserve source IDs and cite returned evidence URLs.
+All commands accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow `nextOffset` until null. Show pagination applies only to observations; summary counts cover all observations. Commands perform no network requests. Standard output is one JSON object (except `--help`), with `schemaVersion`, `ok`, `data`, `coverage`, `error`. Exit codes: 0 success, 1 invalid database, 2 invalid arguments/ambiguous identity, 3 identity not found. Empty search is successful. Agents should inspect `ok`, preserve source IDs and cite returned evidence URLs.
+
+## Daily updates and hot lists
+
+```sh
+./benchmark-reader daily
+./benchmark-reader daily --date 2026-09-13
+./benchmark-reader daily --date 2026-09-13 --basis discovered
+./benchmark-reader hot --window 7d
+./benchmark-reader hot --window 90d --domain biology --limit 10
+./benchmark-reader hot "protein folding" --window 30d
+./benchmark-reader search "scientific coding" --sort attention
+./benchmark-reader search --domain chemistry --sort attention
+```
+
+- `daily [query]`: published records released on `--date`; `--basis discovered` selects first-seen date instead. This is not the date of a metric refresh. No automatic previous-day fill in the CLI: an empty date returns zero results.
+- `hot [query] --window 7d|30d|90d`: records released in that many calendar days, inclusive of the end date. Thus 7d ending September 13 means September 7–13. Three months is defined as 90 days. `--as-of` sets the release-range end, **not a historical score snapshot**.
+
+Default end date is the index's `latestSourceDate`, falling back to `dataAsOf`. Both dates are returned so agents can detect stale discovery coverage. Results use only public/display-eligible records. Daily/hot require only `benchmarks_index.json`; search/show also require the library and usage database.
+
+All attention sorting uses the existing **90-day population's current attention score**, including weekly subsets, so incomparable window scores are never mixed. This measures current public attention, not weekly growth, adoption, quality or projected influence. Raw signals, their `asOf`, score confidence and coverage are returned. Missing scores remain null and sort last; ties use name then ID. Older library records may have no current score. Search is all-library; hot is release-window restricted. Domain matching uses stored labels (e.g. biology, chemistry, physics, coding), not inferred subject membership. A broad `science` label does not automatically union all scientific disciplines.
+
+Responses use schema version `1.1`; pagination and error codes remain unchanged. These queries read the local checkout's latest available data; use `git pull` to obtain repository updates. No silent network refresh occurs.
 
 ## Meaning of the results
 
