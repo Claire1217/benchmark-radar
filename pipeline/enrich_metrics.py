@@ -150,6 +150,9 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
     # a monorepo); prefer it over HF's repo-level association.
     github_url = record.get("links", {}).get("code") or paper.get("githubRepo")
     github_signal_scope = github_scope(github_url)
+    indexed_scope = (record.get("githubIndex") or {}).get("selectedScope")
+    if indexed_scope:
+        github_signal_scope = "hosting_repo" if indexed_scope in {"project_repo", "unresolved"} else indexed_scope
     repo = github_slug(github_url)
     github_stars = paper.get("githubStars")
     github_source = "huggingface-paper" if github_stars is not None else None
@@ -580,6 +583,8 @@ def main() -> None:
         raise RuntimeError("--rerank-only and --today-only cannot be combined.")
     payload = read_json(DATA_PATH)
     records = payload.get("records", [])
+    from repository_index import load_and_apply
+    load_and_apply(records, ROOT / "data")
     today = publication_today()
     as_of = date.fromisoformat(args.date or today.isoformat())
     latest_batch = effective_latest_batch(

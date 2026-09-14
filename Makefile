@@ -8,6 +8,7 @@ check:
 	node --check web/app.js
 
 build: check
+	python3 pipeline/generate_trends_comparison.py
 	python3 pipeline/build_github_pages.py
 	python3 pipeline/validate_static_site.py
 

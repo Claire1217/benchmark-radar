@@ -64,8 +64,21 @@ def main() -> None:
         raise SystemExit("previous days must load only after an explicit button click")
     if 'evaluationMode!=="viewpoint_probe"' not in app:
         raise SystemExit("viewpoint probes must remain outside public views")
-    if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):
+    if any(f'href="#{route}"' not in html for route in ("library", "saved")):
         raise SystemExit("Library, Saved, or Trends navigation missing")
+    if 'href="./trends/"' not in html:
+        raise SystemExit("Trends page navigation missing")
+    trends = (OUTPUT / "trends/index.html").read_text(encoding="utf-8")
+    trends_document = Document()
+    trends_document.feed(trends)
+    if len(trends_document.ids) != len(set(trends_document.ids)):
+        raise SystemExit("duplicate Trends HTML id")
+    if "../data/trends_comparison.json" not in trends:
+        raise SystemExit("Trends data connection missing")
+    comparison = json.loads((OUTPUT / "data/trends_comparison.json").read_text())
+    coverage = json.loads((OUTPUT / "data/github_history_coverage.json").read_text())
+    if not comparison or not coverage:
+        raise SystemExit("Trends data or history coverage empty")
     if not all(rule in styles for rule in (".library-domains{position:sticky", "overflow-y:auto", "overscroll-behavior:contain")):
         raise SystemExit("desktop Library sidebar must scroll independently")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):

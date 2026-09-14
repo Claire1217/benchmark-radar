@@ -252,6 +252,8 @@ def main() -> None:
     release_path = ROOT / "data" / "library_release_dates.json"
     if release_path.exists():
         apply_release_dates(records, json.loads(release_path.read_text()))
+    from repository_index import load_and_apply
+    load_and_apply(records, ROOT / "data")
     annotate_records(records)
     payload = {
         "manifest": {
