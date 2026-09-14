@@ -49,6 +49,7 @@ def main() -> None:
     if missing := expected_ids - set(document.ids):
         raise SystemExit(f"missing interactive regions: {sorted(missing)}")
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")
+    styles = (OUTPUT / "styles.css").read_text(encoding="utf-8")
     if 'sort:"attention"' not in app:
         raise SystemExit("Attention must remain the default sort")
     if "description-toggle" in app or "details-panel" in app:
@@ -57,7 +58,7 @@ def main() -> None:
         raise SystemExit("Latest must offer a date-free previous-day control")
     if "state.latestFrom=latestAvailableDate()" not in app:
         raise SystemExit("Latest must automatically fall back to the newest non-empty day")
-    if "dayDivider" in app or ".day-divider" in (OUTPUT / "styles.css").read_text(encoding="utf-8"):
+    if "dayDivider" in app or ".day-divider" in styles:
         raise SystemExit("Latest must rely on card dates without redundant day dividers")
     if "new IntersectionObserver" in app:
         raise SystemExit("previous days must load only after an explicit button click")
@@ -65,6 +66,8 @@ def main() -> None:
         raise SystemExit("viewpoint probes must remain outside public views")
     if any(f'href="#{route}"' not in html for route in ("library", "saved", "trends")):
         raise SystemExit("Library, Saved, or Trends navigation missing")
+    if not all(rule in styles for rule in (".library-domains{position:sticky", "overflow-y:auto", "overscroll-behavior:contain")):
+        raise SystemExit("desktop Library sidebar must scroll independently")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
     for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
