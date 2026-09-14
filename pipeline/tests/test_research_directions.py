@@ -62,25 +62,31 @@ const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',valu
 const context={console,window:{},URLSearchParams,history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:()=>({setAttribute(){}})}};
 vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 context.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
-vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
+vm.runInContext('state.library=payload.records.map(publicResearchRecord);state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
 assert(node('library-domain-list').innerHTML.includes('Self-Improvement &amp; RSI'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-capability'));
-for(const d of context.payload.manifest.researchTaxonomy.directions){
+assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-scientist"'));
+assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-r-d"'));
+assert.equal(context.researchDefinitions().filter(d=>d.section==='Featured topics').length,2);
+for(const d of context.researchDefinitions()){
   context.selected=d.id;
   vm.runInContext('state.libraryDirection=selected;renderLibrary()',context);
-  assert(node('library-count').textContent.startsWith(d.count+' results'));
+  const ids=d.id==='ai-for-science'?['ai-for-science','ai-scientist','ai-r-d']:[d.id];
+  const count=context.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe'&&(r.researchDirections||[]).some(id=>ids.includes(id))).length;
+  assert(node('library-count').textContent.startsWith(count+' results'));
   assert.equal(node('library-title').textContent,d.name);
 }
 vm.runInContext('state.libraryDirection="";state.librarySearch="";',context);
 for(const r of context.payload.records){
-  context.record=r;
+  context.record=context.publicResearchRecord(r);
   const chips=vm.runInContext('directionChips(record)',context);
   assert(chips.length<=2);
 }
-vm.runInContext('state.libraryDirection="ai-scientist";',context);
-context.record={researchDirections:['ai-scientist','ai-for-science','tool-use']};
+vm.runInContext('state.libraryDirection=publicDirection("ai-scientist");',context);
+context.record=context.publicResearchRecord({researchDirections:['ai-scientist','ai-for-science','tool-use']});
+assert.equal(context.record.researchDirections.length,2);
 assert.deepEqual(Array.from(vm.runInContext('directionChips(record,state.libraryDirection)',context)),['Tool Use']);
-context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],researchDirections:['ai-scientist']};
+context.record=context.publicResearchRecord({domainScope:'domain-specific',applicationDomains:['Science & Research'],researchDirections:['ai-scientist']});
 assert(vm.runInContext('matchesLibraryFilters(record)',context));
 context.record.displayEligible=false;
 assert(!vm.runInContext('matchesLibraryFilters(record)',context));
