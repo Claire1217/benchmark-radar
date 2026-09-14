@@ -7,7 +7,7 @@ const shortDate=value=>new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB"
 const windowLabel=value=>value==="today"?"latest":value;
 function updateMoreButton(id,visible,total,step){const button=$(id),remaining=Math.max(0,total-visible);button.hidden=remaining===0;button.textContent=`Show ${Math.min(step,remaining)} more`;}
 const readinessLabel=value=>value==="Inspectable"?"Protocol available":value;
-function route(){const [routeName,query=""]=location.hash.slice(1).split("?");const name=routeName==="trends"?"trends":routeName==="library"?"library":routeName==="saved"?"saved":"radar";if(name==="library"){const params=new URLSearchParams(query);state.libraryDirection=publicDirection(params.get("direction")||"");state.libraryScope=params.get("scope")||"";state.libraryDomain=params.get("domain")||"";state.libraryCapability=params.get("capability")||"";state.libraryTopic=params.get("topic")||"";state.libraryVisible=LIBRARY_PAGE_SIZE;}state.savedOnly=name==="saved";if(state.savedOnly){state.window="90d";document.querySelectorAll("#window-controls button").forEach(b=>b.classList.toggle("active",b.dataset.window==="90d"));}$("radar-view").hidden=name==="trends"||name==="library";$("library-view").hidden=name!=="library";$("trends-view").hidden=name!=="trends";document.querySelectorAll("[data-route]").forEach(a=>a.classList.toggle("active",a.dataset.route===name));if(name==="trends")renderTrend();else if(name==="library")renderLibrary();else renderRadar();}
+function route(){const [routeName,query=""]=location.hash.slice(1).split("?");const name=routeName==="trends"?"trends":routeName==="library"?"library":routeName==="saved"?"saved":"radar";if(name==="library"){const params=normalizeLibraryQuery(query);state.libraryDirection=publicDirection(params.get("direction")||"");state.libraryScope=params.get("scope")||"";state.libraryDomain=params.get("domain")||"";state.libraryCapability=params.get("capability")||"";state.libraryTopic=params.get("topic")||"";state.libraryVisible=LIBRARY_PAGE_SIZE;}state.savedOnly=name==="saved";if(state.savedOnly){state.window="90d";document.querySelectorAll("#window-controls button").forEach(b=>b.classList.toggle("active",b.dataset.window==="90d"));}$("radar-view").hidden=name==="trends"||name==="library";$("library-view").hidden=name!=="library";$("trends-view").hidden=name!=="trends";document.querySelectorAll("[data-route]").forEach(a=>a.classList.toggle("active",a.dataset.route===name));if(name==="trends")renderTrend();else if(name==="library")renderLibrary();else renderRadar();}
 function eligible(r){const latest=state.manifest.latestSourceDate||state.manifest.dataAsOf;const batch=state.manifest.latestBatch||{from:latest,to:latest};if(state.window==="today")return r.releasedAt>=(state.latestFrom||batch.to)&&r.releasedAt<=batch.to;const age=(new Date(state.manifest.dataAsOf)-new Date(r.releasedAt))/86400000;return age>=0&&age<=Number(state.window.slice(0,-1));}
 // Include complete release days until the initial Latest feed has at least ten records.
 function latestAvailableDate(){
@@ -26,13 +26,12 @@ function libraryCopy(r){const value=r.description||r.oneLine||"";return /^Establ
 function displayEligible(r){return r.displayEligible!==false&&r.evaluationMode!=="viewpoint_probe";}
 function librarySignal(r){const adoption=r.detail?.adoption?.independentOrganizations?.length||0;if(adoption)return `${adoption} independently tracked organization${adoption===1?"":"s"}`;const reports=r.modelReportReferences||[];if(reports.length){const labels=[...new Set(reports.map(x=>x.provider).filter(Boolean))];return labels.length?`Used in reports by ${labels.slice(0,2).join(" · ")}${labels.length>2?` +${labels.length-2}`:""}`:`Referenced in ${reports.length} tracked model reports`;}if(r.catalogModelCount)return `${fmt(r.catalogModelCount)} tracked model${r.catalogModelCount===1?"":"s"} on llm-stats`;return "";}
 
-function publicDirection(id){return ["ai-scientist","ai-r-d"].includes(id)?"ai-for-science":id;}
-function publicResearchRecord(record){return {...record,researchDirections:[...new Set((record.researchDirections||[]).map(publicDirection))]};}
-function researchDefinitions(){return (state.libraryManifest?.researchTaxonomy?.directions||[]).filter(d=>publicDirection(d.id)===d.id).map(d=>d.id==="ai-for-science"?{...d,description:"Scientific reasoning, discovery and research workflows, including AI Scientist and AI R&D."}:d);}
+function normalizeLibraryQuery(query){const params=new URLSearchParams(query);const taxonomy=state.libraryManifest?.researchTaxonomy||{};if(params.has("direction"))params.set("direction",publicDirection(params.get("direction")));for(const [kind,aliases] of Object.entries(taxonomy.legacyFilters||{})){const canonical=aliases[params.get(kind)];if(canonical){if(!params.has("direction"))params.set("direction",canonical);params.delete(kind);}}return params;}
+function publicDirection(id){return state.libraryManifest?.researchTaxonomy?.aliases?.[id]||id;}
+function researchDefinitions(){return state.libraryManifest?.researchTaxonomy?.directions||[];}
 function directionChips(r,selected=""){
   let ids=(r.researchDirections||[]).filter(id=>id!==selected);
   const suppress=(specific,broad)=>{if(selected===specific||ids.includes(specific))ids=ids.filter(id=>id!==broad);};
-  suppress("ai-scientist","ai-for-science");
   suppress("gui-grounding","computer-use");
   if(selected==="computer-use")ids=ids.filter(id=>id!=="gui-grounding");
   return ids.map(id=>researchDefinitions().find(d=>d.id===id)?.name).filter(Boolean).slice(0,2);
@@ -73,7 +72,7 @@ function setup(){
 }
 
 let typeOptions=[],typeCursor=-1;
-function typeDefinitions(){return [...researchDefinitions().map(d=>({id:d.id,name:d.name,kind:"direction",description:d.description||""})),...[...new Set(state.library.flatMap(r=>r.applicationDomains||[]))].sort().map(name=>({id:name,name,kind:"domain",description:"Application field"}))];}
+function typeDefinitions(){return [...researchDefinitions().map(d=>({id:d.id,name:d.name,kind:"direction",description:d.description||"",aliases:d.searchAliases||[]})),...[...new Set(state.library.flatMap(r=>r.applicationDomains||[]))].filter(name=>name!=="Science & Research").sort().map(name=>({id:name,name,kind:"domain",description:"Application field"}))];}
 function syncType(){const d=typeDefinitions().find(d=>d.kind==="direction"?d.id===state.libraryDirection:d.id===state.libraryDomain);$("selected-type").replaceChildren();if(d){const b=document.createElement("button");b.textContent=d.name+" ×";b.onclick=()=>chooseType(null);$("selected-type").append(b);}}
 function closeTypes(){const input=$("library-search");$("type-options").hidden=true;input.setAttribute("aria-expanded","false");input.removeAttribute("aria-activedescendant");typeCursor=-1;}
 function chooseType(d){
@@ -86,13 +85,13 @@ function chooseType(d){
 function showTypes(){
   const input=$("library-search"),q=input.value.trim().toLowerCase();
   const aliases={"科学":"science","机器人":"robot","编程":"coding","智能体":"agent","ai4science":"ai for science"},needle=aliases[q]||q;
-  typeOptions=typeDefinitions().filter(d=>!needle||(d.name+" "+d.id+" "+d.description).toLowerCase().includes(needle)).slice(0,8);
+  typeOptions=typeDefinitions().filter(d=>!needle||(d.name+" "+d.id+" "+d.description+" "+(d.aliases||[]).join(" ")).toLowerCase().includes(needle)).slice(0,8);
   typeCursor=-1;input.removeAttribute("aria-activedescendant");const list=$("type-options");list.replaceChildren();
   for(const [i,d] of typeOptions.entries()){
     const b=document.createElement("button");b.type="button";b.tabIndex=-1;b.id="type-option-"+i;
     b.setAttribute("role","option");b.setAttribute("aria-selected","false");
     const count=state.library.filter(displayEligible).filter(r=>d.kind==="direction"?(r.researchDirections||[]).includes(d.id):(r.applicationDomains||[]).includes(d.id)).length;
-    b.textContent=d.name+" · Type · "+count;b.onclick=()=>chooseType(d);list.append(b);
+    b.textContent=d.name+(d.kind==="domain"?" · Field · ":" · Type · ")+count;b.onclick=()=>chooseType(d);list.append(b);
   }
   list.hidden=!typeOptions.length;input.setAttribute("aria-expanded",String(!list.hidden));
 }
@@ -123,7 +122,7 @@ function setupLibraryNavigation(){
     const count=eligibleRecords.filter(r=>(r.researchDirections||[]).includes(d.id)).length;
     return `<button data-library-direction="${escapeHtml(d.id)}" title="${escapeHtml(d.description)}"><span>${escapeHtml(d.name)}</span><small>${count}</small></button>`;
   }).join("");
-  const applicationDomains=[...new Set(eligibleRecords.flatMap(r=>r.applicationDomains||[]))].sort();
+  const applicationDomains=[...new Set(eligibleRecords.flatMap(r=>r.applicationDomains||[]))].filter(domain=>domain!=="Science & Research").sort();
   $("library-domain-list").innerHTML=`<button data-library-scope=""><span>All benchmarks</span><small>${eligibleRecords.length}</small></button>`+
     groups.map((group,i)=>i<2?`<h3>${escapeHtml(group)}</h3>${directionButtons(group)}`:`<details class="research-group" ${definitions.some(d=>d.section===group&&d.id===state.libraryDirection)?"open":""}><summary>${escapeHtml(group)}</summary>${directionButtons(group)}</details>`).join("")+
     `<details class="research-group" ${state.libraryDomain?"open":""}><summary>Application fields</summary>`+applicationDomains.map(domain=>`<button data-library-domain="${escapeHtml(domain)}"><span>${escapeHtml(domain)}</span><small>${eligibleRecords.filter(r=>(r.applicationDomains||[]).includes(domain)).length}</small></button>`).join("")+"</details>";
@@ -144,4 +143,4 @@ function setupLibraryNavigation(){
   $("library-more").onclick=()=>{state.libraryVisible+=LIBRARY_PAGE_SIZE;renderLibrary();};
   renderLibrary();
 }
-Promise.all([fetch("./data/benchmarks_index.json").then(r=>r.json()),fetch("./data/library_index.json").then(r=>r.json()),fetch("./data/domain_trends.json").then(r=>r.json())]).then(([b,l,t])=>{state.benchmarks=b.records.map(publicResearchRecord);state.manifest=b.manifest;state.library=l.records.map(publicResearchRecord);state.saved=new Set([...state.saved].map(id=>l.manifest.identityRedirects?.[id]||id));localStorage.setItem("benchmark-radar:watchlist:v1",JSON.stringify([...state.saved]));state.libraryManifest=l.manifest;const directionsById=new Map(state.library.map(r=>[r.id,r.researchDirections||[]]));state.benchmarks.forEach(r=>{r.researchDirections=directionsById.get(r.id)||[];});state.trends=t;setup();setupLibraryNavigation();}).catch(()=>{$("benchmark-list").innerHTML='<div class="empty">Data could not be loaded. Please refresh later.</div>';});
+Promise.all([fetch("./data/benchmarks_index.json").then(r=>r.json()),fetch("./data/library_index.json").then(r=>r.json()),fetch("./data/domain_trends.json").then(r=>r.json())]).then(([b,l,t])=>{state.benchmarks=b.records;state.manifest=b.manifest;state.library=l.records;state.saved=new Set([...state.saved].map(id=>l.manifest.identityRedirects?.[id]||id));localStorage.setItem("benchmark-radar:watchlist:v1",JSON.stringify([...state.saved]));state.libraryManifest=l.manifest;const directionsById=new Map(state.library.map(r=>[r.id,r.researchDirections||[]]));state.benchmarks.forEach(r=>{r.researchDirections=directionsById.get(r.id)||[];});state.trends=t;setup();setupLibraryNavigation();}).catch(()=>{$("benchmark-list").innerHTML='<div class="empty">Data could not be loaded. Please refresh later.</div>';});

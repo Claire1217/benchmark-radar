@@ -43,11 +43,11 @@
 
 ### Explore the library
 
-| General AI capabilities | Application fields |
+| Research themes | Task capabilities |
 |---|---|
-| [Knowledge & Reasoning](https://benchmark-radar.com/#library?capability=Knowledge%20%26%20Reasoning) · 1,058<br>[Coding & Software Engineering](https://benchmark-radar.com/#library?capability=Coding%20%26%20Software%20Engineering) · 240<br>[Agents](https://benchmark-radar.com/#library?capability=Agents) · 266<br>[Multimodal Perception](https://benchmark-radar.com/#library?capability=Multimodal%20Perception) · 689<br>[Safety & Trustworthiness](https://benchmark-radar.com/#library?capability=Safety%20%26%20Trustworthiness) · 113<br>[Mathematics & Formal Sciences](https://benchmark-radar.com/#library?capability=Mathematics%20%26%20Formal%20Sciences) · 151<br>[Self-Evolution / RSI](https://benchmark-radar.com/#library?topic=Self-Evolution) · 11 | [Science & Research](https://benchmark-radar.com/#library?domain=Science%20%26%20Research) · 48<br>[Robotics & Autonomous Systems](https://benchmark-radar.com/#library?domain=Robotics%20%26%20Autonomous%20Systems) · 136<br>[Health & Life Sciences](https://benchmark-radar.com/#library?domain=Health%20%26%20Life%20Sciences) · 156<br>[Finance & Economics](https://benchmark-radar.com/#library?domain=Finance%20%26%20Economics) · 106<br>[Cybersecurity](https://benchmark-radar.com/#library?domain=Cybersecurity) · 49 |
+| [Self-Improvement & RSI](https://benchmark-radar.com/#library?direction=self-improvement-rsi) · 22<br>[AI for Science](https://benchmark-radar.com/#library?direction=ai-for-science) · 143 | [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 94<br>[Vision-Language Models](https://benchmark-radar.com/#library?direction=vision-language-models) · 540<br>[Safety & Alignment](https://benchmark-radar.com/#library?direction=safety-alignment) · 277<br>[Knowledge & QA](https://benchmark-radar.com/#library?direction=knowledge-qa) · 246<br>[Software Engineering](https://benchmark-radar.com/#library?direction=software-engineering) · 258<br>[Data Analysis](https://benchmark-radar.com/#library?direction=data-analysis) · 63 |
 
-**[Browse all 2,649 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,653 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find

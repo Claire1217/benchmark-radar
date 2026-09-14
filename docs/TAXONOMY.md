@@ -64,8 +64,7 @@ The normalizer may safely map reviewed structured labels into the two axes. It
 must not infer new scientific meaning from paper keywords. New or ambiguous
 classification is produced by semantic source review and remains auditable.
 Legacy `primaryDomain` is temporarily retained for Radar/Trends compatibility;
-new Library UI reads `capabilityGroups`, `applicationDomains`, and
-`domainScope`.
+these legacy fields remain available for historical views. The Library navigation now uses the canonical research taxonomy described below.
 
 This follows HELM's separation of scenario task/domain/metric and Hugging
 Face's hierarchy of modality families and tasks. LLM Stats is used as a useful
@@ -78,3 +77,62 @@ References:
 - Hugging Face Tasks: https://huggingface.co/tasks
 - OpenML Tasks: https://docs.openml.org/concepts/tasks/
 - LLM Stats Benchmarks: https://llm-stats.com/benchmarks
+
+
+## Library research navigation v2
+
+`pipeline/research_directions.py` generates `researchDirections`, evidence, facets,
+classification review flags and `manifest.researchTaxonomy` together. The browser
+must not merge, rename or infer record memberships. README links and counters use
+the same manifest. Historical Radar/Trends capability/domain fields remain separate.
+
+### Research themes
+
+- **Self-Improvement & RSI**: evaluated improvement of AI/agents, retained learning,
+  training/data/algorithm development and compute optimization. Includes AI R&D
+  enabling tasks; category membership is not evidence that a recursive loop works.
+- **AI for Science**: science-specific knowledge/reasoning, scientific computation,
+  experiments, artifacts and discovery. Includes AI Scientist workflows. School or
+  graduate science knowledge is a foundation task, not automatically a scientist workflow.
+
+Themes may overlap with task capabilities. NatureBench can be both science and
+coding; GENEB can be both science and data analysis. Ordinary software/office tasks
+are not scientific work solely because the suite mentions an ML subtask. AI R&D in
+a publisher name does not establish an improvement task. A self-evolving test set
+is not a test of model self-improvement.
+
+### Task capabilities and evidence
+
+The existing agent, language/reasoning and perception/safety sections now have
+explicit destinations for software engineering, data analysis, systems optimization,
+cybersecurity, knowledge/QA, visual understanding, spatial reasoning and media
+generation. These were previously absent or calculated without appearing in navigation.
+The two Featured topics remain the only featured themes; other categories are grouped.
+
+Classification uses the evaluated-task description (falling back to `oneLine`) and
+explicit source tags. It does not inherit `area`, and it does not use a benchmark's
+name as proof of its task. Regular-expression matches have word boundaries and
+explicit morphology: `meteorological` is not `logical`. Theme membership requires
+task-description evidence, not a broad imported topic tag. The evidence remains
+metadata-based and provisional, rather than a claim of full-paper verification.
+
+`researchFacets` preserves AI R&D tasks, explicit RSI wording, scientific workflows
+and science knowledge as distinct evidence. `explicit-rsi` means the description
+uses that wording, not that the system demonstrates unlimited recursive improvement.
+`researchClassification.reviewFlags` marks unsupported directions, source-tag-only
+assignments and theme mentions that need scope review. Unclassified records remain
+in All benchmarks and full-text search. They must not be forced into General AI.
+
+### Compatibility and reproducibility
+
+- `direction=ai-scientist` → `direction=ai-for-science`.
+- `direction=ai-r-d` → `direction=self-improvement-rsi` (the broader theme, not the old bucket).
+- `domain=Science & Research` and `topic=Self-Evolution` redirect to canonical themes.
+- Science's duplicate application-field option is omitted from navigation.
+- Search aliases include AI Scientist, AI4Science, AI R&D and RSI, while memberships
+  and counts always come from canonical records.
+
+To rerun the audit, save an old library snapshot, regenerate the current index,
+then run `pipeline/audit_research_taxonomy.py --before <old-library.json> --output <audit-dir>`.
+The audit records every membership delta, task description, source link, evidence
+and review flag. See [the v2 audit](audits/taxonomy-v2/report.md).

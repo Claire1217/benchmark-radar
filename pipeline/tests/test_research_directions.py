@@ -14,7 +14,8 @@ from research_directions import DIRECTIONS, annotate_records, classify_direction
 class ResearchDirectionTests(unittest.TestCase):
     def test_stable_unique_definitions(self):
         ids = [d["id"] for d in DIRECTIONS]
-        self.assertEqual(len(ids), 23)
+        self.assertEqual(len(ids), 29)
+        self.assertEqual(sum(d["axis"] == "theme" for d in DIRECTIONS), 2)
         self.assertEqual(len(ids), len(set(ids)))
         self.assertTrue(all(d["description"] for d in DIRECTIONS))
 
@@ -22,7 +23,7 @@ class ResearchDirectionTests(unittest.TestCase):
         record = {"name": "Scientific Agent", "description": "Scientific discovery agents with tool calling and persistent memory."}
         before = copy.deepcopy(record)
         result = classify_directions(record)
-        self.assertTrue({"ai-for-science", "ai-scientist", "tool-use", "agent-memory"} <= result.keys())
+        self.assertTrue({"ai-for-science", "tool-use", "agent-memory"} <= result.keys())
         self.assertEqual(record, before)
 
     def test_naturebench_is_science_even_with_condensed_description(self):
@@ -30,10 +31,40 @@ class ResearchDirectionTests(unittest.TestCase):
         result = classify_directions(record)
         self.assertIn("coding-agents", result)
         self.assertIn("ai-for-science", result)
-        self.assertEqual(result["ai-for-science"]["sourceUrl"], "https://arxiv.org/abs/2606.24530")
+        self.assertEqual(result["ai-for-science"]["basis"], "task-description")
         annotate_records([record])
         annotate_records([record])
         self.assertEqual(record["researchDirections"].count("ai-for-science"), 1)
+
+    def test_theme_and_capability_boundaries(self):
+        fixtures = [
+            ("Atmospheric science computation with code solutions.", {"ai-for-science", "software-engineering"}, set()),
+            ("Frozen genomic representations evaluated with linear probing on DNA classification tasks.", {"ai-for-science", "data-analysis"}, set()),
+            ("Models improve training algorithms using evaluation feedback.", {"self-improvement-rsi"}, {"ai-for-science"}),
+            ("Agents acting as sequential hyperparameter optimizers.", {"self-improvement-rsi"}, {"ai-for-science"}),
+            ("Curated Python SWE tasks from Nebius AI R&D.", {"software-engineering"}, {"self-improvement-rsi", "ai-for-science"}),
+            ("Self-evolving safety benchmark with refreshed prompts.", {"safety-alignment"}, {"self-improvement-rsi"}),
+            ("Evaluates self-evolving agents on held-out tasks.", {"self-improvement-rsi"}, set()),
+            ("Generative meteorological reasoning about forecasts.", {"ai-for-science"}, {"logical-reasoning"}),
+            ("Scientific literature retrieval and scientific database navigation.", {"ai-for-science", "deep-research"}, {"embodied-ai"}),
+            ("Questions across humanities, physics, biology, business and law.", set(), {"ai-for-science"}),
+            ("Physical commonsense about daily situations.", set(), {"ai-for-science"}),
+            ("Scientific discovery, software, knowledge work and games across six domains.", set(), {"ai-for-science"}),
+        ]
+        for text, included, excluded in fixtures:
+            with self.subTest(text=text):
+                result = classify_directions({"name": "Fixture", "description": text})
+                self.assertTrue(included <= result.keys(), result)
+                self.assertFalse(excluded & result.keys(), result)
+
+    def test_area_is_not_evidence_and_facets_do_not_overclaim(self):
+        record = {"name": "Fixture", "area": "Robotics & Embodied AI", "description": "Scientific literature retrieval."}
+        self.assertNotIn("embodied-ai", classify_directions(record))
+        record = {"name": "Fixture", "description": "Agents are sequential hyperparameter optimizers."}
+        annotate_records([record])
+        self.assertIn("ai-r-d", record["researchFacets"])
+        self.assertNotIn("explicit-rsi", record["researchFacets"])
+        self.assertIn("self-improvement-rsi", record["researchDirections"])
 
     def test_no_unknown_fallback(self):
         self.assertEqual(classify_directions({"name": "Unspecified", "description": ""}), {})
@@ -63,6 +94,8 @@ class ResearchDirectionTests(unittest.TestCase):
         self.assertEqual(payload["manifest"]["researchTaxonomy"], direction_manifest(payload["records"]))
         for r in payload["records"]:
             self.assertEqual(r["researchDirections"], list(r["researchDirectionEvidence"]))
+            self.assertEqual(r["researchDirectionEvidence"], classify_directions(r))
+            self.assertTrue(set(r["researchDirections"]) <= {d["id"] for d in DIRECTIONS})
 
     def test_real_client_filters_chips_and_counts(self):
         script = r"""
@@ -72,7 +105,7 @@ const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',valu
 const context={console,window:{},URLSearchParams,history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:()=>({setAttribute(){}})}};
 vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 context.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
-vm.runInContext('state.library=payload.records.map(publicResearchRecord);state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
+vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
 assert(node('library-domain-list').innerHTML.includes('Self-Improvement &amp; RSI'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-capability'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-scientist"'));
@@ -81,22 +114,26 @@ assert.equal(context.researchDefinitions().filter(d=>d.section==='Featured topic
 for(const d of context.researchDefinitions()){
   context.selected=d.id;
   vm.runInContext('state.libraryDirection=selected;renderLibrary()',context);
-  const ids=d.id==='ai-for-science'?['ai-for-science','ai-scientist','ai-r-d']:[d.id];
+  const ids=[d.id];
   const count=context.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe'&&(r.researchDirections||[]).some(id=>ids.includes(id))).length;
   assert(node('library-count').textContent.startsWith(count+' results'));
   assert.equal(node('library-title').textContent,d.name);
 }
 vm.runInContext('state.libraryDirection="";state.librarySearch="";',context);
 for(const r of context.payload.records){
-  context.record=context.publicResearchRecord(r);
+  context.record=r;
   const chips=vm.runInContext('directionChips(record)',context);
   assert(chips.length<=2);
 }
 vm.runInContext('state.libraryDirection=publicDirection("ai-scientist");',context);
-context.record=context.publicResearchRecord({researchDirections:['ai-scientist','ai-for-science','tool-use']});
+context.record={researchDirections:['ai-for-science','tool-use']};
+assert.equal(context.publicDirection('ai-r-d'),'self-improvement-rsi');
+assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('direction'),'ai-for-science');
+assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'self-improvement-rsi');
+assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'self-improvement-rsi');
 assert.equal(context.record.researchDirections.length,2);
 assert.deepEqual(Array.from(vm.runInContext('directionChips(record,state.libraryDirection)',context)),['Tool Use']);
-context.record=context.publicResearchRecord({domainScope:'domain-specific',applicationDomains:['Science & Research'],researchDirections:['ai-scientist']});
+context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],researchDirections:['ai-for-science']};
 assert(vm.runInContext('matchesLibraryFilters(record)',context));
 context.record.displayEligible=false;
 assert(!vm.runInContext('matchesLibraryFilters(record)',context));

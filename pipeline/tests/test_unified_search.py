@@ -11,7 +11,7 @@ function element(){return {value:'',hidden:true,children:[],attrs:{},setAttribut
 for(const id of ['library-search','type-options','selected-type'])nodes[id]=element();
 const state={library:[{researchDirections:['science'],applicationDomains:[]}],librarySearch:''};
 const context={state,$:id=>nodes[id],document:{createElement:element,addEventListener(){}},
-researchDefinitions:()=>[{id:'science',name:'AI for Science',description:'Scientific tasks'}],
+researchDefinitions:()=>[{id:'science',name:'AI for Science',description:'Scientific tasks',searchAliases:['AI Scientist']},{id:'self-improvement-rsi',name:'Self-Improvement & RSI',description:'Improving AI',searchAliases:['AI R&D']}],
 displayEligible:()=>true,history:{replaceState(){}},renderLibrary(){},URLSearchParams,LIBRARY_PAGE_SIZE:120};
 vm.createContext(context);
 const app=fs.readFileSync('web/app.js','utf8');
@@ -28,6 +28,8 @@ context.chooseType(null);assert.equal(state.libraryDirection,'');assert.equal(st
 type('science');key('ArrowDown');assert.equal(input.attrs['aria-activedescendant'],'type-option-0');key('Enter');assert.equal(state.libraryDirection,'science');
 type('science');key('Escape');assert.equal(list.hidden,true);assert.equal(input.attrs['aria-expanded'],'false');
 type('科学');assert.equal(list.hidden,false);key('Tab');assert.equal(list.hidden,true);
+type('AI R&D');assert.match(list.children[0].textContent,/Self-Improvement/);
+type('AI Scientist');assert.match(list.children[0].textContent,/AI for Science/);
 assert(!fs.readFileSync('web/index.html','utf8').includes('id="type-query"'));
 console.log('Unified search: text, click, keyboard, selected type, clear, aliases, dismissal passed');
 '''

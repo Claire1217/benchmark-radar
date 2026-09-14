@@ -81,41 +81,18 @@ def update_readme() -> None:
             f"| {position} | **{record['name']}**{source_line} | {area} | {attention_text(record)} |"
         )
 
-    records = library.get("records", [])
-    capability_counts = {
-        label: sum(label in (record.get("capabilityGroups") or []) for record in records)
-        for label in (
-            "Knowledge & Reasoning", "Coding & Software Engineering", "Agents",
-            "Multimodal Perception", "Safety & Trustworthiness",
-            "Mathematics & Formal Sciences",
-        )
-    }
-    rsi_count = sum("Self-Evolution" in (record.get("topics") or []) for record in records)
-    domain_counts = {
-        label: sum(label in (record.get("applicationDomains") or []) for record in records)
-        for label in (
-            "Science & Research", "Robotics & Autonomous Systems",
-            "Health & Life Sciences", "Finance & Economics", "Cybersecurity",
-        )
-    }
-    capability_links = [
-        f"[{label}]({site_filter('capability', label)}) · {count:,}"
-        for label, count in capability_counts.items()
-    ]
-    capability_links.append(
-        f"[Self-Evolution / RSI]({site_filter('topic', 'Self-Evolution')}) · {rsi_count:,}"
-    )
-    domain_links = [
-        f"[{label}]({site_filter('domain', label)}) · {count:,}"
-        for label, count in domain_counts.items()
-    ]
+    records = [r for r in library.get("records", []) if r.get("displayEligible") is not False and r.get("evaluationMode") != "viewpoint_probe"]
+    directions = library["manifest"]["researchTaxonomy"]["directions"]
+    theme_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["axis"] == "theme"]
+    highlighted = {"software-engineering", "coding-agents", "data-analysis", "vision-language-models", "knowledge-qa", "safety-alignment"}
+    capability_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["id"] in highlighted]
     overview.extend([
         "",
         "### Explore the library",
         "",
-        "| General AI capabilities | Application fields |",
+        "| Research themes | Task capabilities |",
         "|---|---|",
-        f"| {'<br>'.join(capability_links)} | {'<br>'.join(domain_links)} |",
+        f"| {'<br>'.join(theme_links)} | {'<br>'.join(capability_links)} |",
         "",
         f"**[Browse all {len(records):,} Library records →]({SITE_URL}/#library)**",
     ])
