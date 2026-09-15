@@ -14,6 +14,7 @@ from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
 from library_identity import merge_library_identities
 from library_release_dates import apply_release_dates
+from library_source_reviews import apply_source_reviews
 from research_directions import annotate_records, direction_manifest
 
 
@@ -254,6 +255,12 @@ def main() -> None:
         apply_release_dates(records, json.loads(release_path.read_text()))
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
+    reviewed_additions = 0
+    review_path = ROOT / "data" / "library_source_reviews.json"
+    if review_path.exists():
+        reviews = json.loads(review_path.read_text())
+        reviewed_additions = len(reviews.get("additions", []))
+        apply_source_reviews(records, reviews)
     annotate_records(records)
     # Both surfaces use the merged Library classification, including catalog evidence.
     public_path = ROOT / "data" / "benchmarks_index.json"
@@ -274,6 +281,7 @@ def main() -> None:
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
             "recordCount": len(records),
             "classicRecordCount": len(classics.get("records", [])),
+            "reviewedAdditionCount": reviewed_additions,
             "catalogSourceRecordCount": sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values()),
             "catalogEntityCount": len(catalogs.get("records", [])),
             "catalogMergedCount": catalog_merged,

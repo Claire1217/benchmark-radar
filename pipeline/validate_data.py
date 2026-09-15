@@ -148,7 +148,11 @@ def main() -> None:
     if public.get("manifest", {}).get("recordCount") != len(public.get("records", [])):
         errors.append("public manifest recordCount mismatch")
     library_manifest = library_public.get("manifest", {})
-    expected_library_count = len(records) + len(library_records) + library_manifest.get("catalogOnlyCount", 0)
+    review_path = ROOT / "data" / "library_source_reviews.json"
+    reviewed_count = len(json.loads(review_path.read_text()).get("additions", [])) if review_path.exists() else 0
+    if library_manifest.get("reviewedAdditionCount", 0) != reviewed_count:
+        errors.append("library reviewed addition count mismatch")
+    expected_library_count = reviewed_count + len(records) + len(library_records) + library_manifest.get("catalogOnlyCount", 0)
     if library_manifest.get("recordCount") != expected_library_count:
         errors.append("library public manifest recordCount mismatch")
     catalog_source_count = sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values())

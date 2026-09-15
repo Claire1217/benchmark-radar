@@ -116,7 +116,7 @@ for(const d of context.researchDefinitions()){
   vm.runInContext('state.libraryDirection=selected;renderLibrary()',context);
   const ids=[d.id];
   const count=context.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe'&&(r.researchDirections||[]).some(id=>ids.includes(id))).length;
-  assert(node('library-count').textContent.startsWith(count+' results'));
+  assert(node('library-count').textContent.startsWith(count+' entries'));
   assert.equal(node('library-title').textContent,d.name);
 }
 vm.runInContext('state.libraryDirection="";state.librarySearch="";',context);
@@ -141,7 +141,7 @@ vm.runInContext('state.libraryDirection="";state.librarySort="latest";renderLibr
 assert(node('library-count').textContent.includes('latest releases'));
 assert(!/<h2>\s*<a/.test(node('library-list').innerHTML));
 vm.runInContext('state.librarySearch="no-such-benchmark-xyz";renderLibrary()',context);
-assert(node('library-count').textContent.startsWith('0 results'));
+assert(node('library-count').textContent.startsWith('0 entries'));
 assert(node('library-more').hidden);
 """
         subprocess.run(["node", "-e", script], cwd=ROOT, check=True, capture_output=True, text=True)

@@ -481,6 +481,14 @@ def classify_themes(record):
 
 def classify_directions(record):
     """Return ordered stable IDs with auditable evidence; never mutate input."""
+    review = record.get("taskReview")
+    if review and review.get("sources"):
+        known = {d["id"] for d in DIRECTIONS}
+        if not set(review["directions"]) <= known:
+            raise ValueError("Unknown reviewed research direction")
+        return {d["id"]: {"basis": "primary-source-reviewed", "sources": review["sources"],
+                "excerpt": review.get("note"), "reviewedAt": review.get("reviewedAt")}
+                for d in DIRECTIONS if d["id"] in review["directions"]}
     labels = classify(record, RULES)
     topics = classify(record, {k: v for k, v in TOPICS.items() if k not in {"Self-Improvement & RSI", "AI for Science", "AI R&D"}})
     for label in TOPIC_EXCLUSIONS.get(record.get("name"), {}):

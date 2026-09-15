@@ -45,9 +45,9 @@
 
 | Research themes | Task capabilities |
 |---|---|
-| [Self-Improvement & RSI](https://benchmark-radar.com/#library?direction=self-improvement-rsi) · 22<br>[AI for Science](https://benchmark-radar.com/#library?direction=ai-for-science) · 143 | [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 94<br>[Vision-Language Models](https://benchmark-radar.com/#library?direction=vision-language-models) · 540<br>[Safety & Alignment](https://benchmark-radar.com/#library?direction=safety-alignment) · 277<br>[Knowledge & QA](https://benchmark-radar.com/#library?direction=knowledge-qa) · 246<br>[Software Engineering](https://benchmark-radar.com/#library?direction=software-engineering) · 258<br>[Data Analysis](https://benchmark-radar.com/#library?direction=data-analysis) · 63 |
+| [Self-Improvement & RSI](https://benchmark-radar.com/#library?direction=self-improvement-rsi) · 22<br>[AI for Science](https://benchmark-radar.com/#library?direction=ai-for-science) · 144 | [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 99<br>[Vision-Language Models](https://benchmark-radar.com/#library?direction=vision-language-models) · 535<br>[Safety & Alignment](https://benchmark-radar.com/#library?direction=safety-alignment) · 282<br>[Knowledge & QA](https://benchmark-radar.com/#library?direction=knowledge-qa) · 248<br>[Software Engineering](https://benchmark-radar.com/#library?direction=software-engineering) · 259<br>[Data Analysis](https://benchmark-radar.com/#library?direction=data-analysis) · 65 |
 
-**[Browse all 2,653 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,667 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
