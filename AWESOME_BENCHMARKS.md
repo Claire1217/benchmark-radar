@@ -10,7 +10,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-15 · **Benchmark releases:** 1758
+**Snapshot:** 2026-09-15 · **Benchmark releases:** 1759
 
 ## Contents
 
@@ -19,7 +19,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - [Chip Design & EDA](#chip-design--eda) (9)
 - [Cybersecurity](#cybersecurity) (48)
 - [Finance](#finance) (60)
-- [General AI](#general-ai) (1210)
+- [General AI](#general-ai) (1211)
 - [Logistics & Operations](#logistics--operations) (12)
 - [Manufacturing & Process Control](#manufacturing--process-control) (8)
 - [Materials & Chemistry](#materials--chemistry) (13)
@@ -296,7 +296,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **Pelican Bike Benchmark** (2026-09-12) — pelican-bike-benchmark A neutral static-site benchmark for AI implementations of the pelican-riding-a-bicycle prompt. [Paper](https://github.com/Qrzzzz/pelican-bike-benchmark) · [Code](https://github.com/Qrzzzz/pelican-bike-benchmark)
 - **InterveneBench** (2026-09-12) — hil-safety-benchmark InterveneBench: human-in-the-loop agent safety benchmark, Docker evaluation, and research draft. [Paper](https://github.com/yanliang-li/hil-safety-benchmark) · [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **agent-injection-bench** (2026-09-11) — agent-injection-bench An open benchmark for prompt injection against tool-calling agents, published with its dataset. [Paper](https://github.com/sentinelden/agent-injection-bench) · [Code](https://github.com/sentinelden/agent-injection-bench)
-- **Zipbench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
+- **ZipBench** (2026-09-11) — To address this challenge, we present ZipBench, a simple and low-cost BCM with theoretical error and rank-consistency guarantees. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
 - **VRL-Bench** (2026-09-11) — We introduce VRL-Bench, a harness for fair evaluation of trial-and-error learning under finite trial budgets. [Paper](https://arxiv.org/abs/2609.12404)
 - **TraceJudgeBench** (2026-09-11) — We introduce TraceJudgeBench, a diagnostic benchmark for auditing citation-like artifacts in RAG and agent-workflow evaluation, covering content-equivalent pairs, citation ablations, correctness conflicts, human-validat… [Paper](https://arxiv.org/abs/2609.12439)
 - **SteerBench** (2026-09-11) — To evaluate full-duplex spoken steerability, we introduce SteerBench, a benchmark with 390 spoken prompts and 1,067 human-authored binary audio and text rubrics spanning tone, persona, style/accent, and speed/length. [Paper](https://arxiv.org/abs/2609.12623)
@@ -342,6 +342,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 - **CapQuiz** (2026-09-09) — We introduce CapQuiz, a novel reference-free benchmark that assesses captions based on their utility in answering human-verified, fine-grained, multiple-choice questions derived from the video. [Paper](https://arxiv.org/abs/2609.09973)
 - **Candor-LR** (2026-09-09) — To shift the field toward realistic dialogue, we introduce Candor-LR, a conversational benchmark derived from the CANDOR corpus of 1,656 natural dyadic videoconferences. [Paper](https://arxiv.org/abs/2609.10394)
 - **CMNIE** (2026-09-09) — We present CMNIE, an information extraction benchmark for Chinese military news. [Paper](https://arxiv.org/abs/2609.10722)
+- **ABACUS** (2026-09-09) — ABACUS — A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation Instruction-based image editing models can now add, remove, or change a specified number of objects in a scen… [Paper](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench) · [Data](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench)
 - **5-Dialects-BN** (2026-09-09) — We address this gap with 5-Dialects-BN, the first multi-annotation Bangla dialect benchmark to align Romanized transliteration with dialectal text, Standard Bangla, English, and subjectivity labels across five regional… [Paper](https://arxiv.org/abs/2609.09964)
 - **VI-Bench** (2026-09-08) — To address this gap, we introduce VI-Bench, a benchmark built from 16.1 million real-user prompts and 900 human-verified AIGC videos. [Paper](https://arxiv.org/abs/2609.08079)
 - **SciFigure2Code** (2026-09-08) — We introduce SciFigure2Code, an AI-reconstructed benchmark that instead evaluates presentation recovery: generating editable Python programs that preserve how a scientific panel is arranged and read. [Paper](https://arxiv.org/abs/2609.08155)
@@ -1546,7 +1547,7 @@ A source-audited, daily-updated index of newly released AI benchmarks.
 
 ## Mathematics & Formal Science
 
-- **ChitraMiti** (2026-09-11) — We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
+- **ChitraMiti-12.8k** (2026-09-11) — We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
 - **StochBench** (2026-09-08) — We introduce StochBench, a Lean 4 benchmark of 450 graduate stochastic-processes problems at varying abstraction levels, each paired with its natural-language source. [Paper](https://arxiv.org/abs/2609.09264)
 - **StudyBench** (2026-09-01) — We introduce StudyBench, a controlled physics benchmark that directly measures how efficiently a self-evolution method converts training material into capability. [Paper](https://arxiv.org/abs/2609.00787) · [Code](https://github.com/thunlp/StudyBench)
 - **ScienceArena** (2026-08-31) — We introduce \textsc{ScienceArena}, an olympiad-style benchmark from thirteen public science competitions in physics, chemistry, and biology, including IPhO and IChO 2025--2026, IBO 2023, USAPhO 2026, and USNCO 2025. [Paper](https://arxiv.org/abs/2608.30517)

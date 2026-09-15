@@ -47,7 +47,7 @@
 |---|---|
 | [Self-Improvement & RSI](https://benchmark-radar.com/#library?direction=self-improvement-rsi) · 22<br>[AI for Science](https://benchmark-radar.com/#library?direction=ai-for-science) · 144 | [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 99<br>[Vision-Language Models](https://benchmark-radar.com/#library?direction=vision-language-models) · 535<br>[Safety & Alignment](https://benchmark-radar.com/#library?direction=safety-alignment) · 282<br>[Knowledge & QA](https://benchmark-radar.com/#library?direction=knowledge-qa) · 248<br>[Software Engineering](https://benchmark-radar.com/#library?direction=software-engineering) · 259<br>[Data Analysis](https://benchmark-radar.com/#library?direction=data-analysis) · 65 |
 
-**[Browse all 2,667 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,664 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
