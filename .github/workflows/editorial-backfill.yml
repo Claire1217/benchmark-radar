@@ -82,6 +82,8 @@ jobs:
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_index.json data/domain_trends.json data/review_queue.json data/curated_overrides.json data/curated_records.json data/trends_topics.json data/trends_comparison.json data/research_topic_audit.json
+          # Include every tracked data output produced by generation, including new views.
+          git add -u -- data README.md AWESOME_BENCHMARKS.md
           if git diff --cached --quiet; then
             echo "No editorial changes"
           else
