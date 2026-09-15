@@ -272,8 +272,10 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification"):
-                    row[key] = current[key]
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview"):
+                    if key in current: row[key] = current[key]
+                if current.get("repositoryScopeReview"):
+                    row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]
         public["manifest"]["researchTaxonomy"] = direction_manifest(public["records"])
         public["manifest"]["topicTaxonomy"] = topic_manifest(public["records"])
         public_path.write_text(json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n")

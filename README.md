@@ -9,7 +9,7 @@
   &nbsp;·&nbsp;
   <strong><a href="https://benchmark-radar.com/#library">Browse Library →</a></strong>
   &nbsp;·&nbsp;
-  <strong><a href="https://benchmark-radar.com/#trends">Explore Trends →</a></strong>
+  <strong><a href="https://benchmark-radar.com/trends/">Explore Trends →</a></strong>
 </p>
 
 <p align="center">
@@ -30,22 +30,22 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Multimodal Perception | 40 HF votes · 53 GitHub stars |
-| 2 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Coding & Software Engineering | 21 HF votes · 59 GitHub stars |
-| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Multimodal Perception | 780 dataset downloads |
-| 4 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Knowledge & Reasoning | 38 HF votes · 17 GitHub stars |
-| 5 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Multimodal Perception | 188 dataset downloads |
-| 6 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Knowledge & Reasoning | 28 GitHub stars |
-| 7 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Knowledge & Reasoning | 0 HF votes · 178 GitHub stars |
-| 8 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Multimodal Perception | 6 HF votes · 2,244 dataset downloads |
-| 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Robotics & Embodied Intelligence | 28 HF votes · 16 GitHub stars |
-| 10 | **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction**<br><sub>[Paper](https://arxiv.org/abs/2609.04611)</sub> | Agents | 15 HF votes · 23 GitHub stars |
+| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 40 HF votes · 53 GitHub stars |
+| 2 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 21 HF votes · 59 GitHub stars |
+| 3 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 780 dataset downloads |
+| 4 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 38 HF votes · 17 GitHub stars |
+| 5 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 188 dataset downloads |
+| 6 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Other benchmark tasks | 28 GitHub stars |
+| 7 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 178 GitHub stars |
+| 8 | **VANTAGE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.09396)</sub> | Other benchmark tasks | 6 HF votes · 2,244 dataset downloads |
+| 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Embodied AI & VLA | 28 HF votes · 16 GitHub stars |
+| 10 | **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction**<br><sub>[Paper](https://arxiv.org/abs/2609.04611)</sub> | Coding Agents · Personal & Enterprise Agents | 15 HF votes · 23 GitHub stars |
 
 ### Explore the library
 
-| Research themes | Task capabilities |
+| Agent research | Related research |
 |---|---|
-| [Self-Improvement & RSI](https://benchmark-radar.com/#library?direction=self-improvement-rsi) · 22<br>[AI for Science](https://benchmark-radar.com/#library?direction=ai-for-science) · 144 | [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 99<br>[Vision-Language Models](https://benchmark-radar.com/#library?direction=vision-language-models) · 535<br>[Safety & Alignment](https://benchmark-radar.com/#library?direction=safety-alignment) · 282<br>[Knowledge & QA](https://benchmark-radar.com/#library?direction=knowledge-qa) · 248<br>[Software Engineering](https://benchmark-radar.com/#library?direction=software-engineering) · 259<br>[Data Analysis](https://benchmark-radar.com/#library?direction=data-analysis) · 65 |
+| [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 92<br>[Computer Use](https://benchmark-radar.com/#library?direction=computer-use) · 40<br>[Deep Research & Web Search](https://benchmark-radar.com/#library?direction=search-research) · 23<br>[Tool Use](https://benchmark-radar.com/#library?direction=tool-use) · 59<br>[Agent Memory](https://benchmark-radar.com/#library?direction=agent-memory) · 21<br>[Multi-Agent Systems](https://benchmark-radar.com/#library?direction=multi-agent) · 14<br>[Personal & Enterprise Agents](https://benchmark-radar.com/#library?direction=personal-workplace) · 51<br>[Data Analysis Agents](https://benchmark-radar.com/#library?direction=data-analysis-agents) · 13<br>[AI Research Agents](https://benchmark-radar.com/#library?direction=ai-research-agents) · 17<br>[Self-Improving Agents](https://benchmark-radar.com/#library?direction=self-improving-agents) · 15<br>[Agent Harnesses & Skills](https://benchmark-radar.com/#library?direction=agent-harness-skills) · 9<br>[Agent Safety & Security](https://benchmark-radar.com/#library?direction=agent-safety-security) · 72<br>[AI for Science](https://benchmark-radar.com/#library?direction=scientific-agents) · 30 | [OCR & Document Understanding](https://benchmark-radar.com/#library?direction=ocr-documents) · 41<br>[Video Understanding](https://benchmark-radar.com/#library?direction=video-understanding) · 83<br>[Speech & Audio](https://benchmark-radar.com/#library?direction=realtime-multimodal) · 77<br>[World Models](https://benchmark-radar.com/#library?direction=world-models) · 18<br>[Embodied AI & VLA](https://benchmark-radar.com/#library?direction=embodied-vla) · 84<br>[Image & Video Generation](https://benchmark-radar.com/#library?direction=image-video-generation) · 69<br>[Efficient Inference](https://benchmark-radar.com/#library?direction=efficient-inference) · 9 |
 
 **[Browse all 2,664 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->

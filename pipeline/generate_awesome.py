@@ -75,22 +75,23 @@ def update_readme() -> None:
                 link("Code", links.get("code")),
             ) if item
         )
-        area = (record.get("capabilityGroups") or record.get("applicationDomains") or [record.get("area") or "—"])[0]
+        names = {d["id"]: d["name"] for d in library["manifest"]["topicTaxonomy"]["directions"]}
+        area = " · ".join(names[t] for t in record.get("researchTopics", [])[:2] if t in names) or "Other benchmark tasks"
         source_line = f"<br><sub>{sources}</sub>" if sources else ""
         overview.append(
             f"| {position} | **{record['name']}**{source_line} | {area} | {attention_text(record)} |"
         )
 
     records = [r for r in library.get("records", []) if r.get("displayEligible") is not False and r.get("evaluationMode") != "viewpoint_probe"]
-    directions = library["manifest"]["researchTaxonomy"]["directions"]
-    theme_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["axis"] == "theme"]
+    directions = library["manifest"]["topicTaxonomy"]["directions"]
+    theme_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["section"] == "Agent research"]
     highlighted = {"software-engineering", "coding-agents", "data-analysis", "vision-language-models", "knowledge-qa", "safety-alignment"}
-    capability_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["id"] in highlighted]
+    capability_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["section"] != "Agent research"]
     overview.extend([
         "",
         "### Explore the library",
         "",
-        "| Research themes | Task capabilities |",
+        "| Agent research | Related research |",
         "|---|---|",
         f"| {'<br>'.join(theme_links)} | {'<br>'.join(capability_links)} |",
         "",
@@ -109,10 +110,14 @@ def update_readme() -> None:
 
 
 def main() -> None:
-    payload = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    payload = json.loads((ROOT / "data" / "benchmarks_index.json").read_text(encoding="utf-8"))
+    library = json.loads((ROOT / "data" / "library_index.json").read_text())
+    topics = {t["id"]:t["name"] for t in library["manifest"]["topicTaxonomy"]["directions"]}
     groups: dict[str, list[dict]] = defaultdict(list)
     for record in payload.get("records", []):
-        groups[record.get("primaryDomain") or "General AI"].append(record)
+        if record.get("displayEligible") is False or record.get("evaluationMode") == "viewpoint_probe": continue
+        for name in ([topics[t] for t in record.get("researchTopics",[]) if t in topics] or ["Other benchmark tasks"]):
+            groups[name].append(record)
 
     lines = [
         "# Awesome Emerging AI Benchmarks",
@@ -121,7 +126,7 @@ def main() -> None:
         "",
         "[![Daily update](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)",
         "",
-        "A source-audited, daily-updated index of newly released AI benchmarks.",
+        "A daily-updated discovery index grouped by the same research topics as Radar, Library and Trends. Topics overlap; entries may appear in multiple groups.",
         "",
         f"**[Browse and filter on Benchmark Radar →]({SITE_URL}/)**",
         "",
@@ -142,13 +147,13 @@ def main() -> None:
         records = sorted(groups[domain], key=lambda item: (item["releasedAt"], item["name"]), reverse=True)
         for record in records:
             links = [
-                link("Paper", record.get("links", {}).get("paper")),
+                link("Paper", record.get("links", {}).get("report") or record.get("links", {}).get("paper")),
                 link("HF", record.get("links", {}).get("hfPaper")),
                 link("Code", record.get("links", {}).get("code")),
                 link("Data", record.get("links", {}).get("data")),
             ]
             resources = " · ".join(item for item in links if item)
-            evidence = record.get("evidence", {}).get("snippet", "").replace("\n", " ")
+            evidence = record.get("description") or record.get("evidence", {}).get("snippet", "").replace("\n", " ")
             if len(evidence) > 220:
                 evidence = evidence[:219].rstrip() + "…"
             lines.append(f"- **{record['name']}** ({record['releasedAt']}) — {evidence} {resources}")

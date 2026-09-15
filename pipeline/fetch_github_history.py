@@ -8,7 +8,7 @@ for record in lib.values():
  idx=record.get('githubIndex') or {}
  code=(record.get('links') or {}).get('code')
  url=code or r.get('githubRepo') or ''
- scope=idx.get('selectedScope') if idx.get('addedCodeLink') else r.get('githubScope')
+ scope=(record.get('repositoryScopeReview') or {}).get('scope') or (idx.get('selectedScope') if idx.get('addedCodeLink') else r.get('githubScope'))
  if not scope:
   assoc=next((a for a in idx.get('repositories',[]) if a['url'].lower().rstrip('/')==url.lower().rstrip('/')),None)
   scope=assoc.get('scope') if assoc else None

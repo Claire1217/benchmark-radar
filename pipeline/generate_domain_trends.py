@@ -179,6 +179,8 @@ def main() -> None:
 
     OUTPUT.write_text(json.dumps({
         "schemaVersion": "3.1",
+        "compatibilityOnly": True,
+        "topicTrendsUrl": "https://benchmark-radar.com/data/trends_topics.json",
         "asOf": as_of.isoformat(),
         "releaseCoverageStart": start.isoformat(),
         "releaseMetric": "new reusable benchmark families by first public release month",

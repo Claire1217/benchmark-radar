@@ -54,7 +54,7 @@ class SearchIndex:
         self.fields = {}
         for r in records:
             fields = [r['name'], ' '.join(r.get('aliases', [])),
-                      r.get('description') or r.get('oneLine') or '', ' '.join(get_labels(r))]
+                      r.get('description') or r.get('oneLine') or '', ' '.join([*get_labels(r),*r.get('researchTopics',[]),*[v for k in ('tasks','capabilities','environments','modalities','protocols') for v in r.get('benchmarkTaxonomy',{}).get(k,[])]])]
             self.fields[r['id']] = fields
             self.db.execute('INSERT INTO docs VALUES (?, ?, ?, ?, ?)', [r['id'], *fields])
         self.db.commit()
