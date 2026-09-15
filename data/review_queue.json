@@ -1,13 +1,1306 @@
 {
-  "generatedAt": "2026-09-14T06:40:26.579487Z",
-  "sourceDate": "2026-09-13",
+  "generatedAt": "2026-09-15T14:57:53.981803Z",
+  "sourceDate": "2026-09-15",
   "sourceWindow": {
-    "from": "2026-09-11",
-    "to": "2026-09-13"
+    "from": "2026-09-15",
+    "to": "2026-09-15"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 1857,
+  "candidateCount": 1866,
   "candidates": [
+    {
+      "id": "bm_viral-screening-benchmark_2abfcace",
+      "familyId": "bmf_4c30a57c789f",
+      "name": "viral-screening-benchmark",
+      "paperTitle": "viral-screening-benchmark",
+      "aliases": [],
+      "oneLine": "viral-screening-benchmark Where does sequence homology stop working?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/andrewgeorge11/viral-screening-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T11:53:44Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/andrewgeorge11/viral-screening-benchmark",
+        "paper": "https://github.com/andrewgeorge11/viral-screening-benchmark",
+        "code": "https://github.com/andrewgeorge11/viral-screening-benchmark"
+      },
+      "motivation": "viral-screening-benchmark Where does sequence homology stop working?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:andrewgeorge11/viral-screening-benchmark",
+        "url": "https://github.com/andrewgeorge11/viral-screening-benchmark",
+        "title": "viral-screening-benchmark",
+        "authors": [
+          "andrewgeorge11"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "viral-screening-benchmark Where does sequence homology stop working?",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "viral-screening-benchmark Where does sequence homology stop working? A leakage-free benchmark comparing BLAST against a DNA language model under controlled divergence, plus the epidemiological risk layer. # Viral sequence screening Two independent pieces of my thesis work, packaged so they run on your machine, plus the scripts that built the data so you can check how it was made. ``` epi_score/ the epidemiological risk score, v1 vs v2 pipeline/ BLAST + DNA embedding, with and without divergence tools/ how the reference index and splits were built ``` --- ## Start here ### `epi_score/` ```bash cd epi_score pip install -r requirements.txt python epi_score_v2.py ``` Turns a taxonomic identification into a risk number. The script prints v1 and v2 side by side across the whole curated table, and shows why I have not switched to v2 yet: its scores are about half v1's, but the tier cutoffs were fitted to v1's distribution, so switching as-is drops smallpox and Nipah out of HIGH_RISK. The formula is fine; the cutoffs need refitting first. ### `pipeline/` ```bash cd pipeline pip install -r requirements.txt conda install -c bioconda blast python check_setup.py ``` Then either: ```bash python identify.py # give it sequences, it says what they are python identify.py --fasta yours.fa python identify.py --diverge 0.25 # age them 25% first python run_benchmark.py # measure where each method stops working ``` **`identify.py` is the pipeline as a tool** — no ground truth needed, nothing scored, no verdict. **`run_benchmark.py` is the experiment** — it needs the true answer for every query so it can compute coverage and accuracy. ### `tools/` Four scripts, \"for reading rather than running\": the leakage-free splits, the embedding index, the BLAST database, and the production index. They need the full source corpus and a GPU to run, and their outputs are already in `pipeline/data/`. See `tools/README.md` for the chain. --- ## What is and is not here **Here:** two identification methods (BLAST and a DNA language model), the divergence benchmark, and the epidemiological scoring layer. One consequence worth stating: **this measures retrieval of taxonomy, not detection of hazard.** Whether a sequence can be assigned to a viral family is not the same question as whether it encodes something dangerous, and nothing in this package tests the second one. ## Cloning The two largest files use **Git LFS**. Install it before cloning, or you will get small pointer files instead of the data: ```bash git lfs install git clone cd pipeline && git lfs pull # only if the data files look tiny ```",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:andrewgeorge11/viral-screening-benchmark",
+          "url": "https://github.com/andrewgeorge11/viral-screening-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_tool-agent-benchmark_82dc4a9b",
+      "familyId": "bmf_da5c0342a82b",
+      "name": "tool-agent-benchmark",
+      "paperTitle": "tool-agent-benchmark",
+      "aliases": [],
+      "oneLine": "tool-agent-benchmark # Tool-Agent Benchmark A rigorous, evidence-based comparison of three approaches to giving an LLM access to real tools: no tools at all, standard function calling, and explicit reasoning-first tool selection.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Agents",
+        "Reasoning"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Omara455/tool-agent-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T09:59:09Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Omara455/tool-agent-benchmark",
+        "paper": "https://github.com/Omara455/tool-agent-benchmark",
+        "code": "https://github.com/Omara455/tool-agent-benchmark"
+      },
+      "motivation": "tool-agent-benchmark # Tool-Agent Benchmark A rigorous, evidence-based comparison of three approaches to giving an LLM access to real tools: no tools at all, standard function calling, and explicit reasoning-first tool selection.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:omara455/tool-agent-benchmark",
+        "url": "https://github.com/Omara455/tool-agent-benchmark",
+        "title": "tool-agent-benchmark",
+        "authors": [
+          "Omara455"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "tool-agent-benchmark # Tool-Agent Benchmark A rigorous, evidence-based comparison of three approaches to giving an LLM access to real tools: no tools at all, standard function calling, and explicit reasoning-first tool selection.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "tool-agent-benchmark # Tool-Agent Benchmark A rigorous, evidence-based comparison of three approaches to giving an LLM access to real tools: no tools at all, standard function calling, and explicit reasoning-first tool selection. See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for detailed design decisions. Full per-question results and judge reasoning are in `data/eval_report.md`. ## The Question When building an AI agent that can use real tools (calculators, APIs, external data sources), does forcing the model to explicitly reason about *which* tool to use, before acting, actually improve reliability — or is standard function calling just as good? ## Results | System | Overall Score (avg /5) | |---|---| | **Reasoning-first tool selection** | **4.33** | | **Standard function calling** | **4.00** | | **Baseline (no tools)** | **2.93** | ### By category | Category | Baseline | Standard | Reasoning | |---|---|---|---| | Simple (single tool) | 2.33 | 4.33 | 4.33 | | Chaining (multi-step) | 2.00 | 3.33 | 3.67 | | Ambiguous (multi-tool selection) | 1.67 | 4.33 | 4.33 | | No tool needed (restraint) | **5.00** | 4.00 | **5.00** | | Failure (invalid input handling) | 3.67 | 4.00 | 4.33 | ### Key findings - **Tool-augmented systems significantly outperform prompting alone** for any task requiring real, current, or precise external data — the baseline scored under 3/5 overall, largely because honest \"I can't verify this\" answers were correctly scored as incomplete, even though the honesty itself was appropriate behavior. - **The baseline system correctly refuses to fabricate real-time data** (weather, exchange rates) rather than hallucinating a plausible-sounding but fake number — a genuinely good, safe behavior, even though it scores poorly on raw accuracy. - **Explicit reasoning-first tool selection outperformed standard function calling in every category except \"simple\" (tied)**, with the clearest advantage on multi-step chaining and tool-use restraint. This is a real, measurable — if modest — benefit from forcing the model to reason before acting. - **A real bug was found and fixed during development**: the initial implementation only handled one tool request per response, but Claude sometimes requests *multiple* tools simultaneously (e.g., calculator and currency conversion together). This was only caught because a genuinely ambiguous test question triggered it. - **A genuine limitation was surfaced by the \"Atlantis\" test question**: tool-using systems confidently answered using a real town named Atlantis (South Africa) without questioning whether the user meant the mythical city — while the baseline correctly caught the ambiguity and asked for clarification. Tool access can create false confidence, not just capability. ## Architecture ``` tool-agent-benchmark/ ├── src/ │ ├── baseline.py # System 1: no tools, Claude's own reasoning only │ ├── standard_agent.py # System 2: standard function calling + 4 real tools │ ├── reasoning_agent.py # System 3: explicit reasoning-first tool selection │ ├── test_questions.py # 15 questions across 5 categories │ ├── runner.py # Runs all 3 systems against every question │ ├── judge.py # LLM-as-judge scoring with category-specific criteria │ ├── average_scores.py # Aggregates scores overall and by category │ └── generate_report.py # Produces the full Markdown report ├── data/ # Generated results (gitignored except reports) ├── README.md └── ARCHITECTURE.md ``` ### Tools Four real, external tools, using Anthropic's native function-calling API: - **Calculator** — local, deterministic arithmetic evaluation - **Weather** — live current conditions via Open-Meteo (no API key required) - **Geocoding** — city/place name → coordinates via Open-Meteo's geocoding API, enabling multi-step chaining with the weather tool - **Currency conversion** — live exchange rates via Frankfurter (ECB reference rates, no API key required) ### Evaluation 15 hand-designed test questions across 5 categories: simple single-tool use, multi-step chaining, ambiguous/multi-tool questions, questions requiring no tool (testing restraint), and deliberately invalid inputs (testing graceful failure handling). All 3 systems answered every question; a Claude-based judge scored each answer 1–5 using criteria specific to its category (accuracy, correct tool selection, restraint, or honest failure handling). ## Honest limitations - The 15-question test set, while deliberately diverse, is small; a larger set would give more statistically reliable category averages - Evaluation relies on a single LLM judge with no second judge or human validation sample - The \"reasoning-first\" system's advantage, while consistent, is modest — a larger test set focused specifically on ambiguous and chaining questions would better establish whether the benefit is reliable - Real external APIs (weather, currency, geocoding) mean results reflect live data at the time of the run, not fixed, reproducible values ## Setup Requires a `.env` file with `ANTHROPIC_API_KEY`. ```bash pip install -r requirements.txt ``` Run in order: `runner.py` → `judge.py` → `average_scores.py` / `generate_report.py`.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:omara455/tool-agent-benchmark",
+          "url": "https://github.com/Omara455/tool-agent-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_multi-agent-benchmark_6a27d62f",
+      "familyId": "bmf_42a859e3bb49",
+      "name": "multi-agent-benchmark",
+      "paperTitle": "multi-agent-benchmark",
+      "aliases": [],
+      "oneLine": "multi-agent-benchmark # Multi-Agent Benchmark A rigorous, evidence-based comparison of single-agent versus multi-agent coordination for a real, complex task: trip planning with real cost research.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Planning"
+      ],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Omara455/multi-agent-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T09:56:52Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Omara455/multi-agent-benchmark",
+        "paper": "https://github.com/Omara455/multi-agent-benchmark",
+        "code": "https://github.com/Omara455/multi-agent-benchmark"
+      },
+      "motivation": "multi-agent-benchmark # Multi-Agent Benchmark A rigorous, evidence-based comparison of single-agent versus multi-agent coordination for a real, complex task: trip planning with real cost research.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:omara455/multi-agent-benchmark",
+        "url": "https://github.com/Omara455/multi-agent-benchmark",
+        "title": "multi-agent-benchmark",
+        "authors": [
+          "Omara455"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "multi-agent-benchmark # Multi-Agent Benchmark A rigorous, evidence-based comparison of single-agent versus multi-agent coordination for a real, complex task: trip planning with real cost research.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "multi-agent-benchmark # Multi-Agent Benchmark A rigorous, evidence-based comparison of single-agent versus multi-agent coordination for a real, complex task: trip planning with real cost research. See [`ARCHITECTURE.md`](./ARCHITECTURE.md) for detailed design decisions, including two real bugs found and fixed during development, and an honest architectural correction made mid-project. ## The Question When a task is complex enough to decompose into sub-problems, does splitting it across multiple coordinating AI agents — each researching a focused sub-question, in parallel — produce a better result than one well-prompted agent doing the whole thing? And is any benefit worth the added cost, complexity, and latency? ## The Task Given a real trip request (e.g., *\"Plan a 3-day trip from New York to Tokyo within a $1500 budget\"*), two systems attempt to produce a real, useful cost-and-feasibility assessment, using real tools (live web search for flights/hotels, real weather APIs): - **Baseline** — one Claude agent, given the full task and the same tools, handles everything in one continuous conversation - **Multi-agent** — a Planner decomposes the request into flights/hotels/weather/budget sub-questions; a Budget researcher runs first and can short-circuit obviously infeasible requests; if feasible, Flights, Hotels, and Weather researchers run genuinely in parallel (via `asyncio`); a Synthesizer combines everything into one final answer, explicitly reconciling the Budget researcher's early estimate against the real researched numbers ## Results | System | Overall Score (avg /5) | Overall Time (avg) | |---|---|---| | **Baseline** | **4.57** | 44.9s | | **Multi-Agent** | **4.14** | 66.0s | ### By category | Category | Baseline (score / time) | Multi-Agent (score / time) | |---|---|---| | Comfortable budget | 4.5 / 42.8s | 4.5 / 87.3s | | Tight budget | 4.5 / 47.6s | **5.0** / 90.9s | | Infeasible budget | **5.0** / 48.8s | 2.5 / **13.1s** | | Different destination | 4.0 / 36.2s | **5.0** / 79.6s | ### Key findings - **On genuinely feasible trip requests, multi-agent matched or exceeded baseline quality** (tied or ahead in 3 of 4 non-infeasible comparisons), but was consistently slower — roughly 2x the baseline's time — due to real coordination overhead: the Planner, Budget, and Synthesizer stages run sequentially, and only the middle research phase is genuinely parallelized. - **On infeasible requests, multi-agent was ~4x faster** (13.1s vs. 48.8s) thanks to a deliberate short-circuit: a fast, general-knowledge budget check that skips expensive real research once a trip is clearly unaffordable. - **That same short-circuit produced a real, measurable quality cost.** Multi-agent's infeasible-trip answers scored notably lower (2.5/5 vs. 5.0/5) because they never perform the real flight/hotel research that would let them cite specific, current prices — the baseline, having no such shortcut, still ran full research and could explain infeasibility with concrete numbers. This is a genuine, deliberate speed-versus-thoroughness tradeoff in the design, not a bug — see `ARCHITECTURE.md` for why it was kept as-is rather than \"fixed\" to improve the score. - **The overall result — baseline scoring higher on average — is driven almost entirely by the infeasible category.** On feasible requests specifically, multi-agent's coordination held its own or won on quality; it simply cost more time to do so. ### Honest reflection on task choice Trip planning turned out to be a task a single, well-prompted agent with the right tools can handle competently in one continuous conversation. The clearest, most decisive advantage multi-agent showed was a structural one (early-exit short-circuiting), not a quality one from decomposition itself. A task requiring genuinely distinct expertise per sub-area, or many more parallel research threads than a single context window can comfortably juggle, would likely show a larger, more consistent multi-agent advantage. This is a real, useful finding for scoping future work — multi-agent coordination is not a universal upgrade, and choosing the right task matters as much as the architecture. ## Architecture ``` multi-agent-benchmark/ ├── src/ │ ├── planner.py # Decomposes and validates trip requests │ ├── budget_researcher.py # Fast, sequential feasibility pre-check │ ├── flights_researcher.py# Async, real web search │ ├── hotels_researcher.py # Async, real web search │ ├── weather_researcher.py# Async, real geocode + weather APIs, chained │ ├── orchestrator.py # Runs Budget first, then parallel research via asyncio │ ├── synthesizer.py # Combines findings, flags budget discrepancies │ ├── baseline.py # Single-agent comparison system │ ├── test_questions.py # 7 real trip requests across 4 categories │ ├── runner.py # Executes both systems, saves results + timing │ ├── judge.py # LLM-as-judge scoring │ └── average_scores.py # Aggregates results overall and by category ├── data/ # Generated results (gitignored) ├── README.md └── ARCHITECTURE.md ``` ## Setup Requires a `.env` file with `ANTHROPIC_API_KEY`. ```bash pip install -r requirements.txt ``` Run in order: `runner.py` → `judge.py` → `average_scores.py`.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:omara455/multi-agent-benchmark",
+          "url": "https://github.com/Omara455/multi-agent-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_mm-contextasr-bench_28bd2f6b",
+      "familyId": "bmf_1b35a1112e71",
+      "name": "MM-ContextASR-Bench",
+      "paperTitle": "MM-ContextASR-Bench",
+      "aliases": [],
+      "oneLine": "MM-ContextASR Bench Metadata and evaluation splits for Multimodal Conversational Context for LLM-Based ASR: Data Construction, Training, and Benchmark.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T12:30:43.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench",
+        "paper": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench",
+        "data": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench"
+      },
+      "motivation": "MM-ContextASR Bench Metadata and evaluation splits for Multimodal Conversational Context for LLM-Based ASR: Data Construction, Training, and Benchmark.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:lilonghao/mm-contextasr-bench",
+        "url": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench",
+        "title": "MM-ContextASR-Bench",
+        "authors": [
+          "lilonghao"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "MM-ContextASR Bench Metadata and evaluation splits for Multimodal Conversational Context for LLM-Based ASR: Data Construction, Training, and Benchmark.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "MM-ContextASR Bench Metadata and evaluation splits for Multimodal Conversational Context for LLM-Based ASR: Data Construction, Training, and Benchmark. Dataset summary Config Examples Audio Context Primary metric mm_contextasr 1,250 (250 current utterances × 5 histories) 1,439 WAV files included Controlled user-assistant dialogue entity Recall kespeech 19,212 Source ID only Same-speaker speech and transcript CER, SER, entity Recall cv_yue 3,525… See the full description on the dataset page: https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:lilonghao/mm-contextasr-bench",
+          "url": "https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-response-quality-benchmark_e4764922",
+      "familyId": "bmf_20de7bd5de8c",
+      "name": "LLM-Response-Quality-Benchmark",
+      "paperTitle": "LLM-Response-Quality-Benchmark",
+      "aliases": [],
+      "oneLine": "LLM-Response-Quality-Benchmark # LLM Response Quality Benchmark A structured Python project for **LLM response evaluation, pairwise A/B comparison, weighted rubric scoring, critical-error detection, quality metrics, and automated reporting…",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Finance"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/quintino77/LLM-Response-Quality-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T13:38:43Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/quintino77/LLM-Response-Quality-Benchmark",
+        "paper": "https://github.com/quintino77/LLM-Response-Quality-Benchmark",
+        "code": "https://github.com/quintino77/LLM-Response-Quality-Benchmark"
+      },
+      "motivation": "LLM-Response-Quality-Benchmark # LLM Response Quality Benchmark A structured Python project for **LLM response evaluation, pairwise A/B comparison, weighted rubric scoring, critical-error detection, quality metrics, and automated reporting**.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:quintino77/llm-response-quality-benchmark",
+        "url": "https://github.com/quintino77/LLM-Response-Quality-Benchmark",
+        "title": "LLM-Response-Quality-Benchmark",
+        "authors": [
+          "quintino77"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "LLM-Response-Quality-Benchmark # LLM Response Quality Benchmark A structured Python project for **LLM response evaluation, pairwise A/B comparison, weighted rubric scoring, critical-error detection, quality metrics, and automated reporting**.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "LLM-Response-Quality-Benchmark # LLM Response Quality Benchmark A structured Python project for **LLM response evaluation, pairwise A/B comparison, weighted rubric scoring, critical-error detection, quality metrics, and automated reporting**. This repository was built as a **personal portfolio project** to demonstrate practical AI Quality / AI Trainer / Data Annotation / LLM Evaluation skills with a reproducible technical workflow. --- ## Why this project exists LLM evaluation is more than deciding whether an answer \"looks good.\" A useful evaluation workflow needs to separate dimensions such as: - factual correctness; - instruction compliance; - relevance; - completeness; - safety; - writing quality; - severity of critical errors; - preference between competing responses; - consistency between benchmark scoring and human judgment. This project turns those ideas into a configurable Python benchmark. Instead of hard-coding one evaluation scheme, the scoring engine reads a JSON rubric, validates criterion weights, evaluates A/B responses from CSV data, detects critical failures, computes aggregate metrics, and exports both machine-readable and reviewer-friendly reports. --- ## Key features - **Configurable weighted rubric** loaded from JSON - **Pairwise Response A vs. Response B evaluation** - **Normalized 0–100 scoring** - **Quality bands** such as Excellent / Good / Acceptable / Needs Review / Poor - **Critical-error flags** independent of aggregate score - **Human preference agreement** - **Tie-margin logic** - **Category-level performance metrics** - **Criterion-level averages** - **Error taxonomy aggregation** - **Approximate 95% Wilson confidence interval** for agreement - **CSV result export** - **JSON summary export** - **Markdown QA report generation** - **Optional PNG charts** - **Unit tests** - **GitHub Actions CI** - **Editable methodology and data dictionary** - **Synthetic evaluation dataset** with no proprietary data --- ## Repository structure ```text LLM-Response-Quality-Benchmark/ │ ├── .github/ │ └── workflows/ │ └── tests.yml │ ├── data/ │ ├── evaluation_dataset.csv │ └── evaluation_rubric.json │ ├── docs/ │ ├── DATA_DICTIONARY.md │ ├── METHODOLOGY.md │ └── PORTFOLIO_NOTES.md │ ├── examples/ │ ├── custom_rubric.json │ └── evaluation_examples.md │ ├── reports/ │ ├── sample_benchmark_report.md │ ├── sample_results.csv │ └── sample_summary.json │ ├── scripts/ │ └── generate_sample_report.py │ ├── src/ │ └── llm_quality_benchmark/ │ ├── __init__.py │ ├── __main__.py │ ├── cli.py │ ├── evaluator.py │ ├── metrics.py │ ├── models.py │ ├── reporting.py │ ├── rubric.py │ ├── scoring.py │ └── visualization.py │ ├── tests/ │ ├── test_metrics.py │ ├── test_rubric.py │ └── test_scoring.py │ ├── .gitignore ├── LICENSE ├── Makefile ├── pyproject.toml ├── README.md └── requirements.txt ``` --- ## Default evaluation rubric The default benchmark evaluates six dimensions. | Criterion | Weight | Critical? | Purpose | |---|---:|:---:|---| | Accuracy | 28% | Yes | Factual, logical, and contextual correctness | | Instruction Following | 22% | Yes | Compliance with explicit requirements and constraints | | Relevance | 18% | No | Directness and usefulness | | Completeness | 14% | No | Coverage of the information needed | | Safety | 10% | Yes | Avoidance of unsafe or privacy-invasive behavior | | Writing Quality | 8% | No | Clarity, grammar, tone, and structure | All criterion weights must sum to `1.0`. --- ## Scoring model Each criterion receives a score from `1` to `5`. The benchmark calculates a weighted raw score: ```text weighted_raw = Σ (criterion_rating × criterion_weight) ``` It then normalizes that score onto a 0–100 scale: ```text normalized_percentage = (weighted_raw - score_min) / (score_max - score_min) × 100 ``` This means: ```text all 1s -> 0/100 all 3s -> 50/100 all 5s -> 100/100 ``` ### Quality bands | Percentage | Band | |---:|---| | 90–100 | Excellent | | 80–89.99 | Good | | 70–79.99 | Acceptable | | 60–69.99 | Needs Review | | score_B: prediction = A else: prediction = B ``` The default tie margin is **1.0 percentage point**. --- ## Human agreement metric The project checks whether: ```text predicted_preference == human_preference ``` It then reports total agreement percentage. Because a raw percentage can look more certain than it really is, the report also includes an approximate **95% Wilson confidence interval** for the agreement proportion. This is primarily included to demonstrate good evaluation-reporting habits; the sample dataset is intentionally small and synthetic. --- ## Error taxonomy The included data supports error tags such as: - Factual Error - Unsupported Claim - Instruction Miss - Irrelevant Content - Missing Information - Safety Risk - Ambiguous Reasoning - Poor Writing - Formatting Issue This makes it possible to analyze not only *how much* a response underperformed, but *why*. --- ## Installation ### Option 1 — editable package install ```bash git clone https://github.com/quintino77/LLM-Response-Quality-Benchmark.git cd LLM-Response-Quality-Benchmark python -m pip install -e . ``` ### Option 2 — install requirements ```bash python -m pip install -r requirements.txt ``` Python `3.10+` is recommended. --- ## Run the benchmark After installation: ```bash python -m llm_quality_benchmark ``` or: ```bash llm-quality-benchmark ``` Default input files: ```text data/evaluation_dataset.csv data/evaluation_rubric.json ``` Default output directory: ```text reports/ ``` --- ## Custom command ```bash python -m llm_quality_benchmark --input data/evaluation_dataset.csv --rubric data/evaluation_rubric.json --output-dir reports ``` Generate charts as well: ```bash python -m llm_quality_benchmark --charts ``` --- ## Generated outputs A run creates: ### `benchmark_results.csv` One row per benchmark case, including: - normalized A score; - normalized B score; - quality bands; - critical flags; - predicted preference; - human preference; - agreement; - score margin; - error ta",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:quintino77/llm-response-quality-benchmark",
+          "url": "https://github.com/quintino77/LLM-Response-Quality-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-red-team-benchmark_f3bdf567",
+      "familyId": "bmf_3a96d1043a66",
+      "name": "-llm-red-team-benchmark",
+      "paperTitle": "-llm-red-team-benchmark",
+      "aliases": [],
+      "oneLine": "-llm-red-team-benchmark # LLM Red-Team Benchmark A lightweight framework for evaluating the robustness of Large Language Models (LLMs) against adversarial prompts.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Robustness"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/griffio1/-llm-red-team-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T02:02:15Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/griffio1/-llm-red-team-benchmark",
+        "paper": "https://github.com/griffio1/-llm-red-team-benchmark",
+        "code": "https://github.com/griffio1/-llm-red-team-benchmark"
+      },
+      "motivation": "-llm-red-team-benchmark # LLM Red-Team Benchmark A lightweight framework for evaluating the robustness of Large Language Models (LLMs) against adversarial prompts.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:griffio1/-llm-red-team-benchmark",
+        "url": "https://github.com/griffio1/-llm-red-team-benchmark",
+        "title": "-llm-red-team-benchmark",
+        "authors": [
+          "griffio1"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "-llm-red-team-benchmark # LLM Red-Team Benchmark A lightweight framework for evaluating the robustness of Large Language Models (LLMs) against adversarial prompts.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "-llm-red-team-benchmark # LLM Red-Team Benchmark A lightweight framework for evaluating the robustness of Large Language Models (LLMs) against adversarial prompts. This project implements several jailbreak strategies and measures whether they successfully bypass model safeguards. The framework runs experiments across multiple instruction-tuned models and records attack success rates. The goal is to explore how different LLM architectures respond to adversarial prompts and to provide a simple experimental pipeline for LLM red-teaming. --- ## Features * Prompt Injection Attacks * Roleplay Jailbreak Attacks * Adversarial Suffix Attacks * Automated Jailbreak Generation * Self-Play Attack Evolution * Multi-Model Evaluation * Visualization of Attack Success Rates --- ## Models Tested The benchmark evaluates the following local models using Ollama: * `mistral` * `llama3` * `phi3` These models represent different architectures and sizes, enabling comparison of how modern instruction-tuned LLMs respond to adversarial prompts. --- ## Project Structure ``` llm-redteam-benchmark attacks/ ├─ prompt_injection.py ├─ roleplay_attack.py ├─ suffix_jailbreak.py ├─ auto_jailbreak_generator.py └─ self_play_attack.py defenses/ └─ llm_guard.py datasets/ └─ harmful_prompts.json models/ └─ llm_wrapper.py experiments/ └─ run_experiment.py analysis/ └─ visualize_results.py results/ └─ experiment_results.csv requirements.txt README.md ``` --- ## Experiment Pipeline The framework follows this evaluation workflow: ``` Harmful Prompt Dataset ↓ Adversarial Attack Generation ↓ LLM Evaluation (Multiple Models) ↓ Safety Evaluation ↓ Experiment Results ↓ Visualization ``` Each experiment records: * model tested * prompt used * attack strategy * generated adversarial prompt * whether the attack succeeded --- ## Installation Clone the repository: ``` git clone https://github.com/griffio2/llm-redteam-benchmark.git cd llm-redteam-benchmark ``` Install Python dependencies: ``` pip install -r requirements.txt ``` --- ## Install Ollama This project runs models locally using Ollama. Install: ``` brew install ollama ``` Start the Ollama server: ``` ollama serve ``` Download the required models: ``` ollama pull mistral ollama pull llama3 ollama pull phi3 ``` --- ## Running the Experiment Run the evaluation pipeline: ``` python experiments/run_experiment.py ``` This will: 1. Generate adversarial prompts 2. Test attacks across multiple models 3. Record results in `results/experiment_results.csv` --- ## Visualizing Results Generate a chart comparing attack success rates: ``` python analysis/visualize_results.py ``` The script will produce a visualization of jailbreak success rates across models and attack types. --- ## Research Questions This framework enables experiments such as: * Which adversarial prompt strategies are most effective? * Which models are most resistant to jailbreak attacks? * Do automatically generated prompts outperform manual jailbreak strategies? --- ## Research Motivation Adversarial prompts can expose vulnerabilities in large language models. Understanding these vulnerabilities is important for improving AI safety and building more robust LLM systems. This project explores how different attack strategies affect LLM responses and provides a simple experimental platform for studying model robustness. --- ## Future Improvements Potential extensions to the framework include: * larger prompt datasets * additional LLM architectures * automated attack optimization * improved vulnerability scoring metrics --- ## License MIT License",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:griffio1/-llm-red-team-benchmark",
+          "url": "https://github.com/griffio1/-llm-red-team-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_laptop-benchmark-ml_41c0b27b",
+      "familyId": "bmf_44e813d068e6",
+      "name": "laptop-benchmark-ml",
+      "paperTitle": "laptop-benchmark-ml",
+      "aliases": [],
+      "oneLine": "laptop-benchmark-ml # Universal ML Benchmark: MacBook vs HP Victus A turnkey, cross-platform PyTorch benchmark designed to compare machine learning training and inference throughput between **Apple Silicon MacBook** (`mps` / Metal Performa…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Sahebeer/laptop-benchmark-ml",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T11:38:19Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Sahebeer/laptop-benchmark-ml",
+        "paper": "https://github.com/Sahebeer/laptop-benchmark-ml",
+        "project": "https://download.pytorch.org/whl/cu121",
+        "code": "https://github.com/Sahebeer/laptop-benchmark-ml"
+      },
+      "motivation": "laptop-benchmark-ml # Universal ML Benchmark: MacBook vs HP Victus A turnkey, cross-platform PyTorch benchmark designed to compare machine learning training and inference throughput between **Apple Silicon MacBook** (`mps` / Metal Performance Shaders) and **HP Victus** (`cuda` / NVIDIA GeForce RTX).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:sahebeer/laptop-benchmark-ml",
+        "url": "https://github.com/Sahebeer/laptop-benchmark-ml",
+        "title": "laptop-benchmark-ml",
+        "authors": [
+          "Sahebeer"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "laptop-benchmark-ml # Universal ML Benchmark: MacBook vs HP Victus A turnkey, cross-platform PyTorch benchmark designed to compare machine learning training and inference throughput between **Apple Silicon MacBook** (`mps` / Metal Performance Shaders) and **HP Victus** (`cuda` / NVIDIA GeForce RTX).",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "laptop-benchmark-ml # Universal ML Benchmark: MacBook vs HP Victus A turnkey, cross-platform PyTorch benchmark designed to compare machine learning training and inference throughput between **Apple Silicon MacBook** (`mps` / Metal Performance Shaders) and **HP Victus** (`cuda` / NVIDIA GeForce RTX). --- ## ⚡ Overview & Architecture - **Dataset**: CIFAR-10 (60,000 32x32 color images across 10 categories). - Automatically downloaded from the internet on first run. - Deterministically split into: - **40,000 Training Samples** (with random cropping, horizontal flips, and normalization) - **10,000 Validation Samples** (clean evaluation per epoch) - **10,000 Testing Samples** (held-out final evaluation using best model checkpoint) - **Model**: ResNet-18 adapted for CIFAR-10 (~11.17 Million parameters). Pure PyTorch; no external pretrained weight downloads required. - **Hardware Acceleration**: - Automatically detects **NVIDIA CUDA** on HP Victus. - Automatically detects **Apple Silicon MPS** on MacBook. - Falls back to CPU if no GPU is found. - **Benchmark Target Duration**: **~10–15 Minutes** (15 epochs at batch size 64). --- ## 🚀 Quick Start Instructions ### 1. On your MacBook (macOS) ```bash # 1. Navigate to the repository cd laptop-benchmark-ml # 2. Install dependencies (if not already installed) pip3 install -r requirements.txt # 3. Run the automated benchmark python3 benchmark.py ``` --- ### 2. On your HP Victus (Windows / Linux) #### Clone from GitHub: Open PowerShell or Command Prompt on your HP Victus: ```powershell # 1. Clone your repository git clone https://github.com/Sahebeer/laptop-benchmark-ml.git cd laptop-benchmark-ml # 2. Install PyTorch with CUDA acceleration (for NVIDIA GeForce GPU): pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121 # 3. Install remaining dependencies pip install -r requirements.txt # 4. Run the benchmark python benchmark.py --epochs 12 --batch-size 128 ``` --- ## 📊 Benchmark Automation & Outputs When you run `python benchmark.py`, the following steps execute automatically without requiring any manual interaction: 1. **Hardware Inspection**: Detects GPU device name, PyTorch version, and platform. 2. **Kernel Warm-up**: Pre-warms GPU execution kernels to ensure timing accuracy. 3. **Training & Validation Loop**: - Live `tqdm` progress bars display real-time loss, accuracy, and images/sec. - Saves the best checkpoint weights based on validation accuracy. 4. **Held-out Testing Evaluation**: - Restores best checkpoint and evaluates the 10,000-image test set. 5. **Saved Artifacts** in `results/`: - `results/training_curves.png`: Loss and Accuracy progression curves. - `results/benchmark_report.txt`: Clean, human-readable summary table. - `results/benchmark_summary.json`: Full machine-readable benchmark data. --- ## ⚙️ Customizing the Run (CLI Options) You can tweak the run parameters to test different workloads: ```bash # Quick dry run (1 epoch, takes ~40 seconds) python benchmark.py --epochs 1 --batch-size 64 # High-throughput batch size test python benchmark.py --epochs 15 --batch-size 128 # Force CPU execution (to measure pure CPU performance) python benchmark.py --epochs 5 --device cpu ``` | Flag | Default | Description | |---|---|---| | `--epochs` | `15` | Number of training epochs (~10-15 min total) | | `--batch-size` | `64` | Batch size for training and evaluation | | `--lr` | `0.05` | Learning rate (with Cosine Annealing) | | `--val-size` | `10000` | Validation split count | | `--seed` | `42` | Random seed for exact reproducibility | | `--device` | Auto | `cuda`, `mps`, or `cpu` | --- ## 🏆 How to Compare MacBook vs HP Victus Compare the two files generated on each machine in `results/benchmark_report.txt`: 1. **Total Training Time**: Which machine completes the 15 epochs faster? 2. **Average Epoch Time**: Execution speed in seconds per epoch. 3. **Training Throughput**: Measured in `samples/sec` (or `img/s`). 4. **Final Test Accuracy**: Confirms that both architectures converged identically under identical random seed 42.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:sahebeer/laptop-benchmark-ml",
+          "url": "https://github.com/Sahebeer/laptop-benchmark-ml"
+        }
+      ]
+    },
+    {
+      "id": "bm_forecast-workflow-bench_a4d92e81",
+      "familyId": "bmf_1c0edaef5846",
+      "name": "forecast-workflow-bench",
+      "paperTitle": "forecast-workflow-bench",
+      "aliases": [],
+      "oneLine": "Forecast Workflow Bench (FWBench) Language Model track: 377 electricity-demand capacity-planning cases.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Planning"
+      ],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T13:42:46.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench",
+        "paper": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench",
+        "data": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench"
+      },
+      "motivation": "Forecast Workflow Bench (FWBench) Language Model track: 377 electricity-demand capacity-planning cases.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:neurogica/forecast-workflow-bench",
+        "url": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench",
+        "title": "forecast-workflow-bench",
+        "authors": [
+          "Neurogica"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Forecast Workflow Bench (FWBench) Language Model track: 377 electricity-demand capacity-planning cases.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Forecast Workflow Bench (FWBench) Language Model track: 377 electricity-demand capacity-planning cases. Code · Leaderboard FWBench evaluates how language models use fixed forecasting tools under a service budget and turn their outputs into feasible capacity decisions. The dataset pairs real EIA-reported demand with simulated operating contracts. It contains the frozen primary cohort used to compare 12 language-model configurations. This is the versioned public-reproduction… See the full description on the dataset page: https://huggingface.co/datasets/Neurogica/forecast-workflow-bench.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:neurogica/forecast-workflow-bench",
+          "url": "https://huggingface.co/datasets/Neurogica/forecast-workflow-bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_faraday-industrial-benchmark_40d515f9",
+      "familyId": "bmf_328c76cd8950",
+      "name": "faraday-industrial-benchmark",
+      "paperTitle": "faraday-industrial-benchmark",
+      "aliases": [],
+      "oneLine": "faraday-industrial-benchmark Executable benchmark for AI agents across industrial ERP, manufacturing, supply chain, distribution, engineering, and back-office workflows.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI",
+        "Manufacturing & Process Control",
+        "Logistics & Operations"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [
+        "Manufacturing",
+        "Logistics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/DattaKaligotla/faraday-industrial-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T05:02:14Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/DattaKaligotla/faraday-industrial-benchmark",
+        "paper": "https://github.com/DattaKaligotla/faraday-industrial-benchmark",
+        "project": "https://faraday-industrial-benchmark.faraday-2894.chatgpt.site",
+        "code": "https://github.com/DattaKaligotla/faraday-industrial-benchmark"
+      },
+      "motivation": "faraday-industrial-benchmark Executable benchmark for AI agents across industrial ERP, manufacturing, supply chain, distribution, engineering, and back-office workflows.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:dattakaligotla/faraday-industrial-benchmark",
+        "url": "https://github.com/DattaKaligotla/faraday-industrial-benchmark",
+        "title": "faraday-industrial-benchmark",
+        "authors": [
+          "DattaKaligotla"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "faraday-industrial-benchmark Executable benchmark for AI agents across industrial ERP, manufacturing, supply chain, distribution, engineering, and back-office workflows.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "faraday-industrial-benchmark Executable benchmark for AI agents across industrial ERP, manufacturing, supply chain, distribution, engineering, and back-office workflows. # Faraday Industrial Benchmark **[Explore the public benchmark website](https://faraday-industrial-benchmark.faraday-2894.chatgpt.site)** · [Benchmark card](BENCHMARK_CARD.md) · [JSONL protocol](docs/jsonl-protocol.md) Faraday Industrial Benchmark is an executable public benchmark for AI agents operating across the industrial enterprise: ERP finance and back office, supply chain, manufacturing operations, quality, maintenance, planning, and engineering. It measures whether an agent can investigate changing evidence, contain risk, form a feasible response, obtain human authorization, execute permitted changes, and leave an auditable trail. It does **not** reward manufacturing trivia or prose that merely sounds plausible. ## What makes it different - **Dynamic time:** every tool call consumes simulated time, and external events arrive while the agent works. - **Executable state:** tool calls read and mutate a synthetic industrial company rather than a static question-answer record. - **Evidence-gated authorization:** protected actions require the scenario's prerequisite reads, events, containment records, and a matching approval. Bypass attempts are fatal failures even when the intended outcome is useful. - **Outcome grading:** deterministic checks cover system state, trace evidence, policy, communication, estimated incident cost, and tool efficiency. - **Procedural variants:** task seeds generate distinct records, quantities, equipment, lots, routes, distribution nodes, financial amounts, and event outcomes for held-out evaluation. - **Constrained decisions:** approval is necessary but insufficient. Execution rejects suboptimal routes, infeasible waves, overallocated network stock, incomplete recalls, unsupported export releases, and incorrect demand plans. - **Provider neutral:** agents connect through a tiny JSONL protocol; no model SDK or hosted eval product is required. - **Workflow-scoped contracts:** the catalog contains 61 typed tools, while each episode exposes only its relevant cross-system surface plus its exact public controlled-action and notification-role vocabulary. Every task also publishes a topological lifecycle DAG; composite tasks replace the common five-stage lifecycle with a deeper workflow-specific graph. - **Tamper-evident replay:** each tool result records a canonical post-call state hash. Replay reconstructs the world, re-grades the outcome, and compares the submitted task, score, final answer, event list, and state commitments. The v0.4 public development suite contains 62 episodes across 31 families. It exposes 61 typed tools, 22 protected actions, 22 event types, and 974 deterministic task criteria: | Area | Families | What the agent must prove | |---|---|---| | Manufacturing and quality | Quality drift, machine failure, engineering change | Genealogy containment, safe recovery, controlled revision effectivity | | Engineering documents | Drawing, assembly/BOM, revision, standards/specification, work-instruction drafting, P&ID, process capability, construction | Cross-document reconciliation, revision history, exact traceable findings, correction drafts, held sources, approved review publication | | Supply chain and planning | Supplier delay, rush order, inventory mismatch | Feasible commitments, exact stock reconciliation, approved commercial action | | Transportation | Transportation disruption | Lowest-cost capacity-confirmed routing inside the service promise | | Warehousing and distribution | Warehouse wave, network allocation | Priority-constrained wave release and multi-DC allocation without overcommitment | | Distribution quality | Cold-chain recall | Telemetry investigation, full genealogy containment, exact customer recall scope | | Global trade | Trade compliance | Screening, license, document, hold, and release controls | | Integrated planning | Demand–supply rebalance | Confirmed signals, supply-bucket reconciliation, and exact residual expedite | | Enterprise orchestration | Supplier-quality recovery, recall-to-finance, engineering-to-production, order-to-cash disruption, plant-to-customer recovery | Public workflow DAGs, parallel diagnostic roots, convergence gates, expiring windows, up to four dependent approvals, and cross-domain state consistency | | Procure-to-pay | Invoice exception, vendor-master change | Three-way match, payment holds, fraud-resistant master-data control | | Order-to-cash | Customer credit | Cash application, exposure recalculation, controlled order release | | HCM and payroll | Payroll anomaly | Least-privilege access, manager evidence, exact pay correction | | Record-to-report | Period close | Source-to-journal reconciliation and balanced posting | | Project and asset accounting | Capital project | Commissioning evidence and exact capitalization | This is broad core coverage, not a claim to represent every ERP module or every industry configuration. It is also not yet a verified claim that Faraday is the world's most complex industrial benchmark; that claim requires a dated, reproducible comparison against every relevant release. The implemented complexity dimensions and claim policy are documented in [the workflow coverage matrix](docs/workflow-coverage.md). ## Quick start Python 3.11 or newer is required. ```bash python3 -m venv .venv source .venv/bin/activate python3 -m pip install -e '.[dev]' faraday-bench validate faraday-bench list faraday-bench qualify faraday-bench run --agent oracle --output runs/oracle.json --html runs/oracle.html faraday-bench replay runs/oracle.json faraday-bench stability --agent oracle --attempts 5 --output runs/stability.json ``` No model key is needed for the reference and negative-control runs. ## Connect an agent Any executable that reads and writes newline-delimited JSON can be evaluated: ```bash faraday-bench run \\ --a",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:dattakaligotla/faraday-industrial-benchmark",
+          "url": "https://github.com/DattaKaligotla/faraday-industrial-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_bench-cli_312d182c",
+      "familyId": "bmf_4bc8053c617f",
+      "name": "bench-cli",
+      "paperTitle": "bench-cli",
+      "aliases": [],
+      "oneLine": "bench-cli Reproducible load and performance benchmarking for AI inference endpoints ai-inference benchmarking llm load-testing rust # Metrum AI Bench Apache-2.0 licensed load and performance measurement for OpenAI-compatible LLM, VLM, ASR,…",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/metrum-ai/bench-cli",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T14:16:44Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/metrum-ai/bench-cli",
+        "paper": "https://github.com/metrum-ai/bench-cli",
+        "project": "https://github.com/metrum-ai/bench-cli",
+        "code": "https://github.com/metrum-ai/bench-cli"
+      },
+      "motivation": "bench-cli Reproducible load and performance benchmarking for AI inference endpoints ai-inference benchmarking llm load-testing rust # Metrum AI Bench Apache-2.0 licensed load and performance measurement for OpenAI-compatible LLM, VLM, ASR, and image-generation endpoints.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:metrum-ai/bench-cli",
+        "url": "https://github.com/metrum-ai/bench-cli",
+        "title": "bench-cli",
+        "authors": [
+          "metrum-ai"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "bench-cli Reproducible load and performance benchmarking for AI inference endpoints ai-inference benchmarking llm load-testing rust # Metrum AI Bench Apache-2.0 licensed load and performance measurement for OpenAI-compatible LLM, VLM, ASR, and image-generation endpoints.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "bench-cli Reproducible load and performance benchmarking for AI inference endpoints ai-inference benchmarking llm load-testing rust # Metrum AI Bench Apache-2.0 licensed load and performance measurement for OpenAI-compatible LLM, VLM, ASR, and image-generation endpoints. ## Build Rust 1.85 or later is required. ```bash cargo build --release cargo test --all-targets ``` The preferred entry point is `metrum-ai-bench` with `llm`, `vlm`, `asr`, `imagegen`, and `selftest` subcommands. During the compatibility period the four modality binaries can also be invoked directly. Run a command with `--help` for its authoritative flags. ```bash target/release/metrum-ai-bench selftest target/release/metrum-ai-bench llm -- \\ --url http://127.0.0.1:8000/v1/chat/completions \\ --api-key dummy --scenario example --num-requests 100 --concurrency 8 \\ --prompts prompts.jsonl --mode chat --streaming --model example \\ --max-tokens 64 --data-log results.jsonl --seed 7 \\ --warmup-requests 8 --request-rate 20 --arrival poisson \\ --max-concurrency 64 --slo ttft=250ms --slo e2e=2s ``` Pass `--runs N` among the forwarded modality arguments to the unified entry point to execute sequential independent runs and append a seeded bootstrap cross-run aggregate to `--data-log`. The `metrum-ai-bench-strategic` runner adds concurrency/rate sweeps, knee detection, multi-turn sessions, validity rules, server-metrics correlation, and CSV, HTML, MLPerf, and optional OTLP exports. See [strategic benchmarking](docs/STRATEGIC_BENCHMARKING.md). Prompt files are JSONL with a `prompt` string. VLM rows additionally use `image_urls` (array) or `image_url` (string). ASR input rows contain `id`, `path` or `url`, `format`, and optional `duration`. Every completed request is flushed incrementally to JSONL. A graceful Ctrl-C stops issuance, drains already-started work, and emits a `partial: true` summary. Warmup records remain auditable but are excluded from measured distributions. ## Methodology - Closed-loop concurrency or seeded constant/Poisson open-loop arrivals. - Open-loop latency includes queue delay from scheduled arrival, preventing coordinated omission from disappearing from headline latency. - Hyndman-Fan type 7 percentiles, sample count, sample standard deviation, MAD, p99 reliability, throughput bins, and seeded bootstrap helpers. - TTFT is the first visible token; reasoning time is separate; ITL records visible-token chunk intervals; TPOT divides decode duration by `N - 1`. - Per-endpoint distributions are first class and aggregate distributions are marked as mixtures. - Optional local counts from `tokenizer.json`: `cargo build --features tokenizer`. - SLO goodput uses repeatable `--slo ttft=`, `tpot=`, and `e2e=` thresholds. See [metric definitions](docs/METRICS.md), [output schema](docs/OUTPUT_SCHEMA.md), [CLI reference](docs/CLI.md) (clap `--help` dump), [reproduction procedure](docs/REPRODUCING.md), and [comparison notes](docs/COMPARISON.md). Run `metrum-ai-bench- --help` for the authoritative live flag list. ## Security and provenance Do not put credentials in endpoint files committed to source control. Secret scanning runs in CI. Test fixture provenance is documented in `test-data/README.md`; dependencies and notices are in `THIRD_PARTY_LICENSES` and `NOTICE`. ## License Apache License 2.0. See `LICENSE`.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:metrum-ai/bench-cli",
+          "url": "https://github.com/metrum-ai/bench-cli"
+        }
+      ]
+    },
+    {
+      "id": "bm_amharic-tokenization-benchmark_645319af",
+      "familyId": "bmf_bb4d8b58d184",
+      "name": "Amharic-Tokenization-Benchmark",
+      "paperTitle": "Amharic-Tokenization-Benchmark",
+      "aliases": [],
+      "oneLine": "Amharic-Tokenization-Benchmark Benchmarks tokenizer fertility and fragmentation for Amharic vs.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI",
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T08:14:23Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark",
+        "paper": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark",
+        "code": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark"
+      },
+      "motivation": "Amharic-Tokenization-Benchmark Benchmarks tokenizer fertility and fragmentation for Amharic vs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:bedr-ux/amharic-tokenization-benchmark",
+        "url": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark",
+        "title": "Amharic-Tokenization-Benchmark",
+        "authors": [
+          "bedr-ux"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Amharic-Tokenization-Benchmark Benchmarks tokenizer fertility and fragmentation for Amharic vs.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Amharic-Tokenization-Benchmark Benchmarks tokenizer fertility and fragmentation for Amharic vs. English across 8 LLM tokenizers (Llama-3, GPT-4o, XLM-R, AfroXLMR, and Amharic-specialized models), using 10 parallel sentence pairs. Quantifies how much more expensive low-resource, non-Latin-script languages are to tokenize. # Tokenization Analysis Benchmark for Low-Resource Languages (Amharic vs. English) **Author:** Bedru Yimam Ahmed **Email:** bedruy4@gmail.com Evaluates tokenization inefficiencies, subword fragmentation, fertility ratios, and context-window exhaustion across standard, multilingual, and Amharic-specialized LLM tokenizers, using 10 parallel Amharic/English sentence pairs covering civic life, agriculture, health, education, and infrastructure topics. ## Motivation Tokenizers trained primarily on Latin-script, English-dominant corpora tend to fragment morphologically rich, non-Latin-script languages like Amharic (written in Ge'ez script) far more aggressively than English. This has concrete downstream costs: - **More tokens per sentence** → higher inference cost and latency for the same content. - **Smaller effective context window** → less source text fits in a fixed token budget. - **Worse subword semantics** → when a model falls back to byte-level tokens, it loses access to meaningful subword units, which can hurt downstream task performance. This benchmark quantifies that gap directly, using **fertility ratio** (tokens per word) and **characters per token (CPT)** as the core metrics, computed on parallel Amharic/English sentences so the comparison is apples-to-apples. ## Key findings | Model/Tokenizer | Amharic fertility | English fertility | Gap ratio (AM/EN) | |---|---|---|---| | Llama-3-8B (Standard) | 13.524 | 1.148 | **11.78x** | | GPT-4o (`tiktoken` `o200k_base`) | 9.978 | 1.148 | **8.69x** | | Tiny Aya Earth (Multilingual/African-focused) | 3.291 | 1.148 | 2.87x | | Multilingual-E5 / XLM-RoBERTa-base / AfroXLMR-large¹ | 1.951 | 1.399 | 1.40x | | Llama-3.2-1B-Amharic (Specialized) | 1.375 | 1.148 | 1.20x | | LLAMA-Walia-II (Specialized) | 1.200 | 1.435 | 0.84x | | RoBERTa-Amharic-Embed (Specialized) | 1.199 | 4.733 | 0.25x | ¹ *Multilingual-E5, XLM-RoBERTa-base, and AfroXLMR-large all use the same underlying XLM-R SentencePiece vocabulary and therefore produce identical tokenization statistics — this is expected, not an error. AfroXLMR is continually pretrained on African-language text but reuses the original XLM-R tokenizer unchanged, so it improves the model's learned representations of Amharic without changing tokenization efficiency at all.* **Headline result:** the standard Llama-3-8B tokenizer needs **~11.8x more tokens per word** for Amharic than for equivalent English content, and its characters-per-token collapses to ~0.4 — i.e. it spends *more than one token per UTF-8 byte* of Amharic text, consistent with falling back to raw byte-level tokens on Ge'ez script. GPT-4o's `o200k_base` tokenizer shows the same failure mode at a smaller (but still severe) scale. Two of the Amharic-\"specialized\" tokenizers (LLAMA-Walia-II, RoBERTa-Amharic-Embed) actually invert the expected pattern and tokenize Amharic *more* efficiently than English — a finding worth flagging on its own, since it complicates the assumption that \"specialized = balanced across both languages\" rather than \"optimized primarily for one.\" ![Amharic vs English fertility, per model, with 95% CI](results/fertility_comparison_amharic_vs_english.png) ## Repository structure ``` . ├── README.md ├── LICENSE ├── requirements.txt ├── data/ │ └── parallel_pairs.json # 10 parallel Amharic/English sentence pairs ├── notebooks/ │ └── tokenization_benchmark.ipynb # main analysis notebook (recommended entry point) ├── src/ │ └── tokenization_benchmark.py # equivalent standalone script └── results/ ├── fertility_comparison_amharic_vs_english.png └── fertility_gap_table.png ``` ## Methodology For each `(model, language)` pair, every sentence is tokenized and scored on: - **Fertility ratio** = `token_count / word_count` (lower is more efficient) - **Chars per token (CPT)** = `char_count / token_count` (higher is more efficient) Both metrics are aggregated across the 10 sentences per language with a **95% confidence interval** (via `scipy.stats.t`). Per-sentence tokenization is also decoded back to human-readable form in **word-boundary runs**, not token-by-token — this matters because byte-fallback tokenizers split multi-byte Ge'ez characters (3 bytes each in UTF-8) across multiple tokens, and a single such token cannot be decoded to valid UTF-8 in isolation. Models covered: | Category | Model | |---|---| | Standard (Latin-centric) | `meta-llama/Meta-Llama-3-8B`, GPT-4o (`tiktoken` `o200k_base`) | | Multilingual baseline | `intfloat/multilingual-e5-large`, `FacebookAI/xlm-roberta-base` | | African-focused | `Davlan/afro-xlmr-large`, `CohereLabs/tiny-aya-earth` | | Amharic-specialized | `rasyosef/Llama-3.2-1B-Amharic-Instruct`, `israel/LLAMA-Walia-II`, `rasyosef/roberta-amharic-text-embedding-base` | ## Running it ```bash pip install -r requirements.txt jupyter notebook notebooks/tokenization_benchmark.ipynb ``` or, for the script version: ```bash python src/tokenization_benchmark.py ``` Both regenerate the summary tables, the fertility-gap pivot table, and the grouped bar chart from `data/parallel_pairs.json`. Some models (e.g. `meta-llama/Meta-Llama-3-8B`) are gated on Hugging Face and require `huggingface-cli login` with an account that has accepted the model's license before `AutoTokenizer.from_pretrained(...)` will succeed. ## Limitations - **Small sample size** (10 sentence pairs). Fertility CIs are wide for some models; 20-30+ pairs are needed for tighter estimates before drawing strong conclusions. - **Single domain register**: sentences are formal/news-style civic language. Fertility may differ for conversational, technical, or dialectal Amharic text. - **Translation direction**: English sentences were writte",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:bedr-ux/amharic-tokenization-benchmark",
+          "url": "https://github.com/bedr-ux/Amharic-Tokenization-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_amharic-llm-evaluation-benchmark_85b5c04a",
+      "familyId": "bmf_5e439100139e",
+      "name": "Amharic-LLM-Evaluation-Benchmark",
+      "paperTitle": "Amharic-LLM-Evaluation-Benchmark",
+      "aliases": [],
+      "oneLine": "Amharic-LLM-Evaluation-Benchmark A human-evaluated benchmark dataset analyzing Amharic language generation across leading Large Language Models (LLMs).",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T12:14:30Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark",
+        "paper": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark",
+        "code": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark"
+      },
+      "motivation": "Amharic-LLM-Evaluation-Benchmark A human-evaluated benchmark dataset analyzing Amharic language generation across leading Large Language Models (LLMs).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:neamnasamnew19-art/amharic-llm-evaluation-benchmark",
+        "url": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark",
+        "title": "Amharic-LLM-Evaluation-Benchmark",
+        "authors": [
+          "neamnasamnew19-art"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Amharic-LLM-Evaluation-Benchmark A human-evaluated benchmark dataset analyzing Amharic language generation across leading Large Language Models (LLMs).",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Amharic-LLM-Evaluation-Benchmark A human-evaluated benchmark dataset analyzing Amharic language generation across leading Large Language Models (LLMs). # Amharic LLM Quality & Cultural Alignment Benchmark ## Overview This repository contains a human-evaluated benchmark dataset analyzing Amharic language outputs generated by leading Large Language Models (LLMs). The project assesses model quality across grammatical accuracy, semantic precision, tone consistency, and cultural appropriateness. ## Evaluated Models - **OpenAI:** ChatGPT (GPT-4o) - **Anthropic:** Claude 3.5 Sonnet - **Google:** Gemini 1.5 Pro ## Evaluation Criteria Responses are evaluated on a **1 to 5 scale** across four core dimensions: 1. **Grammatical Accuracy:** Proper verb conjugations, object markers, and syntax. 2. **Semantic Precision:** Accurate translation of technical terms and idioms without loss of meaning. 3. **Cultural Relevance:** Correct usage of formal honorifics (*እርስዎ*) vs. informal pronouns (*አንተ/አንቺ*). 4. **Safety & Formatting:** Adherence to prompt requirements and localized norms. ## Repository Contents - `amharic_evaluation_benchmark.csv` – CSV dataset containing test prompts, AI outputs, quality scores, error classifications, and human-corrected Amharic text. ## Author **Neamn Asamnew** Native Amharic Language Specialist & AI Data Annotator Addis Ababa, Ethiopia",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:neamnasamnew19-art/amharic-llm-evaluation-benchmark",
+          "url": "https://github.com/neamnasamnew19-art/Amharic-LLM-Evaluation-Benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-vs-human_1284fbb3",
+      "familyId": "bmf_a3bc3d264ab9",
+      "name": "Ai_vs_Human",
+      "paperTitle": "Ai_vs_Human",
+      "aliases": [],
+      "oneLine": "Ai_vs_Human Empirical machine learning benchmark comparing 6 classical classifiers (Linear SVM, Logistic Regression, XGBoost, Random Forest, Naive Bayes, KNN) on AI-Generated vs.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Cybersecurity",
+      "industrySectors": [
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T09:01:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human",
+        "paper": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human",
+        "project": "https://img.shields.io/badge/Python-3.12-blue.svg",
+        "code": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human"
+      },
+      "motivation": "Ai_vs_Human Empirical machine learning benchmark comparing 6 classical classifiers (Linear SVM, Logistic Regression, XGBoost, Random Forest, Naive Bayes, KNN) on AI-Generated vs.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:purushotham-prajapati-24/ai_vs_human",
+        "url": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human",
+        "title": "Ai_vs_Human",
+        "authors": [
+          "Purushotham-Prajapati-24"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Ai_vs_Human Empirical machine learning benchmark comparing 6 classical classifiers (Linear SVM, Logistic Regression, XGBoost, Random Forest, Naive Bayes, KNN) on AI-Generated vs.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Ai_vs_Human Empirical machine learning benchmark comparing 6 classical classifiers (Linear SVM, Logistic Regression, XGBoost, Random Forest, Naive Bayes, KNN) on AI-Generated vs. Human-Written Text Classification using the HC3 corpus. ai-generated-text chatgpt-detection hc3-dataset machine-learning nlp scikit-learn support-vector-machines text-classification tfidf xgboost # AI-Generated vs. Human-Written Text Classification [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/) [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.6+-orange.svg)](https://scikit-learn.org/) [![XGBoost](https://img.shields.io/badge/XGBoost-3.4+-red.svg)](https://xgboost.readthedocs.io/) [![Status](https://img.shields.io/badge/Status-Completed-success.svg)]() [![Report](https://img.shields.io/badge/Report-PDF-red.svg)](Purushotham_Prajapati_AI_vs_Human_Text_Classification_Report.pdf) > **Academic Project:** Comparative Evaluation of Classical Machine Learning Classifiers for AI-Generated vs. Human-Written Text Classification > **Author:** **Purushotham Prajapati** > **Course:** Computer Science and Business Systems > **Degree:** Bachelor of Technology (B.Tech) > **Academic Year:** 2025–2026 > **Full Publication PDF:** [Download PDF Report](Purushotham_Prajapati_AI_vs_Human_Text_Classification_Report.pdf) --- ## 📌 Executive Summary With the rapid emergence and widespread adoption of Large Language Models (LLMs) such as ChatGPT, Claude, and Gemini, distinguishing authentic human scholarship from machine-generated prose has become a vital challenge for academic integrity, digital journalism, cybersecurity, and content moderation. This project implements a complete, rigorous, and leak-free empirical machine learning pipeline evaluating six foundational classification algorithms: 1. **Linear Support Vector Machine (Linear SVM)** — *Maximum-margin linear boundary* 2. **Logistic Regression** — *Convex probabilistic linear baseline* 3. **XGBoost** — *Modern second-order gradient boosted decision trees* 4. **Random Forest** — *Bagged ensemble of decorrelated decision trees* 5. **Multinomial Naive Bayes** — *Classic generative probabilistic model* 6. **K-Nearest Neighbors (KNN)** — *Instance-based cosine metric model* Using a balanced benchmark of **4,018 prompt-paired documents** extracted from the peer-reviewed **Human ChatGPT Comparison Corpus (HC3)** across Computer Science, Artificial Intelligence, and Medicine, documents were represented as 5,000-dimensional sublinear TF-IDF vectors fitted strictly on the training partition. --- ## 🏆 Key Experimental Results All models were trained on 80% of the dataset ($N=3,214$) and evaluated on an isolated 20% test partition ($N=804$ samples: $402$ Human, $402$ AI). Zero synthetic or fabricated figures were used—all metrics are direct empirical measurements: | Rank | Classifier | Accuracy | Precision | Recall | F1-Score | ROC-AUC | 5-Fold CV F1 (Mean $\\pm$ Std) | Training Time | | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | | 🥇 | **Linear SVM** | **97.76%** | **0.9776** | **0.9776** | **0.9776** | **0.9974** | **0.9804 $\\pm$ 0.0050** | 0.090 s | | 🥈 | **Logistic Regression** | 96.27% | 0.9745 | 0.9502 | 0.9622 | 0.9962 | 0.9707 $\\pm$ 0.0033 | 0.050 s | | 🥉 | **XGBoost** | 93.78% | 0.9536 | 0.9204 | 0.9367 | 0.9913 | 0.9537 $\\pm$ 0.0060 | 3.281 s | | 4 | **Random Forest** | 93.66% | 0.9488 | 0.9229 | 0.9357 | 0.9892 | 0.9543 $\\pm$ 0.0067 | 0.215 s | | 5 | **Multinomial Naive Bayes** | 92.41% | 0.9646 | 0.8806 | 0.9207 | 0.9866 | 0.9272 $\\pm$ 0.0128 | **0.003 s** | | 6 | **K-Nearest Neighbors** | 82.21% | 0.7704 | 0.9179 | 0.8377 | 0.9290 | 0.8637 $\\pm$ 0.0109 | **0.003 s** | --- ## 📊 Visual Gallery & Important Graphs ### 1. Overall Classifier Performance (Accuracy vs. F1-Score) Linear SVM and Logistic Regression decisively outperformed tree-based ensembles and distance-based models. --- ### 2. Receiver Operating Characteristic (ROC) Curves Both Linear SVM ($\\text{AUC} = 0.9974$) and Logistic Regression ($\\text{AUC} = 0.9962$) demonstrate near-perfect discriminatory separation across all decision thresholds. --- ### 3. Confusion Matrix Heatmaps (All 6 Models) Cell-by-cell breakdown on the 804 test samples (Human = 0, AI = 1). Notice that Linear SVM committed only **9 False Positives** out of 402 human texts, whereas KNN committed **110 False Positives** (a severe 27.4% false alarm rate on innocent human prose). --- ### 4. Precision vs. Recall Trade-off In content moderation and academic honesty, **False Positives (Type I Error)** carry severe punitive consequences. High Precision is non-negotiable. --- ### 5. Exploratory Data Analysis: Text Length & Word Count Distributions Human writing exhibits high variance in length ($\\sigma = 100.42$ words), spanning from terse single-sentence definitions to expansive essays. In contrast, ChatGPT text clusters uniformly ($\\sigma = 51.38$ words, mean $188.80$), reflecting RLHF alignment favoring standardized, comprehensive answers. --- ### 6. Top TF-IDF Vocabulary Divergences AI text systematically over-indexes on objective transitional phrases, framing verbs, and summarizing vocabulary (`important`, `process`, `system`, `used`, `include`). --- ### 7. Feature Ablation: Word-Level vs. Character-Level TF-IDF Comparing Word-level ($1$–$2$ grams) vs. Character-level ($3$–$5$ grams) TF-IDF on the winning Linear SVM model. Character n-grams attained a remarkable **97.14% Accuracy** and higher Precision (**97.97%**), proving that sub-word sequences effectively capture stylistic punctuation cadences (e.g., `, and`, `;\\n`, `: \\n-`) and grammatical affixes (`-tion`, `-ment`). --- ## 🔬 Confusion Matrix Numerical Breakdown | Classifier | True Negative (TN) *(Human $\\to$ Human)* | False Positive (FP) *(Human $\\to$ AI)* | False Negative (FN) *(AI $\\to$ Human)* | True Positive (TP) *(AI $\\to$ AI)* | Total Errors | | :--- | :---: | :---: | :---: | :---: | :---: | | **Linear SVM** | ",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:purushotham-prajapati-24/ai_vs_human",
+          "url": "https://github.com/Purushotham-Prajapati-24/Ai_vs_Human"
+        }
+      ]
+    },
+    {
+      "id": "bm_agent-arena_0df4c133",
+      "familyId": "bmf_7cb88de18f1d",
+      "name": "agent-arena",
+      "paperTitle": "agent-arena",
+      "aliases": [],
+      "oneLine": "agent-arena Does multi-agent actually beat single-agent, and what does it cost?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/titusblair/agent-arena",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-15T14:57:40.623218Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-15",
+      "firstSeenAt": "2026-09-15",
+      "indexedAt": "2026-09-15T14:57:40.623218Z",
+      "sourceUpdatedAt": "2026-09-15T04:34:16Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "report": "https://github.com/titusblair/agent-arena",
+        "paper": "https://github.com/titusblair/agent-arena",
+        "code": "https://github.com/titusblair/agent-arena"
+      },
+      "motivation": "agent-arena Does multi-agent actually beat single-agent, and what does it cost?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:titusblair/agent-arena",
+        "url": "https://github.com/titusblair/agent-arena",
+        "title": "agent-arena",
+        "authors": [
+          "titusblair"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "A benchmark with the cost column filled in.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "agent-arena Does multi-agent actually beat single-agent, and what does it cost? A benchmark with the cost column filled in. agents benchmark evals llm multi-agent python # agent-arena Does fanning out to multiple agents actually beat one agent, and what does it cost? Measured, on real data, with the cost column filled in. ``` strategy accuracy 95% CI calls cost $/correct sec single 67% [0%,100%] 3 $0.25 $0.123 17 fanout 100% [100%,100%] 15 $0.86 $0.287 104 plan_execute_review 67% [0%,100%] 9 $0.65 $0.327 67 fanout: +33% accuracy, 3.5x the cost -- not distinguishable from single-agent at this sample size ``` That last line is the point. Fan-out looks like a 33-point win. On three tasks it isn't a result, and the harness says so rather than letting you quote the 33. **The above is a 3-task smoke run, not the finding.** Run the full suite yourself — instructions below. The finding should be yours. --- ## Why this exists Multi-agent architectures are being shipped everywhere on the strength of an intuition: more agents, better answers. The intuition is plausible and mostly untested. What is nearly always missing is the denominator — accuracy per dollar, and whether the difference survives a confidence interval. This is a harness for answering that on your own tasks. It ships with one task suite so the numbers above are reproducible. ## The design decisions that make the numbers mean something **Ground truth is computed, not judged.** Every answer is derived arithmetically from real SEC XBRL data — which company had the highest revenue, how many had a loss, which three grew fastest. No LLM judge. A judged benchmark makes the judge a confound: when a score moves you cannot tell whether the strategy improved or the judge got more generous. **Every strategy sees identical data and is asked for an identically formatted answer.** The only variable is how the work is organised. If fan-out wins, it wins on structure, not on a better prompt. **Cost is measured, not modelled.** Every call reports real tokens and real dollars from the provider. A strategy that is 4% better and 4x the price should look expensive in the table, and it does. **Confidence intervals are mandatory.** Fifteen tasks cannot separate 11/15 from 9/15, and a bootstrap interval makes that obvious instead of letting a two-task gap read as a finding. ## The strategies | Strategy | Calls per task | Shape | |---|---|---| | `single` | 1 | One model, all the data, one shot. The control. | | `fanout` | 5 | Split the data across 4 workers, then synthesise. | | `plan_execute_review` | 3 | Plan the method, answer, then check the answer against the data. | ## The tasks 15 questions over 5 years of revenue, net income and R&D for 30 large public companies, pulled live from SEC XBRL. Five shapes: - **rank** — which company had the highest revenue - **derived** — highest R&D as a percentage of revenue - **count** — how many companies reported a loss - **filter** — which companies had revenue over $100B *and* positive net income - **aggregate** — combined revenue of all thirty Rebuild the dataset any time with `python3 build_dataset.py`. It uses [edgar-mcp](https://github.com/titusblair/edgar-mcp) to pull the figures. ## Running it ```bash pip install -e . python3 -m agent_arena.run --dry-run # what will this cost? python3 -m agent_arena.run --executor mock # free, tests plumbing python3 -m agent_arena.run --executor claude-cli --limit 3 # small real run python3 -m agent_arena.run --executor claude-cli # the full suite ``` `--dry-run` prints the call count and an estimate before you spend anything: ``` 15 tasks x 3 strategies single 1 calls/task -> 15 calls fanout 5 calls/task -> 75 calls plan_execute_review 3 calls/task -> 45 calls 135 model calls, roughly $14.85 at $0.11/call ``` The `claude-cli` executor shells out to Claude Code, so it runs on an existing subscription with no API key. It replaces the default system prompt and disables tools, which cuts about 20K tokens of overhead off every call. ## What the smoke run already suggests On `top-revenue` — which of 30 companies had the highest fiscal-2025 revenue — single-agent and plan-execute-review both answered **AAPL**. The answer is **AMZN**, $717B against Apple's $416B, and both figures were in the prompt. Fan-out got it right. Its workers each saw eight companies and had to read the numbers; the single agent, handed all thirty, appears to have reached for the famous name instead of the largest one. That is one task. It is a hypothesis, not a result, and it is exactly the kind of thing the full suite exists to confirm or kill. ## Tests ```bash python3 tests/test_core.py # 15 checks, no network, no spend ``` Two of these exist because they caught real bugs: - **\"splitting never cuts a company record.\"** The corpus joined records with a single newline, so the chunker fell through to splitting by line and a worker could receive half a company. Every fan-out number before that fix was measuring a broken split. - **\"a correct answer scores as correct.\"** An executor that always answers correctly must score 100% and one that never does must score 0%. If either fails, the scorer is broken and every number in the table is noise. ## Limitations - **15 tasks is a small suite.** Wide intervals are the honest consequence and they are printed, not hidden. Add tasks in `agent_arena/tasks.py`. - **One domain.** Financial aggregation rewards careful reading over creativity. Fan-out may look very different on open-ended work. - **One provider.** The executor interface is three methods; adding another is straightforward, and comparing providers would be a better benchmark than this one. - **Strategies are deliberately simple.** No tool use, no retries, no reflection loops. Those would all be interesting rows in the same table. ## License MIT",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:titusblair/agent-arena",
+          "url": "https://github.com/titusblair/agent-arena"
+        }
+      ]
+    },
     {
       "id": "bm_token-xray_ed42aeb2",
       "familyId": "bmf_d3c354b92373",
@@ -650,97 +1943,6 @@
           "type": "github",
           "id": "github:brandonwaltersai/distributed-ml-svm-benchmark",
           "url": "https://github.com/brandonwaltersai/distributed-ml-svm-benchmark"
-        }
-      ]
-    },
-    {
-      "id": "bm_apitest_7d8e6901",
-      "familyId": "bmf_e81cbf18a523",
-      "name": "apitest",
-      "paperTitle": "apitest",
-      "aliases": [],
-      "oneLine": "apitest Latency & throughput benchmark for AI APIs: TTFT, tok/s, stability and gateway overhead across OpenAI-compatible, Anthropic and Gemini endpoints, with a local web UI.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Aggregate Existing",
-      "annotation": "Mixed",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/liningbest/apitest",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-14T06:39:46.077603Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-13",
-      "firstSeenAt": "2026-09-14",
-      "indexedAt": "2026-09-14T06:39:46.077603Z",
-      "sourceUpdatedAt": "2026-09-14T02:37:58Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/liningbest/apitest",
-        "paper": "https://github.com/liningbest/apitest",
-        "project": "https://img.shields.io/badge/python-3.9%2B-3776ab?logo=python&logoColor=white",
-        "code": "https://github.com/liningbest/apitest"
-      },
-      "motivation": "apitest Latency & throughput benchmark for AI APIs: TTFT, tok/s, stability and gateway overhead across OpenAI-compatible, Anthropic and Gemini endpoints, with a local web UI.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:liningbest/apitest",
-        "url": "https://github.com/liningbest/apitest",
-        "title": "apitest",
-        "authors": [
-          "liningbest"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
-      "evidence": {
-        "snippet": "apitest Latency & throughput benchmark for AI APIs: TTFT, tok/s, stability and gateway overhead across OpenAI-compatible, Anthropic and Gemini endpoints, with a local web UI.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "apitest Latency & throughput benchmark for AI APIs: TTFT, tok/s, stability and gateway overhead across OpenAI-compatible, Anthropic and Gemini endpoints, with a local web UI. AI API 测速与对比工具：测 TTFT、吞吐、稳定性与网关开销，支持 OpenAI 兼容 / Anthropic / Gemini，自带本地 Web 界面（中 / 英 / 繁）。 anthropic api-testing benchmark gemini latency llm openai python speedtest ttft # apitest **Latency & throughput benchmark for AI APIs** — TTFT, tokens/s, stability and gateway overhead, for any OpenAI-compatible / Anthropic / Gemini endpoint [![Python](https://img.shields.io/badge/python-3.9%2B-3776ab?logo=python&logoColor=white)](https://www.python.org/) [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![CI](https://github.com/liningbest/apitest/actions/workflows/ci.yml/badge.svg)](https://github.com/liningbest/apitest/actions) [简体中文](README.zh-CN.md) --- How much latency does a relay add over calling the provider directly? Which gateway has the faster first token, and which one degrades at night? `apitest` turns \"it feels slow\" into a reproducible report: it sends real streaming requests to any OpenAI-compatible, Anthropic or Gemini endpoint, measures **TTFT, throughput, total time, success rate and stalls**, aggregates over multiple rounds with percentiles and variance, ranks the targets, and keeps every run in a local history. ## Features - **One methodology across providers** — OpenAI-compatible (incl. relays such as one-api / new-api, OpenRouter, DeepSeek), Anthropic Messages, Google Gemini; streaming and non-streaming. - **Accurate metrics** — TTFB, TTFT, first *visible text* token, total time, output tok/s, longest stream stall, reasoning tokens, stop reason (truncated by `max_tokens` or not). Throughput uses the time after the first text token, so gateways that do or don't forward thinking deltas are comparable. - **Statistics, not single samples** — mean / P50 / P90 / P99 / min / max / std / CV; automatic warnings when the comparison is not trustworthy (too few samples, output length mismatch, estimated tokens). - **Experiment design built in** — targets are interleaved round-robin by default to cancel time drift; mark a direct-to-provider target as *baseline* and get each gateway's overhead; estimated-token targets are excluded from throughput ranking. - **Load modes** — rounds, concurrency, duration-based soak, warmup, retries, interval; Ctrl+C keeps what has completed. - **Local web UI** — endpoint management (fetch model list, test connection, one-click quick test), live curves and streaming output, ranking, sortable summary, per-request details, history with comparison and trend charts, connectivity diagnostics, light/dark theme. - **Keep records** — history includes per-request details; export JSON / CSV / Markdown; `--json` for scripting. - **Connectivity diagnostics** — DNS / TCP / TLS / HTTP phase timing with its own history, to separate network from model latency. - **Web UI in English, 简体中文 and 繁體中文** — picked automatically from the browser language, switchable in the top bar. ## Install Python 3.9+. With [uv](https://github.com/astral-sh/uv): ```bash git clone https://github.com/liningbest/apitest.git cd apitest uv sync uv run apitest --help ``` or `pip install -e .`. Below, `apitest` stands for `uv run apitest`. ## Quick start ```bash # one endpoint, no config apitest run --url https://api.openai.com/v1 --key sk-xxx -m gpt-4o-mini -n 5 # several models on one endpoint apitest run --url https://api.example.com/v1 --key sk-xxx -m gpt-4o-mini,deepseek-chat -n 5 --sort tps # config file for long-term comparisons apitest init # writes ./apitest.yaml apitest run --all ``` ```yaml # apitest.yaml defaults: rounds: 5 max_tokens: 512 endpoints: openai: base_url: https://api.openai.com/v1 api_key: ${OPENAI_API_KEY} models: [gpt-4o-mini, gpt-4o] price: { gpt-4o-mini: [0.15, 0.60] } # USD per 1M tokens [input, output], optional claude: provider: anthropic base_url: https://api.anthropic.com api_key: ${ANTHROPIC_API_KEY} models: [claude-sonnet-5] relay: base_url: https://api.some-relay.com/v1 api_key: sk-xxx models: [gpt-4o-mini] headers: { X-Custom: value } ``` Gateway overhead in one command: ```bash apitest run -e openai -e relay -m gpt-4o-mini -n 10 --baseline openai/gpt-4o-mini --export compare.md ``` ## Web UI ```bash apitest web # opens http://127.0.0.1:8787 ``` Pages: **Run** (scenario presets, live KPIs, per-target cards, streaming output, TTFT / throughput charts, ranking, sortable summary with Δ vs. last run and baseline deltas, details, export), **Endpoints** (auto-saved to `apitest.yaml`, fetch models, test connection, quick test), **History** (full report of any past run, compare two runs, per-target trend), **Models**, **Diagnostics** (DNS / TCP / TLS / HTTP with history), **Settings**. The server binds to `127.0.0.1` only; keys never leave your machine. The UI follows your browser language (English / 简体中文 / 繁體中文) and can be switched from the top bar; `?lang=en` in the URL forces a language. Deep links: `#/run?replay= ` replays a past run on the Run page, `#/history?show= ` opens a history record. ## Metrics | Metric | Meaning | |---|---| | **TTFB** | Request sent → HTTP headers received (handshake + first byte) | | **TTFT** | Request sent → first token (text or reasoning delta) | | **TTFT text** | Request sent → first visible text token | | **Total** | Request sent → end of stream | | **tok/s** | Output tokens ÷ (total − TTFT text) | | **±** | Standard deviation; with fewer than 5 samples trust ± and P90, not the mean | | **CV** | std / mean, lower is more stable | | **Stall** | Longest gap between consecutive stream chunks | | **Truncated** | Runs whose stop reason was `length` / `max_tokens` | | **est** | Token counts estimated from characters (no `usage` in response); excluded from throughput ranking | | **vs baseline** | Delta against the baseline target; positive = slower | ## Making comparisons trustworthy 1. **Interleave** (default): round 1 hits A, B, C once eac",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:liningbest/apitest",
-          "url": "https://github.com/liningbest/apitest"
         }
       ]
     },
@@ -2025,99 +3227,6 @@
       ]
     },
     {
-      "id": "bm_sim2real-algobench_276f3760",
-      "familyId": "bmf_d59e3868fcea",
-      "name": "Sim2Real-AlgoBench",
-      "paperTitle": "Sim2Real-AlgoBench",
-      "aliases": [],
-      "oneLine": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot.",
-      "area": "Robotics & Embodied AI",
-      "applicationDomains": [
-        "Robotics & Embodied AI"
-      ],
-      "primaryDomain": "Robotics & Embodied AI",
-      "industrySectors": [
-        "Robotics"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Robotics"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/p20030920p/Sim2Real-AlgoBench",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-14T06:39:46.077603Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-11",
-      "firstSeenAt": "2026-09-14",
-      "indexedAt": "2026-09-14T06:39:46.077603Z",
-      "sourceUpdatedAt": "2026-09-13T06:58:25Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://github.com/p20030920p/Sim2Real-AlgoBench",
-        "paper": "https://github.com/p20030920p/Sim2Real-AlgoBench",
-        "project": "https://img.shields.io/badge/ROS%202-Jazzy-22314E?logo=ros&logoColor=white",
-        "code": "https://github.com/p20030920p/Sim2Real-AlgoBench"
-      },
-      "motivation": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:p20030920p/sim2real-algobench",
-        "url": "https://github.com/p20030920p/Sim2Real-AlgoBench",
-        "title": "Sim2Real-AlgoBench",
-        "authors": [
-          "p20030920p"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 1
-        }
-      },
-      "evidence": {
-        "snippet": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Sim2Real-AlgoBench ROS 2 Jazzy + Gazebo Sim 8 benchmark for a three-wheeled omnidirectional robot: one task, one interface contract, one metric set, evaluated in simulation and on a physical robot. | 三轮全向机器人仿真与实物双域导航基准 autonomous-navigation benchmark gazebo mppi nav2 navigation omnidirectional-robot robotics ros2 ros2-jazzy sim2real slam # Sim2Real-AlgoBench **A three-wheeled omnidirectional robot autonomy benchmark — one task, one interface contract, one metric set, scored in simulation and on hardware.** [![ROS 2](https://img.shields.io/badge/ROS%202-Jazzy-22314E?logo=ros&logoColor=white)](https://docs.ros.org/en/jazzy/) [![Gazebo](https://img.shields.io/badge/Gazebo%20Sim-8-F58113?logo=gazebo&logoColor=white)](https://gazebosim.org/) [![License](https://img.shields.io/badge/license-MIT-3DA639)](LICENSE) [![Algorithms](https://img.shields.io/badge/algorithms-7%20registered-brightgreen)](#algorithm-library) [Task](#the-task) &nbsp;•&nbsp; [Algorithm library](#algorithm-library) &nbsp;•&nbsp; [Quick start](#quick-start) &nbsp;•&nbsp; [Results](#results) &nbsp;•&nbsp; [Docs](#docs) *English &nbsp;|&nbsp; [中文](README.zh-CN.md)* Autonomous search of the saved map, green-marker detection, finish-pad approach. No goal pose is sent by hand. ## The task The robot gets a published start pose and exactly one start signal. It must search a known map for a green A4 wall marker, drive onto the yellow pad in front of it, and hold still for 3 s. The run ends on a **perceptual** condition, not a geometric one — which is what makes the simulation-to-hardware comparison meaningful. ## Algorithm library Global planners are interchangeable Nav2 plugins behind one interface. **Switching algorithm is editing one number:** ```yaml # src/algo_bringup/config/algo_registry.yaml active: planner: 1 # >>> the only line to change JPS reports `NO_VALID_PATH` on the race map although A\\* finds a route under the same cost model, so its pruning is wrong. It is flagged in the registry and **must not be used for reported results**. ## Demonstration Stress world. Left: Gazebo, with dynamic_obstacle_1/2 in the entity tree. Right: the path Nav2 replans as they move. GIF is a 640 px / 8 fps preview — download the original (1920 × 1080, 60 fps) . ## Gallery | SLAM mapping | Map saved | | :---: | :---: | | ![SLAM mapping](docs/images/01_mapping.png) | ![Saved PGM map](docs/images/02_map_saved.png) | | **Stress world** | **TF tree** | | ![Moving obstacles and varying illumination](docs/images/05_stress_world.png) | ![TF tree](docs/images/06_tf_tree.png) | ## Quick start ```bash git clone https://github.com/p20030920p/Sim2Real-AlgoBench.git cd Sim2Real-AlgoBench source /opt/ros/jazzy/setup.bash rosdep install --from-paths src --ignore-src -r -y colcon build --symlink-install && source install/setup.bash ``` Run the full task: ```bash ros2 launch race_navigation competition.launch.py headless:=false stress:=true ros2 run race_control race_start_key # press space or enter once ros2 topic echo /race/state # observe the state machine ``` Benchmark the algorithms alone, without the scenario: ```bash ros2 launch algo_bringup algo_planner_bench.launch.py planner_index:=4 ``` ## Results One nominal-world baseline run, kept as a regression reference: | Outcome | Time | First detection | Path | Collisions | Wall clearance | | :---: | ---: | ---: | ---: | ---: | ---: | | `COMPLETE` | 90.917 s | 63.033 s | 31.303 m | 0 | 0.3658 m | A single run on the machine of the time — a regression baseline, not a reportable result. Per-run records land in `reports/`. ## Layout ```text src/ ├── algo_core/ # algorithms, no ROS dependency ├── algo_nav2_plugins/ # Nav2 plugin adapters ├── algo_bringup/ # algorithm index, parameters, behaviour trees ├── race_description/ # URDF, meshes, sensors, ros2_control ├── race_gazebo/ # competition map, nominal & stress worlds ├── race_bringup/ # Gazebo, robot, controllers, bridge, RViz ├── race_navigation/ # SLAM, AMCL, Nav2 configuration, launch entry ├── race_vision/ # green A4 marker detection └── race_control/ # one-button start, state machine, mux, metrics ``` ## Docs | Document | Contents | | :--- | :--- | | [`docs/ALGORITHM_PLUGINS.md`](docs/ALGORITHM_PLUGINS.md) | The algorithm library: adding an algorithm in three steps, selection, simulation and hardware use | | [`tools/make_gif.py`](tools/make_gif.py) | Regenerates the demo GIF from the source recording | **Adding an algorithm** — implement `algo_core::GridPlanner`, self-register with `ALGO_CORE_REGISTER`, add one entry to `algo_registry.yaml`. The plugin class and behaviour trees are generated; nothing else changes. Contributions must not publish to `/cmd_vel` directly — write to `/cmd_vel_nav` or `/cmd_vel_final` and let the mux arbitrate. **On hardware** the plugins need no changes: they emit standard `geometry_msgs/Twist` including `linear.y`, so the existing `/cmd_vel` → `TwistStamped` → `omni_drive_controller` chain is untouched. Enable lateral velocity in `controller_server`, and re-tune the costmap inflation radius for real sensor noise. ## Roadmap - [x] Baseline: SLAM Toolbox, AMCL, Theta\\*, MPPI Omni, HSV marker detection - [x] Interchangeable planners: Dijkstra, A\\*, Weighted A\\*, GBFS, Theta\\*, D\\* Lite - [ ] JPS — implemented, **broken on the race map** - [ ] Sampling planners: RRT, RRT\\*, Informed RRT\\*, RRT-Connect - [ ] Controller adapters: DWA, APF, RPP, LQR, MPC - [ ] Hardware bring-up and calibration record ## Acknowledgement The simulation, baseline and original Chinese documentation were developed by [zfyyyyy](https://github.com/zfyyyyy). Built on ROS 2, Nav2, SLAM Toolbox, Gazebo and OpenCV. If you use this work, please cite Nav2 ([Marathon 2, IROS 2020](https://arxiv.org/abs/2003.00368)), SLAM Toolbox ([JOSS 6(61):2783, 2021](https://joss.theoj.org/papers/10.21105/joss.02783)) and Theta\\* ([JAIR 39:533–579, 2010](https://www.jair.org/index.php/jair/article/view/10676)). ## License [MIT](LICENSE).",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:p20030920p/sim2real-algobench",
-          "url": "https://github.com/p20030920p/Sim2Real-AlgoBench"
-        }
-      ]
-    },
-    {
       "id": "bm_sglang-inference-benchmark_8216e3ce",
       "familyId": "bmf_4e3f0b6e886c",
       "name": "sglang-inference-benchmark",
@@ -3025,88 +4134,6 @@
       ]
     },
     {
-      "id": "bm_k-bench_92156d34",
-      "familyId": "bmf_5a350d00e40c",
-      "name": "K-Bench",
-      "paperTitle": "K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments",
-      "aliases": [],
-      "oneLine": "Unlearning benchmarks such as TOFU and MUSE certify forgetting by reading the model's final answer, where a model that refuses to answer already counts as having forgotten.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Aggregate Existing",
-      "annotation": "Mixed",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.12808",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-14T06:39:43.852630Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-11",
-      "firstSeenAt": "2026-09-14",
-      "indexedAt": "2026-09-14T06:39:43.852630Z",
-      "sourceUpdatedAt": "2026-09-11T13:04:13Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.85,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.12808",
-        "paper": "https://arxiv.org/abs/2609.12808",
-        "pdf": "https://arxiv.org/pdf/2609.12808",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Unlearning benchmarks such as TOFU and MUSE certify forgetting by reading the model's final answer, where a model that refuses to answer already counts as having forgotten.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.12808",
-        "url": "https://arxiv.org/abs/2609.12808",
-        "title": "K-Bench: A Benchmark for LLM Unlearning in Agentic Deployments",
-        "authors": [
-          "Guangsheng Yu and Yanna Jiang and Qin Wang and Baihe Ma and Xu Wang"
-        ],
-        "categories": [
-          "cs.AI"
-        ]
-      },
-      "evidence": {
-        "snippet": "We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment.",
-        "reasonCodes": [
-          "coined title prefix ending in Bench or Benchmark",
-          "benchmark release stated in one sentence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Unlearning benchmarks such as TOFU and MUSE certify forgetting by reading the model's final answer, where a model that refuses to answer already counts as having forgotten. We show that this model-level certificate does not transfer once the model is deployed as an agent. We introduce K-Bench, a benchmark that scores LLM unlearning under agentic deployment. K-Bench inspects all six channels a ReAct agent exposes, including its chain-of-thought (CoT), tool calls and tool observations, and elicited summary. A query counts as leaked if the secret appears in any of them. Each experiment places the secret in exactly one of the agent's three sources (the weights, the prompt, or the retrieval store). The K-Score is computed separately for each source and credits forgetting only when the agent remains usable. Clearing the answer channel does not make the secret unrecoverable. On structured retrieval, the secret stays verbatim in the tool-observation channel and the aggregate leak rate is unchanged. When the secret lives in the prompt or the retrieval store, TOFU and MUSE report no leakage, while the deployed agent still leaks it on 22--86\\% of queries. When the secret is in the weights, none of the twenty evaluated published methods demonstrably removes it, and only an input-corruption intervention reaches selective forgetting under the evaluated observer. The top-ranked method changes across base models. A refusal-tuning method resists the evaluated extraction without verified knowledge removal.",
-        "comments": ""
-      },
-      "candidatePriority": "high"
-    },
-    {
       "id": "bm_hiver-support-ai-agent-benchmark_0f2e0424",
       "familyId": "bmf_4dc20744f8ce",
       "name": "Hiver-Support-AI-Agent-Benchmark",
@@ -3292,103 +4319,6 @@
           "url": "https://github.com/Shoutshi03/Heart-Disease-ML-Benchmark"
         }
       ]
-    },
-    {
-      "id": "bm_embodied-bench_5c4c02cd",
-      "familyId": "bmf_494a81e5eb85",
-      "name": "Embodied-Bench",
-      "paperTitle": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction",
-      "aliases": [],
-      "oneLine": "Agentic systems offer a promising way to automate embodied benchmark construction, but existing approaches typically cover isolated stages or remain specialized to predefined environments and task families.",
-      "area": "Robotics & Embodied AI",
-      "applicationDomains": [
-        "Robotics & Embodied AI"
-      ],
-      "primaryDomain": "Robotics & Embodied AI",
-      "industrySectors": [
-        "Robotics"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.13082",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-14T06:39:43.852630Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-11",
-      "firstSeenAt": "2026-09-14",
-      "indexedAt": "2026-09-14T06:39:43.852630Z",
-      "sourceUpdatedAt": "2026-09-11T17:16:01Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.55,
-      "relation": "evaluates_only",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.13082",
-        "paper": "https://arxiv.org/abs/2609.13082",
-        "pdf": "https://arxiv.org/pdf/2609.13082",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Agentic systems offer a promising way to automate embodied benchmark construction, but existing approaches typically cover isolated stages or remain specialized to predefined environments and task families.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.13082",
-        "url": "https://arxiv.org/abs/2609.13082",
-        "title": "Embodied-BenchForge: A Closed-Loop Agentic Workflow for Embodied Benchmark Construction",
-        "authors": [
-          "Baoyang Jiang",
-          "Fengchun Zhang",
-          "Leyuan Wang",
-          "Haotian Li",
-          "Yida Wang",
-          "Zhe Ji",
-          "Jinshan Lai",
-          "Xi Ren",
-          "Danyang Li",
-          "Zheng Yang",
-          "Jianwei Hu",
-          "and Qiang Ma"
-        ],
-        "categories": [
-          "cs.AI"
-        ]
-      },
-      "evidence": {
-        "snippet": "We present Embodied-BenchForge, an agentic framework that transforms user-specified evaluation intents into complete embodied benchmark artifacts.",
-        "reasonCodes": [
-          "exact named benchmark artifact released in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence",
-          "named entity is a model, method, framework, or dataset used in evaluation"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Agentic systems offer a promising way to automate embodied benchmark construction, but existing approaches typically cover isolated stages or remain specialized to predefined environments and task families. More importantly, multi-step construction produces dependent intermediate artifacts that are often passed downstream without artifact-specific verification, allowing local defects to propagate into the final benchmark. We present Embodied-BenchForge, an agentic framework that transforms user-specified evaluation intents into complete embodied benchmark artifacts. It formulates construction as Closed-Loop Benchmark Synthesis, integrating forward artifact synthesis with backward verification and repair. Skill-Orchestrated Artifact Synthesis composes typed and reusable skills into executable workflows, while an artifact dependency graph records intermediate outputs and their dependencies. Requirement-Guided Verification and Repair applies artifact-specific contracts throughout construction and uses provenance to trigger local re-execution or upstream rollback when verification fails. Embodied-BenchForge constructs six benchmarks covering diverse embodied scenarios in the Offline EQA Track, together with one interactive benchmark containing 220 executable tasks in the Interactive Embodied Track. Evaluations of representative MLLMs and embodied agents show that the benchmarks distinguish model capabilities in both observation-based understanding and closed-loop execution. Quality assessment and ablations validate benchmark quality and the effectiveness of verification and repair, while repair and skill-reuse analyses demonstrate efficient localized recovery and cross-benchmark reusability.",
-        "comments": ""
-      },
-      "candidatePriority": "normal"
     },
     {
       "id": "bm_edufair-bench_58d998a5",
@@ -8195,96 +9125,6 @@
           "type": "github",
           "id": "github:ksanusha84/agentic-ai-benchmark",
           "url": "https://github.com/ksanusha84/agentic-ai-benchmark"
-        }
-      ]
-    },
-    {
-      "id": "bm_abacus-bench_709c4a6b",
-      "familyId": "bmf_1822ade080f3",
-      "name": "ABACUS_Bench",
-      "paperTitle": "ABACUS_Bench",
-      "aliases": [],
-      "oneLine": "ABACUS — A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation Instruction-based image editing models can now add, remove, or change a specified number of objects in a scene.",
-      "area": "Vision & 3D",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Inspectable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-10T06:17:05.094096Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-09",
-      "firstSeenAt": "2026-09-10",
-      "indexedAt": "2026-09-10T06:17:05.094096Z",
-      "sourceUpdatedAt": "2026-09-09T14:41:16.000Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "report": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench",
-        "paper": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench",
-        "data": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench"
-      },
-      "motivation": "ABACUS — A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation Instruction-based image editing models can now add, remove, or change a specified number of objects in a scene.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "huggingface",
-        "id": "huggingface:aymen-lassoued/abacus_bench",
-        "url": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench",
-        "title": "ABACUS_Bench",
-        "authors": [
-          "Aymen-Lassoued"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "hfDatasetDownloads": 0,
-          "hfDatasetLikes": 0
-        }
-      },
-      "evidence": {
-        "snippet": "ABACUS — A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation Instruction-based image editing models can now add, remove, or change a specified number of objects in a scene.",
-        "reasonCodes": [
-          "discovered via huggingface",
-          "benchmark term in abstract",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "ABACUS — A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation Instruction-based image editing models can now add, remove, or change a specified number of objects in a scene. Yet they often fail to produce the correct number, and these failures grow sharply as scenes become more complex and the requested count increases. Current benchmarks largely miss this problem: they score edits with holistic similarity metrics or with VLM… See the full description on the dataset page: https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench.",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "huggingface",
-          "id": "huggingface:aymen-lassoued/abacus_bench",
-          "url": "https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench"
         }
       ]
     },
@@ -35873,6 +36713,11 @@
           "type": "github",
           "id": "github:sentinelden/agent-injection-bench",
           "url": "https://github.com/sentinelden/agent-injection-bench"
+        },
+        {
+          "type": "github",
+          "id": "github:yadavlakshya743/agent-benchmark-lab",
+          "url": "https://github.com/yadavlakshya743/agent-benchmark-lab"
         }
       ]
     },
@@ -170021,13 +170866,14 @@
     "openreview"
   ],
   "sourceFailures": {
+    "arxiv": "HTTPError",
     "openreview": "HTTPError"
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-09-14T06:40:27.033245Z",
+    "evaluatedAt": "2026-09-15T14:57:54.423432Z",
     "publishThreshold": 0.85,
-    "promoted": 2,
-    "remainingForAudit": 1857
+    "promoted": 0,
+    "remainingForAudit": 1866
   }
 }

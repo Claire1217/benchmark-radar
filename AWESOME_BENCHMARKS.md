@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-15 · **Benchmark releases:** 1759
+**Snapshot:** 2026-09-15 · **Benchmark releases:** 1762
 
 ## Contents
 
@@ -26,9 +26,9 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Efficient Inference](#efficient-inference) (7)
 - [Embodied AI & VLA](#embodied-ai--vla) (78)
 - [Image & Video Generation](#image--video-generation) (66)
-- [Multi-Agent Systems](#multi-agent-systems) (12)
+- [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1034)
+- [Other benchmark tasks](#other-benchmark-tasks) (1036)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (50)
@@ -427,6 +427,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Multi-Agent Systems
 
+- **agent-arena** (2026-09-15) — Evaluates multi-agent strategies on 15 financial data tasks with computed ground truth, measuring accuracy, cost, and confidence intervals. [Paper](https://github.com/titusblair/agent-arena) · [Code](https://github.com/titusblair/agent-arena)
 - **ForestBench** (2026-08-09) — ForestBench evaluates multi-agent collaboration by representing MAS traces as unified collaboration graphs, comparing them against query-specific reference forests of successful graphs, and scoring structural similarity… [Paper](https://arxiv.org/abs/2608.08605)
 - **Lingjing** (2026-08-08) — Lingjing is a simulation testbed for heterogeneous multi-agent embodied tasks in urban environments, with a Gym-like interface and support for natural-language missions. It includes engine-based evaluations and attribut… [Paper](https://arxiv.org/abs/2608.08045) · [HF](https://huggingface.co/papers/2608.08045)
 - **WeClawArena** (2026-08-04) — WeClawArena is a benchmark and runtime sandbox for multi-party owned-agent collaboration over personal workspaces. It contains 124 base tasks across six domains, expanded into 620 scenario variants with benign and attac… [Paper](https://arxiv.org/abs/2608.03499) · [HF](https://huggingface.co/papers/2608.03499) · [Code](https://github.com/kingofspace0wzz/WeClawArena)
@@ -464,6 +465,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
+- **Tokenization Analysis Benchmark for Low-Resource Languages (Amharic vs. English)** (2026-09-15) — Evaluates tokenizer fertility and fragmentation for Amharic vs. English across 8 LLM tokenizers using 10 parallel sentence pairs, scoring fertility ratio and characters per token. [Paper](https://github.com/bedr-ux/Amharic-Tokenization-Benchmark) · [Code](https://github.com/bedr-ux/Amharic-Tokenization-Benchmark)
+- **Token X-Ray** (2026-09-13) — Token X-Ray evaluates the impact of exact-prompt reuse on quality, model calls, token usage, and latency using a fixed local workload with deterministic prompts and expected answers. [Paper](https://github.com/dustin621408-pixel/token-xray) · [Code](https://github.com/dustin621408-pixel/token-xray)
 - **ChitraMiti-12.8k** (2026-09-11) — ChitraMiti-12.8k is a synthetic Bengali planar geometry benchmark of 12,874 problems with structured 15-attribute diagram descriptions, complemented by NCTB-500, 500 textbook-extracted diagrams, targeting visual groundi… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
 - **PNI-3D Multimodal CAD & Geometric Robustness Benchmark** (2026-09-10) — Evaluates fine-grained 3D CAD matching, multimodal embedding alignment, and geometric retrieval under sensor distortions using 100 parametric CAD families across 12 representations. [Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark) · [Data](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — Benchmark of 467 emission-factor questions scored for numeric accuracy and citation correctness across five models without tools. [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
