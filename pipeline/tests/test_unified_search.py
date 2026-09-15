@@ -13,6 +13,7 @@ const state={library:[{researchDirections:['science'],applicationDomains:[]}],li
 const context={state,$:id=>nodes[id],document:{createElement:element,addEventListener(){}},
 researchDefinitions:()=>[{id:'science',name:'AI for Science',description:'Scientific tasks',searchAliases:['AI Scientist']},{id:'self-improvement-rsi',name:'Self-Improvement & RSI',description:'Improving AI',searchAliases:['AI R&D']}],
 displayEligible:()=>true,history:{replaceState(){}},renderLibrary(){},URLSearchParams,LIBRARY_PAGE_SIZE:120};
+context.allResearchDefinitions=context.researchDefinitions;context.matchesDirection=(r,id)=>(r.researchDirections||[]).includes(id);
 vm.createContext(context);
 const app=fs.readFileSync('web/app.js','utf8');
 vm.runInContext(app.slice(app.indexOf('let typeOptions='),app.indexOf('function setupLibraryNavigation')),context);

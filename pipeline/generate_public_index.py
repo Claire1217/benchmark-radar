@@ -98,8 +98,11 @@ def main() -> None:
     records = [project_record(source) for source in payload.get("records", [])]
     from research_directions import annotate_records, direction_manifest
     annotate_records(records)
+    from research_topics import annotate_topics, topic_manifest
+    annotate_topics(records)
     manifest = dict(payload["manifest"])
     manifest["researchTaxonomy"] = direction_manifest(records)
+    manifest["topicTaxonomy"] = topic_manifest(records)
     latest_batch = effective_latest_batch(
         records,
         manifest["dataAsOf"],

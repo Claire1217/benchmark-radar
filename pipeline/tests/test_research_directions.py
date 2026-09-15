@@ -106,16 +106,16 @@ const context={console,window:{},URLSearchParams,history:{replaceState(){}},loca
 vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 context.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
-assert(node('library-domain-list').innerHTML.includes('Self-Improvement &amp; RSI'));
+assert(node('library-domain-list').innerHTML.includes('Self-Improving Agents'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-capability'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-scientist"'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-r-d"'));
-assert.equal(context.researchDefinitions().filter(d=>d.section==='Featured topics').length,2);
+assert.equal(context.researchDefinitions().length,20);
 for(const d of context.researchDefinitions()){
   context.selected=d.id;
   vm.runInContext('state.libraryDirection=selected;renderLibrary()',context);
   const ids=[d.id];
-  const count=context.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe'&&(r.researchDirections||[]).some(id=>ids.includes(id))).length;
+  const count=context.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe'&&(r.researchTopics||[]).some(id=>ids.includes(id))).length;
   assert(node('library-count').textContent.startsWith(count+' entries'));
   assert.equal(node('library-title').textContent,d.name);
 }
@@ -126,14 +126,14 @@ for(const r of context.payload.records){
   assert(chips.length<=2);
 }
 vm.runInContext('state.libraryDirection=publicDirection("ai-scientist");',context);
-context.record={researchDirections:['ai-for-science','tool-use']};
-assert.equal(context.publicDirection('ai-r-d'),'self-improvement-rsi');
-assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('direction'),'ai-for-science');
-assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'self-improvement-rsi');
-assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'self-improvement-rsi');
+context.record={researchTopics:['scientific-agents','tool-use'],researchDirections:['ai-for-science','tool-use']};
+assert.equal(context.publicDirection('ai-r-d'),'ai-research-agents');
+assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('direction'),'scientific-agents');
+assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'self-improving-agents');
+assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'ai-research-agents');
 assert.equal(context.record.researchDirections.length,2);
 assert.deepEqual(Array.from(vm.runInContext('directionChips(record,state.libraryDirection)',context)),['Tool Use']);
-context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],researchDirections:['ai-for-science']};
+context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],researchTopics:['scientific-agents'],researchDirections:['ai-for-science']};
 assert(vm.runInContext('matchesLibraryFilters(record)',context));
 context.record.displayEligible=false;
 assert(!vm.runInContext('matchesLibraryFilters(record)',context));

@@ -40,4 +40,8 @@ class DiscoveryTests(unittest.TestCase):
         for args in [['daily'],['hot','--window','90d'],['search','science','--sort','attention']]:
             code,data=self.invoke(args)
             self.assertEqual(code,0);self.assertTrue(data['ok'])
-            self.assertIn('attention',data['data']['results'][0])
+            # A reviewed release date can leave the latest source day empty.
+            if args[0] != 'daily':
+                self.assertTrue(data['data']['results'])
+            for row in data['data']['results']:
+                self.assertIn('attention', row)
