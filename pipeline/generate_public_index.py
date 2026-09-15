@@ -96,7 +96,10 @@ def project_record(source: dict) -> dict:
 def main() -> None:
     payload = json.loads(SOURCE.read_text(encoding="utf-8"))
     records = [project_record(source) for source in payload.get("records", [])]
+    from research_directions import annotate_records, direction_manifest
+    annotate_records(records)
     manifest = dict(payload["manifest"])
+    manifest["researchTaxonomy"] = direction_manifest(records)
     latest_batch = effective_latest_batch(
         records,
         manifest["dataAsOf"],

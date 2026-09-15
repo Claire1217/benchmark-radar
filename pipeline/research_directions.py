@@ -4,6 +4,11 @@ Multi-label task evidence with separate research themes and capability axes; not
 Keep legacy taxonomy intact for historical trends and existing integrations.
 """
 import re
+import json
+from pathlib import Path
+
+REVIEW_ROWS = json.loads((Path(__file__).resolve().parents[1] / "data/taxonomy_review_20260915.json").read_text())
+REVIEW_BY_ID = {r["id"]: r for r in REVIEW_ROWS}
 
 VERSION = "research-directions-v2"
 RULES = {'Knowledge & Factuality': ('knowledge|factuality|factuality & grounding',
@@ -508,11 +513,45 @@ def classify_directions(record):
     result.pop("ai-scientist", None)
     result.pop("ai-r-d", None)
     result.update(classify_themes(record))
+    # Polyglot code is not evidence of cross-lingual natural-language evaluation.
+    programming = bounded_match(r"programming languages?|(?:Python|JavaScript|Rust|C\+\+|Golang|TypeScript)|software engineering|repository.level|code editing|coding", text)
+    natural_language = bounded_match(r"natural.languages?|cross.lingual|low.resource languages?|English|Chinese|Arabic|Bengali|Hindi|Spanish|translation quality", text)
+    if programming and not natural_language:
+        result.pop("multilingual-nlp", None)
+    review = REVIEW_BY_ID.get(record.get("id"))
+    if review and review["status"] != "pending-source-review":
+        result = {key: {"basis": "primary-source-reviewed", "sourceUrl": review["source"], "excerpt": review["reason"], "reviewedAt": "2026-09-15"} for key in review["after"]}
     return {d["id"]: result[d["id"]] for d in DIRECTIONS if d["id"] in result}
+
+
+def apply_reviewed_metadata(record):
+    review = REVIEW_BY_ID.get(record.get("id"))
+    if not review:
+        return
+    number = review["sample"]
+    if number in {1, 2, 5, 19, 23, 25, 26, 28}:
+        record["links"] = {**(record.get("links") or {}), "report": review["source"]}
+    descriptions = {
+        2: "Repository-level issue resolution across multiple programming languages, using real GitHub projects and executable tests.",
+        5: "Video comprehension across diverse durations and domains, with visual frames, subtitles and audio."
+    }
+    if number in descriptions:
+        record["description"] = descriptions[number]
+        record["oneLine"] = descriptions[number]
+        record["descriptionProvenance"] = {"basis": "primary-source-reviewed", "sourceUrl": review["source"], "reviewedAt": "2026-09-15"}
+    if number == 2:
+        # The old year was attached to a different benchmark paper.
+        record["releasedAt"] = "0001-01-01"
+        record["releaseDatePrecision"] = "unknown"
+        record["firstRelease"] = {"year": None, "date": None}
+        record.pop("releaseEvidence", None)
+    if number == 1:
+        record.setdefault("attention", {})["githubScope"] = "hosting_repo"
 
 
 def annotate_records(records):
     for record in records:
+        apply_reviewed_metadata(record)
         evidence = classify_directions(record)
         record["researchDirections"] = list(evidence)
         record["researchDirectionEvidence"] = evidence

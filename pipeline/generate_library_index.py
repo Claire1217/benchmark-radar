@@ -255,6 +255,18 @@ def main() -> None:
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
     annotate_records(records)
+    # Both surfaces use the merged Library classification, including catalog evidence.
+    public_path = ROOT / "data" / "benchmarks_index.json"
+    if public_path.exists():
+        public = json.loads(public_path.read_text())
+        canonical = {r["id"]: r for r in records}
+        for row in public["records"]:
+            current = canonical.get(row["id"])
+            if current:
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets"):
+                    row[key] = current[key]
+        public["manifest"]["researchTaxonomy"] = direction_manifest(public["records"])
+        public_path.write_text(json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n")
     payload = {
         "manifest": {
             "schemaVersion": "1.0",
