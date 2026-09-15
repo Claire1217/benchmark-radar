@@ -73,9 +73,16 @@ def main() -> None:
     trends_document.feed(trends)
     if len(trends_document.ids) != len(set(trends_document.ids)):
         raise SystemExit("duplicate Trends HTML id")
-    trends_script = (OUTPUT / "trends/trends.js").read_text()
-    if "../data/trends_topics.json" not in trends_script or 'src="./trends.js"' not in trends:
-        raise SystemExit("Trends data connection missing")
+    script_ref = re.search(r'src="./(trends\.[a-f0-9]{12}\.js)"', trends)
+    if not script_ref:
+        raise SystemExit("Versioned Trends script missing")
+    trends_script = (OUTPUT / "trends" / script_ref[1]).read_text()
+    data_ref = re.search(r"../data/(trends_topics\.[a-f0-9]{12}\.json)", trends_script)
+    if not data_ref:
+        raise SystemExit("Versioned Trends data connection missing")
+    topic_data = json.loads((OUTPUT / "data" / data_ref[1]).read_text())
+    if not topic_data.get("topics"):
+        raise SystemExit("Trends topics empty")
     comparison = json.loads((OUTPUT / "data/trends_comparison.json").read_text())
     coverage = json.loads((OUTPUT / "data/github_history_coverage.json").read_text())
     if not comparison or not coverage:

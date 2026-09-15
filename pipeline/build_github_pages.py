@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from email.utils import format_datetime
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -52,6 +53,27 @@ def write_feed(records: list[dict], data_as_of: str) -> None:
     (OUTPUT / "feed.xml").write_text(content, encoding="utf-8")
 
 
+def version_trends_assets(output: Path) -> None:
+    """Bind the page to matching content-addressed script, styles and data."""
+    def version(path: Path) -> str:
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+        target = path.with_name(f"{path.stem}.{digest}{path.suffix}")
+        shutil.copy2(path, target)
+        return target.name
+
+    data_name = version(output / "data" / "trends_topics.json")
+    script = output / "trends" / "trends.js"
+    script.write_text(script.read_text().replace(
+        "../data/trends_topics.json", "../data/" + data_name
+    ))
+    script_name = version(script)
+    css_name = version(output / "site-header.css")
+    page = output / "trends" / "index.html"
+    page.write_text(page.read_text().replace(
+        './trends.js', './' + script_name
+    ).replace('../site-header.css', '../' + css_name))
+
+
 def main() -> None:
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
@@ -63,6 +85,7 @@ def main() -> None:
     data_dir.mkdir()
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json", "trends_comparison.json", "github_history_coverage.json", "trends_topics.json", "research_topic_audit.json"):
         shutil.copy2(ROOT / "data" / name, data_dir / name)
+    version_trends_assets(OUTPUT)
     library = json.loads((ROOT / "data" / "library_index.json").read_text(encoding="utf-8"))
     write_feed([record for record in library["records"] if visible(record)], library["manifest"]["dataAsOf"])
     (OUTPUT / ".nojekyll").write_text("", encoding="utf-8")
