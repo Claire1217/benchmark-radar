@@ -56,6 +56,8 @@ def main() -> None:
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
     shutil.copytree(SOURCE, OUTPUT)
+    from site_header import apply_shared_header
+    apply_shared_header(SOURCE, OUTPUT)
     shutil.copy2(ROOT / "docs" / "assets" / "benchmark-radar-overview.png", OUTPUT / "social-preview.png")
     data_dir = OUTPUT / "data"
     data_dir.mkdir()
