@@ -167,21 +167,21 @@ def public_classic(record: dict, classics: dict) -> dict:
         "industrySectors": [],
         "capabilities": [],
         "topics": [record["area"]],
-        "construction": "Unknown",
-        "annotation": "Unknown",
-        "readiness": readiness,
+        "construction": record.get("construction", "Unknown"),
+        "annotation": record.get("annotation", "Unknown"),
+        "readiness": record.get("readiness", readiness),
         "releasedAt": released_at,
         "releaseDatePrecision": precision,
         "firstRelease": release,
-        "firstSeenAt": classics.get("reviewedAt"),
+        "firstSeenAt": record.get("firstSeenAt", classics.get("reviewedAt")),
         "recognitionConfidence": 1.0,
         "links": {
             "report": report,
-            "pdf": None,
+            "pdf": links.get("pdf"),
             "project": links.get("project"),
             "code": links.get("code"),
             "data": links.get("data"),
-            "hfPaper": None,
+            "hfPaper": links.get("hfPaper"),
         },
         "evidence": {
             "snippet": "Reviewed Library record; follow the linked benchmark source for its definition.",
@@ -211,7 +211,7 @@ def public_classic(record: dict, classics: dict) -> dict:
         ],
         "usageObservations": record.get("usageObservations", []),
     }
-    for key in ("variantOf", "variantOfExternal", "versionPolicy"):
+    for key in ("variantOf", "variantOfExternal", "versionPolicy", "dataAccess", "metricScopes"):
         if record.get(key):
             result[key] = record[key]
     result.update(normalize_taxonomy(result))
@@ -256,6 +256,10 @@ def main() -> None:
         apply_release_dates(records, json.loads(release_path.read_text()))
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
+    from library_metrics import apply_library_metrics
+    metrics_path = ROOT / "data" / "library_metrics.json"
+    if metrics_path.exists():
+        apply_library_metrics(records, json.loads(metrics_path.read_text()))
     reviewed_additions = 0
     review_path = ROOT / "data" / "library_source_reviews.json"
     if review_path.exists():

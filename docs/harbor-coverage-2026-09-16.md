@@ -39,7 +39,19 @@ The Library had 2,924 entries before this review. Normalized adapter names match
 - SpreadsheetBench Verified is the 400-task verified subset, not the original 912-task benchmark. It is represented as a variant with its 2025 release year, not the original paper’s 2024 date.
 - The PIXIU adapter is recorded as a source for FinBen; this does not identify every PIXIU framework asset with FinBen.
 - Harbor adaptations can cover only a subset of the original benchmark. No claim is made that the entire original dataset is executable with Harbor.
-- Original repository documentation and adapter documentation informed descriptions. ResearchCodeBench has no established release date in this review, so the date remains unknown.
+- Original repository documentation and adapter documentation informed descriptions. The metadata follow-up identified the ResearchCodeBench paper (arXiv:2506.02314), first submitted on 2025-06-02.
 - This update adds metadata and source links. No benchmark datasets were downloaded and no Harbor executions were performed. Some datasets require separate access or setup.
 
 The machine-readable [audit](../data/harbor_coverage_audit.json) records adapter tree SHAs, record IDs, and mapping status.
+
+## Metadata completion
+
+All 16 entries now use the existing Library fields for exact release dates, source-reviewed task directions and topics, construction and annotation labels, PDF/data/HF links, and attention observations. Each release date has primary-source evidence in `library_release_dates.json`. Paper v1 dates are used unless an earlier official announcement or a separate variant release establishes the date.
+
+Notable corrections: Spider2-DBT was announced on 2025-05-22; SpreadsheetBench Verified on 2025-12-02; TextArena’s initial demo on 2025-01-31. GSO’s paper appeared on 2025-05-29, one day before the dataset announcement.
+
+Nine entries have verified HF dataset endpoints. For the other seven, Data links lead to official task files or data preparation instructions; unrelated community mirrors and derived datasets are not substituted. Gated HF access is recorded separately from public metadata availability.
+
+The existing daily index workflow refreshes opted-in Library metrics through `pipeline/enrich_library_metrics.py`. The public index applies `data/library_metrics.json` on every generation. Provider failures preserve the last successful value with stale status, rather than replacing it with zero.
+
+Spider2-DBT and SpreadsheetBench Verified share parent repositories, so their repository stars are retained with hosting scope and excluded from independent benchmark popularity. Shared parent-paper and parent-dataset metrics are retained as source observations but are not displayed as the subset’s own votes or downloads. No historical star growth was invented.
