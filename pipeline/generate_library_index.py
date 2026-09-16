@@ -17,6 +17,7 @@ from library_release_dates import apply_release_dates
 from library_source_reviews import apply_source_reviews
 from research_directions import annotate_records, direction_manifest
 from research_topics import annotate_topics, topic_manifest
+from library_categories import annotate_categories, category_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -268,6 +269,7 @@ def main() -> None:
         apply_source_reviews(records, reviews)
     annotate_records(records)
     annotate_topics(records)
+    annotate_categories(records)
     # Both surfaces use the merged Library classification, including catalog evidence.
     public_path = ROOT / "data" / "benchmarks_index.json"
     if public_path.exists():
@@ -276,18 +278,20 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]
         public["manifest"]["researchTaxonomy"] = direction_manifest(public["records"])
         public["manifest"]["topicTaxonomy"] = topic_manifest(public["records"])
+        public["manifest"]["libraryTaxonomy"] = category_manifest(public["records"])
         public_path.write_text(json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n")
     payload = {
         "manifest": {
             "schemaVersion": "1.0",
             "researchTaxonomy": direction_manifest(records),
             "topicTaxonomy": topic_manifest(records),
+            "libraryTaxonomy": category_manifest(records),
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
             "recordCount": len(records),
             "classicRecordCount": len(classics.get("records", [])),
