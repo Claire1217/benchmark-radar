@@ -35,11 +35,11 @@
 | 3 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 37 HF votes · 346 dataset downloads |
 | 4 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 406 dataset downloads |
 | 5 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 41 HF votes · 18 GitHub stars |
-| 6 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 178 dataset downloads |
-| 7 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 181 GitHub stars |
-| 8 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Other benchmark tasks | 28 GitHub stars |
-| 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Embodied AI & VLA | 28 HF votes · 16 GitHub stars |
-| 10 | **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction**<br><sub>[Paper](https://arxiv.org/abs/2609.04611)</sub> | Coding Agents · Personal & Enterprise Agents | 15 HF votes · 24 GitHub stars |
+| 6 | **LifeSci-Harbor-Bench**<br><sub>[Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)</sub> | Coding Agents | 212 dataset downloads |
+| 7 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 178 dataset downloads |
+| 8 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 181 GitHub stars |
+| 9 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Other benchmark tasks | 28 GitHub stars |
+| 10 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Embodied AI & VLA | 28 HF votes · 16 GitHub stars |
 
 ### Explore the library
 
