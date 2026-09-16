@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-16 · **Benchmark releases:** 1808
+**Snapshot:** 2026-09-16 · **Benchmark releases:** 1809
 
 ## Contents
 
@@ -19,16 +19,16 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (52)
-- [Coding Agents](#coding-agents) (53)
+- [Coding Agents](#coding-agents) (54)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (5)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
 - [Efficient Inference](#efficient-inference) (8)
 - [Embodied AI & VLA](#embodied-ai--vla) (80)
 - [Image & Video Generation](#image--video-generation) (66)
-- [Multi-Agent Systems](#multi-agent-systems) (13)
+- [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1055)
+- [Other benchmark tasks](#other-benchmark-tasks) (1054)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (53)
@@ -158,6 +158,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
+- **LifeSci-Harbor-Bench** (2026-09-06) — Evaluates coding agents on 503 ultra-long-horizon, open-ended life science research tasks through an 11-layer verifier combining deterministic scoring and anti-hacking checks. [Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench) · [Data](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **SWE-Gate** (2026-09-03) — Evaluates repository-level repair agents on both functional correctness and adherence to review-derived constraints, using 303 instances with separate functional and constraint tests. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
 - **LoopArena** (2026-08-28) — Evaluates a controller model guiding a fixed coding agent through long-running tasks, scored via contract accuracy, strict success rate, and cost metrics across three complementary settings. [Paper](http://arxiv.org/abs/2608.28281v1) · [HF](https://huggingface.co/papers/2608.28281) · [Code](https://github.com/AMAP-ML/LoopArena)
@@ -431,7 +432,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Multi-Agent Systems
 
-- **agent-arena** (2026-09-15) — Evaluates multi-agent strategies on 15 financial data tasks with computed ground truth, measuring accuracy, cost, and confidence intervals. [Paper](https://github.com/titusblair/agent-arena) · [Code](https://github.com/titusblair/agent-arena)
 - **ForestBench** (2026-08-09) — ForestBench evaluates multi-agent collaboration by representing MAS traces as unified collaboration graphs, comparing them against query-specific reference forests of successful graphs, and scoring structural similarity… [Paper](https://arxiv.org/abs/2608.08605)
 - **Lingjing** (2026-08-08) — Lingjing is a simulation testbed for heterogeneous multi-agent embodied tasks in urban environments, with a Gym-like interface and support for natural-language missions. It includes engine-based evaluations and attribut… [Paper](https://arxiv.org/abs/2608.08045) · [HF](https://huggingface.co/papers/2608.08045)
 - **WeClawArena** (2026-08-04) — WeClawArena is a benchmark and runtime sandbox for multi-party owned-agent collaboration over personal workspaces. It contains 124 base tasks across six domains, expanded into 620 scenario variants with benign and attac… [Paper](https://arxiv.org/abs/2608.03499) · [HF](https://huggingface.co/papers/2608.03499) · [Code](https://github.com/kingofspace0wzz/WeClawArena)
@@ -469,21 +469,20 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **coding-agent-bench** (2026-09-15) — Evaluates Python code generation on nine implementation tasks, scoring functional correctness via hidden tests and a text-based code quality heuristic. [Paper](https://github.com/sipratt-p/coding-agent-bench) · [Code](https://github.com/sipratt-p/coding-agent-bench)
-- **VPRef** (2026-09-15) — Cross-domain referring remote sensing image segmentation benchmark with 46,972 language-image-annotation triplets across three-tier linguistic hierarchy. [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
-- **TinyEdgeBench** (2026-09-15) — TinyEdgeBench evaluates four lightweight classification methods—rule-based, logistic regression, decision tree, and tiny MLP—on a synthetic sensor-window classification task with four classes, measuring accuracy, macro… [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
-- **TORQUE** (2026-09-15) — Curated Hindi benchmark for table structure recognition and table question answering. [Paper](https://arxiv.org/abs/2609.17458) · [Code](https://github.com/Tihiitborg/Tables-Decoded)
-- **RiskChainBench** (2026-09-15) — A benchmark pairing 3,600 synthetic obfuscated platform message restoration tasks with 600 paired human-labeled local web environments, scoring restoration accuracy and a VLM web agent's evidence-cited risk report via m… [Paper](https://arxiv.org/abs/2609.16900)
-- **ImpossibleRubrics** (2026-09-15) — A suite of 169 impossible tasks with verifiable oracle certificates, designed to test whether generated rubrics reward honest answers over adversarial exploitations. [Paper](https://arxiv.org/abs/2609.16816)
-- **IPC-Bench** (2026-09-15) — Multimodal dataset of 50 industrial process control scenarios with text and diagrams for evaluating optimization model formulation. [Paper](https://arxiv.org/abs/2609.16680) · [Code](https://github.com/yeyongchao/process-modeling-benchmark)
-- **HUMAID-NER** (2026-09-15) — A dataset of 60,000 English disaster tweets annotated with ten named entity types for NER and event classification. [Paper](https://arxiv.org/abs/2609.16964)
-- **FirmCORe** (2026-09-15) — Evaluates pairwise reasoning over weakly structured firm profiles, determining collaboration opportunities, strength, type, and role direction. [Paper](https://arxiv.org/abs/2609.17128)
-- **ASURRE** (2026-09-15) — Benchmark dataset of AI-assisted survey responses paired with human responses for evaluating detection methods. [Paper](https://arxiv.org/abs/2609.17317) · [Code](https://github.com/mike-qz-wang/ASURRE)
+- **coding-agent-bench** (2026-09-15) — Nine Python implementation tasks covering data structures, concurrency, parsing and regex work, scored by executing hidden test programs against extracted model answers, with a separate text-only code-quality heuristic… [Paper](https://github.com/sipratt-p/coding-agent-bench) · [Code](https://github.com/sipratt-p/coding-agent-bench)
+- **Vaihingen-Potsdam Referring (VPRef)** (2026-09-15) — VPRef is a cross-domain referring remote sensing image segmentation dataset of 46,972 language-image-annotation triplets organized in a three-tier linguistic hierarchy, pairing Vaihingen and Potsdam imagery with referri… [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
+- **TinyEdgeBench** (2026-09-15) — TinyEdgeBench compares four lightweight classification methods (rule-based, logistic regression, decision tree, tiny MLP) on one shared synthetic 8-sample sensor-window task with four classes, scoring accuracy, macro F1… [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
+- **TORQUE** (2026-09-15) — TORQUE is a curated Hindi table benchmark covering table reconstruction and table visual question answering; models are scored on structure fidelity and answer accuracy, with DELTA+TARQA variants ranked among evaluated… [Paper](https://arxiv.org/abs/2609.17458) · [Code](https://github.com/Tihiitborg/Tables-Decoded)
+- **RiskChainBench** (2026-09-15) — RiskChainBench pairs synthetic token-text restoration inputs with human-labeled local web environments; a model restores obfuscated platform messages and then acts as a VLM web agent producing frozen evidence-cited risk… [Paper](https://arxiv.org/abs/2609.16900)
+- **ImpossibleRubrics** (2026-09-15) — ImpossibleRubrics evaluates rubric-based reward signals on 169 impossible tasks across six impossibility categories, each paired with a verifiable oracle certificate specifying what an honest answer may and may not clai… [Paper](https://arxiv.org/abs/2609.16816)
+- **IPC-Bench** (2026-09-15) — IPC-Bench is a multimodal dataset of 50 canonical industrial process control scenarios requiring joint reasoning over natural-language descriptions and process diagrams, with tasks asking systems to formulate structured… [Paper](https://arxiv.org/abs/2609.16680) · [Code](https://github.com/yeyongchao/process-modeling-benchmark)
+- **HUMAID-NER** (2026-09-15) — HUMAID-NER is a BIO-annotated dataset of 60,000 English disaster tweets across ten entity types, supporting disaster-specific named entity recognition and humanitarian event classification with reported span micro-F1 an… [Paper](https://arxiv.org/abs/2609.16964)
+- **FirmCORe** (2026-09-15) — FirmCORe evaluates pairwise reasoning over weakly structured firm profiles, requiring models to detect whether available evidence supports a collaboration opportunity and to predict strength, primary collaboration type,… [Paper](https://arxiv.org/abs/2609.17128)
+- **ASURRE** (2026-09-15) — ASURRE is a benchmark dataset for detecting AI-assisted responses in online surveys, containing LLM-generated responses produced under generation, revision, and persona-grounded agentic strategies across three real-worl… [Paper](https://arxiv.org/abs/2609.17317) · [Code](https://github.com/mike-qz-wang/ASURRE)
 - **Vulnerability Localization Benchmark** (2026-09-14) — A benchmark of 500 real-world vulnerabilities requiring models to locate security-relevant files in repository snapshots, also testing appropriate abstention on patched versions. [Paper](https://arxiv.org/abs/2609.15939)
 - **PIDS-Bench** (2026-09-14) — Evaluates prompt-injection detectors across multiple axes including over-defense, obfuscation, and distribution shift, with fixed thresholds and reproducible metrics. [Paper](https://arxiv.org/abs/2609.15017)
 - **Monaco4D** (2026-09-14) — Photorealistic 4D reconstruction benchmark with Formula 1 sequences captured from sparse external cameras under varied illumination, including trackside, onboard, and drone viewpoints with dense ground truth. [Paper](https://arxiv.org/abs/2609.16310)
 - **MemRiskBench** (2026-09-14) — Evaluates long-horizon LLM agents on 120 scripted episodes covering five memory-risk categories through deterministic trace-grounded checks, with full trace logging and no LLM-as-judge. [Paper](https://arxiv.org/abs/2609.14976)
-- **MUSE-Bench** (2026-09-14) — MUSE-Bench evaluates multimodal time series forecasting models using fourteen datasets with six context types and unified evaluation protocols. [Paper](https://arxiv.org/abs/2609.15087)
 - **K-Bench** (2026-09-14) — Evaluates LLM safety in high-risk mental health conversations using 200 clinician-calibrated multi-turn vignettes covering suicide, self-harm, domestic violence, substance misuse, and no-risk presentations, with scoring… [Paper](https://arxiv.org/abs/2609.15855)
 - **TriCalRAG** (2026-09-13) — Benchmarks locally served open-weight LLMs for log anomaly detection in AIOps using zero-shot, few-shot, and retrieval-augmented prompting. [Paper](https://arxiv.org/abs/2609.14762)
 - **Token X-Ray** (2026-09-13) — Token X-Ray evaluates the impact of exact-prompt reuse on quality, model calls, token usage, and latency using a fixed local workload with deterministic prompts and expected answers. [Paper](https://github.com/dustin621408-pixel/token-xray) · [Code](https://github.com/dustin621408-pixel/token-xray)
