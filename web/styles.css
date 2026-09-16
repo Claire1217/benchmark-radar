@@ -71,3 +71,30 @@
 @media(max-width:600px){.library-toolbar{grid-template-columns:minmax(0,1fr)}.library-toolbar .library-search-field{grid-column:auto}.library-sort-field{justify-self:start}}
 
 .repository-evidence{font-size:11px;color:var(--muted,#778078);margin-top:8px}.repository-evidence summary{cursor:pointer}.repository-evidence>div{padding-top:8px}
+
+/* A one-time, non-blocking thank-you after the first save. */
+.star-thanks{position:fixed;right:24px;bottom:24px;z-index:100;max-width:380px;width:calc(100vw - 32px);padding:20px 42px 20px 20px;border:1px solid var(--line);border-radius:8px;background:var(--surface);box-shadow:0 4px 18px #0000000d;font-size:13px;line-height:1.6}
+.star-thanks[hidden]{display:none}
+.star-thanks p{margin:0 0 10px}
+.star-thanks a{color:var(--ink);font-weight:500;text-underline-offset:3px}
+.star-thanks-close{position:absolute;right:8px;top:8px;width:32px;height:32px;border:0;border-radius:5px;background:transparent;cursor:pointer;font-size:22px;color:var(--muted)}
+.star-thanks-close:hover{background:var(--soft)}
+@media(max-width:600px){.star-thanks{right:16px;bottom:16px}}
+
+/* Explicit tooltip also works in embedded browsers without native titles. */
+.topbar .github{position:relative}
+.topbar .github .github-star-tooltip{display:block;position:absolute;top:calc(100% + 12px);right:0;width:248px;max-width:calc(100vw - 32px);padding:13px 16px;background:var(--surface);color:var(--muted);border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 14px #0000000d;font-size:12px;font-weight:400;line-height:1.6;white-space:normal;text-align:left;z-index:200;visibility:hidden;opacity:0;pointer-events:none}
+.topbar .github .github-star-tooltip::before{content:"";position:absolute;right:22px;top:-5px;width:8px;height:8px;background:var(--surface);border-top:1px solid var(--line);border-left:1px solid var(--line);transform:rotate(45deg)}
+.topbar .github:hover .github-star-tooltip,.topbar .github:focus-visible .github-star-tooltip{visibility:visible;opacity:1;pointer-events:auto}
+.topbar .github .github-star-tooltip::after{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
+
+/* A small, warm accent while keeping the radar's quiet visual language. */
+.topbar .github .github-star-tooltip{display:flex;gap:11px;align-items:flex-start;width:292px;padding:15px 16px;border-radius:12px;transform:translateY(4px);transition:opacity .16s ease,transform .16s ease,visibility .16s}
+.topbar .github:hover .github-star-tooltip,.topbar .github:focus-visible .github-star-tooltip{transform:translateY(0)}
+.topbar .github .star-mascot{display:flex;flex:none;align-items:center;justify-content:center;width:30px;height:30px;border-radius:10px;background:#fff5d9;color:#96722b;font-size:23px;line-height:1;transform:rotate(-10deg)}
+.topbar .github .star-tooltip-copy{display:block}
+.topbar .github .star-tooltip-copy strong{display:block;margin:0 0 4px;color:var(--ink);font-size:12px;font-weight:600}
+.topbar .github .star-tooltip-copy>span{display:block;font-size:11px;line-height:1.65}
+.star-thanks{border-radius:12px}
+.star-save-kicker{font-weight:600;color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.topbar .github .github-star-tooltip{transition:none;transform:none}}
