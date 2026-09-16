@@ -12,7 +12,7 @@ The Library uses one generated registry, `manifest.libraryTaxonomy`, and one per
 
 A benchmark can belong to more than one category. Counts represent distinct visible benchmark entries within a category, not mutually exclusive portions of the entire Library. Each parent includes its child entries exactly once.
 
-`Scientific Research Agents` identifies agent-driven scientific investigations. The broader `Scientific Knowledge & Tasks` also includes science questions, scientific chart interpretation and prediction tasks. These are distinct scopes and must not share the same display name. The former `ai-for-science` URL keeps its broad scope; it does not redirect to `scientific-agents` after reload. “AI for Science” remains a search alias for the broader category.
+`AI for Science` (`scientific-agents`) identifies agent-driven scientific investigations. The broader `Scientific Knowledge & Tasks` also includes science questions, scientific chart interpretation and prediction tasks. These are distinct scopes and must not share the same display name. The former `ai-for-science` URL keeps its broad scope; it does not redirect to `scientific-agents` after reload. Searching “AI for Science” selects the agent-research category; the broader category has its own name and search aliases.
 
 Other explicit parent relationships cover programming/coding agents, data analysis/data-analysis agents, systems/efficient inference, and content/image-video generation. Deprecated duplicate navigation entries for audio, embodied AI, deep research and self-improvement resolve to the corresponding canonical research topic. Original legacy classifications remain available in the dataset for provenance and review, without becoming a second competing navigation taxonomy.
 

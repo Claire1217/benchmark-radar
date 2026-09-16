@@ -16,7 +16,7 @@ PARENTS = {
     'image-video-generation': 'content-generation',
 }
 BROAD_NAMES = {
-    'ai-for-science': ('Scientific Knowledge & Tasks', 'Scientific knowledge and reasoning, science questions, scientific figures, prediction and research tasks. Includes the narrower Scientific Research Agents category.'),
+    'ai-for-science': ('Scientific Knowledge & Tasks', 'Scientific knowledge and reasoning, science questions, scientific figures, prediction and research tasks. Includes the narrower AI for Science agent-research category.'),
     'data-analysis': ('Data Analysis & SQL', 'Data analysis, database querying and tabular tasks, including Data Analysis Agents.'),
     'software-engineering': ('Programming & Software Engineering', 'Code understanding, generation, testing and repository-level software work, including Coding Agents.'),
     'systems-optimization': ('Systems & Performance', 'Software and system performance, including the narrower Efficient Inference research topic.'),
@@ -38,7 +38,7 @@ def definitions():
         if identity in BROAD_NAMES:
             definition['name'], definition['description'] = BROAD_NAMES[identity]
         if identity == 'ai-for-science':
-            definition['searchAliases'] = ['AI for Science', 'science benchmarks', 'scientific knowledge']
+            definition['searchAliases'] = ['science benchmarks', 'scientific knowledge']
         if identity == 'cybersecurity':
             definition['name'] = 'Cybersecurity Tasks'
             definition['searchAliases'] = ['Cybersecurity']

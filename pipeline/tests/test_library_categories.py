@@ -71,8 +71,8 @@ assert(fields.some(f=>f[1]==='Science & Research'));
 assert.equal(new Set([...buttons,...fields].map(b=>b[2].toLowerCase())).size,buttons.length+fields.length);
 state.libraryDomain='';
 state.libraryDirection='';nodes['library-search'].value='AI for Science';c.showTypes();
-assert.match(nodes['type-options'].children[0].textContent,/^Scientific Knowledge & Tasks · Type · /);
-nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'ai-for-science');
+assert.match(nodes['type-options'].children[0].textContent,/^AI for Science · Type · /);
+nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'scientific-agents');
 console.log('Verified all '+buttons.length+' categories: unique sidebar names, search, counts, click/reload membership and legacy links.');
 '''
         subprocess.run(['node','-e',script],cwd=ROOT,check=True)
