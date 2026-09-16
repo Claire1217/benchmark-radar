@@ -9,10 +9,11 @@ class LatestFeedTests(unittest.TestCase):
         script = r'''
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const context={window:{},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{})};
-vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
+vm.createContext(context);vm.runInContext(fs.readFileSync('web/following.js','utf8'),context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 vm.runInContext(`
 state.manifest={latestSourceDate:'2026-09-13',dataAsOf:'2026-09-15'};
 state.benchmarks=[{releasedAt:'2026-09-13'},...Array.from({length:4},()=>({releasedAt:'2026-09-12'})),...Array.from({length:8},()=>({releasedAt:'2026-09-11'})),{releasedAt:'2026-09-10'},...Array.from({length:20},()=>({releasedAt:'2026-09-13',displayEligible:false})),{releasedAt:'2026-09-16'}];
+state.benchmarks.forEach((r,i)=>r.id=String(i));
 state.latestFrom=latestAvailableDate();`,context);
 assert.equal(vm.runInContext('state.latestFrom',context),'2026-09-11');
 assert.equal(vm.runInContext('state.benchmarks.filter(displayEligible).filter(eligible).length',context),13);
@@ -21,6 +22,13 @@ vm.runInContext(`state.benchmarks=Array.from({length:12},()=>({releasedAt:'2026-
 assert.equal(vm.runInContext('latestAvailableDate()',context),'2026-09-13');
 vm.runInContext(`state.benchmarks=[{releasedAt:'2026-09-12'}];`,context);
 assert.equal(vm.runInContext('latestAvailableDate()',context),'2026-09-12');
+vm.runInContext(`state.libraryManifest={libraryTaxonomy:{directions:[{id:'multi-agent',name:'Multi-Agent Systems'}]}};
+following.ids=['multi-agent'];following.view='following';state.latestFrom='2026-09-13';
+state.benchmarks=[{id:'a',releasedAt:'2026-09-12',researchTopics:[]},{id:'b',releasedAt:'2026-09-10',researchTopics:['multi-agent']}];`,context);
+assert.equal(vm.runInContext('previousLatestDate()',context),'2026-09-10');
+assert.equal(vm.runInContext('interestChips(state.benchmarks[1]).includes("Interested")',context),true);
+vm.runInContext(`state.latestFrom='2026-09-10';`,context);
+assert.equal(vm.runInContext('previousLatestDate()',context),null);
 vm.runInContext('state.benchmarks=[]',context);
 assert.equal(vm.runInContext('latestAvailableDate()',context),'2026-09-13');
 '''
