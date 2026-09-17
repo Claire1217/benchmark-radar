@@ -184,6 +184,12 @@ jobs:
         if: ${{ steps.catalog-sync.outcome == 'failure' }}
         run: echo "::warning::Catalog sync failed; retaining the previous complete catalog snapshot."
 
+      - name: Refresh opted-in Library attention
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python pipeline/enrich_library_metrics.py
+
       - name: Generate public views once
         run: make generate
 
@@ -195,6 +201,8 @@ jobs:
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/domain_trends.json data/review_queue.json data/runs data/metrics data/publication data/trends_topics.json data/trends_comparison.json data/research_topic_audit.json
+          # Include every tracked data output produced by generation, including new views.
+          git add -u -- data README.md AWESOME_BENCHMARKS.md
           if git diff --cached --quiet; then
             echo "No index changes"
           else

@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from email.utils import format_datetime
 import hashlib
 import json
+import re
 from pathlib import Path
 import shutil
 from xml.sax.saxutils import escape as xml_escape
@@ -85,6 +86,12 @@ def main() -> None:
     data_dir.mkdir()
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json", "trends_comparison.json", "github_history_coverage.json", "trends_topics.json", "research_topic_audit.json"):
         shutil.copy2(ROOT / "data" / name, data_dir / name)
+    page = OUTPUT / "index.html"
+    html = page.read_text()
+    for name in ("app.js", "following.js", "styles.css"):
+        digest = hashlib.sha256((OUTPUT / name).read_bytes()).hexdigest()[:12]
+        html = re.sub(r'\./' + re.escape(name) + r'(?:\?[^"\s]*)?', './' + name + '?v=' + digest, html)
+    page.write_text(html)
     version_trends_assets(OUTPUT)
     library = json.loads((ROOT / "data" / "library_index.json").read_text(encoding="utf-8"))
     write_feed([record for record in library["records"] if visible(record)], library["manifest"]["dataAsOf"])

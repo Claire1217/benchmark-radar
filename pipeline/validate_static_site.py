@@ -54,7 +54,7 @@ def main() -> None:
         raise SystemExit("Attention must remain the default sort")
     if "description-toggle" in app or "details-panel" in app:
         raise SystemExit("descriptions must display directly without secondary disclosure controls")
-    if 'button.textContent=previous?"Show the previous day":""' not in app:
+    if 'button.textContent=previous?"Show the previous day with results":""' not in app:
         raise SystemExit("Latest must offer a date-free previous-day control")
     if "state.latestFrom=latestAvailableDate()" not in app:
         raise SystemExit("Latest must automatically fall back to the newest non-empty day")

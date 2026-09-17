@@ -12,6 +12,7 @@ build: check
 	python3 pipeline/generate_trends_comparison.py
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
+	python3 pipeline/audit_library_categories.py
 	python3 pipeline/build_github_pages.py
 	python3 pipeline/validate_static_site.py
 
@@ -24,6 +25,7 @@ generate:
 	python3 pipeline/generate_awesome.py
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
+	python3 pipeline/audit_library_categories.py
 
 serve: build
 	python3 -m http.server 8000 --directory _site

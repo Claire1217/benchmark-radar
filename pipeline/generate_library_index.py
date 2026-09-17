@@ -17,6 +17,7 @@ from library_release_dates import apply_release_dates
 from library_source_reviews import apply_source_reviews
 from research_directions import annotate_records, direction_manifest
 from research_topics import annotate_topics, topic_manifest
+from library_categories import annotate_categories, category_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -167,21 +168,21 @@ def public_classic(record: dict, classics: dict) -> dict:
         "industrySectors": [],
         "capabilities": [],
         "topics": [record["area"]],
-        "construction": "Unknown",
-        "annotation": "Unknown",
-        "readiness": readiness,
+        "construction": record.get("construction", "Unknown"),
+        "annotation": record.get("annotation", "Unknown"),
+        "readiness": record.get("readiness", readiness),
         "releasedAt": released_at,
         "releaseDatePrecision": precision,
         "firstRelease": release,
-        "firstSeenAt": classics.get("reviewedAt"),
+        "firstSeenAt": record.get("firstSeenAt", classics.get("reviewedAt")),
         "recognitionConfidence": 1.0,
         "links": {
             "report": report,
-            "pdf": None,
+            "pdf": links.get("pdf"),
             "project": links.get("project"),
             "code": links.get("code"),
             "data": links.get("data"),
-            "hfPaper": None,
+            "hfPaper": links.get("hfPaper"),
         },
         "evidence": {
             "snippet": "Reviewed Library record; follow the linked benchmark source for its definition.",
@@ -211,7 +212,7 @@ def public_classic(record: dict, classics: dict) -> dict:
         ],
         "usageObservations": record.get("usageObservations", []),
     }
-    for key in ("variantOf", "variantOfExternal", "versionPolicy"):
+    for key in ("variantOf", "variantOfExternal", "versionPolicy", "dataAccess", "metricScopes"):
         if record.get(key):
             result[key] = record[key]
     result.update(normalize_taxonomy(result))
@@ -254,6 +255,10 @@ def main() -> None:
     release_path = ROOT / "data" / "library_release_dates.json"
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
+    from library_metrics import apply_library_metrics
+    metrics_path = ROOT / "data" / "library_metrics.json"
+    if metrics_path.exists():
+        apply_library_metrics(records, json.loads(metrics_path.read_text()))
     reviewed_additions = 0
     review_path = ROOT / "data" / "library_source_reviews.json"
     if review_path.exists():
@@ -264,6 +269,7 @@ def main() -> None:
         apply_release_dates(records, json.loads(release_path.read_text()))
     annotate_records(records)
     annotate_topics(records)
+    annotate_categories(records)
     # Both surfaces use the merged Library classification, including catalog evidence.
     public_path = ROOT / "data" / "benchmarks_index.json"
     if public_path.exists():
@@ -272,18 +278,20 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]
         public["manifest"]["researchTaxonomy"] = direction_manifest(public["records"])
         public["manifest"]["topicTaxonomy"] = topic_manifest(public["records"])
+        public["manifest"]["libraryTaxonomy"] = category_manifest(public["records"])
         public_path.write_text(json.dumps(public, ensure_ascii=False, separators=(",", ":")) + "\n")
     payload = {
         "manifest": {
             "schemaVersion": "1.0",
             "researchTaxonomy": direction_manifest(records),
             "topicTaxonomy": topic_manifest(records),
+            "libraryTaxonomy": category_manifest(records),
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
             "recordCount": len(records),
             "classicRecordCount": len(classics.get("records", [])),
