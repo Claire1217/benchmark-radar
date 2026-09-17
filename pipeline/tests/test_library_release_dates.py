@@ -32,6 +32,14 @@ class ReleaseDatesTest(unittest.TestCase):
         apply_release_dates(self.rows, {})
         self.assertEqual(self.rows[0]["releaseDatePrecision"], "unknown")
 
+    def test_month_precision_retains_month_without_claiming_day(self):
+        self.entry.update(date="2026-04", precision="month")
+        apply_release_dates(self.rows, {"records": [self.entry]})
+        self.assertEqual(self.rows[0]["releaseDatePrecision"], "month")
+        self.assertEqual(self.rows[0]["firstRelease"]["month"], 4)
+        self.assertIsNone(self.rows[0]["firstRelease"]["date"])
+        self.assertEqual(self.rows[0]["releaseEvidence"]["date"], "2026-04")
+
     def test_bad_evidence_fails_build(self):
         for patch in [{"id": "missing"}, {"date": "2018-02-30"},
                       {"basis": "catalog-year"}, {"sourceUrl": "javascript:alert(1)"}]:
@@ -41,6 +49,19 @@ class ReleaseDatesTest(unittest.TestCase):
     def test_duplicate_target_fails_build(self):
         with self.assertRaises(ValueError):
             apply_release_dates(self.rows, {"records": [self.entry, self.entry]})
+
+    def test_identity_cleanup_preserves_subsequent_date_review(self):
+        from research_directions import annotate_records
+        rows = [{"id": "lib_swe_bench_multilingual", "releasedAt": "2024-10-10"}]
+        annotate_records(rows)
+        self.assertEqual(rows[0]["releaseDatePrecision"], "unknown")
+        evidence = {"id": rows[0]["id"], "date": "2025-05-06", "precision": "day",
+                    "basis": "official-announcement", "sourceUrl": "https://kabirk.com/multilingual",
+                    "reviewedAt": "2026-09-16"}
+        apply_release_dates(rows, {"records": [evidence]})
+        annotate_records(rows)
+        self.assertEqual(rows[0]["releasedAt"], "2025-05-06")
+        self.assertEqual(rows[0]["releaseEvidence"], evidence)
 
 
 if __name__ == "__main__":

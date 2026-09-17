@@ -547,8 +547,11 @@ def apply_reviewed_metadata(record):
         record["description"] = descriptions[number]
         record["oneLine"] = descriptions[number]
         record["descriptionProvenance"] = {"basis": "primary-source-reviewed", "sourceUrl": review["source"], "reviewedAt": "2026-09-15"}
-    if number == 2:
-        # The old year was attached to a different benchmark paper.
+    evidence = record.get("releaseEvidence") or {}
+    newer_date_review = evidence.get("reviewedAt", "") > "2026-09-15"
+    if number == 2 and not newer_date_review:
+        # Discard the old date attached to a different benchmark, but preserve
+        # explicit release evidence reviewed after this identity correction.
         record["releasedAt"] = "0001-01-01"
         record["releaseDatePrecision"] = "unknown"
         record["firstRelease"] = {"year": None, "date": None}
@@ -603,4 +606,3 @@ def direction_manifest(records):
         "unclassifiedCount": sum(not r.get("researchDirections") for r in visible),
         "directions": [{**d, "count": sum(d["id"] in r.get("researchDirections", []) for r in visible)} for d in DIRECTIONS],
     }
-

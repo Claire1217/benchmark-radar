@@ -252,8 +252,6 @@ def main() -> None:
     decisions = json.loads(identity_path.read_text()) if identity_path.exists() else {}
     records, identity_redirects = merge_library_identities(records, decisions)
     release_path = ROOT / "data" / "library_release_dates.json"
-    if release_path.exists():
-        apply_release_dates(records, json.loads(release_path.read_text()))
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
     reviewed_additions = 0
@@ -262,6 +260,8 @@ def main() -> None:
         reviews = json.loads(review_path.read_text())
         reviewed_additions = len(reviews.get("additions", []))
         apply_source_reviews(records, reviews)
+    if release_path.exists():
+        apply_release_dates(records, json.loads(release_path.read_text()))
     annotate_records(records)
     annotate_topics(records)
     # Both surfaces use the merged Library classification, including catalog evidence.

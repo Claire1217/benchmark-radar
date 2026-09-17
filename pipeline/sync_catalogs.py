@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import unicodedata
 from urllib.request import Request, urlopen
+from urllib.parse import quote, urlencode
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,6 +18,16 @@ OUTPUT = ROOT / "data" / "catalog_records.json"
 BENCHLM_URL = "https://benchlm.ai/data/benchmarks.json"
 LLM_STATS_URL = "https://api.zeroeval.com/leaderboard/benchmarks"
 MIN_EXPECTED_ROWS = {"benchlm": 100, "llm-stats": 100}
+
+
+def llm_stats_source_url(row: dict) -> str:
+    benchmark_id = str(row.get("benchmark_id") or "")
+    if (row.get("is_community") and benchmark_id.startswith("community:")
+            and row.get("dataset_slug") and row.get("dataset_org_id")):
+        return ("https://llm-stats.com/benchmarks/datasets/"
+                + quote(str(row["dataset_slug"]), safe="")
+                + "?" + urlencode({"org": row["dataset_org_id"]}))
+    return "https://llm-stats.com/benchmarks/" + quote(benchmark_id, safe="")
 
 
 def fetch(url: str) -> bytes:
@@ -114,8 +125,9 @@ def build_payload(benchlm_body: bytes, llm_stats_body: bytes, retrieved_at: str)
         item["sourceRecords"].append({
             "catalog": "llm-stats",
             "sourceId": row.get("benchmark_id"),
-            "url": f"https://llm-stats.com/benchmarks/{row.get('benchmark_id')}",
+            "url": llm_stats_source_url(row),
             "datasetSlug": row.get("dataset_slug"),
+            "datasetOrgId": row.get("dataset_org_id"),
             "versionCount": row.get("version_count"),
             "subsetCount": row.get("subset_count"),
             "rowCount": row.get("latest_version_row_count"),

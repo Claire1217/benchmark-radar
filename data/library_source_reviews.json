@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-09-15",
+  "reviewedAt": "2026-09-16",
   "additions": [
     {
       "id": "review_screenspot_v2",
@@ -824,12 +824,2625 @@
       "description": null,
       "role": "test-split",
       "parentId": "catalog_1df91e499cc9d53e"
+    },
+    {
+      "id": "catalog_e4a8cc0a8b5ac334",
+      "directions": [
+        "coding-agents",
+        "instruction-following"
+      ],
+      "sources": [
+        "https://www.minimax.io/news/production-grade-benchmark-for-coding-agents",
+        "https://huggingface.co/datasets/MiniMaxAI/OctoCodingBench"
+      ],
+      "role": "benchmark",
+      "description": "Evaluates whether coding agents follow system, repository, tool and multi-turn instructions while completing software tasks, using check-level and instance-level success rates.",
+      "note": "Original MiniMax launch and matching M2.1 ISR 26.1% resolve the wrong aggregator description: OctoCodingBench is process instruction following, not an Octopus multilingual programming benchmark."
+    },
+    {
+      "id": "catalog_7019b82898c0a736",
+      "directions": [
+        "instruction-following"
+      ],
+      "sources": [
+        "https://www.lmsys.org/blog/2023-03-30-vicuna/"
+      ],
+      "role": "benchmark",
+      "description": "An early set of 80 diverse questions used by LMSYS to compare chatbot responses with GPT-4 as judge. It is a preliminary response-quality evaluation, separate from Chatbot Arena Elo rankings.",
+      "note": "Primary launch explicitly creates 80 questions and GPT-4 comparison. Corrects the catalog conflation with human-voted Elo; the original release is not a Chatbot Arena ranking."
+    },
+    {
+      "id": "catalog_00f9bfbf6e386381",
+      "directions": [
+        "visual-understanding"
+      ],
+      "sources": [
+        "https://developers.google.com/health-ai-developer-foundations/medgemma/model-card",
+        "https://www.nature.com/articles/s41591-020-0842-3"
+      ],
+      "role": "observation-setting",
+      "description": "A private four-choice skin-condition classification evaluation using clinical photographs and patient histories from the dataset described by Liu et al. Google reports it as US-DermMCQA in MedGemma evaluations.",
+      "note": "MedGemma 1 4B accuracy 71.8% matches the catalog. Official card explicitly identifies the internal four-way task and Liu et al. dataset; rejects the aggregator link to unrelated 2023 dermatology benchmark paper and its text-only characterization."
+    },
+    {
+      "id": "catalog_558ad5fcac1a5329",
+      "directions": [
+        "visual-understanding"
+      ],
+      "sources": [
+        "https://arxiv.org/html/2503.20215v1",
+        "https://arxiv.org/abs/2402.19474"
+      ],
+      "role": "observation-setting",
+      "description": "Relation-comprehension aggregate of the Circular-based Relation Probing Evaluation (CRPE). It measures understanding of object relations in images using the subject, predicate and object splits.",
+      "note": "Qwen2.5-Omni 7B score 76.5 exactly matches catalog source 0.765. Original report places this in image-to-text evaluation and cites All-Seeing Project V2; healthcare/text-only classification was incorrect."
+    },
+    {
+      "id": "catalog_00d121bee97ad2d2",
+      "directions": [
+        "long-context"
+      ],
+      "sources": [
+        "https://arxiv.org/abs/2502.05167"
+      ],
+      "role": "benchmark",
+      "description": "Long-context retrieval benchmark in which questions and hidden evidence have minimal lexical overlap, requiring models to infer latent associations rather than match literal words.",
+      "note": "Exact named original benchmark replaces generic pending-verification catalog description."
+    },
+    {
+      "id": "catalog_62c91317432638c2",
+      "directions": [
+        "long-context",
+        "logical-reasoning",
+        "instruction-following"
+      ],
+      "sources": [
+        "https://github.com/Tencent-Hunyuan/CL-bench",
+        "https://arxiv.org/abs/2602.03587"
+      ],
+      "role": "benchmark",
+      "description": "Evaluates learning and applying new knowledge supplied in context across domain reasoning, rule systems, procedures, and empirical discovery. Includes 1,899 tasks with task-specific grading rubrics.",
+      "note": "Original Tencent benchmark and Hy3 model source identify context learning, not an exclusively coding/agent task suite. CL-bench Life is a distinct later release."
+    },
+    {
+      "id": "catalog_40e218fcbdb18b98",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "sources": [
+        "https://www.brumo.org/tournament-info-2025",
+        "https://matharena.ai/"
+      ],
+      "role": "observation-setting",
+      "description": "Mathematical reasoning evaluation using problems from the 2025 Brown University Math Olympiad, also included in MathArena final-answer competitions.",
+      "note": "BRUMO is Brown University Math Olympiad. Original catalog project source math.bas.bg was unrelated; official organizer identifies April 2025 inaugural competition."
+    },
+    {
+      "id": "catalog_19459b4c43b239f7",
+      "directions": [
+        "data-analysis",
+        "tool-use"
+      ],
+      "sources": [
+        "https://www.minimax.io/news/minimax-m25"
+      ],
+      "role": "benchmark",
+      "description": "MiniMax internal evaluation using 179 Microsoft Excel World Championship and regional competition problems from 2021–2026. Models interpret competition workbooks and use Excel tools; output cells are compared against answer cells.",
+      "note": "Official definition contradicts the previous unsupported expansion into multi-environment web challenges."
+    },
+    {
+      "id": "catalog_44e326eb9a9e1060",
+      "directions": [
+        "data-analysis",
+        "tool-use"
+      ],
+      "sources": [
+        "https://www.minimax.io/news/minimax-m25"
+      ],
+      "role": "benchmark-with-adapter",
+      "description": "MiniMax internal Cowork Agent evaluation framework based on the public GDPval task set. It compares complete agent trajectories and professional deliverables with pairwise LLM judging, and tracks token costs.",
+      "note": "MM identifies the MiniMax evaluation here; original source does not define it as a new generic multimodal GDPval dataset. MiniMax M2.5 score 59.0% matches the catalog provider."
+    },
+    {
+      "id": "catalog_c80d5333e2d792e7",
+      "directions": [
+        "agent-memory",
+        "safety-alignment"
+      ],
+      "role": "observation-setting",
+      "sources": [
+        "https://github.com/facebookresearch/CIMemories",
+        "https://arxiv.org/abs/2511.14937"
+      ],
+      "description": "CIMemories evaluates contextual privacy in persistent-memory assistants. Coverage measures how often the response includes memory attributes that are appropriate and necessary for the task, complementing the privacy-violation metric.",
+      "note": "Author eval/metrics.py computes coverage over share/necessary attributes. It is task-relevant information coverage, not how much of the benchmark has been evaluated."
+    },
+    {
+      "id": "catalog_93924c7b9f3ba935",
+      "directions": [
+        "self-improvement-rsi"
+      ],
+      "sources": [
+        "https://deploymentsafety.openai.com/gpt-5-6-preview"
+      ],
+      "role": "subset",
+      "description": "A five-hour, single-H100 subset of PostTrainBench covering 12 combinations of three base models and four target benchmarks. Agents choose training data and methods; reward is the clipped gain over the base model normalized by the instruction-tuned reference gain, with detected cheating scored zero.",
+      "note": "Official section 9.1.3.4 specifies 12 combinations, five rather than ten hours, and normalized final-score improvement. Replaces vague claim about mean reward over an improvement window."
+    },
+    {
+      "id": "catalog_512407cb147ffc6d",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "sources": [
+        "https://huggingface.co/datasets/CohereLabs/lbpp/discussions/6",
+        "https://arxiv.org/abs/2504.00698"
+      ],
+      "role": "version",
+      "description": "Version 2 of Less Basic Python Problems, extending functional code-generation evaluation to Python, C++, Java, JavaScript, Go and Rust with executable unit tests.",
+      "note": "Original Cohere dataset announcement and Command A report section 4.4 identify code generation across programming languages; replaces unsupported language-based planning description. Multiple programming languages do not imply multilingual natural-language evaluation."
+    },
+    {
+      "id": "catalog_d5fdceb2154bab3d",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "sources": [
+        "https://www2.statmt.org/wmt23/translation-task.html"
+      ],
+      "role": "benchmark",
+      "description": "The WMT 2023 General Machine Translation shared task evaluates translation across 14 directions and multiple text domains, with document context and human assessment.",
+      "note": "Original General MT task page distinguishes this test from the wider WMT workshop and its separate biomedical, metrics and other tasks."
+    },
+    {
+      "id": "catalog_6a8310f18a7301bd",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "sources": [
+        "https://www2.statmt.org/wmt26/translation-task.html"
+      ],
+      "role": "benchmark",
+      "description": "The WMT 2026 General Machine Translation shared task evaluates document-level translation across languages, domains and contextual instructions, with human assessment.",
+      "note": "Official source specifies human evaluation. Removes unsupported description of all-language average scored 0–100 by an LLM judge; a provider-specific scoring configuration would require separate evidence."
+    },
+    {
+      "id": "catalog_897457a59168a17d",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.6-27B",
+        "https://hmmt-archive.s3.amazonaws.com/tournaments/2025/feb/results/short.htm"
+      ],
+      "role": "observation-setting",
+      "description": "Model evaluation on mathematics problems from the February 2025 Harvard–MIT Mathematics Tournament.",
+      "note": "Qwen original model-table scores identify February 2025, not the November2025/February2026 season described by the provider."
+    },
+    {
+      "id": "catalog_123166a3ea230751",
+      "role": "observation-setting",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "Provider-reported results on 2025 Harvard-MIT Mathematics Tournament problems. The catalog mixes tournament editions and evaluation settings: early Qwen3 results predate November 2025, while later Qwen3.5/3.6 cards explicitly use the November tournament. These rows should not be treated as one comparable benchmark version.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507/commit/4cd68849b2a0fadb84866c703b133aa8c8636130",
+        "https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507/raw/4cd68849b2a0fadb84866c703b133aa8c8636130/README.md"
+      ],
+      "note": "Fixed official Qwen3-235B-A22B-Thinking-2507 README4cd68849b2a0fadb84866c703b133aa8c8636130 dated2025-07-25 explicitly reports HMMT25=83.9, matching that catalog model. This dated provider-result disclosure is not a release date for a unified HMMT25 corpus. Other catalog rows include November2025 versions; no shared protocol/date inferred. Preserve mixed-edition warning; do not infer November identity for July result."
+    },
+    {
+      "id": "catalog_06a52f8a0bca38b1",
+      "directions": [
+        "tool-use"
+      ],
+      "sources": [
+        "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity"
+      ],
+      "role": "benchmark",
+      "description": "An internal ByteDance evaluation of high-value startup-related response quality, informed by interviews with real AI-native startups and expert review.",
+      "note": "Original source does not support claims of executable company simulation or binary task-success scoring."
+    },
+    {
+      "id": "catalog_8a02548a7abf79a1",
+      "directions": [
+        "tool-use"
+      ],
+      "sources": [
+        "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity"
+      ],
+      "role": "benchmark",
+      "description": "An internal ByteDance benchmark of practical assistance in user-facing OpenClaw-style agent scenarios.",
+      "note": "Corrects coding-only catalog description; original source covers broader user-facing assistance."
+    },
+    {
+      "id": "catalog_92baf138f8914ddd",
+      "directions": [
+        "spatial-reasoning",
+        "visual-understanding"
+      ],
+      "sources": [
+        "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity"
+      ],
+      "role": "benchmark",
+      "description": "An internal ByteDance evaluation of understanding multiple real-world photographs and drawing a floor plan.",
+      "note": "Removes unsupported interactive-frontend/design-mockup claims."
+    },
+    {
+      "id": "catalog_d7cac9c36bec7188",
+      "directions": [
+        "computer-use",
+        "tool-use",
+        "content-generation"
+      ],
+      "sources": [
+        "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity"
+      ],
+      "role": "benchmark",
+      "description": "An internal ByteDance benchmark of coordinating GUI actions and MCP tools across Notion, Canva and Figma productivity tasks.",
+      "note": "Original source identifies three environments and GUI/tool coordination; public description does not imply downloadable tasks."
+    },
+    {
+      "id": "catalog_ef6a0d37e1015ec2",
+      "directions": [
+        "ai-for-science",
+        "data-analysis"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic evaluation of LatchBio scBench’s revised 195-task single-cell RNA-seq analysis set, covering practical workflows such as cell typing and differential expression.",
+      "sources": [
+        "https://blog.latch.bio/p/scbench-updates-opus-47-gpt-55-gemini",
+        "https://github.com/latchbio/scbench"
+      ],
+      "note": "195-task revision matches May12 original README; distinguish initial394-task version."
+    },
+    {
+      "id": "catalog_b52bb09bba7986a0",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "Model evaluation on MathArena Apex Shortlist, a separately selected set of 47 difficult final-answer mathematics problems from 2025 competitions.",
+      "sources": [
+        "https://huggingface.co/datasets/MathArena/apex-shortlist",
+        "https://www.linkedin.com/posts/martinvechev_ai-for-math-latest-after-googles-gemini-activity-7401691924463620097-ScGL"
+      ],
+      "note": "Not a subset of the12-task Apex set; original author announces new shortlist December2,2025."
+    },
+    {
+      "id": "catalog_23575a8f73f0d1af",
+      "directions": [
+        "knowledge-qa"
+      ],
+      "role": "observation-setting",
+      "description": "A provider view of AA-Omniscience, a cross-domain factual-knowledge and abstention benchmark. Reported rows use different metrics and are not directly comparable.",
+      "sources": [
+        "https://arxiv.org/abs/2511.13029",
+        "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Ultra-Technical-Report.pdf"
+      ],
+      "note": "NVIDIA original report explicitly links AA-Omniscience and distinguishes accuracy24.1 from non-hallucination78.7; catalog uses78.7. Remove unsupported scientific-only task classification."
+    },
+    {
+      "id": "catalog_846be5fc541c5039",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "A mixed provider-results view: Qwen3.7-Plus reports 22.7 on Apex, while NVIDIA’s 84.8 is from Apex Shortlist with tools. These are different evaluation settings and should not be compared as one leaderboard. The date records an official publication of the Qwen result, not the benchmark’s initial release.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-7-plus-multimodal-agent-intelligence_603206",
+        "https://yqintl.alicdn.com/817cdbe5b3bfd8649e492d3e03e7ab3ce98a37a8.png",
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.7-plus&type=qwen_ai",
+        "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+        "https://matharena.ai/apex/"
+      ],
+      "note": "Round117 official Alibaba Cloud article dated June3,2026 includes original image table, visually verified: Qwen3.7Plus Apex22.7, with named comparison models and scores. Exact match to catalog Qwen row. Accept ONLY this explicitly dated results disclosure, not benchmark release or earliest result publication. Qwen API content header saysMay21 but extra.date saysJune1; neither conflict is resolved by choosing June3. June3 is a separately documented official article date. Existing NVIDIA84.8 row is explicitly ApexShortlist with tools, a different task set; this mixed catalog view must not be treated as a comparable single benchmark."
+    },
+    {
+      "id": "catalog_2afafaa160f04bd4",
+      "directions": [
+        "long-context",
+        "logical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "Parent-node retrieval on the OpenAI GraphWalks directed-graph dataset. This catalog entry combines provider views for contexts below and above 128K; their scores should be compared separately.",
+      "sources": [
+        "https://huggingface.co/datasets/openai/graphwalks",
+        "https://llm-stats.com/benchmarks/graphwalks-parents-%3C128k"
+      ],
+      "note": "Original provider sourceAttribution merges less-than128k and greater-than128k labels. Replace incorrect greater-than-only description and spatial-geometry classification. Original GraphWalks changelog dates dataset publication April12,2025; parent ground-truth fixes February27,2026 are later revisions,not first launch."
+    },
+    {
+      "id": "catalog_c828085ad9338ced",
+      "directions": [
+        "spatial-reasoning",
+        "visual-understanding",
+        "agent-memory"
+      ],
+      "role": "version",
+      "description": "Andon Labs spatial-reconstruction benchmark: an agent examines about 20 interior photos for each of 50 apartments and draws a 2D floor plan, using a persistent notepad to learn across apartments.",
+      "sources": [
+        "https://andonlabs.com/evals/blueprint-bench-2",
+        "https://www.linkedin.com/posts/andonlabs_introducing-blueprint-bench-2-first-signs-activity-7457122428608090113-3zg8"
+      ],
+      "note": "Official version2 author announcement May4,2026. Fix unsupported blueprint-reading description and generic GoogleDeepMind source. Task is apartment-photo-to-floor-plan reconstruction,with connectivity scoring and persistent notepad."
+    },
+    {
+      "id": "catalog_6ae40f22c77bfae7",
+      "directions": [
+        "instruction-following",
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Catalog alias for Multi-IF, a multilingual instruction-following benchmark with 4,501 three-turn conversations across eight languages. Qwen3 report scores identify this entry; it is not a separate MultiLF dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2410.15553",
+        "https://arxiv.org/html/2505.09388v1"
+      ],
+      "note": "Exact73.0/71.9 score pair matches Qwen3-32B/Qwen3-235B Multi-IF rows. Correct uppercase-L versus uppercase-I typo in provenance; underlying dataset scope prevents new-release double counting."
+    },
+    {
+      "id": "catalog_d98712704c496695",
+      "directions": [
+        "multilingual-nlp",
+        "knowledge-qa"
+      ],
+      "role": "benchmark",
+      "description": "NOVA-63 evaluates multilingual knowledge and reasoning using native-language questions across 14 languages and 63 academic disciplines. The number 63 denotes disciplines, not languages.",
+      "sources": [
+        "https://aclanthology.org/2025.emnlp-main.364/",
+        "https://huggingface.co/datasets/zjy1298/NOVA-63"
+      ],
+      "note": "Original EMNLP paper confirms14 languages/63disciplines. Correct catalog claim of63languages. Paper and ACL abstract differ on question count,so description deliberately avoids unverified count. Original HF currently contains only README,not public task data."
+    },
+    {
+      "id": "catalog_64e4162afc81fd0d",
+      "directions": [
+        "multilingual-nlp",
+        "knowledge-qa"
+      ],
+      "role": "observation-setting",
+      "description": "Knowledge evaluation averaged across English MMLU and the 20 OpenGPT-X European translations (EU20-MMLU). The 21-language aggregate is also called EU21-MMLU.",
+      "sources": [
+        "https://arxiv.org/html/2410.08928v1",
+        "https://huggingface.co/datasets/Eurolingua/mmlux"
+      ],
+      "note": "Exact multi-model score matching confirms identity; not EuroLLM proprietary data or a separate 21-language release. Underlying dataset scope prevents duplicate release counts."
+    },
+    {
+      "id": "catalog_6da692bf12f42b89",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "aggregate-index",
+      "description": "Mistral’s average HumanEval fill-in-the-middle pass@1 over Python, JavaScript and Java, reported with Codestral22B.",
+      "sources": [
+        "https://mistral.ai/news/codestral/"
+      ],
+      "note": "Original Mistral dated announcement and figures visually verified. Codestral22B91.6 is average of Python89.4,JavaScript95.1,Java90.3, matching catalog. Dates documented Codestral evaluation disclosure, not first HumanEval or FIM-method release. Generic HumanEval FIM catalog may combine different provider configurations; other rows not asserted to share this exact protocol."
+    },
+    {
+      "id": "catalog_7bcc639830899dd7",
+      "directions": [
+        "long-context"
+      ],
+      "role": "subset",
+      "description": "BEAM’s 128K-token conversation-memory subset, with 20 conversations and 400 probing questions spanning ten memory abilities.",
+      "sources": [
+        "https://arxiv.org/abs/2510.27246",
+        "https://github.com/mohammadtavakoli78/BEAM"
+      ],
+      "note": "Author dataset count retained; Meta evaluation wording of 400 conversations conflates probing examples with chats. Date is underlying dataset only."
+    },
+    {
+      "id": "catalog_a03619ad23937b0d",
+      "directions": [
+        "long-context",
+        "knowledge-qa"
+      ],
+      "role": "subset",
+      "description": "The 1M-token setting of CorpusQA: 329 corpus-level questions requiring integration, comparison and statistical aggregation across documents in finance, education and real estate.",
+      "sources": [
+        "https://arxiv.org/abs/2601.14952",
+        "https://github.com/Tongyi-Zhiwen/CorpusQA"
+      ],
+      "note": "Original v1 Table2 and Table3 explicitly identify Set2 (1M); replaces generic provider-report-only identity. Date is underlying dataset only."
+    },
+    {
+      "id": "catalog_1affa89e646bc694",
+      "directions": [
+        "long-context"
+      ],
+      "role": "observation-setting",
+      "description": "Meta’s text-based multi-needle retrieval evaluation: four facts are inserted into a long context and the model retrieves two, with recall averaged across ten context lengths up to 128K tokens.",
+      "sources": [
+        "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "https://raw.githubusercontent.com/meta-llama/llama-models/8d29d93fa5700a60532e0061a02ffa89d0acd3fc/models/llama3_2/MODEL_CARD.md"
+      ],
+      "note": "Official Meta launch datedSeptember25 plus launch-day original public model-card commit8d29d93fa5700a60532e0061a02ffa89d0acd3fc establish NIH/Multi-needle recall84.7 for Llama3.2 3B. Card also labels September25 release; current later quantization edits not used as date evidence. Text retrieval setting, not unrelated Multimodal Needle in a Haystack paper."
+    },
+    {
+      "id": "catalog_06190eb7d3e975c6",
+      "directions": [
+        "software-engineering",
+        "coding-agents"
+      ],
+      "role": "aggregate-index",
+      "description": "A composite coding-agent leaderboard across issue resolution, greenfield development, frontend development, software testing and information gathering, evaluated with OpenHands over five existing benchmark suites.",
+      "sources": [
+        "https://www.openhands.dev/blog/openhands-index"
+      ],
+      "note": "Original launch explicitly lists five component suites. This is an aggregate index, not a standalone search/research task dataset."
+    },
+    {
+      "id": "catalog_6e9c868cd965c20c",
+      "directions": [
+        "knowledge-qa"
+      ],
+      "role": "subset",
+      "description": "The FinanceQA assumption-based tactical question subset displayed on AfterQuery FinanceArena. It evaluates financial reasoning under incomplete information with exact-answer grading.",
+      "sources": [
+        "https://www.afterquery.com/leaderboard/finance-arena",
+        "https://arxiv.org/abs/2501.18062"
+      ],
+      "note": "Original leaderboard heading identifies FinanceQA Assumption-Based; original paper section4 defines this subset. Do not treat leaderboard publication as a separate dataset release."
+    },
+    {
+      "id": "catalog_8f91a84a4972e22a",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "aggregate-index",
+      "description": "A composite pass^5 leaderboard over private enterprise tool-use environments with policies, databases and simulated users. Scores are public; the benchmark tasks are not publicly released.",
+      "sources": [
+        "https://toloka.ai/blog/toloka-arena-independent-evaluation-of-agentic-intelligence/"
+      ],
+      "note": "Original platform launch describes seven domains. Keep composite role and private task availability explicit."
+    },
+    {
+      "id": "catalog_3892a6c676ac67e7",
+      "directions": [
+        "spatial-reasoning"
+      ],
+      "role": "aggregate-index",
+      "description": "A composite game-based evaluation across agentic coding, one-shot coding and social decision-making environments, measuring planning, resource management, spatial reasoning and theory of mind.",
+      "sources": [
+        "https://gertlabs.com/rankings"
+      ],
+      "note": "Current original methodology identifies a continuously evolving composite. Platform launch date does not date every current game or scoring revision."
+    },
+    {
+      "id": "catalog_34ee7686c8ea6671",
+      "directions": [
+        "knowledge-qa"
+      ],
+      "role": "observation-setting",
+      "description": "The LSAT exam evaluation reported for GPT-4: a scaled score of 163, approximately the 88th percentile. The catalog value 0.88 represents an estimated human-test percentile, not 88% question accuracy.",
+      "sources": [
+        "https://arxiv.org/abs/2303.08774"
+      ],
+      "note": "GPT4 TechnicalReport v1 submissionMarch15,2023,Table1 matches catalog score163(~88th percentile). Dates publication of this simulated-exam result, not original exam-material release. Catalog proportion represents human percentile, not question accuracy; exact source test-edition publication remains unresolved."
+    },
+    {
+      "id": "catalog_5751aeb45604a440",
+      "directions": [
+        "knowledge-qa"
+      ],
+      "role": "observation-setting",
+      "description": "The simulated Uniform Bar Examination reported for GPT-4, covering MBE, MEE and MPT. Its 298/400 score was estimated at the 90th percentile; the catalog value 0.90 is not 90% question accuracy.",
+      "sources": [
+        "https://arxiv.org/abs/2303.08774"
+      ],
+      "note": "GPT4 TechnicalReport v1 submissionMarch15,2023,Table1 matches catalog score298/400(~90th percentile). Dates publication of this simulated-exam result, not original exam-material release. Catalog proportion represents human percentile, not question accuracy; exact source test-edition publication remains unresolved."
+    },
+    {
+      "id": "catalog_7e9f4a015fa9f0fa",
+      "directions": [
+        "software-engineering",
+        "long-context"
+      ],
+      "role": "benchmark-with-adapter",
+      "description": "A three-task Harbor adaptation of LongCodeBench’s LongSWE-Bench 32K context subset, covering Sphinx repository bug fixes. The original 32K benchmark contains 100 tasks; this entry includes three.",
+      "sources": [
+        "https://arxiv.org/abs/2505.07897",
+        "https://huggingface.co/datasets/Steefano/LCB",
+        "https://hub.harborframework.com/datasets/lcb/longswebench-32k"
+      ],
+      "note": "All three Harbor task IDs verified against original32K100row Arrow archive. Underlying dataset date only; not a full32K release or three newly created benchmarks."
+    },
+    {
+      "id": "catalog_e065ced955caaca5",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "benchmark",
+      "description": "HiddenMath is Google DeepMind’s internal, non-public benchmark of 179 expert-written competition-level mathematics problems, described in the May 2024 Gemini 1.5 report. Its recorded date marks public disclosure; the task data were not publicly released.",
+      "sources": [
+        "https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf",
+        "https://blog.google/innovation-and-ai/products/google-gemini-update-flash-ai-assistant-io-2024/"
+      ],
+      "note": "Section6.1.1 and table explicitly describe179newproblems and unreleased internal status. Use announcement linking exactreport, not model date alone."
+    },
+    {
+      "id": "lib_webarena_verified",
+      "directions": [
+        "computer-use"
+      ],
+      "role": "benchmark",
+      "description": "WebArena-Verified audits 812 browser-agent tasks and deterministic evaluators, with a 258-task Hard subset. The public data and evaluator release is verified by the original ServiceNow repository’s December 5, 2025 merge.",
+      "sources": [
+        "https://github.com/ServiceNow/webarena-verified",
+        "https://github.com/ServiceNow/webarena-verified/pull/1"
+      ],
+      "note": "Round62 pinned initial-release commit inspected:812tasks/258Hard. Original WebArena repository is a parent benchmark, not this verified release. November2024 collaborator preview and December4 planned date are distinct from actual public merge."
+    },
+    {
+      "id": "catalog_9019868a487d165b",
+      "directions": [
+        "deep-research"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_c6c0e2526edde416",
+      "description": "BC-VL is the abbreviation for BrowseComp-VL, a multimodal browsing and search benchmark. This catalog entry records Qwen’s reported evaluation; it is not a separate dataset release.",
+      "sources": [
+        "https://arxiv.org/abs/2508.05748",
+        "https://www.alibabacloud.com/blog/qwen3-7-plus-multimodal-agent-intelligence_603206",
+        "https://arxiv.org/html/2606.15231v1"
+      ],
+      "note": "Qwen primarytableBC-VL51.1 exactlymatchescatalog0.511. WebWatcher tableusesBC-VL; Visual-Seeker explicitlyexpandsthealias."
+    },
+    {
+      "id": "catalog_02e126e011402c43",
+      "directions": [
+        "deep-research"
+      ],
+      "role": "observation-setting",
+      "description": "MMBC abbreviates MM-BrowseComp, a multimodal browsing benchmark. This entry records Qwen’s evaluation; the exact 300- or 400-question version is unspecified. The date refers to the underlying benchmark introduction.",
+      "sources": [
+        "https://arxiv.org/abs/2508.13186",
+        "https://arxiv.org/html/2604.12890v1",
+        "https://www.alibabacloud.com/blog/qwen3-7-plus-multimodal-agent-intelligence_603206"
+      ],
+      "note": "LMM-Searcher explicitlyexpandsMMBCandcitesoriginalpaper. Qwenofficialtable46.3matchescatalog0.463. Originalrepoexpandedto400questionsJan2,2026; do notinferexactversion."
+    },
+    {
+      "id": "catalog_e4512eeff20dd1ac",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "JASTER here refers to the Japanese GENIAC evaluation suite used in PLaMo’s report via llm-jp-eval’s g-leaderboard branch, covering six language-skill categories. Imported scores mix PLaMo’s 4-shot result (77.5%) with GPT-3.5’s 0-shot result (56.7%), so they are not directly comparable.",
+      "sources": [
+        "https://tech.preferred.jp/en/blog/plamo-100b-post-training/",
+        "https://arxiv.org/html/2410.07563v1",
+        "https://github.com/llm-jp/llm-jp-eval/tree/g-leaderboard"
+      ],
+      "note": "Original Preferred Networks article explicitly dated August7,2024. Table2 PLaMo100BInstruct0.7750 four-shot matches catalog77.5. GENIAC Japanese suite via llm-jp-eval g-leaderboard branch. Dates result disclosure,not task release or branch creation. Catalog mixes this with GPT3.5 zero-shot result; protocols not directly comparable."
+    },
+    {
+      "id": "catalog_6ae987024f67025b",
+      "directions": [
+        "computer-use"
+      ],
+      "role": "observation-setting",
+      "parentId": "lib_osworld",
+      "description": "OSWorld Extended is the longer-interaction-budget evaluation reported for Claude 3.5 Sonnet on OSWorld, with 22% success using up to 50 steps rather than the standard 15. It is an evaluation setting, not a separately released task dataset.",
+      "sources": [
+        "https://www.anthropic.com/news/3-5-models-and-computer-use",
+        "https://arxiv.org/abs/2404.07972"
+      ],
+      "note": "Exactcatalog22%matchesofficialannouncement; addendumdetails50steps. Date isunderlyingOSWorld."
+    },
+    {
+      "id": "catalog_431b6934d2e713e9",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_36edf9cc142c1b03",
+      "description": "FrontierBench is the original name of the benchmark now called Terminal-Bench 3.0. Its initial release contains 74 tasks across seven domains; this catalog view does not represent a separate dataset release.",
+      "sources": [
+        "https://github.com/harbor-framework/terminal-bench/releases/tag/v3.0.0",
+        "https://github.com/harbor-framework/terminal-bench/blob/v3.0.0/README.md"
+      ],
+      "note": "OriginaltagREADMEFrontier-Bench; tasksdirectory74actualtask.toml files. ReleasepublishedJuly23,2026."
+    },
+    {
+      "id": "catalog_eb184e86d3bc200b",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_36edf9cc142c1b03",
+      "description": "Frontier-Bench v0.1 is a provider-reported evaluation of the initial Frontier-Bench task set, later called Terminal-Bench 3.0. Anthropic reports mini-SWE-agent on GKE with mean reward across five attempts per task. The date refers to the underlying task release, not this harness configuration.",
+      "sources": [
+        "https://github.com/harbor-framework/terminal-bench/releases/tag/v3.0.0",
+        "https://github.com/harbor-framework/terminal-bench/blob/v3.0.0/README.md"
+      ],
+      "note": "Underlyinginitial74-taskrelease verifiedJuly23,2026; provider-specificconfiguration notseparate release."
+    },
+    {
+      "id": "catalog_e15ee86f46c26205",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "benchmark",
+      "description": "MiniMax internal evaluation of building front-end and full-stack Web, Android and iOS applications, with automated interaction and visual verification. The recorded date is the dated public announcement; task data availability is not established.",
+      "sources": [
+        "https://www.minimax.io/blog/minimax-m3"
+      ],
+      "note": "Exact benchmark and methodology matched in official dated MiniMax M3 announcement. Internal benchmark; do not describe as an open dataset."
+    },
+    {
+      "id": "catalog_a497b8fb621ca34b",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "benchmark",
+      "description": "MiniMax internal evaluation of SVG generation and editing from text and images, with rendering verified by a vision-language model. The recorded date is the dated public announcement; task data availability is not established.",
+      "sources": [
+        "https://www.minimax.io/blog/minimax-m3"
+      ],
+      "note": "Exact benchmark and methodology matched in official dated MiniMax M3 announcement. Internal benchmark; do not describe as an open dataset."
+    },
+    {
+      "id": "catalog_839250d9e1eaa9d1",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "observation-setting",
+      "parentId": "lib_terminal_bench",
+      "description": "Terminal-Bench evaluated with the Terminus agent, which interacts with a terminal through tmux. This is an evaluation-harness setting, not a separate task dataset.",
+      "sources": [
+        "https://www.tbench.ai/news/announcement",
+        "https://www.tbench.ai/news/terminus",
+        "https://arxiv.org/html/2507.20534v1"
+      ],
+      "note": "Kimi K2 report explicitly distinguishes Terminal Bench Terminus from its in-house harness. Underlying benchmark release date only."
+    },
+    {
+      "id": "catalog_714104b6baa8b939",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "observation-setting",
+      "description": "EEBench V1 evaluates agents on 13 analog and digital circuit-design tasks using atopile. Deterministic SPICE simulation checks electrical requirements and component tolerances; cost efficiency is scored after technical validity. Complete task pack is held out.",
+      "sources": [
+        "https://eebench.org/blog/can-ai-design-circuit-boards-yet/",
+        "https://eebench.org/methodology.html"
+      ],
+      "note": "Original author field note explicitly datedSeptember4,2026 defines EEBenchV1 and13simulation-graded electronics tasks. This is a dated methodology disclosure, NOT a claim of initial launch: August2026 model-report usage predates it. Held-out task-pack release date remains unverified."
+    },
+    {
+      "id": "catalog_6318e5e8e172a2a8",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic evaluation using a hard selection of ProteinGym mutation-effect prediction problems. Models rank mutant protein sequences relative to wild type; scores measure rank correlation with experimental measurements. The exact Hard subset and source version are not publicly specified.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf",
+        "https://arxiv.org/abs/2205.13760",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10723403/"
+      ],
+      "note": "Original ProteinGym family dates to May 27, 2022 (Tranception/v0.1); this is lineage evidence only, not the Hard subset release. Avoid counting this provider evaluation as a newly released independent family."
+    },
+    {
+      "id": "catalog_d38aa6a53ea7ae68",
+      "role": "observation-setting",
+      "directions": [
+        "visual-understanding",
+        "spatial-reasoning"
+      ],
+      "description": "An average referring-expression grounding score across RefCOCO, RefCOCO+ and RefCOCOg. The fixed Qwen3.5 model card reports 91.3, 90.9 and 89.2 for its 122B-A10B, 27B and 35B-A3B models; results depend on the provider's split and aggregation protocol.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/commit/7bcd2213797b772de17e8c4204951e803ab433a0",
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/raw/7bcd2213797b772de17e8c4204951e803ab433a0/README.md"
+      ],
+      "note": "Fixed official Qwen3.5 README7bcd2213797b772de17e8c4204951e803ab433a0 dated2026-02-24 contains all three catalog pairs91.3/90.9/89.2. Date records these provider results, not original RefCOCO-family datasets or first-ever aggregate usage. Separately, Qwen3VL official linked image reports92.4 but later paper92.1; image Last-Modified2025-10-09 does not establish September publication of that exact content. Original image and headers archived. Do not collapse provider/version differences."
+    },
+    {
+      "id": "catalog_67516f1abb5720db",
+      "directions": [
+        "knowledge-qa",
+        "long-context"
+      ],
+      "role": "benchmark",
+      "description": "Vals private case-law reasoning and legal-document analysis benchmark, refreshed with harder and more recent questions in August 2025.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/case_law_v2",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_2cbc1aa62e647719",
+      "directions": [
+        "deep-research",
+        "data-analysis"
+      ],
+      "role": "benchmark",
+      "description": "Vals evaluation of realistic financial analyst workflows across nine analytical categories, with 927 expert-reviewed questions across public, validation and held-out splits. Uses severity-weighted grading and dealbreaker gating.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/fabv2",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_b36a9ac751e8e3a6",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "benchmark",
+      "description": "Vals private agent evaluation for reproducing OSS-Fuzz-style crashes with proof-of-concept inputs and patching the vulnerable programs while preserving behavior.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/cyber",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_07f3f657a876386f",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "benchmark",
+      "description": "Vals formal theorem-proving benchmark using machine-checkable Lean proofs for advanced undergraduate and graduate mathematics. Introduced January 2026; version 1.1 changed formalizations and grading in August 2026.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/proof_bench",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_cef967a46cf0f149",
+      "directions": [
+        "visual-understanding"
+      ],
+      "role": "aggregate-index",
+      "description": "Vals composite evaluation index extending its text-based index with image-based MortgageTax and SAGE tasks. Index revisions change component datasets; this is not a standalone dataset.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/vals_multimodal_index",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_3e782f5c67e37a2b",
+      "directions": [
+        "deep-research",
+        "rag-retrieval"
+      ],
+      "role": "aggregate-index",
+      "description": "Vals matched-model comparison of native provider search and Exa on legal research and financial analysis. An evaluation index over existing task families, not a new standalone task dataset.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/web_search",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_257dc98a0705a375",
+      "directions": [
+        "deep-research",
+        "knowledge-qa"
+      ],
+      "role": "benchmark",
+      "description": "Vals benchmark of professional US corporate-tax research: 391 expert-written questions with source-backed answers and practitioner rubrics, including a private 193-question test set. Release month is September 2026; official announcement dates differ.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/tax_agent_bench",
+        "https://www.vals.ai/"
+      ],
+      "note": "Identity matched to original author historical launch announcement and structured publication date. Index dates denote composite introduction, not component dataset releases."
+    },
+    {
+      "id": "catalog_ffa6855012d81d65",
+      "directions": [
+        "deep-research",
+        "data-analysis"
+      ],
+      "role": "benchmark",
+      "description": "Finance Agent v1.1 evaluates financial research workflows over company disclosures and filings. Its February 2026 refresh added expert data review, Tavily search, a submission tool and revised numerical grading.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/finance_agent",
+        "https://www.vals.ai/"
+      ],
+      "note": "Exact version release verified from official February 10, 2026 FAB v1.1 announcement; not the earlier similarly named public-sample commit."
+    },
+    {
+      "id": "catalog_45bbbc773f376558",
+      "directions": [
+        "deep-research"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_fe85ad67f7029338",
+      "description": "Vals evaluation of Harvey Legal Agent Benchmark tasks using Harvey generation and grading protocols, with document, spreadsheet and presentation tools. This is a provider evaluation view of LAB, not an independent dataset.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/hlab",
+        "https://www.harvey.ai/blog/introducing-harveys-legal-agent-benchmark"
+      ],
+      "note": "Underlying LAB family launch date only; Vals private evaluation split and execution configuration have separate provenance."
+    },
+    {
+      "id": "catalog_5c011523abbee03f",
+      "directions": [
+        "deep-research"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_fe85ad67f7029338",
+      "description": "Punit Arani’s Harbor adaptation of Harvey LAB: 1,760 legal-work tasks across 26 practice areas, graded using Harbor rewardkit and 111,826 binary criteria. The recorded date is the Harbor package publication.",
+      "sources": [
+        "https://hub.harborframework.com/datasets/punitarani/harvey-labs",
+        "https://github.com/harveyai/harvey-labs"
+      ],
+      "note": "Public registry revision 1 published July 18, 2026; all 1,760 task relations counted. This is an adaptation of LAB, not a new independent benchmark family."
+    },
+    {
+      "id": "catalog_770df60f96365c45",
+      "directions": [
+        "coding-agents",
+        "knowledge-qa"
+      ],
+      "role": "aggregate-index",
+      "description": "Vals Index v2: a GDP-weighted composite of finance, coding and legal evaluations, including Finance Agent v2, Excel Modeling, Terminal-Bench 2.1, Vibe Code Bench, Code Migration, Legal Research Bench and Harvey LAB.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/vals_index"
+      ],
+      "note": "Official dated changelog identifies August 13, 2026 release of v2; composite index, not independent dataset. Replaces truncated catalog description."
+    },
+    {
+      "id": "catalog_0e73adf5343720b6",
+      "directions": [
+        "coding-agents",
+        "logical-reasoning",
+        "knowledge-qa"
+      ],
+      "role": "aggregate-index",
+      "description": "Artificial Analysis Intelligence Index v4.3: a weighted composite spanning agentic work, coding, reasoning and knowledge; includes AA-Briefcase, GDPval-AA v2, AutomationBench-AA, Terminal-Bench 4.0, SciCode, AA-LCR, AA-Omniscience, HLE, GDP.pdf and CritPt.",
+      "sources": [
+        "https://artificialanalysis.ai/methodology/intelligence-benchmarking"
+      ],
+      "note": "Catalog represents v4.3. Official version history establishes September 2026 at month precision. Index revision is not independent dataset release."
+    },
+    {
+      "id": "catalog_e5e2e35ac6eefdb9",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "aggregate-index",
+      "description": "Artificial Analysis Coding Agent Index compares model-and-harness combinations across software-engineering benchmarks. Launched in May 2026; components and scoring evolve through documented versions, including the later addition of DeepSWE.",
+      "sources": [
+        "https://artificialanalysis.ai/methodology/coding-agents-benchmarking"
+      ],
+      "note": "Official initial-release entry is May 2026; current v1.5 must not be confused with that original component set."
+    },
+    {
+      "id": "catalog_a43419ec57910ff1",
+      "directions": [
+        "instruction-following"
+      ],
+      "role": "aggregate-index",
+      "description": "LMArena text leaderboard, originating as LMSYS Chatbot Arena, ranks conversational models using blind human preferences in pairwise comparisons. An evolving leaderboard rather than a fixed dataset release.",
+      "sources": [
+        "https://lmsys.org/blog/2023-05-03-arena/",
+        "https://lmsys.org/blog/2024-09-20-arena-new-site/"
+      ],
+      "note": "First published Elo leaderboard May 3, 2023; official 2024 announcement connects Chatbot Arena to lmarena.ai. Does not date the separately released conversation dataset."
+    },
+    {
+      "id": "catalog_f375a5d25b1929e3",
+      "directions": [
+        "long-context"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_11d6a18b4f745fb6",
+      "description": "Eight-needle evaluation view of the corrected OpenAI MRCR v2 dataset, testing retrieval of a requested response among repeated similar requests in long synthetic conversations. Scores depend on context-length bands and model settings.",
+      "sources": [
+        "https://huggingface.co/datasets/openai/mrcr",
+        "https://www-cdn.anthropic.com/78073f739564e986ff3e28522761a7a0b4484f84.pdf"
+      ],
+      "note": "Matched Opus4.6 max 76.0 in original system card. December5,2025 is underlying corrected dataset date; not Google MRCR or a new eight-needle family."
+    },
+    {
+      "id": "catalog_c26d004be04d59b6",
+      "directions": [
+        "knowledge-qa"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_4bfe2ff9ab36de99",
+      "description": "AA-Omniscience non-hallucination-rate reporting view: one minus the hallucination rate, across the benchmark's knowledge domains. This is a derived score, not an independently released dataset.",
+      "sources": [
+        "https://artificialanalysis.ai/articles/aa-omniscience-knowledge-hallucination-benchmark",
+        "https://artificialanalysis.ai/models/grok-4-5"
+      ],
+      "note": "Catalog Grok4.5 46% matches first-party omniscienceBreakdown 54.145% hallucination, rounded after complement. Underlying launch November16,2025."
+    },
+    {
+      "id": "catalog_12daadf376bddccc",
+      "directions": [
+        "long-context"
+      ],
+      "role": "observation-setting",
+      "parentId": "lib_mrcr",
+      "description": "Google MRCR evaluation at a fixed 1M-token context length (pointwise), as distinct from averaging over all lengths up to 128K. The catalog score 82.9% comes from Gemini 2.5 Pro Preview 05-06, not the GA model or OpenAI MRCR v2.",
+      "sources": [
+        "https://storage.googleapis.com/deepmind-media/Model-Cards/Gemini-2-5-Pro-Model-Card.pdf",
+        "https://crfm.stanford.edu/fmti/December-2025/company-reports/Google_FinalReport_FMTI2025.html",
+        "https://crfm.stanford.edu/fmti/December-2025/index.html"
+      ],
+      "note": "Google-authored disclosure in Stanford FMTI December2025 edition, indicator44, explicitly reports Gemini2.5Pro MRCR128Kaverage93.0 and1Mpointwise82.9. Exact score and context protocol match catalog and earlier Google model card. December2025 is the month of this archived company disclosure, not first use or dataset release; earlier disclosure may exist. Preserve Preview05-06 identity from original model-card audit; not MRCRv2."
+    },
+    {
+      "id": "catalog_842c223a65e7195d",
+      "directions": [
+        "computer-use",
+        "spatial-reasoning"
+      ],
+      "role": "benchmark",
+      "description": "AutoCAD-Bench evaluates computer-use agents on 50 AutoCAD tasks: 21 dimensioned 2D drawings and 29 3D reconstructions. Agents use visible mouse and keyboard actions; final editable DWG outputs are evaluated against geometry, dimensions, annotations and presentation criteria.",
+      "sources": [
+        "https://www.markovstudios.com/research/autocad-bench",
+        "https://x.com/DevvMandal/status/2080325376463736986"
+      ],
+      "note": "Author original launch July23,2026 verified through Twitter oEmbed; distinct from later CAD training datasets."
+    },
+    {
+      "id": "catalog_df879e8ccbd6d387",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "VulcanBench Coding Intelligence Index v1 evaluates coding agents on post-cutoff open-source engineering tasks using hidden functional tests and regression guards. The published frontier comparison uses a symmetric 37-task set and model-plus-vendor-harness configurations.",
+      "sources": [
+        "https://github.com/morganlinton/VulcanBench/blob/main/docs/results/cii-v1-2026-08/README.md",
+        "https://github.com/morganlinton/VulcanBench/commit/df74792a1d47c2418d0a78664facd12f54456acf"
+      ],
+      "note": "Exact catalog scores match original CIIv1 report. First named suite/report ship August23,2026; Sonnet update August27 is not the initial release."
+    },
+    {
+      "id": "catalog_c3436709ce24412e",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "observation-setting",
+      "parentId": "lib_tau2_bench",
+      "description": "Catalog reporting alias for tau2-bench tool-agent-user collaboration. Qwen3.5-397B-A17B at 86.7 matches the original TAU2-Bench table; catalog rows mix domains and settings, so the scores are not a uniformly comparable benchmark configuration.",
+      "sources": [
+        "https://arxiv.org/abs/2506.07982",
+        "https://huggingface.co/Qwen/Qwen3.5-397B-A17B"
+      ],
+      "note": "Underlying June9,2025 paper date only. Preserve alias without counting a separate new benchmark family; exact per-model domains require further score-level review."
+    },
+    {
+      "id": "catalog_131160eb228bbbea",
+      "directions": [
+        "audio-speech"
+      ],
+      "role": "benchmark",
+      "description": "A blind pairwise human-preference arena comparing text-to-speech models using the same eight cloned reference voices. The recorded date is the public arena launch.",
+      "sources": [
+        "https://artificialanalysis.ai/methodology/text-to-speech",
+        "https://x.com/ArtificialAnlys/status/2072043959900418210"
+      ],
+      "note": "Original launch explicitly June30,2026; distinct from Provider Voice Arena."
+    },
+    {
+      "id": "catalog_0d1002578c1f2093",
+      "directions": [
+        "content-generation",
+        "software-engineering"
+      ],
+      "role": "aggregate-index",
+      "description": "Design Arena website-generation preference leaderboard. Its date records the first public UI/UX voting and leaderboard launch, not individual model-result publication dates.",
+      "sources": [
+        "https://news.ycombinator.com/item?id=44542578",
+        "https://news.ycombinator.com/item?id=44878257",
+        "https://www.designarena.ai/leaderboard"
+      ],
+      "note": "Founder July12,2025 ShowHN verified by same-founder August12 followup; excludes separate agentic web-development protocol."
+    },
+    {
+      "id": "catalog_484b3d5d2b991c45",
+      "directions": [
+        "audio-speech"
+      ],
+      "role": "benchmark",
+      "description": "Artificial Analysis provider-voice Speech Arena compares text-to-speech models through blind human-preference votes using representative provider-native voices. The date records the original public Speech Arena launch, not the later Provider Voice naming.",
+      "sources": [
+        "https://artificialanalysis.ai/methodology/text-to-speech",
+        "https://x.com/ArtificialAnlys/status/1812879537992044631"
+      ],
+      "note": "Official original Speech Arena launch July15,2024; distinguish Controlled Voice Arena June30,2026."
+    },
+    {
+      "id": "catalog_1e92f1c27e2af05f",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "subset",
+      "parentId": "catalog_3f8a7e66329a6d6c",
+      "description": "An eight-programming-language HumanEval subset of MultiPL-E: Python, Java, C++, C#, JavaScript, TypeScript, PHP and Bash. The date refers to the underlying MultiPL-E paper, not the later model-specific evaluation.",
+      "sources": [
+        "https://arxiv.org/html/2501.12599v1",
+        "https://arxiv.org/html/2412.19437v1",
+        "https://arxiv.org/abs/2208.08227"
+      ],
+      "note": "Original KimiAppendixC.2 explicitly maps subset; DeepSeekV3 same languages and82.6 score. Programming languages, not multilingual natural-language NLP."
+    },
+    {
+      "id": "catalog_9bad7262eb090cb1",
+      "directions": [
+        "long-context",
+        "knowledge-qa"
+      ],
+      "role": "benchmark",
+      "description": "Vals AI CorpFin v2 evaluates expert-written questions over long credit agreements using exact-page, shared-context and model-fitting-context settings. The corpus has 20 public validation, 340 private validation and 858 private test questions.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/corp_fin_v2",
+        "https://www.vals.ai/"
+      ],
+      "note": "January27,2025 new-version announcement matches approximately1200 questions; date refers to corpus release, not leaderboard updates."
+    },
+    {
+      "id": "catalog_f867501a711640f0",
+      "directions": [
+        "knowledge-qa",
+        "logical-reasoning"
+      ],
+      "role": "benchmark",
+      "description": "Vals AI TaxEval v2 evaluates answer correctness and stepwise reasoning on expert-reviewed tax questions: 20 public validation, 300 private validation and 1,223 private test samples.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/tax_eval_v2",
+        "https://www.vals.ai/"
+      ],
+      "note": "January27,2025 1500+question launch matches v2 corpus. November17,2025 change replaced deprecated judge only; judge changes may affect score comparability."
+    },
+    {
+      "id": "catalog_588d925488858d2e",
+      "directions": [
+        "software-engineering",
+        "content-generation"
+      ],
+      "role": "benchmark",
+      "description": "Tencent ArtifactsBench evaluates visual and interactive code generation on 1,825 tasks. Generated artifacts are rendered and exercised, then judged against task-specific checklists. Distinct from video-artifact detection benchmarks.",
+      "sources": [
+        "https://artifactsbenchmark.github.io/",
+        "https://arxiv.org/abs/2507.04952",
+        "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/ecde16176a497adaff7419ff4de59da603c4edaa/README.md"
+      ],
+      "note": "Original model-card score image visually verified: Ling3.0Flash ArtifactsBench77.0 matches catalog. Dataset identity established; score comparability across all imported provider protocols remains unverified."
+    },
+    {
+      "id": "catalog_d59473cf8cd9e648",
+      "directions": [
+        "software-engineering",
+        "coding-agents"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_a425fce4110b67d7",
+      "description": "Qwen evaluation of the public SWE-bench Multimodal dev split under Claude Code, with modifications referenced to Appendix 8.3 of the Claude Opus 4.7 system card. The recorded date belongs to the underlying benchmark, not this modified evaluation protocol.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "https://arxiv.org/abs/2410.03859"
+      ],
+      "note": "Official modelcard explicitly maps SWE-MM and38.6 score matches catalog. Do not treat as independently released dataset or compare directly with unmodified test-split scores."
+    },
+    {
+      "id": "catalog_451737654198b124",
+      "directions": [
+        "agent-memory",
+        "long-context"
+      ],
+      "role": "benchmark-with-adapter",
+      "description": "Harbor adaptation of the 31-question ATM-Bench-Hard subset under Schema-Guided Memory. Each question runs in an isolated Docker container using the original scoring code. The date records this adapter release, not the original ATM-Bench corpus.",
+      "sources": [
+        "https://github.com/JingbiaoMei/ATM-Bench",
+        "https://github.com/JingbiaoMei/ATM-Bench/blob/main/agent_systems/HARBOR.md",
+        "https://github.com/JingbiaoMei/ATM-Bench/commit/200c0cdad2719b3a8cbf4b3f9861e53ecfda553c"
+      ],
+      "note": "Explicit original-author July18,2026 release announcement agrees with first HARBOR.md commit. Harbor scope is Hard subset,SGM only; not all ATM-Bench tasks/memory modes."
+    },
+    {
+      "id": "catalog_a46d809efa147169",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "MiniMax’s in-house MM Claw evaluation measures agent task completion on OpenClaw-style work and life tasks, including learning plans, office document delivery, research, investment advice, and code maintenance. Publicly introduced with MiniMax M2.7; downloadable evaluation data has not been verified.",
+      "sources": [
+        "https://www.minimax.io/news/minimax-m27-en"
+      ],
+      "note": "Exact identity matched by task definition and M2.7 score 62.7%. Official spelling MM Claw corresponds to catalog MM-ClawBench. March 18, 2026 is the dated public introduction, not a verified downloadable corpus release."
+    },
+    {
+      "id": "catalog_3a70d85f10b95f69",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_8aacade59f3852c9",
+      "description": "MiniMax’s internal GDPval-Rubrics protocol evaluates public GDPval tasks with pointwise rubric scoring, a GDPval-AA-aligned environment, and a Claude Code scaffold. The recorded date is the underlying GDPval dataset release, not the release of this scoring protocol.",
+      "sources": [
+        "https://www.minimax.io/blog/minimax-m3",
+        "https://openai.com/index/gdpval/"
+      ],
+      "note": "MiniMax source spells the label GPDval-Rubrics and explicitly names public GDPval data. Reuses the existing GDPval parent; not a new benchmark family."
+    },
+    {
+      "id": "catalog_5fe3672fd4c09c4f",
+      "directions": [
+        "systems-optimization"
+      ],
+      "role": "observation-setting",
+      "description": "MiniMax’s reported KernelBench-Hard evaluation uses Claude Code on NVIDIA Blackwell sm_120 GPUs and averages hardware-peak-relative operator TFLOPs over nine questions. The exact nine-question dataset version and its release date remain unverified.",
+      "sources": [
+        "https://www.minimax.io/blog/minimax-m3"
+      ],
+      "note": "Original dated MiniMax M3 article discloses28.8 and specifies9questions,ClaudeCode,Blackwellsm_120,and hardware-peak-relative TFLOPs. Dates this evaluation disclosure. Does not equate its nine-question protocol with the public seven-task HF upload or six-task website; exact task corpus version remains unidentified."
+    },
+    {
+      "id": "catalog_2dc3899a893c2ec0",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "benchmark",
+      "description": "Benchling’s molecular-biology protocol-understanding evaluation asks models to extend online protocols, with bash, file editing, and web search. Initial results were publicly shared on July 24, 2026; a downloadable dataset has not been verified.",
+      "sources": [
+        "https://www.linkedin.com/posts/ashu-singhal-1b58a18_can-we-make-llms-actually-good-at-doing-wet-activity-7486513080064122880-IZr-",
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "System card section 8.17.6 explicitly attributes the understanding variant to Benchling. Public introduction date independently verified in founder announcement metadata. Do not merge with ProtocolQA or August BenchBench-Protocol."
+    },
+    {
+      "id": "catalog_fc8ebdd50fdeeddf",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic’s molecular-biology protocol evaluation tests detecting and correcting errors; it is distinct from protocol understanding and extension.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original card cover July24,2026 and section8.17.6 match Opus5 61.1%. Exact evaluation description visually verified on page189; first creation date remains unasserted. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_9b338560bbbf6210",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic’s constrained protein-generation evaluation scores constraint satisfaction, folding confidence and sequence novelty.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original card cover July24,2026 and section8.17.4 match Opus5 42.5%. Exact evaluation description visually verified on page189; first creation date remains unasserted. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_85bc5f5f054cb9f5",
+      "directions": [
+        "ai-for-science"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic’s updated internal chemistry evaluation covers spectroscopy, synthesis, reaction prediction and structure interpretation.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original card cover July24,2026 and section8.17.5 match Opus5 61.6%. Exact evaluation description visually verified on page189; first creation date remains unasserted. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_0ecc6d9f488cc016",
+      "directions": [
+        "vision-language-models"
+      ],
+      "role": "observation-setting",
+      "description": "A provider-reported Facts score in the GLM-5V-Turbo multimodal tool-use evaluation. The original report links the FACTS leaderboard but does not identify the precise dataset or version.",
+      "sources": [
+        "https://arxiv.org/html/2604.26752v1",
+        "https://docs.z.ai/guides/vlm/glm-5v-turbo"
+      ],
+      "note": "Original GLM-5V-Turbo report v1 dated April29,2026, section5 Figure4 visually checked: Facts58.6 vs KimiK2.5 57.8. Reference15 links the FACTS leaderboard but does not specify constituent dataset/version. Dates this documented public result disclosure,not initial benchmark release; catalog suffix VLM remains unverified. Earlier launch page has same chart but no verified date for the chart."
+    },
+    {
+      "id": "catalog_bb19a3a75070caab",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "DeepSeek’s internal subjective coding evaluation compares model outputs, using GPT-4o as the judge. Results were publicly disclosed in the September 5, 2024 DeepSeek-V2.5 announcement. Public dataset availability has not been verified.",
+      "sources": [
+        "https://api-docs.deepseek.com/news/news0905/",
+        "https://huggingface.co/deepseek-ai/DeepSeek-V2.5"
+      ],
+      "note": "Corrects unsupported expansion of DS to Data Science and unsupported Python-library task description. Official announcement explicitly calls this an internal subjective coding evaluation. Date evidence is public results disclosure, not corpus release."
+    },
+    {
+      "id": "catalog_7296791033c44d09",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "DeepSeek’s internal fill-in-the-middle code-completion evaluation measures infilling performance for coding assistants. Results were publicly disclosed in the September 5, 2024 DeepSeek-V2.5 announcement. Public dataset availability has not been verified.",
+      "sources": [
+        "https://api-docs.deepseek.com/news/news0905/",
+        "https://huggingface.co/deepseek-ai/DeepSeek-V2.5"
+      ],
+      "note": "Removes unsupported data-science scope. Official source reports 73.2 to 78.3 improvement. Date is public results disclosure, not verified first dataset release."
+    },
+    {
+      "id": "catalog_1f4900925fcf51d0",
+      "directions": [
+        "computer-use",
+        "deep-research"
+      ],
+      "role": "observation-setting",
+      "description": "The multimodal web-browsing and information-retrieval evaluation reported as MM-BrowserComp in Xiaomi MiMo-V2-Omni. The exact underlying corpus and version are not identified by the original announcement.",
+      "sources": [
+        "https://mimo.xiaomi.com/mimo-v2-omni",
+        "https://mimo.mi.com/docs/en-US/news/previous-news/v2-omni-release"
+      ],
+      "note": "Original Xiaomi announcement explicitly dated March18,2026 names MM-BrowserComp and embedded original chart data gives MiMoV2Omni52.0,Opus59.3,GeminiPro37.2,Flash41.9,GPT47.4. Matches catalog52.0. Dates this documented result disclosure,not initial task release; no corpus citation/version established,so do not transfer MM-BrowseComp224/400question publication date."
+    },
+    {
+      "id": "catalog_a9518b9406a1a0bb",
+      "directions": [
+        "coding-agents"
+      ],
+      "role": "benchmark",
+      "description": "Moonshot AI’s internal coding-agent evaluation covers realistic software-engineering tasks across more than ten programming languages, including backend services, infrastructure, performance, systems, security, frontend and ML engineering. A June 12, 2026 model card documents its methodology; public dataset availability has not been verified.",
+      "sources": [
+        "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/78b5c461e9cd0ffa168d8b5c2151bcf6b0799d7d/README.md"
+      ],
+      "note": "Official immutable model-card revision78b5c461e9cd0ffa168d8b5c2151bcf6b0799d7d dated2026-06-12T10:05:55Z explicitly defines the in-house benchmark and reports exact catalog scores. Date records verified public methodological/results disclosure, NOT verified first dataset release, creation date or downloadable corpus availability. Current Kimi resources page datedSeptember4 is a later article, not the initial benchmark date."
+    },
+    {
+      "id": "catalog_07f435211e9e9d57",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "Moonshot AI’s internal evaluation of persistent, multi-day coworking agents: 17 professional scenarios and 610 evaluation points, executed through OpenClaw. It reports average pass rate over three runs. A dated June 12, 2026 model card discloses its methodology; public dataset availability has not been verified.",
+      "sources": [
+        "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/78b5c461e9cd0ffa168d8b5c2151bcf6b0799d7d/README.md"
+      ],
+      "note": "Official immutable model-card revision78b5c461e9cd0ffa168d8b5c2151bcf6b0799d7d dated2026-06-12T10:05:55Z explicitly defines the in-house benchmark and reports exact catalog scores. Date records verified public methodological/results disclosure, NOT verified first dataset release, creation date or downloadable corpus availability. Current Kimi resources page datedSeptember4 is a later article, not the initial benchmark date."
+    },
+    {
+      "id": "catalog_909dbc3fd617af28",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "observation-setting",
+      "parentId": "catalog_07f435211e9e9d57",
+      "description": "Moonshot AI’s internal evaluation of persistent, multi-day coworking agents: 17 professional scenarios and 610 evaluation points, executed through OpenClaw. It reports average pass rate over three runs. A dated June 12, 2026 model card discloses its methodology; public dataset availability has not been verified. This catalog entry uses a shortened name for Kimi Claw 24/7 Bench.",
+      "sources": [
+        "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/78b5c461e9cd0ffa168d8b5c2151bcf6b0799d7d/README.md"
+      ],
+      "note": "Catalog fullName and17scenario/610point protocol match original exactly. Date scope underlying-dataset prevents counting this second catalog view as a separate release."
+    },
+    {
+      "id": "catalog_a6a008c7ba1cc43a",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "Moonshot AI’s internal knowledge-work evaluation, named DECK-Bench in the Kimi K3 announcement. The original chart reports 73.5 for Kimi K3, 68.2 for GPT-5.5 and 66.9 for Claude Opus 4.8 at maximum or xhigh effort. Public corpus availability and detailed task composition have not been verified.",
+      "sources": [
+        "https://www.kimi.com/blog/kimi-k3",
+        "https://x.com/Kimi_Moonshot/status/2077830238256701893"
+      ],
+      "note": "Official chart and author announcement verified. Avoid inferring exact slide/presentation task composition from the name alone. Timestamp is public results disclosure, not downloadable dataset release."
+    },
+    {
+      "id": "catalog_2fbf5fa976d9cd7d",
+      "directions": [
+        "instruction-following"
+      ],
+      "role": "benchmark",
+      "description": "OpenAI’s hard subset of its internal developer instruction-following evaluation tests formatting, prohibitions, ordered instructions, required content, ranking, and appropriate uncertainty. Its methodology and results were publicly described on April14,2025; dataset release and public availability remain unverified.",
+      "sources": [
+        "https://openai.com/index/gpt-4-1/"
+      ],
+      "note": "Replaces claim that official documentation was not found. Exact label and hard difficulty confirmed in original appendix; this is not IFEval or MultiChallenge."
+    },
+    {
+      "id": "catalog_94b164de4437e42a",
+      "directions": [
+        "instruction-following"
+      ],
+      "role": "observation-setting",
+      "description": "Microsoft’s reported Robust IF metric measures diverse hard instruction-following tasks, averaged across single-turn and multi-turn evaluations. The MAI-Code-1-Flash announcement reports61.2; the underlying corpus and its release date remain unverified.",
+      "sources": [
+        "https://microsoft.ai/news/introducingmai-code-1-flash/"
+      ],
+      "note": "Original chart visually inspected; public disclosure month June2026, article datedJune2 and updatedJune8. Exact corpus identity is not established by the chart label."
+    },
+    {
+      "id": "catalog_82c06ed0fe65d988",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Xiaomi’s in-house agentic coding suite covers repository understanding, project building, code review, structured artifact generation, planning, and software engineering.",
+      "sources": [
+        "https://mimo.xiaomi.com/mimo-v2-5-pro"
+      ],
+      "note": "Original Xiaomi page has an explicit April 27, 2026 date, defines the in-house agentic coding suite, and its embedded chart data match MiMo-V2.5-Pro 73.7 and MiMo-V2.5 71.8. Repository understanding, project building, code review, structured artifacts, planning and SWE are explicitly covered. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_755debb970fbb325",
+      "directions": [
+        "instruction-following"
+      ],
+      "role": "benchmark",
+      "description": "ByteDance’s multi-turn evaluation is reported in the Seed2.1 announcement for complex consultation and agent scenarios. The precise corpus and public dataset availability remain unverified.",
+      "sources": [
+        "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity"
+      ],
+      "note": "Original dated ByteDance Seed2.1 announcement names this benchmark in complex consultation scenarios. Original second chart visually verified: Seed2.1 Pro 52.5, Turbo 49.0, matching catalog scores. Exact corpus release and availability are not established. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_4df8055b7a28417d",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Meta’s internal coding evaluation contains 440 tasks derived from internal pull requests, including bug fixes, features, refactoring and cleanup. Sandboxed submissions are compiled and unit-tested; results average task success over two attempts.",
+      "sources": [
+        "https://research.meta.ai/blog/introducing-muse-code-and-muse-spark-1-2",
+        "https://research.meta.ai/static/muse-spark-1-2-methodology"
+      ],
+      "note": "Original dated Meta announcement names the evaluation and its chart visually confirms Muse Spark 1.2 70.6. Linked official methodology specifies 440 internal pull-request tasks, no internet, isolated harness, compiled unit-test grading, two attempts per task and mean task success rate. Public corpus release is not established. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_e9379882dbaa5cbc",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s in-house software-engineering benchmark uses Claude Code with an eight-hour timeout and reports averages over three runs.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-8-max-a-new-bar-for-coding-and-cowork_603421",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/fa6bea3efbadba4800edcbfbfcab2ecc9aad3741/README.md",
+        "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B/commits/main"
+      ],
+      "note": "Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Official immutable Qwen model card revision fa6bea3efbadba4800edcbfbfcab2ecc9aad3741 contains the name, methodology and result; official revision history timestamps it 2026-08-11T06:37:59Z. In-house software-engineering evaluation: Claude Code, avg@3, eight-hour timeout, 256K context; exact model score 80.7. Earlier model-announcement dates were not substituted without retrieving dated original benchmark content. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_5590bdccdada7e0a",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s in-house benchmark evaluates coding user experience on Qoder, using Claude Code with a six-hour timeout and averages over five runs.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-8-max-a-new-bar-for-coding-and-cowork_603421",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/fa6bea3efbadba4800edcbfbfcab2ecc9aad3741/README.md",
+        "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B/commits/main"
+      ],
+      "note": "Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Official immutable Qwen model card revision fa6bea3efbadba4800edcbfbfcab2ecc9aad3741 contains the name, methodology and result; official revision history timestamps it 2026-08-11T06:37:59Z. In-house Qoder user-experience coding evaluation: Claude Code, avg@5, six-hour timeout, 256K context; exact model score 58.4. Earlier model-announcement dates were not substituted without retrieving dated original benchmark content. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_0cc3a79c633bc816",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s internal bilingual React project benchmark covers seven categories, using automatic rendering and a multimodal judge. Results use a Bradley-Terry/Elo rating.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-8-max-a-new-bar-for-coding-and-cowork_603421",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/fa6bea3efbadba4800edcbfbfcab2ecc9aad3741/README.md",
+        "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B/commits/main"
+      ],
+      "note": "Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Earlier original dated Alibaba Cloud/Qwen announcement recovered. Benchmark1 image visually verifies the exact name, score and methodological footnote, matching the immutable August 11 model card. Public disclosure, not public dataset release. Supersedes provisional August 11 disclosure evidence. Prior identity details: Official immutable Qwen model card revision fa6bea3efbadba4800edcbfbfcab2ecc9aad3741 contains the name, methodology and result; official revision history timestamps it 2026-08-11T06:37:59Z. In-house bilingual React project generation across seven categories, automatic rendering and multimodal judging; Bradley-Terry/Elo score 1724, not a percentage. Earlier model-announcement dates were not substituted without retrieving dated original benchmark content. This is a verified public disclosure date, not an independently verified dataset release or necessarily the earliest disclosure."
+    },
+    {
+      "id": "catalog_4cc2ff3b00c610fe",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "QwenSVGBench is Qwen’s internal bilingual SVG code-generation evaluation. It uses automatic rendering and multimodal judging, with Bradley-Terry/Elo ratings.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-7-the-agent-frontier_603154",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/fa6bea3efbadba4800edcbfbfcab2ecc9aad3741/README.md",
+        "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B/commits/main"
+      ],
+      "note": "Earlier original dated Alibaba Cloud/Qwen3.7 announcement explicitly reports QwenSVG 1608 in coding results. Later August 3 original table calls it QwenSVGBench and defines bilingual SVG code generation with rendering, multimodal judging and BT/Elo ratings. Date is a verified public results disclosure; no claim of a publicly released corpus or unchanged version across later scores."
+    },
+    {
+      "id": "catalog_34983b29734ad7b0",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s in-house benchmark evaluates long-horizon productivity tasks across computer science, finance, law, medicine, and other professional domains.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-7-the-agent-frontier_603154",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/fa6bea3efbadba4800edcbfbfcab2ecc9aad3741/README.md",
+        "https://huggingface.co/api/models/Qwen/Qwen3.8-2.4T-A95B/commits/main"
+      ],
+      "note": "Earlier original dated Alibaba Cloud/Qwen3.7 announcement explicitly defines CoWorkBench as an internal long-horizon productivity benchmark spanning computer science, finance, law and medicine, and describes cross-harness evaluation. Supersedes provisional August 11 disclosure date; this is not an open dataset release."
+    },
+    {
+      "id": "catalog_c6600ab2bf5eefa7",
+      "directions": [
+        "tool-use",
+        "agent-memory",
+        "data-analysis",
+        "cybersecurity",
+        "deep-research"
+      ],
+      "role": "benchmark",
+      "description": "QwenClawBench v1.1 is an open-source OpenClaw agent benchmark with 100 tasks across eight domains: workflow orchestration, system operations, knowledge and memory, finance, data analysis, security, communication, and research.",
+      "sources": [
+        "https://raw.githubusercontent.com/SKYLENAGE-AI/QwenClawBench/9741e9bf22615a520684a2db603796bf86487a3b/README.md",
+        "https://api.github.com/repos/SKYLENAGE-AI/QwenClawBench/commits?path=README.md&per_page=100",
+        "https://api.github.com/repos/SKYLENAGE-AI/QwenClawBench/git/trees/9741e9bf22615a520684a2db603796bf86487a3b?recursive=1",
+        "https://www.alibabacloud.com/blog/qwen3-7-the-agent-frontier_603154"
+      ],
+      "note": "Original release README cites April 2026 and identifies open-source v1.1 with 100 tasks across eight OpenClaw work domains. Initial commit 9741e9bf22615a520684a2db603796bf86487a3b dated April 9 contains 100 actual task markdown files plus assets. Official Alibaba May 21 announcement links this repository as the benchmark source. Month precision follows the original citation; commit time is not automatically equated with public availability. April 2 internal-results disclosure is earlier but is not the open dataset release."
+    },
+    {
+      "id": "catalog_0ea8424382098997",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s internal bilingual frontend code-generation benchmark covers web design, apps, games, SVG, data visualization, animation and 3D. It uses rendering and multimodal judging with Bradley-Terry/Elo ratings.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/alibaba-unveils-qwen3-6-plus-to-accelerate-agentic-ai-deployment-for-enterprises-and-alibaba%E2%80%99s-ai-applications_603005"
+      ],
+      "note": "Dated original Alibaba Cloud Community/Qwen announcement explicitly defines the internal bilingual frontend benchmark, seven categories, automatic rendering, multimodal judging and BT/Elo. This is public results/methodology disclosure, not verified public corpus release. Historical official April 15 model card independently confirms the definition."
+    },
+    {
+      "id": "catalog_790e679631e4dd86",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "Qwen’s internal world-model evaluation measures simulation of Terminal, SWE, MCP, Search, OS, Android and Web environments with a five-dimensional rubric grounded in real environment feedback.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-7-the-agent-frontier_603154"
+      ],
+      "note": "Original dated official Qwen3.7 announcement defines internal world-model environment simulation across seven domains and a five-dimensional grounded rubric. Exact Qwen3.7-Max score 57.3 matches catalog. Results disclosure only, not dataset release; do not infer equivalence to later AgentWorldBench solely from overlapping domains."
+    },
+    {
+      "id": "catalog_2c9490b45364dd97",
+      "directions": [
+        "vision-language-models",
+        "tool-use"
+      ],
+      "role": "observation-setting",
+      "description": "ClawEval-MM is a multimodal agent evaluation reported in Qwen’s original model tables. Later reports distinguish pass@3 and average score; exact public corpus and version lineage remain unverified.",
+      "sources": [
+        "https://www.alibabacloud.com/blog/qwen3-7-plus-multimodal-agent-intelligence_603206",
+        "https://yqintl.alicdn.com/4bf3dfa024483ccbc02411ad9382c7544c3b0e21.png",
+        "https://www.alibabacloud.com/blog/qwen3-8-max-a-new-bar-for-coding-and-cowork_603421"
+      ],
+      "note": "Original dated Qwen3.7-Plus announcement table2 visually checked: explicit ClawEval-MM under Visual Agent & Coding, including Qwen3.7-Plus 55.7. August 3 official Qwen3.8 table independently names the evaluation with pass@3 and average-score protocol. Earliest verified public result here; exact corpus/version release remains unverified, and later protocol/results must not be assumed identical."
+    },
+    {
+      "id": "catalog_0a7b4890e81878c3",
+      "directions": [
+        "vision-language-models",
+        "visual-understanding"
+      ],
+      "role": "observation-setting",
+      "description": "MStar is a catalog spelling of MMStar in the Qwen3.6-27B score view (81.4). MMStar evaluates visual-dependent multimodal understanding on 1,500 questions; this row is not an independent dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2403.20330",
+        "https://huggingface.co/Qwen/Qwen3.6-27B/raw/main/README.md",
+        "https://benchlm.ai/benchmarks/mstar"
+      ],
+      "note": "Catalog MStar is a misspelled provider score view: its sole Qwen3.6-27B score 81.4 exactly matches official Qwen3.6-27B model-card MMStar row under General VQA. Original MMStar paper v1 dated March 29, 2024 introduces 1500 visual-dependent multimodal questions. This is the underlying MMStar dataset date, not a new MStar release; not scene-text MSTAR, pathology mSTAR or the serving framework.",
+      "parentId": "catalog_377aca97e89d030c"
+    },
+    {
+      "id": "catalog_e6829d18305cd8cb",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "A hard-subset evaluation of Terminal-Bench terminal tasks, tracked by Artificial Analysis with Terminus2 and repeated pass@1 scoring. Its task membership changed over time; the later 44-task configuration should not be assumed identical to every provider run.",
+      "sources": [
+        "https://artificialanalysis.ai/methodology/intelligence-benchmarking",
+        "https://cohere.com/blog/command-a-plus"
+      ],
+      "note": "Artificial Analysis official methodology changelog explicitly dates inclusion of Terminal-Bench Hard to index v3.0 on September 2, 2025. The hard subset uses a pinned August 14, 2025 upstream revision; January 2026 v4.0.1 refined it to 44 tasks. This date establishes public evaluation adoption/disclosure, not an independent dataset release or the later 44-task protocol release. Cohere official May20,2026 report names the same evaluation and matches catalog Command A+25%; exact Cohere task membership is not disclosed."
+    },
+    {
+      "id": "catalog_9064fade0bec0331",
+      "directions": [
+        "safety-alignment",
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "OpenAI’s prompt-injection robustness evaluation tests whether malicious instructions embedded in connector tool outputs can override system, developer or user instructions. It is a safety evaluation, not ordinary connector task success.",
+      "sources": [
+        "https://deploymentsafety.openai.com/gpt-5-6-preview",
+        "https://deploymentsafety.openai.com/gpt-5-4-thinking"
+      ],
+      "note": "Original GPT-5.6 Preview System Card explicitly dated June26,2026, section4.2/table5, identifies this as prompt-injection robustness against malicious tool-output instructions. Exact catalog results match (Connectors Sol/Terra/Luna1.000/1.000/0.999; Search and Function-Calling0.910/0.946/0.897). This is a dated disclosure of this evaluation view, not a public dataset release or first creation date. Older system cards describe related Agent JSK/PlugInject tests; later improved attacks cannot be assumed corpus-identical. Corrects false description as ordinary production tool-use reliability."
+    },
+    {
+      "id": "catalog_c083b66e11dca90a",
+      "directions": [
+        "safety-alignment",
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "OpenAI’s prompt-injection robustness evaluation tests stronger malicious instructions embedded in search and function-call outputs. Reported results concern resisting known attacks, not general search or tool-calling accuracy.",
+      "sources": [
+        "https://deploymentsafety.openai.com/gpt-5-6-preview",
+        "https://deploymentsafety.openai.com/gpt-5-4-thinking"
+      ],
+      "note": "Original GPT-5.6 Preview System Card explicitly dated June26,2026, section4.2/table5, identifies this as prompt-injection robustness against malicious tool-output instructions. Exact catalog results match (Connectors Sol/Terra/Luna1.000/1.000/0.999; Search and Function-Calling0.910/0.946/0.897). This is a dated disclosure of this evaluation view, not a public dataset release or first creation date. Older system cards describe related Agent JSK/PlugInject tests; later improved attacks cannot be assumed corpus-identical. Corrects false description as ordinary production tool-use reliability."
+    },
+    {
+      "id": "catalog_dbd95a95416ed37b",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "Trae Agent Bench’s repository-environment evaluation measures dependency installation, configuration and getting repositories running inside clean task-specific containers.",
+      "sources": [
+        "https://seed.bytedance.com/zh/blog/seed2-1-officially-released-advancing-ai-productivity",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2.1/Seed2_1_Model_Card.pdf"
+      ],
+      "note": "Original Table5 Repo Env row matches Seed2.1 Pro55.0/Turbo46.7. Section3.2 defines clean task-specific container evaluation of repository dependencies, configuration and runtime setup. Seed official Chinese June23,2026 announcement explicitly links the project page including Model Card; landing-page PDF link and original PDF archived. This dates public disclosure of the evaluation, not release of a public task corpus. Report creation metadata corroborates June23 but is not the sole date source."
+    },
+    {
+      "id": "catalog_96b952f2d4104005",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "The JavaScript code-generation subset of Trae Agent Bench evaluates implementing functionality in runnable repositories. This entry tracks the Code Gen JS results, not the aggregate across programming languages.",
+      "sources": [
+        "https://seed.bytedance.com/zh/blog/seed2-1-officially-released-advancing-ai-productivity",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2.1/Seed2_1_Model_Card.pdf"
+      ],
+      "note": "Original Table5 exact catalog scores Pro62.4/Turbo59.7 match Code Gen JS, NOT an all-language aggregate. Corrected description to JavaScript functionality-implementation subset. Seed official Chinese June23,2026 announcement explicitly links the project page including Model Card; landing-page PDF link and original PDF archived. This dates public disclosure of the evaluation, not release of a public task corpus. Report creation metadata corroborates June23 but is not the sole date source."
+    },
+    {
+      "id": "catalog_ddff600660f07ae2",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "The Go error-fixing subset of Trae Agent Bench evaluates repairing existing code in runnable repositories. This entry tracks the Error Fix Go results, not the aggregate across programming languages.",
+      "sources": [
+        "https://seed.bytedance.com/zh/blog/seed2-1-officially-released-advancing-ai-productivity",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2.1/Seed2_1_Model_Card.pdf"
+      ],
+      "note": "Original Table5 exact catalog scores Pro63.3/Turbo56.7 match Error Fix Go, NOT an all-language aggregate. Corrected description to Go bug-fixing subset. Seed official Chinese June23,2026 announcement explicitly links the project page including Model Card; landing-page PDF link and original PDF archived. This dates public disclosure of the evaluation, not release of a public task corpus. Report creation metadata corroborates June23 but is not the sole date source."
+    },
+    {
+      "id": "catalog_223ba126f40f8d4b",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "A suite of repository-level engineering evaluations spanning codebase Q&A, test writing and refactoring. This entry tracks Seed2.1 results citing the SWE Atlas paper; the provider does not specify component weighting.",
+      "sources": [
+        "https://arxiv.org/abs/2605.08366",
+        "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2.1/Seed2_1_Model_Card.pdf"
+      ],
+      "note": "Seed2.1 original Model Card Table5 exact Pro35.2/Turbo30.6 row cites reference46, arXiv2605.08366. Original paper v1 submitted May8,2026 explicitly defines Codebase Q&A, Test Writing and Refactoring; corrected false debugging-only description. Date denotes cited suite paper, not first release of every component or the exact provider protocol. Components launched separately; original QnA announcement March4,2026. Exact component weighting in Seed results is unspecified."
+    },
+    {
+      "id": "catalog_f2d3e1af3fd43d61",
+      "directions": [
+        "self-improvement-rsi"
+      ],
+      "role": "aggregate-index",
+      "description": "OpenAI’s composite of internal AI-research evaluations, measuring research debugging, training and kernel optimization, experimentation and model improvement.",
+      "sources": [
+        "https://openai.com/index/gpt-5-6/"
+      ],
+      "note": "Original dated OpenAI article self-improvement table matches Sol/Terra/Luna57.9/56.3/41.9. Internal composite, not Vals RSI Index or an independently released dataset. Public-results disclosure date."
+    },
+    {
+      "id": "catalog_fd6a9290a3fa92d3",
+      "directions": [
+        "data-analysis"
+      ],
+      "role": "observation-setting",
+      "description": "OpenAI’s internal management-consulting evaluation, reported among professional-work results. Task data and a standalone release are not established.",
+      "sources": [
+        "https://openai.com/index/gpt-5-6/"
+      ],
+      "note": "Original dated OpenAI professional-evaluation table exactly matches43.2/37.2/35.4. Public disclosure of internal evaluation results; no public task-corpus release established."
+    },
+    {
+      "id": "catalog_9d542e1869409972",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "OpenAI’s curated professional cybersecurity CTF evaluation of vulnerability identification and exploitation. Individual challenge dates and the internal evaluation’s disclosure date are distinct.",
+      "sources": [
+        "https://deploymentsafety.openai.com/gpt-5-6-preview"
+      ],
+      "note": "Original GPT5.6 Preview System Card datedJune26,2026 section9.1.2.1.1 identifies professional CTF tasks and96.7% Sol result. July9 launch table confirms exact catalog Sol/Terra/Luna96.7/91.8/85.2. Dates this protocol disclosure, not first publication of underlying individual challenges."
+    },
+    {
+      "id": "catalog_186293967c4fc217",
+      "directions": [
+        "multilingual-nlp",
+        "long-context"
+      ],
+      "role": "observation-setting",
+      "description": "Cohere’s long-document translation evaluation translates two book chapters in a single call and grades paragraphs with xCOMET-XL.",
+      "sources": [
+        "https://cohere.com/blog/north-small-translate"
+      ],
+      "note": "Cohere original article datedSep10,2026 and BlogPosting datePublished agree. Exact48.9 result and footnote3 identify two book chapters translated in one call with paragraph-level xCOMET-XL scoring. Provider-designed evaluation disclosure; no public corpus release claimed."
+    },
+    {
+      "id": "catalog_edc87bae2fc4950a",
+      "directions": [
+        "instruction-following",
+        "tool-use"
+      ],
+      "role": "aggregate-index",
+      "description": "Meta’s internal composite of agentic instruction-following evaluations covering tool constraints, rubrics, compound instructions, policies and structured workflows. It is not one fixed task set.",
+      "sources": [
+        "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+        "https://research.meta.ai/static/muse-spark-1-3-multimodal-evaluation-methodology",
+        "https://research.meta.ai/articles/introducing-muse-1-3/benchmarks/benchmark-scorecard-v6.webp"
+      ],
+      "note": "Meta original dated announcement embeds scorecard matching MuseSpark1.3 57.8; visually verified. Linked evaluation methodology explicitly defines an internal composite of multiple evaluations, not one fixed task set. Dates public disclosure of this index; no independent dataset release."
+    },
+    {
+      "id": "catalog_c36c554916db16cd",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "OpenAI’s zero-day, black-box/no-source evaluation using CVE-Bench v1.0. The GPT-5.6 run used 34 of its 40 challenges because of porting issues and reports pass@1 over three rollouts.",
+      "sources": [
+        "https://arxiv.org/abs/2503.17332",
+        "https://deploymentsafety.openai.com/gpt-5-6-preview",
+        "https://github.com/uiuc-kang-lab/cve-bench"
+      ],
+      "note": "Original CVE-Bench paper v1 date; source-linked original repository and GPT5.6 card section9.1.2.2 identify underlying CVE-Bench v1.0. Dates the underlying dataset paper, not OpenAI black-box/no-source adapter release. Corrected blanket40-challenge description: GPT5.6 actually ran34 of40 due to porting issues, pass@1 over3rollouts."
+    },
+    {
+      "id": "catalog_d3b7d8b1692e7fa0",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Irregular's domain-level evaluation of network attack simulation capability.",
+      "sources": [
+        "https://www.irregular.com/research/assessing-gpt-5.6-sol"
+      ],
+      "note": "Original Irregular dated article identifies three Atomic Challenges domains and exact GPT5.6Sol domain result 98%. Domain view of a shared evaluation suite. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_a1da8a393209195a",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Irregular's domain-level evaluation of vulnerability research and exploitation capability.",
+      "sources": [
+        "https://www.irregular.com/research/assessing-gpt-5.6-sol"
+      ],
+      "note": "Original Irregular dated article identifies three Atomic Challenges domains and exact GPT5.6Sol domain result 91%. Domain view of a shared evaluation suite. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_32cc95bd5668cb3f",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Irregular's domain-level evaluation of cybersecurity evasion capability.",
+      "sources": [
+        "https://www.irregular.com/research/assessing-gpt-5.6-sol"
+      ],
+      "note": "Original Irregular dated article identifies three Atomic Challenges domains and exact GPT5.6Sol domain result 56%. Domain view of a shared evaluation suite. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_f37de3e9602e8bbc",
+      "directions": [
+        "cybersecurity",
+        "safety-alignment"
+      ],
+      "role": "observation-setting",
+      "description": "Share of approved advanced-cyber requests completed rather than refused under standard GPT-5.6 Sol safeguards.",
+      "sources": [
+        "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/"
+      ],
+      "note": "Original dated OpenAI article defines Advanced Cybersecurity Completion Rate. standard safeguards result 1.5%. Measures request completion/refusal, not successful cyber task execution; access-setting view of one internal test. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_500ebaeab92cc8d8",
+      "directions": [
+        "cybersecurity",
+        "safety-alignment"
+      ],
+      "role": "observation-setting",
+      "description": "Share of approved advanced-cyber requests completed rather than refused by GPT-5.6 Sol under Daybreak Blue safeguards.",
+      "sources": [
+        "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/"
+      ],
+      "note": "Original dated OpenAI article defines Advanced Cybersecurity Completion Rate. Daybreak Blue result 2.0%. Measures request completion/refusal, not successful cyber task execution; access-setting view of one internal test. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_08196beb56175bcd",
+      "directions": [
+        "cybersecurity",
+        "safety-alignment"
+      ],
+      "role": "observation-setting",
+      "description": "Share of approved advanced-cyber requests completed rather than refused by GPT-5.6 Cyber under Daybreak Red access.",
+      "sources": [
+        "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/"
+      ],
+      "note": "Original dated OpenAI article defines Advanced Cybersecurity Completion Rate. Daybreak Red GPT5.6Cyber result 95.0%. Measures request completion/refusal, not successful cyber task execution; access-setting view of one internal test. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_da4ae39cfdd40aa5",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic’s internal OSS-Fuzz-derived evaluation reports the fraction of roughly 830 entry points producing a memory-safety crash or stronger result.",
+      "sources": [
+        "https://anthropic.com/claude-fable-5-mythos-5-system-card"
+      ],
+      "note": "Original system-card cover date June9,2026; section3.2.2 exactly matches Mythos5 any-crash80.0%. Protocol-specific score, not generic OSS-Fuzz or Firefox software-release date. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_265e48430f6e7af4",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "A severity-threshold view of Anthropic’s internal OSS-Fuzz evaluation, counting results that reach a write primitive or stronger outcome.",
+      "sources": [
+        "https://anthropic.com/claude-fable-5-mythos-5-system-card"
+      ],
+      "note": "Original system-card cover date June9,2026; section3.2.2 exactly matches Mythos5 write-primitive-or-higher32.4%. Protocol-specific score, not generic OSS-Fuzz or Firefox software-release date. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_e9a8afcbc786fbeb",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Anthropic’s Firefox147 evaluation reports full exploits across 250 trials derived from 50 crash categories, in a modified SpiderMonkey test environment.",
+      "sources": [
+        "https://anthropic.com/claude-fable-5-mythos-5-system-card"
+      ],
+      "note": "Original system-card cover date June9,2026; section3.2.4 exactly matches Mythos5 full exploit88.4%,221of250trials. Protocol-specific score, not generic OSS-Fuzz or Firefox software-release date. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_c2086feec2e6bb36",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Google’s internal vulnerability-discovery evaluation spans real open-source codebases across 20 programming languages; this entry tracks the Gemini3.8FlashCyber evaluation view.",
+      "sources": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
+        "https://deepmind.google/models/evals-methodology/gemini-3-8-flash-cyber/"
+      ],
+      "note": "Original Google September2 announcement and embedded chart match Gemini3.8FlashCyber 71.0%. Original figure visually inspected; methodology archived. Do not inherit older same-name test version dates. Public evaluation disclosure only; not an independent public dataset release."
+    },
+    {
+      "id": "catalog_34f15299632aee4c",
+      "directions": [
+        "cybersecurity",
+        "safety-alignment"
+      ],
+      "role": "observation-setting",
+      "description": "Google’s Gray Swan indirect prompt-injection evaluation uses a combined attack set in transfer-only mode without computer use. This entry reports attack success within 15 attempts; lower is better.",
+      "sources": [
+        "https://blog.google/innovation-and-ai/models-and-research/gemini-models/3-8-flash-and-3-8-flash-cyber/",
+        "https://deepmind.google/models/evals-methodology/gemini-3-8-flash-cyber/"
+      ],
+      "note": "Original Google September2 announcement and embedded chart match Gemini3.8FlashCyber 6.0% ASR@15. Original figure visually inspected; methodology archived. Do not inherit older same-name test version dates. Public evaluation disclosure only; not an independent public dataset release. Original methodology explicitly specifies combined attack set, transfer only, no computer use."
+    },
+    {
+      "id": "catalog_646f5789d7e01e41",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "HumanEval fill-in-the-middle evaluation views. The Codestral22B entry reports a three-language average; provider results may use different language mixes or completion protocols.",
+      "sources": [
+        "https://mistral.ai/news/codestral/"
+      ],
+      "note": "Original Mistral dated announcement and figures visually verified. Codestral22B91.6 is average of Python89.4,JavaScript95.1,Java90.3, matching catalog. Dates documented Codestral evaluation disclosure, not first HumanEval or FIM-method release. Generic HumanEval FIM catalog may combine different provider configurations; other rows not asserted to share this exact protocol."
+    },
+    {
+      "id": "catalog_8c69d7c2b4104cfa",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Mistral’s French-language MMLU evaluation reported for the base pretrained Mistral Large2 model. The translated task corpus and exact version are not publicly identified in the announcement.",
+      "sources": [
+        "https://mistral.ai/news/mistral-large-2407"
+      ],
+      "note": "Original dated Mistral Large2 announcement explicitly reports multilingual MMLU on base pretrained models. French bar visually approximately83, consistent with catalog82.8; figure does not independently label the decimal. Dates this French evaluation disclosure, not English MMLU release or an independently published translation corpus."
+    },
+    {
+      "id": "catalog_c9d70348c2c65bb3",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Amazon Nova’s zero-shot FLORES-200 evaluation, translating English into 14 target languages and reporting a macro-average COMET22 score. A direction/metric view, not a separate dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2207.04672",
+        "https://arxiv.org/abs/2506.12103"
+      ],
+      "note": "Underlying FLORES-200 paper v1 date. Original Amazon Nova report Table2,page7 visually verifies all Pro/Lite/Micro catalog scores and14language Set1. These are directional/metric views of FLORES-200, not COMET22 or spBLEU dataset releases, and not automatically FLORES-101. Nova adapter first-publication date unasserted."
+    },
+    {
+      "id": "catalog_4f5d3b6b0451dacd",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Amazon Nova’s zero-shot FLORES-200 evaluation, translating English into 14 target languages and reporting a macro-average spBLEU score. A direction/metric view, not a separate dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2207.04672",
+        "https://arxiv.org/abs/2506.12103"
+      ],
+      "note": "Underlying FLORES-200 paper v1 date. Original Amazon Nova report Table2,page7 visually verifies all Pro/Lite/Micro catalog scores and14language Set1. These are directional/metric views of FLORES-200, not COMET22 or spBLEU dataset releases, and not automatically FLORES-101. Nova adapter first-publication date unasserted."
+    },
+    {
+      "id": "catalog_2c15ad0533b756e6",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Amazon Nova’s zero-shot FLORES-200 evaluation, translating 14 source languages into English and reporting a macro-average COMET22 score. A direction/metric view, not a separate dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2207.04672",
+        "https://arxiv.org/abs/2506.12103"
+      ],
+      "note": "Underlying FLORES-200 paper v1 date. Original Amazon Nova report Table2,page7 visually verifies all Pro/Lite/Micro catalog scores and14language Set1. These are directional/metric views of FLORES-200, not COMET22 or spBLEU dataset releases, and not automatically FLORES-101. Nova adapter first-publication date unasserted."
+    },
+    {
+      "id": "catalog_6b67cff18fbba972",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "role": "observation-setting",
+      "description": "Amazon Nova’s zero-shot FLORES-200 evaluation, translating 14 source languages into English and reporting a macro-average spBLEU score. A direction/metric view, not a separate dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2207.04672",
+        "https://arxiv.org/abs/2506.12103"
+      ],
+      "note": "Underlying FLORES-200 paper v1 date. Original Amazon Nova report Table2,page7 visually verifies all Pro/Lite/Micro catalog scores and14language Set1. These are directional/metric views of FLORES-200, not COMET22 or spBLEU dataset releases, and not automatically FLORES-101. Nova adapter first-publication date unasserted."
+    },
+    {
+      "id": "catalog_80634567dcc125d1",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "MathArena’s June2026 ArXivMath evaluation, using49research-mathematics problems and averaging four runs per problem without tools.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original Opus5 card July24,2026 section8.8 identifies49problems in June2026 ArXivMath and exact score90.8%,averaged over4runs. Dates public disclosure of this provider evaluation. Source-paper monthJune and later48-question HF mirror upload are not established dataset-release dates; exact original corpus publication remains unknown."
+    },
+    {
+      "id": "catalog_da21fe49de825d45",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "MathArena’s June2026 ArXivMath evaluation, using49research-mathematics problems and averaging four runs per problem with tools.",
+      "sources": [
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original Opus5 card July24,2026 section8.8 identifies49problems in June2026 ArXivMath and exact score91.3%,averaged over4runs. Dates public disclosure of this provider evaluation. Source-paper monthJune and later48-question HF mirror upload are not established dataset-release dates; exact original corpus publication remains unknown."
+    },
+    {
+      "id": "catalog_844a408311fdb1ec",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "The arbitrary-code-execution milestone in ExploitBench, as evaluated by UK AISI and NIST CAISI. This counts vulnerabilities reaching full code execution; it is not a separate cyber-range benchmark.",
+      "sources": [
+        "https://www.nist.gov/news-events/news/2026/07/uk-aisi-caisi-preliminary-assessment-kimi-k3s-cyber-capabilities"
+      ],
+      "note": "Original NIST/UKAISI report datedJuly23,2026 identifies ACE as arbitrary code execution on ExploitBench,not Advanced Cyber Range Challenges. KimiK3 achieves0of41;41are vulnerability tasks,not41cyber ranges. Corrected catalog acronym/task conflation. Dates public result disclosure; source page later updatedAugust28."
+    },
+    {
+      "id": "catalog_cf947aca0afb2ab0",
+      "directions": [
+        "tool-use"
+      ],
+      "role": "observation-setting",
+      "description": "Mean coverage of required answer claims in MCP-Atlas tool-use tasks, distinct from the all-required-claims pass rate.",
+      "sources": [
+        "https://arxiv.org/abs/2602.00933",
+        "https://www-cdn.anthropic.com/c5fbac3f0b1280a933ebd26d3cb8bb9f5bdeaf48/Claude%20Opus%205%20System%20Card.pdf"
+      ],
+      "note": "Original MCP-Atlas paper v1 date. Original Opus5 card section8.13.2 directly identifies MCP-Atlas and distinguishes85.8%passrate from89.1%meanclaimcoverage. Derived scoring view linked to canonical MCPAtlas parent; not an independent dataset release.",
+      "parentId": "catalog_544e399fd1681104"
+    },
+    {
+      "id": "catalog_ef6f49085728d89e",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "DSBench-FullStack is DeepSeek's internal full-stack development test set for evaluating coding agents on end-to-end software engineering tasks.",
+      "sources": [
+        "https://api-docs.deepseek.com/zh-cn/updates/"
+      ],
+      "note": "DeepSeek original dated July31,2026 change-log section explicitly names both internal test sets, matching V4Flash0731 68.7. DeepSeekHarness minimal-mode setup documented. Public result/definition disclosure,not public task corpus release. Later August provider results do not establish an independently released dataset."
+    },
+    {
+      "id": "catalog_a72275bd6c7025a9",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "DSBench-Hard is DeepSeek's internal test set of difficult coding-agent problems.",
+      "sources": [
+        "https://api-docs.deepseek.com/zh-cn/updates/"
+      ],
+      "note": "DeepSeek original dated July31,2026 change-log section explicitly names both internal test sets, matching V4Flash0731 59.6. DeepSeekHarness minimal-mode setup documented. Public result/definition disclosure,not public task corpus release. Later August provider results do not establish an independently released dataset."
+    },
+    {
+      "id": "catalog_c74640a9725f90bd",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "The implementation-task ranking view of FrontierSWE, reported for MiMo-V2.5-Pro as average rank 3.4. Lower rank is better; this is not an accuracy percentage or a separate dataset.",
+      "sources": [
+        "https://www.frontierswe.com/blog/v1",
+        "https://mimo.xiaomi.com/mimo-v2-5-pro",
+        "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro"
+      ],
+      "note": "Original FrontierSWE V1 announcement explicitly dated April2026 describes5implementation tasks among17total. Xiaomi official April27 MiMoV2.5Pro announcement and original HF chart identify exact FrontierSWE(Impl.) rank3.4, matching catalog. This is a track/ranking view,not an independent dataset. Month precision only; rank is lower-better,not340percent accuracy.",
+      "parentId": "catalog_4d84bdec793147a5"
+    },
+    {
+      "id": "catalog_d472c7b25fe16c49",
+      "directions": [
+        "cybersecurity"
+      ],
+      "role": "observation-setting",
+      "description": "Provider-reported capture-the-flag results. The GPT-5.3-Codex result is verified against its original announcement; equivalence between provider task sets and the catalog-linked NYU CTF dataset is unconfirmed.",
+      "sources": [
+        "https://openai.com/index/introducing-gpt-5-3-codex/"
+      ],
+      "note": "Original OpenAI February5,2026 announcement Appendix matches GPT5.3Codex77.6% CTF result. This dates that public provider result,not the first benchmark release. Catalog also merges AnthropicHaiku4.5 and o1mini observations and links NYUCTFpaper; no original evidence establishes these as a common NYUcorpus. Corrected provider-view description and withheld underlying dataset identity/date."
+    },
+    {
+      "id": "catalog_b3237d7431b6fe34",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "A 250-question AMC 2022–23 evaluation collection described in the Gemini 1.5 report: 100 AMC 12, 100 AMC 10 and 50 AMC 8 problems, evaluated with four-shot prompting.",
+      "sources": [
+        "https://arxiv.org/pdf/2403.05530v3"
+      ],
+      "note": "Original Gemini1.5 report v3 dated June14,2024: Table11 page30 visually checked. AMC2022-23 comprises250questions:100AMC12,100AMC10,50AMC8. Four-shot Gemini1.5Pro46.4% andFlash34.8% match catalog. Dates this original public result/collection description; not exam administration or first public task release. Catalog-linked2021MATHpaper is not evidence for these2022-23questions. Later Mistral score protocol equivalence unverified."
+    },
+    {
+      "id": "catalog_1427274ec26542b9",
+      "directions": [
+        "computer-use",
+        "tool-use"
+      ],
+      "role": "benchmark",
+      "description": "A proprietary Kerbal Space Program evaluation with 30 sequential missions and a 120-active-hour budget. Agents write craft files and flight-control code; signed telemetry determines mission progress and partial credit.",
+      "sources": [
+        "https://www.linkedin.com/posts/vals-ai_can-an-ai-agent-build-launch-and-land-a-activity-7485053599266430976-aaOZ",
+        "https://www.vals.ai/benchmarks/time_horizon_index"
+      ],
+      "note": "Original Vals AI organization LinkedIn announcement explicitly says releasing Time Horizon Index with first gameKSP,30missions,5days,craftfiles andPythonkRPC. JSONLD datePublished and uploadDate2026-07-20T19:30:43.606Z; same-day organization comment corroborates event. Matches current official task mechanics. Use official announcement date, not third-party July18 tracker or September14leaderboardupdate. Post is marked edited; date records original post publication, with retrieved announcement content archived. Human120hour claim is a proxy,not a calibrated METR-style success horizon."
+    },
+    {
+      "id": "catalog_d0a8b6d9c573e736",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "The January–September 2024 LiveCodeBench evaluation window reported for DeepSeek-V2.5. This is a provider-selected temporal view, not a separate benchmark release.",
+      "sources": [
+        "https://api-docs.deepseek.com/news/news0905",
+        "https://huggingface.co/deepseek-ai/DeepSeek-V2.5"
+      ],
+      "note": "Original dated DeepSeekV2.5 September5,2024 announcement names LiveCodeBench Jan2024–Sep2024 and links official HFcard whose exact row is36.6/39.7/41.8, matching catalog41.8. Dates provider result disclosure,not original parent release. Reported window label does not establish that all September contest problems were included.",
+      "parentId": "lib_livecodebench"
+    },
+    {
+      "id": "catalog_ab6fd1363b38386d",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "role": "observation-setting",
+      "description": "A CNMO 2024 mathematics evaluation reported in DeepSeek model reports using Pass@1. The original DeepSeek-V3 report records 43.2%; the exact public task package and cross-provider protocol equivalence are unverified.",
+      "sources": [
+        "https://arxiv.org/html/2412.19437v1"
+      ],
+      "note": "Original DeepSeekV3 reportv1 December27,2024 explicitly names CNMO2024 and links Chinese Mathematical Society competition source. Exact Pass@1 row ends43.2 forDeepSeekV3,matching catalog. Dates reported evaluation,not exam administration or public corpus release. Later Kimi protocol alignment not established."
+    },
+    {
+      "id": "catalog_fef7ee9f6b47c7fd",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "The LiveCodeBench v6 Pass@1-COT reporting view in DeepSeek-V4, with separate Non-think, High and Max reasoning modes.",
+      "sources": [
+        "https://arxiv.org/html/2606.19348v1"
+      ],
+      "note": "Original DeepSeekV4 v1 metadata explicitly dated April26,2026 despite June-like arXiv identifier. Report specifies LiveCodeBench-v6; intra-family table exact Pass@1-COT Flash55.2/88.4/91.6 andPro56.8/89.8/93.5. Dates public result disclosure,not v6 release. Non-think/High/Max modes must remain distinct; no inference that every row uses the same reasoning budget.",
+      "parentId": "lib_livecodebench"
+    },
+    {
+      "id": "catalog_e13a9b6e8ac54db6",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "Competitive-programming ratings from provider-specific Codeforces evaluations. DeepSeek-V4 uses 114 problems from 14 Division 1 contests held May–November 2025; other providers may use different contest windows and submission rules. The dated source records DeepSeek-V4 results disclosed in April 2026, not the benchmark’s first release.",
+      "sources": [
+        "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/0366e4e064385807ea86b088a5c6c878ff23343b/README.md",
+        "https://api-docs.deepseek.com/news/news260424/",
+        "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+        "https://arxiv.org/html/2606.19348v1"
+      ],
+      "note": "Round116 fixed official HF README commit0366e4e064385807ea86b088a5c6c878ff23343b dated2026-04-24T03:52:27Z, independently supported by official April24 public release announcement. Exact model-mode-score catalog matches: Pro High2919 and Flash High2816. Date is public disclosure of these provider results only, not origin of Codeforces/MRCR, all catalog rows, later renamed models or a shared benchmark release. Current catalog includes other model versions/providers; their protocol equivalence remains unverified."
+    },
+    {
+      "id": "catalog_9b716240d72b7367",
+      "directions": [
+        "long-context"
+      ],
+      "role": "observation-setting",
+      "description": "A million-token MRCR evaluation setting. DeepSeek-V4 cites OpenAI MRCR and re-evaluates comparison models under its own common configuration; equivalence to other providers’ MRCR settings is unverified. The dated source records DeepSeek-V4 results disclosed in April 2026, not the benchmark’s first release.",
+      "sources": [
+        "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/0366e4e064385807ea86b088a5c6c878ff23343b/README.md",
+        "https://api-docs.deepseek.com/news/news260424/",
+        "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+        "https://arxiv.org/html/2606.19348v1"
+      ],
+      "note": "Round116 fixed official HF README commit0366e4e064385807ea86b088a5c6c878ff23343b dated2026-04-24T03:52:27Z, independently supported by official April24 public release announcement. Exact model-mode-score catalog matches: Pro High83.3,Flash High76.9,Pro NonThink44.7 and Flash NonThink37.5. Date is public disclosure of these provider results only, not origin of Codeforces/MRCR, all catalog rows, later renamed models or a shared benchmark release. Current catalog includes other model versions/providers; their protocol equivalence remains unverified. Needle count/version not established; no MRCRv2 equivalence asserted."
+    },
+    {
+      "id": "catalog_e261ed54dd2f1c07",
+      "directions": [
+        "software-engineering"
+      ],
+      "role": "observation-setting",
+      "description": "A code evaluation named Codegolf v2.2 in the official Gemma 3n model card, reported as zero-shot pass@1. The model card does not identify the task corpus or its version-release date.",
+      "sources": [
+        "https://ai.google.dev/gemma/docs/gemma-3n/model_card",
+        "https://huggingface.co/google/gemma-3n-E2B/blob/9742dccb9e2a80c8bfd10096d5bd277f2fc5c442/README.md",
+        "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+        "https://huggingface.co/google/gemma-3n-E2B/blob/main/README.md"
+      ],
+      "note": "Public official HF blob at9742dccb9e2a80c8bfd10096d5bd277f2fc5c442 has visible LastCommit date2025-06-26 and contains exact Codegolfv2.2 zero-shot pass@1 E2B11.0/E4B16.8 table. Official Google developer guide datedJune26 confirms full public Gemma3n launch. Earlier parentJune25 also contains table but may predate public availability; use June26 disclosure only, not first task release. Corpus definition remains unpublished; do not infer CSSBattle or ClawBattle identity."
+    },
+    {
+      "id": "catalog_5656ee82fcb0e953",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "subset",
+      "description": "178-instance synthetic Go issue-resolution subset selected from SWE-benchify tasks that Haiku failed to solve. Published by Red Hat as Harbor tasks; packaged revisions may differ from the original task set.",
+      "sources": [
+        "https://api.github.com/repos/Red-Hat-AI-Innovation-Team/SWE-benchify/commits/31f501f74bbd683a2b5c01abd74e1b56c538a475",
+        "https://github.com/Red-Hat-AI-Innovation-Team/SWE-benchify"
+      ],
+      "note": "Official Red Hat SWE-benchify commit adds the named dataset file (verified added status), not repository creation or later maintenance. 177/177 Harbor revision1 task names match the original178-row file; Harbor omits operator-framework--operator-registry-91162. Date is the original hard task-set publication evidenced by the source commit, not the exact Harbor package revision release; package version has changed and task counts differ."
+    },
+    {
+      "id": "catalog_e9bc02c362e1d450",
+      "directions": [
+        "coding-agents",
+        "software-engineering"
+      ],
+      "role": "subset",
+      "description": "284-instance synthetic Go issue-resolution subset selected from SWE-benchify tasks that at least one of Haiku, Sonnet or Opus failed to solve. Published by Red Hat as Harbor tasks; packaged revisions may differ from the original task set.",
+      "sources": [
+        "https://api.github.com/repos/Red-Hat-AI-Innovation-Team/SWE-benchify/commits/70ede231715f7a1a5ffc43eac5786fbdaba1c3b9",
+        "https://github.com/Red-Hat-AI-Innovation-Team/SWE-benchify"
+      ],
+      "note": "Official Red Hat SWE-benchify commit adds the named dataset file (verified added status), not repository creation or later maintenance. 278/278 Harbor revision1 task names match the original284-row file; Harbor omits six operator-registry instances. Original commit explicitly states publication to Harbor as red-hat-ai/SWE-benchify-hard. Date is the original hard task-set publication evidenced by the source commit, not the exact Harbor package revision release; package version has changed and task counts differ."
+    },
+    {
+      "id": "catalog_8e6e2dc857d11a64",
+      "directions": [
+        "systems-optimization",
+        "coding-agents"
+      ],
+      "role": "observation-setting",
+      "description": "KernelBench-Hard by Elliot Arledge: autonomous coding agents implement GPU kernels, scored against hardware roofline throughput and checked for correctness and reward hacking. This independent six-task leaderboard is not Stanford KernelBench; hardware and harness settings vary.",
+      "sources": [
+        "https://api.github.com/repos/Infatoshi/KernelBench-Hard/commits/f03dd78b2a703dd0e087f553ffc9220b7660202e",
+        "https://kernelbench.com/hard",
+        "https://github.com/Infatoshi/kernelbench.com"
+      ],
+      "note": "Resolved identity to Elliot Arledge / Infatoshi KernelBench-Hard, explicitly independent of Stanford KernelBench. Original source commit on2026-04-26 specifies problems02-07 with full references, shapes, baselines, checkers and prompts; FP8problem01 was already implemented in2026-04-24 scaffold. Current six-task deck preserves01/02/03/05/06/07; official2026-06-01 commit removes04 Kahan softmax. Date describes original complete underlying Hard task set, not exact current H100 leaderboard protocol or later six-task revision; do not use Stanford2502.10517 publication date."
+    },
+    {
+      "id": "catalog_2c00e2642310ebbf",
+      "role": "observation-setting",
+      "directions": [
+        "instruction-following"
+      ],
+      "description": "The SIFO instruction-following evaluation reported in Qwen model comparisons. The original Qwen3-VL chart reports 77.3; its underlying corpus and task-version release date are not specified.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/commit/c6a4947308cff8b5dcd126e37d394e8d3f97fac9",
+        "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/raw/main/README.md"
+      ],
+      "note": "Official Qwen3-VL-235B-A22B-Thinking text-performance chart visually checked: SIFO=77.3, matching the catalog. Pinned official model-card commit c6a4947308cff8b5dcd126e37d394e8d3f97fac9 on2025-09-23 links this chart; CDN Last-Modified2025-09-23 corroborates the asset timing (response hash retained). Dates this provider result disclosure only. Corpus identity and relationship to Sequential Instruction Following paper2406.19999 remain unverified; do not claim initial dataset release or expand SIFO as Simple without evidence."
+    },
+    {
+      "id": "catalog_8e550de1cf971aca",
+      "role": "observation-setting",
+      "directions": [
+        "instruction-following"
+      ],
+      "description": "The SIFO-Multiturn instruction-following evaluation reported in Qwen model comparisons. The original Qwen3-VL chart reports 71.1; its underlying corpus and task-version release date are not specified.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/commit/c6a4947308cff8b5dcd126e37d394e8d3f97fac9",
+        "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/raw/main/README.md"
+      ],
+      "note": "Official Qwen3-VL-235B-A22B-Thinking text-performance chart visually checked: SIFO-Multiturn=71.1, matching the catalog. Pinned official model-card commit c6a4947308cff8b5dcd126e37d394e8d3f97fac9 on2025-09-23 links this chart; CDN Last-Modified2025-09-23 corroborates the asset timing (response hash retained). Dates this provider result disclosure only. Corpus identity and relationship to Sequential Instruction Following paper2406.19999 remain unverified; do not claim initial dataset release or expand SIFO as Simple without evidence."
+    },
+    {
+      "id": "catalog_c01c2eefae4457df",
+      "role": "observation-setting",
+      "directions": [
+        "long-context",
+        "logical-reasoning"
+      ],
+      "description": "Qwen provider comparison on AA-LCR, evaluating long-context reasoning. Previously cataloged as AI-Needle; the original source identifies AA-LCR, not a separate needle-retrieval dataset.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://artificialanalysis.ai/articles/announcing-aa-lcr"
+      ],
+      "note": "Original Qwen3.6 table matches all four catalog rows: Opus4.5=74.0, GLM5=63.3, Qwen3.5=68.7, Qwen3.6=68.3. Header is AA-LCR. Correct erroneous AI-Needle name and retrieval-only description; use original AA-LCR August5,2025 launch as underlying-dataset date, not Qwen model launch.",
+      "displayName": "AA-LCR (Qwen comparison)",
+      "parentId": "catalog_c847be0a0dc9793c"
+    },
+    {
+      "id": "catalog_484ddc4711d4f077",
+      "role": "observation-setting",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "Qwen provider comparison on IMOAnswerBench, a mathematical answer-generation evaluation. Previously cataloged as MMAnswerBench; the original source does not describe a separate multimodal-math dataset.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://api.github.com/repos/google-deepmind/superhuman/commits/92ae8c2e88dee12a3f793dd88a5e80ed76754c2a"
+      ],
+      "note": "Original Qwen3.6 table identifies IMOAnswerBench and exactly matches Opus4.5=84.0, KimiK2.5=81.8, GLM5=82.5, Qwen3.5=80.9 and Qwen3.6=83.8. Correct erroneous catalog name and multimodal description. Original Google DeepMind IMO-Bench publication is October2025; preserve month precision and underlying-dataset scope. Later catalog rows are not independently protocol-verified.",
+      "displayName": "IMOAnswerBench (Qwen comparison)",
+      "parentId": "catalog_9f633d8c67b1c89b"
+    },
+    {
+      "id": "catalog_19876f7f9ed94bec",
+      "role": "observation-setting",
+      "directions": [
+        "deep-research"
+      ],
+      "description": "Qwen provider comparison on WideSearch, a broad information-seeking benchmark. Previously cataloged as WideResearch; later cross-provider catalog rows may use different evaluation settings.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://arxiv.org/abs/2508.07999"
+      ],
+      "note": "Original Qwen3.6 table explicitly labels WideSearch and matches Opus4.5=76.4,KimiK2.5=72.7,Qwen3.5=74.0,Qwen3.6=74.3. Catalog GLM5=69.8 differs from original69.5, so do not validate the full mixed leaderboard. Underlying WideSearch paperv1 date2025-08-11; no lineage to AutoResearchBench WideResearch subset. Qwen original notes256K context with context management.",
+      "displayName": "WideSearch (Qwen comparison)",
+      "parentId": "catalog_d91422f7df97f946"
+    },
+    {
+      "id": "catalog_8e2830bbb170cb65",
+      "displayName": "CharXiv reasoning (Qwen comparison)",
+      "parentId": "lib_charxiv",
+      "role": "observation-setting",
+      "directions": [
+        "vision-language-models",
+        "logical-reasoning"
+      ],
+      "description": "Qwen provider comparison on CharXiv reasoning questions about scientific charts. Previously cataloged as ChatCVQA; the primary source identifies chart reasoning, not a separate multi-turn visual-conversation dataset.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://arxiv.org/abs/2406.18521"
+      ],
+      "note": "Original Qwen3.6 CharXiv(RQ) row exactly matches all6 historical catalog scores: GPT5.2=82.1,Opus4.5=68.5,Gemini3Pro=81.4,KimiK2.5=77.5,Qwen3.5=80.8,Qwen3.6=81.5. Current catalog drops scores; web search retains older August22/July1 snapshots with complete vector and original Qwen3.6 source link. Infer transcription error from complete vector/source match. Underlying CharXiv paperv1 date only, not provider protocol release."
+    },
+    {
+      "id": "catalog_dfab7e9348194010",
+      "displayName": "WMT24++ (Qwen comparison)",
+      "parentId": "catalog_7ce3657bfc8882e2",
+      "role": "observation-setting",
+      "directions": [
+        "multilingual-nlp"
+      ],
+      "description": "Qwen provider comparison on WMT24++ machine translation across 55 languages, scored with XCOMET-XXL. Previously cataloged as VWT2k-lite; the original table describes a harder WMT24 subset, not a distinct cross-lingual reasoning dataset.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://arxiv.org/abs/2502.12404"
+      ],
+      "note": "Original Qwen3.6 WMT24++ row exactly matches all5 historical catalog scores: Opus4.5=79.7,KimiK2.5=77.6,GLM5=82.1,Qwen3.5=78.9,Qwen3.6=84.3. June29 catalog snapshot retained by web search has complete vector; current catalog0rows. Original provider footnote says harder WMT24 subset,55languages,XCOMET-XXL. Underlying WMT24++ paper date only; exact Qwen subset release not claimed."
+    },
+    {
+      "id": "catalog_de1ff364516d521c",
+      "displayName": "MCP Atlas (Qwen comparison)",
+      "parentId": "catalog_544e399fd1681104",
+      "role": "observation-setting",
+      "directions": [
+        "tool-use"
+      ],
+      "description": "Qwen provider comparison on the public MCP-Atlas task set, judged using Gemini 2.5 Pro. Previously cataloged as MCP-Tasks. Some other model scores in the catalog disagree with the original table and remain unverified.",
+      "sources": [
+        "https://qwen.ai/api/v2/article/?language=en-US&path=qwen3.6&type=qwen_ai",
+        "https://arxiv.org/abs/2602.00933"
+      ],
+      "note": "Qwen3.6 original table names MCP-Atlas, not MCP-Tasks; Opus4.5=71.8,Qwen3.5=74.2,Qwen3.6=74.1 exactly match catalog. Original footnote specifies public set/Gemini2.5Pro judge. Catalog Kimi59.1/GLM60.8 disagree with primary59.8/69.8; do not endorse full leaderboard or unsupported claim of a distinct benchmark. Underlying MCPAtlas paperv1 date; no independent MCP-Tasks launch established."
+    },
+    {
+      "id": "catalog_01ebb251e2f68e0e",
+      "role": "observation-setting",
+      "directions": [
+        "spatial-reasoning",
+        "vision-language-models"
+      ],
+      "description": "The spatial evaluation labeled Nuscene in Qwen3.5 model comparisons. The official table reports 15.4, 15.2 and 14.6 for the 122B-A10B, 27B and 35B-A3B models; the exact dataset protocol and release version are not specified.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/commit/7bcd2213797b772de17e8c4204951e803ab433a0",
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/raw/7bcd2213797b772de17e8c4204951e803ab433a0/README.md"
+      ],
+      "note": "Original official fixed README commit7bcd2213797b772de17e8c4204951e803ab433a0 dated2026-02-24 contains all3 catalog scores with correct model correspondence. Dates this provider result disclosure, not nuScenes dataset initial release or an unspecified derivative. Do not infer accuracy/protocol from catalog unit alone."
+    },
+    {
+      "id": "catalog_27a86d8712b30998",
+      "role": "observation-setting",
+      "directions": [
+        "software-engineering"
+      ],
+      "description": "The competitive-programming evaluation labeled CFEval in Qwen model comparisons. Qwen3-235B-A22B-Thinking-2507 reports 2134; the precise contest window and scoring protocol are not identified by this model card.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507/commit/4cd68849b2a0fadb84866c703b133aa8c8636130",
+        "https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507/raw/4cd68849b2a0fadb84866c703b133aa8c8636130/README.md"
+      ],
+      "note": "Original official fixed README commit4cd68849b2a0fadb84866c703b133aa8c8636130 dated2025-07-25 contains CFEval=2134 for Qwen3-235B-A22B-Thinking-2507, matching catalog. Later Qwen3-VL report table independently repeats2134. Dates documented provider results only; do not transfer CodeElo paper date without exact protocol mapping or present score as percentage."
+    },
+    {
+      "id": "catalog_c6adbc64ef2ca87b",
+      "role": "aggregate-index",
+      "directions": [
+        "knowledge-qa",
+        "mathematical-reasoning",
+        "software-engineering"
+      ],
+      "description": "A provider-reported estimate of the Artificial Analysis intelligence index. The GLM-4.5 report combines seven knowledge, reasoning and coding evaluations and reports 67.7 for GLM-4.5 and 64.8 for GLM-4.5-Air. This is an aggregate index, not a standalone dataset.",
+      "sources": [
+        "https://arxiv.org/abs/2508.06471v1",
+        "https://arxiv.org/html/2508.06471v1"
+      ],
+      "note": "GLM-4.5 original report v1, submitted 2025-08-08, Table4 explicitly labels AA-Index (Est.) and reports67.7/64.8 for GLM-4.5/Air, matching these two catalog rows. Seven-benchmark composite estimated by the model provider, not an independent dataset or an official AA current score. Other catalog model rows are not verified by this report. Date is this documented report disclosure, not index creation or first-ever disclosure."
+    },
+    {
+      "id": "catalog_81316bf8cb0c02b7",
+      "role": "aggregate-index",
+      "directions": [
+        "software-engineering"
+      ],
+      "description": "Artificial Analysis composite coding index, combining results from multiple coding evaluations. Its components change by methodology version; the November 2025 discussion includes Terminal-Bench Hard, SciCode and LiveCodeBench, while June 2026 describes a weighted combination of Terminal-Bench Hard and SciCode.",
+      "sources": [
+        "https://artificialanalysis.ai/articles/kimi-k2-thinking-everything-you-need-to-know",
+        "https://artificialanalysis.ai/articles/north-mini-code-cohere-s-small-coding-focused-moe-model"
+      ],
+      "note": "Official Artificial Analysis article dated2025-11-07 explicitly discusses this named index and Kimi K2 Thinking results/ranking. Dates a documented public disclosure of the index, NOT its first launch or the 2026 catalog snapshot/version. June9,2026 official North Mini Code article supplies later component definitions, demonstrating methodological change. Never compare scores across index versions without matching methodology; exclude this aggregate from benchmark new-release counts."
+    },
+    {
+      "id": "catalog_f5f45072d29f09b9",
+      "role": "aggregate-index",
+      "directions": [
+        "tool-use"
+      ],
+      "description": "Artificial Analysis composite index for agentic task performance. It aggregates multiple evaluations rather than defining a standalone dataset; composition changes over time. The June 2026 North Mini Code analysis combines GDPval-AA and tau2-Bench Telecom results.",
+      "sources": [
+        "https://artificialanalysis.ai/articles/kimi-k2-thinking-everything-you-need-to-know",
+        "https://artificialanalysis.ai/articles/north-mini-code-cohere-s-small-coding-focused-moe-model"
+      ],
+      "note": "Official Artificial Analysis article dated2025-11-07 explicitly discusses this named index and Kimi K2 Thinking results/ranking. Dates a documented public disclosure of the index, NOT its first launch or the 2026 catalog snapshot/version. June9,2026 official North Mini Code article supplies later component definitions, demonstrating methodological change. Never compare scores across index versions without matching methodology; exclude this aggregate from benchmark new-release counts."
+    },
+    {
+      "id": "catalog_dfcaa4c5de48a149",
+      "role": "aggregate-index",
+      "directions": [
+        "knowledge-qa",
+        "logical-reasoning",
+        "software-engineering"
+      ],
+      "description": "The CAIS Text Capabilities Index aggregates text-based capability evaluations. The December 2025 official announcement describes coding, systems administration, expert and abstract reasoning, and text adventure tasks. Its component set can change over time; it is separate from the dashboard's Risk Index.",
+      "sources": [
+        "https://newsletter.safe.ai/p/ai-safety-newsletter-66-aisn-66-evaluating",
+        "https://dashboard.safe.ai/"
+      ],
+      "note": "Official CAIS Newsletter66 dated2025-12-02 explicitly announces the already-launched dashboard and distinguishes Text, Vision and Risk indexes. This is a documented public disclosure date, not proven first-launch day or current component-version date. Catalog four-component description conflicts with historical five-evaluation announcement and current displayed subset; preserve version caveat. Do not infer a safety task from the publisher name."
+    },
+    {
+      "id": "catalog_373b3921ce6ac401",
+      "role": "aggregate-index",
+      "directions": [
+        "knowledge-qa",
+        "logical-reasoning",
+        "software-engineering"
+      ],
+      "description": "A catalog view of Artificial Analysis Intelligence Index results, an aggregate measure of model capabilities. Official July 2026 reporting matches several catalog scores, including GPT-5.6 Sol 59, Grok 4.5 54 and GPT-5.6 Luna 51. Price and speed are reported separately, not incorporated into these intelligence scores.",
+      "sources": [
+        "https://artificialanalysis.ai/articles/muse-spark-1-1-everything-you-need-to-know"
+      ],
+      "note": "Official Artificial Analysis Muse Spark1.1 article dated2026-07-10 names Intelligence Index and matches three catalog model/score pairs59/54/51. Resolves the generic catalog label as index results, not a combined quality/speed/price score. Date records this documented result disclosure, not original index launch, every other catalog row, or v4.3 release. No shared dataset-release date inferred.",
+      "displayName": "Artificial Analysis Intelligence Index (catalog view)"
+    },
+    {
+      "id": "catalog_480c56c9e94ca83c",
+      "role": "observation-setting",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "Provider-reported results on Chinese Gaokao mathematics problems. The catalog includes Skywork-o1-Open-8B greedy pass@1 results; other providers may use different exam years, subsets and scoring protocols.",
+      "sources": [
+        "https://huggingface.co/Skywork/Skywork-o1-Open-PRM-Qwen-2.5-7B/raw/252ea2e6efa8d15fe500b0fa0f1138ae09383f6e/README.md",
+        "https://huggingface.co/api/models/Skywork/Skywork-o1-Open-PRM-Qwen-2.5-7B/commits/main",
+        "https://modelbeats.com/benchmarks/gaokao-math"
+      ],
+      "note": "Fixed official Skywork PRM README252ea2e6efa8d15fe500b0fa0f1138ae09383f6e, dated2024-11-26 in official HF commit history, reports Skywork-o1-Open-8B GaoKao63.6 under greedy pass@1, matching its catalog row. Card specifies Qwen2.5-Math evaluation scripts/configuration. This is dated result disclosure only; it does not establish the first release of a single Gaokao dataset or verify later Doubao/iFlytek rows."
+    },
+    {
+      "id": "catalog_29448db45b9c1d98",
+      "role": "observation-setting",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "Provider-reported results on USA Mathematical Olympiad proof problems. The Grok 4 Heavy result is explicitly USAMO 2025; other catalog rows require their own exam-year and scoring-protocol checks.",
+      "sources": [
+        "https://x.ai/news/grok-4",
+        "https://modelbeats.com/benchmarks/usamo"
+      ],
+      "note": "Original official xAI Grok4 announcement visibly datedJuly9,2025 names USAMO2025 and reports Grok4Heavy61.9%, matching that catalog model/result. Date is provider result disclosure, not original competition or a unified corpus release. Later Claude/MiniMax/Hy3 catalog entries are not validated by this source."
+    },
+    {
+      "id": "catalog_b2b3a4a1879c2312",
+      "role": "observation-setting",
+      "directions": [
+        "software-engineering"
+      ],
+      "description": "Vals AI evaluation of agents solving IOI programming problems in C++20. Version 1 uses 2024–2025 problems and interactive grading, with up to 50 submissions and 100 conversation turns. Version 2 adds 2026 problems and withholds test feedback during attempts; results across these versions are not directly comparable.",
+      "sources": [
+        "https://raw.githubusercontent.com/vals-ai/ioi-agent/d0668dd8959658086c1f7d97d4b9e645a0411dff/README.md",
+        "https://api.github.com/repos/vals-ai/ioi-agent/commits/d0668dd8959658086c1f7d97d4b9e645a0411dff",
+        "https://api.github.com/repos/vals-ai/ioi-agent/commits?per_page=100",
+        "https://www.vals.ai/benchmarks/ioi",
+        "https://www.vals.ai/benchmarks/ioi-v1"
+      ],
+      "note": "Fixed official Vals IOI README at d0668dd8959658086c1f7d97d4b9e645a0411dff dated2025-09-02 explicitly documents12problems from2024/2025, grading tools, 50submissions/100turns and published leaderboard results. This date documents v1 disclosure, not repo creation, underlying competition dates or current v2 release. Current official page describes18problems across2024–2026 and no grading feedback; archiveioi-v1 confirms the older protocol."
+    },
+    {
+      "id": "catalog_220634b4ce946da2",
+      "role": "observation-setting",
+      "directions": [
+        "spatial-reasoning",
+        "logical-reasoning"
+      ],
+      "description": "Catalog view of the ARC benchmark series. The original ARC, now ARC-AGI-1, evaluates inference of rules from a few colored-grid examples. ARC-AGI-2 and the interactive ARC-AGI-3 are separate releases; catalog results without version and split labels are not directly comparable.",
+      "sources": [
+        "https://arxiv.org/abs/1911.01547v1",
+        "https://arcprize.org/arc-agi/1",
+        "https://llm-stats.com/benchmarks/arc-agi"
+      ],
+      "note": "Original ARC paperv1 submitted2019-11-05; official ARC Prize ARC-AGI-1 page explicitly connects original2019ARC to current version1. Catalog links that paper but merged description and scores span the wider series. Date is original underlying ARC corpus only, not a release date for ARC-AGI2/3 or this combined catalog. No blanket verification of provider scores."
+    },
+    {
+      "id": "catalog_c7f623bf946e4657",
+      "role": "observation-setting",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "Provider-reported results on American Mathematics Competitions questions. The Skywork-o1-Open-8B catalog score of 55.0 is explicitly AMC-23, greedy pass@1, in its official evaluation table. Exam year, subset and protocol for other catalog rows require separate verification.",
+      "sources": [
+        "https://huggingface.co/Skywork/Skywork-o1-Open-PRM-Qwen-2.5-7B/raw/252ea2e6efa8d15fe500b0fa0f1138ae09383f6e/README.md",
+        "https://huggingface.co/api/models/Skywork/Skywork-o1-Open-PRM-Qwen-2.5-7B/commits/main",
+        "https://modelbeats.com/benchmarks/amc"
+      ],
+      "note": "Fixed official Skywork README252ea2e6efa8d15fe500b0fa0f1138ae09383f6e dated2024-11-26 explicitly names AMC-23 and reports Skywork-o1-Open-8B55.0 greedy pass@1, matching catalog. This is dated result disclosure for a2023exam evaluation, not the competition date or a unified AMC dataset release. Other provider rows not assumed same edition."
+    },
+    {
+      "id": "lib_aime",
+      "role": "family",
+      "directions": [
+        "mathematical-reasoning"
+      ],
+      "description": "American Invitational Mathematics Examination problems used to evaluate mathematical reasoning. This family includes distinct yearly and provider-specific evaluations: Vals uses the 2024 and 2025 exams together (60 questions), while other catalog results may use a single year. Compare scores only when years and sampling protocols match.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/aime",
+        "https://maa.org/math-competitions/american-invitational-mathematics-examination-aime/"
+      ],
+      "note": "Round112 Vals original methodology explicitly60questions2024+2025, eight runs and averagepass@1. Existing family description incorrectly narrowed all merged sources to2024/30questions. Preserve historical competition year separately; do not manufacture a unified benchmark launch date."
+    },
+    {
+      "id": "catalog_fc5c4852904c52c4",
+      "role": "observation-setting",
+      "directions": [
+        "instruction-following"
+      ],
+      "description": "The QLoRA paper’s Open Assistant (OA) evaluation: 953 user queries drawn from the OASST1 validation conversations, including preceding conversation turns. GPT-4 judges pairwise model responses and results are aggregated as Elo ratings; this is not a live community-voting leaderboard.",
+      "sources": [
+        "https://arxiv.org/abs/2305.14314v1",
+        "https://arxiv.org/pdf/2305.14314v1",
+        "https://modelbeats.com/benchmarks/openassistant-bench"
+      ],
+      "note": "Original QLoRA arXiv2305.14314v1 section5.2 defines953queries from all user messages in OASST1validation with preceding turns; Table7 matches every catalog row exactly: GPT4=1294, ChatGPT3.5Turbo=1015, Guanaco65B=1008, Guanaco33B=1002, Vicuna13B=936. First paper submission2023-05-23 documents this exact evaluation protocol and results, not merely a same-name underlying dataset."
+    },
+    {
+      "id": "catalog_ce7110f730651068",
+      "role": "version",
+      "directions": [
+        "knowledge-qa",
+        "tool-use"
+      ],
+      "description": "Evaluation of SNAP benefits guidance using 459 scenarios and expert-validated response rubrics. The original June 2026 study compares four settings with or without search and multi-turn conversation. Later leaderboard additions use the combined search-and-conversation setting; the v1.1 release date is not independently established.",
+      "sources": [
+        "https://www.vals.ai/benchmarks/public-benefits-bench",
+        "https://www.vals.ai/benchmarks/public-benefits-bench-v1"
+      ],
+      "note": "Current officialv1.1page explicitly traces historical narrative to study firstpublishedJune9,2026 and defines459scenarios. Officialv1archive independently identifies original study. June9 accepted only as underlying study/dataset disclosure, not exactv1.1revision publication. Keep historicalfour-condition findings distinct from later live both-condition models."
+    },
+    {
+      "id": "catalog_09a0b59ec4742a3e",
+      "role": "observation-setting",
+      "directions": [
+        "coding-agents"
+      ],
+      "description": "Blinded human comparisons of web applications generated by coding agents, summarized as Elo ratings. The dated source documents Inkling’s 1257 result; it does not establish the original launch date of the evaluation.",
+      "sources": [
+        "https://thinkingmachines.ai/news/introducing-inkling/",
+        "https://www.designarena.ai/about",
+        "https://benchlm.ai/benchmarks/designarenaagenticwebdev"
+      ],
+      "note": "Official Thinking Machines Inkling announcement dated July15,2026 explicitly identifies Design Arena Agentic Web Dev and reports Inkling1257, exactly matching the sole model-score pair in the catalog. This is a verified results disclosure date, not the initial launch of Design Arena or its agentic harness."
+    },
+    {
+      "id": "catalog_eb0488d4dd095e3a",
+      "role": "version",
+      "directions": [
+        "ai-for-science"
+      ],
+      "description": "A 52-task snapshot of Terminal-Bench Science, flattened from upstream revision 8d2935da4468687477d714e1dd97d5c07688c9b4. Tasks require scientific work in terminal environments with task-specific evaluation. The date identifies the upstream task-set version, not the Harbor package’s publication or the later 70-task release.",
+      "sources": [
+        "https://api.github.com/repos/harbor-framework/terminal-bench-science/pulls/844",
+        "https://github.com/harbor-framework/terminal-bench-science/tree/8d2935da4468687477d714e1dd97d5c07688c9b4",
+        "https://api.github.com/repos/meridianlabs-ai/inspect_harbor/commits/5660f94d1827e41772dc8f9a5a69b3a0b5a65e77"
+      ],
+      "note": "Round118 verified upstream52-task source version. OfficialPR844 merged2026-08-21T19:50:38Z at8a7ec496226049e0104de88fc822e85b29a4fbc7 adds navigation-sensor-calibration with instructions, environment/data, solution and tests. Compared untruncated Git trees: parent0b2dc695 has51 tasks/*/task.toml; catalog-pinned8d2935da has52, existing51manifests unchanged, exactly one new navigation task. Auto-count commit follows at19:54:34Z. Inspect adapter explicitly names exactpinnedrevision and52tasks. Accept source task-set version date ONLY as underlying-dataset; GoogleDeepMind Harbor package-publication remains unknown. Do not substitute formal70-task0.1launchAug27 or claim originalSciencebenchmark launch."
     }
   ],
   "pending": [
     {
       "id": "catalog_8e6e2dc857d11a64",
       "note": "Original KernelBench and Hard protocol identity needs verification; existing source refers to Hard."
+    },
+    {
+      "id": "catalog_db3cb8d38ce35983",
+      "description": "Catalog label with unresolved variant identity. A link to the original HumanEval paper does not establish what “ER” means or verify the reported Kimi K2 score.",
+      "note": "Catalog0.811 remains unverified. Official KimiK2 reports81.1 underMMLU-Pro; equal scalar alone cannot establish alias. Do not assume original164problem HumanEval defines this variant.",
+      "sources": [
+        "https://llm-stats.com/benchmarks/humaneval-er",
+        "https://github.com/MoonshotAI/Kimi-K2"
+      ]
+    },
+    {
+      "id": "catalog_d6fab11018e87c68",
+      "description": "Catalog label with unresolved task identity. Its reported Kimi K2 result has not been traced to a primary evaluation source; the claimed Bayesian-network task definition is unverified.",
+      "note": "Original catalog repeatsKimiK2=0.956 and Bayesian-network curriculum claim. Official KimiK2table does not identify CBNSL; paper/topic identity and score mapping remain unresolved. No replacement alias or date inferred.",
+      "sources": [
+        "https://llm-stats.com/benchmarks/cbnsl",
+        "https://github.com/MoonshotAI/Kimi-K2"
+      ]
+    },
+    {
+      "id": "catalog_e5cd7e8a76c3d1cd",
+      "note": "Round110 original BenchLM Korean CSAT catalog checked: zero model results, no exam year, task manifest, paper or original dataset link. Its September2026 updated timestamp is not benchmark release evidence. Do not substitute KoBEST/HAE-RAE/another similarly named Korean exam collection without identity evidence."
+    },
+    {
+      "id": "catalog_1c6e85fb9be54e45",
+      "note": "Round113 original LLMStats community UUID page now returns404. Exact-name searches find no independently matched source. Generic MONSTERDOG HF collection or other benchmark script is insufficient identity evidence. Embedded20260427timestamp in title and catalogupdatedAt are not validated release dates. Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://llm-stats.com/benchmarks/datasets/monsterdog-ab-benchmark-v0-4-20260427t001200z-1?org=2ecf52eb-cd43-429c-a8f0-1617deb828c2",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
+    },
+    {
+      "id": "catalog_57e68ee3e8de805c",
+      "description": "NMOS measures subjective speech naturalness in Qwen2.5-Omni evaluations. The official paper reports Chinese and English scores by speaker on a self-created test set. The catalog’s 0.045 value does not match the published score scale, so the exact catalog-to-test mapping remains unverified.",
+      "note": "Round116 visually verified official March27,2025 blog chart: NMOS4.51 footnote explicitly specifies Speaker B. Original arXiv2503.20215v1 March26 Table10 identifies SpeakerB Chinese4.51 and English4.62 on a self-created subjective speech-naturalness dataset. This resolves the official chart setting, but catalog0.045 with max100 still has no documented normalization or direct source linkage. Do not infer percentage conversion or assign release date to the unresolved catalog row.",
+      "sources": [
+        "https://llm-stats.com/benchmarks/nmos",
+        "https://arxiv.org/abs/2503.20215v1",
+        "https://qwenlm.github.io/blog/qwen2.5-omni/",
+        "https://arxiv.org/html/2503.20215v1",
+        "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen2.5-Omni/bar.png"
+      ]
+    },
+    {
+      "id": "catalog_21964c78509e994b",
+      "note": "Round118 candidate mikhailsal/ai-independence-bench documents persona stability and resistance to user influence; author changelog V2March13–21,2026. Original catalogUUID and slug now404; no author/score/task mapping recovered, so candidate identity remains unconfirmed. Do not assign candidate dates solely by name. Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://github.com/mikhailsal/ai-independence-bench",
+        "https://raw.githubusercontent.com/mikhailsal/ai-independence-bench/main/CHANGELOG.md",
+        "https://llm-stats.com/benchmarks/community:07c9946d-dcf0-4977-a640-a6b1356b4f0b",
+        "https://llm-stats.com/benchmarks/datasets/independence-bench?org=2f1317c3-172f-4c0f-94ac-072bb3a3bc36",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
+    },
+    {
+      "id": "catalog_07e09c5b14786ba9",
+      "note": " Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://llm-stats.com/benchmarks/datasets/ael-gate-benchmark-cases-template?org=7fd641bb-2b86-47a5-beca-5532b719f994",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
+    },
+    {
+      "id": "catalog_7c82602500857aa6",
+      "note": " Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://llm-stats.com/benchmarks/datasets/atlas?org=7fd641bb-2b86-47a5-beca-5532b719f994",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
+    },
+    {
+      "id": "catalog_38e4916adcf974c5",
+      "note": " Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://llm-stats.com/benchmarks/datasets/optimbench?org=d9407535-c338-4ca4-9700-ea98fbc06a13",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
+    },
+    {
+      "id": "catalog_cf80cd8aed482d5d",
+      "note": " Round119 recovered correct community route from current public frontend and API organization ID. Page returns200 app shell; dataset/version hooks require session token. No publication timestamp exposed in public catalog (updated_at only).",
+      "sources": [
+        "https://llm-stats.com/benchmarks/datasets/testing?org=d8c60b46-1db1-4f0f-a7a9-a20ee0b65d24",
+        "https://api.zeroeval.com/leaderboard/benchmarks"
+      ]
     }
   ]
 }

@@ -14,6 +14,9 @@ def apply_source_reviews(records, payload):
             raise ValueError('Source review requires evidence and task directions')
         row['taskReview']=copy.deepcopy(review)
         row['taskReview']['reviewedAt']=payload['reviewedAt']
+        if review.get('displayName') and review['displayName'] != row['name']:
+            row['aliases'] = list(dict.fromkeys([*row.get('aliases', []), row['name']]))
+            row['name'] = review['displayName']
         if review.get('description'):
             row['previousDescription']=row.get('description')
             row['description']=row['oneLine']=review['description']
@@ -25,5 +28,14 @@ def apply_source_reviews(records, payload):
             if review['parentId'] not in by_id: raise ValueError('Missing parent benchmark')
             row['benchmarkParentId']=review['parentId']
     for pending in payload.get('pending', []):
-        by_id[pending['id']]['identityReviewNote'] = pending['note']
+        row = by_id[pending['id']]
+        row['identityReviewNote'] = pending['note']
+        if pending.get('description'):
+            row['previousDescription'] = row.get('description')
+            row['description'] = row['oneLine'] = pending['description']
+            row['descriptionProvenance'] = {
+                'basis': 'identity-unresolved',
+                'sources': pending.get('sources', []),
+                'reviewedAt': payload['reviewedAt'],
+            }
     records.sort(key=lambda r:(r['name'].casefold(),r['id']))

@@ -103,7 +103,7 @@ const fs=require('fs'), vm=require('vm'), assert=require('assert');
 const nodes=new Map();
 const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',value:'',hidden:false,replaceChildren(){},append(){},setAttribute(){},removeAttribute(){}});return nodes.get(id)};
 const context={console,window:{},URLSearchParams,history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:()=>({setAttribute(){}})}};
-vm.createContext(context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
+vm.createContext(context);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 context.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
 assert(node('library-domain-list').innerHTML.includes('Self-Improving Agents'));

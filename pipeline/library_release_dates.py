@@ -13,10 +13,14 @@ def apply_release_dates(records: list[dict], evidence: dict) -> None:
             raise ValueError(f"Duplicate or missing release evidence target: {identity}")
         seen.add(identity)
         precision = item["precision"]
-        if precision not in {"day", "year"}:
+        if precision not in {"day", "month", "year"}:
             raise ValueError(f"Invalid release precision: {precision}")
         value = item["date"]
-        parsed = date.fromisoformat(value if precision == "day" else value + "-01-01")
+        import re
+        pattern = {"day": r"\d{4}-\d{2}-\d{2}", "month": r"\d{4}-\d{2}", "year": r"\d{4}"}[precision]
+        if not re.fullmatch(pattern, value):
+            raise ValueError(f"Invalid release date shape: {identity}")
+        parsed = date.fromisoformat(value + {"day": "", "month": "-01", "year": "-01-01"}[precision])
         if parsed > date.today():
             raise ValueError(f"Future release date: {identity}")
         if item["basis"] not in {"paper-v1", "official-announcement"}:
@@ -29,6 +33,7 @@ def apply_release_dates(records: list[dict], evidence: dict) -> None:
         record["releaseDatePrecision"] = precision
         record["firstRelease"] = {
             "year": parsed.year,
+            "month": parsed.month if precision in {"day", "month"} else None,
             "date": value if precision == "day" else None,
             "sourceUrl": item["sourceUrl"],
         }
