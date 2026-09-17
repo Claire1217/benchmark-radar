@@ -1483,18 +1483,18 @@
         "horizon": "7d",
         "reason": "A novel legal NLP benchmark targeting a specialized but growing area is likely to attract moderate attention from researchers in law and AI."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Predicting non-pecuniary damage awards at the European Court of Human Rights from case information when no statutory formula or explicit calculation rule determines the amount.",
           "scoring": "Contains 14,575 cases with case-level awards in nominal euros, chronological splits, and a protocol separating target construction from model input.",
           "reuse": "Official paper at arxiv.org/abs/2609.18908 provides the benchmark definition and results, and the abstract states it is released."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-17T06:26:43.009784Z",
+        "reviewedAt": "2026-09-17T09:37:12.088376Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper title and abstract explicitly name ECtHR-NPD as a benchmark, describe the task, dataset, splits, and scoring protocol, and the arxiv link provides a public path.",
+        "decisionReason": "Only an arXiv abstract with no code, data, or evaluation details; unable to verify task inputs or scoring contract.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "How Much is a Human Right Worth? ECtHR-NPD: A Benchmark for Predicting Non-Pecuniary Damage Awards"
       }
@@ -1928,18 +1928,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "The final V4 primary benchmark compares SWE-2 Medium and SWE-2 Max across three balanced difficulty tiers with identical prompts within each pair, fresh sanitized workspaces, hidden evaluator tests, and zero substantive intervention.",
           "scoring": "TASK_SUCCESS required public tests, held-out target tests, and a clean regression suite.",
           "reuse": "The committed source data are [the E002 summary](results/experiment-002-summary.json), [the forensic JSON](results/experiment-002-forensics.json), and the frozen [E002 configuration](manifests/experiment-002-config.json)."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-17T06:26:43.009784Z",
+        "reviewedAt": "2026-09-17T09:37:12.088376Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides a stable evaluation and scoring protocol with publicly accessible configuration, datasets, and scripts for reproducing the benchmark.",
+        "decisionReason": "Despite reproducible artifacts, the benchmark primarily supports a single paper's findings and lacks a public platform for other teams to submit models.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Devin + SWE-2 Reasoning Effort Benchmark"
       }
@@ -12089,7 +12089,7 @@
       "name": "ZipBench",
       "paperTitle": "Zipbench: Low-Cost Framework for Compressing Comprehensive Benchmarks of Large Language Models",
       "aliases": [],
-      "oneLine": "Provides 100+ compact versions of text, multimodal, and agent benchmarks that reduce evaluation cost by 60–80% while preserving full-benchmark scores and model rankings through weighted item selection.",
+      "oneLine": "A collection of compressed benchmark versions for text, multimodal, and agent tasks, with tools to evaluate models or create new compact benchmarks.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -12180,14 +12180,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Provides 100+ compact versions of text, multimodal, and agent benchmarks that reduce evaluation cost by 60–80% while preserving full-benchmark scores and model rankings through weighted item selection.",
-      "whyItMatters": "Enables low-cost, high-fidelity model evaluation across many tasks, making routine model comparison and fast screening practical without full benchmark compute.",
-      "evaluationMode": "score_submission",
+      "description": "A collection of compressed benchmark versions for text, multimodal, and agent tasks, with tools to evaluate models or create new compact benchmarks.",
+      "whyItMatters": "Reduces evaluation costs dramatically while maintaining ranking fidelity, making broad model assessment feasible for researchers with limited compute.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 75,
+        "score": 90,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Broad applicability across text, multimodal, and agent benchmarks, combined with an EMNLP acceptance announcement, is likely to attract immediate evaluation community interest."
+        "reason": "EMNLP acceptance, broad coverage of popular benchmarks, and clear cost-saving value position it for rapid adoption and discussion in NLP evaluation communities."
       },
       "publishers": [
         {
@@ -12197,20 +12197,20 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": false,
+      "displayEligible": true,
       "curation": {
-        "state": "ai-name-audit-deferred",
+        "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "100+ ready-to-use compact versions of text, multimodal, and agent benchmarks.",
-          "scoring": "Scores from `small` and `tiny` are **weighted estimates** of the corresponding full-benchmark scores.",
-          "reuse": "This repository provides ready-to-use evaluation for all three settings, together with the full benchmark-construction pipeline."
+          "task": "Compact versions of 100+ text, multimodal, and agent benchmarks, reducing evaluation cost by 60-80% while preserving full-benchmark scores and rankings",
+          "scoring": "Weighted estimates of full-benchmark scores for small and tiny versions, with fidelity measured by MAE (0.008 for small, 0.015 for tiny) and Spearman correlation (0.99 and 0.98 respectively)",
+          "reuse": "Evaluate a text LLM: cd opencompass && python run.py zipbench/configs/eval_arc_challenge_small.py; multimodal: --subset small; agents: zipbench-agent list and score"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-15T09:35:32.523429Z",
+        "reviewedAt": "2026-09-17T09:37:12.088376Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The evidence describes a framework and a zoo of compact versions of existing benchmarks, but does not introduce a new standalone benchmark with its own tasks and scoring contract. It relies on existing benchmarks and their evaluation tools, so it is likely a methodology rather than a novel benchmark. Public reuse path for external submissions is not clearly established.",
+        "decisionReason": "The repository provides ready-to-run evaluation scripts for multiple benchmark families and a well-defined methodology, enabling external use and extension.",
         "canonicalNameSource": "paper_title",
-        "canonicalNameEvidence": "Zipbench: Low-Cost Framework for Compressing Comprehensive Benchmarks of Large Language Models"
+        "canonicalNameEvidence": "ZipBench: Low-Cost Framework for Compressing Comprehensive Benchmarks of Large Language Models"
       },
       "attention": {
         "asOf": "2026-09-14",
@@ -12246,13 +12246,13 @@
       "ranking": {
         "30d": {
           "score": 36,
-          "rank": 63,
+          "rank": 72,
           "coverage": 0.55,
           "confidence": "Low",
           "method": "attention-ranking-v13",
           "level": {
             "score": 36,
-            "rank": 63,
+            "rank": 72,
             "coverage": 0.55,
             "confidence": "Low",
             "components": {
@@ -12305,13 +12305,13 @@
         },
         "90d": {
           "score": 34,
-          "rank": 191,
+          "rank": 196,
           "coverage": 0.55,
           "confidence": "Low",
           "method": "attention-ranking-v13",
           "level": {
             "score": 34,
-            "rank": 191,
+            "rank": 196,
             "coverage": 0.55,
             "confidence": "Low",
             "components": {
@@ -12322,7 +12322,7 @@
               },
               "githubStars": {
                 "value": 4,
-                "normalized": 0.2168709623550427,
+                "normalized": 0.21659283491533646,
                 "normalization": "log-max"
               },
               "hfDatasetDownloads": {
@@ -12362,6 +12362,11 @@
             "elapsedDays": null
           }
         }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-15T09:37:10.086794Z",
+        "inputHash": "a7656b3be8e91055a87e13b519e48043ef537ff3feb30cc785da75b55e17a35a"
       }
     },
     {
