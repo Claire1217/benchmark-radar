@@ -41,13 +41,26 @@ def load_and_apply(records, data_dir):
     source = Path(data_dir) / 'github_repository_index.json'
     if source.exists():
         registry = json.loads(source.read_text())
-        availability = Path(data_dir) / 'github_star_history.json'
-        if availability.exists():
-            unavailable = {r['url'].lower() for r in json.loads(availability.read_text()).get('records', []) if r.get('status') == 'http-404'}
-            for entry in registry.get('records', []):
+        reviews = Path(data_dir) / 'repository_link_reviews.json'
+        if reviews.exists():
+            by_id = {r['id']: r for r in registry['records']}
+            for review in json.loads(reviews.read_text()).get('reviews', []):
+                entry = by_id.get(review['id'])
+                if not entry: continue
                 for candidate in entry.get('candidates', []):
-                    if candidate.get('url', '').lower() in unavailable:
+                    candidate['verified'] = candidate['url'].lower().rstrip('/') == review['url'].lower().rstrip('/')
+                    if candidate['verified']: candidate['scope'] = review['scope']
+                entry['status'] = 'linked' if any(c['verified'] for c in entry.get('candidates', [])) else 'candidates'
+        availability = Path(data_dir) / 'github_repository_availability.json'
+        if availability.exists():
+            from urllib.parse import urlparse
+            observed = json.loads(availability.read_text())
+            for entry in registry['records']:
+                for candidate in entry.get('candidates', []):
+                    key = '/'.join(urlparse(candidate['url']).path.strip('/').lower().split('/')[:2])
+                    if observed.get(key, {}).get('status') == 'http-404':
                         candidate['verified'] = False
-                        candidate['availability'] = 'github-history-404'
+                        candidate['availability'] = 'repository-metadata-404'
+                entry['status'] = 'linked' if any(c.get('verified') for c in entry.get('candidates', [])) else 'candidates' if entry.get('candidates') else 'not-found'
         apply_repository_index(records, registry)
     return records

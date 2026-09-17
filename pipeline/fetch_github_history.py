@@ -1,5 +1,6 @@
 """Refresh source-linked benchmark repository star histories; resume same-day downloads."""
 import json,pathlib,urllib.request,urllib.error,concurrent.futures,os,subprocess,threading,datetime
+from generate_trends_comparison import repo_key
 P=pathlib.Path(__file__).resolve().parents[1];D=P/'data';out=D/'repository_audit/history';out.mkdir(parents=True,exist_ok=True)
 lib={r['id']:r for r in json.load(open(D/'library_index.json'))['records']};snap=json.load(open(sorted((D/'metrics').glob('*.json'))[-1]));repos={}
 metric_map={r['benchmarkId']:r for r in snap['records']}
@@ -16,9 +17,9 @@ for record in lib.values():
  import re
  match=re.match(r'https://github.com/([^/]+)/([^/#?]+)',url,re.I)
  if not match:continue
- url=('https://github.com/'+match.group(1)+'/'+match.group(2).removesuffix('.git')).lower()
+ url='https://github.com/'+repo_key(url)
  tags=record.get('researchDirections') or []
- if tags:repos.setdefault(url,set()).update(tags)
+ repos.setdefault(url,set()).update(tags)
 token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
 if not token:
  try:
@@ -59,9 +60,13 @@ def fetch(pair):
   if e.code in [403,429] and (e.headers.get('X-RateLimit-Remaining')=='0' or e.code==429):stop.set()
  except Exception as e:result['status']=type(e).__name__
  file.write_text(json.dumps(result));return result
+previous={r['url']:r for r in json.load(open(D/'github_star_history.json'))['records']} if (D/'github_star_history.json').exists() else {}
 results=[]
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
  for item in pool.map(fetch,sorted(repos.items())):
+  old=previous.get(item['url'])
+  if item['status']!='complete' and old and old.get('status')=='complete':
+   item={**old,'directions':item['directions'],'lastAttemptAt':item['retrievedAt'],'lastAttemptStatus':item['status']}
   results.append(item)
   if len(results)%25==0:print('Retrieved',len(results),'/',len(repos),flush=True)
 receipt={'repositories':len(repos),'complete':sum(r['status']=='complete' for r in results),'statuses':{s:sum(r['status']==s for r in results) for s in set(r['status'] for r in results)}}

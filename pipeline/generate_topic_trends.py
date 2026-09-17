@@ -32,13 +32,14 @@ def build(library,recent,history):
  names={};repoentries={}
  for r in records:
   k=repo_key((r.get('links') or {}).get('code'));names.setdefault(k,set()).add(r['name']);repoentries.setdefault(k,[]).append(r)
- repos=[]
+ repos=[];seen_repos=set()
  for h in history['records']:
   k=repo_key(h['url'])
-  if h['status']!='complete' or not mapping.get(k):continue
+  if h['status']!='complete' or not mapping.get(k) or k in seen_repos:continue
   weeks=sorted(h['weeks'],key=lambda w:w['week']);dates=[w['week'] for w in weeks]
   if not weeks or len(set(dates))!=len(dates) or any(b-a!=604800 for a,b in zip(dates,dates[1:])):continue
   if datetime.fromtimestamp(dates[-1],timezone.utc).date()+timedelta(days=7)<end:continue
+  seen_repos.add(k)
   days=[(datetime.fromtimestamp(w['week'],timezone.utc).date()+timedelta(days=i),n) for w in weeks for i,n in enumerate(w['days'])]
   repos.append({'url':h['url'],'name':k,'names':sorted(names.get(k,[])),'directions':sorted(mapping[k]),'days':days,'firstDay':days[0][0]})
  topics=[]

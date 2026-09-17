@@ -193,6 +193,14 @@ jobs:
       - name: Generate public views once
         run: make generate
 
+      - name: Refresh canonical Library GitHub counters and histories
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python pipeline/refresh_library_github_stars.py
+          python pipeline/fetch_github_history.py
+          python pipeline/generate_library_index.py
+
       - name: Validate site
         run: make build
 

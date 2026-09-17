@@ -3,10 +3,15 @@ from pathlib import Path
 import json
 from datetime import datetime,timezone,timedelta,date
 ROOT=Path(__file__).resolve().parents[1]
+ALIASES=json.loads((ROOT/'data/github_repository_aliases.json').read_text()) if (ROOT/'data/github_repository_aliases.json').exists() else {}
 def repo_key(url):
  from urllib.parse import urlparse
  path=urlparse(url or "").path.strip("/").removesuffix(".git").lower()
- return "/".join(path.split("/")[:2]) if urlparse(url or "").hostname in {"github.com", "www.github.com"} else ""
+ key="/".join(path.split("/")[:2]) if urlparse(url or "").hostname in {"github.com", "www.github.com"} else ""
+ seen=set()
+ while key in ALIASES and key not in seen:
+  seen.add(key);key=ALIASES[key]
+ return key
 
 def current_repo_directions(records):
  result={}
@@ -29,6 +34,7 @@ def main():
  releases=[{'date':v['date'],'directions':sorted(v['directions'])} for v in families.values()]
  mapping=current_repo_directions(library['records'])
  repos=[{'url':r['url'],'directions':sorted(mapping[repo_key(r['url'])]),'weeks':[{'date':datetime.fromtimestamp(w['week'],timezone.utc).date().isoformat(),'count':w['total']} for w in r['weeks']]} for r in history['records'] if r['status']=='complete' and mapping.get(repo_key(r['url']))]
+ repos=list({repo_key(r['url']):r for r in repos}.values())
  # End is exclusive and falls on Sunday, dropping the unfinished current week.
  asof=date.fromisoformat(recent['manifest'].get('latestSourceDate') or max(r['date'] for r in releases));end=asof-timedelta(days=(asof.weekday()+1)%7)
  data={'directions':library['manifest'].get('topicTaxonomy',library['manifest']['researchTaxonomy'])['directions'],'releases':releases,'repos':repos,'releaseStart':min(r['date'] for r in releases),'historyStart':min(w['date'] for r in repos for w in r['weeks']),'end':end.isoformat(),'requestedRepos':history['receipt']['repositories']}
