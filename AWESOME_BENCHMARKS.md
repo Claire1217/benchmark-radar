@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-16 · **Benchmark releases:** 1809
+**Snapshot:** 2026-09-16 · **Benchmark releases:** 1829
 
 ## Contents
 
@@ -23,15 +23,15 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (5)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
-- [Efficient Inference](#efficient-inference) (8)
-- [Embodied AI & VLA](#embodied-ai--vla) (80)
+- [Efficient Inference](#efficient-inference) (9)
+- [Embodied AI & VLA](#embodied-ai--vla) (81)
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1054)
+- [Other benchmark tasks](#other-benchmark-tasks) (1059)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
-- [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (53)
+- [Self-Improving Agents](#self-improving-agents) (15)
+- [Speech & Audio](#speech--audio) (52)
 - [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (56)
 - [World Models](#world-models) (18)
@@ -269,6 +269,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Efficient Inference
 
+- **AutoTuneBench** (2026-09-16) — Measurement protocol for agent auto-tuning of LLM serving engines using sandbox builds, timing checks, and anti-cheating gates. [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
 - **LLM Quantization Benchmark on Apple Silicon** (2026-09-13) — Benchmark measuring inference speed, memory usage, and accuracy of MLX and llama.cpp with 4-bit and 8-bit quantization across three 3B-class LLMs on Apple M4 hardware. [Paper](https://github.com/sameer-sde/llm-quantization-benchmark) · [Code](https://github.com/sameer-sde/llm-quantization-benchmark)
 - **PTXBench** (2026-08-18) — PTXBench evaluates LLMs in generating architecture-specific PTX for GPU kernel optimization. It measures functional correctness, execution of target instructions, and speedup over frontier libraries across GEMM and atte… [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **AgentSysBench** (2026-08-15) — AgentSysBench is a benchmark suite and measurement toolkit for characterizing agentic workloads on LLM serving systems. It includes ten representative agentic applications and unified instrumentation, identifying six pr… [Paper](https://arxiv.org/abs/2608.15127) · [HF](https://huggingface.co/papers/2608.15127)
@@ -280,6 +281,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
+- **RoboVAD** (2026-09-15) — A benchmark dataset for cross-domain video anomaly detection in robotic arm manipulation, featuring 6.9 GB of videos with action and anomaly type splits. [Paper](https://arxiv.org/abs/2609.17843) · [Data](https://zenodo.org/records/22754659)
 - **BRAVE-6D** (2026-09-15) — A benchmark offering 3DGS scenes and tools for evaluating robotic active vision systems in 6DOF object pose estimation tasks. [Paper](https://arxiv.org/abs/2609.17106)
 - **AssemblyGrid v1** (2026-09-13) — AssemblyGrid v1 is a benchmark for repeated multi-robot production that combines explicit process progression, decentralized observations, material transfer, temporary multi-robot coalitions, productive concurrency, and… [Paper](https://arxiv.org/abs/2609.16075) · [Code](https://github.com/Fouad-Bahrpeyma/AssemblyGrid_v1)
 - **Sim2Real-AlgoBench** (2026-09-11) — Sim2Real-AlgoBench evaluates interchangeable navigation algorithms on a three-wheeled omnidirectional robot performing a map-search task: find a green wall marker, approach it, drive onto the pad, and hold still for 3 s… [Paper](https://github.com/p20030920p/Sim2Real-AlgoBench) · [Code](https://github.com/p20030920p/Sim2Real-AlgoBench)
@@ -469,22 +471,27 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
+- **VeriBugBench-v1.0** (2026-09-16) — VeriBugBench-v1.0 provides 2,608 executable Verilog RTL faulty designs with source-level ground truth and testbenches for debugging evaluation. [Paper](https://arxiv.org/abs/2609.18022)
+- **Semantic-ITC** (2026-09-16) — Semantic segmentation of indoor mobile laser scanning frames with 16 semantic classes on 1.23 billion labeled points. [Paper](https://arxiv.org/abs/2609.18493)
+- **Quantum-Enhanced Genetic Variant Pathogenicity Prediction** (2026-09-16) — Evaluates classification of genetic variant pathogenicity using a hold-out test set with unified biological features, comparing classical ML, deep tabular, and quantum machine learning models under standard metrics. [Paper](https://github.com/RathanPai/variant-pathogenicity-benchmark) · [Code](https://github.com/RathanPai/variant-pathogenicity-benchmark)
+- **PACT** (2026-09-16) — A benchmark of enterprise AI assistant compliance with standing rules under pressure, covering 3,364 multi-turn decision samples across 12 regulated domains and 48 scenarios, scored via PACTScore and six compliance axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
+- **HearInContext** (2026-09-16) — Evaluates contextual ASR models on understanding implicit semantic context in Mandarin and English homophone-based test cases. [Paper](https://arxiv.org/abs/2609.18680)
+- **GYROval** (2026-09-16) — Assesses LLM cultural value orientations through binary contrastive scenarios across Inglehart-Welzel axes in English and Russian. [Paper](https://arxiv.org/abs/2609.18384)
+- **ExecTS-QA** (2026-09-16) — ExecTS-QA evaluates time-series language models across forecasting, imputation, classification, anomaly detection, and waveform analysis using contract-grounded scoring. [Paper](https://arxiv.org/abs/2609.18812)
+- **DynoFluxBench** (2026-09-16) — A framework for benchmarking kinodynamic motion planners in known, dynamic environments with unbounded arrival time, evaluated via three dedicated planners. [Paper](https://arxiv.org/abs/2609.18549)
+- **BENCHCOMPASS** (2026-09-16) — Evaluates payment-domain LLMs on scenario-grounded tasks including closed-book and open-book questions and attack-hardened open QA. [Paper](https://arxiv.org/abs/2609.18270) · [Code](https://github.com/ant-intl/BenchCompass)
 - **coding-agent-bench** (2026-09-15) — Nine Python implementation tasks covering data structures, concurrency, parsing and regex work, scored by executing hidden test programs against extracted model answers, with a separate text-only code-quality heuristic… [Paper](https://github.com/sipratt-p/coding-agent-bench) · [Code](https://github.com/sipratt-p/coding-agent-bench)
-- **Vaihingen-Potsdam Referring (VPRef)** (2026-09-15) — VPRef is a cross-domain referring remote sensing image segmentation dataset of 46,972 language-image-annotation triplets organized in a three-tier linguistic hierarchy, pairing Vaihingen and Potsdam imagery with referri… [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
-- **TinyEdgeBench** (2026-09-15) — TinyEdgeBench compares four lightweight classification methods (rule-based, logistic regression, decision tree, tiny MLP) on one shared synthetic 8-sample sensor-window task with four classes, scoring accuracy, macro F1… [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
-- **TORQUE** (2026-09-15) — TORQUE is a curated Hindi table benchmark covering table reconstruction and table visual question answering; models are scored on structure fidelity and answer accuracy, with DELTA+TARQA variants ranked among evaluated… [Paper](https://arxiv.org/abs/2609.17458) · [Code](https://github.com/Tihiitborg/Tables-Decoded)
-- **RiskChainBench** (2026-09-15) — RiskChainBench pairs synthetic token-text restoration inputs with human-labeled local web environments; a model restores obfuscated platform messages and then acts as a VLM web agent producing frozen evidence-cited risk… [Paper](https://arxiv.org/abs/2609.16900)
+- **VPRef** (2026-09-15) — Evaluates referring remote sensing image segmentation across visual and textual domain shifts using the Vaihingen-Potsdam Referring dataset with 46,972 triplets and a three-tier linguistic hierarchy. [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
+- **Traverse** (2026-09-15) — Contains 2518 annotated agent trajectories with 6967 human-verified mistakes across 78 failure types, used to evaluate models on locating the first failure in long-horizon tasks. [Paper](https://arxiv.org/abs/2609.17930)
+- **TinyEdgeBench** (2026-09-15) — Compares four lightweight classification methods on a synthetic sensor-window classification task with four classes, scoring accuracy, macro F1, and compiled flash size for ESP32-class devices. [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
+- **SNOMED CT Concept Recommendation from Masked Clinical Context** (2026-09-15) — Evaluates SNOMED CT concept recommendation from masked clinical context using 75,491 annotations across 272 discharge summaries. [Paper](https://arxiv.org/abs/2609.17855)
+- **Map2Route** (2026-09-15) — Evaluates compositional language-grounded route planning over semantic maps with 1,000 episodes across 40 scenes. [Paper](https://arxiv.org/abs/2609.17910)
 - **ImpossibleRubrics** (2026-09-15) — ImpossibleRubrics evaluates rubric-based reward signals on 169 impossible tasks across six impossibility categories, each paired with a verifiable oracle certificate specifying what an honest answer may and may not clai… [Paper](https://arxiv.org/abs/2609.16816)
-- **IPC-Bench** (2026-09-15) — IPC-Bench is a multimodal dataset of 50 canonical industrial process control scenarios requiring joint reasoning over natural-language descriptions and process diagrams, with tasks asking systems to formulate structured… [Paper](https://arxiv.org/abs/2609.16680) · [Code](https://github.com/yeyongchao/process-modeling-benchmark)
-- **HUMAID-NER** (2026-09-15) — HUMAID-NER is a BIO-annotated dataset of 60,000 English disaster tweets across ten entity types, supporting disaster-specific named entity recognition and humanitarian event classification with reported span micro-F1 an… [Paper](https://arxiv.org/abs/2609.16964)
-- **FirmCORe** (2026-09-15) — FirmCORe evaluates pairwise reasoning over weakly structured firm profiles, requiring models to detect whether available evidence supports a collaboration opportunity and to predict strength, primary collaboration type,… [Paper](https://arxiv.org/abs/2609.17128)
-- **ASURRE** (2026-09-15) — ASURRE is a benchmark dataset for detecting AI-assisted responses in online surveys, containing LLM-generated responses produced under generation, revision, and persona-grounded agentic strategies across three real-worl… [Paper](https://arxiv.org/abs/2609.17317) · [Code](https://github.com/mike-qz-wang/ASURRE)
+- **IPC-Bench** (2026-09-15) — IPC-Bench is a multimodal benchmark of 50 industrial process optimization scenarios requiring joint reasoning over text and process diagrams to formulate mathematical optimization models. [Paper](https://arxiv.org/abs/2609.16680) · [Code](https://github.com/yeyongchao/process-modeling-benchmark)
 - **Vulnerability Localization Benchmark** (2026-09-14) — A benchmark of 500 real-world vulnerabilities requiring models to locate security-relevant files in repository snapshots, also testing appropriate abstention on patched versions. [Paper](https://arxiv.org/abs/2609.15939)
 - **PIDS-Bench** (2026-09-14) — Evaluates prompt-injection detectors across multiple axes including over-defense, obfuscation, and distribution shift, with fixed thresholds and reproducible metrics. [Paper](https://arxiv.org/abs/2609.15017)
 - **Monaco4D** (2026-09-14) — Photorealistic 4D reconstruction benchmark with Formula 1 sequences captured from sparse external cameras under varied illumination, including trackside, onboard, and drone viewpoints with dense ground truth. [Paper](https://arxiv.org/abs/2609.16310)
 - **MemRiskBench** (2026-09-14) — Evaluates long-horizon LLM agents on 120 scripted episodes covering five memory-risk categories through deterministic trace-grounded checks, with full trace logging and no LLM-as-judge. [Paper](https://arxiv.org/abs/2609.14976)
-- **K-Bench** (2026-09-14) — Evaluates LLM safety in high-risk mental health conversations using 200 clinician-calibrated multi-turn vignettes covering suicide, self-harm, domestic violence, substance misuse, and no-risk presentations, with scoring… [Paper](https://arxiv.org/abs/2609.15855)
-- **TriCalRAG** (2026-09-13) — Benchmarks locally served open-weight LLMs for log anomaly detection in AIOps using zero-shot, few-shot, and retrieval-augmented prompting. [Paper](https://arxiv.org/abs/2609.14762)
 - **Token X-Ray** (2026-09-13) — Token X-Ray evaluates the impact of exact-prompt reuse on quality, model calls, token usage, and latency using a fixed local workload with deterministic prompts and expected answers. [Paper](https://github.com/dustin621408-pixel/token-xray) · [Code](https://github.com/dustin621408-pixel/token-xray)
 - **MCIQA-2K** (2026-09-13) — MCIQA-2K includes 2,000 colorized images generated by five models, annotated across color smearing, semantic color misalignment, and global naturalness for no-reference image quality assessment. [Paper](https://arxiv.org/abs/2609.14495) · [Code](https://github.com/ARBEZ-ZEBRA/MCIQA)
 - **E2A-Bench** (2026-09-13) — Evaluates financial vision-language models on evidence-to-action reliability across 969 queries using deterministic evidence anchors and metrics for grounding, consistency, calibration, and coverage. [Paper](https://arxiv.org/abs/2609.14302) · [Code](https://github.com/wanng-ide/E2A-Bench)
@@ -1568,6 +1575,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Self-Improving Agents
 
+- **REVERSAL-BENCH** (2026-09-15) — Evaluates reset-free reinforcement learning across eight manipulation settings in five physics engines with a reversibility parameter and reset oracle. [Paper](https://arxiv.org/abs/2609.17745)
 - **HarnessDev** (2026-09-01) — HarnessDev evaluates LLMs on creating and evolving runnable agent harnesses, shifting evaluation from task outputs to the infrastructure capabilities themselves. [Paper](https://arxiv.org/abs/2609.01437)
 - **ASPIRE** (2026-08-31) — ASPIRE evaluates LLM agents and models on self-evolution from vague natural-language goals, using a hidden expert-authored set of 520 items across six goals in an interactive environment. [Paper](https://arxiv.org/abs/2608.31111)
 - **SkillMisevo-Bench** (2026-08-13) — Lifecycle-aware benchmark for persistent safety failures in self-improving LLM agents, consisting of 25 episodes with malicious demonstrations, benign twins, and fresh-session probes, scored with nine metrics including… [Paper](https://arxiv.org/abs/2608.12851) · [Code](https://github.com/henrymao2004/misevolve)
@@ -1587,7 +1595,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
 - **ParsHate** (2026-09-14) — Evaluates hate speech and target detection on 10,000 manually annotated Persian tweets spanning 2013-2022. [Paper](https://arxiv.org/abs/2609.16393)
-- **OST-DiagBench** (2026-09-14) — OST-DiagBench evaluates streaming omni-modal models on audio-visual consistency by holding video fixed and editing audio to create agreement, absence, contradiction, coexistence, and subtitle-speech conflict scenarios. [Paper](https://arxiv.org/abs/2609.15128)
 - **SEA-SpeechBench** (2026-09-09) — Evaluates speech understanding across 11 Southeast Asian languages via 97,194 samples covering speech processing, paralinguistic analysis, and temporal understanding tasks. [Paper](https://arxiv.org/abs/2609.09672)
 - **CutCraft** (2026-09-08) — CutCraft evaluates editing-technique execution in multi-shot audio-video generation, covering shot structure, transitions, audio-video cuts, and montage. [Paper](https://arxiv.org/abs/2609.08275) · [Code](https://github.com/AlibabaResearch/cut-craft-bench)
 - **AIB** (2026-09-02) — Evaluates large audio language models on 14,829 forced-choice trials across ten auditory illusions, scoring human-likeness and reality alignment. [Paper](https://arxiv.org/abs/2609.02277) · [Code](https://github.com/gillosae/aib)
