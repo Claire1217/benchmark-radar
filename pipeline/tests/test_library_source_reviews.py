@@ -9,6 +9,23 @@ from research_directions import classify_directions
 ROOT=Path(__file__).resolve().parents[2]
 
 class ReviewedCoverageTests(unittest.TestCase):
+    def test_resource_review_preserves_task_and_date(self):
+        row = {'id': 'a', 'name': 'Example', 'releasedAt': '2024-01-01',
+               'researchDirections': ['coding-agents'], 'links': {'code': 'https://github.com/example/code'}}
+        before = copy.deepcopy(row)
+        url = 'https://huggingface.co/datasets/example/data'
+        apply_source_reviews([row], {'resourceReviews': [{'id': 'a', 'kind': 'data', 'url': url, 'sources': [url]}]})
+        self.assertEqual(row['links']['data'], url)
+        self.assertEqual(row['links']['code'], before['links']['code'])
+        self.assertEqual(row['releasedAt'], before['releasedAt'])
+        self.assertEqual(row['researchDirections'], before['researchDirections'])
+        self.assertNotIn('taskReview', row)
+
+    def test_resource_review_requires_matching_evidence(self):
+        with self.assertRaises(ValueError):
+            apply_source_reviews([{'id': 'a', 'name': 'Example'}], {'resourceReviews': [
+                {'id': 'a', 'kind': 'data', 'url': 'https://example.org/data', 'sources': ['https://example.org/other']}]})
+
     def test_pending_correction_does_not_claim_verification_or_date(self):
         rows = [{'id': 'a', 'name': 'Ambiguous', 'description': 'Unsupported identity',
                  'dataStatus': 'catalog-listed-unverified', 'releaseDatePrecision': 'unknown'}]

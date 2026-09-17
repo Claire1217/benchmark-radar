@@ -19,6 +19,9 @@ class TopicTrendsTests(unittest.TestCase):
   hist={'receipt':{'repositories':1},'records':[{'url':'https://github.com/test/repo','status':'complete','weeks':weeks}]};j=build(library,recent,hist);w=j['topics'][0]['windows']['3'];self.assertEqual(len(w['repos']),1);self.assertEqual(w['delta'],-2);self.assertAlmostEqual(w['growthRate'],100*w['stars']/w['baseline']);self.assertIsNone(j['topics'][1]['windows']['3']['stars']);self.assertEqual(j['topics'][0]['windows']['6']['count'],2)
  def test_real_data_membership_and_counts(self):
   l=json.loads((ROOT/'data/library_index.json').read_text());j=json.loads((ROOT/'data/trends_topics.json').read_text());self.assertEqual(l['manifest']['topicTaxonomy']['version'],j['taxonomyVersion']);self.assertEqual([t['id'] for t in j['topics']],[t['id'] for t in l['manifest']['topicTaxonomy']['directions']]);self.assertEqual([t['library'] for t in j['topics']],[t['count'] for t in l['manifest']['topicTaxonomy']['directions']])
+  visible=sum(r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe' for r in l['records'])
+  self.assertEqual(j['coverage']['storedLibraryRecords'],len(l['records']))
+  self.assertEqual(j['coverage']['displayEligibleRecords'],visible)
 
  def test_all_library_year_and_missing_dates(self):
   def record(identity,release,**kw):

@@ -28,7 +28,7 @@ consistent snapshot.
 | 1. Retrieve | Build one dated candidate pool from arXiv, newly created GitHub repositories, Hugging Face datasets, and OpenReview submissions. Require enough source text to support review, then deduplicate by source ID, official URL, and normalized benchmark family name. Source filters never make the publication decision. On arXiv's Friday/Saturday no-announcement dates, only the other three adapters run. | `pipeline/discover_benchmarks.py`, `pipeline/index_benchmarks.py`; historical arXiv replay: `pipeline/backfill_index.py` | `data/review_queue.json`, `data/runs/*.json` | Yes, daily |
 | 2. Review | DeepSeek checks supplied Paper text and bounded official project/GitHub/Hugging Face excerpts. It decides whether the artifact is `score_submission`, `viewpoint_probe`, or `unclear`, and drafts third-person display copy. Unknown evidence stays unknown. | `pipeline/generate_editorial_copy.py`; policy: `docs/METHODOLOGY.md` | Decisions and copy: `data/editorial_copy.json`; unresolved candidates remain in `data/review_queue.json` | Yes; source-backed maintainer corrections are separate |
 | 3. Store | Admit eligible reviewed releases or apply a narrowly scoped source-backed correction. Stable source IDs prevent duplicates, and deterministic validators control canonical output. | `pipeline/generate_editorial_copy.py`, `pipeline/apply_overrides.py`; merge helpers in `pipeline/index_benchmarks.py` | Additions: `data/curated_records.json`; corrections: `data/curated_overrides.json`; canonical output: `data/benchmarks.json` | Yes |
-| 4. Display | Produce a small Radar index, the all-time Library union, domain release trends, the Awesome list, and the static site. | `pipeline/generate_public_index.py`, `pipeline/build_library_records.py`, `pipeline/generate_library_index.py`, `pipeline/generate_domain_trends.py`, `pipeline/generate_awesome.py`, `pipeline/build_github_pages.py`; frontend: `web/` | `data/benchmarks_index.json`, `data/library_index.json`, `data/domain_trends.json`, `AWESOME_BENCHMARKS.md` | Yes, every successful update |
+| 4. Display | Produce the Radar index, the all-time Library union, topic release and GitHub-attention trends, the Awesome list, and the static site. | `pipeline/generate_public_index.py`, `pipeline/build_library_records.py`, `pipeline/generate_library_index.py`, `pipeline/generate_topic_trends.py`, `pipeline/generate_awesome.py`, `pipeline/build_github_pages.py`; frontend: `web/` | `data/benchmarks_index.json`, `data/library_index.json`, `data/trends_topics.json`, `AWESOME_BENCHMARKS.md` | Yes, every successful update |
 | 5. Update | Refresh author-reported venue metadata and current Hugging Face/GitHub signals. Store dated observations, preserve the last valid value on source failure, and recompute Latest/30d/90d ranking. | `pipeline/enrich_publications.py`, `pipeline/enrich_metrics.py` | `data/publication/*.json`, `data/metrics/*.json`, enriched fields in `data/benchmarks.json` | Yes, daily |
 
 ## How review reaches the website
@@ -39,7 +39,7 @@ review_queue candidate
   -> editorial_copy decision
   -> curated_records (eligible record) or curated_overrides (maintainer correction)
   -> benchmarks.json
-  -> benchmarks_index.json / library_index.json / domain_trends.json
+  -> benchmarks_index.json / library_index.json / trends_topics.json
   -> web/app.js
 ```
 
@@ -85,19 +85,24 @@ build for pushes and pull requests.
 
 - **Radar** reads `benchmarks_index.json`. Latest is a day-grouped continuous
   feed; 30 days and 90 days are rolling release-date filters over reviewed records.
-- **Library** reads `library_index.json`, the union of reviewed Radar records
-  and established editorial seeds. A daily Radar record therefore also appears
-  in Library; an old Library seed does not appear in Latest/30d/90d.
-- **Trends** reads `domain_trends.json`. It foregrounds the Benchmarks with the
-  strongest current tracked use and uses monthly release activity only as
-  context. It does not equate release count with deployment or technical
-  progress; historical adoption and saturation wait for comparable dated data.
+- **Library** reads `library_index.json`, the union of reviewed Radar records,
+  established editorial seeds, and normalized catalog entities. The file also
+  retains hidden review outcomes for reproducibility; the manifest separates
+  stored, displayed, and hidden counts. A daily Radar record therefore also
+  appears in Library; an old Library seed does not appear in Latest/30d/90d.
+- **Trends** reads `trends_topics.json`. New releases use exact supported dates
+  from display-eligible Library families. Attention growth uses recorded GitHub
+  star-creation events only for repositories with complete histories and a
+  reviewed benchmark scope. The two measures remain separate because release
+  volume and community attention answer different questions.
 - **Saved** is browser-local `localStorage`; it is not part of the data
   pipeline and does not require a server.
 
 ## Current boundary
 
 The current system is deliberately small: one static frontend, one daily
-workflow, bounded public-source adapters, and JSON data in Git. Discovery is
-not exhaustive web crawling; it uses dated official APIs and records adapter
-failures explicitly.
+workflow, bounded public-source adapters, and JSON data in Git. The authority
+and retention rules for canonical inputs, evidence overlays, acquisition
+snapshots, public views, and audit artifacts are documented in
+`data/README.md`. Discovery is not exhaustive web crawling; it uses dated
+official APIs and records adapter failures explicitly.

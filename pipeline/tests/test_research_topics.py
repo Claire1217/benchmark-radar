@@ -9,6 +9,13 @@ class ResearchTopicsTests(unittest.TestCase):
   rows=[{'description':'A self-evolving benchmark for evaluating software security vulnerabilities.'},{'description':'Video evaluation built by a multi-agent pipeline.'},{'description':'We evaluate language world models that simulate agentic environments.'}]
   annotate_topics(rows)
   for r,t in zip(rows,['self-improving-agents','multi-agent','world-models']):self.assertNotIn(t,r['researchTopics'])
+ def test_catalog_placeholder_is_not_verification_capability(self):
+  placeholder={'description':'Catalog-listed benchmark; original-source verification is pending.'}
+  actual={'description':'Evaluates source verification and fact checking against primary documents.'}
+  annotate_topics([placeholder,actual])
+  self.assertEqual(placeholder['benchmarkTaxonomy']['capabilities'],[])
+  self.assertEqual(placeholder['benchmarkTaxonomy']['status'],'needs-source-review')
+  self.assertIn('Verification',actual['benchmarkTaxonomy']['capabilities'])
  def test_missing_and_legacy_preservation(self):
   r={'description':'','topics':['Original label'],'researchDirections':['mathematical-reasoning']};annotate_topics([r]);self.assertEqual(r['researchTopics'],[]);self.assertEqual(r['benchmarkTaxonomy']['sourceLabels']['topics'],['Original label']);self.assertEqual(r['researchDirections'],['mathematical-reasoning'])
  def test_production_parity_evidence_and_idempotence(self):

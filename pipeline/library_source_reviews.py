@@ -27,6 +27,16 @@ def apply_source_reviews(records, payload):
         if review.get('parentId'):
             if review['parentId'] not in by_id: raise ValueError('Missing parent benchmark')
             row['benchmarkParentId']=review['parentId']
+    # Resource-only reviews do not change task taxonomy or release dates.
+    for review in payload.get('resourceReviews', []):
+        row = by_id[review['id']]
+        if review.get('kind') not in {'data', 'code'} or not review.get('sources'):
+            raise ValueError('Resource review requires a data/code link and evidence')
+        url = review.get('url', '')
+        if not url.startswith('https://') or url not in review['sources']:
+            raise ValueError('Reviewed resource URL must be an HTTPS evidence source')
+        row.setdefault('links', {})[review['kind']] = url
+        row.setdefault('resourceProvenance', {})[review['kind']] = copy.deepcopy(review)
     for pending in payload.get('pending', []):
         row = by_id[pending['id']]
         row['identityReviewNote'] = pending['note']

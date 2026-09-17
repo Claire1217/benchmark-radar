@@ -47,7 +47,10 @@ def main():
         except Exception as e:result['status']=type(e).__name__
         file.write_text(json.dumps(result));return key,result
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:observations=dict(pool.map(fetch,sorted(keys)))
-    (ROOT/'data/github_repository_availability.json').write_text(json.dumps({k:{'status':v['status'],'observedAt':v['observedAt'],'sourceUrl':v['url']} for k,v in observations.items()},indent=2)+'\n')
+    availability_path=ROOT/'data/github_repository_availability.json'
+    availability=json.loads(availability_path.read_text()) if availability_path.exists() else {}
+    availability.update({k:{'status':v['status'],'observedAt':v['observedAt'],'sourceUrl':v['url']} for k,v in observations.items()})
+    availability_path.write_text(json.dumps(availability,indent=2)+'\n')
     alias_path=ROOT/'data/github_repository_aliases.json'
     aliases=json.loads(alias_path.read_text()) if alias_path.exists() else {}
     for key,obs in observations.items():

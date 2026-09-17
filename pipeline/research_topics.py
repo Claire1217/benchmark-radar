@@ -130,6 +130,10 @@ def annotate_topics(records):
         for axis,patterns in FACETS.items():
             proof[axis]={k:e for k,pat in patterns.items() if (e:=evidence(pat,text,r))};values[axis]=list(proof[axis])
         topics={k:e for k,pat in RULES.items() if (e:=evidence(pat,text,r))}
+        # Catalog verification status is metadata, not an evaluated capability.
+        if match(r'^catalog.listed benchmark; original.source verification is pending\.?$',text):
+            proof={axis:{} for axis in FACETS}
+            topics={}
         # Concrete object/target guards. Names of methods, source corpora and solver pipelines are not targets.
         if match(r'(?:self.evolving|self.updating|self.improving) (?:safety |software.security )?benchmark|benchmark.*(?:self.evolving|self.updating)',text) and not match(r'evaluat\w*.*(?:self.evolving agents|agent self.evolution)',text):
             topics.pop('self-improving-agents',None);proof['capabilities'].pop('Learning and adaptation',None);proof['protocols'].pop('Learning across episodes',None)

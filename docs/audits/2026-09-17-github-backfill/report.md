@@ -5,34 +5,35 @@ All 651 records from the date audit were scanned using their linked pages, sourc
 ```json
 {
   "reviewedEntries": 651,
-  "linkedEntries": 224,
-  "uniqueLinkedRepositories": 165,
-  "entriesWithFreshStars": 224,
-  "entriesWithCompleteHistory": 181,
-  "uniqueHistoryRepositories": 139,
-  "uniqueRepositoriesInTrends": 43,
-  "unlinkedEntries": 427,
+  "linkedEntries": 415,
+  "uniqueLinkedRepositories": 279,
+  "entriesWithFreshStars": 415,
+  "entriesWithCompleteHistory": 302,
+  "uniqueHistoryRepositories": 213,
+  "uniqueRepositoriesInTrends": 60,
+  "unlinkedEntries": 236,
   "discoveryStatus": {
-    "not-found": 233,
-    "linked": 226,
-    "candidates": 189,
-    "null": 3
+    "not-found": 142,
+    "linked": 415,
+    "candidates": 94
   },
   "allSiteHistory": {
-    "repositories": 823,
-    "complete": 809,
+    "repositories": 894,
+    "complete": 882,
     "statuses": {
-      "http-404": 14,
-      "complete": 809
+      "complete": 882,
+      "http-404": 12
     }
   },
   "trendsCoverage": {
-    "libraryRecords": 2719,
+    "libraryRecords": 2710,
+    "storedLibraryRecords": 2964,
+    "displayEligibleRecords": 2710,
     "datedFamilies": 2133,
     "undatedFamilies": 493,
     "releaseScope": "all-library-dated-families",
-    "completeHistories": 226,
-    "requestedHistories": 823
+    "completeHistories": 245,
+    "requestedHistories": 894
   }
 }
 ```

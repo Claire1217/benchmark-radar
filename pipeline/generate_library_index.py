@@ -253,18 +253,18 @@ def main() -> None:
     decisions = json.loads(identity_path.read_text()) if identity_path.exists() else {}
     records, identity_redirects = merge_library_identities(records, decisions)
     release_path = ROOT / "data" / "library_release_dates.json"
-    from repository_index import load_and_apply
-    load_and_apply(records, ROOT / "data")
-    from library_metrics import apply_library_metrics
-    metrics_path = ROOT / "data" / "library_metrics.json"
-    if metrics_path.exists():
-        apply_library_metrics(records, json.loads(metrics_path.read_text()))
     reviewed_additions = 0
     review_path = ROOT / "data" / "library_source_reviews.json"
     if review_path.exists():
         reviews = json.loads(review_path.read_text())
         reviewed_additions = len(reviews.get("additions", []))
         apply_source_reviews(records, reviews)
+    from repository_index import load_and_apply
+    load_and_apply(records, ROOT / "data")
+    from library_metrics import apply_library_metrics
+    metrics_path = ROOT / "data" / "library_metrics.json"
+    if metrics_path.exists():
+        apply_library_metrics(records, json.loads(metrics_path.read_text()))
     if release_path.exists():
         apply_release_dates(records, json.loads(release_path.read_text()))
     annotate_records(records)
@@ -293,7 +293,20 @@ def main() -> None:
             "topicTaxonomy": topic_manifest(records),
             "libraryTaxonomy": category_manifest(records),
             "dataAsOf": recent["manifest"].get("dataAsOf", date.today().isoformat()),
+            # The index retains rejected/hidden review outcomes so downstream
+            # audits can reproduce publication decisions. Product surfaces use
+            # the display count, not the stored count.
             "recordCount": len(records),
+            "displayRecordCount": sum(
+                record.get("displayEligible") is not False
+                and record.get("evaluationMode") != "viewpoint_probe"
+                for record in records
+            ),
+            "hiddenRecordCount": sum(
+                record.get("displayEligible") is False
+                or record.get("evaluationMode") == "viewpoint_probe"
+                for record in records
+            ),
             "classicRecordCount": len(classics.get("records", [])),
             "reviewedAdditionCount": reviewed_additions,
             "catalogSourceRecordCount": sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values()),

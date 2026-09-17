@@ -155,6 +155,15 @@ def main() -> None:
     expected_library_count = reviewed_count + len(records) + len(library_records) + library_manifest.get("catalogOnlyCount", 0)
     if library_manifest.get("recordCount") != expected_library_count:
         errors.append("library public manifest recordCount mismatch")
+    visible_library_count = sum(
+        record.get("displayEligible") is not False
+        and record.get("evaluationMode") != "viewpoint_probe"
+        for record in library_public.get("records", [])
+    )
+    if library_manifest.get("displayRecordCount") != visible_library_count:
+        errors.append("library public manifest displayRecordCount mismatch")
+    if library_manifest.get("hiddenRecordCount") != len(library_public.get("records", [])) - visible_library_count:
+        errors.append("library public manifest hiddenRecordCount mismatch")
     catalog_source_count = sum(source.get("recordCount", 0) for source in catalogs.get("sources", {}).values())
     if library_manifest.get("catalogSourceRecordCount", 0) != catalog_source_count:
         errors.append("library public catalog source count mismatch")
