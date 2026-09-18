@@ -6,12 +6,12 @@ or used to choose a different membership rule after a URL reload.
 from research_directions import DIRECTIONS
 from research_topics import TOPICS, ALIASES as TOPIC_ALIASES
 
-VERSION = 'library-categories-v1'
+VERSION = 'library-categories-v2'
+RETIRED_IDS = {'data-analysis'}
 # These are broader capabilities, not synonyms for the corresponding agent topic.
 PARENTS = {
     'scientific-agents': 'ai-for-science',
     'coding-agents': 'software-engineering',
-    'data-analysis-agents': 'data-analysis',
     'efficient-inference': 'systems-optimization',
     'image-video-generation': 'content-generation',
 }
@@ -32,7 +32,7 @@ def definitions():
     capabilities = []
     for direction in DIRECTIONS:
         identity = direction['id']
-        if identity in used or identity in ALIASES:
+        if identity in used or identity in ALIASES or identity in RETIRED_IDS:
             continue
         definition = {**direction, 'section': 'General capabilities', 'membership': 'researchDirections'}
         if identity in BROAD_NAMES:
@@ -73,6 +73,7 @@ def category_manifest(records):
     visible = [r for r in records if r.get('displayEligible') is not False and r.get('evaluationMode') != 'viewpoint_probe']
     return {
         'version': VERSION,
+        'retiredIds': sorted(RETIRED_IDS),
         'method': 'One membership list for navigation, search, chips, counts and URL filters. Categories overlap; parent categories include their children.',
         'aliases': ALIASES,
         'directions': [{**d, 'count': sum(d['id'] in r.get('libraryCategories', []) for r in visible)} for d in definitions()],

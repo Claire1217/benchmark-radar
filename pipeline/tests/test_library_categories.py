@@ -10,6 +10,18 @@ from library_categories import annotate_categories, category_manifest
 
 
 class LibraryCategoryTests(unittest.TestCase):
+    def test_retired_data_analysis_keeps_records_and_agent_topic(self):
+        records=[{'id':'data','researchDirections':['data-analysis']},
+                 {'id':'agent','researchTopics':['data-analysis-agents']}]
+        annotate_categories(records)
+        manifest=category_manifest(records)
+        self.assertEqual(len(records),2)
+        self.assertNotIn('data-analysis',[d['id'] for d in manifest['directions']])
+        self.assertNotIn('data-analysis',manifest['aliases'])
+        self.assertIn('data-analysis',manifest['retiredIds'])
+        self.assertEqual(records[0]['libraryCategories'],[])
+        self.assertEqual(records[1]['libraryCategories'],['data-analysis-agents'])
+
     def test_science_parent_is_broad_and_counts_each_record_once(self):
         records=[{'id':'broad','researchDirections':['ai-for-science']},
                  {'id':'agent','researchTopics':['scientific-agents']},
