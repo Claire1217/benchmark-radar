@@ -9,6 +9,23 @@ from research_directions import classify_directions
 ROOT=Path(__file__).resolve().parents[2]
 
 class ReviewedCoverageTests(unittest.TestCase):
+    def test_publisher_review_does_not_change_adoption_or_task_verification(self):
+        row = {'id': 'a', 'name': 'Example', 'dataStatus': 'catalog-listed-unverified',
+               'modelReportReferences': [{'provider': 'Other company'}]}
+        publisher = {'name': 'Publisher', 'role': 'benchmark-publisher', 'sourceUrl': 'https://example.org/release'}
+        apply_source_reviews([row], {'reviewedAt': '2026-09-18', 'publisherReviews': [
+            {'id': 'a', 'publishers': [publisher]}]})
+        self.assertEqual(row['publishers'], [publisher])
+        self.assertEqual(row['modelReportReferences'], [{'provider': 'Other company'}])
+        self.assertEqual(row['dataStatus'], 'catalog-listed-unverified')
+        publisher['name'] = 'Changed'
+        self.assertEqual(row['publishers'][0]['name'], 'Publisher')
+
+    def test_publisher_review_requires_primary_evidence(self):
+        with self.assertRaises(ValueError):
+            apply_source_reviews([{'id': 'a', 'name': 'Example'}], {'publisherReviews': [
+                {'id': 'a', 'publishers': [{'name': 'Guess', 'role': 'benchmark-publisher'}]}]})
+
     def test_resource_review_preserves_task_and_date(self):
         row = {'id': 'a', 'name': 'Example', 'releasedAt': '2024-01-01',
                'researchDirections': ['coding-agents'], 'links': {'code': 'https://github.com/example/code'}}

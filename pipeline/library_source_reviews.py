@@ -27,6 +27,16 @@ def apply_source_reviews(records, payload):
         if review.get('parentId'):
             if review['parentId'] not in by_id: raise ValueError('Missing parent benchmark')
             row['benchmarkParentId']=review['parentId']
+    # Publisher reviews are independent of task and adoption classifications.
+    for review in payload.get('publisherReviews', []):
+        row = by_id[review['id']]
+        publishers = review.get('publishers', [])
+        if not publishers or any(not p.get('name') or p.get('role') != 'benchmark-publisher'
+                                 or not p.get('sourceUrl', '').startswith('https://') for p in publishers):
+            raise ValueError('Publisher review requires names, publisher roles and HTTPS evidence')
+        row['publishers'] = copy.deepcopy(publishers)
+        row['publisherProvenance'] = {'basis': 'primary-source-reviewed',
+                                     'reviewedAt': review.get('reviewedAt', payload['reviewedAt'])}
     # Resource-only reviews do not change task taxonomy or release dates.
     for review in payload.get('resourceReviews', []):
         row = by_id[review['id']]
