@@ -91,7 +91,7 @@ def main() -> None:
         raise SystemExit("desktop Library sidebar must scroll independently")
     for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
-    for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
+    for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "model-evals/index.html", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
         if not (OUTPUT / name).exists():
             raise SystemExit(f"missing discovery asset: {name}")
     if '<link rel="canonical" href="https://benchmark-radar.com/">' not in html:
@@ -117,8 +117,13 @@ def main() -> None:
         raise SystemExit("official GitHub repository schema missing")
     sitemap = ET.parse(OUTPUT / "sitemap.xml")
     urls = sitemap.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")
-    if len(urls) != 2 or (OUTPUT / "benchmarks").exists():
+    if len(urls) != 3 or (OUTPUT / "benchmarks").exists():
         raise SystemExit("unexpected generated detail pages or sitemap entries")
+    model_evals = (OUTPUT / "model-evals" / "index.html").read_text(encoding="utf-8")
+    if '<link rel="canonical" href="https://benchmark-radar.com/model-evals/">' not in model_evals:
+        raise SystemExit("Model Evals canonical production URL missing")
+    if "Model Evals" not in document_title(model_evals):
+        raise SystemExit("Model Evals page title missing")
     print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
 
 
