@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-17 · **Benchmark releases:** 1833
+**Snapshot:** 2026-09-17 · **Benchmark releases:** 1845
 
 ## Contents
 
@@ -28,10 +28,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1050)
-- [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
+- [Other benchmark tasks](#other-benchmark-tasks) (1058)
+- [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (52)
+- [Speech & Audio](#speech--audio) (54)
 - [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (56)
 - [World Models](#world-models) (18)
@@ -269,7 +269,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Efficient Inference
 
-- **AutoTuneBench** (2026-09-16) — A measurement infrastructure and protocol for agent auto-tuning of LLM serving engines and kernels, running an evolutionary propose-build-check-time-profile-score loop with frozen acceptance rules, anti-cheating gates,… [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
+- **AutoTuneBench** (2026-09-16) — A benchmark and measurement protocol for agent auto-tuning of LLM serving engines, featuring a proposal-evaluation loop with correctness checks, fair timing, profiling, and anti-cheating gates to ensure trustworthy resu… [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
 - **LLM Quantization Benchmark on Apple Silicon** (2026-09-13) — Benchmark measuring inference speed, memory usage, and accuracy of MLX and llama.cpp with 4-bit and 8-bit quantization across three 3B-class LLMs on Apple M4 hardware. [Paper](https://github.com/sameer-sde/llm-quantization-benchmark) · [Code](https://github.com/sameer-sde/llm-quantization-benchmark)
 - **PTXBench** (2026-08-18) — PTXBench evaluates LLMs in generating architecture-specific PTX for GPU kernel optimization. It measures functional correctness, execution of target instructions, and speedup over frontier libraries across GEMM and atte… [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
 - **AgentSysBench** (2026-08-15) — AgentSysBench is a benchmark suite and measurement toolkit for characterizing agentic workloads on LLM serving systems. It includes ten representative agentic applications and unified instrumentation, identifying six pr… [Paper](https://arxiv.org/abs/2608.15127) · [HF](https://huggingface.co/papers/2608.15127)
@@ -471,9 +471,17 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **Semantic-ITC** (2026-09-16) — Semantic-ITC is a frame-wise indoor mobile laser scanning dataset and benchmark for semantic segmentation. [Paper](https://arxiv.org/abs/2609.18493)
+- **SecTB-RTL** (2026-09-17) — 31 RTL verification tasks with 124 hardware-security regressions, an auditable framework, and production semantic validation for AI-generated verification plans. [Paper](https://arxiv.org/abs/2609.19844)
+- **SLAMSqueezeBench** (2026-09-17) — Framework for evaluating SLAM systems under resource constraints, simulating compute/memory limits and camera frame drops on edge hardware. [Paper](https://arxiv.org/abs/2609.19533)
+- **PetriBench** (2026-09-17) — Evaluates LLM reasoning over dynamic state spaces using Petri nets, a formalism for concurrent and distributed systems. [Paper](https://arxiv.org/abs/2609.19883)
+- **KoNeoBench** (2026-09-17) — Evaluates LLM understanding of Korean neologisms through four tasks: identification in context, component reconstruction, semantic/domain classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
+- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset, with protocols for gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift. [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
+- **CrossUAV** (2026-09-17) — UAV benchmark for joint object detection and instance segmentation, providing a unified platform to evaluate cross-granularity task collaboration. [Paper](https://arxiv.org/abs/2609.19867)
 - **Quantum-Enhanced Genetic Variant Pathogenicity Prediction** (2026-09-16) — An end-to-end bioinformatics pipeline and benchmark suite that classifies genetic variant pathogenicity from ClinVar, gnomAD v4, Ensembl VEP, and UniProtKB features, comparing classical machine learning, deep tabular mo… [Paper](https://github.com/RathanPai/variant-pathogenicity-benchmark) · [Code](https://github.com/RathanPai/variant-pathogenicity-benchmark)
-- **BENCHCOMPASS** (2026-09-16) — A payment-domain contextual benchmark evaluating whether models use provided context correctly, distinguish parametric from context-grounded knowledge, and remain robust under context and question attacks, with MCQ, ope… [Paper](https://arxiv.org/abs/2609.18270) · [Code](https://github.com/ant-intl/BenchCompass)
+- **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
+- **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
+- **DynoFluxBench** (2026-09-16) — A benchmark framework for comparing kinodynamic planners in known dynamic environments with unbounded arrival time, facilitating systematic evaluation of planning algorithms. [Paper](https://arxiv.org/abs/2609.18549)
+- **BENCHCOMPASS** (2026-09-16) — A payment-domain benchmark with 306 items (MCQ, open QA, and attack variants) that tests models' ability to use domain context correctly, distinguish parametric from context-grounded knowledge, and remain robust under c… [Paper](https://arxiv.org/abs/2609.18270) · [Code](https://github.com/ant-intl/BenchCompass)
 - **coding-agent-bench** (2026-09-15) — Nine Python implementation tasks covering data structures, concurrency, parsing and regex work, scored by executing hidden test programs against extracted model answers, with a separate text-only code-quality heuristic… [Paper](https://github.com/sipratt-p/coding-agent-bench) · [Code](https://github.com/sipratt-p/coding-agent-bench)
 - **VPRef** (2026-09-15) — Evaluates referring remote sensing image segmentation across visual and textual domain shifts using the Vaihingen-Potsdam Referring dataset with 46,972 triplets and a three-tier linguistic hierarchy. [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
 - **TinyEdgeBench** (2026-09-15) — Compares four lightweight classification methods on a synthetic sensor-window classification task with four classes, scoring accuracy, macro F1, and compiled flash size for ESP32-class devices. [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
@@ -1524,7 +1532,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Personal & Enterprise Agents
 
-- **PACT** (2026-09-16) — PACT (Pressure-Applied Compliance Testing) evaluates whether LLM enterprise assistants follow standing compliance rules across 3,364 multi-turn workplace decision items in 12 regulated domains, scored by PACTScore and s… [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **FinalityBench** (2026-09-04) — FinalityBench evaluates agent decisions in financial exception scenarios where payment systems have inconsistent views due to message faults. It uses a hidden canonical event log and derives system states via faulted de… [Paper](https://arxiv.org/abs/2609.04706) · [Code](https://github.com/abhisheksharma2411/finalitybench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **Thinkingbox-Bench** (2026-08-20) — Evaluates LLM agents on 507 stateful business workflows in an executable sandbox, with task-specific checks that accept valid trajectories and reject wrong, missing, or extra effects. [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
@@ -1584,6 +1591,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
+- **V\={a}kQA** (2026-09-17) — A benchmark of 2,001 Telugu spoken factoid question-answer pairs across six domains, with speech audio, bilingual transcriptions, and human-verified answers, evaluated against human judgements. [Paper](https://arxiv.org/abs/2609.19879)
+- **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
 - **ParsHate** (2026-09-14) — Evaluates hate speech and target detection on 10,000 manually annotated Persian tweets spanning 2013-2022. [Paper](https://arxiv.org/abs/2609.16393)
 - **SEA-SpeechBench** (2026-09-09) — Evaluates speech understanding across 11 Southeast Asian languages via 97,194 samples covering speech processing, paralinguistic analysis, and temporal understanding tasks. [Paper](https://arxiv.org/abs/2609.09672)
