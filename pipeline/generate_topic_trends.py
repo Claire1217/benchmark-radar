@@ -42,6 +42,8 @@ def build(library,recent,history):
   seen_repos.add(k)
   days=[(datetime.fromtimestamp(w['week'],timezone.utc).date()+timedelta(days=i),n) for w in weeks for i,n in enumerate(w['days'])]
   repos.append({'url':h['url'],'name':k,'names':sorted(names.get(k,[])),'directions':sorted(mapping[k]),'days':days,'firstDay':days[0][0]})
+ systematic_dates=[r.get('releasedAt') for r in recent.get('records',[]) if r.get('releasedAt') and r.get('releasedAt')!='0001-01-01']
+ coverage_start=min(systematic_dates,default=None)
  topics=[]
  for t in library['manifest']['topicTaxonomy']['directions']:
   members=[r for r in records if t['id'] in r.get('researchTopics',[])];rr=[r for r in repos if t['id'] in r['directions']];ff=[f for f in releases if t['id'] in f['directions']];windows={}
@@ -59,13 +61,42 @@ def build(library,recent,history):
    # Calendar-month bins follow the selected period, including leap-year boundaries.
    bounds=[shift(end,-months+i) for i in range(months+1)]
    bins=[sum(a.isoformat()<=f['date']<b.isoformat() for f in ff) for a,b in zip(bounds,bounds[1:])]
-   windows[str(months)]={'start':start.isoformat(),'previousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
+   comparable=not coverage_start or prev.isoformat()>=coverage_start
+   windows[str(months)]={'start':start.isoformat(),'previousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior) if comparable else None,'delta':len(current)-len(prior) if comparable else None,'comparisonComplete':comparable,'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
   used=[]
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
    if refs:used.append({'id':r['id'],'name':r['name'],'reports':refs})
   topics.append({'id':t['id'],'name':t['name'],'description':t['description'],'library':len(members),'windows':windows,'trackedUse':used,'linkedRepos':len({repo_key((r.get('links') or {}).get('code')) for r in members if repo_key((r.get('links') or {}).get('code'))})})
- return {'taxonomyVersion':library['manifest']['topicTaxonomy']['version'],'asOf':(end-timedelta(days=1)).isoformat(),'endExclusive':end.isoformat(),'earliestKnownRelease':earliest,'releaseTotals':{str(m):sum(shift(end,-m).isoformat()<=f['date']<end.isoformat() for f in releases) for m in (1,3,6,12)},'defaultReleaseMonths':12,'defaultStarMonths':3,'topics':topics,'coverage':{'libraryRecords':len(records),'storedLibraryRecords':len(library['records']),'displayEligibleRecords':len(records),'datedFamilies':len(releases),'undatedFamilies':sum(not v['date'] for v in family.values()),'releaseScope':'all-library-dated-families','completeHistories':len(repos),'requestedHistories':history['receipt']['repositories']},'methodology':{'stars':'Recorded star creation events, not net stars or current stargazer totals. Growth rate = period events / all recorded events before the period.','time':'Calendar-month windows end at the last complete source week. Source day boundaries may differ from UTC.','release':'All dated canonical Library families, counted at their earliest supported day-level publication date. Unknown/year-only dates excluded. Counts describe indexed releases, not exhaustive historical coverage; backfills can change past counts.','scope':'Deduplicated repositories within each topic. Topics overlap. Shared hosting/toolkit repositories excluded. New-repository share is a lower-bound estimate using complete creation weeks; it is not benchmark release age.','classification':'Same current topic mapping applied retrospectively to every window.'}}
+ scoped_out=sum(
+  not v['date'] and any(
+   r.get('releasedAt') and r.get('releasedAt')!='0001-01-01'
+   and r.get('releaseDatePrecision') not in ('year','month','unknown')
+   and (r.get('releaseEvidence') or {}).get('dateScope') in ('underlying-dataset','public-disclosure')
+   for r in v['members']
+  ) for v in family.values()
+ )
+ missing_exact=sum(not v['date'] for v in family.values())-scoped_out
+ return {
+  'taxonomyVersion':library['manifest']['topicTaxonomy']['version'],
+  'asOf':(end-timedelta(days=1)).isoformat(),'endExclusive':end.isoformat(),
+  'earliestKnownRelease':earliest,'systematicReleaseCoverageStart':coverage_start,
+  'releaseTotals':{str(m):sum(shift(end,-m).isoformat()<=f['date']<end.isoformat() for f in releases) for m in (1,3,6,12)},
+  'defaultReleaseMonths':3,'defaultStarMonths':3,'topics':topics,
+  'coverage':{
+   'libraryRecords':len(records),'storedLibraryRecords':len(library['records']),'displayEligibleRecords':len(records),
+   'datedFamilies':len(releases),'undatedFamilies':missing_exact+scoped_out,
+   'familiesMissingExactDate':missing_exact,'familiesExcludedAsVariantsOrDisclosures':scoped_out,
+   'releaseScope':'all-library-dated-families','completeHistories':len(repos),'requestedHistories':history['receipt']['repositories']
+  },
+  'methodology':{
+   'stars':'Recorded star creation events, not net stars or current stargazer totals. Growth rate = period events / all recorded events before the period.',
+   'time':'Calendar-month windows end at the last complete source week. Source day boundaries may differ from UTC.',
+   'release':'All dated canonical Library families, counted at their earliest supported day-level publication date. Unknown/year-only dates excluded. Counts describe indexed releases, not exhaustive historical coverage; backfills can change past counts.',
+   'scope':'Deduplicated repositories within each topic. Topics overlap. Shared hosting/toolkit repositories excluded. New-repository share is a lower-bound estimate using complete creation weeks; it is not benchmark release age.',
+   'classification':'Same current topic mapping applied retrospectively to every window.'
+  }
+ }
 def main():
  load=lambda n:json.loads((ROOT/'data'/n).read_text())
  result=build(load('library_index.json'),load('benchmarks_index.json'),load('github_star_history.json'));(ROOT/'data/trends_topics.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n');print('Topic Trends:',len(result['topics']),result['coverage'])
