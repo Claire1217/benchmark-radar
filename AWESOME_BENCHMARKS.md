@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-18 · **Benchmark releases:** 1845
+**Snapshot:** 2026-09-17 · **Benchmark releases:** 1851
 
 ## Contents
 
@@ -28,10 +28,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1058)
+- [Other benchmark tasks](#other-benchmark-tasks) (1062)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (54)
+- [Speech & Audio](#speech--audio) (53)
 - [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (56)
 - [World Models](#world-models) (18)
@@ -471,18 +471,22 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **SecTB-RTL** (2026-09-17) — 31 RTL verification tasks with 124 hardware-security regressions, an auditable framework, and production semantic validation for AI-generated verification plans. [Paper](https://arxiv.org/abs/2609.19844)
+- **eos-bench** (2026-09-17) — Toolkit for benchmarking machine-learned interatomic potentials against DFT on equation-of-state predictions using volume-scaled structures and Birch-Murnaghan fitting, producing error metrics for V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
 - **SLAMSqueezeBench** (2026-09-17) — Framework for evaluating SLAM systems under resource constraints, simulating compute/memory limits and camera frame drops on edge hardware. [Paper](https://arxiv.org/abs/2609.19533)
+- **SAFARI** (2026-09-17) — SAFARI evaluates LLM performance on automotive Hazard Analysis and Risk Assessment, covering open-ended hazard analysis and ISO 26262 risk classification using 3,000 industrial HARA cases. [Paper](https://arxiv.org/abs/2609.20584) · [Code](https://github.com/xixi47520-hash/HARA)
+- **PosteriorBench** (2026-09-17) — Four physics-based inverse tasks evaluating whether generative solvers recover full posterior distributions rather than point estimates. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
 - **PetriBench** (2026-09-17) — Evaluates LLM reasoning over dynamic state spaces using Petri nets, a formalism for concurrent and distributed systems. [Paper](https://arxiv.org/abs/2609.19883)
 - **KoNeoBench** (2026-09-17) — Evaluates LLM understanding of Korean neologisms through four tasks: identification in context, component reconstruction, semantic/domain classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
 - **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset, with protocols for gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift. [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
-- **CrossUAV** (2026-09-17) — UAV benchmark for joint object detection and instance segmentation, providing a unified platform to evaluate cross-granularity task collaboration. [Paper](https://arxiv.org/abs/2609.19867)
+- **DocAttriBench** (2026-09-17) — We introduce DocAttriBench (DAB), a large-scale benchmark for fine-grained, element-level source attribution in Document VQA, grounding answers to specific layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574)
 - **Quantum-Enhanced Genetic Variant Pathogenicity Prediction** (2026-09-16) — An end-to-end bioinformatics pipeline and benchmark suite that classifies genetic variant pathogenicity from ClinVar, gnomAD v4, Ensembl VEP, and UniProtKB features, comparing classical machine learning, deep tabular mo… [Paper](https://github.com/RathanPai/variant-pathogenicity-benchmark) · [Code](https://github.com/RathanPai/variant-pathogenicity-benchmark)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
 - **DynoFluxBench** (2026-09-16) — A benchmark framework for comparing kinodynamic planners in known dynamic environments with unbounded arrival time, facilitating systematic evaluation of planning algorithms. [Paper](https://arxiv.org/abs/2609.18549)
+- **Devin + SWE-2 Reasoning Effort Benchmark** (2026-09-16) — A paired software-repair evaluation comparing Devin's SWE-2 Medium and Max modes on 30 unique bugs across three difficulty tiers, with hidden tests and a clean regression suite defining success. [Paper](https://github.com/MAJORminorStudio/devin-agent-benchmark) · [Code](https://github.com/MAJORminorStudio/devin-agent-benchmark)
 - **BENCHCOMPASS** (2026-09-16) — A payment-domain benchmark with 306 items (MCQ, open QA, and attack variants) that tests models' ability to use domain context correctly, distinguish parametric from context-grounded knowledge, and remain robust under c… [Paper](https://arxiv.org/abs/2609.18270) · [Code](https://github.com/ant-intl/BenchCompass)
 - **coding-agent-bench** (2026-09-15) — Nine Python implementation tasks covering data structures, concurrency, parsing and regex work, scored by executing hidden test programs against extracted model answers, with a separate text-only code-quality heuristic… [Paper](https://github.com/sipratt-p/coding-agent-bench) · [Code](https://github.com/sipratt-p/coding-agent-bench)
+- **WPS AI Benchmark** (2026-09-15) — Evaluates AI systems on applying Women, Peace and Security principles when answering operational advice prompts via 30 scenarios and an 11-criterion rubric with LLM judges. [Paper](https://huggingface.co/datasets/OurSecureFuture/wps-ai-benchmark-v6) · [Data](https://huggingface.co/datasets/OurSecureFuture/wps-ai-benchmark-v6)
 - **VPRef** (2026-09-15) — Evaluates referring remote sensing image segmentation across visual and textual domain shifts using the Vaihingen-Potsdam Referring dataset with 46,972 triplets and a three-tier linguistic hierarchy. [Paper](https://arxiv.org/abs/2609.16486) · [Code](https://github.com/quanweiliu/VPRef)
 - **TinyEdgeBench** (2026-09-15) — Compares four lightweight classification methods on a synthetic sensor-window classification task with four classes, scoring accuracy, macro F1, and compiled flash size for ESP32-class devices. [Paper](https://github.com/Sver0411/TinyEdgeBench) · [Code](https://github.com/Sver0411/TinyEdgeBench)
 - **MM-ContextASR Bench** (2026-09-15) — MM-ContextASR Bench evaluates multimodal contextual ASR using controlled dialogue histories, external corpus tracks, and metrics including CER, SER, and entity Recall. [Paper](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench) · [Data](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench)
@@ -1591,7 +1595,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **V\={a}kQA** (2026-09-17) — A benchmark of 2,001 Telugu spoken factoid question-answer pairs across six domains, with speech audio, bilingual transcriptions, and human-verified answers, evaluated against human judgements. [Paper](https://arxiv.org/abs/2609.19879)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
 - **ParsHate** (2026-09-14) — Evaluates hate speech and target detection on 10,000 manually annotated Persian tweets spanning 2013-2022. [Paper](https://arxiv.org/abs/2609.16393)
