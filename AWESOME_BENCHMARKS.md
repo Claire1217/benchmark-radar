@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-17 · **Benchmark releases:** 1851
+**Snapshot:** 2026-09-18 · **Benchmark releases:** 1851
 
 ## Contents
 
@@ -478,7 +478,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **PetriBench** (2026-09-17) — Evaluates LLM reasoning over dynamic state spaces using Petri nets, a formalism for concurrent and distributed systems. [Paper](https://arxiv.org/abs/2609.19883)
 - **KoNeoBench** (2026-09-17) — Evaluates LLM understanding of Korean neologisms through four tasks: identification in context, component reconstruction, semantic/domain classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
 - **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset, with protocols for gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift. [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
-- **DocAttriBench** (2026-09-17) — We introduce DocAttriBench (DAB), a large-scale benchmark for fine-grained, element-level source attribution in Document VQA, grounding answers to specific layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574)
+- **DocAttriBench** (2026-09-17) — We introduce DocAttriBench (DAB), a large-scale benchmark for fine-grained, element-level source attribution in Document VQA, grounding answers to specific layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574) · [HF](https://huggingface.co/papers/2609.20574)
 - **Quantum-Enhanced Genetic Variant Pathogenicity Prediction** (2026-09-16) — An end-to-end bioinformatics pipeline and benchmark suite that classifies genetic variant pathogenicity from ClinVar, gnomAD v4, Ensembl VEP, and UniProtKB features, comparing classical machine learning, deep tabular mo… [Paper](https://github.com/RathanPai/variant-pathogenicity-benchmark) · [Code](https://github.com/RathanPai/variant-pathogenicity-benchmark)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
