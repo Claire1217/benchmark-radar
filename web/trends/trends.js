@@ -1,31 +1,8 @@
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-// Format the small inline-math notation used in paper titles; escape all source text.
-function titleHtml(value){
-  const symbols={alpha:'α',beta:'β',gamma:'γ',delta:'δ',epsilon:'ε',theta:'θ',lambda:'λ',mu:'μ',pi:'π',sigma:'σ',tau:'τ',phi:'φ',omega:'ω',times:'×'};
-  const text=String(value??'');
-  const math=/\$([^$\n]+)\$|\\\(([^\n]*?)\\\)/g;
-  let html='',end=0;
-  for(const match of text.matchAll(math)){
-    html+=esc(text.slice(end,match.index));
-    const expression=(match[1]??match[2]).replace(/\\([a-zA-Z]+)/g,(command,name)=>symbols[name]??command);
-    // Unsupported commands stay literal rather than silently changing the title.
-    if(expression.includes('\\'))html+=esc(match[0]);
-    else{
-      let offset=0;
-      for(const script of expression.matchAll(/([\^_])(?:\{([^{}]+)\}|([^\s{}]))/g)){
-        html+=esc(expression.slice(offset,script.index));
-        const tag=script[1]==='^'?'sup':'sub';
-        html+=`<${tag}>${esc(script[2]??script[3])}</${tag}>`;
-        offset=script.index+script[0].length;
-      }
-      html+=esc(expression.slice(offset));
-    }
-    end=match.index+match[0].length;
-  }
-  return html+esc(text.slice(end));
-}
+// Radar, Library and Trends share one title renderer.
+const titleHtml=benchmarkNameHtml;
 
 const fmt=n=>n==null?'—':n.toLocaleString('en-US'), signed=n=>n==null?'—':(n>0?'+':'')+fmt(n);
 const day=86400000, date=(s,offset=0)=>new Date(Date.parse(s+'T00:00:00Z')+offset*day).toISOString().slice(0,10), short=s=>s.slice(5).replace('-','/');

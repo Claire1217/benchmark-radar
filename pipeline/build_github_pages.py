@@ -69,10 +69,13 @@ def version_trends_assets(output: Path) -> None:
     ))
     script_name = version(script)
     css_name = version(output / "site-header.css")
+    title_digest = hashlib.sha256((output / "benchmark-name.js").read_bytes()).hexdigest()[:12]
     page = output / "trends" / "index.html"
     page.write_text(page.read_text().replace(
         './trends.js', './' + script_name
-    ).replace('../site-header.css', '../' + css_name))
+    ).replace('../site-header.css', '../' + css_name).replace(
+        '../benchmark-name.js', '../benchmark-name.js?v=' + title_digest
+    ))
 
 
 def main() -> None:
@@ -88,7 +91,7 @@ def main() -> None:
         shutil.copy2(ROOT / "data" / name, data_dir / name)
     page = OUTPUT / "index.html"
     html = page.read_text()
-    for name in ("app.js", "following.js", "styles.css"):
+    for name in ("app.js", "benchmark-name.js", "following.js", "styles.css"):
         digest = hashlib.sha256((OUTPUT / name).read_bytes()).hexdigest()[:12]
         html = re.sub(r'\./' + re.escape(name) + r'(?:\?[^"\s]*)?', './' + name + '?v=' + digest, html)
     page.write_text(html)

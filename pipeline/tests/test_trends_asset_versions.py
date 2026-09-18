@@ -15,10 +15,11 @@ class TrendsAssetVersionsTest(unittest.TestCase):
             (root / 'trends').mkdir()
             (root / 'data').mkdir()
             (root / 'site-header.css').write_text('.topbar{height:60px}')
+            (root / 'benchmark-name.js').write_text('function benchmarkNameHtml(value){return value}')
             def build(data):
                 (root / 'data/trends_topics.json').write_text(data)
                 (root / 'trends/trends.js').write_text("fetch('../data/trends_topics.json')")
-                (root / 'trends/index.html').write_text('<link href="../site-header.css"><script src="./trends.js"></script>')
+                (root / 'trends/index.html').write_text('<link href="../site-header.css"><script src="../benchmark-name.js"></script><script src="./trends.js"></script>')
                 version_trends_assets(root)
                 page = (root / 'trends/index.html').read_text()
                 script_name = re.search(r'src="./([^"]+)"', page)[1]
@@ -26,6 +27,7 @@ class TrendsAssetVersionsTest(unittest.TestCase):
                 data_name = re.search(r"../data/([^']+)", script)[1]
                 self.assertEqual((root / 'data' / data_name).read_text(), data)
                 self.assertNotIn('href="../site-header.css"', page)
+                self.assertRegex(page, r'benchmark-name\.js\?v=[0-9a-f]{12}')
                 return script_name
             first = build('{"version":1}')
             self.assertEqual(first, build('{"version":1}'))
