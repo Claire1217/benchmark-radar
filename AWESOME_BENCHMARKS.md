@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-18 · **Benchmark releases:** 1851
+**Snapshot:** 2026-09-18 · **Benchmark releases:** 1852
 
 ## Contents
 
@@ -28,7 +28,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1062)
+- [Other benchmark tasks](#other-benchmark-tasks) (1059)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (53)
@@ -471,15 +471,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **eos-bench** (2026-09-17) — Toolkit for benchmarking machine-learned interatomic potentials against DFT on equation-of-state predictions using volume-scaled structures and Birch-Murnaghan fitting, producing error metrics for V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
-- **SLAMSqueezeBench** (2026-09-17) — Framework for evaluating SLAM systems under resource constraints, simulating compute/memory limits and camera frame drops on edge hardware. [Paper](https://arxiv.org/abs/2609.19533)
-- **SAFARI** (2026-09-17) — SAFARI evaluates LLM performance on automotive Hazard Analysis and Risk Assessment, covering open-ended hazard analysis and ISO 26262 risk classification using 3,000 industrial HARA cases. [Paper](https://arxiv.org/abs/2609.20584) · [Code](https://github.com/xixi47520-hash/HARA)
-- **PosteriorBench** (2026-09-17) — Four physics-based inverse tasks evaluating whether generative solvers recover full posterior distributions rather than point estimates. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
-- **PetriBench** (2026-09-17) — Evaluates LLM reasoning over dynamic state spaces using Petri nets, a formalism for concurrent and distributed systems. [Paper](https://arxiv.org/abs/2609.19883)
-- **KoNeoBench** (2026-09-17) — Evaluates LLM understanding of Korean neologisms through four tasks: identification in context, component reconstruction, semantic/domain classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
-- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset, with protocols for gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift. [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
-- **DocAttriBench** (2026-09-17) — We introduce DocAttriBench (DAB), a large-scale benchmark for fine-grained, element-level source attribution in Document VQA, grounding answers to specific layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574) · [HF](https://huggingface.co/papers/2609.20574)
-- **Quantum-Enhanced Genetic Variant Pathogenicity Prediction** (2026-09-16) — An end-to-end bioinformatics pipeline and benchmark suite that classifies genetic variant pathogenicity from ClinVar, gnomAD v4, Ensembl VEP, and UniProtKB features, comparing classical machine learning, deep tabular mo… [Paper](https://github.com/RathanPai/variant-pathogenicity-benchmark) · [Code](https://github.com/RathanPai/variant-pathogenicity-benchmark)
+- **eos-bench** (2026-09-17) — A reusable toolkit that compares machine-learned interatomic potentials against DFT equation-of-state pressure-volume curves, fitting Birch-Murnaghan equations of state and reporting percent errors in V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
+- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates generative scientific inverse solvers on four physics-based inverse tasks, with high-fidelity reference posteriors and a common posterior-comparison evaluation suite. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
+- **PetriBench** (2026-09-17) — PetriBench is described as a compact, self-contained benchmark for evaluating LLM reasoning over dynamic state spaces modeled with Petri nets. [Paper](https://arxiv.org/abs/2609.19883)
+- **KoNeoBench** (2026-09-17) — KoNeoBench evaluates LLM understanding of Korean neologisms across context-based identification, component reconstruction, classification, and one-sentence definition generation tasks. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
+- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch sensor-drift evaluation, with fixed random and later-batch splits and… [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
 - **DynoFluxBench** (2026-09-16) — A benchmark framework for comparing kinodynamic planners in known dynamic environments with unbounded arrival time, facilitating systematic evaluation of planning algorithms. [Paper](https://arxiv.org/abs/2609.18549)
@@ -500,6 +496,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **Crypto Accounting Bench** (2026-09-13) — Crypto Accounting Bench tests whether language models can reproduce the exact journal entry recorded for 118 crypto-asset transactions, using transaction evidence and each organization's full chart of accounts. [Paper](https://arxiv.org/abs/2609.14811) · [Code](https://github.com/EntendreFinance/crypto-accounting-benchmark) · [Data](https://huggingface.co/datasets/Entendre/Crypto-Accounting-Bench)
 - **ZipBench** (2026-09-11) — A collection of compressed benchmark versions for text, multimodal, and agent tasks, with tools to evaluate models or create new compact benchmarks. [Paper](https://arxiv.org/abs/2609.12475) · [Code](https://github.com/MilkThink-Lab/ZipBench)
 - **ChitraMiti-12.8k** (2026-09-11) — ChitraMiti-12.8k is a synthetic Bengali planar geometry benchmark of 12,874 problems with structured 15-attribute diagram descriptions, complemented by NCTB-500, 500 textbook-extracted diagrams, targeting visual groundi… [Paper](https://arxiv.org/abs/2609.12509) · [Data](https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti)
+- **Capability Overload Benchmark** (2026-09-11) — Evaluates tool-selection reliability, task success, unnecessary tool calls, and token cost in LLM agents under varying catalog sizes (6-48) and semantic overlap levels (low/medium/high) across 40 tasks, with determinist… [Paper](https://github.com/bizhanchik/capability-overload) · [Code](https://github.com/bizhanchik/capability-overload)
 - **PNI-3D Multimodal CAD & Geometric Robustness Benchmark** (2026-09-10) — Evaluates fine-grained 3D CAD matching, multimodal embedding alignment, and geometric retrieval under sensor distortions using 100 parametric CAD families across 12 representations. [Paper](https://huggingface.co/datasets/tryforge/pni-3d-benchmark) · [Data](https://huggingface.co/datasets/tryforge/pni-3d-benchmark)
 - **Emission-factor accuracy benchmark** (2026-09-10) — Benchmark of 467 emission-factor questions scored for numeric accuracy and citation correctness across five models without tools. [Paper](https://github.com/greencalculus/greencalculus-benchmark) · [Code](https://github.com/greencalculus/greencalculus-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22692277.svg)
 - **ChurnBench** (2026-09-10) — Measures staleness errors in agentic AI answers under temporal drift across heterogeneous enterprise data sources. [Paper](https://arxiv.org/abs/2609.11515) · [Code](https://github.com/vsingh45/churnbench)
