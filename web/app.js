@@ -1,5 +1,5 @@
 const RADAR_PAGE_SIZE=60,LIBRARY_PAGE_SIZE=10;
-const state={window:"today",sort:"attention",visible:RADAR_PAGE_SIZE,latestFrom:null,latestRanks:{},benchmarks:[],manifest:null,library:[],libraryManifest:null,librarySearch:"",libraryDirection:"",librarySort:"latest",libraryScope:"",libraryDomain:"",libraryCapability:"",libraryTopic:"",libraryVisible:LIBRARY_PAGE_SIZE,trends:null,trendVisible:12,savedOnly:false,saved:new Set(JSON.parse(localStorage.getItem("benchmark-radar:watchlist:v1")||"[]"))};
+const state={window:"today",sort:"attention",visible:RADAR_PAGE_SIZE,latestFrom:null,latestRanks:{},benchmarks:[],manifest:null,library:[],libraryManifest:null,librarySearch:"",libraryDirection:"",librarySort:"attention",libraryScope:"",libraryDomain:"",libraryCapability:"",libraryTopic:"",libraryVisible:LIBRARY_PAGE_SIZE,trends:null,trendVisible:12,savedOnly:false,saved:new Set(JSON.parse(localStorage.getItem("benchmark-radar:watchlist:v1")||"[]"))};
 window.benchmarkRadarState=state;
 const $=id=>document.getElementById(id);const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=n=>n==null?"—":Number(n).toLocaleString();
