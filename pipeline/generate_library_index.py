@@ -25,6 +25,8 @@ RECENT = ROOT / "data" / "benchmarks.json"
 CLASSICS = ROOT / "data" / "library_records.json"
 CATALOGS = ROOT / "data" / "catalog_records.json"
 OUTPUT = ROOT / "data" / "library_index.json"
+MODEL_EVAL_REFERENCES = ROOT / "data" / "model_eval_references.json"
+REPORT_PROVIDER_ALIASES = {"Google DeepMind": "Google"}
 
 MODEL_REPORT_LABELS = {
     "openai-gpt5": {"provider": "OpenAI", "model": "GPT-5"},
@@ -329,6 +331,41 @@ def main() -> None:
             if keys:
                 record["reportedUsage"] = {**usage.summary(keys), "sourceIds": keys}
         payload["manifest"]["usageDatasetVersion"] = usage.manifest["datasetVersion"]
+    if MODEL_EVAL_REFERENCES.exists():
+        model_eval = json.loads(MODEL_EVAL_REFERENCES.read_text(encoding="utf-8"))
+        references = model_eval.get("references", {})
+        resolved = {}
+        for source_id, items in references.items():
+            target_id = source_id
+            visited = set()
+            while target_id in identity_redirects and target_id not in visited:
+                visited.add(target_id)
+                target_id = identity_redirects[target_id]
+            resolved.setdefault(target_id, []).extend(items)
+        references = resolved
+        linked_records = 0
+        linked_references = 0
+        for record in records:
+            incoming = references.get(record["id"], [])
+            if not incoming:
+                continue
+            merged = {}
+            for source_item in [*(record.get("modelReportReferences") or []), *incoming]:
+                item = dict(source_item)
+                item["provider"] = REPORT_PROVIDER_ALIASES.get(item.get("provider"), item.get("provider"))
+                key = (item.get("provider"), item.get("model"), item.get("url"))
+                merged[key] = item
+            record["modelReportReferences"] = sorted(
+                merged.values(),
+                key=lambda item: (item.get("modelDate") or "", item.get("provider") or "", item.get("model") or ""),
+                reverse=True,
+            )
+            linked_records += 1
+            linked_references += len(incoming)
+        payload["manifest"]["modelReportsAsOf"] = model_eval.get("manifest", {}).get("generatedAt")
+        payload["manifest"]["modelReportLatestModelDate"] = model_eval.get("manifest", {}).get("latestModelDate")
+        payload["manifest"]["modelReportLinkedRecords"] = linked_records
+        payload["manifest"]["modelReportReferenceCount"] = linked_references
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(
         f"records={len(records)} classics={payload['manifest']['classicRecordCount']} "
