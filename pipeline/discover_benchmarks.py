@@ -268,6 +268,12 @@ def candidate_record(item: dict[str, Any], indexed_at: str, config: dict[str, An
     score, relation, reasons = arxiv.recognition(paper)
     score = max(score, float(config["thresholds"]["review"]))
     record = arxiv.to_record(paper, indexed_at, score, relation, [f"discovered via {item['type']}", *reasons])
+    if item["type"] in {"github", "huggingface"}:
+        # `to_record` starts from an arXiv-shaped record and otherwise treats
+        # the discovery URL as a paper. Repository and dataset discoveries do
+        # not become papers merely because they are the primary source.
+        for key in ("report", "paper", "pdf"):
+            record["links"].pop(key, None)
     record["links"].update({key: value for key, value in item.get("links", {}).items() if value})
     record["links"] = {key: value for key, value in record["links"].items() if value}
     record["readiness"] = "Runnable" if record["links"].get("code") else "Inspectable" if record["links"].get("data") else "Paper only"

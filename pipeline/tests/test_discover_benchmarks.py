@@ -93,6 +93,9 @@ class AdapterTests(unittest.TestCase):
             "authors": ["lab"],
         }, "2026-08-23T00:00:00Z", {"thresholds": {"review": 0.35}})
         self.assertNotIn("pdf", record["links"])
+        self.assertNotIn("paper", record["links"])
+        self.assertNotIn("report", record["links"])
+        self.assertEqual(record["links"]["code"], "https://github.com/lab/AgentBench")
         self.assertTrue(all(record["links"].values()))
 
 
