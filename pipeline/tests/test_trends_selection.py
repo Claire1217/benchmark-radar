@@ -20,6 +20,17 @@ assert(node('detail').innerHTML.includes('No matching'));
 assert(!node('detail').innerHTML.includes('View in Library'));
 node('search').value='';node('search').oninput();
 assert(node('detail').innerHTML.includes('View in Library'));
-node('starTab').onclick();assert(!node('detail').innerHTML.includes('undefined'));
+for(const modeName of ['release','star']){
+ node(modeName+'Tab').onclick();
+ for(const m of [1,3,6]){
+  node('window').value=String(m);node('window').onchange();
+  const html=node('detail').innerHTML;
+  assert(!html.includes('undefined'));assert(!html.includes('NaN'));
+  const v=vm.runInContext('values(DATA.topics.find(t=>t.id===selected))',c);
+  assert.strictEqual(v.bars.reduce((a,b)=>a+b,0),v.n);
+  assert(html.includes(m===1?'Daily totals':m===3||modeName==='star'?'Weekly totals':'Monthly totals'));
+  assert(html.includes('Change '));
+ }
+}
 '''
         subprocess.run(['node','-e',script],cwd=Path(__file__).resolve().parents[2],check=True,capture_output=True,text=True)

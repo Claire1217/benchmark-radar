@@ -64,3 +64,22 @@ class TopicTrendsTests(unittest.TestCase):
   self.assertEqual((w['count'],w['previous'],w['delta']),(1,0,1))
   self.assertNotIn('comparisonComplete',w)
   self.assertEqual(sum(w['bars']),1)
+
+ def test_chart_ranges_and_totals_match_selected_period(self):
+  j=json.loads((ROOT/'data/trends_topics.json').read_text())
+  for t in j['topics']:
+   for months,w in t['windows'].items():
+    for key,total,start,end in [('releaseChart',w['count'],w['start'],j['endExclusive']),('starChart',w['stars'],w['starStart'],j['starEndExclusive'])]:
+     chart=w[key]
+     self.assertEqual(chart['dates'][0],start)
+     self.assertEqual(chart['dates'][-1],end)
+     self.assertEqual(len(chart['dates']),len(chart['values'])+1)
+     self.assertTrue(all(a<b for a,b in zip(chart['dates'],chart['dates'][1:])))
+     if total is None:self.assertTrue(all(v is None for v in chart['values']))
+     else:self.assertEqual(sum(chart['values']),total)
+     if months=='1':
+      self.assertEqual(chart['unit'],'daily')
+      self.assertGreaterEqual(len(chart['values']),28)
+     elif months=='3':
+      self.assertEqual(chart['unit'],'weekly')
+      self.assertIn(len(chart['values']),(13,14))

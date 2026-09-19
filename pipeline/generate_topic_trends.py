@@ -6,6 +6,13 @@ from generate_trends_comparison import repo_key,current_repo_directions
 ROOT=Path(__file__).resolve().parents[1]
 def shift(d,months):
  n=d.year*12+d.month-1+months;y,m=divmod(n,12);return date(y,m+1,min(d.day,calendar.monthrange(y,m+1)[1]))
+def chart_bounds(start,end,months,stars=False):
+ if months>=6 and not stars:
+  return [shift(end,-months+i) for i in range(months+1)],'monthly'
+ step=timedelta(days=1 if months==1 else 7)
+ bounds=[start]
+ while bounds[-1]<end:bounds.append(min(bounds[-1]+step,end))
+ return bounds,'daily' if months==1 else 'weekly'
 def visible(r):return r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe'
 def build(library,recent,history):
  records=[r for r in library['records'] if visible(r)]
@@ -64,7 +71,11 @@ def build(library,recent,history):
    # Calendar-month bins follow the selected period, including leap-year boundaries.
    bounds=[shift(release_end,-months+i) for i in range(months+1)]
    bins=[sum(a.isoformat()<=f['date']<b.isoformat() for f in ff) for a,b in zip(bounds,bounds[1:])]
-   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
+   release_bounds,release_unit=chart_bounds(release_start,release_end,months)
+   star_bounds,star_unit=chart_bounds(start,end,months,stars=True)
+   release_chart=[sum(a.isoformat()<=f['date']<b.isoformat() for f in current) for a,b in zip(release_bounds,release_bounds[1:])]
+   star_chart=[sum(n for r in rr for d,n in r['days'] if a<=d<b) for a,b in zip(star_bounds,star_bounds[1:])] if rr else [None]*(len(star_bounds)-1)
+   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','releaseChart':{'values':release_chart,'dates':[d.isoformat() for d in release_bounds],'unit':release_unit},'starChart':{'values':star_chart,'dates':[d.isoformat() for d in star_bounds],'unit':star_unit},'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
   used=[]
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
