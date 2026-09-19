@@ -28,7 +28,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1059)
+- [Other benchmark tasks](#other-benchmark-tasks) (1058)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (53)
@@ -471,10 +471,9 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **eos-bench** (2026-09-17) — A reusable toolkit that compares machine-learned interatomic potentials against DFT equation-of-state pressure-volume curves, fitting Birch-Murnaghan equations of state and reporting percent errors in V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
-- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates generative scientific inverse solvers on four physics-based inverse tasks, with high-fidelity reference posteriors and a common posterior-comparison evaluation suite. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
-- **PetriBench** (2026-09-17) — PetriBench is described as a compact, self-contained benchmark for evaluating LLM reasoning over dynamic state spaces modeled with Petri nets. [Paper](https://arxiv.org/abs/2609.19883)
-- **KoNeoBench** (2026-09-17) — KoNeoBench evaluates LLM understanding of Korean neologisms across context-based identification, component reconstruction, classification, and one-sentence definition generation tasks. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
+- **eos-bench** (2026-09-17) — Evaluates MLIPs against DFT for equation-of-state predictions by fitting Birch-Murnaghan curves and reporting error metrics for V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
+- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates the ability of generative inverse solvers to recover full posterior distributions rather than just point estimates across four physics-based inverse tasks. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
+- **KoNeoBench** (2026-09-17) — Evaluates LLM performance on Korean neologism understanding across identification, reconstruction, classification, and definition tasks. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
 - **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch sensor-drift evaluation, with fixed random and later-batch splits and… [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
