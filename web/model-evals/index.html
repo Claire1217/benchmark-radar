@@ -125,17 +125,17 @@ function drawPanel(){
  const tags=[...new Set([...(b.domains||[]),...(b.capabilities||[]),...(b.topics||[])])];
  const visibleFacts=(b.facts||[]).filter(([key])=>!['Displayed result','Variants combined'].includes(key));
  $('benchmark-about').innerHTML='<p class="about-text">'+esc(b.summary)+'</p>'+(visibleFacts.length?'<dl class="benchmark-facts">'+visibleFacts.map(([k,v])=>'<div><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl>':'')+'<div class="ability-tags">'+tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div><p class="dataset-link">'+(b.dataset_url?link(b.dataset_url,b.dataset_link_label||'Benchmark resource'):'')+'</p>';
- const rows=chart.rows,lo=Math.min(0,...rows.map(r=>r.display_value)),max=Math.max(...rows.map(r=>r.display_value),1e-9);
+ const rows=chart.rows,reference=own&&Number.isFinite(own.display_value)&&!rows.some(r=>r.model_id===focusModel)?own:null,lo=Math.min(0,...rows.map(r=>r.display_value),reference?.display_value??0),max=Math.max(...rows.map(r=>r.display_value),reference?.display_value??0,1e-9);
  const hi=chart.scale_max&&chart.scale_max>=max?chart.scale_max:max*1.04;
  const w=460,left=169,right=378,barW=right-left,rowH=29,top=18,height=top+rows.length*rowH+26;
  const px=v=>left+(v-lo)/(hi-lo)*barW;
- let svg='<svg class="compact-chart" viewBox="0 0 '+w+' '+height+'" role="img" aria-label="Top ten model scores for '+esc(b.name)+'"><title>'+esc(b.name)+' — reported model scores</title>';
+ let svg='<svg class="compact-chart" viewBox="0 0 '+w+' '+height+'" role="img" aria-label="Top ten model scores for '+esc(b.name)+'">';
  for(let i=0;i<5;i++){const x=left+barW*i/4,v=lo+(hi-lo)*i/4;svg+='<line x1="'+x+'" x2="'+x+'" y1="8" y2="'+(top+rows.length*rowH-3)+'" class="score-grid"/><text x="'+x+'" y="'+(height-3)+'" text-anchor="middle" class="score-tick">'+esc(Number(v.toPrecision(3)))+(chart.unit==='%'?'%':'')+'</text>'}
  rows.forEach((r,i)=>{const model=data.models[r.model_id],y=top+i*rowH,active=r.model_id===focusModel;const name=model.name.length>27?model.name.slice(0,26)+'…':model.name;
- svg+='<g class="plot-row '+(active?'focus':'')+'"><title>'+esc(model.name+': '+format(r))+'</title><text x="0" y="'+(y+11)+'" class="plot-model">'+esc(name)+'</text><rect x="'+px(Math.min(0,r.display_value))+'" y="'+y+'" width="'+Math.abs(px(r.display_value)-px(0)).toFixed(3)+'" height="17" class="plot-bar"/><text x="'+(right+9)+'" y="'+(y+12)+'" class="plot-value">'+esc(format(r))+'</text></g>';
- });svg+='</svg>';
+ svg+='<g class="plot-row '+(active?'focus':'')+'"><text x="0" y="'+(y+11)+'" class="plot-model">'+esc(name)+'</text><rect x="'+px(Math.min(0,r.display_value))+'" y="'+y+'" width="'+Math.abs(px(r.display_value)-px(0)).toFixed(3)+'" height="17" class="plot-bar"/><text x="'+(right+9)+'" y="'+(y+12)+'" class="plot-value">'+esc(format(r))+'</text></g>';
+ });if(reference){const x=px(reference.display_value);svg+='<line x1="'+x+'" x2="'+x+'" y1="8" y2="'+(top+rows.length*rowH-3)+'" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4 3"/>'}svg+='</svg>';
  $('score-count').textContent=(chart.scale_label||'')+' · '+chart.eligible+' '+(chart.eligible===1?'model':'models')+' · '+(chart.direction==='lower_is_better'?'Lower is better':chart.direction==='higher_is_better'?'Higher is better':'Sorted by score');
- $('scores').innerHTML=rows.length?svg:'<p class="comparison-note">No scores available for the selected company flagships.</p>';
+ $('scores').innerHTML=rows.length?svg+(reference?'<p class="comparison-note">Dashed line: '+esc(m.name)+' · '+esc(format(reference))+'. Bars show the latest flagship from each company with a reported score.</p>':''):'<p class="comparison-note">No scores available for the selected company flagships.</p>';
 }
 $('companies').addEventListener('click',e=>{const toggle=e.target.closest('[data-action="more-companies"]');if(toggle){showMoreCompanies=!showMoreCompanies;render();return}const b=e.target.closest('[data-company]');if(b){company=b.dataset.company;offset=0;closePanel()}});
 $('comparison').addEventListener('click',e=>{const b=e.target.closest('[data-benchmark]');if(!b)return;selected=b.dataset.benchmark;focusModel=b.dataset.model;limit=60;chartScale=null;chartSetting='all';drawPanel();$('drawer').hidden=false;document.body.classList.add('panel-open');render();$('close').focus()});
