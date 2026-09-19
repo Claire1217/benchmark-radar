@@ -73,6 +73,8 @@ def main() -> None:
     trends_document.feed(trends)
     if len(trends_document.ids) != len(set(trends_document.ids)):
         raise SystemExit("duplicate Trends HTML id")
+    if 'href="../model-evals/"' not in trends or 'href="./model-evals/"' in trends:
+        raise SystemExit("Trends must link to the top-level Model Evals page")
     script_ref = re.search(r'src="./(trends\.js\?v=[a-f0-9]{12})"', trends)
     if not script_ref:
         raise SystemExit("Versioned Trends script missing")
