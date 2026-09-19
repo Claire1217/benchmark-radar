@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-18 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-19 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 51 HF votes · 414 dataset downloads |
-| 2 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 3 HF votes · 179 GitHub stars |
-| 3 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 42 HF votes · 20 GitHub stars |
-| 4 | **LifeSci-Harbor-Bench**<br><sub>[Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)</sub> | Coding Agents | 216 dataset downloads |
-| 5 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 406 dataset downloads |
-| 6 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 178 dataset downloads |
-| 7 | **MM-ContextASR Bench**<br><sub>[Paper](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench)</sub> | Other benchmark tasks | 98 dataset downloads |
-| 8 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 185 GitHub stars |
-| 9 | **EdgeMosaic**<br><sub>[Paper](https://github.com/michailfragkiskos/EdgeMosaic) · [Code](https://github.com/michailfragkiskos/EdgeMosaic)</sub> | Other benchmark tasks | 28 GitHub stars |
-| 10 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 5 HF votes · 54 GitHub stars |
+| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 40 HF votes · 54 GitHub stars |
+| 2 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 159 HF votes · 20 GitHub stars |
+| 3 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 51 HF votes · 420 dataset downloads |
+| 4 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 4 HF votes · 190 GitHub stars |
+| 5 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 18 HF votes · 61 GitHub stars |
+| 6 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 886 dataset downloads |
+| 7 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 39 HF votes · 20 GitHub stars |
+| 8 | **LifeSci-Harbor-Bench**<br><sub>[Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)</sub> | Coding Agents | 224 dataset downloads |
+| 9 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 204 dataset downloads |
+| 10 | **MM-ContextASR Bench**<br><sub>[Paper](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench)</sub> | Other benchmark tasks | 117 dataset downloads |
 
 ### Explore the library
 
