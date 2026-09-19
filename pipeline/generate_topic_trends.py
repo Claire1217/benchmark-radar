@@ -8,23 +8,27 @@ def shift(d,months):
  n=d.year*12+d.month-1+months;y,m=divmod(n,12);return date(y,m+1,min(d.day,calendar.monthrange(y,m+1)[1]))
 def visible(r):return r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe'
 def build(library,recent,history):
- records=[r for r in library['records'] if visible(r)];mapping=current_repo_directions(records)
+ records=[r for r in library['records'] if visible(r)]
+ taxonomy=library['manifest'].get('libraryTaxonomy',library['manifest']['topicTaxonomy'])
+ membership=lambda r:r.get('libraryCategories',r.get('researchTopics',[]))
+ mapping=current_repo_directions([{**r,'researchTopics':membership(r)} for r in records])
  asof=date.fromisoformat(recent['manifest'].get('latestSourceDate') or recent['manifest']['dataAsOf']);end=asof-timedelta(days=(asof.weekday()+1)%7)
- # Drop the current partial API week. Repository history uses source calendar boundaries.
+ release_end=date.fromisoformat(recent['manifest'].get('dataAsOf') or asof.isoformat())+timedelta(days=1)
+ # Stars require complete weeks; releases include the latest indexed day.
  family={}
  for r in records:
   # An index/leaderboard launch is useful metadata, not a dataset release.
   if r.get('evaluationRole')=='aggregate-index':continue
   d=r.get('releasedAt');f=r.get('familyId') or r['id']
   if f not in family:family[f]={'date':None,'members':[],'topics':set()}
-  family[f]['members'].append(r);family[f]['topics'].update(r.get('researchTopics',[]))
+  family[f]['members'].append(r);family[f]['topics'].update(membership(r))
   if d and d!='0001-01-01' and r.get('releaseDatePrecision') not in ('year','month','unknown') and (r.get('releaseEvidence') or {}).get('dateScope') not in ('underlying-dataset','public-disclosure'):
    family[f]['date']=min(family[f]['date'] or d,d)
  # Count every dated Library family, including entries absent from the recent feed.
  # These are known releases in the catalog, not a claim of exhaustive discovery.
  releases=[]
  for f,v in family.items():
-  if not v['date'] or v['date']>=end.isoformat():continue
+  if not v['date'] or v['date']>=release_end.isoformat():continue
   r=next(r for r in v['members'] if r.get('releasedAt')==v['date'] and r.get('releaseDatePrecision') not in ('year','month','unknown'))
   evidence=r.get('releaseEvidence') or {}
   releases.append({'id':f,'date':v['date'],'directions':sorted(v['topics']),'name':r['name'],'description':r.get('description',''),'url':evidence.get('sourceUrl') or (r.get('links') or {}).get('report'),'dateBasis':evidence.get('basis','released')})
@@ -45,11 +49,12 @@ def build(library,recent,history):
  systematic_dates=[r.get('releasedAt') for r in recent.get('records',[]) if r.get('releasedAt') and r.get('releasedAt')!='0001-01-01']
  coverage_start=min(systematic_dates,default=None)
  topics=[]
- for t in library['manifest']['topicTaxonomy']['directions']:
-  members=[r for r in records if t['id'] in r.get('researchTopics',[])];rr=[r for r in repos if t['id'] in r['directions']];ff=[f for f in releases if t['id'] in f['directions']];windows={}
+ for t in taxonomy['directions']:
+  members=[r for r in records if t['id'] in membership(r)];rr=[r for r in repos if t['id'] in r['directions']];ff=[f for f in releases if t['id'] in f['directions']];windows={}
   for months in (1,3,6,12):
    start=shift(end,-months);prev=shift(start,-months)
-   current=[f for f in ff if start.isoformat()<=f['date']<end.isoformat()];prior=[f for f in ff if prev.isoformat()<=f['date']<start.isoformat()]
+   release_start=shift(release_end,-months);release_prev=shift(release_start,-months)
+   current=[f for f in ff if release_start.isoformat()<=f['date']<release_end.isoformat()];prior=[f for f in ff if release_prev.isoformat()<=f['date']<release_start.isoformat()]
    stars=[]
    for r in rr:
     n=sum(n for d,n in r['days'] if start<=d<end);baseline=sum(n for d,n in r['days'] if d<start);priorstars=sum(n for d,n in r['days'] if prev<=d<start)
@@ -59,10 +64,10 @@ def build(library,recent,history):
     stars.append({k:r[k] for k in ('url','name','names')}|{'stars':n,'baseline':baseline,'previous':priorstars,'weekly':weekly,'weekly26':longweeks[3:],'average26':[sum(longweeks[i:i+4])/4 for i in range(week_count)],'newRepository':r['firstDay']>=start})
    stars.sort(key=lambda r:(-r['stars'],r['name']));total=sum(r['stars'] for r in stars);base=sum(r['baseline'] for r in stars);top=stars[0]['stars'] if stars else 0
    # Calendar-month bins follow the selected period, including leap-year boundaries.
-   bounds=[shift(end,-months+i) for i in range(months+1)]
+   bounds=[shift(release_end,-months+i) for i in range(months+1)]
    bins=[sum(a.isoformat()<=f['date']<b.isoformat() for f in ff) for a,b in zip(bounds,bounds[1:])]
-   comparable=not coverage_start or prev.isoformat()>=coverage_start
-   windows[str(months)]={'start':start.isoformat(),'previousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior) if comparable else None,'delta':len(current)-len(prior) if comparable else None,'comparisonComplete':comparable,'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
+   comparable=not coverage_start or release_prev.isoformat()>=coverage_start
+   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','comparisonComplete':comparable,'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
   used=[]
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
@@ -78,20 +83,20 @@ def build(library,recent,history):
  )
  missing_exact=sum(not v['date'] for v in family.values())-scoped_out
  return {
-  'taxonomyVersion':library['manifest']['topicTaxonomy']['version'],
-  'asOf':(end-timedelta(days=1)).isoformat(),'endExclusive':end.isoformat(),
+  'taxonomyVersion':taxonomy['version'],
+  'asOf':(release_end-timedelta(days=1)).isoformat(),'endExclusive':release_end.isoformat(),'starAsOf':(end-timedelta(days=1)).isoformat(),'starEndExclusive':end.isoformat(),
   'earliestKnownRelease':earliest,'systematicReleaseCoverageStart':coverage_start,
-  'releaseTotals':{str(m):sum(shift(end,-m).isoformat()<=f['date']<end.isoformat() for f in releases) for m in (1,3,6,12)},
+  'releaseTotals':{str(m):sum(shift(release_end,-m).isoformat()<=f['date']<release_end.isoformat() for f in releases) for m in (1,3,6,12)},
   'defaultReleaseMonths':3,'defaultStarMonths':3,'topics':topics,
   'coverage':{
    'libraryRecords':len(records),'storedLibraryRecords':len(library['records']),'displayEligibleRecords':len(records),
    'datedFamilies':len(releases),'undatedFamilies':missing_exact+scoped_out,
    'familiesMissingExactDate':missing_exact,'familiesExcludedAsVariantsOrDisclosures':scoped_out,
-   'releaseScope':'all-library-dated-families','completeHistories':len(repos),'requestedHistories':history['receipt']['repositories']
+   'releaseScope':'all-library-dated-families','completeHistories':len(repos),'includedHistories':len(repos),'fetchedCompleteHistories':sum(h['status']=='complete' for h in history['records']),'requestedHistories':history['receipt']['repositories']
   },
   'methodology':{
    'stars':'Recorded star creation events, not net stars or current stargazer totals. Growth rate = period events / all recorded events before the period.',
-   'time':'Calendar-month windows end at the last complete source week. Source day boundaries may differ from UTC.',
+   'time':'Release windows include the latest indexed day; star windows end at the last complete source week. Source day boundaries may differ from UTC.',
    'release':'All dated canonical Library families, counted at their earliest supported day-level publication date. Unknown/year-only dates excluded. Counts describe indexed releases, not exhaustive historical coverage; backfills can change past counts.',
    'scope':'Deduplicated repositories within each topic. Topics overlap. Shared hosting/toolkit repositories excluded. New-repository share is a lower-bound estimate using complete creation weeks; it is not benchmark release age.',
    'classification':'Same current topic mapping applied retrospectively to every window.'

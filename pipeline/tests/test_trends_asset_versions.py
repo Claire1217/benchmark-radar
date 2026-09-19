@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+from urllib.parse import urlsplit
 import sys
 import tempfile
 import unittest
@@ -23,12 +24,13 @@ class TrendsAssetVersionsTest(unittest.TestCase):
                 version_trends_assets(root)
                 page = (root / 'trends/index.html').read_text()
                 script_name = re.search(r'src="./([^"]+)"', page)[1]
-                script = (root / 'trends' / script_name).read_text()
+                script = (root / 'trends' / urlsplit(script_name).path).read_text()
                 data_name = re.search(r"../data/([^']+)", script)[1]
-                self.assertEqual((root / 'data' / data_name).read_text(), data)
+                self.assertEqual((root / 'data' / urlsplit(data_name).path).read_text(), data)
                 self.assertNotIn('href="../site-header.css"', page)
                 self.assertRegex(page, r'benchmark-name\.js\?v=[0-9a-f]{12}')
                 return script_name
             first = build('{"version":1}')
             self.assertEqual(first, build('{"version":1}'))
             self.assertNotEqual(first, build('{"version":2}'))
+            self.assertTrue((root / 'trends' / urlsplit(first).path).exists())

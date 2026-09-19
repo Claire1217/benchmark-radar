@@ -16,9 +16,9 @@ class TopicTrendsTests(unittest.TestCase):
   weeks=[]
   for i in range(35):
    d=date(2026,1,11)+timedelta(days=7*i);days=[1,0,0,0,0,0,0];weeks.append({'week':int(datetime.combine(d,datetime.min.time(),timezone.utc).timestamp()),'days':days,'total':1})
-  hist={'receipt':{'repositories':1},'records':[{'url':'https://github.com/test/repo','status':'complete','weeks':weeks}]};j=build(library,recent,hist);w=j['topics'][0]['windows']['3'];self.assertEqual(len(w['repos']),1);self.assertIsNone(w['delta']);self.assertFalse(w['comparisonComplete']);self.assertAlmostEqual(w['growthRate'],100*w['stars']/w['baseline']);self.assertIsNone(j['topics'][1]['windows']['3']['stars']);self.assertEqual(j['topics'][0]['windows']['6']['count'],2)
+  hist={'receipt':{'repositories':1},'records':[{'url':'https://github.com/test/repo','status':'complete','weeks':weeks}]};j=build(library,recent,hist);w=j['topics'][0]['windows']['3'];self.assertEqual(len(w['repos']),1);self.assertEqual(w['delta'],w['count']-w['previous']);self.assertFalse(w['comparisonComplete']);self.assertAlmostEqual(w['growthRate'],100*w['stars']/w['baseline']);self.assertIsNone(j['topics'][1]['windows']['3']['stars']);self.assertEqual(j['topics'][0]['windows']['6']['count'],2)
  def test_real_data_membership_and_counts(self):
-  l=json.loads((ROOT/'data/library_index.json').read_text());j=json.loads((ROOT/'data/trends_topics.json').read_text());self.assertEqual(l['manifest']['topicTaxonomy']['version'],j['taxonomyVersion']);self.assertEqual([t['id'] for t in j['topics']],[t['id'] for t in l['manifest']['topicTaxonomy']['directions']]);self.assertEqual([t['library'] for t in j['topics']],[t['count'] for t in l['manifest']['topicTaxonomy']['directions']])
+  l=json.loads((ROOT/'data/library_index.json').read_text());j=json.loads((ROOT/'data/trends_topics.json').read_text());self.assertEqual(l['manifest']['libraryTaxonomy']['version'],j['taxonomyVersion']);self.assertEqual([t['id'] for t in j['topics']],[t['id'] for t in l['manifest']['libraryTaxonomy']['directions']]);self.assertEqual([t['library'] for t in j['topics']],[t['count'] for t in l['manifest']['libraryTaxonomy']['directions']])
   visible=sum(r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe' for r in l['records'])
   self.assertEqual(j['coverage']['storedLibraryRecords'],len(l['records']))
   self.assertEqual(j['coverage']['displayEligibleRecords'],visible)
@@ -34,18 +34,30 @@ class TopicTrendsTests(unittest.TestCase):
   recent={'records':[rows[2]],'manifest':{'latestSourceDate':'2026-09-13'}}
   j=build(library,recent,{'records':[],'receipt':{'repositories':0}})
   w=j['topics'][0]['windows']['12']
-  self.assertEqual((w['count'],w['previous'],w['delta']),(2,None,None))
+  self.assertEqual((w['count'],w['previous'],w['delta']),(2,1,1))
   self.assertEqual(len(w['bars']),12)
   self.assertEqual(sum(w['bars']),w['count'])
-  self.assertEqual(w['barDates'][0],'2025-09-13')
-  self.assertEqual(w['barDates'][-1],'2026-09-13')
+  self.assertEqual(w['barDates'][0],'2025-09-14')
+  self.assertEqual(w['barDates'][-1],'2026-09-14')
   self.assertEqual(j['defaultReleaseMonths'],3)
   self.assertEqual(j['systematicReleaseCoverageStart'],'2026-06-01')
   self.assertEqual(j['coverage']['familiesMissingExactDate'],3)
   self.assertEqual(j['coverage']['familiesExcludedAsVariantsOrDisclosures'],2)
-  self.assertIsNone(w['previous'])
-  self.assertIsNone(w['delta'])
+  self.assertEqual(w['previous'],1)
+  self.assertEqual(w['delta'],w['count']-w['previous'])
   self.assertEqual(j['topics'][1]['windows']['12']['count'],1)
   self.assertEqual(j['coverage']['undatedFamilies'],5)
   self.assertEqual(j['releaseTotals']['12'],2)
   self.assertEqual(j['earliestKnownRelease'],'2024-10-01')
+
+ def test_releases_include_latest_day_and_keep_star_cutoff_separate(self):
+  rows=[{'id':'new','name':'New','releasedAt':'2026-09-18','libraryCategories':['coding-agents'],'researchTopics':[]}]
+  taxonomy={'version':'test','directions':[{'id':'coding-agents','name':'Coding','description':''}]}
+  library={'records':rows,'manifest':{'libraryTaxonomy':taxonomy,'topicTaxonomy':taxonomy}}
+  j=build(library,{'records':rows,'manifest':{'dataAsOf':'2026-09-19','latestSourceDate':'2026-09-18'}},{'records':[],'receipt':{'repositories':0}})
+  self.assertEqual(j['asOf'],'2026-09-19')
+  self.assertEqual(j['starAsOf'],'2026-09-12')
+  w=j['topics'][0]['windows']['3']
+  self.assertEqual((w['count'],w['previous'],w['delta']),(1,0,1))
+  self.assertFalse(w['comparisonComplete'])
+  self.assertEqual(sum(w['bars']),1)

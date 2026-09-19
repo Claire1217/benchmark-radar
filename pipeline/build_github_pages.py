@@ -58,9 +58,7 @@ def version_trends_assets(output: Path) -> None:
     """Bind the page to matching content-addressed script, styles and data."""
     def version(path: Path) -> str:
         digest = hashlib.sha256(path.read_bytes()).hexdigest()[:12]
-        target = path.with_name(f"{path.stem}.{digest}{path.suffix}")
-        shutil.copy2(path, target)
-        return target.name
+        return path.name + "?v=" + digest
 
     data_name = version(output / "data" / "trends_topics.json")
     script = output / "trends" / "trends.js"

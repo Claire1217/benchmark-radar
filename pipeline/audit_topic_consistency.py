@@ -8,13 +8,14 @@ def audit():
  library=load('library_index.json');public=load('benchmarks_index.json');trends=load('trends_topics.json');rows=library['records'];byid={r['id']:r for r in rows};manifest=topic_manifest(rows)
  assert library['manifest']['topicTaxonomy']==manifest,'Library manifest drift'
  ids=[t['id'] for t in manifest['directions']];assert len(ids)==20 and len(set(ids))==20
- assert trends['taxonomyVersion']==VERSION and [t['id'] for t in trends['topics']]==ids,'Trends taxonomy drift'
+ categories=library['manifest']['libraryTaxonomy']
+ assert trends['taxonomyVersion']==categories['version'] and [t['id'] for t in trends['topics']]==[d['id'] for d in categories['directions']],'Trends taxonomy drift'
  for r in public['records']:
   if r['id'] in byid:
    if byid[r['id']].get('repositoryScopeReview'):assert r.get('attention',{}).get('githubScope')==byid[r['id']]['repositoryScopeReview']['scope'],(r['id'],'scope drift')
    for key in ('researchTopics','benchmarkTaxonomy','topicClassification'):assert r[key]==byid[r['id']][key],(r['id'],key)
  for t in trends['topics']:
-  assert t['library']==next(d['count'] for d in manifest['directions'] if d['id']==t['id']),(t['id'],'count drift')
+  assert t['library']==next(d['count'] for d in categories['directions'] if d['id']==t['id']),(t['id'],'count drift')
   for w in t['windows'].values():
    repos=w['repos'];assert len({r['url'].lower() for r in repos})==len(repos)
    assert w['stars']==sum(r['stars'] for r in repos) if repos else w['stars'] is None
