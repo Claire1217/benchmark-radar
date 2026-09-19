@@ -46,8 +46,6 @@ def build(library,recent,history):
   seen_repos.add(k)
   days=[(datetime.fromtimestamp(w['week'],timezone.utc).date()+timedelta(days=i),n) for w in weeks for i,n in enumerate(w['days'])]
   repos.append({'url':h['url'],'name':k,'names':sorted(names.get(k,[])),'directions':sorted(mapping[k]),'days':days,'firstDay':days[0][0]})
- systematic_dates=[r.get('releasedAt') for r in recent.get('records',[]) if r.get('releasedAt') and r.get('releasedAt')!='0001-01-01']
- coverage_start=min(systematic_dates,default=None)
  topics=[]
  for t in taxonomy['directions']:
   members=[r for r in records if t['id'] in membership(r)];rr=[r for r in repos if t['id'] in r['directions']];ff=[f for f in releases if t['id'] in f['directions']];windows={}
@@ -66,8 +64,7 @@ def build(library,recent,history):
    # Calendar-month bins follow the selected period, including leap-year boundaries.
    bounds=[shift(release_end,-months+i) for i in range(months+1)]
    bins=[sum(a.isoformat()<=f['date']<b.isoformat() for f in ff) for a,b in zip(bounds,bounds[1:])]
-   comparable=not coverage_start or release_prev.isoformat()>=coverage_start
-   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','comparisonComplete':comparable,'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
+   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
   used=[]
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
@@ -85,7 +82,7 @@ def build(library,recent,history):
  return {
   'taxonomyVersion':taxonomy['version'],
   'asOf':(release_end-timedelta(days=1)).isoformat(),'endExclusive':release_end.isoformat(),'starAsOf':(end-timedelta(days=1)).isoformat(),'starEndExclusive':end.isoformat(),
-  'earliestKnownRelease':earliest,'systematicReleaseCoverageStart':coverage_start,
+  'earliestKnownRelease':earliest,
   'releaseTotals':{str(m):sum(shift(release_end,-m).isoformat()<=f['date']<release_end.isoformat() for f in releases) for m in (1,3,6,12)},
   'defaultReleaseMonths':3,'defaultStarMonths':3,'topics':topics,
   'coverage':{
