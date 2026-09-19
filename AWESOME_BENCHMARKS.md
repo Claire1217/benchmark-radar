@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-19 · **Benchmark releases:** 1852
+**Snapshot:** 2026-09-19 · **Benchmark releases:** 1853
 
 ## Contents
 
@@ -19,7 +19,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (52)
-- [Coding Agents](#coding-agents) (54)
+- [Coding Agents](#coding-agents) (55)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (5)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
@@ -158,6 +158,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
+- **Agent Failure Lab** (2026-09-18) — Evaluates coding agents on regression tasks generated from failed sessions, with verification commands and failure categories. [Paper](https://github.com/MOSTRE/agent-failure-lab) · [Code](https://github.com/MOSTRE/agent-failure-lab)
 - **LifeSci-Harbor-Bench** (2026-09-06) — Evaluates coding agents on 503 ultra-long-horizon, open-ended life science research tasks through an 11-layer verifier combining deterministic scoring and anti-hacking checks. [Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench) · [Data](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **SWE-Gate** (2026-09-03) — Evaluates repository-level repair agents on both functional correctness and adherence to review-derived constraints, using 303 instances with separate functional and constraint tests. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
@@ -471,10 +472,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **eos-bench** (2026-09-17) — Evaluates MLIPs against DFT for equation-of-state predictions by fitting Birch-Murnaghan curves and reporting error metrics for V0 and B0. [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
-- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates the ability of generative inverse solvers to recover full posterior distributions rather than just point estimates across four physics-based inverse tasks. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
-- **KoNeoBench** (2026-09-17) — Evaluates LLM performance on Korean neologism understanding across identification, reconstruction, classification, and definition tasks. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
-- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark over the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch sensor-drift evaluation, with fixed random and later-batch splits and… [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
+- **eos-bench** (2026-09-17) — Compares machine-learned interatomic potentials against DFT equation-of-state behavior by generating volume-scaled structures, running DFT and MLIP calculations, and fitting Birch-Murnaghan equations of state with error… [Paper](https://github.com/Soham0605/Benchmarking_MLIPs) · [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
+- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates generative scientific inverse solvers on whether they recover full posterior distributions rather than only accurate point estimates. It supplies four physics-based inverse tasks, high-fidelity… [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
+- **KoNeoBench** (2026-09-17) — Evaluates LLM understanding of Korean neologisms across four tasks: context-based identification, component reconstruction for blends and abbreviations, odd-one-out and semantic/domain classification, and one-sentence d… [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
+- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark on the UCI Gas Sensor Array Drift dataset, covering gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift with fixed 128 engineered features and p… [Paper](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
 - **DynoFluxBench** (2026-09-16) — A benchmark framework for comparing kinodynamic planners in known dynamic environments with unbounded arrival time, facilitating systematic evaluation of planning algorithms. [Paper](https://arxiv.org/abs/2609.18549)
