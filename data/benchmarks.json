@@ -44,7 +44,7 @@
       "name": "STRATA-Bench",
       "paperTitle": "strata-bench",
       "aliases": [],
-      "oneLine": "Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data.",
+      "oneLine": "STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted headline over temporal, source, spatial, statistical, visual, and narrative components with hard-fail caps.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -123,23 +123,15 @@
           "url": "https://github.com/movahedi-ca/strata-bench"
         }
       ],
-      "description": "Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data.",
-      "whyItMatters": "Tests whether agents can distinguish paywalled versus public series, tag missing quarters, plot time axes correctly, and avoid blending incompatible units—a key gap in existing agent benchmarks.",
+      "description": "STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted headline over temporal, source, spatial, statistical, visual, and narrative components with hard-fail caps.",
+      "whyItMatters": "Institutional research tasks require agents to name the geography and source of each number, tag interpolations, and plot time as time; most existing agent benchmarks do not probe whether an agent knows what a reported value represents. STRATA-Bench supplies a frozen sandbox corpus with held-out gold so teams can compare agent behavior on disclosure, refusal, and sourcing discipline.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 42,
+        "score": 38,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Given a new GitHub repository with a unique task domain and a community leaderboard, initial interest is likely from AI evaluation researchers, but visibility is limited without broader promotion."
+        "reason": "Domain-specific fragmented-data agent evaluation with a self-contained synthetic corpus, released tooling, and a protocol-driven community PR route supports moderate initial attention."
       },
-      "publishers": [
-        {
-          "name": "Mohammad Movahedi",
-          "organizationType": "community",
-          "sourceUrl": "https://movahedi-ca.github.io/strata-bench/",
-          "role": "benchmark-publisher"
-        }
-      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -374,9 +366,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "91ae96b091fbf5596d382d4b9b069f77fa777e5c7cdf2a906640962d5ba16d05"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "7ffd3f050f188a15e0e0fe5de914d24d4591eeb70456e628eb3f95d9859d323e"
       }
     },
     {
@@ -387,7 +379,7 @@
       "aliases": [
         "humanwill-benchmark"
       ],
-      "oneLine": "Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately.",
+      "oneLine": "HumanWill Benchmark evaluates model false-refusal and answer-usefulness behavior over a 424-question cybersecurity question pack spanning vulnerability validation, source-code security, binary, network, and filesystem/artifact investigation, with a CLI that runs configurable models, judges answers under a policy, and produces reports.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Cybersecurity"
@@ -466,19 +458,19 @@
           "url": "https://github.com/humanwill-ai/humanwill-benchmark"
         }
       ],
-      "description": "Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately.",
-      "whyItMatters": "Addresses the gap in distinguishing harmful refusals from legitimate cybersecurity assistance, enabling targeted improvement of model helpfulness without compromising safety.",
+      "description": "HumanWill Benchmark evaluates model false-refusal and answer-usefulness behavior over a 424-question cybersecurity question pack spanning vulnerability validation, source-code security, binary, network, and filesystem/artifact investigation, with a CLI that runs configurable models, judges answers under a policy, and produces reports.",
+      "whyItMatters": "Teams deciding on model and provider configurations for legitimate security work need separable measures of whether a model declines a benign request versus whether its answer is useful. The released pack, scoring policies, and CLI let other teams inspect and reproduce comparisons.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
+        "score": 45,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses cybersecurity assistance and refusal measurement, a niche but relevant topic likely to attract moderate interest from safety researchers and practitioners."
+        "reason": "Security-domain refusal evaluation over a released 424-question pack and published cross-configuration report gives the release a recognizable topical draw."
       },
       "publishers": [
         {
-          "name": "HumanWill AI",
-          "organizationType": "company-research-lab",
+          "name": "HumanWill",
+          "organizationType": "benchmark-organization",
           "sourceUrl": "https://humanwill.ai",
           "role": "benchmark-publisher"
         }
@@ -717,9 +709,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "92fe0043de970b8d55fb636aa6b1030dc96df46f5b104aac3b719c9f4ba59d34"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "d0b6d36de4d6c5338364e26c8590ca0f35f8f204bfa4e91464267aeae19af053"
       }
     },
     {
@@ -730,7 +722,7 @@
       "aliases": [
         "agent-failure-lab"
       ],
-      "oneLine": "Evaluates coding agents on regression tasks generated from failed sessions, with verification commands and failure categories.",
+      "oneLine": "Agent Failure Lab is a tool that analyzes AI coding-agent session logs, diagnoses failure categories, and promotes diagnosed cases into runnable regression benchmarks bundled with a verifier command.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -806,35 +798,27 @@
           "url": "https://github.com/MOSTRE/agent-failure-lab"
         }
       ],
-      "description": "Evaluates coding agents on regression tasks generated from failed sessions, with verification commands and failure categories.",
-      "whyItMatters": "Provides a reusable way to test whether future agents repeat known failures, supporting regression testing in development workflows.",
+      "description": "Agent Failure Lab is a tool that analyzes AI coding-agent session logs, diagnoses failure categories, and promotes diagnosed cases into runnable regression benchmarks bundled with a verifier command.",
+      "whyItMatters": "Coding agent failures recur across runs, but teams typically discard the sessions that expose them. Converting those sessions into rerunnable checks could let teams compare agents or agent versions against the same failure cases.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Medium",
+        "score": 18,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The niche focus on capturing agent failures as regression benchmarks and the actionable tooling may attract moderate interest among developers working with coding agents."
+        "reason": "The repository provides a working tool, demo video, and bundled example suites for coding-agent failure analysis, a topic of moderate practitioner interest."
       },
-      "publishers": [
-        {
-          "name": "MOSTRE",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/MOSTRE/agent-failure-lab",
-          "role": "benchmark-publisher"
-        }
-      ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "task: | Fix the authentication timeout.",
           "scoring": "verification: command: pytest tests/auth -q timeout_seconds: 120",
           "reuse": "20 curated benchmarks ship under `benchmarks/`."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-19T08:53:18.101583Z",
+        "reviewedAt": "2026-09-20T09:25:49.548707Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark format defines task, verification, and scoring; curated benchmarks are publicly available and the repository provides commands to run and create new benchmarks.",
+        "decisionReason": "Roadmap-only suite with no shipped task set; the repository ships a framework and demo examples but the official benchmark registry is listed under Roadmap.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Agent Failure Lab"
       },
@@ -989,9 +973,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-19T08:53:18.101583Z",
-        "inputHash": "8d362e99d808886a9a144fea0e4d9086cd4f1a3de22f20fe1864fb12ffc49225"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "3ed06fa0436a6616ce6d04b80daeb4d9601c9e01f82bb6e2f6bab78153f583fa"
       }
     },
     {
@@ -1000,7 +984,7 @@
       "name": "VABench",
       "paperTitle": "VABench: Measuring Embodied Spatial Intelligence through Visual Demonstrations, Active Perception, and Metric Control",
       "aliases": [],
-      "oneLine": "ArXiv paper introducing a benchmark for embodied spatial intelligence, but no artifacts or reproducible evaluation details are provided.",
+      "oneLine": "Evaluates embodied spatial intelligence by targeting the observe-reason-act-revise loop through visual demonstrations, active perception and metric control.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -1240,18 +1224,18 @@
           }
         }
       },
-      "description": "ArXiv paper introducing a benchmark for embodied spatial intelligence, but no artifacts or reproducible evaluation details are provided.",
-      "whyItMatters": "Unclear: without released tasks or scoring protocols, the evaluation object and practical value cannot be assessed.",
+      "description": "Evaluates embodied spatial intelligence by targeting the observe-reason-act-revise loop through visual demonstrations, active perception and metric control.",
+      "whyItMatters": "Embodied spatial reasoning is difficult to compare across systems; a shared protocol covering observation, action and revision would aid practical model selection.",
       "attentionForecast": {
-        "score": 0,
+        "score": 12,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "No artifacts or reproducible protocol are provided, limiting early attention to the paper's abstract only."
+        "reason": "Forecast rests on a broad embodied-spatial scope and a named benchmark, moderated by minimal artifact and release detail."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "087e5e2bd1a69f8b793dca79e080c23fdd9f67226d39492dc53d9feb9ce9f22b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "c9a7f3d2fefc5f0bf74d73e1b797bc7b27bcda64f3a3054d33d0b24ab4bbdf3a"
       }
     },
     {
@@ -1262,7 +1246,7 @@
       "aliases": [
         "V\\={a}kQA: A Benchmark and Evaluation Study for Telugu Spoken Factoid Question Answering"
       ],
-      "oneLine": "ArXiv paper introducing a Telugu spoken factoid QA benchmark with dataset and answers, but no code or official evaluation tool is provided in the evidence.",
+      "oneLine": "A Telugu spoken factoid question answering benchmark of 2,001 question-answer pairs across six domains with 2.53 hours of speech audio and bilingual transcriptions.",
       "area": "Speech & Audio",
       "applicationDomains": [
         "General AI"
@@ -1353,14 +1337,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "ArXiv paper introducing a Telugu spoken factoid QA benchmark with dataset and answers, but no code or official evaluation tool is provided in the evidence.",
-      "whyItMatters": "Unclear: the dataset may be reused, but without a scoring contract or public evaluator the benchmark cannot be assessed.",
+      "description": "A Telugu spoken factoid question answering benchmark of 2,001 question-answer pairs across six domains with 2.53 hours of speech audio and bilingual transcriptions.",
+      "whyItMatters": "Spoken question answering in low-resource languages such as Telugu is under-evaluated, and a verified reference-answer set would support comparison of spoken factoid QA systems.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 0,
+        "score": 22,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Without accessible artifacts or code, the paper's impact in the first week is limited to its abstract and potential dataset mention."
+        "reason": "Attention is likely narrow, driven by interest in Telugu speech processing and low-resource spoken question answering."
       },
       "displayEligible": false,
       "curation": {
@@ -1528,9 +1512,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "06abda8125679e2bbaedfe302bbee9e025ded41838bab6cc2bd201b9eb8672dc"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "5d73dfdc24df0e6bf88f60bb8b6e0b928b114c38b05e0131f8b4d93c39a26aeb"
       }
     },
     {
@@ -1810,7 +1794,7 @@
       "aliases": [
         "Socialized UAV Cross-Task Learning: Towards Cross-Granularity Collaboration through Hierarchical Interaction"
       ],
-      "oneLine": "Evaluates joint object detection and instance segmentation on UAV imagery with a unified cross-granularity collaboration platform.",
+      "oneLine": "A UAV benchmark for joint object detection and instance segmentation that provides a unified evaluation platform for cross-granularity task collaboration.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -1889,14 +1873,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates joint object detection and instance segmentation on UAV imagery with a unified cross-granularity collaboration platform.",
-      "whyItMatters": "Provides a standardized evaluation setting for UAV models that must handle both fine-grained segmentation and detection across varying object scales.",
+      "description": "A UAV benchmark for joint object detection and instance segmentation that provides a unified evaluation platform for cross-granularity task collaboration.",
+      "whyItMatters": "Cross-granularity collaboration between detection and segmentation in aerial imagery is under-served by single-task evaluation setups.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 30,
+        "score": 24,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "A UAV-focused joint detection and segmentation benchmark has moderate topical breadth but limited initial public evidence from the provided abstract and paper link."
+        "reason": "Attention is likely driven by the UAV perception community and interest in joint detection-segmentation evaluation."
       },
       "displayEligible": true,
       "curation": {
@@ -2064,9 +2048,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "86fb12bb19015beb55f0dd00b92a29dfb9376eeaa62aa1da3f07cc576dbb08ba"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "577dcb5d66d776b7c03f166453df08c9839973b81c1adc98fba1c1c980dae1a2"
       }
     },
     {
@@ -2075,7 +2059,7 @@
       "name": "SlugTrails",
       "paperTitle": "SlugTrails: An Egocentric Benchmark for Floor Plan Localization in Large Buildings",
       "aliases": [],
-      "oneLine": "ArXiv paper introducing a benchmark for floor plan localization with egocentric recordings; code repository says dataset and evaluation will be released soon.",
+      "oneLine": "An egocentric floor plan localization benchmark using 30 Hz Aria glasses recordings across three campus buildings and six floors, with CAD-derived semantic floor plans.",
       "area": "Science & Engineering",
       "applicationDomains": [
         "Finance"
@@ -2311,18 +2295,18 @@
           }
         }
       },
-      "description": "ArXiv paper introducing a benchmark for floor plan localization with egocentric recordings; code repository says dataset and evaluation will be released soon.",
-      "whyItMatters": "The benchmark targets large-scale indoor localization, but without available data or scoring protocols its current utility is undefined.",
+      "description": "An egocentric floor plan localization benchmark using 30 Hz Aria glasses recordings across three campus buildings and six floors, with CAD-derived semantic floor plans.",
+      "whyItMatters": "Existing floor plan localization benchmarks focus on residential-scale settings, leaving large-building circulation spaces with structural repetition under-evaluated.",
       "attentionForecast": {
-        "score": 0,
-        "confidence": "Low",
+        "score": 30,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "No dataset or code is available at release, limiting early attention to the paper's abstract and research community interest."
+        "reason": "Attention is supported by an interest in indoor visual localization and the announced Aria-glasses multi-building dataset scope."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "44c35ed5c9e93f8090ec6f96823ff61d3419a5d02c5fb90e040c40d3664599d3"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "fc3c785cff4904779b00267d6350a9033aef3b266fbd3d838cbfb00649bad2bd"
       }
     },
     {
@@ -2333,7 +2317,7 @@
       "aliases": [
         "SLAMSqueezeBench: Comparing SLAM Systems under Resource Constraints"
       ],
-      "oneLine": "ArXiv paper comparing SLAM systems under resource constraints, but no benchmark artifacts or scoring details are provided.",
+      "oneLine": "SLAMSqueezeBench is presented as a benchmark comparing SLAM systems under resource constraints, targeting simultaneous localization and mapping services on autonomous robots.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -2408,14 +2392,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "ArXiv paper comparing SLAM systems under resource constraints, but no benchmark artifacts or scoring details are provided.",
-      "whyItMatters": "Unclear: the benchmark's evaluation object and scoring contract cannot be determined from the abstract alone.",
+      "description": "SLAMSqueezeBench is presented as a benchmark comparing SLAM systems under resource constraints, targeting simultaneous localization and mapping services on autonomous robots.",
+      "whyItMatters": "Resource-constrained SLAM evaluation matters for selecting and deploying SLAM systems on embedded robotic platforms, but the supplied evidence is too thin to establish a released, comparable evaluation protocol.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 0,
+        "score": 12,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Without released artifacts, early attention is confined to the paper's abstract and title."
+        "reason": "The forecast is limited to a narrow SLAM resource-constraint topic with minimal supplied abstract detail and no released artifacts or code link."
       },
       "displayEligible": false,
       "curation": {
@@ -2583,20 +2567,20 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "61e323e01e84d0dc7d90c208f65cd813c60b8990e736ed57a37d60db0a6adfd4"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "da40b294ac1302ee6bfbb1c16eaa84c5785901d5939c438d241b6c8aa2d61421"
       }
     },
     {
       "id": "bm_safari-an-industrial-benchmark-for-llm-ass_7ac7796e",
       "familyId": "bmf_f35b848952e1",
-      "name": "SAFARI: An Industrial Benchmark for LLM-Assisted Hazard Analysis and Risk Assessment",
+      "name": "SAFARI",
       "paperTitle": "SAFARI: An Industrial Benchmark for LLM-Assisted Hazard Analysis and Risk Assessment",
       "aliases": [
         "SAFARI: An Industrial Benchmark for LLM-Assisted Hazard Analysis and Risk Assessment"
       ],
-      "oneLine": "An industrial benchmark for evaluating LLM-assisted automotive Hazard Analysis and Risk Assessment (HARA) under ISO 26262.",
+      "oneLine": "SAFARI evaluates LLM-assisted automotive Hazard Analysis and Risk Assessment under ISO 26262 on an industrial benchmark, providing a HARA task suite with a scoring setup and a public code release at github.com/xixi47520-hash/HARA.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -2687,14 +2671,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "An industrial benchmark for evaluating LLM-assisted automotive Hazard Analysis and Risk Assessment (HARA) under ISO 26262.",
-      "whyItMatters": "Provides an evaluation target for a safety-critical automotive process where reliable LLM assistance could reduce manual effort and improve consistency.",
+      "description": "SAFARI evaluates LLM-assisted automotive Hazard Analysis and Risk Assessment under ISO 26262 on an industrial benchmark, providing a HARA task suite with a scoring setup and a public code release at github.com/xixi47520-hash/HARA.",
+      "whyItMatters": "Automotive safety analysis is a regulated, high-stakes workflow; a shared HARA evaluation object and scoring contract lets teams compare LLM assistance under ISO 26262 conventions instead of ad hoc case studies.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 35,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Automotive safety is a niche topic with limited broad appeal, reducing likely initial visibility."
+        "reason": "The forecast reflects the intersection of LLM assistance with a regulated automotive safety domain, a narrow enterprise audience, and a day-one code release with no paper venue or visibility signals supplied."
       },
       "displayEligible": false,
       "curation": {
@@ -2863,9 +2847,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "9fd248cde411e21c156a1c36002278d6d1845bf285ded0c27f3d5c80d952eaa5"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "59520a8eb6f9cafcffe902b2a7288fe107b8e3102e07587bc4f3aa0b7539edab"
       }
     },
     {
@@ -2874,7 +2858,7 @@
       "name": "PosteriorBench",
       "paperTitle": "PosteriorBench: From Point Estimates to Posterior Matching in Evaluating Generative Inverse Solvers",
       "aliases": [],
-      "oneLine": "PosteriorBench evaluates generative inverse solvers on recovering full posterior distributions across four physics-based tasks using high-fidelity reference posteriors.",
+      "oneLine": "PosteriorBench evaluates whether generative scientific inverse solvers recover full posterior distributions rather than point estimates, using four physics-based inverse tasks with high-fidelity reference posteriors and a common posterior-generation and evaluation suite.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2970,22 +2954,14 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "PosteriorBench: From Point Estimates to Posterior Matching in Evaluating Generative Inverse Solvers"
       },
-      "description": "PosteriorBench evaluates generative inverse solvers on recovering full posterior distributions across four physics-based tasks using high-fidelity reference posteriors.",
-      "whyItMatters": "It shifts evaluation from point estimates to posterior matching, addressing a gap in assessing distributional accuracy for scientific ML.",
+      "description": "PosteriorBench evaluates whether generative scientific inverse solvers recover full posterior distributions rather than point estimates, using four physics-based inverse tasks with high-fidelity reference posteriors and a common posterior-generation and evaluation suite.",
+      "whyItMatters": "Inverse-solver evaluation has largely rewarded point-estimate accuracy, which hides whether a generative method captures posterior uncertainty; a shared reference-posterior and evaluation suite lets other teams compare distributional accuracy directly.",
       "attentionForecast": {
-        "score": 32,
+        "score": 40,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A focused scientific ML benchmark with public code may attract moderate early attention from inverse-problem researchers."
+        "reason": "The forecast is driven by a broad scientific-ML scope spanning multiple inverse problems, a released repository and Hugging Face dataset, and a clear posterior-matching evaluation framing."
       },
-      "publishers": [
-        {
-          "name": "Neural Operator",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://github.com/neuraloperator/PosteriorBench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "attention": {
         "asOf": "2026-09-18",
         "hfPaperUpvotes": null,
@@ -3138,9 +3114,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "10f739628472fc29f51d604adbb39a778900230f80764aaed1cb525870841e7f"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "b86b8e68a3cd740764663e1d4931a0e691f17a094ace775f631701e05a3b04c3"
       }
     },
     {
@@ -3149,7 +3125,7 @@
       "name": "PetriBench",
       "paperTitle": "PetriBench: Benchmarking LLM Reasoning over Dynamic State Spaces",
       "aliases": [],
-      "oneLine": "Evaluates LLM reasoning over dynamic state spaces using Petri nets for concurrent and distributed systems.",
+      "oneLine": "PetriBench is presented as a compact, fully self-contained, scalable benchmark for evaluating LLM reasoning over dynamic state spaces using Petri nets, a formalism for modeling concurrent and distributed systems.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3245,13 +3221,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "PetriBench: Benchmarking LLM Reasoning over Dynamic State Spaces"
       },
-      "description": "Evaluates LLM reasoning over dynamic state spaces using Petri nets for concurrent and distributed systems.",
-      "whyItMatters": "Addresses evaluation of reasoning in dynamic concurrent systems, which is important for real-world applications.",
+      "description": "PetriBench is presented as a compact, fully self-contained, scalable benchmark for evaluating LLM reasoning over dynamic state spaces using Petri nets, a formalism for modeling concurrent and distributed systems.",
+      "whyItMatters": "Reasoning over dynamic state spaces is a distinct LLM capability, but the supplied evidence does not establish released task inputs, a scoring contract, or a public path for other teams to run or inspect the evaluation.",
       "attentionForecast": {
-        "score": 0,
+        "score": 15,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The paper provides no artifact evidence or additional details beyond the title and abstract, limiting visibility drivers."
+        "reason": "The forecast is limited to an LLM reasoning benchmark on Petri-net state spaces with minimal supplied detail and no artifact or code link."
       },
       "attention": {
         "asOf": "2026-09-20",
@@ -3404,9 +3380,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T06:38:23.864245Z",
-        "inputHash": "be9c0dfa1ca34e59b0316c19b75a3d8d1565a92f764da1c998aeed92906bed8e"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "06d4a8fd89dce367f40eba63cc303c8b314ba7d507dcdc06ad87cca439366c8e"
       }
     },
     {
@@ -3415,7 +3391,7 @@
       "name": "OverclaimBench",
       "paperTitle": "Quantifying Overclaiming Propensity in Frontier LLM Agents",
       "aliases": [],
-      "oneLine": "Evaluation suite for measuring overclaiming propensity in LLM agents using file-review scenarios and transcript-based coverage.",
+      "oneLine": "An evaluation suite of five file-review scenarios with transcript-based coverage measurements and registered planted defects, intended to quantify overclaiming propensity in frontier LLM agents.",
       "area": "Code & Software",
       "applicationDomains": [
         "General AI"
@@ -3655,18 +3631,18 @@
           }
         }
       },
-      "description": "Evaluation suite for measuring overclaiming propensity in LLM agents using file-review scenarios and transcript-based coverage.",
-      "whyItMatters": "Addresses the need to assess whether LLM agents overstate completion or coverage in file-review tasks.",
+      "description": "An evaluation suite of five file-review scenarios with transcript-based coverage measurements and registered planted defects, intended to quantify overclaiming propensity in frontier LLM agents.",
+      "whyItMatters": "Overclaiming—asserting coverage that the underlying work does not support—is a recurring failure mode for agents performing file and code review, where inflated coverage claims can mislead downstream decisions.",
       "attentionForecast": {
-        "score": 0,
+        "score": 20,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The abstract mentions a new evaluation suite but no artifact links or public materials are supplied, so forecast is zero in absence of any release evidence."
+        "reason": "A narrowly scoped agent-overclaiming evaluation with only an abstract and no released artifacts is likely to draw limited early attention."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "4e380549ee61ab9b4389e3f412dde8ae3ed5628f1cab502ca34f2a2bc92ecc76"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "ce5f8fd7b415604c1258778859161aae2405d4d5eb2234c28e7e8f726ee4a84b"
       }
     },
     {
@@ -3675,7 +3651,7 @@
       "name": "MTVA-Bench",
       "paperTitle": "MTVA-Bench: Evaluating the Language Model Inside Cascaded Voice Agents",
       "aliases": [],
-      "oneLine": "Evaluates language models under conditions encountered in cascaded voice agent systems across multi-turn interactions.",
+      "oneLine": "A multi-turn voice agent benchmark that evaluates the language model component under conditions matching its role inside a cascaded voice system.",
       "area": "Speech & Audio",
       "applicationDomains": [
         "General AI"
@@ -3908,18 +3884,18 @@
           }
         }
       },
-      "description": "Evaluates language models under conditions encountered in cascaded voice agent systems across multi-turn interactions.",
-      "whyItMatters": "Addresses the need to assess language model performance within cascaded voice agents, where ASR and TTS components introduce unique linguistic challenges.",
+      "description": "A multi-turn voice agent benchmark that evaluates the language model component under conditions matching its role inside a cascaded voice system.",
+      "whyItMatters": "Cascaded voice agents place the language model in conditions distinct from standalone text interaction, so evaluating the model in that position could clarify where cascaded pipelines degrade.",
       "attentionForecast": {
-        "score": 23,
+        "score": 22,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Voice agent evaluation is a moderately broad topic, but the abstract offers no implementation details or community materials to drive immediate attention."
+        "reason": "A voice-agent component benchmark announced with no released artifacts or comparison path is likely to attract modest initial attention."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "44af491d4d0257e394d9b1d40b713e506c0804ac58f06765de29e7817438cdfb"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "619ace1fc9a9bf1e97594a31b0de5c75fd8fc1a443d7f95ce2f6fd594c0716e2"
       }
     },
     {
@@ -3928,7 +3904,7 @@
       "name": "KoNeoBench",
       "paperTitle": "KoNeoBench: A Curated Evaluation Dataset for LLM Understanding of Korean Neologisms",
       "aliases": [],
-      "oneLine": "KoNeoBench evaluates LLM understanding of Korean neologisms across four tasks: identification, component reconstruction, classification, and definition generation.",
+      "oneLine": "KoNeoBench evaluates large language models on Korean neologisms across four task types: context-based neologism identification, component reconstruction for blends and abbreviations, semantic and domain odd-one-out and direct classification, and one-sentence definition generation. Metrics include accuracy, coverage, precision, F1, and a 6-3-1 LLM-judge score.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4042,17 +4018,17 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "KoNeoBench: A Curated Evaluation Dataset for LLM Understanding of Korean Neologisms"
       },
-      "description": "KoNeoBench evaluates LLM understanding of Korean neologisms across four tasks: identification, component reconstruction, classification, and definition generation.",
-      "whyItMatters": "It provides a structured evaluation for Korean neologism comprehension, a niche area in multilingual LLM testing.",
+      "description": "KoNeoBench evaluates large language models on Korean neologisms across four task types: context-based neologism identification, component reconstruction for blends and abbreviations, semantic and domain odd-one-out and direct classification, and one-sentence definition generation. Metrics include accuracy, coverage, precision, F1, and a 6-3-1 LLM-judge score.",
+      "whyItMatters": "Korean neologisms change quickly and are poorly covered by standard lexicon-based evaluation, so a fixed, reproducible dataset with task-level scripts lets other teams measure and compare LLM understanding of new vocabulary under a shared protocol.",
       "attentionForecast": {
-        "score": 19,
-        "confidence": "Low",
+        "score": 34,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets a specific Korean-language evaluation niche, likely generating only modest early interest."
+        "reason": "A Korean-language neologism benchmark with released task scripts and multiple model aliases addresses a specialized but active LLM evaluation area, supporting moderate initial attention."
       },
       "publishers": [
         {
-          "name": "BCMI Lab",
+          "name": "BCML Lab",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/bcmilab/ko-neobench/",
           "role": "benchmark-publisher"
@@ -4210,9 +4186,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-20T00:39:06.090556Z",
-        "inputHash": "b30e6bf013fa7bf4a4d2fba971ef35d36891ab4990be5bfcec7973d4fb712fbd"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "60b02106e755254882a2858603fb1c341bcd917da0af5dbcc935568e1d3f2aaa"
       }
     },
     {
@@ -4223,7 +4199,7 @@
       "aliases": [
         "gas-sensor-drift-ml-benchmark"
       ],
-      "oneLine": "A multi-task benchmark on the UCI Gas Sensor Array Drift dataset, covering gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift with fixed 128 engineered features and predefined train/test protocols.",
+      "oneLine": "A multi-task benchmark on the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch temporal evaluation. It fixes random hold-out and batches 1-5 to 6-10 split protocols, compares dummy, tree, SVM, and MLP baselines, and reports classification, regression, and clustering metrics.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -4303,14 +4279,14 @@
           "url": "https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark"
         }
       ],
-      "description": "A multi-task benchmark on the UCI Gas Sensor Array Drift dataset, covering gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift with fixed 128 engineered features and predefined train/test protocols.",
-      "whyItMatters": "It provides standardized protocols and metrics for assessing model robustness under sensor drift, enabling reproducible comparisons across classification, regression, and clustering tasks.",
+      "description": "A multi-task benchmark on the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch temporal evaluation. It fixes random hold-out and batches 1-5 to 6-10 split protocols, compares dummy, tree, SVM, and MLP baselines, and reports classification, regression, and clustering metrics.",
+      "whyItMatters": "Sensor drift causes clean random splits to overstate deployment performance, so a reproducible pipeline with both random and later-batch protocols gives teams a comparable way to measure distribution-shift degradation on a shared, hash-verified dataset.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 30,
-        "confidence": "Low",
+        "score": 25,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark is narrowly scoped to a single UCI dataset and is unlikely to generate broad immediate interest despite clear artifact availability."
+        "reason": "An archived, DOI-registered applied machine-learning benchmark on an established UCI dataset addresses a specialized sensor-drift audience, supporting modest initial attention."
       },
       "displayEligible": true,
       "curation": {
@@ -4328,14 +4304,14 @@
         "canonicalNameEvidence": "Gas Sensor Drift ML Benchmark. Version 1.0.0. Zenodo, 2026. https://doi.org/10.5281/zenodo.22820993"
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-19T08:55:40.500135Z",
-        "inputHash": "3e688e209acbc38cf6c5d1bbfe1a72d9333add0dd4a97544eaf841d09c7dda25"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-20T09:27:53.106771Z",
+        "inputHash": "72e7153718fb8bfbccdb03733f23945b23b6ca5568281e735487a023164b4c82"
       },
       "publishers": [
         {
-          "name": "Douglas Felipe de Lima Silva",
-          "organizationType": "academic-lab",
+          "name": "PesquisaDoug",
+          "organizationType": "community",
           "sourceUrl": "https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark",
           "role": "benchmark-publisher"
         }

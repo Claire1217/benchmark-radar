@@ -19,7 +19,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (53)
-- [Coding Agents](#coding-agents) (55)
+- [Coding Agents](#coding-agents) (54)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (5)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
@@ -103,7 +103,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
-- **HumanWill Benchmark** (2026-09-19) — Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately. [Code](https://github.com/humanwill-ai/humanwill-benchmark)
+- **HumanWill Benchmark** (2026-09-19) — HumanWill Benchmark evaluates model false-refusal and answer-usefulness behavior over a 424-question cybersecurity question pack spanning vulnerability validation, source-code security, binary, network, and filesystem/a… [Code](https://github.com/humanwill-ai/humanwill-benchmark)
 - **InterveneBench** (2026-09-12) — Evaluates human-in-the-loop safety for tool-using agents over 250 synthetic tasks with four reply types, measuring unsafe action rates, consultation quality, and post-reply behavior. [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **Failure-Transparent Agents** (2026-09-10) — Measures whether LLM agents admit tool failures instead of claiming success across 100 tasks covering web, attachment, execution, permission, and stale-data failures under varying pressure and instruction conditions. [Code](https://github.com/junru-zhu/failure-transparent-agents)
 - **Agentic Security Benchmark** (2026-09-07) — Measures detection and prevention of agentic-AI security products on 286 attack and 875 benign samples across five AMTSO attack vectors via a scoring adapter harness. [Code](https://github.com/gitayg/agentic-security-benchmark)
@@ -159,7 +159,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
-- **Agent Failure Lab** (2026-09-18) — Evaluates coding agents on regression tasks generated from failed sessions, with verification commands and failure categories. [Code](https://github.com/MOSTRE/agent-failure-lab)
 - **LifeSci-Harbor-Bench** (2026-09-06) — Evaluates coding agents on 503 ultra-long-horizon, open-ended life science research tasks through an 11-layer verifier combining deterministic scoring and anti-hacking checks. [Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench) · [Data](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **SWE-Gate** (2026-09-03) — Evaluates repository-level repair agents on both functional correctness and adherence to review-derived constraints, using 303 instances with separate functional and constraint tests. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
@@ -473,13 +472,13 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **STRATA-Bench** (2026-09-19) — Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data. [Code](https://github.com/movahedi-ca/strata-bench)
+- **STRATA-Bench** (2026-09-19) — STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted head… [Code](https://github.com/movahedi-ca/strata-bench)
 - **eos-bench** (2026-09-17) — Evaluates MLIP equation-of-state predictions against DFT for volume-scaled structures, reporting percent errors in equilibrium volume and bulk modulus. [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
-- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates generative inverse solvers on recovering full posterior distributions across four physics-based tasks using high-fidelity reference posteriors. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
-- **KoNeoBench** (2026-09-17) — KoNeoBench evaluates LLM understanding of Korean neologisms across four tasks: identification, component reconstruction, classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
-- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark on the UCI Gas Sensor Array Drift dataset, covering gas classification, concentration regression, clustering, and later-batch evaluation under sensor drift with fixed 128 engineered features and p… [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
+- **PosteriorBench** (2026-09-17) — PosteriorBench evaluates whether generative scientific inverse solvers recover full posterior distributions rather than point estimates, using four physics-based inverse tasks with high-fidelity reference posteriors and… [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
+- **KoNeoBench** (2026-09-17) — KoNeoBench evaluates large language models on Korean neologisms across four task types: context-based neologism identification, component reconstruction for blends and abbreviations, semantic and domain odd-one-out and… [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)
+- **Gas Sensor Drift ML Benchmark** (2026-09-17) — A multi-task benchmark on the UCI Gas Sensor Array Drift dataset covering gas classification, concentration regression, clustering, and later-batch temporal evaluation. It fixes random hold-out and batches 1-5 to 6-10 s… [Code](https://github.com/PesquisaDoug/gas-sensor-drift-ml-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.22820993.svg)
 - **DocAttriBench** (2026-09-17) — Evaluates source attribution in Document VQA by grounding answers to layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574) · [HF](https://huggingface.co/papers/2609.20574)
-- **CrossUAV** (2026-09-17) — Evaluates joint object detection and instance segmentation on UAV imagery with a unified cross-granularity collaboration platform. [Paper](https://arxiv.org/abs/2609.19867)
+- **CrossUAV** (2026-09-17) — A UAV benchmark for joint object detection and instance segmentation that provides a unified evaluation platform for cross-granularity task collaboration. [Paper](https://arxiv.org/abs/2609.19867)
 - **PACT** (2026-09-16) — PACT evaluates LLM assistants' compliance with standing rules under nine realistic pressures across 48 scenarios and 12 regulated domains, scoring multi-turn decisions with PACTScore and six axes. [Paper](https://arxiv.org/abs/2609.18605) · [Code](https://github.com/trace-ai-labs/pact) · [Data](https://huggingface.co/datasets/trace-ai-labs/pact)
 - **GYROval** (2026-09-16) — An evaluation of large language models' cultural value orientations across the two Inglehart-Welzel axes, covering several domains and roles, to quantify their alignment along traditional vs secular-rational and surviva… [Paper](https://arxiv.org/abs/2609.18384)
 - **DynoFluxBench** (2026-09-16) — A benchmark framework for comparing kinodynamic planners in known dynamic environments with unbounded arrival time, facilitating systematic evaluation of planning algorithms. [Paper](https://arxiv.org/abs/2609.18549)
