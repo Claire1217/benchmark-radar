@@ -30,24 +30,24 @@
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 40 HF votes · 54 GitHub stars |
-| 2 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 159 HF votes · 20 GitHub stars |
-| 3 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 51 HF votes · 420 dataset downloads |
-| 4 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 4 HF votes · 190 GitHub stars |
-| 5 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 18 HF votes · 61 GitHub stars |
-| 6 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 886 dataset downloads |
-| 7 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 39 HF votes · 20 GitHub stars |
-| 8 | **LifeSci-Harbor-Bench**<br><sub>[Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)</sub> | Coding Agents | 224 dataset downloads |
-| 9 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 204 dataset downloads |
-| 10 | **MM-ContextASR Bench**<br><sub>[Paper](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench)</sub> | Other benchmark tasks | 117 dataset downloads |
+| 1 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 159 HF votes · 20 GitHub stars |
+| 2 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 51 HF votes · 420 dataset downloads |
+| 3 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 4 HF votes · 190 GitHub stars |
+| 4 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 39 HF votes · 20 GitHub stars |
+| 5 | **LifeSci-Harbor-Bench**<br><sub>[Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)</sub> | Coding Agents | 224 dataset downloads |
+| 6 | **VWG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.11242)</sub> | Video Understanding · Image & Video Generation | 406 dataset downloads |
+| 7 | **DriveMotion**<br><sub>[Paper](https://arxiv.org/abs/2609.08117)</sub> | Other benchmark tasks | 178 dataset downloads |
+| 8 | **MM-ContextASR Bench**<br><sub>[Paper](https://huggingface.co/datasets/lilonghao/MM-ContextASR-Bench)</sub> | Other benchmark tasks | 117 dataset downloads |
+| 9 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Embodied AI & VLA | 28 HF votes · 17 GitHub stars |
+| 10 | **WPS AI Benchmark**<br><sub>[Paper](https://huggingface.co/datasets/OurSecureFuture/wps-ai-benchmark-v6)</sub> | Other benchmark tasks | 74 dataset downloads |
 
 ### Explore the library
 
 | Agent research | Related research |
 |---|---|
-| [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 126<br>[Computer Use](https://benchmark-radar.com/#library?direction=computer-use) · 46<br>[Deep Research & Web Search](https://benchmark-radar.com/#library?direction=search-research) · 35<br>[Tool Use](https://benchmark-radar.com/#library?direction=tool-use) · 81<br>[Agent Memory](https://benchmark-radar.com/#library?direction=agent-memory) · 26<br>[Multi-Agent Systems](https://benchmark-radar.com/#library?direction=multi-agent) · 16<br>[Personal & Enterprise Agents](https://benchmark-radar.com/#library?direction=personal-workplace) · 55<br>[Data Analysis Agents](https://benchmark-radar.com/#library?direction=data-analysis-agents) · 25<br>[AI Research Agents](https://benchmark-radar.com/#library?direction=ai-research-agents) · 21<br>[Self-Improving Agents](https://benchmark-radar.com/#library?direction=self-improving-agents) · 15<br>[Agent Harnesses & Skills](https://benchmark-radar.com/#library?direction=agent-harness-skills) · 9<br>[Agent Safety & Security](https://benchmark-radar.com/#library?direction=agent-safety-security) · 75<br>[AI for Science](https://benchmark-radar.com/#library?direction=scientific-agents) · 30 | [OCR & Document Understanding](https://benchmark-radar.com/#library?direction=ocr-documents) · 44<br>[Video Understanding](https://benchmark-radar.com/#library?direction=video-understanding) · 83<br>[Speech & Audio](https://benchmark-radar.com/#library?direction=realtime-multimodal) · 82<br>[World Models](https://benchmark-radar.com/#library?direction=world-models) · 19<br>[Embodied AI & VLA](https://benchmark-radar.com/#library?direction=embodied-vla) · 86<br>[Image & Video Generation](https://benchmark-radar.com/#library?direction=image-video-generation) · 69<br>[Efficient Inference](https://benchmark-radar.com/#library?direction=efficient-inference) · 11 |
+| [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 126<br>[Computer Use](https://benchmark-radar.com/#library?direction=computer-use) · 46<br>[Deep Research & Web Search](https://benchmark-radar.com/#library?direction=search-research) · 35<br>[Tool Use](https://benchmark-radar.com/#library?direction=tool-use) · 81<br>[Agent Memory](https://benchmark-radar.com/#library?direction=agent-memory) · 26<br>[Multi-Agent Systems](https://benchmark-radar.com/#library?direction=multi-agent) · 16<br>[Personal & Enterprise Agents](https://benchmark-radar.com/#library?direction=personal-workplace) · 55<br>[Data Analysis Agents](https://benchmark-radar.com/#library?direction=data-analysis-agents) · 25<br>[AI Research Agents](https://benchmark-radar.com/#library?direction=ai-research-agents) · 21<br>[Self-Improving Agents](https://benchmark-radar.com/#library?direction=self-improving-agents) · 15<br>[Agent Harnesses & Skills](https://benchmark-radar.com/#library?direction=agent-harness-skills) · 9<br>[Agent Safety & Security](https://benchmark-radar.com/#library?direction=agent-safety-security) · 76<br>[AI for Science](https://benchmark-radar.com/#library?direction=scientific-agents) · 30 | [OCR & Document Understanding](https://benchmark-radar.com/#library?direction=ocr-documents) · 44<br>[Video Understanding](https://benchmark-radar.com/#library?direction=video-understanding) · 83<br>[Speech & Audio](https://benchmark-radar.com/#library?direction=realtime-multimodal) · 82<br>[World Models](https://benchmark-radar.com/#library?direction=world-models) · 19<br>[Embodied AI & VLA](https://benchmark-radar.com/#library?direction=embodied-vla) · 86<br>[Image & Video Generation](https://benchmark-radar.com/#library?direction=image-video-generation) · 69<br>[Efficient Inference](https://benchmark-radar.com/#library?direction=efficient-inference) · 11 |
 
-**[Browse all 2,725 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,729 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
