@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-20 · **Benchmark releases:** 1855
+**Snapshot:** 2026-09-19 · **Benchmark releases:** 1855
 
 ## Contents
 
@@ -103,7 +103,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
-- **HumanWill Benchmark** (2026-09-19) — Evaluates AI models on 424 cybersecurity scenarios, measuring false refusal and answer usefulness separately with CLI/API tooling. [Code](https://github.com/humanwill-ai/humanwill-benchmark)
+- **HumanWill Benchmark** (2026-09-19) — Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately. [Code](https://github.com/humanwill-ai/humanwill-benchmark)
 - **InterveneBench** (2026-09-12) — Evaluates human-in-the-loop safety for tool-using agents over 250 synthetic tasks with four reply types, measuring unsafe action rates, consultation quality, and post-reply behavior. [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **Failure-Transparent Agents** (2026-09-10) — Measures whether LLM agents admit tool failures instead of claiming success across 100 tasks covering web, attachment, execution, permission, and stale-data failures under varying pressure and instruction conditions. [Code](https://github.com/junru-zhu/failure-transparent-agents)
 - **Agentic Security Benchmark** (2026-09-07) — Measures detection and prevention of agentic-AI security products on 286 attack and 875 benign samples across five AMTSO attack vectors via a scoring adapter harness. [Code](https://github.com/gitayg/agentic-security-benchmark)
@@ -473,7 +473,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **STRATA-Bench** (2026-09-19) — A benchmark evaluating AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, scored on temporal, source, spatial, statistical, visual, and na… [Code](https://github.com/movahedi-ca/strata-bench)
+- **STRATA-Bench** (2026-09-19) — Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data. [Code](https://github.com/movahedi-ca/strata-bench)
 - **eos-bench** (2026-09-17) — Evaluates MLIP equation-of-state predictions against DFT for volume-scaled structures, reporting percent errors in equilibrium volume and bulk modulus. [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
 - **PosteriorBench** (2026-09-17) — PosteriorBench evaluates generative inverse solvers on recovering full posterior distributions across four physics-based tasks using high-fidelity reference posteriors. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
 - **KoNeoBench** (2026-09-17) — KoNeoBench evaluates LLM understanding of Korean neologisms across four tasks: identification, component reconstruction, classification, and definition generation. [Paper](https://arxiv.org/abs/2609.19916) · [Code](https://github.com/bcmilab/ko-neobench/)

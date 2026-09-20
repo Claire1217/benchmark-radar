@@ -7,7 +7,7 @@
       "name": "STRATA-Bench",
       "paperTitle": "strata-bench",
       "aliases": [],
-      "oneLine": "A benchmark evaluating AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, scored on temporal, source, spatial, statistical, visual, and narrative dimensions with hard-fail penalties.",
+      "oneLine": "Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -86,20 +86,20 @@
           "url": "https://github.com/movahedi-ca/strata-bench"
         }
       ],
-      "description": "A benchmark evaluating AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, scored on temporal, source, spatial, statistical, visual, and narrative dimensions with hard-fail penalties.",
-      "whyItMatters": "Addresses the gap in existing benchmarks by testing whether agents can handle real-world data integrity issues such as geographic masking, silent interpolation, and sourcing failures, which are critical for institutional research.",
+      "description": "Evaluates AI agents that must compile longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence without hallucinating or silently interpolating data.",
+      "whyItMatters": "Tests whether agents can distinguish paywalled versus public series, tag missing quarters, plot time axes correctly, and avoid blending incompatible units—a key gap in existing agent benchmarks.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 58,
+        "score": 42,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Attention is driven by the novel benchmark focus on spatial-temporal data integrity and the clear public release with scoring tooling, though the niche topic and individual author may limit immediate spread."
+        "reason": "Given a new GitHub repository with a unique task domain and a community leaderboard, initial interest is likely from AI evaluation researchers, but visibility is limited without broader promotion."
       },
       "publishers": [
         {
           "name": "Mohammad Movahedi",
           "organizationType": "community",
-          "sourceUrl": "https://github.com/movahedi-ca/strata-bench",
+          "sourceUrl": "https://movahedi-ca.github.io/strata-bench/",
           "role": "benchmark-publisher"
         }
       ],
@@ -107,16 +107,234 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "STRATA-Bench scores agents on whether they **disclose, tag, refuse, or model** — not on whether they emit a pretty dashboard.",
+          "task": "Full prompts: [`data/public/tasks.json`](data/public/tasks.json) · protocol: [`docs/protocol.md`](docs/protocol.md).",
           "scoring": "Headline score = 0.25·Temporal + 0.20·Source + 0.15·Spatial + 0.15·Statistical + 0.15·Visual + 0.10·Narrative Hard fails (geographic masking, silent interpolation, categorical axes on gappy series, OCR laundering, paywall fabrication) cap a task at 55% of earned credit.",
-          "reuse": "Ran your own agent? Add the run as `submissions/community/ - .json` (matching [`submissions/SCHEMA.md`](submissions/SCHEMA.md)) and open a pull request — the **Community leaderboard** workflow scores it against the frozen v1.0 gold and posts the scorecard as a comment on your PR."
+          "reuse": "submissions/community/ - .json` (matching [`submissions/SCHEMA.md`](submissions/SCHEMA.md)) and open a pull request — the **Community leaderboard** workflow scores it against the frozen v1.0 gold and posts the scorecard as a comment on your PR."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-20T00:37:36.869054Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides a released benchmark with a defined scoring formula, a frozen gold set, a public task catalog, and a community leaderboard workflow for external submissions, meeting the criteria for publish.",
+        "decisionReason": "The repository provides a frozen sandbox corpus, a defined scoring formula, and a community submission path via pull requests that triggers automated scoring.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# STRATA-Bench ![STRATA-Bench: layered glass strata of fragmented market data examined under a magnifying lens](docs/assets/hero.png) **Spatial-Temporal Retrieval, Alignment, Transparency & Audit**"
+        "canonicalNameEvidence": "# STRATA-Bench ![STRATA-Bench: layered glass strata of fragmented market data examined under a magnifying lens](docs/assets/hero.png) **Spatial-Temporal Retrieval, Alignment, Transparency & Audit** A benchmark for AI agents that must compile longitudinal market intelligence from **fragmented, geographically nested, and temporally incomplete** evidence — without hallucinating downtown numbers, silently interpolating missing quarters, or plotting gaps as if they were data."
+      },
+      "attention": {
+        "asOf": "2026-09-20",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": 0,
+        "githubRepo": "https://github.com/movahedi-ca/strata-bench",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-20T01:53:48.151977Z",
+        "attemptedAt": "2026-09-20T01:53:48.151977Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-20T01:53:48.151977Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 52,
+          "rank": 1,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 52,
+            "rank": 1,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 58,
+                "percentile": 0.58,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-19",
+            "windowDays": 1,
+            "elapsedDays": 1
+          }
+        },
+        "30d": {
+          "score": 23,
+          "rank": 133,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 133,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-21",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 375,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 375,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -127,7 +345,7 @@
       "aliases": [
         "humanwill-benchmark"
       ],
-      "oneLine": "Evaluates AI models on 424 cybersecurity scenarios, measuring false refusal and answer usefulness separately with CLI/API tooling.",
+      "oneLine": "Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Cybersecurity"
@@ -206,14 +424,14 @@
           "url": "https://github.com/humanwill-ai/humanwill-benchmark"
         }
       ],
-      "description": "Evaluates AI models on 424 cybersecurity scenarios, measuring false refusal and answer usefulness separately with CLI/API tooling.",
-      "whyItMatters": "Distinguishes overly cautious refusals from genuinely helpful responses in security assistance, aiding selection of models that balance safety and utility.",
-      "evaluationMode": "public_reusable",
+      "description": "Evaluates AI models on 424 selected cybersecurity scenarios, measuring false refusal rates and answer usefulness separately.",
+      "whyItMatters": "Addresses the gap in distinguishing harmful refusals from legitimate cybersecurity assistance, enabling targeted improvement of model helpfulness without compromising safety.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 42,
+        "score": 55,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The niche cybersecurity focus and alpha-stage tooling limit broad appeal, but the 13-model comparison report and clear installation path may drive moderate initial adoption."
+        "reason": "The benchmark addresses cybersecurity assistance and refusal measurement, a niche but relevant topic likely to attract moderate interest from safety researchers and practitioners."
       },
       "publishers": [
         {
@@ -227,16 +445,234 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "The reference benchmark contains **424 cybersecurity questions** covering vulnerability validation, source-code security, binary investigation, network investigation, and filesystem/artifact investigation.",
-          "scoring": "It measures **false refusal** and **answer usefulness** separately: willingness to answer does not establish correctness, and an incomplete answer is not automatically a refusal.",
-          "reuse": "Download the framework wheel, curated source archive and approved 424-question pack from the [GitHub release](https://github.com/humanwill-ai/humanwill-benchmark/releases/tag/v0.1.0a11) or clone this repository, which includes the full reference pack."
+          "task": "HumanWill measures whether AI models provide useful assistance on legitimate cybersecurity tasks",
+          "scoring": "It measures **false refusal** and **answer usefulness** separately",
+          "reuse": "Use it to compare model/provider configurations, investigate failed or blocked responses, and evaluate questions specific to your work"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-20T00:37:36.869054Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides a released 424-question pack, defined scoring metrics (false refusal and usefulness), and public download/clone instructions for reuse.",
+        "decisionReason": "Formal benchmark with released 424-question pack, documented scoring metrics (false refusal and usefulness), and public CLI/API for external submissions.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# HumanWill Benchmark **Measuring harmful refusals in AI models**"
+      },
+      "attention": {
+        "asOf": "2026-09-20",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": 0,
+        "githubRepo": "https://github.com/humanwill-ai/humanwill-benchmark",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-20T01:53:48.151977Z",
+        "attemptedAt": "2026-09-20T01:53:48.151977Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-20T01:53:48.151977Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 48,
+          "rank": 2,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 48,
+            "rank": 2,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 42,
+                "percentile": 0.42,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-19",
+            "windowDays": 1,
+            "elapsedDays": 1
+          }
+        },
+        "30d": {
+          "score": 23,
+          "rank": 134,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 134,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-21",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 376,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 376,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -446,9 +882,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "The abstract mentions a benchmark name but provides no details on tasks, scoring rules, or public reuse path. No artifact evidence is supplied. Deferred because evidence and artifacts are unclear.",
+        "decisionReason": "The paper abstract mentions a benchmark but no task data, scoring rules, code, or public submission path is available in the supplied evidence.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -569,9 +1005,9 @@
           "reuse": "V\\={a}kQA is publicly released."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The abstract describes a dataset but lacks explicit scoring rules or a public reuse path. No artifact evidence is supplied. Deferred because evaluation protocol and artifacts are unclear.",
+        "decisionReason": "The abstract states the benchmark details but no artifact evidence is supplied, leaving the scoring protocol and reuse path unclear.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "V\\={a}kQA: A Benchmark and Evaluation Study for Telugu Spoken Factoid Question Answering"
       }
@@ -683,9 +1119,9 @@
           "reuse": "We release the benchmark, failure-preserving contract, incident provenance, and governance controls needed to prevent infrastructure behavior from being misreported as model behavior."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The abstract mentions releasing a benchmark, failure-preserving contract, and governance controls, but no artifact or code link is provided. Evaluation protocol and dataset remain unclear. Deferred because evidence and artifacts are insufficient.",
+        "decisionReason": "The abstract mentions a release but no task data, scoring rules, or reuse path are supplied, so the benchmark cannot be verified.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present SecTB-RTL, an auditable framework covering 31 tasks and 124 authored hardware-security regressions."
       }
@@ -1038,9 +1474,9 @@
       "evaluationMode": "public_reusable",
       "curation": {
         "state": "ai-name-audit-deferred",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "policy": "source-evidence-v2",
-        "decisionReason": "Although the GitHub README describes the benchmark, the dataset and evaluation tools are not yet released; only a placeholder is present. The public reuse path is not yet available, so the benchmark cannot be used by other teams. Deferred until actual artifacts are published.",
+        "decisionReason": "The GitHub repository explicitly states the dataset, code, and evaluation tools are not yet released, so the benchmark is not reproducible or assessable.",
         "model": "deepseek-v4-pro"
       }
     },
@@ -1145,9 +1581,9 @@
           "reuse": "Our testing framework will be available for use by the community upon publication."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The abstract is vague and provides no details on tasks, scoring, or public reuse. No artifact evidence is supplied. Deferred because there is insufficient information to confirm a usable benchmark.",
+        "decisionReason": "No artifact evidence is available, so the task definitions, scoring rules, and public reuse path remain unknown.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we have developed SLAMSqueezeBench, a framework that allows testing of SLAM systems under realistic workloads on edge hardware."
       }
@@ -1718,9 +2154,9 @@
           "reuse": "scalable"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-19T00:58:50.885477Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces a benchmark but lacks artifact evidence confirming a public release of tasks and scoring code.",
+        "decisionReason": "The paper claims a benchmark but provides no accompanying released tasks, scoring rules, or public submission path in the supplied evidence; only the title and abstract are available.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "PetriBench: Benchmarking LLM Reasoning over Dynamic State Spaces"
       },
@@ -3665,9 +4101,9 @@
           "reuse": "```bash # 1. Fetch, parse, and merge biological annotations python pipelines/01_data_collection.py # 2. Engineer biochemical features and clean dataset python pipelines/02_feature_engineering.py # 3. Perform train/val/test splits and fit scalers/imputers python pipelines/03_preprocessing.py # 4. Train Classical, Deep Tabular, and Quantum models python pipelines/04_train_models.py # 5. Evaluate benchmarks and generate leaderboard python pipelines/05_evaluate_benchmark.py ```"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-18T09:09:29.531531Z",
+        "reviewedAt": "2026-09-20T06:38:23.864245Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository includes code and a leaderboard, but does not clearly define a reusable evaluation protocol for external submissions or a fixed benchmark dataset.",
+        "decisionReason": "The repository describes a comparative framework and pipeline using existing datasets and models without a formally named benchmark or standalone public comparison protocol.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Quantum-Enhanced Genetic Variant Pathogenicity Prediction"
       }
