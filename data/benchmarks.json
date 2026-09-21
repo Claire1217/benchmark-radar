@@ -5,7 +5,7 @@
     "generatedAt": "2026-09-21T06:43:52.058643Z",
     "dataAsOf": "2026-09-21",
     "timezone": "UTC",
-    "recordCount": 1872,
+    "recordCount": 1873,
     "sourceCoverage": [
       "arXiv OAI-PMH",
       "reviewed official project sources",
@@ -46,7 +46,7 @@
       "aliases": [
         "Rockman"
       ],
-      "oneLine": "A contamination-resistant benchmark with 220 executable software-engineering tasks across generation, debugging, optimization, stateful, and multi-step categories.",
+      "oneLine": "Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against executable tests, separating API and network failures from code failures, and reports Pass@1 with category and difficulty breakdowns.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -127,20 +127,20 @@
           "url": "https://github.com/InserLoft/Rockman"
         }
       ],
-      "description": "A contamination-resistant benchmark with 220 executable software-engineering tasks across generation, debugging, optimization, stateful, and multi-step categories.",
-      "whyItMatters": "Offers executable tests and contamination controls for evaluating LLM coding capabilities, with a private split for official scoring and a public split for development.",
+      "description": "Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against executable tests, separating API and network failures from code failures, and reports Pass@1 with category and difficulty breakdowns.",
+      "whyItMatters": "Code benchmarks built only on completion-style prompts or textual similarity are easy to contaminate and hard to interpret. Executable, split-controlled scoring gives teams a comparable signal about debugging, optimization and multi-step software-engineering ability under constraints such as time and memory limits.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Medium",
+        "score": 38,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets popular LLM code evaluation with distinct splits and contamination resistance, which may draw interest from the LLM evaluation community."
+        "reason": "The release covers broad code-generation and software-engineering scope with released tasks and tooling, but publisher visibility and community traction evidence are not supplied."
       },
       "publishers": [
         {
           "name": "Inserloft",
           "organizationType": "company-research-lab",
-          "sourceUrl": "https://github.com/InserLoft/Rockman",
+          "sourceUrl": "https://Inserloft.com/Benchmarks/Rockman",
           "role": "benchmark-publisher"
         }
       ],
@@ -150,14 +150,19 @@
         "evaluationEvidence": {
           "task": "Rockman v0.2 contains **220 evaluation tasks** distributed across three evaluation splits.",
           "scoring": "Pass@1 = solved tasks / evaluated tasks",
-          "reuse": "from datasets import load_dataset dataset = load_dataset(\"Inserloft/Rockman\")"
+          "reuse": "The private and hidden evaluation material is intentionally not equivalent to the public development split."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-21T00:49:41.927438Z",
+        "reviewedAt": "2026-09-21T10:09:28.958637Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides a formal benchmark with a defined task set, scoring via pass@1 on executable tests, and public code and datasets, enabling reuse and submission.",
+        "decisionReason": "The README clearly defines a benchmark with 44 official private tasks, a stable Pass@1 scoring metric, and an external submission path through Hugging Face dataset access and evaluator-controlled private splits.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Rockman Benchmark v0.2 > A contamination-resistant benchmark for evaluating LLMs on code generation, debugging, optimization, and software engineering tasks."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "377062c8115030db861635b147631c068d4384cd5c3484c6e321c2562e7b699a"
       },
       "attention": {
         "asOf": "2026-09-21",
@@ -376,11 +381,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:49:41.927438Z",
-        "inputHash": "14720b897375e6c26b4d745641d5cc513826d14266fe4dc8dca9218ea6ee09a2"
       }
     },
     {
@@ -391,7 +391,7 @@
       "aliases": [
         "office-agent-benchmark"
       ],
-      "oneLine": "63 office-agent tasks with documents, spreadsheets, presentations, daily workflows, instruction following and safety constraints, scored via prepared workspaces and outcome JSON.",
+      "oneLine": "Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit scoring contracts and a standalone grading entry point that emits assertion results and exit codes.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -467,14 +467,14 @@
           "url": "https://github.com/basilos-ai/office-agent-benchmark"
         }
       ],
-      "description": "63 office-agent tasks with documents, spreadsheets, presentations, daily workflows, instruction following and safety constraints, scored via prepared workspaces and outcome JSON.",
-      "whyItMatters": "Provides a reusable evaluation protocol for office automation agents, enabling comparisons of instruction-following and safety compliance on realistic office tasks.",
+      "description": "Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit scoring contracts and a standalone grading entry point that emits assertion results and exit codes.",
+      "whyItMatters": "Office agents are commonly judged with ad hoc demonstrations rather than reproducible office-artifact tasks. Released fixtures and deterministic scoring contracts let other teams grade their own agent outcomes on documents, spreadsheets and presentations without relying on a shared leaderboard.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 25,
+        "score": 34,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a niche office agent domain with a small task set and no leaderboard or model results to draw initial discussion."
+        "reason": "Topical office-agent coverage and released fixtures and grading tooling support moderate attention, while no model results or leaderboard are supplied to attract comparison traffic."
       },
       "publishers": [
         {
@@ -718,9 +718,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "35ed414b423bcb212af6878ffac33f8c1cf4c28a8e77e99f3e3741aebba68c88"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "69905d2f1ac7b8662ea1e7cea5a847b6878f26b0a5ff52f6eff853c0e80b25af"
       }
     },
     {
@@ -996,7 +996,7 @@
       "aliases": [
         "humanwill-benchmark"
       ],
-      "oneLine": "Evaluates AI model responses on 424 cybersecurity questions across vulnerability validation, source-code security, binary investigation, network investigation, and filesystem/artifact investigation. Measures false refusal and answer usefulness separately.",
+      "oneLine": "HumanWill is an assistance-focused evaluation over 424 cybersecurity questions spanning vulnerability validation, source-code security, binary, network and filesystem investigation. It scores false refusal and answer usefulness as separate judged dimensions under configurable per-topic policies, with run evidence and regrading support.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Cybersecurity"
@@ -1075,20 +1075,20 @@
           "url": "https://github.com/humanwill-ai/humanwill-benchmark"
         }
       ],
-      "description": "Evaluates AI model responses on 424 cybersecurity questions across vulnerability validation, source-code security, binary investigation, network investigation, and filesystem/artifact investigation. Measures false refusal and answer usefulness separately.",
-      "whyItMatters": "Fills the gap of assessing harmful refusals in AI models for legitimate cybersecurity assistance, enabling comparison of model usefulness and refusal rates.",
+      "description": "HumanWill is an assistance-focused evaluation over 424 cybersecurity questions spanning vulnerability validation, source-code security, binary, network and filesystem investigation. It scores false refusal and answer usefulness as separate judged dimensions under configurable per-topic policies, with run evidence and regrading support.",
+      "whyItMatters": "Safety-oriented refusal measures often conflate unwillingness to answer with answer quality, making model comparison ambiguous. Separating false-refusal and usefulness denominators gives teams and policy reviewers a clearer way to examine over-blocking on legitimate security work.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 40,
-        "confidence": "Low",
+        "score": 52,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The forecast relies on a narrowly focused cybersecurity benchmark released through GitHub with no additional social proof or publisher backing in the supplied evidence."
+        "reason": "The cybersecurity refusal topic is broadly discussed, and the release ships a frozen 13-model report, an interactive chart and an open question pack and framework for reruns."
       },
       "publishers": [
         {
-          "name": "HumanWill AI",
-          "organizationType": "company-research-lab",
-          "sourceUrl": "https://github.com/humanwill-ai/humanwill-benchmark",
+          "name": "HumanWill",
+          "organizationType": "community",
+          "sourceUrl": "https://humanwill.ai",
           "role": "benchmark-publisher"
         }
       ],
@@ -1258,9 +1258,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:54:09.991241Z",
-        "inputHash": "7621e9ba26b80ea1f2e5ca1bee66e47bd5401f9832b7e1436d92d8e90c4abf86"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "dad5ec7f87db4f5f669280c0453ac399bd7b226941bce924f3abd00a35e5557a"
       }
     },
     {
@@ -1271,7 +1271,7 @@
       "aliases": [
         "4b-agent-model-benchmark"
       ],
-      "oneLine": "Tests six small models on seven deterministic tool-use tasks, reporting capability points and resource eligibility separately.",
+      "oneLine": "Small-Model Operational Benchmark evaluates small local model agents on seven deterministic simulated operations tasks involving tool selection, state changes, replanning, irreversible-action restraint and recovery. A simulator tracks tool calls and state transitions, and a deterministic scorer awards points with caps for serious mistakes and no LLM judge.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -1348,19 +1348,19 @@
           "url": "https://github.com/MAJORminorStudio/4b-agent-model-benchmark"
         }
       ],
-      "description": "Tests six small models on seven deterministic tool-use tasks, reporting capability points and resource eligibility separately.",
-      "whyItMatters": "Provides a case study on small-model operational reliability, but the evaluation is limited to a one-off comparison without a general benchmark protocol.",
+      "description": "Small-Model Operational Benchmark evaluates small local model agents on seven deterministic simulated operations tasks involving tool selection, state changes, replanning, irreversible-action restraint and recovery. A simulator tracks tool calls and state transitions, and a deterministic scorer awards points with caps for serious mistakes and no LLM judge.",
+      "whyItMatters": "Decisions about running small models locally depend on operational reliability, not just capability scores. Task fixtures, simulator, scorer and frozen results let other teams inspect and reuse a bounded operational evaluation while keeping capability and resource eligibility separate.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 5,
+        "score": 36,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The content is a specific small-model operational study with no formal benchmark identity and low expected public interest beyond its niche."
+        "reason": "Focused small local-model operations testing and released fixtures support moderate interest, while the narrow model set and unresolved results limit broader draw."
       },
       "publishers": [
         {
-          "name": "MAJOR//minor Studio",
-          "organizationType": "company-research-lab",
+          "name": "MAJOR//minor",
+          "organizationType": "community",
           "sourceUrl": "https://github.com/MAJORminorStudio/4b-agent-model-benchmark",
           "role": "benchmark-publisher"
         }
@@ -1531,9 +1531,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "51b2f4ce3732d1bffa9c3dd6be07bc74e40685e962ebb0a35f7737b70389cd2f"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "38dc5e7fb3a50a39306828dfc0c1eb9dba08ba9462c2e5a154f1674c16f2d74f"
       }
     },
     {
@@ -1542,7 +1542,7 @@
       "name": "VidOmni-Bench",
       "paperTitle": "VidOmni-Bench: A Benchmark for Fine-Grained Video Understanding via Spatio-Temporal Event Verification across Complexity and Duration",
       "aliases": [],
-      "oneLine": "A benchmark for fine-grained video understanding via spatio-temporal event verification, requiring models to verify whether each event in dense video captions is supported by the video.",
+      "oneLine": "VidOmni-Bench is a video understanding benchmark in which models verify whether each event in dense video captions is supported by the accompanying video.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -1778,18 +1778,18 @@
           }
         }
       },
-      "description": "A benchmark for fine-grained video understanding via spatio-temporal event verification, requiring models to verify whether each event in dense video captions is supported by the video.",
-      "whyItMatters": "Evaluates fine-grained video understanding through spatio-temporal event verification across varying complexity and duration, which could inform model selection for detailed video comprehension tasks.",
+      "description": "VidOmni-Bench is a video understanding benchmark in which models verify whether each event in dense video captions is supported by the accompanying video.",
+      "whyItMatters": "Fine-grained spatio-temporal verification of caption events probes whether video-language models ground described events rather than rely on surface plausibility.",
       "attentionForecast": {
-        "score": 15,
+        "score": 28,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets video understanding, a broad topic, but the abstract lacks artifact details and the source is a very recent preprint, suggesting limited initial traction."
+        "reason": "Video understanding benchmarks attract steady interest, but no artifact readiness is indicated in the supplied evidence."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:54:09.991241Z",
-        "inputHash": "8ddcfd68576503c275caeb6420c9791099fd4d23458f3880e93c98ff5621eeeb"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "7279bc05adad484f189c0553adb2d46e7d6c877066c91039e527551a3a97f9b8"
       }
     },
     {
@@ -1798,7 +1798,7 @@
       "name": "SafeStage",
       "paperTitle": "SafeStage: Evaluating Safety Before, During, and After Vision-Language-Conditioned Robot Manipulation",
       "aliases": [],
-      "oneLine": "SafeStage is a lifecycle-structured benchmark for evaluating manipulation safety before, during, and after robot task execution.",
+      "oneLine": "SafeStage is a lifecycle-structured benchmark that evaluates safety in vision-language-conditioned robot manipulation before, during and after task execution.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -2037,18 +2037,18 @@
           }
         }
       },
-      "description": "SafeStage is a lifecycle-structured benchmark for evaluating manipulation safety before, during, and after robot task execution.",
-      "whyItMatters": "The benchmark would provide a structured way to assess safety across different phases of robot manipulation, which is critical for deploying vision-language-conditioned robots in real-world settings.",
+      "description": "SafeStage is a lifecycle-structured benchmark that evaluates safety in vision-language-conditioned robot manipulation before, during and after task execution.",
+      "whyItMatters": "Safety evaluation across the full manipulation lifecycle addresses decisions that arise outside a single execution step, informing how embodied policies are compared.",
       "attentionForecast": {
-        "score": 0,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The abstract only announces a benchmark without any artifact links or implementation details, limiting its expected early visibility."
+        "reason": "Embodied manipulation safety draws topical interest, yet no released artifacts or scoring details are present in the evidence."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:54:09.991241Z",
-        "inputHash": "aec6e6c8614d12eecaf18a6761368cab45975b54b6408d59bba23737d535fde9"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "cc41a425db7cf0d3a1ffd6d0d56adbf4fe7f36b25f2a5d25328723b35f274271"
       }
     },
     {
@@ -2057,7 +2057,7 @@
       "name": "rag-doc-qa",
       "paperTitle": "rag-doc-qa",
       "aliases": [],
-      "oneLine": "20-question RAG evaluation suite with single-hop, multi-hop, and unanswerable items over Chinese technical documents, scored by coverage, correctness, refusal accuracy, retrieval hit rate, and latency.",
+      "oneLine": "Reports a locally developed 20-question evaluation set for a RAG document QA service with hybrid retrieval and cited answers.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2135,35 +2135,27 @@
           "url": "https://github.com/ano-kodokushi/rag-doc-qa"
         }
       ],
-      "description": "20-question RAG evaluation suite with single-hop, multi-hop, and unanswerable items over Chinese technical documents, scored by coverage, correctness, refusal accuracy, retrieval hit rate, and latency.",
-      "whyItMatters": "Provides a reproducible local-document RAG benchmark with explicit scoring rules and mixed question types, useful for measuring retrieval and generation quality.",
+      "description": "Reports a locally developed 20-question evaluation set for a RAG document QA service with hybrid retrieval and cited answers.",
+      "whyItMatters": "This is an internal project-specific evaluation not designed as a standalone benchmark for model comparison; its results are tied to a single system's optimization.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
-        "confidence": "Medium",
+        "score": 0,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Niche topic with no paper, publisher visibility, or preexisting user base; self-contained code and results may attract limited attention."
+        "reason": "The project is a minimal local-doc RAG service with a small in-house evaluation set, unlikely to gain broad public attention."
       },
-      "publishers": [
-        {
-          "name": "ano-kodokushi",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/ano-kodokushi/rag-doc-qa",
-          "role": "benchmark-publisher"
-        }
-      ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "评测：`eval/` 下 20 题自建评测集，单跳 / 多跳 / 不可答三类",
           "scoring": "`accuracy`（要点覆盖率 ≥ 0.8 判对） | **0.50** | 0.45–0.50",
           "reuse": "Copy-Item eval\\questions.example.jsonl eval\\questions.jsonl # 按 eval/README.md 的规范把 20 题写好，定稿后不要再改 & $P -m eval.run_eval --mode mock --questions eval/questions.jsonl --out eval/report_mock.json"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-21T06:43:56.803723Z",
+        "reviewedAt": "2026-09-21T10:09:28.958637Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Formally named benchmark with released question template, scoring metrics, evaluation script, and reported measured results.",
+        "decisionReason": "The 20-question set is self-built for the service's own evaluation, lacks a formal benchmark name, and is not provided as a reusable external protocol; it primarily supports the project's development rather than community comparison.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# RAG 文档问答（rag-doc-qa）"
       },
@@ -2319,8 +2311,8 @@
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:43:56.803723Z",
-        "inputHash": "7f612d116d12348bbf061338bf978363ecf785aac3a109fcc74a84e3d9af6c7b"
+        "generatedAt": "2026-09-21T10:09:28.958637Z",
+        "inputHash": "b8d7023af06b52f43d56da0029dc0b0fb9cb88e84f5c79e428fd06183e8086d9"
       }
     },
     {
@@ -2329,7 +2321,7 @@
       "name": "QuranicMMLU",
       "paperTitle": "QuranicMMLU: A Cognitively-Aware Benchmark for Evaluating Generative AI Solutions on Quranic Linguistic Knowledge",
       "aliases": [],
-      "oneLine": "Proposed benchmark for evaluating generative AI on Quranic Arabic across multiple dimensions of linguistic complexity.",
+      "oneLine": "QuranicMMLU evaluates generative AI models on Quranic Arabic linguistic knowledge across multiple dimensions of cognitive and linguistic complexity.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2587,18 +2579,18 @@
           }
         }
       },
-      "description": "Proposed benchmark for evaluating generative AI on Quranic Arabic across multiple dimensions of linguistic complexity.",
-      "whyItMatters": "Addresses an underexplored domain of Quranic linguistic knowledge, but its practical value depends on release of artifacts and scoring details.",
+      "description": "QuranicMMLU evaluates generative AI models on Quranic Arabic linguistic knowledge across multiple dimensions of cognitive and linguistic complexity.",
+      "whyItMatters": "Domain-specific linguistic evaluation of Quranic Arabic gives a targeted signal beyond general multilingual benchmarks for religious and classical Arabic tasks.",
       "attentionForecast": {
-        "score": 18,
+        "score": 26,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The religious cultural domain might attract a specialized audience, but the lack of released data or tools limits early visibility."
+        "reason": "Domain-specific religious-language evaluation is a niche topic and no released artifacts are indicated in the evidence."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "c7ad4fbe31f383ac647e26a36d6dcf043750013f0d5daa8cc7e39c4751e89a8d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "c7e4e8e82a3e186714e67200091078fa18a885614a07aa8397f5073e3ba3b4b4"
       }
     },
     {
@@ -2607,7 +2599,7 @@
       "name": "PlaceReasoner-Bench",
       "paperTitle": "PlaceReasoner-Beta: Reasoning-Driven Macro Placement and Benchmarking",
       "aliases": [],
-      "oneLine": "Claims an open end-to-end benchmark for macro placement built from open RTL designs, EDA tools, and technology libraries.",
+      "oneLine": "PlaceReasoner-Bench is described as a fully open end-to-end benchmark for reasoning-driven macro placement, built from open RTL designs, EDA tools, and technology libraries.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Chip Design & EDA"
@@ -2691,14 +2683,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Claims an open end-to-end benchmark for macro placement built from open RTL designs, EDA tools, and technology libraries.",
-      "whyItMatters": "Aims to enable reproducible evaluation in macro placement, a specialized EDA task where open benchmarks are scarce.",
+      "description": "PlaceReasoner-Bench is described as a fully open end-to-end benchmark for reasoning-driven macro placement, built from open RTL designs, EDA tools, and technology libraries.",
+      "whyItMatters": "Macro placement evaluation lacks a reproducible open setup, making it hard to compare reasoning-driven placement methods on shared, inspectable infrastructure.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 25,
+        "score": 28,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The EDA community values open benchmarks, and the paper's focus on reproducibility may draw attention if artifacts are later released."
+        "reason": "The record targets a specialized EDA macro-placement audience and provides no released artifacts beyond a single abstract statement."
       },
       "displayEligible": false,
       "curation": {
@@ -2866,9 +2858,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "e11f07e71b8a81ff4c64ca9348740a0470facd018dd7ed049e7b4ce1c22a6c98"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "293fceb7f762c367eba54a2c7e53457b8f8236f20e07a337dcb80e082e4aa4de"
       }
     },
     {
@@ -2877,7 +2869,7 @@
       "name": "OmniVBench",
       "paperTitle": "OmniVBench: A Benchmark and Large-Scale Dataset for Omni Reference-to-Video Generation",
       "aliases": [],
-      "oneLine": "Evaluates omni reference-to-video generation across 7 task families and 18 fine-grained tasks with factor-grounded checklist scoring.",
+      "oneLine": "OmniVBench is presented as a benchmark paired with the Omni-R2V Dataset for evaluating omni reference-to-video generation models.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -2962,27 +2954,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates omni reference-to-video generation across 7 task families and 18 fine-grained tasks with factor-grounded checklist scoring.",
-      "whyItMatters": "Addresses gaps in reference type coverage and disentangled factor evaluation, enabling more faithful assessment of R2V models.",
+      "description": "OmniVBench is presented as a benchmark paired with the Omni-R2V Dataset for evaluating omni reference-to-video generation models.",
+      "whyItMatters": "Reference-to-video generation has lacked a shared evaluation setup covering omni-modal references, limiting comparability across models.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 70,
-        "confidence": "Medium",
-        "reason": "A large-scale benchmark with 340K training samples and a named evaluation suite is likely to attract interest from the video generation community.",
-        "horizon": "7d"
+        "score": 34,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The topic spans generative video and multimodal references, but no released artifacts, protocols, or links accompany the brief abstract statement."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "covering 7 task families and 18 fine-grained tasks spanning content, motion, style, structure, narrative, and multi-reference settings",
           "scoring": "factor-grounded evaluation with 12,172 case-specific checklist items, assessing whether intended reference factors are faithfully preserved, correctly disentangled and bound to their targets",
           "reuse": "We introduce OmniVBench and the Omni-R2V Dataset for evaluating and training omni R2V models."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-21T06:43:56.803723Z",
+        "reviewedAt": "2026-09-21T10:09:28.958637Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper explicitly introduces a named benchmark with defined tasks, scoring checklists, and a large dataset intended for model evaluation and training.",
+        "decisionReason": "No artifact URLs, code, dataset, or official project page are provided, so the benchmark's existence as a usable public resource cannot be verified.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "OmniVBench: A Benchmark and Large-Scale Dataset for Omni Reference-to-Video Generation"
       },
@@ -3137,9 +3129,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:43:56.803723Z",
-        "inputHash": "5616cda7c8f82d5f5e29908e73a95a0fb873cf528b63c163b843ff8d3e8abca8"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "29aabe53ed26e46370d91a7260bf17cc489be3a478ab95933e424209835402cf"
       }
     },
     {
@@ -3148,7 +3140,7 @@
       "name": "Object Detection Benchmarks are Incomplete: The Role of Label Errors and Annotation Uncertainty",
       "paperTitle": "Object Detection Benchmarks are Incomplete: The Role of Label Errors and Annotation Uncertainty",
       "aliases": [],
-      "oneLine": "Evaluates object detection models under annotation uncertainty and label errors using re-annotated versions of COCO, Pascal VOC, Cityscapes, and KITTI.",
+      "oneLine": "The work describes an uncertainty-aware object detection benchmark and a label error detection benchmark grounded in real annotation errors.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -3225,27 +3217,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates object detection models under annotation uncertainty and label errors using re-annotated versions of COCO, Pascal VOC, Cityscapes, and KITTI.",
-      "whyItMatters": "Exposes how annotation incompleteness biases detection benchmarks and provides uncertainty-aware evaluation more aligned with human perception.",
+      "description": "The work describes an uncertainty-aware object detection benchmark and a label error detection benchmark grounded in real annotation errors.",
+      "whyItMatters": "Object detection evaluation typically ignores annotation noise; reusable label-error and uncertainty resources could improve error-aware comparison across detectors.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 65,
-        "confidence": "Medium",
-        "reason": "Given the widespread use of the four datasets, findings on annotation errors and new uncertainty-aware benchmarks are likely to generate broad interest.",
-        "horizon": "7d"
+        "score": 22,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The record addresses dataset-quality concerns within object detection, a well-populated but niche methodological area with no released artifacts shown."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "uncertainty-aware object detection benchmark across COCO, Pascal VOC, Cityscapes, KITTI",
           "scoring": "soft labels aggregated from at least 11 annotators per object; benchmark performance measured against annotation quality",
           "reuse": "We introduce two large-scale benchmarks: (i) an uncertainty-aware object detection benchmark, and (ii) a label error detection benchmark grounded in real label errors."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-21T06:43:56.803723Z",
+        "reviewedAt": "2026-09-21T10:09:28.958637Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper explicitly introduces two named benchmarks with released annotation pipelines and evaluation protocols.",
+        "decisionReason": "The abstract mentions benchmarks but provides no formal names, task details, scoring rules, or evidence of a public path for reuse or submission.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "Object Detection Benchmarks are Incomplete: The Role of Label Errors and Annotation Uncertainty"
       },
@@ -3400,9 +3392,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:43:56.803723Z",
-        "inputHash": "30f4e47910ed2b4b35f1937a5e9f4d52c01ed51993b4f33c9c969ff9d7c9ecae"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "b25e54fa544f2fc9db276667ad22954be33cda2897bfebe85c0f3e0d762dad03"
       }
     },
     {
@@ -3411,7 +3403,7 @@
       "name": "GameLogicBench",
       "paperTitle": "GameLogicBench: Evaluating Coding Agents on Runtime Game Logic with Tick-Level State Assertions",
       "aliases": [],
-      "oneLine": "Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using deterministic, black-box behavioral assertions that check runtime state against expected outcomes in isolated containers.",
+      "oneLine": "GameLogicBench evaluates coding agents on 72 gameplay-logic tasks in Godot projects, scoring solutions with deterministic black-box behavioural assertions at the level of simulation tick state.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -3514,13 +3506,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "GameLogicBench: Evaluating Coding Agents on Runtime Game Logic with Tick-Level State Assertions"
       },
-      "description": "Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using deterministic, black-box behavioral assertions that check runtime state against expected outcomes in isolated containers.",
-      "whyItMatters": "Provides reproducible, tamper-resistant evaluation for game development agents, moving beyond LLM-based judging to objective behavioral testing across seeds and scenarios.",
+      "description": "GameLogicBench evaluates coding agents on 72 gameplay-logic tasks in Godot projects, scoring solutions with deterministic black-box behavioural assertions at the level of simulation tick state.",
+      "whyItMatters": "Coding-agent evaluation rarely exercises runtime game logic under reproducible conditions; a frozen, deterministic grader lets teams compare agents without judge-model subjectivity.",
       "attentionForecast": {
-        "score": 70,
+        "score": 46,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a trending domain of coding agents for games with a rigorous evaluation harness, likely to interest both game AI and agent evaluation communities."
+        "reason": "The benchmark combines timely coding-agent evaluation with an implemented Godot task suite and public repository, drawing interest from both agent and game-development communities."
       },
       "publishers": [
         {
@@ -3682,9 +3674,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:54:09.991241Z",
-        "inputHash": "b7ef88b9c63f47d4577c62a7256219aa23181529f805461b70f09b5297727fa6"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "abb6f8560710717a975636a29aa7e34d5a425e9b0257009dfd83992adfc6291c"
       }
     },
     {
@@ -3693,7 +3685,7 @@
       "name": "GameASG-Bench",
       "paperTitle": "GameASG-Bench: Benchmarking Autonomous Software Generation for Game Development",
       "aliases": [],
-      "oneLine": "Evaluates autonomous software generation for game development, focusing on behavioral testability within generated game code.",
+      "oneLine": "GameASG-Bench evaluates coding agents that convert natural-language game requirements into a single self-contained index.html browser game. Its 47 tasks span 12 genres with a per-game public behavioral testing interface (window.__gameTest), scored by L1 static artifact and contract checks plus L2 headless Chromium tests of actions, outcomes, and state invariants across P0–P2 priorities.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3932,26 +3924,18 @@
           }
         }
       },
-      "description": "Evaluates autonomous software generation for game development, focusing on behavioral testability within generated game code.",
-      "whyItMatters": "Addresses the lack of behavioral testability in autonomous software generation, offering a repeatable evaluation object for game development tasks.",
+      "description": "GameASG-Bench evaluates coding agents that convert natural-language game requirements into a single self-contained index.html browser game. Its 47 tasks span 12 genres with a per-game public behavioral testing interface (window.__gameTest), scored by L1 static artifact and contract checks plus L2 headless Chromium tests of actions, outcomes, and state invariants across P0–P2 priorities.",
+      "whyItMatters": "Game code generation is hard to score because gameplay is interactive and subjective. GameASG-Bench makes behavioral testability part of the specification, giving a repeatable, containerized protocol that yields comparable per-game results and resource-use reporting for agent comparisons.",
       "attentionForecast": {
-        "score": 35,
+        "score": 40,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets a specialized niche in game development and code generation, likely attracting modest initial attention from researchers in that subfield."
+        "reason": "Supplied evidence shows a scoped game-generation agent evaluation with released code and containerized tooling, but no supplied indicators of wider attention at release."
       },
-      "publishers": [
-        {
-          "name": "areal-project",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/areal-project/GameASG-Bench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T00:54:09.991241Z",
-        "inputHash": "9673a5c24d499da7ec950949ed9ababb3025b1a031446628055e7366f74b1a75"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "a3b9a841656ec3c4d503d08df0db155f5276b08c128f42b66a4e617a32bd2192"
       }
     },
     {
@@ -3960,7 +3944,7 @@
       "name": "CIBuzzBench",
       "paperTitle": "CIBuzzBench: A Benchmark for Cross-Lingual Understanding of Chinese Internet Buzzwords",
       "aliases": [],
-      "oneLine": "Evaluates LLMs on Chinese-to-English cross-lingual understanding of Chinese internet buzzwords through meaning explanation, equivalent selection, and harmfulness detection.",
+      "oneLine": "CIBuzzBench evaluates LLM Chinese-to-English understanding of Chinese internet buzzwords across 3,001 annotated entries with a 2,401/600 train/test split. Three tasks cover meaning explanation (0-5 LLM-judge semantic equivalence), equivalent selection among one gold option and three controlled distractors (macro F1 with option-shuffle seeds), and harmfulness detection (accuracy, macro F1, harmful-class F1).",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4057,13 +4041,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "CIBuzzBench: A Benchmark for Cross-Lingual Understanding of Chinese Internet Buzzwords"
       },
-      "description": "Evaluates LLMs on Chinese-to-English cross-lingual understanding of Chinese internet buzzwords through meaning explanation, equivalent selection, and harmfulness detection.",
-      "whyItMatters": "Provides a structured resource for assessing cultural and pragmatic competence in buzzword interpretation, useful for cross-lingual NLP and content moderation research.",
+      "description": "CIBuzzBench evaluates LLM Chinese-to-English understanding of Chinese internet buzzwords across 3,001 annotated entries with a 2,401/600 train/test split. Three tasks cover meaning explanation (0-5 LLM-judge semantic equivalence), equivalent selection among one gold option and three controlled distractors (macro F1 with option-shuffle seeds), and harmfulness detection (accuracy, macro F1, harmful-class F1).",
+      "whyItMatters": "Buzzword meaning is culturally bound and easily missed by literal translation. A released dataset, fixed splits, and scripted scoring let teams compare models on the same cross-lingual, non-literal and harmfulness-aware tasks instead of ad hoc, incomparable evaluations.",
       "attentionForecast": {
-        "score": 30,
-        "confidence": "Medium",
+        "score": 35,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a culturally specific and timely topic in Chinese internet language, with released code and data likely to attract NLP researchers."
+        "reason": "Supplied evidence indicates a focused cross-lingual buzzword benchmark with an open dataset and scripts, but no supplied indicators of broad attention at release."
       },
       "attention": {
         "asOf": "2026-09-21",
@@ -4217,9 +4201,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "f66dd1f08005dcf88145c57e7c5655db112761ca3352d977f017488fd3d73b65"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "0c6eb6f1bd6b06bd3a7191cf80562075310ca44546934c195496e49911c8c1b5"
       }
     },
     {
@@ -4228,7 +4212,7 @@
       "name": "Chinese Competitive Debating Dataset and Benchmark",
       "paperTitle": "Chinese Competitive Debating Dataset and Benchmark",
       "aliases": [],
-      "oneLine": "Dataset and benchmark for evaluating LLMs on understanding competitive Chinese-language debate at match, stage, and speaker levels.",
+      "oneLine": "Evaluates large language models' understanding of competitive Chinese-language debate at the match, stage, and speaker levels.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4307,14 +4291,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Dataset and benchmark for evaluating LLMs on understanding competitive Chinese-language debate at match, stage, and speaker levels.",
-      "whyItMatters": "Competitive debate understanding tests high-level language comprehension and argumentation, an area with limited evaluation resources.",
+      "description": "Evaluates large language models' understanding of competitive Chinese-language debate at the match, stage, and speaker levels.",
+      "whyItMatters": "Addresses the gap in evaluating Chinese-language competitive debate understanding, which lacks an established repeatable evaluation setup.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 10,
+        "score": 14,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The focus on Chinese debate is niche, and the lack of released artifacts will suppress early community engagement."
+        "reason": "A niche Chinese-language debate evaluation with only a brief abstract and no visible released artifacts is likely to draw limited early attention."
       },
       "displayEligible": false,
       "curation": {
@@ -4482,9 +4466,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "fbede896d3f5251e29edc99c936f490032f611335cab2d2648377315ea963820"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "ca185bd4ad256ae1ebfedfea81553c8ad2bd420db93cc2f3cc39b3ac22c15f04"
       }
     },
     {
@@ -4493,7 +4477,7 @@
       "name": "CESBench",
       "paperTitle": "CESBench: Benchmarking Large Language Models on Cryptographic Engineering Security for IoT Devices",
       "aliases": [],
-      "oneLine": "Proposed benchmark with 380 items across six cryptographic engineering security sub-domains for IoT devices.",
+      "oneLine": "CESBench comprises 380 expert-written items spanning six sub-domains of cryptographic engineering security for IoT devices: side-channel, fault injection, implementation, countermeasures, evaluation, and integration.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4570,14 +4554,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Proposed benchmark with 380 items across six cryptographic engineering security sub-domains for IoT devices.",
-      "whyItMatters": "If released, it would provide a focused evaluation for LLMs on IoT security tasks.",
+      "description": "CESBench comprises 380 expert-written items spanning six sub-domains of cryptographic engineering security for IoT devices: side-channel, fault injection, implementation, countermeasures, evaluation, and integration.",
+      "whyItMatters": "Evaluating large language models on cryptographic engineering security for IoT devices requires task inputs and a scoring contract that other teams can run. No released code, data, or evaluation protocol is present here.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 30,
+        "score": 12,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "A narrow IoT security LLM benchmark with no visible artifacts may attract limited early attention."
+        "reason": "Attention is likely to be narrow given the specialized IoT cryptographic security scope and the absence of released artifacts or a public evaluation path."
       },
       "displayEligible": false,
       "curation": {
@@ -4745,9 +4729,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-21T06:47:33.326432Z",
-        "inputHash": "9c3a03b5519fce4d4393b0aa256970c6f284c96c1c4e91c8af17e005ecac7d99"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-21T10:11:04.491653Z",
+        "inputHash": "d8669e851cda594955785d61d04b6203c02e4b640ee4bc2e70aebd581c64c383"
       }
     },
     {
@@ -5040,6 +5024,133 @@
         "model": "deepseek-v4-pro",
         "generatedAt": "2026-09-21T06:47:33.326432Z",
         "inputHash": "63ed77518425ed1e8707f665e20478ad379995b8ba003fb2dd1c3dbd151004ae"
+      }
+    },
+    {
+      "id": "bm_benchrig_361559d9",
+      "familyId": "bmf_5a611b7fc893",
+      "name": "BenchRig",
+      "paperTitle": "benchrig",
+      "aliases": [],
+      "oneLine": "Evaluates local LLMs across Ollama, Foundry Local, ONNX Runtime GenAI, and Prism on coding precision, reasoning, speed, context scaling, and hardware telemetry.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Manufacturing & Process Control"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Manufacturing"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/senssei/benchrig",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-21T06:43:07.985462Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-18",
+      "firstSeenAt": "2026-09-21",
+      "indexedAt": "2026-09-21T06:43:07.985462Z",
+      "sourceUpdatedAt": "2026-09-20T08:38:36Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://senssei.github.io/benchrig/",
+        "code": "https://github.com/senssei/benchrig"
+      },
+      "motivation": "benchrig Cross-platform benchmarking and hardware profiling rig for local LLMs across Ollama, Microsoft Foundry Local, ONNX Runtime GenAI, and Prism on Apple Silicon & CUDA.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:senssei/benchrig",
+        "url": "https://github.com/senssei/benchrig",
+        "title": "benchrig",
+        "authors": [
+          "senssei"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "apple-silicon benchmark cli code-generation cuda foundry-local latency llama-cpp llm local-llm metal nvidia ollama onnxruntime onnxruntime-genai profiling python reasoning ttft vram # ⚡ BenchRig **Cross-platform evaluation, hardware profiling, and benchmarking rig for local LLMs on Ollama, Microsoft Foundry Local, ONNX Runtime GenAI and Prism.** Tailored for **macOS Apple Silicon (M1/M2/M3/M4 Metal & Unified Memory)** and **Linux / WSL2 (NVIDIA GeForce RTX CUDA)**.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:senssei/benchrig",
+          "url": "https://github.com/senssei/benchrig"
+        }
+      ],
+      "description": "Evaluates local LLMs across Ollama, Foundry Local, ONNX Runtime GenAI, and Prism on coding precision, reasoning, speed, context scaling, and hardware telemetry.",
+      "whyItMatters": "Provides a unified, cross-platform way to compare local models across different serving engines and measure practical developer workloads beyond perplexity.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche audience of local LLM developers and supports multiple runtimes and hardware platforms, which may drive moderate initial interest."
+      },
+      "publishers": [
+        {
+          "name": "Senssei",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/senssei/benchrig",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "**BenchRig** is an automated benchmarking and profiling suite that measures real-world code generation precision, logical reasoning, prompt prefill / generation speeds, context saturation, and hardware telemetry across local language models served via [Ollama](https://ollama.com) (`llama.cpp`) and **Microsoft Foundry Server Runtime** (**Foundry Local** / ONNX Runtime GenAI).",
+          "scoring": "| 🏆 **Leaderboard & Markdown Reports** | Produces Rich terminal tables with category medals (🥇, 🥈, 🥉), runtime indicators, and comparative Markdown summaries in `results/LATEST_SUMMARY.md`.",
+          "reuse": "### Install from PyPI ```bash pipx install benchrig # or: pip install benchrig pip install \"benchrig[onnx-gpu]\" # + direct ONNX Runtime GenAI (CUDA) engine pip install \"benchrig[charts]\" # + matplotlib charts benchrig --version benchrig --check # diagnose runtimes and accelerators benchrig --models qwen2.5-coder:7b --suite coding ```"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-21T10:06:31.341758Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository explicitly defines a benchmark suite with automated scoring, a leaderboard, and a public PyPI installation path for other teams to run it.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# ⚡ BenchRig **Cross-platform evaluation, hardware profiling, and benchmarking rig for local LLMs on Ollama, Microsoft Foundry Local, ONNX Runtime GenAI and Prism.**"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-21T10:06:31.341758Z",
+        "inputHash": "e5c369ad5f6f90df9e7fe20d57c7a13c616bfe50e3ab5d83dee56c3602a19f12"
       }
     },
     {
