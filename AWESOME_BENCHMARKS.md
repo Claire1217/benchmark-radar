@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-21 · **Benchmark releases:** 1866
+**Snapshot:** 2026-09-20 · **Benchmark releases:** 1872
 
 ## Contents
 
@@ -18,21 +18,21 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [AI for Science](#ai-for-science) (18)
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
-- [Agent Safety & Security](#agent-safety--security) (53)
+- [Agent Safety & Security](#agent-safety--security) (54)
 - [Coding Agents](#coding-agents) (55)
 - [Computer Use](#computer-use) (23)
-- [Data Analysis Agents](#data-analysis-agents) (5)
+- [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
 - [Efficient Inference](#efficient-inference) (9)
 - [Embodied AI & VLA](#embodied-ai--vla) (81)
-- [Image & Video Generation](#image--video-generation) (66)
+- [Image & Video Generation](#image--video-generation) (67)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1066)
+- [Other benchmark tasks](#other-benchmark-tasks) (1065)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (53)
-- [Tool Use](#tool-use) (30)
+- [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (57)
 - [World Models](#world-models) (18)
 
@@ -103,6 +103,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
+- **Office Agent Benchmark** (2026-09-20) — 63 office-agent tasks with documents, spreadsheets, presentations, daily workflows, instruction following and safety constraints, scored via prepared workspaces and outcome JSON. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **HumanWill Benchmark** (2026-09-19) — Evaluates AI model responses on 424 cybersecurity questions across vulnerability validation, source-code security, binary investigation, network investigation, and filesystem/artifact investigation. Measures false refus… [Code](https://github.com/humanwill-ai/humanwill-benchmark)
 - **InterveneBench** (2026-09-12) — Evaluates human-in-the-loop safety for tool-using agents over 250 synthetic tasks with four reply types, measuring unsafe action rates, consultation quality, and post-reply behavior. [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **Failure-Transparent Agents** (2026-09-10) — Measures whether LLM agents admit tool failures instead of claiming success across 100 tasks covering web, attachment, execution, permission, and stale-data failures under varying pressure and instruction conditions. [Code](https://github.com/junru-zhu/failure-transparent-agents)
@@ -243,6 +244,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Data Analysis Agents
 
+- **Office Agent Benchmark** (2026-09-20) — 63 office-agent tasks with documents, spreadsheets, presentations, daily workflows, instruction following and safety constraints, scored via prepared workspaces and outcome JSON. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **DataClawEval** (2026-07-30) — DataClawEval evaluates autonomous data-engineering agents across 100 end-to-end tasks spanning PySpark, MySQL, HiveSQL, PrestoSQL/Trino, and FlinkSQL, with deterministic rule-based grading in isolated sandboxes. [Paper](https://arxiv.org/abs/2607.28033) · [HF](https://huggingface.co/papers/2607.28033) · [Code](https://github.com/Dicemy/DataClawEval/tree/master)
 - **AgenticDataBench** (2026-07-02) — Evaluates LLM-based data agents on realistic data science workflows across 15 domains, with fine-grained ground-truth labels and skill-level scoring. [Paper](https://arxiv.org/abs/2607.01647) · [HF](https://huggingface.co/papers/2607.01647) · [Code](https://github.com/AgenticDataBench/AgenticDataBench)
 - **SpreadsheetBench** (2026-06-29) — SpreadsheetBench 2 evaluates spreadsheet agents on end-to-end business workflows across generation, debugging, and visualization tasks. It includes 321 tasks from authentic business data, with multi-sheet workbooks requ… [Paper](https://arxiv.org/abs/2606.29955) · [HF](https://huggingface.co/papers/2606.29955) · [Code](https://github.com/RUCKBReasoning/SpreadsheetBench-2)
@@ -367,6 +369,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Image & Video Generation
 
+- **OmniVBench** (2026-09-18) — Evaluates omni reference-to-video generation across 7 task families and 18 fine-grained tasks with factor-grounded checklist scoring. [Paper](https://arxiv.org/abs/2609.22069)
 - **VWG-Bench** (2026-09-10) — VWG-Bench evaluates image-to-video generation models on rule-following, physical and commonsense constraints, and goal realization over time, using 380 annotated initial images across 9 reasoning dimensions and 38 ten-s… [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **ABACUS** (2026-09-09) — Evaluates instruction-based image editing models on add, remove, and change tasks, measuring exact object count correctness and scene preservation without VLM judges. [Paper](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench) · [Data](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench)
 - **CutCraft** (2026-09-08) — CutCraft evaluates editing-technique execution in multi-shot audio-video generation, covering shot structure, transitions, audio-video cuts, and montage. [Paper](https://arxiv.org/abs/2609.08275) · [Code](https://github.com/AlibabaResearch/cut-craft-bench)
@@ -474,11 +477,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 ## Other benchmark tasks
 
 - **Rockman Benchmark v0.2** (2026-09-20) — A contamination-resistant benchmark with 220 executable software-engineering tasks across generation, debugging, optimization, stateful, and multi-step categories. [Code](https://github.com/InserLoft/Rockman)
-- **Office Agent Benchmark** (2026-09-20) — A 63-task benchmark for office agents with task materials, synthetic fixtures, and executable scoring contracts. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **STRATA-Bench** (2026-09-19) — STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted head… [Code](https://github.com/movahedi-ca/strata-bench)
-- **PlaceReasoner-Bench** (2026-09-18) — Evaluates macro placement methods on 8 open RTL designs at two aspect ratios, producing 16 fixed floorplan and I/O tasks scored by routed PPA and DRC. [Paper](https://arxiv.org/abs/2609.21263)
-- **Chinese Competitive Debating Dataset and Benchmark** (2026-09-18) — Evaluates large language models on competitive Chinese-language debate understanding at match, stage, and speaker levels using 148 debates judged by professionals. [Paper](https://arxiv.org/abs/2609.21637)
-- **CESBench** (2026-09-18) — Evaluates LLMs on cryptographic engineering security for IoT devices through 380 items covering multiple choice, judgment, scenario diagnosis, and code tasks. [Paper](https://arxiv.org/abs/2609.21344)
+- **rag-doc-qa** (2026-09-18) — 20-question RAG evaluation suite with single-hop, multi-hop, and unanswerable items over Chinese technical documents, scored by coverage, correctness, refusal accuracy, retrieval hit rate, and latency. [Code](https://github.com/ano-kodokushi/rag-doc-qa)
+- **Object Detection Benchmarks are Incomplete: The Role of Label Errors and Annotation Uncertainty** (2026-09-18) — Evaluates object detection models under annotation uncertainty and label errors using re-annotated versions of COCO, Pascal VOC, Cityscapes, and KITTI. [Paper](https://arxiv.org/abs/2609.21822)
+- **CIBuzzBench** (2026-09-18) — Evaluates LLMs on Chinese-to-English cross-lingual understanding of Chinese internet buzzwords through meaning explanation, equivalent selection, and harmfulness detection. [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
 - **eos-bench** (2026-09-17) — Evaluates MLIP equation-of-state predictions against DFT for volume-scaled structures, reporting percent errors in equilibrium volume and bulk modulus. [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
 - **PosteriorBench** (2026-09-17) — Benchmark evaluating whether generative scientific inverse solvers recover full posterior distributions across four physics-based inverse tasks. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
 - **OverclaimBench** (2026-09-17) — OverclaimBench evaluates frontier LLM agents across five file-review scenarios using transcript-based coverage measurements to detect overclaiming against registered planted defects. [Paper](https://arxiv.org/abs/2609.20812)
@@ -1657,7 +1659,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Tool Use
 
-- **Small-Model Operational Benchmark** (2026-09-19) — Evaluates small local models on seven deterministic simulated tool-use operations tasks with scoring for capability, resource eligibility, and failure modes. [Code](https://github.com/MAJORminorStudio/4b-agent-model-benchmark)
 - **agent-injection-bench** (2026-09-11) — Evaluates prompt-injection robustness of tool-calling agent stacks using a 24-scenario corpus (21 adversarial, 3 control) delivered through channels such as tool results, documents, web pages, filenames and multi-turn d… [Code](https://github.com/sentinelden/agent-injection-bench)
 - **ParaRecover** (2026-09-11) — ParaRecover evaluates LLM-based parallel tool-use agents on error localization and recovery, testing whether agents detect execution errors, diagnose root causes, and repair plans when tool calls fail. It scores replann… [Paper](https://arxiv.org/abs/2609.12345) · [Code](https://github.com/gbw206/ParaRecover)
 - **DuMateBench** (2026-08-27) — We introduce DuMateBench, a real-session benchmark reconstructed from anonymized and privacy-screened user sessions collected from a large-scale production agent platform. [Paper](https://arxiv.org/abs/2608.26546) · [HF](https://huggingface.co/papers/2608.26546)
