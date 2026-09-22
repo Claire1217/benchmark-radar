@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-21 · **Benchmark releases:** 1915
+**Snapshot:** 2026-09-21 · **Benchmark releases:** 1916
 
 ## Contents
 
@@ -18,17 +18,17 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [AI for Science](#ai-for-science) (18)
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
-- [Agent Safety & Security](#agent-safety--security) (54)
+- [Agent Safety & Security](#agent-safety--security) (55)
 - [Coding Agents](#coding-agents) (58)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
 - [Efficient Inference](#efficient-inference) (9)
-- [Embodied AI & VLA](#embodied-ai--vla) (83)
-- [Image & Video Generation](#image--video-generation) (67)
+- [Embodied AI & VLA](#embodied-ai--vla) (82)
+- [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1072)
+- [Other benchmark tasks](#other-benchmark-tasks) (1069)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (54)
@@ -103,6 +103,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
+- **MobileCybench** (2026-09-21) — MobileCybench evaluates AI agents on vulnerability discovery in 13 Android applications through executable probes that verify security property violations, measuring trigger rates under attack settings and APK/source av… [Paper](https://arxiv.org/abs/2609.23980)
 - **Office Agent Benchmark** (2026-09-20) — Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit s… [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **HumanWill Benchmark** (2026-09-19) — HumanWill is an assistance-focused evaluation over 424 cybersecurity questions spanning vulnerability validation, source-code security, binary, network and filesystem investigation. It scores false refusal and answer us… [Code](https://github.com/humanwill-ai/humanwill-benchmark)
 - **InterveneBench** (2026-09-12) — Evaluates human-in-the-loop safety for tool-using agents over 250 synthetic tasks with four reply types, measuring unsafe action rates, consultation quality, and post-reply behavior. [Code](https://github.com/yanliang-li/hil-safety-benchmark)
@@ -288,7 +289,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
-- **HappyWorld-Bench** (2026-09-21) — Evaluates generated world reliability under agent interaction across video, spatial, and embodied tracks, measuring state consistency and action responsiveness. [Paper](https://arxiv.org/abs/2609.24308)
 - **ActiveArena-Bench** (2026-09-21) — ActiveArena-Bench evaluates active perception in robotic manipulation through 35 tasks across five categories covering visual exploration and interactive information acquisition. [Paper](https://arxiv.org/abs/2609.24124)
 - **RoboVAD** (2026-09-15) — A benchmark dataset for cross-domain video anomaly detection in robotic arm manipulation, featuring 6.9 GB of videos with action and anomaly type splits. [Paper](https://arxiv.org/abs/2609.17843) · [Data](https://zenodo.org/records/22754659)
 - **BRAVE-6D** (2026-09-15) — A benchmark offering 3DGS scenes and tools for evaluating robotic active vision systems in 6DOF object pose estimation tasks. [Paper](https://arxiv.org/abs/2609.17106)
@@ -374,7 +374,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Image & Video Generation
 
-- **IMPLICIT-Bench** (2026-09-21) — IMPLICIT-Bench evaluates implicit bias in text-to-image models using 5,493 controlled prompt triplets across 11 bias categories, with validation via multi-model agreement, CLIP-based verification, and human evaluation. [Paper](https://arxiv.org/abs/2609.24228)
 - **VWG-Bench** (2026-09-10) — VWG-Bench evaluates image-to-video generation models on rule-following, physical and commonsense constraints, and goal realization over time, using 380 annotated initial images across 9 reasoning dimensions and 38 ten-s… [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **ABACUS** (2026-09-09) — Evaluates instruction-based image editing models on add, remove, and change tasks, measuring exact object count correctness and scene preservation without VLM judges. [Paper](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench) · [Data](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench)
 - **CutCraft** (2026-09-08) — CutCraft evaluates editing-technique execution in multi-shot audio-video generation, covering shot structure, transitions, audio-video cuts, and montage. [Paper](https://arxiv.org/abs/2609.08275) · [Code](https://github.com/AlibabaResearch/cut-craft-bench)
@@ -482,11 +481,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **WidgetVABench** (2026-09-21) — Benchmark of single- and multi-widget visual analytics tasks requiring agents to perform multi-step interactions and produce verifiable results, scored on Answer, Reference Trace Similarity, and State. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
-- **WPBench** (2026-09-21) — Wind power forecasting across 26 public datasets in single-turbine, multi-turbine, univariate, and multivariate configurations, scored on point-wise errors, curve fidelity, and efficiency with structure-aware diagnostic… [Paper](https://arxiv.org/abs/2609.24444)
-- **LiDAR-Hallu** (2026-09-21) — Evaluates 4D LiDAR language models on spatio-temporal relationship understanding via 10,000 geometry-referenced questions derived from nuScenes scenes. [Paper](https://arxiv.org/abs/2609.24452) · [Code](https://github.com/Awesome4D/4DMLLM_Hallucination_Bench)
-- **FinInteract** (2026-09-21) — Evaluates whether financial QA agents recognize ambiguity and elicit correct clarifications before answering, using 173 paired interpretation instances in English and Chinese. [Paper](https://arxiv.org/abs/2609.24002)
-- **BackTrend** (2026-09-21) — Evaluates whether systems can identify early weak signals that later became central AI/ML topics, using 25 mature targets and 66 human-validated precursors. [Paper](https://arxiv.org/abs/2609.24921)
+- **WidgetVABench** (2026-09-21) — WidgetVABench comprises single- and multi-widget visual analytics tasks in which agents perform multi-step widget interactions to uncover evidence and produce verifiable results. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
+- **LiDAR-Hallu** (2026-09-21) — Evaluates LiDAR language model responses on 10,000 geometry-referenced questions across 150 nuScenes scenes, with strict parsing and diagnostic controls. [Paper](https://arxiv.org/abs/2609.24452) · [Code](https://github.com/Awesome4D/4DMLLM_Hallucination_Bench)
 - **mini-CommonForms** (2026-09-20) — Evaluates form field detection models on 47,355 document pages in COCO format with annotations for text, choice, and signature fields. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
 - **Rockman Benchmark v0.2** (2026-09-20) — Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against execu… [Code](https://github.com/InserLoft/Rockman)
 - **AniPrO-SFD-Bench** (2026-09-20) — Evaluates provenance detection for anime images across Real, Inpainting, and Text2Image categories using statistical features derived from five semantic dimensions. [Paper](https://arxiv.org/abs/2609.23345) · [Code](https://github.com/YAN-LIU05/AniPrO)
@@ -1617,7 +1613,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **MSI-Bench** (2026-09-21) — Evaluates multi-speaker voice interaction across memory, instruction following, and reasoning using audio scenes with atomic rubrics and tool-call validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
+- **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents across six constraint patterns including speaker authority, selective disclosure, and scope tracking. It provides mixed audio turns, atomic… [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
 - **ParsHate** (2026-09-14) — Evaluates hate speech and target detection on 10,000 manually annotated Persian tweets spanning 2013-2022. [Paper](https://arxiv.org/abs/2609.16393)
