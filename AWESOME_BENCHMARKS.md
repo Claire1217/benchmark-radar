@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-22 · **Benchmark releases:** 1873
+**Snapshot:** 2026-09-21 · **Benchmark releases:** 1893
 
 ## Contents
 
@@ -19,16 +19,16 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (54)
-- [Coding Agents](#coding-agents) (55)
+- [Coding Agents](#coding-agents) (58)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (17)
 - [Efficient Inference](#efficient-inference) (9)
-- [Embodied AI & VLA](#embodied-ai--vla) (81)
+- [Embodied AI & VLA](#embodied-ai--vla) (82)
 - [Image & Video Generation](#image--video-generation) (66)
 - [Multi-Agent Systems](#multi-agent-systems) (12)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1064)
+- [Other benchmark tasks](#other-benchmark-tasks) (1069)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (53)
@@ -160,7 +160,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
-- **GameLogicBench** (2026-09-18) — GameLogicBench evaluates coding agents on 72 gameplay-logic tasks in Godot projects, scoring solutions with deterministic black-box behavioural assertions at the level of simulation tick state. [Paper](https://arxiv.org/abs/2609.21562) · [Code](https://github.com/NJU-LINK/GameLogicBench)
+- **VibeMemBench** (2026-09-20) — Evaluates memory systems for coding agents on 111 repository coding targets with executable tests and verified history injections. [Paper](https://arxiv.org/abs/2609.23570)
+- **GameLogicBench** (2026-09-18) — Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using black-box behavioral assertions under deterministic simulation. [Paper](https://arxiv.org/abs/2609.21562) · [Code](https://github.com/NJU-LINK/GameLogicBench)
+- **GameASG-Bench** (2026-09-18) — Evaluates coding agents on generating complete browser games from natural-language requirements with static and behavioral tests. [Paper](https://arxiv.org/abs/2609.21293) · [Code](https://github.com/areal-project/GameASG-Bench)
+- **Agent Failure Lab** (2026-09-18) — Evaluates coding agent failures across 12 categories by converting failed sessions into isolated benchmark tasks with verification commands. [Code](https://github.com/MOSTRE/agent-failure-lab)
 - **LifeSci-Harbor-Bench** (2026-09-06) — Evaluates coding agents on 503 ultra-long-horizon, open-ended life science research tasks through an 11-layer verifier combining deterministic scoring and anti-hacking checks. [Paper](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench) · [Data](https://huggingface.co/datasets/mondaycake/lifesci-harbor-bench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **SWE-Gate** (2026-09-03) — Evaluates repository-level repair agents on both functional correctness and adherence to review-derived constraints, using 303 instances with separate functional and constraint tests. [Paper](https://arxiv.org/abs/2609.04167) · [Code](https://github.com/DeepSoftwareAnalytics/SWE-Gate)
@@ -285,6 +288,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
+- **ARCGym** (2026-09-19) — ARCGym provides a reinforcement learning environment for image-based navigation of colonoscope robots within CT-reconstructed colon anatomies, supporting both capsule robots and flexible endoscopes with magnetic-driven… [Paper](https://arxiv.org/abs/2609.22803)
 - **RoboVAD** (2026-09-15) — A benchmark dataset for cross-domain video anomaly detection in robotic arm manipulation, featuring 6.9 GB of videos with action and anomaly type splits. [Paper](https://arxiv.org/abs/2609.17843) · [Data](https://zenodo.org/records/22754659)
 - **BRAVE-6D** (2026-09-15) — A benchmark offering 3DGS scenes and tools for evaluating robotic active vision systems in 6DOF object pose estimation tasks. [Paper](https://arxiv.org/abs/2609.17106)
 - **AssemblyGrid v1** (2026-09-13) — AssemblyGrid v1 is a benchmark for repeated multi-robot production that combines explicit process progression, decentralized observations, material transfer, temporary multi-robot coalitions, productive concurrency, and… [Paper](https://arxiv.org/abs/2609.16075) · [Code](https://github.com/Fouad-Bahrpeyma/AssemblyGrid_v1)
@@ -475,9 +479,14 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
+- **Food photograph benchmark, September 2026 rerun** (2026-09-21) — Rerun of a food photograph carbohydrate estimation benchmark using provider defaults for four model arms, with a public averaging check over 500 calls per image. [Code](https://github.com/tim2000s/llm-food-benchmark-2026-09)
+- **mini-CommonForms** (2026-09-20) — A curated dataset of 47,355 document pages with annotations for text, choice, and signature field detection. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
 - **Rockman Benchmark v0.2** (2026-09-20) — Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against execu… [Code](https://github.com/InserLoft/Rockman)
+- **AniPrO-SFD-Bench** (2026-09-20) — Evaluates provenance detection of anime images across Real, Inpainting, and Text2Image categories using statistical fingerprints derived from five-dimensional semantic scores. [Paper](https://arxiv.org/abs/2609.23345) · [Code](https://github.com/YAN-LIU05/AniPrO)
 - **STRATA-Bench** (2026-09-19) — STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted head… [Code](https://github.com/movahedi-ca/strata-bench)
-- **CIBuzzBench** (2026-09-18) — CIBuzzBench evaluates LLM Chinese-to-English understanding of Chinese internet buzzwords across 3,001 annotated entries with a 2,401/600 train/test split. Three tasks cover meaning explanation (0-5 LLM-judge semantic eq… [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
+- **Optimizers for Diffusion Models: A Controlled Benchmark** (2026-09-19) — Evaluates seven optimizers across four discrete and Gaussian diffusion tasks: masked diffusion on text8, uniform diffusion on QM9 and LM1B, and Gaussian diffusion on CelebA-64, using a controlled search protocol and see… [Paper](https://arxiv.org/abs/2609.23055) · [Code](https://github.com/armanbolatov/diffusion-baselines)
+- **ChemCLIR-Bench** (2026-09-19) — Evaluates cross-lingual information retrieval on a multilingual chemical patent corpus, measuring Recall@10 and MRR@10 across language pairs. [Paper](https://arxiv.org/abs/2609.23231) · [Code](https://github.com/MohammadKhodadad/Multi-Lingual-QAC)
+- **CIBuzzBench** (2026-09-18) — Evaluates Chinese-to-English cross-lingual understanding of internet buzzwords through explanation, equivalence selection, and harmfulness classification. [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
 - **BenchRig** (2026-09-18) — Evaluates local LLMs across Ollama, Foundry Local, ONNX Runtime GenAI, and Prism on coding precision, reasoning, speed, context scaling, and hardware telemetry. [Code](https://github.com/senssei/benchrig)
 - **eos-bench** (2026-09-17) — Evaluates MLIP equation-of-state predictions against DFT for volume-scaled structures, reporting percent errors in equilibrium volume and bulk modulus. [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
 - **PosteriorBench** (2026-09-17) — Benchmark evaluating whether generative scientific inverse solvers recover full posterior distributions across four physics-based inverse tasks. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
