@@ -10,34 +10,35 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-23 · **Benchmark releases:** 1916
+**Snapshot:** 2026-09-22 · **Benchmark releases:** 1938
 
 ## Contents
 
-- [AI Research Agents](#ai-research-agents) (7)
+- [AI Research Agents](#ai-research-agents) (8)
 - [AI for Science](#ai-for-science) (18)
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
-- [Agent Safety & Security](#agent-safety--security) (55)
+- [Agent Safety & Security](#agent-safety--security) (54)
 - [Coding Agents](#coding-agents) (58)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
-- [Deep Research & Web Search](#deep-research--web-search) (17)
-- [Efficient Inference](#efficient-inference) (9)
-- [Embodied AI & VLA](#embodied-ai--vla) (82)
-- [Image & Video Generation](#image--video-generation) (66)
+- [Deep Research & Web Search](#deep-research--web-search) (18)
+- [Efficient Inference](#efficient-inference) (10)
+- [Embodied AI & VLA](#embodied-ai--vla) (85)
+- [Image & Video Generation](#image--video-generation) (67)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1069)
-- [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
+- [Other benchmark tasks](#other-benchmark-tasks) (1079)
+- [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (54)
 - [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (57)
-- [World Models](#world-models) (18)
+- [World Models](#world-models) (19)
 
 ## AI Research Agents
 
+- **Taste-Bench** (2026-09-22) — Evaluates an LLM agent's taste by asking it to choose between two next steps at real decision forks in long-horizon software engineering and ML research trajectories. [Paper](https://arxiv.org/abs/2609.25804) · [Code](https://github.com/wbopan/tastebench) · [Data](https://huggingface.co/datasets/wenbopan/taste-bench)
 - **SAEScientist-Bench** (2026-09-08) — Evaluates AI agents performing sparse autoencoder feature interpretation on Gemma-2-9B-IT, measuring feature rank, activation separation, and steering ability across 20 tasks. [Paper](https://arxiv.org/abs/2609.09113) · [Code](https://github.com/Trae1ounG/SAEScientist)
 - **SA-Bench** (2026-08-25) — SA-Bench (SemanticAlign-Bench) evaluates semantic alignment in LLM-based paper reproduction across 30 papers from top conferences. It decomposes paper specifications into atomic verifiable claims (SAUs) and evaluates re… [Paper](https://arxiv.org/abs/2608.24252)
 - **AI4AI-Bench** (2026-08-20) — AI4AI-Bench evaluates LLM agents on algorithmic design across 10 frozen research repositories. Agents rewrite training algorithms within 4 hours, then scored by fixed evaluators against baseline algorithms, with submiss… [Paper](https://arxiv.org/abs/2608.20318)
@@ -103,8 +104,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
-- **MobileCybench** (2026-09-21) — MobileCybench evaluates AI agents on vulnerability discovery in 13 Android applications through executable probes that verify security property violations, measuring trigger rates under attack settings and APK/source av… [Paper](https://arxiv.org/abs/2609.23980)
-- **Office Agent Benchmark** (2026-09-20) — Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit s… [Code](https://github.com/basilos-ai/office-agent-benchmark)
+- **Office Agent Benchmark** (2026-09-20) — Evaluates office agents on documents, spreadsheets, presentations, daily workflows, instruction following, and safety constraints through executable scoring contracts. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **HumanWill Benchmark** (2026-09-19) — HumanWill is an assistance-focused evaluation over 424 cybersecurity questions spanning vulnerability validation, source-code security, binary, network and filesystem investigation. It scores false refusal and answer us… [Code](https://github.com/humanwill-ai/humanwill-benchmark)
 - **InterveneBench** (2026-09-12) — Evaluates human-in-the-loop safety for tool-using agents over 250 synthetic tasks with four reply types, measuring unsafe action rates, consultation quality, and post-reply behavior. [Code](https://github.com/yanliang-li/hil-safety-benchmark)
 - **Failure-Transparent Agents** (2026-09-10) — Measures whether LLM agents admit tool failures instead of claiming success across 100 tasks covering web, attachment, execution, permission, and stale-data failures under varying pressure and instruction conditions. [Code](https://github.com/junru-zhu/failure-transparent-agents)
@@ -248,7 +248,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Data Analysis Agents
 
-- **Office Agent Benchmark** (2026-09-20) — Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit s… [Code](https://github.com/basilos-ai/office-agent-benchmark)
+- **Office Agent Benchmark** (2026-09-20) — Evaluates office agents on documents, spreadsheets, presentations, daily workflows, instruction following, and safety constraints through executable scoring contracts. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **DataClawEval** (2026-07-30) — DataClawEval evaluates autonomous data-engineering agents across 100 end-to-end tasks spanning PySpark, MySQL, HiveSQL, PrestoSQL/Trino, and FlinkSQL, with deterministic rule-based grading in isolated sandboxes. [Paper](https://arxiv.org/abs/2607.28033) · [HF](https://huggingface.co/papers/2607.28033) · [Code](https://github.com/Dicemy/DataClawEval/tree/master)
 - **AgenticDataBench** (2026-07-02) — Evaluates LLM-based data agents on realistic data science workflows across 15 domains, with fine-grained ground-truth labels and skill-level scoring. [Paper](https://arxiv.org/abs/2607.01647) · [HF](https://huggingface.co/papers/2607.01647) · [Code](https://github.com/AgenticDataBench/AgenticDataBench)
 - **SpreadsheetBench** (2026-06-29) — SpreadsheetBench 2 evaluates spreadsheet agents on end-to-end business workflows across generation, debugging, and visualization tasks. It includes 321 tasks from authentic business data, with multi-sheet workbooks requ… [Paper](https://arxiv.org/abs/2606.29955) · [HF](https://huggingface.co/papers/2606.29955) · [Code](https://github.com/RUCKBReasoning/SpreadsheetBench-2)
@@ -257,6 +257,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Deep Research & Web Search
 
+- **FinFIRST** (2026-09-21) — Benchmark of 123 expert-authored financial research tasks, scored by atomic rubrics that assess answer correctness, source verification, and computation across 18-field taxonomy and six-axis coverage. [Paper](https://arxiv.org/abs/2609.25192) · [Data](https://huggingface.co/datasets/inclusionAI/FinFIRST)
 - **Mr.LHDR** (2026-09-10) — Benchmark of 102 research questions with explicit dependency graphs and step checklists for long-horizon multimodal deep research agents. [Paper](https://arxiv.org/abs/2609.11318) · [Code](https://github.com/minghaoguo20/Mr-LHDR-eval)
 - **HybridDeepResearch** (2026-09-08) — Evaluates deep-research agents on 380 tasks requiring both SQL database querying and web search to produce a complete end-to-end answer across SQL-to-Search, Search-to-SQL, and Parallel reasoning patterns. [Paper](https://arxiv.org/abs/2609.09410) · [Code](https://github.com/Snowflake-AI-Research/HybridDeepResearch) · [Data](https://huggingface.co/datasets/Snowflake/HybridDeepResearch)
 - **VideoRover-Bench** (2026-08-24) — VideoRover-Bench is a benchmark for open-world video reasoning that combines video understanding with deep research, stratified by video duration and research difficulty. It evaluates the capability of models to locate… [Paper](http://arxiv.org/abs/2608.23329v1)
@@ -277,6 +278,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Efficient Inference
 
+- **VLAQuantBench** (2026-09-21) — Evaluates post-training quantization of vision-language-action models by rolling out quantized policies on simulation benchmarks and recording per-episode success and diagnostic metrics. [Paper](https://arxiv.org/abs/2609.25376) · [Code](https://github.com/jiuyixu25/VLAQuantBench)
 - **AutoTuneBench** (2026-09-16) — A benchmark and measurement protocol for agent auto-tuning of LLM serving engines, featuring a proposal-evaluation loop with correctness checks, fair timing, profiling, and anti-cheating gates to ensure trustworthy resu… [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
 - **LLM Quantization Benchmark on Apple Silicon** (2026-09-13) — Benchmark measuring inference speed, memory usage, and accuracy of MLX and llama.cpp with 4-bit and 8-bit quantization across three 3B-class LLMs on Apple M4 hardware. [Code](https://github.com/sameer-sde/llm-quantization-benchmark)
 - **PTXBench** (2026-08-18) — PTXBench evaluates LLMs in generating architecture-specific PTX for GPU kernel optimization. It measures functional correctness, execution of target instructions, and speedup over frontier libraries across GEMM and atte… [Paper](https://arxiv.org/abs/2608.17379) · [HF](https://huggingface.co/papers/2608.17379) · [Code](https://github.com/zhang677/PTXBench) · [Data](https://huggingface.co/datasets/AccRL/accrl-training)
@@ -289,6 +291,9 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
+- **TriWorldBench** (2026-09-22) — Evaluates embodied world models on synchronized triple-view robot video generation using 19 metrics spanning consistency, alignment, coherence, motion, temporal stability, and visual quality. [Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)
+- **IndustrialVLA-Bench** (2026-09-22) — Evaluates open robot policy models across capability, robustness, language grounding, and deployability using controlled LIBERO-based tracks and a unified reporting schema. [Paper](https://arxiv.org/abs/2609.25562) · [Code](https://github.com/xiaoqi-7/IndustrialVLA-Bench)
+- **VLAQuantBench** (2026-09-21) — Evaluates post-training quantization of vision-language-action models by rolling out quantized policies on simulation benchmarks and recording per-episode success and diagnostic metrics. [Paper](https://arxiv.org/abs/2609.25376) · [Code](https://github.com/jiuyixu25/VLAQuantBench)
 - **ActiveArena-Bench** (2026-09-21) — ActiveArena-Bench evaluates active perception in robotic manipulation through 35 tasks across five categories covering visual exploration and interactive information acquisition. [Paper](https://arxiv.org/abs/2609.24124)
 - **RoboVAD** (2026-09-15) — A benchmark dataset for cross-domain video anomaly detection in robotic arm manipulation, featuring 6.9 GB of videos with action and anomaly type splits. [Paper](https://arxiv.org/abs/2609.17843) · [Data](https://zenodo.org/records/22754659)
 - **BRAVE-6D** (2026-09-15) — A benchmark offering 3DGS scenes and tools for evaluating robotic active vision systems in 6DOF object pose estimation tasks. [Paper](https://arxiv.org/abs/2609.17106)
@@ -374,6 +379,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Image & Video Generation
 
+- **TriWorldBench** (2026-09-22) — Evaluates embodied world models on synchronized triple-view robot video generation using 19 metrics spanning consistency, alignment, coherence, motion, temporal stability, and visual quality. [Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)
 - **VWG-Bench** (2026-09-10) — VWG-Bench evaluates image-to-video generation models on rule-following, physical and commonsense constraints, and goal realization over time, using 380 annotated initial images across 9 reasoning dimensions and 38 ten-s… [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **ABACUS** (2026-09-09) — Evaluates instruction-based image editing models on add, remove, and change tasks, measuring exact object count correctness and scene preservation without VLM judges. [Paper](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench) · [Data](https://huggingface.co/datasets/Aymen-Lassoued/ABACUS_Bench)
 - **CutCraft** (2026-09-08) — CutCraft evaluates editing-technique execution in multi-shot audio-video generation, covering shot structure, transitions, audio-video cuts, and montage. [Paper](https://arxiv.org/abs/2609.08275) · [Code](https://github.com/AlibabaResearch/cut-craft-bench)
@@ -443,7 +449,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Multi-Agent Systems
 
-- **APEXA-Bench** (2026-09-21) — Evaluates multi-agent LLM systems on synchrotron data reduction tasks, separating execution-integrity enforcement from physical consequence severity across 58 facility tasks. [Paper](https://arxiv.org/abs/2609.24165) · [Code](https://github.com/AdvancedPhotonSource/APEXA-APS-Beamline-Assistant)
+- **APEXA-Bench** (2026-09-21) — APEXA-Bench evaluates multi-agent LLM automation on 58 synchrotron data reduction tasks organized by a four-class physical-consequence taxonomy, with grading against NIST-traceable lattice constants in a cross-detector… [Paper](https://arxiv.org/abs/2609.24165) · [Code](https://github.com/AdvancedPhotonSource/APEXA-APS-Beamline-Assistant)
 - **ForestBench** (2026-08-09) — ForestBench evaluates multi-agent collaboration by representing MAS traces as unified collaboration graphs, comparing them against query-specific reference forests of successful graphs, and scoring structural similarity… [Paper](https://arxiv.org/abs/2608.08605)
 - **Lingjing** (2026-08-08) — Lingjing is a simulation testbed for heterogeneous multi-agent embodied tasks in urban environments, with a Gym-like interface and support for natural-language missions. It includes engine-based evaluations and attribut… [Paper](https://arxiv.org/abs/2608.08045) · [HF](https://huggingface.co/papers/2608.08045)
 - **WeClawArena** (2026-08-04) — WeClawArena is a benchmark and runtime sandbox for multi-party owned-agent collaboration over personal workspaces. It contains 124 base tasks across six domains, expanded into 620 scenario variants with benign and attac… [Paper](https://arxiv.org/abs/2608.03499) · [HF](https://huggingface.co/papers/2608.03499) · [Code](https://github.com/kingofspace0wzz/WeClawArena)
@@ -481,12 +487,22 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **WidgetVABench** (2026-09-21) — WidgetVABench comprises single- and multi-widget visual analytics tasks in which agents perform multi-step widget interactions to uncover evidence and produce verifiable results. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
+- **sms-spam-classifier** (2026-09-22) — Evaluates SMS spam classification using TF-IDF and logistic regression on the UCI SMS Spam Collection with stratified holdout and metrics including precision, recall, F1, ROC AUC, and average precision. [Code](https://github.com/geodiegodrone/sms-spam-classifier)
+- **secagent-bench** (2026-09-22) — Evaluates LLM providers and local models on security vulnerability detection (SAST/DAST) and prompt-injection robustness using labeled code and HTTP fixtures. [Code](https://github.com/zidaniel123/secagent-bench)
+- **SambaGraph** (2026-09-22) — Curated dataset and benchmark for soccer tactical response modeling, comprising 4,070 action-centered graph episodes with response labels and retrieval pairs. [Paper](https://arxiv.org/abs/2609.25569) · [Code](https://github.com/areyesan/SambaGraph)
+- **JEV-DD-1.0** (2026-09-22) — A deterministic decision benchmark with 1,000 items spanning 25 reasoning families, evaluating multiple-choice accuracy and confidence calibration. [Code](https://github.com/etsabary/jev-deterministic-benchmark)
+- **EADC** (2026-09-22) — Evaluates LLM compliance with advanced legal and regulatory requirements using adversarial scenarios derived from AI compliance knowledge graphs and expert review, covering biases, fairness, privacy, and values. [Paper](https://arxiv.org/abs/2609.26175)
+- **WidgetVABench** (2026-09-21) — Evaluates agentic visual analytics tasks involving single- and multi-widget interactions, with benchmark instances released as data archives and a widget-centered runtime for comparisons. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
+- **The Endless Exam** (2026-09-21) — Measures mathematical progress on fourteen parameterised construction families. [Paper](https://arxiv.org/abs/2609.24555)
+- **ShowTellArena** (2026-09-21) — Evaluates agent comprehension after narrated business demonstrations using 50 tasks and 502 questions across finance, hiring, procurement, and other domains. [Paper](https://arxiv.org/abs/2609.25467)
+- **Panda-CVL** (2026-09-21) — Benchmark evaluating token-level correction of LLM outputs, using a locate-correct-continue annotation loop with paired positive-negative samples. [Paper](https://arxiv.org/abs/2609.24983)
 - **LiDAR-Hallu** (2026-09-21) — Evaluates LiDAR language model responses on 10,000 geometry-referenced questions across 150 nuScenes scenes, with strict parsing and diagnostic controls. [Paper](https://arxiv.org/abs/2609.24452) · [Code](https://github.com/Awesome4D/4DMLLM_Hallucination_Bench)
+- **FineWeb-CLaR** (2026-09-21) — Large-scale annotation layer over FineWeb and FineWeb-2, assigning culture, language, and region metadata to web documents and 277 cultural NLP benchmarks for cross-comparison. [Paper](https://arxiv.org/abs/2609.25298)
+- **CoordBench** (2026-09-21) — Evaluates geographic implicit neural representations across 52 datasets and 78 targets for local interpolation and held-out region prediction. [Paper](https://arxiv.org/abs/2609.25454)
 - **mini-CommonForms** (2026-09-20) — Evaluates form field detection models on 47,355 document pages in COCO format with annotations for text, choice, and signature fields. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
 - **Rockman Benchmark v0.2** (2026-09-20) — Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against execu… [Code](https://github.com/InserLoft/Rockman)
 - **AniPrO-SFD-Bench** (2026-09-20) — Evaluates provenance detection for anime images across Real, Inpainting, and Text2Image categories using statistical features derived from five semantic dimensions. [Paper](https://arxiv.org/abs/2609.23345) · [Code](https://github.com/YAN-LIU05/AniPrO)
-- **STRATA-Bench** (2026-09-19) — STRATA-Bench evaluates AI agents on fragmented, geographically nested, and temporally incomplete market data across six task families (GEO, TEMP, SRC, INT, AXIS, SYN) plus an optional live probe, scoring a weighted head… [Code](https://github.com/movahedi-ca/strata-bench)
+- **STRATA-Bench** (2026-09-19) — Evaluates AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, with scoring across temporal, source, spatial, statistical, visual, and narra… [Code](https://github.com/movahedi-ca/strata-bench)
 - **ChemCLIR-Bench** (2026-09-19) — Evaluates cross-lingual retrieval models on a multilingual chemical patent corpus with generated question-answer pairs; performance is measured by Recall@10 and MRR@10. [Paper](https://arxiv.org/abs/2609.23231) · [Code](https://github.com/MohammadKhodadad/Multi-Lingual-QAC)
 - **CIBuzzBench** (2026-09-18) — Evaluates Chinese-to-English cross-lingual understanding of internet buzzwords through explanation, equivalence selection, and harmfulness classification. [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
 - **BenchRig** (2026-09-18) — Evaluates local LLMs across Ollama, Foundry Local, ONNX Runtime GenAI, and Prism on coding precision, reasoning, speed, context scaling, and hardware telemetry. [Code](https://github.com/senssei/benchrig)
@@ -1553,7 +1569,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Personal & Enterprise Agents
 
-- **Office Agent Benchmark** (2026-09-20) — Office Agent Benchmark is a 63-task suite with synthetic fixtures covering documents, spreadsheets, presentations and daily office workflows, plus instruction-following and safety constraints. Tasks ship with explicit s… [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **FinalityBench** (2026-09-04) — FinalityBench evaluates agent decisions in financial exception scenarios where payment systems have inconsistent views due to message faults. It uses a hidden canonical event log and derives system states via faulted de… [Paper](https://arxiv.org/abs/2609.04706) · [Code](https://github.com/abhisheksharma2411/finalitybench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **Thinkingbox-Bench** (2026-08-20) — Evaluates LLM agents on 507 stateful business workflows in an executable sandbox, with task-specific checks that accept valid trajectories and reject wrong, missing, or extra effects. [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
@@ -1613,7 +1628,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents across six constraint patterns including speaker authority, selective disclosure, and scope tracking. It provides mixed audio turns, atomic… [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
+- **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
 - **ParsHate** (2026-09-14) — Evaluates hate speech and target detection on 10,000 manually annotated Persian tweets spanning 2013-2022. [Paper](https://arxiv.org/abs/2609.16393)
@@ -1762,6 +1777,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## World Models
 
+- **TriWorldBench** (2026-09-22) — Evaluates embodied world models on synchronized triple-view robot video generation using 19 metrics spanning consistency, alignment, coherence, motion, temporal stability, and visual quality. [Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)
 - **EgoGenEval** (2026-09-10) — EgoGenEval offers 1,400 cases and 2,360 target views to assess physical consistency of visual generators under ego-motion, measuring Camera Motion Grounding and Scene State Preservation. [Paper](https://arxiv.org/abs/2609.11172) · [Code](https://github.com/InternRobotics/EgoGenEval)
 - **R2M-Bench** (2026-08-27) — Evaluates revisit memory in interactive video world models using relative consistency: for each detected return, compares revisit pair with gap-matched non-revisit and short-range control pairs to compute MemoryGain and… [Paper](https://arxiv.org/abs/2608.27328) · [HF](https://huggingface.co/papers/2608.27328) · [Code](https://github.com/AMAP-ML/R2MBench)
 - **PlayWorld** (2026-08-13) — PlayWorld evaluates interactive video world models across 171 scenarios with long-horizon objectives. Agent players adaptively control each model, and performance is scored on geometry consistency, interaction fidelity,… [Paper](https://arxiv.org/abs/2608.13552) · [HF](https://huggingface.co/papers/2608.13552) · [Code](https://github.com/kxding/PlayWorld)
