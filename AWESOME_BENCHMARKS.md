@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-23 · **Benchmark releases:** 1938
+**Snapshot:** 2026-09-22 · **Benchmark releases:** 1939
 
 ## Contents
 
@@ -28,7 +28,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (67)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1079)
+- [Other benchmark tasks](#other-benchmark-tasks) (1070)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (54)
@@ -257,7 +257,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Deep Research & Web Search
 
-- **FinFIRST** (2026-09-21) — Benchmark of 123 expert-authored financial research tasks, scored by atomic rubrics that assess answer correctness, source verification, and computation across 18-field taxonomy and six-axis coverage. [Paper](https://arxiv.org/abs/2609.25192) · [Data](https://huggingface.co/datasets/inclusionAI/FinFIRST)
+- **FinFIRST** (2026-09-21) — An open benchmark of 123 financial research tasks evaluated with atomic rubrics across information acquisition, source verification, and computation. [Paper](https://arxiv.org/abs/2609.25192) · [Data](https://huggingface.co/datasets/inclusionAI/FinFIRST)
 - **Mr.LHDR** (2026-09-10) — Benchmark of 102 research questions with explicit dependency graphs and step checklists for long-horizon multimodal deep research agents. [Paper](https://arxiv.org/abs/2609.11318) · [Code](https://github.com/minghaoguo20/Mr-LHDR-eval)
 - **HybridDeepResearch** (2026-09-08) — Evaluates deep-research agents on 380 tasks requiring both SQL database querying and web search to produce a complete end-to-end answer across SQL-to-Search, Search-to-SQL, and Parallel reasoning patterns. [Paper](https://arxiv.org/abs/2609.09410) · [Code](https://github.com/Snowflake-AI-Research/HybridDeepResearch) · [Data](https://huggingface.co/datasets/Snowflake/HybridDeepResearch)
 - **VideoRover-Bench** (2026-08-24) — VideoRover-Bench is a benchmark for open-world video reasoning that combines video understanding with deep research, stratified by video duration and research difficulty. It evaluates the capability of models to locate… [Paper](http://arxiv.org/abs/2608.23329v1)
@@ -487,20 +487,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **sms-spam-classifier** (2026-09-22) — Evaluates SMS spam classification using TF-IDF and logistic regression on the UCI SMS Spam Collection with stratified holdout and metrics including precision, recall, F1, ROC AUC, and average precision. [Code](https://github.com/geodiegodrone/sms-spam-classifier)
 - **secagent-bench** (2026-09-22) — Evaluates LLM providers and local models on security vulnerability detection (SAST/DAST) and prompt-injection robustness using labeled code and HTTP fixtures. [Code](https://github.com/zidaniel123/secagent-bench)
-- **SambaGraph** (2026-09-22) — Curated dataset and benchmark for soccer tactical response modeling, comprising 4,070 action-centered graph episodes with response labels and retrieval pairs. [Paper](https://arxiv.org/abs/2609.25569) · [Code](https://github.com/areyesan/SambaGraph)
-- **JEV-DD-1.0** (2026-09-22) — A deterministic decision benchmark with 1,000 items spanning 25 reasoning families, evaluating multiple-choice accuracy and confidence calibration. [Code](https://github.com/etsabary/jev-deterministic-benchmark)
-- **EADC** (2026-09-22) — Evaluates LLM compliance with advanced legal and regulatory requirements using adversarial scenarios derived from AI compliance knowledge graphs and expert review, covering biases, fairness, privacy, and values. [Paper](https://arxiv.org/abs/2609.26175)
 - **WidgetVABench** (2026-09-21) — Evaluates agentic visual analytics tasks involving single- and multi-widget interactions, with benchmark instances released as data archives and a widget-centered runtime for comparisons. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
 - **The Endless Exam** (2026-09-21) — Measures mathematical progress on fourteen parameterised construction families. [Paper](https://arxiv.org/abs/2609.24555)
-- **ShowTellArena** (2026-09-21) — Evaluates agent comprehension after narrated business demonstrations using 50 tasks and 502 questions across finance, hiring, procurement, and other domains. [Paper](https://arxiv.org/abs/2609.25467)
-- **Panda-CVL** (2026-09-21) — Benchmark evaluating token-level correction of LLM outputs, using a locate-correct-continue annotation loop with paired positive-negative samples. [Paper](https://arxiv.org/abs/2609.24983)
 - **LiDAR-Hallu** (2026-09-21) — Evaluates LiDAR language model responses on 10,000 geometry-referenced questions across 150 nuScenes scenes, with strict parsing and diagnostic controls. [Paper](https://arxiv.org/abs/2609.24452) · [Code](https://github.com/Awesome4D/4DMLLM_Hallucination_Bench)
-- **FineWeb-CLaR** (2026-09-21) — Large-scale annotation layer over FineWeb and FineWeb-2, assigning culture, language, and region metadata to web documents and 277 cultural NLP benchmarks for cross-comparison. [Paper](https://arxiv.org/abs/2609.25298)
-- **CoordBench** (2026-09-21) — Evaluates geographic implicit neural representations across 52 datasets and 78 targets for local interpolation and held-out region prediction. [Paper](https://arxiv.org/abs/2609.25454)
 - **mini-CommonForms** (2026-09-20) — Evaluates form field detection models on 47,355 document pages in COCO format with annotations for text, choice, and signature fields. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
-- **Rockman Benchmark v0.2** (2026-09-20) — Rockman v0.2 is a contamination-resistant code benchmark of 220 tasks across public, private and hidden splits; the 44-task private split is the official evaluation set. It scores model-generated solutions against execu… [Code](https://github.com/InserLoft/Rockman)
 - **AniPrO-SFD-Bench** (2026-09-20) — Evaluates provenance detection for anime images across Real, Inpainting, and Text2Image categories using statistical features derived from five semantic dimensions. [Paper](https://arxiv.org/abs/2609.23345) · [Code](https://github.com/YAN-LIU05/AniPrO)
 - **STRATA-Bench** (2026-09-19) — Evaluates AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, with scoring across temporal, source, spatial, statistical, visual, and narra… [Code](https://github.com/movahedi-ca/strata-bench)
 - **ChemCLIR-Bench** (2026-09-19) — Evaluates cross-lingual retrieval models on a multilingual chemical patent corpus with generated question-answer pairs; performance is measured by Recall@10 and MRR@10. [Paper](https://arxiv.org/abs/2609.23231) · [Code](https://github.com/MohammadKhodadad/Multi-Lingual-QAC)
