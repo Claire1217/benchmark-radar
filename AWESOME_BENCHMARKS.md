@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-22 · **Benchmark releases:** 1938
+**Snapshot:** 2026-09-23 · **Benchmark releases:** 1938
 
 ## Contents
 
