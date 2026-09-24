@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-23 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-24 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **GameHorizon-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.25001) · [Code](https://github.com/TencentARC/GameHorizon)</sub> | Other benchmark tasks | 94 HF votes · 126 GitHub stars |
-| 2 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 209 HF votes · 49 GitHub stars |
-| 3 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 5 HF votes · 418 GitHub stars |
+| 1 | **GameHorizon-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.25001) · [Code](https://github.com/TencentARC/GameHorizon)</sub> | Other benchmark tasks | 115 HF votes · 202 GitHub stars |
+| 2 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 211 HF votes · 54 GitHub stars |
+| 3 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 5 HF votes · 473 GitHub stars |
 | 4 | **TriWorldBench**<br><sub>[Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)</sub> | World Models · Embodied AI & VLA | 232 GitHub stars |
-| 5 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 52 HF votes · 597 dataset downloads |
-| 6 | **FinFIRST**<br><sub>[Paper](https://arxiv.org/abs/2609.25192)</sub> | Deep Research & Web Search | 3,951 dataset downloads |
-| 7 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 43 HF votes · 22 GitHub stars |
-| 8 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 27 HF votes · 29 GitHub stars |
-| 9 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 188 GitHub stars |
-| 10 | **RoboSPA**<br><sub>[Paper](https://arxiv.org/abs/2609.05324) · [Code](https://github.com/fanzhenxuan/RoboSPA)</sub> | Embodied AI & VLA | 28 HF votes · 18 GitHub stars |
+| 5 | **Uncheatable Eval**<br><sub>[Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)</sub> | Other benchmark tasks | 123 GitHub stars |
+| 6 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 42 HF votes · 57 GitHub stars |
+| 7 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 54 HF votes · 635 dataset downloads |
+| 8 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 18 HF votes · 62 GitHub stars |
+| 9 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 35 HF votes · 38 GitHub stars |
+| 10 | **FinFIRST**<br><sub>[Paper](https://arxiv.org/abs/2609.25192)</sub> | Deep Research & Web Search | 4,002 dataset downloads |
 
 ### Explore the library
 

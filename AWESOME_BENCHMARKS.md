@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-23 · **Benchmark releases:** 1966
+**Snapshot:** 2026-09-24 · **Benchmark releases:** 1966
 
 ## Contents
 
@@ -294,7 +294,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 - **TriWorldBench** (2026-09-22) — Evaluates embodied world models on synchronized triple-view video generation using 19 metrics across consistency, alignment, physics, motion, temporal and visual quality. [Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)
 - **RoboFollow** (2026-09-22) — Diagnostic benchmark for instruction following in embodied agents, featuring shared-scene tasks that require language to disambiguate objectives. [Paper](https://arxiv.org/abs/2609.25636) · [Code](https://github.com/AutoLab-SAI-SJTU/RoboFollow) · [Data](https://huggingface.co/datasets/AutoLab-SJTU/robofollow-data)
-- **Pro-Bench** (2026-09-22) — We introduce \textbf{Pro-Bench}, a prompt-conditioned benchmark for open-vocabulary visual grounding in heterogeneous, real-world environments. [Paper](https://arxiv.org/abs/2609.27076)
+- **Pro-Bench** (2026-09-22) — We introduce \textbf{Pro-Bench}, a prompt-conditioned benchmark for open-vocabulary visual grounding in heterogeneous, real-world environments. [Paper](https://arxiv.org/abs/2609.27076) · [HF](https://huggingface.co/papers/2609.27076)
 - **VLAQuantBench** (2026-09-21) — Evaluates post-training quantization of vision-language-action models by rolling out quantized policies on simulation benchmarks and recording per-episode success and diagnostic metrics. [Paper](https://arxiv.org/abs/2609.25376) · [Code](https://github.com/jiuyixu25/VLAQuantBench)
 - **ActiveArena-Bench** (2026-09-21) — ActiveArena-Bench evaluates active perception in robotic manipulation through 35 tasks across five categories covering visual exploration and interactive information acquisition. [Paper](https://arxiv.org/abs/2609.24124)
 - **RoboVAD** (2026-09-15) — A benchmark dataset for cross-domain video anomaly detection in robotic arm manipulation, featuring 6.9 GB of videos with action and anomaly type splits. [Paper](https://arxiv.org/abs/2609.17843) · [Data](https://zenodo.org/records/22754659)
@@ -1636,7 +1636,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **NADI 2026** (2026-09-22) — Overall, NADI 2026 provides a broader and more challenging benchmark for robust Arabic dialect speech processing. [Paper](https://arxiv.org/abs/2609.27086)
+- **NADI 2026** (2026-09-22) — Overall, NADI 2026 provides a broader and more challenging benchmark for robust Arabic dialect speech processing. [Paper](https://arxiv.org/abs/2609.27086) · [HF](https://huggingface.co/papers/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
 - **PhysForensics-Bench** (2026-09-14) — PhysForensics-Bench evaluates AI-generated audio-video detection using paired real and generated clips across nine event-centric scenes from two generators. [Paper](https://arxiv.org/abs/2609.15562)
