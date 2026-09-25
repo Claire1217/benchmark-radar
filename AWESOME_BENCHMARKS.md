@@ -10,11 +10,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-25 · **Benchmark releases:** 1986
+**Snapshot:** 2026-09-24 · **Benchmark releases:** 1994
 
 ## Contents
 
-- [AI Research Agents](#ai-research-agents) (8)
+- [AI Research Agents](#ai-research-agents) (7)
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (55)
@@ -27,18 +27,17 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1086)
+- [Other benchmark tasks](#other-benchmark-tasks) (1089)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (55)
-- [Tool Use](#tool-use) (31)
+- [Speech & Audio](#speech--audio) (57)
+- [Tool Use](#tool-use) (30)
 - [Video Understanding](#video-understanding) (57)
 - [World Models](#world-models) (19)
 
 ## AI Research Agents
 
-- **Credit Risk Benchmark: TabPFN vs. Traditional ML** (2026-09-24) — Evaluates TabPFN against Logistic Regression, Random Forest, and XGBoost on credit default prediction using an imbalanced Kaggle dataset, with metrics including ROC-AUC, Gini, KS, Brier score, F1, precision, and recall. [Code](https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark)
 - **SAEScientist-Bench** (2026-09-08) — Evaluates AI agents performing sparse autoencoder feature interpretation on Gemma-2-9B-IT, measuring feature rank, activation separation, and steering ability across 20 tasks. [Paper](https://arxiv.org/abs/2609.09113) · [Code](https://github.com/Trae1ounG/SAEScientist)
 - **SA-Bench** (2026-08-25) — SA-Bench (SemanticAlign-Bench) evaluates semantic alignment in LLM-based paper reproduction across 30 papers from top conferences. It decomposes paper specifications into atomic verifiable claims (SAUs) and evaluates re… [Paper](https://arxiv.org/abs/2608.24252)
 - **AI4AI-Bench** (2026-08-20) — AI4AI-Bench evaluates LLM agents on algorithmic design across 10 frozen research repositories. Agents rewrite training algorithms within 4 hours, then scored by fixed evaluators against baseline algorithms, with submiss… [Paper](https://arxiv.org/abs/2608.20318)
@@ -469,9 +468,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 ## Other benchmark tasks
 
 - **TopU-LBVS** (2026-09-24) — Evaluates ligand-based virtual screening models on 93 protein targets with property-matched, structurally similar hard negatives. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **RLCDAlignBench** (2026-09-24) — A benchmark of 7,193 labelled detection instances across 44 sub-benchmarks, testing a detector's ability to flag alignment failures in language model outputs. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
-- **CTC-Bench** (2026-09-24) — A 22-task suite for large-corpus language models that includes 10 new high-complexity tasks, measuring how task difficulty scales with corpus size and comparing model performance across low- and high-CTC conditions. [Paper](https://arxiv.org/abs/2609.29245)
-- **VisFlip** (2026-09-23) — VisFlip evaluates vision-language model robustness under subtle visual variations, measuring recovery of original predictions and preservation of stable ones across nine dataset-variation combinations. [Paper](https://arxiv.org/abs/2609.28851)
+- **Synthetic Hospital** (2026-09-24) — Synthetic Hospital is an open synthetic longitudinal EHR benchmark with 1,268 patients and 5,602 encounters, evaluating models on reconstructing problem lists and summarizing charts with ontology-grounded ground truth. [Paper](https://arxiv.org/abs/2609.30027)
+- **RLCDAlignBench** (2026-09-24) — Evaluates zero-shot detection of AI alignment failures across 44 sub-benchmarks covering 10 failure types with 7,193 labeled instances and five target models. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
+- **Knowledge Tracing Benchmark on ASSISTments 2009** (2026-09-24) — Evaluates knowledge tracing models on learner-disjoint ASSISTments 2009 sequences, comparing probabilistic, feature-based, and recurrent baselines. [Code](https://github.com/devissaputra/knowledge_tracing_benchmark)
+- **ExplorationBench** (2026-09-24) — ExplorationBench evaluates AI systems' ability to explore verifiable alien worlds, with two sandboxes—AlienCode and AlienLogic—containing discovery targets and held-out tasks. [Paper](https://arxiv.org/abs/2609.30199)
+- **Artificial Societies Benchmark** (2026-09-24) — Evaluates synthetic populations against human survey data using eleven validity tests across internal, construct, and external dimensions, comparing nine language models on twenty human sources. [Paper](https://arxiv.org/abs/2609.30030)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
 - **LLM Mathematical Reasoning Evaluation Benchmark** (2026-09-23) — Evaluates final-answer accuracy, reasoning quality, instruction following, and causal error classification across 20 math problems in six categories with deterministic validators and human annotation. [Code](https://github.com/Buguerito/llm-math-reasoning-benchmark)
@@ -479,11 +480,12 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **FakeContextBench** (2026-09-23) — Benchmark with 3,500 cases of pseudoscientific claims across seven domains, scored by a deterministic whole-answer judge. [Paper](https://arxiv.org/abs/2609.27603) · [Code](https://github.com/peilin717/FakeContext-Bench)
 - **EvEMTBench** (2026-09-23) — Power-system protection benchmark on EMT waveform data with multiple grids, protocols, and tasks, including fault detection, classification, and location. [Paper](https://arxiv.org/abs/2609.28149) · [Code](https://github.com/EvEMTBench/evemtbench-benchmark)
 - **Agent Studio latency benchmark** (2026-09-23) — Evaluates latency of a direct Agent Studio integration by running a fixed query set under controlled conditions and reporting timings for Search, Agent Studio, and request-selected index comparisons. [Code](https://github.com/jadenguitarman/agent-studio-latency-benchmark)
-- **sys1bench** (2026-09-22) — Evaluates typed System One decision models on calibration against a noise floor, framing sensitivity, selective prediction, ordinal fidelity, interference, robustness, and cost per decision using policy-generated items. [Code](https://github.com/rssr25/system-one-bench)
+- **sys1bench** (2026-09-22) — sys1bench evaluates typed System One decision models on calibration, framing sensitivity, selective prediction, ordinal fidelity, interference, and robustness through a pip-installable benchmark suite. [Code](https://github.com/rssr25/system-one-bench)
 - **secagent-bench** (2026-09-22) — Evaluates LLM providers and self-hosted models on security analysis tasks: SAST source code vulnerability detection, DAST HTTP request/response analysis, and prompt-injection robustness in code comments and HTTP respons… [Code](https://github.com/zidaniel123/secagent-bench)
 - **WhatWorkedBench** (2026-09-22) — Evaluates AI agents on predicting component-change effects in 36 executable workflow tasks across 8 families using 30 data sources and 1,248 native outcomes. [Code](https://github.com/EthanNing/WhatWorkedBench)
 - **Taste-Bench** (2026-09-22) — Evaluates LLM agents' judgment at decision forks in long-horizon engineering and research tasks using 502 trajectory-derived taste questions. [Paper](https://arxiv.org/abs/2609.25804) · [Code](https://github.com/wbopan/tastebench) · [Data](https://huggingface.co/datasets/wenbopan/taste-bench)
-- **Code Taste Bench** (2026-09-22) — Evaluates code-generating models on code taste across five rubric dimensions and twelve slop diagnostics using JEV judge over OpenRouter, with pairwise duels and Taste Elo. [Code](https://github.com/dymoo/code-taste-bench)
+- **ESAC** (2026-09-22) — Compact benchmarks measuring difficult capabilities like logic, math, factual recall, and agentic work, with deterministic scoring and generated items. [Code](https://github.com/EcoWestern/ESAC)
+- **Code Taste Bench** (2026-09-22) — Evaluates code-generating models on code taste across five rubric dimensions and pairwise duels, producing Taste Elo and per-dimension diagnostics. [Code](https://github.com/dymoo/code-taste-bench)
 - **WidgetVABench** (2026-09-21) — Evaluates agentic visual analytics tasks involving single- and multi-widget interactions, with benchmark instances released as data archives and a widget-centered runtime for comparisons. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
 - **The Endless Exam** (2026-09-21) — Measures mathematical progress on fourteen parameterised construction families. [Paper](https://arxiv.org/abs/2609.24555)
 - **LiDAR-Hallu** (2026-09-21) — Evaluates LiDAR language model responses on 10,000 geometry-referenced questions across 150 nuScenes scenes, with strict parsing and diagnostic controls. [Paper](https://arxiv.org/abs/2609.24452) · [Code](https://github.com/Awesome4D/4DMLLM_Hallucination_Bench)
@@ -1638,6 +1640,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
+- **voice-agent-next** (2026-09-24) — Evaluates real-time speech-to-speech voice agent latency by driving simulated callers through the runtime and measuring end-of-user-speech to first-agent-audio delay on call recordings. [Code](https://github.com/kadirnar/voice-agent-next)
+- **VeriSpeak** (2026-09-24) — Evaluates speech-based fact verification by presenting spoken claims from temporal, geographical, and relational categories and scoring model judgments against true/false labels. [Paper](https://arxiv.org/abs/2609.30227) · [Data](https://huggingface.co/datasets/abhiram4572/VeriSpeak)
 - **NADI 2026** (2026-09-22) — Shared task for multidialectal Arabic speech processing with evaluation and rankings. [Paper](https://arxiv.org/abs/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
@@ -1696,7 +1700,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Tool Use
 
-- **IndicBankBench** (2026-09-24) — Evaluates language model assistants on Indian retail banking tasks across safety, tool use, response adequacy, and advisory quality using 799 cases, with deterministic checks and strict pass^3 scoring. [Paper](https://arxiv.org/abs/2609.29167)
 - **decision-model-bench** (2026-09-23) — Benchmark comparing typed decision models (Jev, Open-Jev, Needle 3) on four enterprise tasks: ticket triage, intent classification with out-of-scope, toxicity guardrail, and tool selection, scoring accuracy, macro-F1, a… [Code](https://github.com/supreethbare/decision-model-bench)
 - **agent-injection-bench** (2026-09-11) — Evaluates prompt-injection robustness of tool-calling agent stacks using a 24-scenario corpus (21 adversarial, 3 control) delivered through channels such as tool results, documents, web pages, filenames and multi-turn d… [Code](https://github.com/sentinelden/agent-injection-bench)
 - **ParaRecover** (2026-09-11) — ParaRecover evaluates LLM-based parallel tool-use agents on error localization and recovery, testing whether agents detect execution errors, diagnose root causes, and repair plans when tool calls fail. It scores replann… [Paper](https://arxiv.org/abs/2609.12345) · [Code](https://github.com/gbw206/ParaRecover)

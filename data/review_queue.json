@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-25T01:07:45.877490Z",
+  "generatedAt": "2026-09-25T06:20:52.591240Z",
   "sourceDate": "2026-09-24",
   "sourceWindow": {
     "from": "2026-09-24",
     "to": "2026-09-24"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 2131,
+  "candidateCount": 2130,
   "candidates": [
     {
       "id": "bm_voice-agent-next_344f5e74",
@@ -39,14 +39,14 @@
         "evidenceUrl": "https://github.com/kadirnar/voice-agent-next",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
-      "sourceUpdatedAt": "2026-09-24T21:19:45Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
+      "sourceUpdatedAt": "2026-09-25T05:41:33Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
@@ -69,7 +69,7 @@
         ],
         "categories": [],
         "publicSignals": {
-          "githubStars": 0
+          "githubStars": 1
         }
       },
       "evidence": {
@@ -84,7 +84,7 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "voice-agent-next Real-time speech-to-speech voice agents: native S2S models and streaming cascades, local and cloud, on Linux, macOS and Windows — with a built-in benchmark suite. benchmark llm python realtime speech-to-speech stt tts turn-detection vad voice-agent voice-ai webrtc # voice-agent-next **Real-time speech-to-speech voice agents in Python — native S2S models and streaming cascades, local and cloud, on Linux, macOS and Windows, with a built-in benchmark suite.** > Status: **alpha** — 52 providers (local and cloud), native speech-to-speech engines and streaming cascades behind one runtime, a benchmark suite; APIs may still change. See the [roadmap](ROADMAP.md) and the [research report](docs/research/REPORT.md). **Documentation:** [kadirnar.github.io/voice-agent-next](https://kadirnar.github.io/voice-agent-next/) (build it locally: `uv sync --group docs && uv run mkdocs serve`). ## Why Voice agents are built in two ways: * **Native speech-to-speech** models (OpenAI Realtime, Gemini Live, Nova Sonic, Moshi, Qwen-Omni, …) — lowest latency and most natural prosody; * **cascades** (VAD → STT → LLM → TTS) — maximum control, any LLM, cheapest, fully local if you want. voice-agent-next puts both behind **one engine interface**, so the session runtime — turn-taking, barge-in, truncation to what the user actually heard, tool calling, transcripts, metrics — behaves identically whichever engine you pick, and you can benchmark them against each other on the same scenarios. ## Install ```bash pip install voice-agent-next # core (numpy, pydantic, httpx, websockets) pip install \"voice-agent-next[audio]\" # + local microphone/speaker (sounddevice, soxr) ``` Provider extras (`[openai]`, `[google]`, `[silero]`, `[faster-whisper]`, `[kokoro]`, …) are listed by `van providers`. ## Quick start Pick a [preset](docs/presets.md), a tested stack, and talk to it: ```bash van presets # which presets run on this machine, and what the others need van run --preset local-cpu # fully offline: sherpa-onnx streaming STT + Ollama + Kokoro van run --preset openai-realtime # or cloud-fast, cloud-quality, gemini-live, local-gpu, apple, hybrid van run # no preset: the best one that is ready here (it says which) ``` `van run --preset` checks the preset first. When something is missing, it prints the exact fixes (`pip install 'voice-agent-next[sherpa-onnx,kokoro,...]'`, `ollama pull ...`, `export DEEPGRAM_API_KEY=...`). Presets are starting points. Override any component with a flag (`--llm ollama/qwen3.5:4b`), or with a config file: ```yaml # agent.yaml -> van run -c agent.yaml extends: local-cpu llm: ollama/qwen3.5:4b agent: instructions: You are a friendly assistant. greeting: Hi! ``` In Python: ```python import asyncio from voice_agent_next import Agent, function_tool from voice_agent_next.app import build_session from voice_agent_next.presets import load_preset from voice_agent_next.transports import create_transport @function_tool async def get_weather(city: str) -> str: \"\"\"Get the current weather for a city.\"\"\" return f\"It is sunny in {city}.\" async def main() -> None: agent = Agent(\"You are a friendly assistant.\", tools=[get_weather], greeting=\"Hi!\") # Checks the preset (raises with the fixes if it cannot run here), then builds it. session = build_session(load_preset(\"local-cpu\")) # or \"cloud-fast\", \"openai-realtime\"... # Without presets, name any mix of components: # session = AgentSession(stt=\"deepgram/nova-3\", llm=\"anthropic/claude-haiku-4-5\", # tts=\"cartesia\", vad=\"silero\", turn_detector=\"smart_turn\") await session.run(agent, create_transport(\"local\")) # microphone + speakers asyncio.run(main()) ``` Try it offline right now (simulated user + mock engine): ```bash van demo van providers # what's available, what's missing van doctor # environment check (audio devices, GPUs, API keys) ``` More runnable scenarios (local agent, OpenAI Realtime, Gemini Live, telephony, tools, benchmarks, each with an offline `--mock` mode): [examples/README.md](examples/README.md). ## Providers Every component is addressed by a `provider/model` spec and installed through an extra; `van providers` shows what is ready on your machine. | | Local | Cloud | |---|---|---| | **Speech-to-speech engines** | any OpenAI-Realtime-compatible server: Speaches, LocalAI, vLLM-Omni | OpenAI Realtime, Gemini Live, Azure OpenAI Realtime, xAI Grok Voice, Qwen-Omni Realtime | | **STT** | sherpa-onnx (streaming Zipformer/NeMo, Parakeet, Moonshine, SenseVoice, Whisper), Moonshine Streaming, faster-whisper (CPU / CUDA) | Deepgram Nova-3 & Flux, AssemblyAI Universal-Streaming, ElevenLabs Scribe v2, OpenAI transcribe, Cartesia Ink | | **LLM** | Ollama, llama.cpp, vLLM, LM Studio | OpenAI, Anthropic Claude, Google Gemini, Groq, Cerebras, Together, OpenRouter, DeepSeek, Fireworks, SambaNova | | **TTS** | Kyutai Pocket TTS (audio streaming, cloning), Kokoro-82M, sherpa-onnx (Piper/VITS, Kokoro, Matcha), Kokoro-FastAPI | Cartesia Sonic, ElevenLabs Flash/v3, OpenAI gpt-4o-mini-tts, Gemini TTS, Deepgram Aura-2 | | **VAD & turn-taking** | Silero VAD v6, TEN VAD, energy VAD, Smart Turn v3.2 | STT-native turn events (Deepgram Flux, AssemblyAI, Cartesia Ink) | | **Transports** | microphone/speakers (with WebRTC echo cancellation), files, loopback | WebSocket + browser client, WebRTC (aiortc), telephony (Twilio, Telnyx, Vonage, Plivo) | | **Serving & ops** | `van serve`: any engine behind the OpenAI Realtime protocol | failover chains, call recording (stereo WAV + JSONL), OpenTelemetry tracing, GPU auto-selection | In progress ([roadmap](ROADMAP.md)): omni models (LFM2.5-Audio), Moshi full-duplex, GPU TTS (Chatterbox, Qwen3-TTS), dynamic endpointing, session rotation, MLX on Apple Silicon. ## Benchmarks `van bench latency` drives a simulated caller through the real runtime and measures voice-to-voice latency **on the call recording** (end of user speech → first agent audio), with a reproducibility manifest for every run. A fully local pipeline (Silero + Smart Turn + ",
+        "abstract": "voice-agent-next Real-time speech-to-speech voice agents: native S2S models and streaming cascades, local and cloud, on Linux, macOS and Windows — with a built-in benchmark suite. benchmark llm python realtime speech-to-speech stt tts turn-detection vad voice-agent voice-ai webrtc # voice-agent-next **Real-time speech-to-speech voice agents in Python — native S2S models and streaming cascades, local and cloud, on Linux, macOS and Windows, with a built-in benchmark suite.** > Status: **alpha** — 60+ providers (local and cloud), native speech-to-speech engines and streaming cascades behind one runtime, a benchmark suite; APIs may still change. See the [roadmap](ROADMAP.md) and the [research report](docs/research/REPORT.md). **Documentation:** [kadirnar.github.io/voice-agent-next](https://kadirnar.github.io/voice-agent-next/) (build it locally: `uv sync --group docs && uv run mkdocs serve`). ## Why Voice agents are built in two ways: * **Native speech-to-speech** models (OpenAI Realtime, Gemini Live, Nova Sonic, Moshi, Qwen-Omni, …) — lowest latency and most natural prosody; * **cascades** (VAD → STT → LLM → TTS) — maximum control, any LLM, cheapest, fully local if you want. voice-agent-next puts both behind **one engine interface**, so the session runtime — turn-taking, barge-in, truncation to what the user actually heard, tool calling, transcripts, metrics — behaves identically whichever engine you pick, and you can benchmark them against each other on the same scenarios. ## Install ```bash pip install voice-agent-next # core (numpy, pydantic, httpx, websockets) pip install \"voice-agent-next[audio]\" # + local microphone/speaker (sounddevice, soxr) ``` Provider extras (`[openai]`, `[google]`, `[silero]`, `[faster-whisper]`, `[kokoro]`, …) are listed by `van providers`. ## Quick start Pick a [preset](docs/presets.md), a tested stack, and talk to it: ```bash van presets # which presets run on this machine, and what the others need van run --preset local-cpu # fully offline: sherpa-onnx streaming STT + Ollama + Kokoro van run --preset openai-realtime # or cloud-fast, cloud-quality, gemini-live, local-gpu, apple, hybrid van run # no preset: the best one that is ready here (it says which) ``` `van run --preset` checks the preset first. When something is missing, it prints the exact fixes (`pip install 'voice-agent-next[sherpa-onnx,kokoro,...]'`, `ollama pull ...`, `export DEEPGRAM_API_KEY=...`). Presets are starting points. Override any component with a flag (`--llm ollama/qwen3.5:4b`), or with a config file: ```yaml # agent.yaml -> van run -c agent.yaml extends: local-cpu llm: ollama/qwen3.5:4b agent: instructions: You are a friendly assistant. greeting: Hi! ``` In Python: ```python import asyncio from voice_agent_next import Agent, function_tool from voice_agent_next.app import build_session from voice_agent_next.presets import load_preset from voice_agent_next.transports import create_transport @function_tool async def get_weather(city: str) -> str: \"\"\"Get the current weather for a city.\"\"\" return f\"It is sunny in {city}.\" async def main() -> None: agent = Agent(\"You are a friendly assistant.\", tools=[get_weather], greeting=\"Hi!\") # Checks the preset (raises with the fixes if it cannot run here), then builds it. session = build_session(load_preset(\"local-cpu\")) # or \"cloud-fast\", \"openai-realtime\"... # Without presets, name any mix of components: # session = AgentSession(stt=\"deepgram/nova-3\", llm=\"anthropic/claude-haiku-4-5\", # tts=\"cartesia\", vad=\"silero\", turn_detector=\"smart_turn\") await session.run(agent, create_transport(\"local\")) # microphone + speakers asyncio.run(main()) ``` Try it offline right now (simulated user + mock engine): ```bash van demo van providers # what's available, what's missing van doctor # environment check (audio devices, GPUs, API keys) ``` More runnable scenarios (local agent, OpenAI Realtime, Gemini Live, telephony, tools, benchmarks, each with an offline `--mock` mode): [examples/README.md](examples/README.md). ## Providers Every component is addressed by a `provider/model` spec and installed through an extra; `van providers` shows what is ready on your machine. | | Local | Cloud | |---|---|---| | **Speech-to-speech engines** | Moshi / PersonaPlex (full duplex), omni LLMs (LFM2.5-Audio), any OpenAI-Realtime-compatible server: Speaches, LocalAI, vLLM-Omni | OpenAI Realtime, Gemini Live, Azure OpenAI Realtime, xAI Grok Voice, Qwen-Omni Realtime | | **STT** | sherpa-onnx (streaming Zipformer/NeMo, Parakeet, Moonshine, SenseVoice, Whisper), Moonshine Streaming, faster-whisper (CPU / CUDA) | Deepgram Nova-3 & Flux, AssemblyAI Universal-Streaming, Soniox, Speechmatics, ElevenLabs Scribe v2, OpenAI transcribe, Cartesia Ink | | **LLM** | Ollama, llama.cpp, vLLM, LM Studio | OpenAI, Anthropic Claude, Google Gemini, Groq, Cerebras, Together, OpenRouter, DeepSeek, Fireworks, SambaNova | | **TTS** | Kyutai Pocket TTS (audio streaming, cloning), Qwen3-TTS & Chatterbox (GPU), Kokoro-82M, sherpa-onnx (Piper/VITS, Kokoro, Matcha), Kokoro-FastAPI | Cartesia Sonic, ElevenLabs Flash/v3, OpenAI gpt-4o-mini-tts, Gemini TTS, Deepgram Aura-2 | | **VAD & turn-taking** | Silero VAD v6, TEN VAD, energy VAD, Smart Turn v3.2 | STT-native turn events (Deepgram Flux, AssemblyAI, Cartesia Ink) | | **Transports** | microphone/speakers (with WebRTC echo cancellation), files, loopback | WebSocket + browser client, WebRTC (aiortc), telephony (Twilio, Telnyx, Vonage, Plivo) | | **Serving & ops** | `van serve` (any protocol, worker pool, prewarm, metrics), Docker images, `van doctor`, `van models` | failover chains, call recording (stereo WAV + JSONL), OpenTelemetry tracing, GPU auto-selection | In progress ([roadmap](ROADMAP.md)): turn-taking quality on local stacks, MLX on Apple Silicon, release automation. ## Benchmarks `van bench latency` drives a simulated caller through the real runtime and measures voice-to-voice latency **on the call recording** (end of user speech → first agent audio), ",
         "comments": ""
       },
       "candidatePriority": "normal",
@@ -129,13 +129,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/anon-submission-7k2/vidscribe-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T08:35:47.000Z",
       "adoption30d": null,
       "heat": null,
@@ -188,6 +188,198 @@
       ]
     },
     {
+      "id": "bm_to-trust-or-not-to-trust-retrieval-augment_4d69581d",
+      "familyId": "bmf_78720ad58942",
+      "name": "To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech",
+      "paperTitle": "To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech",
+      "aliases": [],
+      "oneLine": "Online misinformation increasingly appears in spoken formats such as news clips, podcasts, interviews, political speeches, and social media videos, creating a need for fact-checking systems that can verify claims directly from speech.",
+      "area": "Speech & Audio",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.LG"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "EMNLP (Main) 2026",
+        "evidence": "Accepted to EMNLP (Main) 2026",
+        "evidenceUrl": "https://arxiv.org/abs/2609.30227",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "EMNLP (Main) 2026",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted to EMNLP (Main) 2026",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2609.30227",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
+              "rawValue": "Accepted to EMNLP (Main) 2026",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T17:50:40Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.30227",
+        "paper": "https://arxiv.org/abs/2609.30227",
+        "pdf": "https://arxiv.org/pdf/2609.30227",
+        "project": null,
+        "code": null,
+        "data": "https://huggingface.co/datasets/abhiram4572/VeriSpeak"
+      },
+      "motivation": "Online misinformation increasingly appears in spoken formats such as news clips, podcasts, interviews, political speeches, and social media videos, creating a need for fact-checking systems that can verify claims directly from speech.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.30227",
+        "url": "https://arxiv.org/abs/2609.30227",
+        "title": "To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech",
+        "authors": [
+          "Debajyoti Mazumder",
+          "Mamta",
+          "Abhirama Subramanyam Penamakuri"
+        ],
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.CL",
+          "cs.SD"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce VeriSpeak, a probe benchmark for studying speech-based fact verification in Large Audio Language Models (LALMs).",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Online misinformation increasingly appears in spoken formats such as news clips, podcasts, interviews, political speeches, and social media videos, creating a need for fact-checking systems that can verify claims directly from speech. We introduce VeriSpeak, a probe benchmark for studying speech-based fact verification in Large Audio Language Models (LALMs). VeriSpeak contains 3,879 spoken claims spanning temporal, geographical, and relational facts, with balanced true and false labels. The benchmark is designed to examine whether factual verification ability transfers from text to speech, and whether retrieval-augmented LALMs can use textual evidence to correctly support or refute spoken claims. Our experiments reveal a consistent text-speech modality gap: LALMs that verify written claims reliably often fail on the same claims when spoken. Moreover, retrieval alone provides limited gains because models frequently conflate retrieved evidence with the spoken claim. In contrast, retrieval combined with explicit reasoning improves claim-evidence comparison, with a thinking-tuned LALM reaching 86.1% accuracy. VeriSpeak highlights that effective speech misinformation detection requires not only speech understanding, but also grounded reasoning over retrieved evidence. The dataset is publicly available via Hugging Face at https://huggingface.co/datasets/abhiram4572/VeriSpeak.",
+        "comments": "Accepted to EMNLP (Main) 2026"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_synthetic-hospital_a5c915df",
+      "familyId": "bmf_de850dff19bc",
+      "name": "Synthetic Hospital",
+      "paperTitle": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark",
+      "aliases": [],
+      "oneLine": "Frontier language models are rarely used in clinical workflows because the realistic, longitudinal benchmarks needed to develop them are scarce.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.30027",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T16:00:56Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.30027",
+        "paper": "https://arxiv.org/abs/2609.30027",
+        "pdf": "https://arxiv.org/pdf/2609.30027",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Frontier language models are rarely used in clinical workflows because the realistic, longitudinal benchmarks needed to develop them are scarce.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.30027",
+        "url": "https://arxiv.org/abs/2609.30027",
+        "title": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark",
+        "authors": [
+          "Christine Park",
+          "Valerie Chen",
+          "Tim Dettmers"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.DB"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce Synthetic Hospital, an open, fully synthetic, fact-grounded longitudinal EHR benchmark that resolves the open sharing and verifiable ground truth barriers.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Frontier language models are rarely used in clinical workflows because the realistic, longitudinal benchmarks needed to develop them are scarce. Real electronic health record (EHR) data cannot be openly shared due to privacy, ethics or data use issues and it does not contain verifiable ground truth since the chart records only reflect what clinicians documented. We introduce Synthetic Hospital, an open, fully synthetic, fact-grounded longitudinal EHR benchmark that resolves the open sharing and verifiable ground truth barriers. Built entirely from public medical-education material with no protected health information, it comprises 1,268 longitudinal patients and 5,602 encounters, where every diagnosis, finding, and temporal relation is grounded in standard ontologies (ICD-10-CM, SNOMED CT, LOINC) and with a complete provenance chain back to its source medical education material. Synthetic Hospital is served through a simulated hospital record system that mirrors real EHR infrastructure (standard interoperability APIs, role-based access and function-calling interface). In a blinded review, physicians distinguished its records from real patient charts at near-chance rates (53\\%). Across 10 frontier and open models, none approaches ceiling: the best model reconstructs a patient's longitudinal problem list with a severity-weighted F1 of 0.73, level with the mean of seven physicians on a matched subset but well below the best of them (0.89), and misses roughly half of clinically relevant findings when summarizing a chart. Overall, these results highlight that Synthetic Hospital is a difficult and realistic test of clinical AI performance.",
+        "comments": "29 pages, 2 figures, 12 tables"
+      },
+      "candidatePriority": "high"
+    },
+    {
       "id": "bm_spot-separate-and-enhance-fully-generative_13f5a65c",
       "familyId": "bmf_65d593e966e9",
       "name": "Spot, Separate, and Enhance: Fully Generative Approach for Audio Mixing",
@@ -218,13 +410,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.29169",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T07:42:02Z",
       "adoption30d": null,
       "heat": null,
@@ -308,13 +500,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28896",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T01:18:14Z",
       "adoption30d": null,
       "heat": null,
@@ -391,13 +583,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/ai-ecoverse/slicc-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T20:28:10.000Z",
       "adoption30d": null,
       "heat": null,
@@ -450,97 +642,6 @@
       ]
     },
     {
-      "id": "bm_rlcdalignbench_63bd9a46",
-      "familyId": "bmf_c6174b2fc4e6",
-      "name": "RLCDAlignBench",
-      "paperTitle": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures",
-      "aliases": [],
-      "oneLine": "Detectors of alignment failures screen deployed language models and score alignment benchmarks.",
-      "area": "Safety & Trustworthiness",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Safety"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.29429",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-24",
-      "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
-      "sourceUpdatedAt": "2026-09-24T11:49:30Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.6,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.29429",
-        "paper": "https://arxiv.org/abs/2609.29429",
-        "pdf": "https://arxiv.org/pdf/2609.29429",
-        "project": null,
-        "code": "https://github.com/sumleo/RLCDAlignBench",
-        "data": null
-      },
-      "motivation": "Detectors of alignment failures screen deployed language models and score alignment benchmarks.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.29429",
-        "url": "https://arxiv.org/abs/2609.29429",
-        "title": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures",
-        "authors": [
-          "Ruoqi Guo",
-          "Yi Liu",
-          "Gelei Deng",
-          "Yuekang Li",
-          "Lida Zhao",
-          "Yutao Wu",
-          "Simin Chen",
-          "Ying Zhang and Leo Yu Zhang"
-        ],
-        "categories": [
-          "cs.AI",
-          "cs.CL",
-          "cs.CR"
-        ]
-      },
-      "evidence": {
-        "snippet": "We present RLCDAlignBench, which benchmarks Jev on ten alignment failures: sycophancy, jailbreaks, deception, prompt injection, hallucination, privacy violation, social bias, reward hacking, concealing uncertainty, and power seeking.",
-        "reasonCodes": [
-          "exact named benchmark artifact released in abstract",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Detectors of alignment failures screen deployed language models and score alignment benchmarks. Most are generative judges that spend a decoding pass on every criterion, and classifiers that read token probabilities, such as Llama Guard, still score one fixed label per call. Jev, a model trained with reinforcement learning for calibrated decisions (RLCD), answers many typed questions about one input with calibrated probabilities in a single call. Whether it detects alignment failures has not been measured. We present RLCDAlignBench, which benchmarks Jev on ten alignment failures: sycophancy, jailbreaks, deception, prompt injection, hallucination, privacy violation, social bias, reward hacking, concealing uncertainty, and power seeking. It spans 44 benchmarks and five target models, labelled by each benchmark's scorer and, on two, by humans. Many of these failures are relational, defined against a reference, such as the user's belief or an injected instruction, that the response alone does not reveal. Our key idea is therefore to vary what Jev is asked separately from what it sees: the question's wording and answer type on one side, the fields of the input on the other. A single generic question reaches a median AUROC of 0.886 zero-shot and beats supervised baselines on most benchmarks. Question wording matters little, while context matters more, mostly through fields that encode the label. Jev matches the reference scorer's agreement with human labels, surfaces label defects in existing benchmarks, and costs 63x less than LLM-judge scorers. Code and data: https://github.com/sumleo/RLCDAlignBench.",
-        "comments": ""
-      },
-      "candidatePriority": "normal"
-    },
-    {
       "id": "bm_qlora-eval-benchmark_b1b7ca98",
       "familyId": "bmf_3db7e1ea376a",
       "name": "qlora-eval-benchmark",
@@ -571,13 +672,13 @@
         "evidenceUrl": "https://github.com/arielshakaramiro/qlora-eval-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T11:05:35Z",
       "adoption30d": null,
       "heat": null,
@@ -629,6 +730,90 @@
       ]
     },
     {
+      "id": "bm_privdrift-auditing-user-secret-leakage-und_cf291241",
+      "familyId": "bmf_9dd55c5c9e48",
+      "name": "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations",
+      "paperTitle": "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations",
+      "aliases": [],
+      "oneLine": "Large language models increasingly operate as persistent assistants in user-facing, shared-session, and tool-augmented settings.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.30094",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T16:39:18Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.30094",
+        "paper": "https://arxiv.org/abs/2609.30094",
+        "pdf": "https://arxiv.org/pdf/2609.30094",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Large language models increasingly operate as persistent assistants in user-facing, shared-session, and tool-augmented settings.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.30094",
+        "url": "https://arxiv.org/abs/2609.30094",
+        "title": "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations",
+        "authors": [
+          "Luciano Maldonado"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.CL",
+          "cs.CR"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce \\textbf{PrivDrift}, a benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Large language models increasingly operate as persistent assistants in user-facing, shared-session, and tool-augmented settings. When users disclose sensitive information during an active conversation, that information may remain behaviorally recoverable through later prompts even after the dialogue shifts to unrelated topics. We introduce \\textbf{PrivDrift}, a benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing. PrivDrift contains 1{,}000 controlled multi-turn dialogues with seeded secrets, content-dense drift turns, and standardized extraction probes. Across three LLMs with extended context windows, dialogue-level hybrid leakage remains substantial, ranging from 38.7\\% to 54.6\\%, and varies strongly by model, secret type, and persuasion intensity. Within the tested drift window, additional topic drift does not reliably reduce leakage, suggesting that privacy risk in active LLM contexts should be evaluated as a persistent behavioral failure mode rather than only as training-data memorization or immediate jailbreak behavior.",
+        "comments": "Preprint, 10 Pages, 6 figures"
+      },
+      "candidatePriority": "normal"
+    },
+    {
       "id": "bm_powerbi-llm_32961d85",
       "familyId": "bmf_08fc73009200",
       "name": "powerbi-llm",
@@ -661,13 +846,13 @@
         "evidenceUrl": "https://github.com/itumelengj-debug/powerbi-llm",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T15:31:10Z",
       "adoption30d": null,
       "heat": null,
@@ -750,13 +935,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28988",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T04:01:10Z",
       "adoption30d": null,
       "heat": null,
@@ -807,93 +992,6 @@
       "candidatePriority": "normal"
     },
     {
-      "id": "bm_no-more-free-lunch-corpus-task-complexity-_fe701f47",
-      "familyId": "bmf_783c60c4f412",
-      "name": "No More Free Lunch: Corpus Task Complexity Matters as Corpora Grow",
-      "paperTitle": "No More Free Lunch: Corpus Task Complexity Matters as Corpora Grow",
-      "aliases": [],
-      "oneLine": "Given a large corpus, the questions one might ask can vary -- from \"When was the first human heart transplant?\" to \"What are all the contradictory claims in this literature?\" -- but what makes some questions more challenging than others?",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.CL"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.29245",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-24",
-      "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
-      "sourceUpdatedAt": "2026-09-24T08:51:29Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.6,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.29245",
-        "paper": "https://arxiv.org/abs/2609.29245",
-        "pdf": "https://arxiv.org/pdf/2609.29245",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Given a large corpus, the questions one might ask can vary -- from \"When was the first human heart transplant?\" to \"What are all the contradictory claims in this literature?\" -- but what makes some questions more challenging than others?",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.29245",
-        "url": "https://arxiv.org/abs/2609.29245",
-        "title": "No More Free Lunch: Corpus Task Complexity Matters as Corpora Grow",
-        "authors": [
-          "Prasann Singhal",
-          "Amanda Bertsch",
-          "Jacob Steinhardt",
-          "Sewon Min"
-        ],
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ]
-      },
-      "evidence": {
-        "snippet": "We release our code, data, and 22-task suite (CTC-Bench), to facilitate future research in this area.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Given a large corpus, the questions one might ask can vary -- from \"When was the first human heart transplant?\" to \"What are all the contradictory claims in this literature?\" -- but what makes some questions more challenging than others? In this work, we define a notion of Corpus Task Complexity (CTC) that characterizes tasks by how their difficulty grows with corpus size; for instance, a retrieval query only requires a single linear pass over a corpus, while finding contradictions requires checking a quadratically growing set of claim pairs. Observing that prior work has largely only studied tasks whose difficulty grows linearly with corpus size, which we call low CTC tasks, we introduce 10 new tasks belonging to a class of high CTC whose difficulty grows quadratically or more in corpus size. We find that high-CTC tasks not only grow much more challenging on average at longer contexts for LCLMs, they reverse many modeling conclusions drawn solely from low-CTC evaluations. For instance, efficient block-sparse and hybrid attention approaches consistently match full attention performance on low-CTC tasks, but degrade much more on high-CTC tasks. Large-corpus high-CTC reasoning thus remains an open challenge as full attention is too costly to scale, motivating future research on these tasks. We release our code, data, and 22-task suite (CTC-Bench), to facilitate future research in this area.",
-        "comments": "28 pages, 8 figures"
-      },
-      "candidatePriority": "normal"
-    },
-    {
       "id": "bm_neo1-0-benchmark_05519859",
       "familyId": "bmf_fa5858723d21",
       "name": "neo1.0-benchmark",
@@ -924,13 +1022,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/Dimitrex93/neo1.0-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T11:14:58.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1014,13 +1112,13 @@
         "evidenceUrl": "https://github.com/afeni-67/local-llm-actions-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T20:12:15Z",
       "adoption30d": null,
       "heat": null,
@@ -1104,13 +1202,13 @@
         "evidenceUrl": "https://github.com/MMatinGerami/lncrna-pancancer-classifier",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T11:40:50Z",
       "adoption30d": null,
       "heat": null,
@@ -1193,13 +1291,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/sunilvadlamani/llmrig-benchmark-passports",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T18:43:23.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1286,14 +1384,14 @@
         "evidenceUrl": "https://github.com/devissaputra/knowledge_tracing_benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
-      "sourceUpdatedAt": "2026-09-25T00:23:45Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
+      "sourceUpdatedAt": "2026-09-25T05:10:19Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
@@ -1331,7 +1429,7 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "knowledge_tracing_benchmark AIEd research prototype for Bayesian Knowledge Tracing, learner modeling, and reproducible knowledge-tracing benchmark design. adaptive-learning ai-in-education aied bayesian-knowledge-tracing educational-ai knowledge-tracing learner-modeling learning-analytics python # Knowledge Tracing Benchmark — Research Bundle [![CI](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/ci.yml) **Research Bundle · AI in Education · learner modeling and knowledge tracing** This repository is now an empirical knowledge-tracing bundle built around **real ASSISTments 2009 learner sequences**. The previous toy sequences remain only as unit-test/smoke-test fixtures; they are not research evidence. ## Empirical question > On learner-disjoint ASSISTments 2009 holdout data, does a transparent fixed-parameter Bayesian Knowledge Tracing (BKT) baseline improve next-response probability quality over global-rate and skill-prior baselines? A second analysis separates **cold-start skill encounters** from later encounters to expose where a stateful learner model has evidence to update. ## Real dataset Default research source: `Atomi/ASSISTments2009`, a sequence-formatted public mirror of ASSISTments 2009. The dataset contains one row per learner with aligned sequences including: - `user_id` - `skill_ids` - `skill_names` - `grades` (binary correctness) - `attempt_counts` - `answer_types` The Hugging Face viewer exposes about 4.15k learner rows. The original data lineage is ASSISTments. See [docs/dataset_card.md](docs/dataset_card.md) for provenance and the distinction between the original source and the convenience mirror. ## Frozen protocol 1. Load the real learner-sequence dataset. 2. Validate that `skill_ids` and `grades` are aligned. 3. Split **learners**, not interactions: 70% train, 15% validation, 15% test, seed 42. 4. Estimate two non-stateful baselines from train learners only: - global correctness rate; - per-skill correctness prior with global fallback. 5. Evaluate fixed-parameter BKT on each test learner independently. 6. For every test interaction, predict correctness **before** observing that response. 7. Report ROC-AUC, Brier score and log loss. 8. Report the same metrics for first-seen skill interactions and repeated skill interactions when estimable. 9. Record dataset size, split counts and BKT parameters. No learner in the test set contributes to training baselines. ## Implemented models ### Global-rate baseline One probability estimated from training interactions. ### Skill-prior baseline Training-only correctness rate per skill, with global fallback for unseen test skills. ### Bayesian Knowledge Tracing Transparent BKT with explicit: - initial mastery; - learning probability; - guess probability; - slip probability. The current research bundle deliberately does **not** claim DKT or attention models are implemented. Those are future benchmark extensions. ## Run ```bash python -m venv .venv source .venv/bin/activate pip install -r requirements.txt python scripts/run_research.py ``` Offline tests and the small smoke demo: ```bash python -m unittest discover -s tests -v python scripts/run_demo.py ``` ## Research Bundle contents - real learner data; - learner-disjoint evaluation; - explicit next-response prediction timing; - transparent baselines; - cold-start analysis; - dataset card; - research protocol; - ethics and risks; - machine-readable results; - CI and tests; - paper-ready research brief. See [RESEARCH_BUNDLE.md](RESEARCH_BUNDLE.md). ## Responsible interpretation Knowledge-tracing probabilities are model states, not direct measurements of human knowledge. Skill tags can be incomplete, multi-skill identifiers are treated as observed composite keys in this baseline, and correctness can reflect guessing, slips, item difficulty and context. The system must not be used to label learners as permanently capable or incapable.",
+        "abstract": "knowledge_tracing_benchmark AIEd research prototype for Bayesian Knowledge Tracing, learner modeling, and reproducible knowledge-tracing benchmark design. adaptive-learning ai-in-education aied bayesian-knowledge-tracing educational-ai knowledge-tracing learner-modeling learning-analytics python # Knowledge Tracing Benchmark on ASSISTments 2009 [![CI](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/ci.yml) [![Empirical Study](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/empirical.yml/badge.svg)](https://github.com/devissaputra/knowledge_tracing_benchmark/actions/workflows/empirical.yml) **Research Bundle · AI in Education · learner modeling and knowledge tracing** This repository is a learner-disjoint empirical benchmark on real ASSISTments 2009 sequences. It compares non-stateful priors, probabilistic knowledge tracing, performance-factor features, and a compact recurrent knowledge tracer rather than presenting fixed BKT as the whole benchmark. ## Research questions 1. Do stateful learner models improve held-out next-response probability quality over global and skill priors? 2. Does validation-tuned BKT improve over a fixed parameterization? 3. Does a PFA-style logistic model using prior learner-skill successes and failures improve probability quality? 4. Does a compact GRU knowledge tracer add useful sequence information beyond transparent baselines? 5. Are conclusions different for first-seen skills versus repeated skill encounters? 6. Are Brier-score differences robust when uncertainty is resampled at the learner rather than interaction level? ## Real dataset and provenance The executable adapter uses the public Atomi/ASSISTments2009 sequence mirror pinned to revision c72a664a9693547fb206652ed2ce18e62d320c7d. The mirror currently contains 4,148 learner rows with aligned sequence fields including user_id, skill_ids and grades. The mirror is a retrieval representation, not the scientific authority for the original ASSISTments collection. The repository records the exact mirror revision and SHA-256 of the downloaded parquet file and cites the original ASSISTments lineage separately. ## Learner-disjoint protocol - 70% learners: train - 15% learners: validation - 15% learners: final test - fixed split seed: 42 - no learner crosses partitions - all next-response probabilities are emitted before observing the current response ## Models 1. global training correctness rate 2. training skill prior with global fallback 3. fixed-parameter BKT 4. validation-tuned BKT over a frozen parameter grid 5. PFA-style logistic regression using skill identity and prior learner-skill success/failure counts 6. compact GRU knowledge tracer with train-skill vocabulary and first-interaction/unseen-skill prior fallback The GRU is a compact recurrent benchmark, not a claim of reproducing every canonical DKT implementation. ## Evaluation The final learner-disjoint test set reports ROC-AUC, average precision, Brier score, log loss and ECE-10. Metrics are also sliced into first-seen and repeated-skill interactions. The primary uncertainty analysis resamples test learners as blocks and reports Brier-score differences against the skill-prior baseline. The bundle also identifies high-Brier skills with at least 100 test interactions as an error-analysis diagnostic. ## Run python -m venv .venv source .venv/bin/activate pip install -r requirements.txt PYTHONPATH=src pytest -q PYTHONPATH=src python src/run_experiment.py The legacy command python scripts/run_research.py routes to the same current protocol. ## Interpretation boundary Knowledge-tracing probabilities are model states and predictive summaries, not direct measurements of knowledge. Better held-out prediction does not establish better teaching, justify ability labels, or validate automated educational decisions. Skill tags, item difficulty, opportunity order and missing context can all change the interpretation. ## Professor review path README.md → DATA.md → src/run_experiment.py → src/knowledge_tracing_benchmark/core.py → results/summary.md → results/metrics.json → ETHICS.md → paper/paper.md.",
         "comments": ""
       },
       "candidatePriority": "normal",
@@ -1340,6 +1438,99 @@
           "type": "github",
           "id": "github:devissaputra/knowledge_tracing_benchmark",
           "url": "https://github.com/devissaputra/knowledge_tracing_benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_kaggle-art-benchmark_61ed421d",
+      "familyId": "bmf_713907d2074f",
+      "name": "kaggle-art-benchmark",
+      "paperTitle": "kaggle-art-benchmark",
+      "aliases": [],
+      "oneLine": "kaggle-art-benchmark Attacker-Reachable Sink Triage (ART) — A Kaggle Community Benchmark evaluating whether LLMs distinguish reachable code vulnerabilities from patched twins, safe logic, and vacuous noise.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/mziqudhd92/kaggle-art-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
+      "sourceUpdatedAt": "2026-09-25T03:12:15Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://img.shields.io/badge/Kaggle-ART%20Benchmark-20BEFF?logo=kaggle&logoColor=white",
+        "code": "https://github.com/mziqudhd92/kaggle-art-benchmark"
+      },
+      "motivation": "kaggle-art-benchmark Attacker-Reachable Sink Triage (ART) — A Kaggle Community Benchmark evaluating whether LLMs distinguish reachable code vulnerabilities from patched twins, safe logic, and vacuous noise.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:mziqudhd92/kaggle-art-benchmark",
+        "url": "https://github.com/mziqudhd92/kaggle-art-benchmark",
+        "title": "kaggle-art-benchmark",
+        "authors": [
+          "mziqudhd92"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "kaggle-art-benchmark Attacker-Reachable Sink Triage (ART) — A Kaggle Community Benchmark evaluating whether LLMs distinguish reachable code vulnerabilities from patched twins, safe logic, and vacuous noise.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "kaggle-art-benchmark Attacker-Reachable Sink Triage (ART) — A Kaggle Community Benchmark evaluating whether LLMs distinguish reachable code vulnerabilities from patched twins, safe logic, and vacuous noise. ai-security appsec code-analysis devchallenge kaggle-benchmarks llm-evaluation vulnerability-triage # Attacker-Reachable Sink Triage (ART) [![Kaggle Benchmark](https://img.shields.io/badge/Kaggle-ART%20Benchmark-20BEFF?logo=kaggle&logoColor=white)](https://www.kaggle.com/benchmarks/moranzavdi/attacker-reachable-sink-triage-art) [![DEV Challenge](https://img.shields.io/badge/DEV-Kaggle%20Benchmarking%20Challenge-0A0A0A?logo=devdotto&logoColor=white)](https://dev.to/unit_500_c36d1b1011fdf39c/100-vuln-detection-wasnt-enough-measuring-whether-ai-respects-the-patch-dg4) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) AI models are often like over-eager alarm systems. Show them a dangerous word in code — `eval`, `unserialize`, a raw SQL concat — and they scream “vulnerability!” nearly every time. Fix the same snippet with a lock or a filter, and many cheaper models still scream: they recognized the scary token, they did not read the fix. **ART** measures that gap. It asks models to separate **attacker-reachable** bugs from **patched twins**, **safe** code, and **vacuous noise** — not just whether they can spot a dangerous sink. The headline metric is **Twin Gap** (vuln accuracy − patched accuracy): models that catch every vuln but fail the fix are worse *patch readers*, not worse detectors. This repo is the reproducible source for the [DEV × Kaggle Benchmarking Challenge](https://dev.to/unit_500_c36d1b1011fdf39c/100-vuln-detection-wasnt-enough-measuring-whether-ai-respects-the-patch-dg4) entry. | | | | --- | --- | | **Benchmark** | https://www.kaggle.com/benchmarks/moranzavdi/attacker-reachable-sink-triage-art | | **Challenge** | https://dev.to/challenges/kaggle-2026-09-23 | | **Medium** | https://medium.com/meetcyber/ai-models-are-great-at-finding-security-bugs-but-can-they-tell-when-theyre-fixed-20052d828f2a | Minimal-pair twins: same function shape — only the control differs. Prompts see snippet + language only. ## Results at a glance (label-triage v6) **TL;DR — what the numbers mean** Every model we tested is great at spotting “scary” code. That alone is **not** a win — an alarm that never stops ringing is useless. The useful question is: *after you add the lock, does the model calm down?* - **Four models** (three Gemini variants + Gemma) get a perfect ART score: they catch the bugs **and** respect the fixes. Gemma does it for about **$0.007** per run — strong triage without the big bill. - **Cheaper / smaller models** still find every real bug, but some keep flagging code that was already fixed (worst offender: Haiku’s Twin Gap **0.375** — it missed the lock on ~3 of 8 patched twins). Nano is cheapest but confuses harmless filler for risk. - **Why this is good news for builders:** you can rank models by *patch reading*, not hype. If your pipeline uses an LLM to triage security findings, pick a model that respects fixes — or you will drown in false alarms on already-patched code. **Technical scorecard** All seven locked models scored **100% raw vuln detection**. ART separates them on **patched twins and controls**. | Model | ART | Twin Gap | Cost USD | Latency | | --- | ---: | ---: | ---: | ---: | | `gemini-2.5-pro` | **1.000** | 0.000 | 0.181 | 7.9s | | `gemini-3.5-flash` | **1.000** | 0.000 | 0.108 | 2.9s | | `gemini-3.7-flash` | **1.000** | 0.000 | 0.028 | 9.1s | | `gemma-4-31b-it` | **1.000** | 0.000 | 0.007 | 12.3s | | `claude-sonnet-4-5-20250929` | 0.950 | 0.125 | 0.060 | 3.1s | | `claude-haiku-4-5-20251001` | 0.850 | **0.375** | 0.020 | 1.7s | | `gpt-5.4-nano-2026-03-17` | 0.817 | 0.125 | 0.004 | 1.3s | ### Raw vs patched (Wilson 95% CIs) ![Raw vs patched twin accuracy with Wilson confidence intervals](assets/raw_vs_patched_accuracy.png) ### Patch-respect per dollar ![ART score vs total run cost; bubble size is mean latency](assets/cost_vs_art.png) More charts (per-class heatmap, failure taxonomy, CIs, confusion): [`assets/`](assets/) · tables: [`results/ANALYSIS_SUMMARY.md`](results/ANALYSIS_SUMMARY.md) · ablations: [`results/ABLATIONS_AND_REPS.md`](results/ABLATIONS_AND_REPS.md) ## Why this exists Triage pipelines that use LLMs to flag candidate sinks drown in **false positives on already-patched code**. Public coding evals rarely measure “did you respect the fix?” ART does — with **minimal-pair twins** (same shape, one control differs) and synthetic snippets modeled on recurring CVE *classes* (WordPress-style PHP, Flask/Django-request-style Python), not memorized write-ups. ## Repository layout ```text . ├── README.md # This file ├── LICENSE # MIT ├── MODELS.md # Locked Community model slugs ├── TASK_SLUGS.md # Task file ↔ Kaggle push slug ├── CHANGELOG.md ├── dataset/items.jsonl # 8 twin pairs + 6 controls ├── tasks/ # Core + ablation task scripts ├── scripts/ # Build, validate, analyze, charts, tests ├── assets/ # Charts embedded above (PNG) ├── results/ # Summaries, CSVs, case studies (no raw downloads) ├── notebooks/ └── dev/SUBMISSION_DRAFT.md # DEV.to post draft (official sections) ``` Raw Kaggle download dumps are **not** committed (large). Summaries and charts are. ## Setup ```bash python3 -m venv .venv && source .venv/bin/activate pip install 'kaggle>=1.7' kaggle-benchmarks pandas matplotlib numpy export KAGGLE_API_TOKEN=… # https://www.kaggle.com/settings → API kaggle b init -y --env-file .env ``` See [MODELS.md](MODELS.md) and [TASK_SLUGS.md](TASK_SLUGS.md). ## Dataset & scoring 8 vulnerable/patched twin pairs + 6 safe/vacuous controls. Prompts get **snippet + language only**; twin metadata is scoring-only. **ART score** (returned by `art-label-triage`): ```text ART = 0.4 × (vuln accuracy) + 0.4 × (patched accuracy) + 0.2 × (filler accuracy) ``` **Twin Gap** = `(vuln accuracy) − (patched accuracy)` ```bash python scripts/validate_json",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:mziqudhd92/kaggle-art-benchmark",
+          "url": "https://github.com/mziqudhd92/kaggle-art-benchmark"
         }
       ]
     },
@@ -1374,13 +1565,13 @@
         "evidenceUrl": "https://github.com/itani404/jev-explained",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T18:46:31Z",
       "adoption30d": null,
       "heat": null,
@@ -1433,96 +1624,6 @@
       ]
     },
     {
-      "id": "bm_indicbankbench_e8a1a1b1",
-      "familyId": "bmf_24afc822ef71",
-      "name": "IndicBankBench",
-      "paperTitle": "IndicBankBench: Evaluating Safety and Reliability of Language Model Assistants in Indian Retail Banking",
-      "aliases": [],
-      "oneLine": "Banking assistants must use account-specific information to answer requests and, in many cases, take actions through tools.",
-      "area": "Safety & Trustworthiness",
-      "applicationDomains": [
-        "Finance"
-      ],
-      "primaryDomain": "Finance",
-      "industrySectors": [
-        "Financial Services"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Safety"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.29167",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-24",
-      "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
-      "sourceUpdatedAt": "2026-09-24T07:40:09Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.85,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.29167",
-        "paper": "https://arxiv.org/abs/2609.29167",
-        "pdf": "https://arxiv.org/pdf/2609.29167",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Banking assistants must use account-specific information to answer requests and, in many cases, take actions through tools.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.29167",
-        "url": "https://arxiv.org/abs/2609.29167",
-        "title": "IndicBankBench: Evaluating Safety and Reliability of Language Model Assistants in Indian Retail Banking",
-        "authors": [
-          "Suvradip Paul",
-          "Chandra Bhushan",
-          "Harsh Sharma",
-          "Nitin Kukreja",
-          "Yatharth Dedhia",
-          "Keyur Doshi",
-          "Prashant Devadiga"
-        ],
-        "categories": [
-          "cs.AI"
-        ]
-      },
-      "evidence": {
-        "snippet": "We introduce IndicBankBench, a 799-case benchmark for Indian retail banking spanning five operational domains, a capability/refusal domain, and twenty primary axes.",
-        "reasonCodes": [
-          "coined title prefix ending in Bench or Benchmark",
-          "benchmark release stated in one sentence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Banking assistants must use account-specific information to answer requests and, in many cases, take actions through tools. Evaluating only the final response misses important errors. An assistant may ask for information it already has, rely on stale context, select the wrong account, or write an invalid value after stating the correct one. We introduce IndicBankBench, a 799-case benchmark for Indian retail banking spanning five operational domains, a capability/refusal domain, and twenty primary axes. Cases are evaluated at four stages: safety, action and tool use, response adequacy, and advisory quality. Tool use and most safety checks are deterministic. A narrow resolver handles only ambiguous confirmation-before-write cases, while a separate LLM judge evaluates semantic response adequacy. We run every case three times and report strict pass^3, which requires success on all trials. Across the eleven evaluated models, strict reliability ranges from 43.7% to 58.2%, whereas at-least-once success ranges from 60% to 74%. This gap shows that at-least-once success can overstate dependable banking behavior. The case-level diagnostics also distinguish systems that ask unnecessary questions from those that act but fail to reconcile customer context or fully resolve the request. We release the cases, mock environment, and evaluation harness.",
-        "comments": "16 pages, 4 figures"
-      },
-      "candidatePriority": "high"
-    },
-    {
       "id": "bm_hybrid-slm-llm-router_76937bc3",
       "familyId": "bmf_7cf040c36b80",
       "name": "Hybrid-SLM-LLM-Router",
@@ -1553,13 +1654,13 @@
         "evidenceUrl": "https://github.com/Gummadianand27/Hybrid-SLM-LLM-Router",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T08:20:43Z",
       "adoption30d": null,
       "heat": null,
@@ -1642,13 +1743,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.29184",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T07:55:44Z",
       "adoption30d": null,
       "heat": null,
@@ -1725,13 +1826,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/SADHON/frankenstein-phase4-accounting-audit-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T11:34:39.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1818,13 +1919,13 @@
         "evidenceUrl": "https://github.com/ishan-agarwal-05/fake-news-liar",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T18:52:54Z",
       "adoption30d": null,
       "heat": null,
@@ -1876,186 +1977,108 @@
       ]
     },
     {
-      "id": "bm_credit-risk-tabpfn-benchmark_744b243f",
-      "familyId": "bmf_3d123e22c6e5",
-      "name": "credit-risk-tabpfn-benchmark",
-      "paperTitle": "credit-risk-tabpfn-benchmark",
+      "id": "bm_explorationbench_28586dfb",
+      "familyId": "bmf_588c23c7954b",
+      "name": "ExplorationBench",
+      "paperTitle": "ExplorationBench: Measuring AI Systems' Exploration in Verifiable Alien Worlds",
       "aliases": [],
-      "oneLine": "credit-risk-tabpfn-benchmark TabPFN vs.",
+      "oneLine": "Scientific discovery begins where known problems end.",
       "area": "Language & Knowledge",
       "applicationDomains": [
-        "Chip Design & EDA",
-        "Finance"
+        "General AI"
       ],
-      "primaryDomain": "Chip Design & EDA",
-      "industrySectors": [
-        "Semiconductors",
-        "Financial Services"
-      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
       "domainCuration": {
         "state": "auto",
         "method": "rules-v1"
       },
-      "capabilities": [],
+      "capabilities": [
+        "Factuality"
+      ],
       "topics": [
         "cs.AI"
       ],
       "construction": "Unknown",
       "annotation": "Unknown",
-      "readiness": "Runnable",
+      "readiness": "Paper only",
       "publication": {
         "status": "unverified",
         "venue": null,
         "evidence": null,
-        "evidenceUrl": "https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark",
+        "evidenceUrl": "https://arxiv.org/abs/2609.30199",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
-      "sourceUpdatedAt": "2026-09-24T23:16:19Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T17:37:14Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
+      "recognitionConfidence": 0.65,
+      "relation": "introduces",
       "links": {
-        "project": "https://www.kaggle.com/datasets/laotse/credit-risk-dataset",
-        "code": "https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark"
+        "report": "https://arxiv.org/abs/2609.30199",
+        "paper": "https://arxiv.org/abs/2609.30199",
+        "pdf": "https://arxiv.org/pdf/2609.30199",
+        "project": null,
+        "code": null,
+        "data": null
       },
-      "motivation": "credit-risk-tabpfn-benchmark TabPFN vs.",
+      "motivation": "Scientific discovery begins where known problems end.",
       "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
       "metrics": [],
       "source": {
-        "type": "github",
-        "id": "github:mehkh-analysis/credit-risk-tabpfn-benchmark",
-        "url": "https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark",
-        "title": "credit-risk-tabpfn-benchmark",
+        "type": "arxiv",
+        "id": "2609.30199",
+        "url": "https://arxiv.org/abs/2609.30199",
+        "title": "ExplorationBench: Measuring AI Systems' Exploration in Verifiable Alien Worlds",
         "authors": [
-          "MehKh-Analysis"
+          "Ming Zhang",
+          "Zhenghao Xiang",
+          "Peizhong Gao",
+          "Yujiong Shen",
+          "Yuhui Wang",
+          "Zhonghan Yue",
+          "Shihan Dou",
+          "Zhangyue Yin",
+          "Junjie Ye",
+          "Shichun Liu",
+          "Weihuang Zheng",
+          "Jiahao Chen",
+          "Jiayi Chen",
+          "Hongzhang Liu",
+          "Jiaqi Shao",
+          "Tao Gui",
+          "Qi Zhang",
+          "Xuanjing Huang",
+          "Suncong Zheng",
+          "Maxm Pan"
         ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
-      "evidence": {
-        "snippet": "credit-risk-tabpfn-benchmark TabPFN vs.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
+        "categories": [
+          "cs.AI",
+          "cs.CL"
         ]
       },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "credit-risk-tabpfn-benchmark TabPFN vs. tuned XGBoost, Random Forest & Logistic Regression on imbalanced credit default data: ROC-AUC, calibration and sample-size scaling. benchmark credit-risk imbalanced-data ml tabpfn xgboost # Credit Risk Benchmark: TabPFN vs. Traditional ML A reproducible benchmark comparing **TabPFN** (a pretrained foundation model for tabular data) against **Logistic Regression, Random Forest, and XGBoost** on an imbalanced credit default dataset (21.9% default rate). ## Key Results **Full training set** (25,927 rows, fixed 20% stratified test set; F1/Precision/Recall at threshold 0.5): | Model | ROC-AUC | Gini | KS | Brier ↓ | F1 | Precision | Recall | |---|---|---|---|---|---|---|---| | **TabPFN (API)** | **0.972** | **0.945** | **0.826** | **0.040** | **0.876** | 0.974 | 0.796 | | XGBoost (tuned) | 0.953 | 0.905 | 0.772 | 0.066 | 0.815 | 0.810 | 0.820 | | XGBoost (weighted) | 0.950 | 0.900 | 0.760 | 0.070 | 0.812 | 0.821 | 0.803 | | Random Forest (balanced) | 0.936 | 0.873 | 0.748 | 0.056 | 0.830 | 0.974 | 0.723 | | Logistic Regression (balanced) | 0.871 | 0.743 | 0.604 | 0.139 | 0.638 | 0.539 | 0.782 | **By training size** (ROC-AUC, mean ± std over 3 seeds): | Training rows | XGBoost | TabPFN | TabPFN lead | TabPFN wins | |---|---|---|---|---| | 100 | 0.781 ± 0.016 | 0.838 ± 0.012 | **+0.056** | 3/3 | | 1,000 | 0.900 ± 0.002 | 0.923 ± 0.008 | +0.023 | 3/3 | | 10,000 | 0.940 ± 0.002 | 0.965 ± 0.001 | +0.025 | 3/3 | | 25,927 (full) | 0.950 ± 0.000 | 0.972 ± 0.000 | +0.023 | 3/3 | ![ROC-AUC by training size](results/sample_size_scaling_auc.png) **Takeaways** - TabPFN had the best ROC-AUC at every training size, in all 12 runs. - The lead is largest with very little data (+0.056 AUC at 100 rows). - Tuning XGBoost barely helps (0.950 → 0.953 AUC); TabPFN still leads by 0.020. - TabPFN's probabilities are well calibrated out of the box. The class-weighted models overpredict default (e.g. XGBoost predicts ~45% where ~18% default) and would need recalibration before their probabilities are used for pricing or provisioning. Their higher Brier scores partly reflect that weighting, not only weaker models. - Threshold tuning matters for XGBoost (F1 0.810 → 0.832) but barely for TabPFN (0.874 → 0.877): TabPFN's default 0.5 cutoff is already close to optimal. More plots in [`results/`](results/): ROC, Precision-Recall, threshold, and [calibration](results/calibration_curve.png) curves. ## Methodology - **Data:** [Kaggle Credit Risk Dataset](https://www.kaggle.com/datasets/laotse/credit-risk-dataset), 32,581 rows, 11 features. Cleaning ([notebook](notebooks/01_eda.ipynb)) removes 165 duplicates and 7 impossible values (age > 100, employment > 60 years). Missing values are kept and median-imputed inside the pipelines. - **Split:** one stratified 80/20 train/test split (seed 42), shared by all models and experiments. - **Imbalance:** `class_weight=\"balanced\"` for LR/RF, `scale_pos_weight` for XGBoost. TabPFN gets no special handling. - **XGBoost tuning:** 50-candidate randomized search with 5-fold CV on the training set (ROC-AUC); best parameters in [`results/xgboost_best_params.json`](results/xgboost_best_params.json). - **Threshold tuning:** thresholds maximize F1 on a validation split carved from the training set, then are applied once to the test set. - **Sample-size experiment:** stratified subsamples of the training set, 3 seeds each, all scored on the same test set. ## Limitations - **Only XGBoost is hyperparameter-tuned,** and with a modest search (50 candidates). Random Forest and Logistic Regression use sensible defaults. Other strong baselines (e.g. CatBoost, LightGBM) are not included. - **Single dataset and a single test split.** Results may not transfer to other credit portfolios. - **TabPFN runs through the Prior Labs cloud API.** Data leaves your machine, which matters for real customer data. It is also harder to interpret than tree models, which matters for regulated credit decisions. - In the threshold experiment, models train on 80% of the training set, so their AUCs are slightly lower than in the main table. ## How to Reproduce ```bash pip install -r requirements.txt export TABPFN_TOKEN=\"your_api_key\" # Prior Labs API key (or leave unset for browser login) # 1. Download credit_risk_dataset.csv from Kaggle into data/ # 2. Run notebooks/01_eda.ipynb to create data/credit_risk_cleaned.parquet python src/train_models.py # main comparison + ROC/PR curves python src/threshold_tuning.py # tuned decision thresholds python src/sample_size_benchmark.py # ROC-AUC vs. training size python src/calibration_metrics.py # Gini/KS/Brier + calibration curve (offline, no API) python src/tune_xgboost.py # tuned XGBoost (no API; needs train_models.py output) ``` ## Project Structure ``` ├── data/ # dataset (not committed) ├── notebooks/01_eda.ipynb # EDA and cleaning ├── src/ │ ├── utils.py # shared data loading, pipelines, metrics │ ├── train_models.py │ ├── threshold_tuning.py │ ├── sample_size_benchmark.py │ ├── calibration_metrics.py │ └── tune_xgboost.py └── results/ # metrics CSVs and plots ``` ## License MIT, see [LICENSE](LICENSE). The dataset is not included; see its Kaggle page for terms.",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:mehkh-analysis/credit-risk-tabpfn-benchmark",
-          "url": "https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark"
-        }
-      ]
-    },
-    {
-      "id": "bm_cpu-only-llm-benchmark_d42e73c3",
-      "familyId": "bmf_cea97493c46b",
-      "name": "cpu-only-llm-benchmark",
-      "paperTitle": "cpu-only-llm-benchmark",
-      "aliases": [],
-      "oneLine": "cpu-only-llm-benchmark A benchmark of open-source language models (Hugging Face and Ollama) on a CPU-only laptop, built around one business decision.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Finance"
-      ],
-      "primaryDomain": "Finance",
-      "industrySectors": [
-        "Financial Services"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/Shimu-I/cpu-only-llm-benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-24",
-      "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
-      "sourceUpdatedAt": "2026-09-24T21:58:20Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "code": "https://github.com/Shimu-I/cpu-only-llm-benchmark"
-      },
-      "motivation": "cpu-only-llm-benchmark A benchmark of open-source language models (Hugging Face and Ollama) on a CPU-only laptop, built around one business decision.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:shimu-i/cpu-only-llm-benchmark",
-        "url": "https://github.com/Shimu-I/cpu-only-llm-benchmark",
-        "title": "cpu-only-llm-benchmark",
-        "authors": [
-          "Shimu-I"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
       "evidence": {
-        "snippet": "cpu-only-llm-benchmark A benchmark of open-source language models (Hugging Face and Ollama) on a CPU-only laptop, built around one business decision.",
+        "snippet": "To this end, we introduce ExplorationBench, which turns the wicked problem of evaluating scientific exploration into a concrete and tractable framework built on verifiable Alien Worlds: their rules are executable, so every answer can be checked exactly, and they conflict with familiar knowledge, so recall alone cannot solve the tasks.",
         "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "no explicit benchmark release evidence"
+          "coined title prefix ending in Bench or Benchmark",
+          "evaluation protocol evidence"
         ]
       },
-      "dataStatus": "primary-source-candidate",
+      "dataStatus": "primary-source-indexed",
       "demo": false,
       "reviewContext": {
-        "abstract": "cpu-only-llm-benchmark A benchmark of open-source language models (Hugging Face and Ollama) on a CPU-only laptop, built around one business decision. huggingface olama python3 pytorch # cpu-only-llm-benchmark ![project-demo](project-demo.png) A benchmark of open-source language models (Hugging Face and Ollama) on a CPU-only laptop, built around one business decision. ## Problem A small company receives thousands of customer support messages and wants to route each one to the right team automatically. It has no GPU servers. Which open-source model should it deploy? ## Aim Compare small open models on the same task, using the same data, and measure: - Accuracy (F1 score) - Speed (latency per message) - Memory use (RAM) - Estimated cost per 100,000 messages ## Approach 1. Use the public `PolyAI/banking77` dataset (customer banking queries labeled by intent). 2. Run Hugging Face models (small encoders and zero-shot models) and Ollama LLMs (`qwen2.5:3b`, `qwen2.5:7b-instruct`) on a fixed test sample. 3. Analyze where each model fails, not just how often. 4. Write a decision memo recommending one model. ## Gain - A clear, evidence-based answer to \"which model should we deploy on CPU?\" - Hands-on practice with the Hugging Face Hub, `transformers`, `datasets`, Ollama, and model evaluation. - A reproducible project with one git commit per task. ## Tech stack Python 3.12, PyTorch (CPU), Hugging Face `transformers` and `datasets`, Ollama, scikit-learn, pandas. ## Project structure - `data/` datasets (not committed) - `notebooks/` exploration - `src/` benchmark scripts - `results/` metrics and charts - `reports/` final decision memo - `app/` demo app ## Status Work in progress. See `ACTIVITY_LOG.md` for every step taken and why.",
+        "abstract": "Scientific discovery begins where known problems end. There, AI systems must engage in exploration: framing hypotheses, designing experiments, and iterating on the results. However, evaluating this ability is difficult: (1) how to verify whether a genuinely new hypothesis holds, and (2) how to determine whether a system has discovered it through exploration or merely recalled related knowledge from pre-training data. To this end, we introduce ExplorationBench, which turns the wicked problem of evaluating scientific exploration into a concrete and tractable framework built on verifiable Alien Worlds: their rules are executable, so every answer can be checked exactly, and they conflict with familiar knowledge, so recall alone cannot solve the tasks. The benchmark contains two sandboxes, AlienCode (31 discovery targets, 70 tasks) and AlienLogic (24 discovery targets, 70 tasks). Each sandbox provides a flawed manual, task-specific environmental feedback, and a dedicated tool-call schema. Systems use these resources to explore the sandbox, then solve held-out tasks. We evaluate 10 AI systems and find that the strongest systems can acquire and apply unfamiliar rules, while performance varies substantially across trajectories and continued exploration can stall or reverse earlier gains. ExplorationBench represents a step towards AI systems that can acquire and apply genuinely new knowledge through exploration in unknown environments.",
         "comments": ""
       },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:shimu-i/cpu-only-llm-benchmark",
-          "url": "https://github.com/Shimu-I/cpu-only-llm-benchmark"
-        }
-      ]
+      "candidatePriority": "normal"
     },
     {
       "id": "bm_complexsync-high-fidelity-and-real-time-li_d1abf0f2",
@@ -2088,13 +2111,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.29225",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T08:33:21Z",
       "adoption30d": null,
       "heat": null,
@@ -2173,13 +2196,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.29266",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-24T09:05:28Z",
       "adoption30d": null,
       "heat": null,
@@ -2257,13 +2280,13 @@
         "evidenceUrl": "https://github.com/riverbornai/bangla-speech-to-text-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:31.499288Z"
+        "verifiedAt": "2026-09-25T06:20:39.574870Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-24",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:31.499288Z",
+      "indexedAt": "2026-09-25T06:20:39.574870Z",
       "sourceUpdatedAt": "2026-09-24T18:59:24Z",
       "adoption30d": null,
       "heat": null,
@@ -2316,6 +2339,91 @@
       ]
     },
     {
+      "id": "bm_artificial-societies-benchmark_fd96af2e",
+      "familyId": "bmf_675056bbf68b",
+      "name": "Artificial Societies Benchmark",
+      "paperTitle": "Artificial Societies Benchmark: A Validation Framework for Synthetic Research",
+      "aliases": [],
+      "oneLine": "A synthetic survey can reproduce the average answer while misrepresenting how people differ, how their answers relate to one another, or how they respond to changes in conditions.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.30030",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T16:03:28Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.85,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.30030",
+        "paper": "https://arxiv.org/abs/2609.30030",
+        "pdf": "https://arxiv.org/pdf/2609.30030",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "A synthetic survey can reproduce the average answer while misrepresenting how people differ, how their answers relate to one another, or how they respond to changes in conditions.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.30030",
+        "url": "https://arxiv.org/abs/2609.30030",
+        "title": "Artificial Societies Benchmark: A Validation Framework for Synthetic Research",
+        "authors": [
+          "Edoardo Chidichimo",
+          "Min Jun Jung",
+          "Felix P. S. Wallis",
+          "James K. He"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce the Artificial Societies Benchmark to help researchers assess whether synthetic populations support their intended analyses.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "A synthetic survey can reproduce the average answer while misrepresenting how people differ, how their answers relate to one another, or how they respond to changes in conditions. We introduce the Artificial Societies Benchmark to help researchers assess whether synthetic populations support their intended analyses. The framework combines eleven tests across internal, construct, and external validity, drawing on twenty human sources and comparing nine language models. It connects each research use to the evidence it requires and tests how results change with the information we supply about respondents. Importantly, strong performance in one domain does not establish fidelity in the others. Models often answer too consistently, compress response scales, and alter relationships between traits whilst richer profiles improve prediction for some models and worsen it for others. The resulting scorecard helps researchers identify which aspects of a synthetic population can support their analysis and where researchers need further human evidence.",
+        "comments": "36 pages, 9 figures, 9 tables"
+      },
+      "candidatePriority": "high"
+    },
+    {
       "id": "bm_whatworkedbench_10eee964",
       "familyId": "bmf_c7391127ca6a",
       "name": "WhatWorkedBench",
@@ -2346,13 +2454,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27490",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T07:49:24Z",
       "adoption30d": null,
       "heat": null,
@@ -2432,13 +2540,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28575",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T12:25:28Z",
       "adoption30d": null,
       "heat": null,
@@ -2789,7 +2897,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27346",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -2800,7 +2908,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2609.27346",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "Park, Byeonggyu, Mingu Jeon, and Seong-Woo Kim. \"Reflection-Aware Reasoning for Non-line-of-Sight Pedestrian Localization.\" European Conference on Computer Vision. Cham: Springer Nature Switzerland, 2026",
               "level": "strong-author-metadata"
             }
@@ -2809,7 +2917,7 @@
       ],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T04:33:01Z",
       "adoption30d": null,
       "heat": null,
@@ -2886,13 +2994,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28850",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T23:41:50Z",
       "adoption30d": null,
       "heat": null,
@@ -3063,7 +3171,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27205",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [
         {
@@ -3074,7 +3182,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.27205",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "Accepted in EMNLP 2026 Findings",
               "level": "author-claim"
             }
@@ -3084,7 +3192,7 @@
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T01:12:04Z",
       "adoption30d": null,
       "heat": null,
@@ -3168,13 +3276,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28197",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T14:34:45Z",
       "adoption30d": null,
       "heat": null,
@@ -3257,7 +3365,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27372",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [
         {
@@ -3268,7 +3376,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.27372",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "Accepted to IEEE SLT 2026",
               "level": "author-claim"
             }
@@ -3278,7 +3386,7 @@
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T05:21:10Z",
       "adoption30d": null,
       "heat": null,
@@ -3415,103 +3523,6 @@
           "url": "https://github.com/KingNafis/ml-benchmark-toolkit"
         }
       ]
-    },
-    {
-      "id": "bm_looks-the-same-answers-differently-flip-di_939d35f1",
-      "familyId": "bmf_c7ea6d2d367f",
-      "name": "Looks the Same, Answers Differently: Flip-Direction Steering for Robust Vision-Language Reasoning",
-      "paperTitle": "Looks the Same, Answers Differently: Flip-Direction Steering for Robust Vision-Language Reasoning",
-      "aliases": [],
-      "oneLine": "Vision-language models (VLMs) achieve strong visual reasoning performance, yet subtle changes from routine image capture and processing can alter their reasoning trajectories even when images appear nearly identical.",
-      "area": "Safety & Trustworthiness",
-      "applicationDomains": [
-        "Biology & Drug Discovery",
-        "Robotics & Embodied AI"
-      ],
-      "primaryDomain": "Biology & Drug Discovery",
-      "industrySectors": [
-        "Pharma & Biotech",
-        "Robotics"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [
-        "Reasoning",
-        "Robustness"
-      ],
-      "topics": [
-        "Multimodal",
-        "Reasoning"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Paper only",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2609.28851",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-23",
-      "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
-      "sourceUpdatedAt": "2026-09-23T23:43:26Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.6,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2609.28851",
-        "paper": "https://arxiv.org/abs/2609.28851",
-        "pdf": "https://arxiv.org/pdf/2609.28851",
-        "project": null,
-        "code": null,
-        "data": null
-      },
-      "motivation": "Vision-language models (VLMs) achieve strong visual reasoning performance, yet subtle changes from routine image capture and processing can alter their reasoning trajectories even when images appear nearly identical.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2609.28851",
-        "url": "https://arxiv.org/abs/2609.28851",
-        "title": "Looks the Same, Answers Differently: Flip-Direction Steering for Robust Vision-Language Reasoning",
-        "authors": [
-          "Yeonsung Jung",
-          "Joonhyun Jeong",
-          "Hoang Pham",
-          "Joowon Kim",
-          "Yoonsik Park",
-          "Viet Dac Lai",
-          "Eunho Yang"
-        ],
-        "categories": [
-          "cs.CV"
-        ]
-      },
-      "evidence": {
-        "snippet": "To evaluate robustness beyond accuracy or consistency on fixed test sets, we introduce VisFlip, a benchmark framework that constructs evaluation groups for a target model and visual variation setting to separately assess recovery of original predictions and preservation of stable ones.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Vision-language models (VLMs) achieve strong visual reasoning performance, yet subtle changes from routine image capture and processing can alter their reasoning trajectories even when images appear nearly identical. In long-horizon generation, the resulting activation shifts may accumulate across decoding steps, progressively altering reasoning tokens and ultimately changing the final answer, a phenomenon referred to as answer flips. To address this instability, we propose FlipDir (Flip-Direction Steering), a training-free inference-time method that estimates a low-rank flip-inducing activation subspace from contrastive pairs of original and answer-flipping inputs and selectively steers hidden states during decoding. A margin-based gate limits subspace attenuation to uncertain decoding steps, recovering original predictions while preserving stable ones. To evaluate robustness beyond accuracy or consistency on fixed test sets, we introduce VisFlip, a benchmark framework that constructs evaluation groups for a target model and visual variation setting to separately assess recovery of original predictions and preservation of stable ones. VisFlip spans nine dataset-variation combinations across scientific reasoning, robot-scene understanding, and medical VQA, covering subtle visual variations common in each domain. Experiments across 18 settings demonstrate that FlipDir consistently outperforms existing methods on the combined recovery and preservation metric. We will make our code publicly available.",
-        "comments": "27 pages"
-      },
-      "candidatePriority": "normal"
     },
     {
       "id": "bm_local-eval-foundry_eb25bae3",
@@ -3724,13 +3735,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27303",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T03:36:44Z",
       "adoption30d": null,
       "heat": null,
@@ -3995,7 +4006,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28026",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [
         {
@@ -4006,7 +4017,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.28026",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "Accepted at AIME-Con 2026. Camera-ready version",
               "level": "author-claim"
             }
@@ -4016,7 +4027,7 @@
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T12:51:08Z",
       "adoption30d": null,
       "heat": null,
@@ -4098,13 +4109,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28585",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T13:45:26Z",
       "adoption30d": null,
       "heat": null,
@@ -4165,94 +4176,6 @@
       "candidatePriority": "normal"
     },
     {
-      "id": "bm_decision-model-bench_23575868",
-      "familyId": "bmf_28fb9b6e64a0",
-      "name": "decision-model-bench",
-      "paperTitle": "decision-model-bench",
-      "aliases": [],
-      "oneLine": "decision-model-bench Benchmarking typed decision models (Jev, Open-Jev, Needle 3) as a routing layer in front of LLMs benchmark calibration classification intent-classification llm structured-output tool-calling # decision-model-bench Benc…",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/supreethbare/decision-model-bench",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-24T06:25:40.629929Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-09-23",
-      "firstSeenAt": "2026-09-24",
-      "indexedAt": "2026-09-24T06:25:40.629929Z",
-      "sourceUpdatedAt": "2026-09-24T04:47:46Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "code": "https://github.com/supreethbare/decision-model-bench"
-      },
-      "motivation": "decision-model-bench Benchmarking typed decision models (Jev, Open-Jev, Needle 3) as a routing layer in front of LLMs benchmark calibration classification intent-classification llm structured-output tool-calling # decision-model-bench Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:supreethbare/decision-model-bench",
-        "url": "https://github.com/supreethbare/decision-model-bench",
-        "title": "decision-model-bench",
-        "authors": [
-          "supreethbare"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
-      "evidence": {
-        "snippet": "decision-model-bench Benchmarking typed decision models (Jev, Open-Jev, Needle 3) as a routing layer in front of LLMs benchmark calibration classification intent-classification llm structured-output tool-calling # decision-model-bench Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "decision-model-bench Benchmarking typed decision models (Jev, Open-Jev, Needle 3) as a routing layer in front of LLMs benchmark calibration classification intent-classification llm structured-output tool-calling # decision-model-bench Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence. A typed decision model doesn't generate text: you give it state and a typed question (pick one of N, a yes/no probability, a rubric score) and it returns that type with a calibrated confidence. This repo asks a practical question about them - *how much traffic can you route automatically, and can you trust the confidence score you'd threshold on?* - and answers it with the same ~200 cases per task sent to every model. The models are compared as a **decision layer in front of an LLM**, not as a replacement for one: the confidence score decides what is handled automatically, what needs an LLM, and what needs a human. | Model | What it is | Ran on | |---|---|---| | **Jev** 1.13.0 | TypeSafe's proprietary \"System One\" decision model | cloud API | | **Open-Jev-2B** | open reproduction of the idea (Qwen3.5-2B + LoRA + decision head) | MacBook Air M4 24 GB, Apple GPU | | **Needle 3** 3.0.4 | 121M-param on-device tool-calling / extraction model | same MacBook, CPU | ## Results 798 cases per model, one run, September 2026. Zero request errors. **Accuracy** (declined answers count as wrong) | Task | Jev | Open-Jev-2B | Needle 3 | |---|---|---|---| | Ticket triage (11 categories) | **93.4%** | 88.4% | 28.3% | | Intent + out-of-scope (15 + 1) | **91.0%** | 74.5% | 20.0% | | Toxicity guardrail (yes/no) | **78.5%** | 58.5% | 32.0% | | Tool selection (2-4 functions) | **99.5%** | **99.5%** | 95.0% | **Share handled with no human and no LLM**, i.e. answers above the confidence threshold that keeps accuracy at 95% | Task | Jev | Open-Jev-2B | Needle 3 | |---|---|---|---| | Ticket triage | **98.0%** | 88.4% | 1.0% | | Intent + out-of-scope | **62.5%** | 43.5% | 0.0% | | Toxicity guardrail | **20.5%** | 1.5% | 0.0% | | Tool selection | **100%** | **100%** | **100%** | **Calibration error** (ECE, 10 bins - how far stated confidence sits from actual accuracy; lower is better): Jev 0.006-0.073 · Open-Jev 0.076-0.263 · Needle 0.078-0.543. **Median latency**: Jev ~150 ms (includes the network round trip) · Needle 30-164 ms (CPU) · Open-Jev 465-2642 ms (Apple GPU, without the CUDA kernels it uses on NVIDIA hardware; its authors measure ~85 ms on an H100). Full table with macro-F1, p95 latency and per-task notes: [`bench/results/summary.md`](bench/results/summary.md) and [`summary.csv`](bench/results/summary.csv). Open [`bench/results/comparison.html`](bench/results/comparison.html) locally for the interactive chart. ### What we read from this - **Jev leads on every task**, and by the widest margin where the decision needs judgement. It is also the only model whose confidence we would threshold on without per-task tuning. - **Open-Jev-2B is a credible self-hosted option for routing-shaped work** (triage, tool selection) and much weaker on judgement tasks. Its confidence needs calibrating per task. - **Needle 3 is not a classifier and we don't claim it should be.** On the task it is built for - picking a function - it scored 95%, and it filled the arguments correctly 61% of the time. On classification it declined 28-55% of cases while reporting 0.9-1.0 confidence. - **Toxicity is hard for all three.** Even the best model automates only 20.5% of cases at 95% precision. That task needs a second opinion, not a threshold. ### Caveats - read before quoting these numbers - **One run, ~200 cases per task.** Differences of 2-3 points are noise. The large gaps aren't. - **Public data, not production data.** Real enterprise tickets are messier and domain-specific. These numbers show relative strength, not what you'd get in production. - **Latency is not like-for-like.** Cloud API vs laptop GPU vs laptop CPU, measured from one client on one machine. - **No prompt tuning.** Every model got the same short instructions and category descriptions. Better descriptions would likely lift all three. - **Needle was used outside its design.** Each classification was posed to it as a tool to call, the closest fit its interface allows. ## Reproducing ```sh python -m venv .venv && source .venv/bin/activate pip install -r requirements.txt ./bench/fetch_raw.sh # download the public datasets into bench/raw/ python bench/build_datasets.py # rebuild bench/data/ (seed 42; should match what's committed) ``` Then run the models. Each writes one JSON line per case to `bench/results/ / .jsonl`; re-running resumes and retries failed cases. ```sh # Jev - needs a TypeSafe API key export TYPESAFE_API_KEY=... # prompts if unset python bench/run.py --model jev # Needle 3 - local, downloads ~35 MB of weights on first use python bench/run.py --model needle # Open-Jev-2B - clone it, then start its server (see below) and: python bench/run.py --model openjev ``` Score and chart: ```sh python bench/report.py # -> results/summary.csv + summary.md python bench/make_chart.py # -> results/comparison.html python bench/make_blog_charts.py # -> results/results.png ``` `bench/run_local.sh` runs Needle and Open-Jev back to back (never in parallel, so latencies aren't skewed) and starts and stops the Open-Jev server itself. ### Open-Jev setup ```sh git clone https://github.com/Zefan-Cai/Open-Jev.git && cd Open-Jev python -m venv .venv && source .venv/bin/activate && pip install -e '.[train]' hf download ZefanCai/Open-Jev-2B \\ --revision 0c7aa498b1627be8da4acf34c863ff0ee0a92785 --local-dir models/Open-Jev-2B python -m jev.server --checkpoint models/Open-Jev-2B/package/checkpoint \\ --device mps --max-length 4096 --batch-size 16 --no-prefix-cache # --device cuda:0 on NVIDIA ``` It downloads the pinned Qwen3.5-2B base weights (~4.6 GB) on first run. Set `OPENJEV_DIR` if your checkout isn't at `../Open-Jev`, and `OPEN",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:supreethbare/decision-model-bench",
-          "url": "https://github.com/supreethbare/decision-model-bench"
-        }
-      ]
-    },
-    {
       "id": "bm_cross-lingual-legal-qa-for-vietnamese-labo_de5f8922",
       "familyId": "bmf_cadb7fbfb37e",
       "name": "Cross-Lingual Legal QA for Vietnamese Labour Law: Retrieval, Translation, and Verifier-Guided Correction",
@@ -4285,7 +4208,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27376",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -4296,7 +4219,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2609.27376",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "NLLP 2026 at EMNLP 2026",
               "level": "strong-author-metadata"
             }
@@ -4305,7 +4228,7 @@
       ],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T05:26:29Z",
       "adoption30d": null,
       "heat": null,
@@ -4385,13 +4308,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28826",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T22:19:45Z",
       "adoption30d": null,
       "heat": null,
@@ -4494,13 +4417,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28813",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T21:47:34Z",
       "adoption30d": null,
       "heat": null,
@@ -4583,13 +4506,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28449",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T17:46:50Z",
       "adoption30d": null,
       "heat": null,
@@ -4673,13 +4596,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28090",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T13:25:25Z",
       "adoption30d": null,
       "heat": null,
@@ -4850,7 +4773,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.27359",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [
         {
@@ -4861,7 +4784,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.27359",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "English version followed by Vietnamese version. Accepted for publication in the Proceedings of the 29th National Conference on Selected Issues of Information and Communication Technology (VNICT 2026), Hanoi, Vietnam, November 7-8, 2026",
               "level": "author-claim"
             }
@@ -4871,7 +4794,7 @@
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T04:55:53Z",
       "adoption30d": null,
       "heat": null,
@@ -5134,13 +5057,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.28609",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-23",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-23T16:58:08Z",
       "adoption30d": null,
       "heat": null,
@@ -5222,13 +5145,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.26955",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T18:46:00Z",
       "adoption30d": null,
       "heat": null,
@@ -5395,13 +5318,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.26718",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T17:06:51Z",
       "adoption30d": null,
       "heat": null,
@@ -5573,13 +5496,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.26618",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T15:51:07Z",
       "adoption30d": null,
       "heat": null,
@@ -5754,13 +5677,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.25786",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T07:20:16Z",
       "adoption30d": null,
       "heat": null,
@@ -6024,13 +5947,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.25688",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T04:46:37Z",
       "adoption30d": null,
       "heat": null,
@@ -6477,7 +6400,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.25788",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [
         {
@@ -6488,7 +6411,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2609.25788",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "Accepted for publication at the 30th European Conference on Advances in Databases and Information Systems (ADBIS 2026)",
               "level": "author-claim"
             }
@@ -6498,7 +6421,7 @@
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T07:21:26Z",
       "adoption30d": null,
       "heat": null,
@@ -6669,13 +6592,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.26860",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T15:12:33Z",
       "adoption30d": null,
       "heat": null,
@@ -6755,13 +6678,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.26779",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T17:55:59Z",
       "adoption30d": null,
       "heat": null,
@@ -6846,7 +6769,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.25607",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -6857,7 +6780,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2609.25607",
-              "observedAt": "2026-09-25T01:07:24.540278Z",
+              "observedAt": "2026-09-25T06:20:32.234550Z",
               "rawValue": "6th International Workshop on Scientific Knowledge: Representation, Discovery, and Assessment (Sci-K), Oct 2026, Bari, Italy",
               "level": "strong-author-metadata"
             }
@@ -6866,7 +6789,7 @@
       ],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T03:01:47Z",
       "adoption30d": null,
       "heat": null,
@@ -7124,13 +7047,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2609.25639",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-09-25T01:07:24.540278Z"
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-09-22",
       "firstSeenAt": "2026-09-25",
-      "indexedAt": "2026-09-25T01:07:24.540278Z",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
       "sourceUpdatedAt": "2026-09-22T03:49:08Z",
       "adoption30d": null,
       "heat": null,
@@ -75763,6 +75686,11 @@
           "type": "github",
           "id": "github:nandhinikm/offline-ai-assistant-model-benchmark",
           "url": "https://github.com/nandhinikm/Offline-AI-Assistant-Model-Benchmark"
+        },
+        {
+          "type": "github",
+          "id": "github:shimu-i/cpu-only-llm-benchmark",
+          "url": "https://github.com/Shimu-I/cpu-only-llm-benchmark"
         }
       ]
     },
@@ -195214,9 +195142,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-09-25T01:07:46.372700Z",
+    "evaluatedAt": "2026-09-25T06:20:53.101581Z",
     "publishThreshold": 0.85,
-    "promoted": 6,
-    "remainingForAudit": 2131
+    "promoted": 1,
+    "remainingForAudit": 2130
   }
 }
