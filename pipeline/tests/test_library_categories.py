@@ -31,6 +31,11 @@ class LibraryCategoryTests(unittest.TestCase):
         manifest=category_manifest(records);by={d['id']:d for d in manifest['directions']}
         self.assertEqual(by['ai-for-science']['count'],3)
         self.assertEqual(by['scientific-agents']['count'],2)
+        self.assertEqual(by['ai-for-science']['name'],'AI for Science')
+        self.assertEqual(by['scientific-agents']['name'],'Scientific Agents')
+        ids=[d['id'] for d in manifest['directions']]
+        self.assertEqual(ids.index('scientific-agents'),ids.index('ai-for-science')+1)
+        self.assertEqual(by['ai-for-science']['section'],'Agent research')
         self.assertNotEqual(by['ai-for-science']['name'],by['scientific-agents']['name'])
         self.assertNotIn('ai-for-science',manifest['aliases'])
 
@@ -84,7 +89,7 @@ assert.equal(new Set([...buttons,...fields].map(b=>b[2].toLowerCase())).size,but
 state.libraryDomain='';
 state.libraryDirection='';nodes['library-search'].value='AI for Science';c.showTypes();
 assert.match(nodes['type-options'].children[0].textContent,/^AI for Science · Type · /);
-nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'scientific-agents');
+nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'ai-for-science');
 console.log('Verified all '+buttons.length+' categories: unique sidebar names, search, counts, click/reload membership and legacy links.');
 '''
         subprocess.run(['node','-e',script],cwd=ROOT,check=True)

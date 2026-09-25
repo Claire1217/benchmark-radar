@@ -16,7 +16,7 @@ PARENTS = {
     'image-video-generation': 'content-generation',
 }
 BROAD_NAMES = {
-    'ai-for-science': ('Scientific Knowledge & Tasks', 'Scientific knowledge and reasoning, science questions, scientific figures, prediction and research tasks. Includes the narrower AI for Science agent-research category.'),
+    'ai-for-science': ('AI for Science', 'Scientific knowledge and reasoning, science questions, scientific figures, prediction and research tasks. Includes the narrower Scientific Agents category.'),
     'data-analysis': ('Data Analysis & SQL', 'Data analysis, database querying and tabular tasks, including Data Analysis Agents.'),
     'software-engineering': ('Programming & Software Engineering', 'Code understanding, generation, testing and repository-level software work, including Coding Agents.'),
     'systems-optimization': ('Systems & Performance', 'Software and system performance, including the narrower Efficient Inference research topic.'),
@@ -39,6 +39,7 @@ def definitions():
             definition['name'], definition['description'] = BROAD_NAMES[identity]
         if identity == 'ai-for-science':
             definition['searchAliases'] = ['science benchmarks', 'scientific knowledge']
+            definition['section'] = 'Agent research'
         if identity == 'cybersecurity':
             definition['name'] = 'Cybersecurity Tasks'
             definition['searchAliases'] = ['Cybersecurity']
@@ -46,7 +47,15 @@ def definitions():
             definition['section'] = 'Specific tasks'
             definition['description'] = 'Locate a requested interface element from a screenshot. This is a specific task, distinct from completing a computer-use workflow.'
         capabilities.append(definition)
-    result = topics + capabilities
+    # Keep the broad AI for Science direction beside its narrower Scientific
+    # Agents category, without pinning either one to the top of the Library.
+    science = next(d for d in capabilities if d['id'] == 'ai-for-science')
+    result = []
+    for topic in topics:
+        if topic['id'] == 'scientific-agents':
+            result.append(science)
+        result.append(topic)
+    result.extend(d for d in capabilities if d['id'] != 'ai-for-science')
     for definition in result:
         if definition['id'] in PARENTS:
             definition['parentId'] = PARENTS[definition['id']]
