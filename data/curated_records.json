@@ -100,18 +100,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "`van bench latency` drives a simulated caller through the real runtime and measures voice-to-voice latency **on the call recording** (end of user speech → first agent audio), with a reproducibility manifest for every run.",
           "scoring": "A fully local pipeline (Silero + Smart Turn + faster-whisper `base` + Ollama LFM2.5-1.2B + Kokoro) on a Ryzen 5 5600 CPU: **1.13 s p50 / 1.63 s p90**, **0.88 s** with streaming Pocket TTS on CPU, **0.72 s** fully local on an RTX 5070 Ti (Qwen3-TTS), and **0.28 s** with Moshi full-duplex; the runtime itself adds ≈ 2 ms (checked on every PR).",
           "reuse": "Details and methodology: [docs/benchmarks/results.md](docs/benchmarks/results.md), [benchmarks/README.md](benchmarks/README.md)."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T06:20:56.978015Z",
+        "reviewedAt": "2026-09-25T09:44:48.784252Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository defines a concrete latency benchmark with reproducible methodology, measured results, and public documentation for other teams to run.",
+        "decisionReason": "The primary artifact is a runtime/toolkit with an auxiliary benchmark; it lacks a formal benchmark identity or standalone comparison protocol.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# voice-agent-next **Real-time speech-to-speech voice agents in Python — native S2S models and streaming cascades, local and cloud, on Linux, macOS and Windows, with a built-in benchmark suite.**"
       }
@@ -363,18 +363,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "VeriSpeak contains 3,879 spoken claims spanning temporal, geographical, and relational facts, with balanced true and false labels.",
           "scoring": "Our experiments reveal a consistent text-speech modality gap: LALMs that verify written claims reliably often fail on the same claims when spoken.",
           "reuse": "The dataset is publicly available via Hugging Face at https://huggingface.co/datasets/abhiram4572/VeriSpeak."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T06:20:56.978015Z",
+        "reviewedAt": "2026-09-25T09:44:48.784252Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces a formally named dataset with 3,879 labeled spoken claims, a clear evaluation task, reported model results, and a public Hugging Face download path.",
+        "decisionReason": "It is explicitly a probe benchmark intended for a single study and lacks a standalone public comparison path.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce VeriSpeak, a probe benchmark for studying speech-based fact verification in Large Audio Language Models (LALMs)."
       }
@@ -385,7 +385,7 @@
       "name": "Synthetic Hospital",
       "paperTitle": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark",
       "aliases": [],
-      "oneLine": "Synthetic Hospital is an open synthetic longitudinal EHR benchmark with 1,268 patients and 5,602 encounters, evaluating models on reconstructing problem lists and summarizing charts with ontology-grounded ground truth.",
+      "oneLine": "Evaluates longitudinal electronic health record modeling on open synthetic data with verifiable ground truth.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -460,29 +460,34 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Synthetic Hospital is an open synthetic longitudinal EHR benchmark with 1,268 patients and 5,602 encounters, evaluating models on reconstructing problem lists and summarizing charts with ontology-grounded ground truth.",
-      "whyItMatters": "It addresses the scarcity of realistic, longitudinal clinical benchmarks by providing verifiable ground truth without privacy concerns, enabling safe development and comparison of clinical AI models.",
-      "evaluationMode": "public_reusable",
+      "description": "Evaluates longitudinal electronic health record modeling on open synthetic data with verifiable ground truth.",
+      "whyItMatters": "Provides an open, verifiable benchmark for longitudinal EHR tasks, addressing sharing and ground-truth limitations.",
+      "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Medium",
+        "score": 0,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Clinical NLP benchmarks attract moderate interest from the medical AI community, and the open verifiable EHR dataset may drive initial attention."
+        "reason": "Forecast omitted because the decision reason does not support measurable predictors of near-term attention."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Reconstructing a patient's longitudinal problem list and summarizing a chart to identify clinically relevant findings from synthetic longitudinal EHR records.",
-          "scoring": "Severity-weighted F1 for problem list reconstruction and recall of clinically relevant findings for chart summarization.",
-          "reuse": "The benchmark is served through a simulated hospital record system with standard interoperability APIs and function-calling interface, and all data are openly released, allowing other teams to run the same evaluation."
+          "task": "We introduce Synthetic Hospital, an open, fully synthetic, fact-grounded longitudinal EHR benchmark",
+          "scoring": "resolves the open sharing and verifiable ground truth barriers",
+          "reuse": "open, fully synthetic, fact-grounded longitudinal EHR benchmark"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T06:20:56.978015Z",
+        "reviewedAt": "2026-09-25T09:44:48.784252Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark is formally named Synthetic Hospital and includes a repeatable evaluation protocol with explicit scoring metrics and a public path for reuse via its simulated system and open data.",
+        "decisionReason": "The paper explicitly introduces an open benchmark with stable scoring and public reuse path.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-25T06:20:56.978015Z",
+        "inputHash": "6502f8c7aa3c6083bca164f3518a13f7e5478ecf1c6b040a1c5015af56275f78"
       }
     },
     {
@@ -1123,6 +1128,119 @@
       }
     },
     {
+      "id": "bm_privdrift-auditing-user-secret-leakage-und_cf291241",
+      "familyId": "bmf_9dd55c5c9e48",
+      "name": "PrivDrift",
+      "paperTitle": "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations",
+      "aliases": [
+        "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations"
+      ],
+      "oneLine": "PrivDrift is a 1,000-dialogue benchmark that measures whether secrets disclosed early in a conversation remain recoverable after topic drift and persuasion-based probing.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2609.30094",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-25T06:20:32.234550Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-24",
+      "firstSeenAt": "2026-09-25",
+      "indexedAt": "2026-09-25T06:20:32.234550Z",
+      "sourceUpdatedAt": "2026-09-24T16:39:18Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2609.30094",
+        "paper": "https://arxiv.org/abs/2609.30094",
+        "pdf": "https://arxiv.org/pdf/2609.30094",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Large language models increasingly operate as persistent assistants in user-facing, shared-session, and tool-augmented settings.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2609.30094",
+        "url": "https://arxiv.org/abs/2609.30094",
+        "title": "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations",
+        "authors": [
+          "Luciano Maldonado"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.CL",
+          "cs.CR"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce \\textbf{PrivDrift}, a benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "PrivDrift is a 1,000-dialogue benchmark that measures whether secrets disclosed early in a conversation remain recoverable after topic drift and persuasion-based probing.",
+      "whyItMatters": "It targets a persistent behavioral privacy failure in active LLM assistants, distinct from training-data memorization or direct jailbreaks.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 52,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The topic of LLM privacy leakage in active conversations has broad security interest, and the arXiv preprint provides clear technical grounding."
+      },
+      "publishers": [
+        {
+          "name": "PrivDrift benchmark team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2609.30094",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "PrivDrift contains 1,000 controlled multi-turn dialogues with seeded secrets, content-dense drift turns, and standardized extraction probes.",
+          "scoring": "Dialogue-level hybrid leakage remains substantial, ranging from 38.7% to 54.6%, and varies strongly by model, secret type, and persuasion intensity.",
+          "reuse": "The benchmark is released with standardized extraction probes and evaluated across three LLMs; paper and artifacts are publicly available via arXiv."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-25T09:43:02.618309Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The paper explicitly introduces PrivDrift as a benchmark with a defined dataset, scoring protocol, and public release through arXiv, enabling other teams to replicate or evaluate against it.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce \\textbf{PrivDrift}, a benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing."
+      }
+    },
+    {
       "id": "bm_pfarena_e6911396",
       "familyId": "bmf_e97014fd5caa",
       "name": "PFArena",
@@ -1442,18 +1560,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "This repository is a learner-disjoint empirical benchmark on real ASSISTments 2009 sequences.",
           "scoring": "The final learner-disjoint test set reports ROC-AUC, average precision, Brier score, log loss and ECE-10.",
           "reuse": "PYTHONPATH=src python src/run_experiment.py"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T06:20:56.978015Z",
+        "reviewedAt": "2026-09-25T09:44:48.784252Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository defines a clear task, scoring metrics, and runnable code, meeting the criteria for a public benchmark.",
+        "decisionReason": "The repository applies existing ASSISTments data without introducing a new benchmark or reusable evaluation protocol.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Knowledge Tracing Benchmark on ASSISTments 2009"
       }
@@ -3872,7 +3990,7 @@
       "aliases": [
         "jev-vs-llm-benchmark"
       ],
-      "oneLine": "Jev vs LLM Benchmark is a provider-agnostic, local-first benchmark for comparing Jev, a general-purpose LLM, and a confidence-gated hybrid on fixed-choice decisions.",
+      "oneLine": "Compares Jev, a general-purpose LLM, and a confidence-gated hybrid on fixed-choice decisions using 18 labelled cases across support routing, incident priority, and request intent.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -3956,37 +4074,34 @@
           "url": "https://github.com/AkashAi7/jev-vs-foundry-benchmark"
         }
       ],
-      "description": "Jev vs LLM Benchmark is a provider-agnostic, local-first benchmark for comparing Jev, a general-purpose LLM, and a confidence-gated hybrid on fixed-choice decisions.",
-      "whyItMatters": "It enables rigorous comparison of quality, latency, token usage, routing, failures, and case-level evidence across different provider types on the same decision tasks, filling a gap in provider-agnostic evaluation.",
+      "description": "Compares Jev, a general-purpose LLM, and a confidence-gated hybrid on fixed-choice decisions using 18 labelled cases across support routing, incident priority, and request intent.",
+      "whyItMatters": "Provides a provider-agnostic, local-first way to measure accuracy, latency, token usage, and routing behavior for LLM-based decision systems.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 40,
+        "score": 25,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "As a small, specialized benchmark for comparing decision-making across specific providers, it is likely to attract moderate attention within niche AI evaluation circles but limited broader interest."
+        "reason": "The benchmark addresses a niche comparison of LLM providers with a small dataset and is unlikely to draw broad attention."
       },
-      "publishers": [
-        {
-          "name": "AkashAi7",
-          "organizationType": "community",
-          "sourceUrl": "https://github.com/AkashAi7/jev-vs-llm-benchmark",
-          "role": "benchmark-publisher"
-        }
-      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "The built-in dataset contains 18 labelled cases across support routing, incident priority, and request intent. Synthetic fixtures demonstrate the interface but are never presented as measured provider performance.",
+          "task": "The built-in dataset contains 18 labelled cases across support routing, incident priority, and request intent.",
           "scoring": "Measure accuracy, macro F1, p50/p95 latency, token usage, routing, failures, and case-level evidence.",
-          "reuse": "Choose the tasks, arms, repetitions, seed, and hybrid confidence gate from the dashboard."
+          "reuse": "Synthetic fixtures demonstrate the interface but are never presented as measured provider performance."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-24T09:27:29.815994Z",
+        "reviewedAt": "2026-09-25T09:44:48.784252Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark provides a defined task suite, explicit scoring metrics, and a local dashboard for running and comparing different providers, meeting the criteria for a public, ongoing benchmark.",
+        "decisionReason": "The repository includes a released dataset, defined scoring metrics, and a runnable local benchmark path for external use.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# Jev vs LLM Benchmark"
+        "canonicalNameEvidence": "# Jev vs LLM Benchmark A provider-agnostic, local-first benchmark for comparing **Jev**, a **general-purpose LLM**, and a **confidence-gated hybrid** on the same fixed-choice decisions."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-24T09:28:51.458693Z",
+        "inputHash": "262af642a17c9daedab083d44f580c960a11afcd79902d4d6a4624a1adc07b8e"
       },
       "attention": {
         "asOf": "2026-09-24",
@@ -4206,11 +4321,14 @@
           }
         }
       },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-24T06:26:02.674030Z",
-        "inputHash": "b6eca360eb0f9002e0ed48a4cb792f5753382d0c5fc50ce4cd292862d67e3c33"
-      }
+      "publishers": [
+        {
+          "name": "Akash AI7",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/AkashAi7/jev-vs-llm-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_guides-that-cause-actions-an-offline-study_c4d01dab",

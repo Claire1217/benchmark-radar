@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-24 · **Benchmark releases:** 1994
+**Snapshot:** 2026-09-24 · **Benchmark releases:** 1995
 
 ## Contents
 
@@ -31,7 +31,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (57)
+- [Speech & Audio](#speech--audio) (55)
 - [Tool Use](#tool-use) (30)
 - [Video Understanding](#video-understanding) (57)
 - [World Models](#world-models) (19)
@@ -467,16 +467,16 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **TopU-LBVS** (2026-09-24) — Evaluates ligand-based virtual screening models on 93 protein targets with property-matched, structurally similar hard negatives. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **Synthetic Hospital** (2026-09-24) — Synthetic Hospital is an open synthetic longitudinal EHR benchmark with 1,268 patients and 5,602 encounters, evaluating models on reconstructing problem lists and summarizing charts with ontology-grounded ground truth. [Paper](https://arxiv.org/abs/2609.30027)
-- **RLCDAlignBench** (2026-09-24) — Evaluates zero-shot detection of AI alignment failures across 44 sub-benchmarks covering 10 failure types with 7,193 labeled instances and five target models. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
-- **Knowledge Tracing Benchmark on ASSISTments 2009** (2026-09-24) — Evaluates knowledge tracing models on learner-disjoint ASSISTments 2009 sequences, comparing probabilistic, feature-based, and recurrent baselines. [Code](https://github.com/devissaputra/knowledge_tracing_benchmark)
-- **ExplorationBench** (2026-09-24) — ExplorationBench evaluates AI systems' ability to explore verifiable alien worlds, with two sandboxes—AlienCode and AlienLogic—containing discovery targets and held-out tasks. [Paper](https://arxiv.org/abs/2609.30199)
-- **Artificial Societies Benchmark** (2026-09-24) — Evaluates synthetic populations against human survey data using eleven validity tests across internal, construct, and external dimensions, comparing nine language models on twenty human sources. [Paper](https://arxiv.org/abs/2609.30030)
+- **TopU-LBVS** (2026-09-24) — TopU-LBVS evaluates ligand-based virtual screening across 93 protein targets with property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio. It defines three protocols (full, few-shot, mini)… [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **Synthetic Hospital** (2026-09-24) — Synthetic Hospital is described as a fully synthetic, fact-grounded longitudinal EHR benchmark with physician-validated ground truth intended to support sharing and verifiable evaluation. [Paper](https://arxiv.org/abs/2609.30027)
+- **RLCDAlignBench** (2026-09-24) — RLCDAlignBench evaluates whether a detector can flag language-model outputs as alignment failures across ten failure types, using labelled instances whose labels come from each benchmark's own scorer plus human-labelled… [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
+- **PrivDrift** (2026-09-24) — PrivDrift is a 1,000-dialogue benchmark that measures whether secrets disclosed early in a conversation remain recoverable after topic drift and persuasion-based probing. [Paper](https://arxiv.org/abs/2609.30094)
+- **ExplorationBench** (2026-09-24) — ExplorationBench evaluates AI systems' exploratory behavior in verifiable Alien Worlds whose executable rules allow answers to be checked exactly and whose rules conflict with familiar knowledge. [Paper](https://arxiv.org/abs/2609.30199)
+- **Artificial Societies Benchmark** (2026-09-24) — The Artificial Societies Benchmark is a validation framework for assessing whether synthetic populations support researchers' intended analyses. [Paper](https://arxiv.org/abs/2609.30030)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
 - **LLM Mathematical Reasoning Evaluation Benchmark** (2026-09-23) — Evaluates final-answer accuracy, reasoning quality, instruction following, and causal error classification across 20 math problems in six categories with deterministic validators and human annotation. [Code](https://github.com/Buguerito/llm-math-reasoning-benchmark)
-- **Jev vs LLM Benchmark** (2026-09-23) — A local-first, provider-agnostic harness comparing a general-purpose LLM, a proprietary Jev choice API, and a confidence-gated hybrid on 18 fixed-choice decision cases, reporting accuracy, macro F1, latency, token usage… [Code](https://github.com/AkashAi7/jev-vs-llm-benchmark)
+- **Jev vs LLM Benchmark** (2026-09-23) — Compares Jev, a general-purpose LLM, and a confidence-gated hybrid on fixed-choice decisions using 18 labelled cases across support routing, incident priority, and request intent. [Code](https://github.com/AkashAi7/jev-vs-llm-benchmark)
 - **FakeContextBench** (2026-09-23) — Benchmark with 3,500 cases of pseudoscientific claims across seven domains, scored by a deterministic whole-answer judge. [Paper](https://arxiv.org/abs/2609.27603) · [Code](https://github.com/peilin717/FakeContext-Bench)
 - **EvEMTBench** (2026-09-23) — Power-system protection benchmark on EMT waveform data with multiple grids, protocols, and tasks, including fault detection, classification, and location. [Paper](https://arxiv.org/abs/2609.28149) · [Code](https://github.com/EvEMTBench/evemtbench-benchmark)
 - **Agent Studio latency benchmark** (2026-09-23) — Evaluates latency of a direct Agent Studio integration by running a fixed query set under controlled conditions and reporting timings for Search, Agent Studio, and request-selected index comparisons. [Code](https://github.com/jadenguitarman/agent-studio-latency-benchmark)
@@ -1640,8 +1640,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **voice-agent-next** (2026-09-24) — Evaluates real-time speech-to-speech voice agent latency by driving simulated callers through the runtime and measuring end-of-user-speech to first-agent-audio delay on call recordings. [Code](https://github.com/kadirnar/voice-agent-next)
-- **VeriSpeak** (2026-09-24) — Evaluates speech-based fact verification by presenting spoken claims from temporal, geographical, and relational categories and scoring model judgments against true/false labels. [Paper](https://arxiv.org/abs/2609.30227) · [Data](https://huggingface.co/datasets/abhiram4572/VeriSpeak)
 - **NADI 2026** (2026-09-22) — Shared task for multidialectal Arabic speech processing with evaluation and rankings. [Paper](https://arxiv.org/abs/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
