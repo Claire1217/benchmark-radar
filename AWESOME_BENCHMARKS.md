@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-26 · **Benchmark releases:** 1996
+**Snapshot:** 2026-09-25 · **Benchmark releases:** 1996
 
 ## Contents
 
@@ -27,7 +27,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1087)
+- [Other benchmark tasks](#other-benchmark-tasks) (1088)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
@@ -468,6 +468,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 ## Other benchmark tasks
 
 - **TopU-LBVS** (2026-09-24) — Evaluates ligand-based virtual screening models on 93 protein targets under hard-negative decoys. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **SWE-Prometheus** (2026-09-24) — Evaluates LLM agents on improving repository engineering governance across 60 repositories, measuring improvement across six governance dimensions while preserving behavior. [Paper](https://arxiv.org/abs/2609.29465)
 - **RLCDAlignBench** (2026-09-24) — Evaluates detectors of model alignment failures across ten failure types. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
 - **CTC-Bench** (2026-09-24) — A 22-task suite for assessing how corpus task complexity affects model performance. [Paper](https://arxiv.org/abs/2609.29245)
 - **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — Evaluates LLM ability to distinguish attacker-reachable vulnerable code from patched twins, safe logic, and vacuous noise using 8 twin pairs and 6 controls with snippet and language only prompts. [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
@@ -482,7 +483,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **secagent-bench** (2026-09-22) — Evaluates LLM providers and self-hosted models on security analysis tasks: SAST source code vulnerability detection, DAST HTTP request/response analysis, and prompt-injection robustness in code comments and HTTP respons… [Code](https://github.com/zidaniel123/secagent-bench)
 - **WhatWorkedBench** (2026-09-22) — Evaluates AI agents on predicting component-change effects in 36 executable workflow tasks across 8 families using 30 data sources and 1,248 native outcomes. [Code](https://github.com/EthanNing/WhatWorkedBench)
 - **Taste-Bench** (2026-09-22) — Evaluates LLM agents' judgment at decision forks in long-horizon engineering and research tasks using 502 trajectory-derived taste questions. [Paper](https://arxiv.org/abs/2609.25804) · [Code](https://github.com/wbopan/tastebench) · [Data](https://huggingface.co/datasets/wenbopan/taste-bench)
-- **ESAC** (2026-09-22) — Compact benchmarks measuring difficult capabilities like logic, math, factual recall, and agentic work, with deterministic scoring and generated items. [Code](https://github.com/EcoWestern/ESAC)
+- **EcoWestern Short and Cheap Benchmark** (2026-09-22) — Compact benchmark program with ESAC-GI released (42 items, 75 points) measuring general intelligence across logic, math, factual recall, reading comprehension, abstraction, instruction-following, writing quality, and re… [Code](https://github.com/EcoWestern/ESAC)
 - **Code Taste Bench** (2026-09-22) — Evaluates code-generating models on code taste across five rubric dimensions and pairwise duels, producing Taste Elo and per-dimension diagnostics. [Code](https://github.com/dymoo/code-taste-bench)
 - **WidgetVABench** (2026-09-21) — Evaluates agentic visual analytics tasks involving single- and multi-widget interactions, with benchmark instances released as data archives and a widget-centered runtime for comparisons. [Paper](https://arxiv.org/abs/2609.24094) · [Code](https://github.com/Hiverwin/widgetva)
 - **The Endless Exam** (2026-09-21) — Measures mathematical progress on fourteen parameterised construction families. [Paper](https://arxiv.org/abs/2609.24555)
