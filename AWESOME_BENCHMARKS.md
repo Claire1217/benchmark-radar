@@ -27,7 +27,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1088)
+- [Other benchmark tasks](#other-benchmark-tasks) (1087)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
@@ -467,11 +467,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **TopU-LBVS** (2026-09-24) — Evaluates ligand-based virtual screening models on 93 protein targets under hard-negative decoys. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **SWE-Prometheus** (2026-09-24) — Evaluates LLM agents on improving repository engineering governance across 60 repositories, measuring improvement across six governance dimensions while preserving behavior. [Paper](https://arxiv.org/abs/2609.29465)
-- **RLCDAlignBench** (2026-09-24) — Evaluates detectors of model alignment failures across ten failure types. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
-- **CTC-Bench** (2026-09-24) — A 22-task suite for assessing how corpus task complexity affects model performance. [Paper](https://arxiv.org/abs/2609.29245)
-- **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — Evaluates LLM ability to distinguish attacker-reachable vulnerable code from patched twins, safe logic, and vacuous noise using 8 twin pairs and 6 controls with snippet and language only prompts. [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
+- **TopU-LBVS** (2026-09-24) — TopU-LBVS evaluates ligand-based virtual screening across 93 protein targets in seven protein classes, using property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio under three protocols,… [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **SWE-Prometheus** (2026-09-24) — An evaluation aimed at improving repository engineering governance. [Paper](https://arxiv.org/abs/2609.29465)
+- **RLCDAlignBench** (2026-09-24) — A labelled detection suite of 7,193 instances spanning ten alignment failure types and five target models, evaluating whether a detector can flag a model output as an alignment failure and scoring detectors with precisi… [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
+- **CTC-Bench** (2026-09-24) — CTC-Bench is a 22-task suite for studying how corpus task complexity affects performance as corpora grow, with released code and data for running the tasks. [Paper](https://arxiv.org/abs/2609.29245)
+- **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — ART evaluates whether language models separate attacker-reachable vulnerabilities from patched twins, safe code, and vacuous noise, scoring vulnerability, patched, and filler accuracy via a weighted ART score and a Twin… [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
 - **LLM Mathematical Reasoning Evaluation Benchmark** (2026-09-23) — Evaluates final-answer accuracy, reasoning quality, instruction following, and causal error classification across 20 math problems in six categories with deterministic validators and human annotation. [Code](https://github.com/Buguerito/llm-math-reasoning-benchmark)
@@ -494,7 +494,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **STRATA-Bench** (2026-09-19) — Evaluates AI agents on compiling longitudinal market intelligence from fragmented, geographically nested, and temporally incomplete evidence, with scoring across temporal, source, spatial, statistical, visual, and narra… [Code](https://github.com/movahedi-ca/strata-bench)
 - **ChemCLIR-Bench** (2026-09-19) — Evaluates cross-lingual retrieval models on a multilingual chemical patent corpus with generated question-answer pairs; performance is measured by Recall@10 and MRR@10. [Paper](https://arxiv.org/abs/2609.23231) · [Code](https://github.com/MohammadKhodadad/Multi-Lingual-QAC)
 - **CIBuzzBench** (2026-09-18) — Evaluates Chinese-to-English cross-lingual understanding of internet buzzwords through explanation, equivalence selection, and harmfulness classification. [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
-- **BenchRig** (2026-09-18) — Evaluates local LLMs across Ollama, Foundry Local, ONNX Runtime GenAI, and Prism on coding precision, reasoning, speed, context scaling, and hardware telemetry. [Code](https://github.com/senssei/benchrig)
 - **eos-bench** (2026-09-17) — Evaluates MLIP equation-of-state predictions against DFT for volume-scaled structures, reporting percent errors in equilibrium volume and bulk modulus. [Code](https://github.com/Soham0605/Benchmarking_MLIPs)
 - **PosteriorBench** (2026-09-17) — Benchmark evaluating whether generative scientific inverse solvers recover full posterior distributions across four physics-based inverse tasks. [Paper](https://arxiv.org/abs/2609.20794) · [Code](https://github.com/neuraloperator/PosteriorBench)
 - **OverclaimBench** (2026-09-17) — OverclaimBench evaluates frontier LLM agents across five file-review scenarios using transcript-based coverage measurements to detect overclaiming against registered planted defects. [Paper](https://arxiv.org/abs/2609.20812)
@@ -1639,7 +1638,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **VeriSpeak** (2026-09-24) — VeriSpeak is a dataset of synthetic speech claims with veracity labels derived from KVQA for evaluating speech-based fact verification in Large Audio Language Models. [Paper](https://arxiv.org/abs/2609.30227) · [Data](https://huggingface.co/datasets/abhiram4572/VeriSpeak)
+- **VeriSpeak** (2026-09-24) — VeriSpeak is a probe suite of synthetic speech claims derived from KVQA and Wikidata, paired with veracity labels, for studying speech-based fact verification in large audio language models. [Paper](https://arxiv.org/abs/2609.30227) · [Data](https://huggingface.co/datasets/abhiram4572/VeriSpeak)
 - **NADI 2026** (2026-09-22) — Shared task for multidialectal Arabic speech processing with evaluation and rankings. [Paper](https://arxiv.org/abs/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
