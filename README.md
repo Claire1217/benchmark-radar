@@ -26,7 +26,7 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-25 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-26 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
@@ -35,11 +35,11 @@
 | 3 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 5 HF votes · 551 GitHub stars |
 | 4 | **TriWorldBench**<br><sub>[Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)</sub> | World Models · Embodied AI & VLA | 232 GitHub stars |
 | 5 | **Uncheatable Eval**<br><sub>[Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)</sub> | Other benchmark tasks | 124 GitHub stars |
-| 6 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 54 HF votes · 40 GitHub stars |
-| 7 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 54 HF votes · 638 dataset downloads |
-| 8 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 43 HF votes · 23 GitHub stars |
-| 9 | **FinFIRST**<br><sub>[Paper](https://arxiv.org/abs/2609.25192)</sub> | Deep Research & Web Search | 3,951 dataset downloads |
-| 10 | **CivBench**<br><sub>[Paper](https://arxiv.org/abs/2609.02459) · [Code](https://github.com/lmwilki/civ6-mcp)</sub> | Other benchmark tasks | 0 HF votes · 192 GitHub stars |
+| 6 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 2 HF votes |
+| 7 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 54 HF votes · 40 GitHub stars |
+| 8 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 54 HF votes · 638 dataset downloads |
+| 9 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 5 HF votes · 54 GitHub stars |
+| 10 | **FinFIRST**<br><sub>[Paper](https://arxiv.org/abs/2609.25192)</sub> | Deep Research & Web Search | 3,951 dataset downloads |
 
 ### Explore the library
 
