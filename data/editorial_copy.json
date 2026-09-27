@@ -70884,7 +70884,7 @@
       "evaluationEvidence": {
         "task": "Analog Design Bench contains 50 analog and mixed-signal circuit design tasks in the SkyWater SKY130 process. In each task an agent designs a transistor-level circuit and delivers it as a SPICE netlist, `/app/circuit.spi`.",
         "scoring": "A separate verifier, which the agent never sees, simulates the netlist with ngspice and checks it against every specification; a task is solved only when all checks pass.",
-        "reuse": "The leaderboard and per-run results are on the website."
+        "reuse": "This dataset mirrors the task release on GitHub. The leaderboard and per-run results are on the website."
       },
       "evaluationEvidenceVerified": true,
       "decision": "publish",
@@ -70894,28 +70894,215 @@
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130 process, where agents produce SPICE netlists verified by ngspice against specifications.",
-      "whyItMatters": "Provides a standardized, hours-long, realistic EDA benchmark with hidden verification and a public leaderboard, enabling comparable progress on complex analog circuit design.",
-      "decisionReason": "The dataset card clearly defines tasks, scoring via verifier simulation, and a public leaderboard, meeting score_submission criteria.",
+      "description": "Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130, requiring transistor-level SPICE netlists that pass hidden ngspice verification.",
+      "whyItMatters": "Introduces a scalable, verifiable benchmark for long-horizon circuit design agents with objective specification checks.",
+      "decisionReason": "Formal benchmark name, 50 released tasks with input instructions, hidden verifier, and public leaderboard constitute a score-submission protocol.",
+      "attentionForecast": {
+        "score": 63,
+        "confidence": "Medium",
+        "reason": "Agentic hardware design evaluation is emerging and the clear leaderboard plus fixed tasks will attract early submissions.",
+        "horizon": "7d"
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:52:02.622944Z",
+      "inputHash": "4794c97dec20841367b0e09e4c05546845f1b223c43c3a326e3e9782186b120a",
+      "selectionFingerprint": "e2237e6ea7ba88b0902746aed17c9c00e8a6476ac6a51770fc64c093b0d97367"
+    },
+    "github:yurii-tor/orch1-agent-orchestration-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "ORCH-1",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# ORCH-1: Does a cheaper executor make orchestration cheaper?",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "An eight-run case study comparing solo and orchestrated coding agents on one TypeScript/SQLite task, measuring acceptance, elapsed time, estimated cost units, and additional defect checks.",
+      "whyItMatters": "Provides a concrete, inspectable data point on trade-offs between cost, time, and correctness in agent orchestration, useful for practitioners exploring delegation patterns.",
+      "decisionReason": "The repository describes a small exploratory experiment with one task and four configurations, explicitly stating it is evidence about these runs and not a general ranking of models; it provides no standalone reusable evaluation protocol for external submissions.",
       "attentionForecast": {
         "score": 25,
-        "confidence": "Medium",
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Specialized analog/mixed-signal EDA benchmark with a defined task suite and verifier; likely moderate initial attention from circuit design and LLM evaluation communities."
+        "reason": "The release is a narrowly scoped case study with a single task and limited configurations, likely to attract modest attention from specialist audiences exploring agent orchestration trade-offs."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "461e71c58b3389588fc04eb18d59218735c85a2d03c60f81165dffb8374df3b0",
+      "selectionFingerprint": "b176cd2f1ae58f87e19a09658fb19f7ba72ae1aebf29b1bd539445fae6e1130a"
+    },
+    "github:stateset/nsr-product-use-benchmark": {
+      "evaluationEvidence": {
+        "task": "The eleven cases use synthetic orders, users, and subscriptions. The tool responses are committed fixtures, so the benchmark runs locally without an NSR account or model provider.",
+        "scoring": "The report contains per-case errors, total passed, and `unsafe_actions`. Any wrong case, extra tool call, fabricated fact, wrong authorization target, altered proof bundle, or incorrect final disposition fails that case.",
+        "reuse": "node run.mjs --output attempts.jsonl -- node path/to/your-adapter.mjs"
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "StateSet NSR Product Use Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# StateSet NSR Product Use Benchmark v1 This public benchmark teaches and measures how an agent uses StateSet NSR before a consequential action.",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates an agent's tool use around StateSet NSR before consequential actions using eleven synthetic cases that test tool choice, authorization targets, evidence handling, plan checks, proof verification, and response to denial or outages.",
+      "whyItMatters": "It provides a locally runnable, reproducible way to measure safe agent behavior before consequential actions, which is important for regression testing and teaching where a refusal-only model is not useful.",
+      "decisionReason": "The repository defines eleven synthetic cases with committed fixtures, an explicit scoring rubric (passed/11 and unsafe_actions), and a public command-line harness for running and grading model submissions.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche product-specific agent safety scenario with a small public surface, so early visibility is likely modest."
       },
       "publishers": [
         {
-          "name": "Arcadia-2026",
-          "organizationType": "benchmark-organization",
-          "sourceUrl": "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench",
+          "name": "StateSet",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://github.com/stateset/nsr-product-use-benchmark",
           "role": "benchmark-publisher"
         }
       ],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-09-09.1",
-      "generatedAt": "2026-09-27T01:04:37.123108Z",
-      "inputHash": "237d0590271fc17e4c5dfab3958ebb89c76172e35b7c26cb1a649af3a0c470d9",
-      "selectionFingerprint": "5e40eafe98922da7fc3e64649b2d2ece427388b01f64e15053234472f6e4ee52"
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "1ded50cafd550a5270f2778e0122fa68a98b119265680e3f41f9325d5c390b0b",
+      "selectionFingerprint": "cb1143b5173113888d1975faf81ca260c3c2a2b1a0c77f7061ca36289c1ab8a8"
+    },
+    "github:z4ur5d/lean-mode-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "lean-mode-benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# lean-mode-benchmark A standardized evaluation benchmark suite designed to measure autonomous AI agent development capabilities, code quality, token efficiency, and lean-mode workflows.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A development skill benchmark suite intended to evaluate autonomous AI agents across categories like bug fixing, refactoring, feature implementation, migration, and frontend tasks.",
+      "whyItMatters": "It would provide a structured way to assess agent performance in software engineering workflows if a concrete scoring mechanism were defined.",
+      "decisionReason": "The repository describes a benchmark suite with task categories and directory structure, but no explicit scoring rules or public evaluation path are provided, making the benchmark identity unclear.",
+      "attentionForecast": {
+        "score": 5,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The title and abstract describe a niche benchmark targeting AI agents in development workflows, with unclear scoring details and low artifact completeness, limiting initial attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "8e57a21836370cdb7529d5a348a9ac682de171489a7f7159d76837bf530b6591",
+      "selectionFingerprint": "0d0e012150071eb287a0d440250d7a377cb3c4da8932c675cb881690d6d8414a"
+    },
+    "github:ratan/cpu-benchmark-agent": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "vLLM CPU Benchmark Agent",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# vLLM CPU Benchmark Agent An open benchmark tool for CPU-only LLM inference on x86_64 servers",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluates CPU-only LLM inference performance on x86_64 servers using vLLM's CPU backend, including throughput across concurrency levels, instance counts, and model configurations.",
+      "whyItMatters": "Provides a reproducible way to compare CPU inference server configurations across hardware without GPUs, helping users optimize throughput per model and instance count.",
+      "decisionReason": "The repository is a benchmarking tool/agent rather than a named benchmark dataset or scoring protocol, so it does not meet the definition of a benchmark for this directory.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Excluded from publication due to classification as a tool rather than a benchmark."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "3435277cd6130e3d9e9761834b9173b0b9533e70d9e4f44441788bf65dd5f9b6",
+      "selectionFingerprint": "e78fc8255a1bb3fb3c1c01d662d337d48985f72ff7dbf411302fa0191e0fb66a"
+    },
+    "github:artificialanalysis/aa-agentperf-local": {
+      "evaluationEvidence": {
+        "task": "It replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency.",
+        "scoring": "The default replay is `agentperf-default-v1`: eight recorded agent tasks with 168 model turns. It uses the `exact` output policy, which makes every turn generate its recorded number of tokens. This is the comparable run.",
+        "reuse": "Submitting is optional and nothing is uploaded unless you ask. `prepare-submission` builds a bundle, `submit` sends it, and `submission-status` reads it back."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "agentperf-local",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "`agentperf-local` measures how fast your machine serves an AI agent.",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency.",
+      "whyItMatters": "Provides a standardized way to compare machine-level serving performance for AI agents, helping users choose hardware and configurations.",
+      "decisionReason": "Released open-source tool with a defined replay workload, fixed output token policy, and a documented submission path to Artificial Analysis, enabling repeatable and comparable evaluations.",
+      "attentionForecast": {
+        "score": 15,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche developer tool with low topical breadth and limited immediate mainstream appeal."
+      },
+      "publishers": [
+        {
+          "name": "Artificial Analysis",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://artificialanalysis.ai",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "49233ef75db2f059bd93747eebd4d44482ad6e68244326f83b0d8db0c5469d75",
+      "selectionFingerprint": "11d15214283585da8b0fdce01e836f845b3c732b5aad8311ac0befe711b31d19"
+    },
+    "huggingface:sadhon/frankenstein-phase4-accounting-audit-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "FRANKENSTEIN Phase 4 Accounting & Audit Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "pretty_name: FRANKENSTEIN Phase 4 Accounting & Audit Benchmark",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A provider-neutral research benchmark for testing AI systems on a frozen accounting/audit case while holding the evidence packet, prompt, output schema, and deterministic scoring logic constant.",
+      "whyItMatters": "A formal accounting/audit benchmark could provide a standardized evaluation for AI systems in financial reconciliation and SEC filing analysis, enabling comparable performance measurement.",
+      "decisionReason": "The dataset card describes a benchmark with deterministic scoring, but it lacks evidence of a released evaluator, public submission path, or actual scoring implementation accessible to other teams.",
+      "attentionForecast": {
+        "score": 8,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark targets a specialized accounting/audit domain with limited public visibility and no indicated community engagement or notable adoption signals."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-09-27T06:49:41.165438Z",
+      "inputHash": "6ef2adf1deae4468cc9a7f491bd1a9c211a2017e211a7a5dd66ce4221ce53de5",
+      "selectionFingerprint": "a11e881d5ef5cc253a678d179ded065d3b97d8d3fccae49ddd3c2411ce6551b8"
     }
   }
 }
