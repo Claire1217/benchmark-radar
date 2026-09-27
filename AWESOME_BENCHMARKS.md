@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-27 · **Benchmark releases:** 1996
+**Snapshot:** 2026-09-26 · **Benchmark releases:** 1999
 
 ## Contents
 
@@ -18,7 +18,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (20)
 - [Agent Safety & Security](#agent-safety--security) (55)
-- [Coding Agents](#coding-agents) (58)
+- [Coding Agents](#coding-agents) (59)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (18)
@@ -27,11 +27,11 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1087)
+- [Other benchmark tasks](#other-benchmark-tasks) (1089)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
-- [Speech & Audio](#speech--audio) (56)
+- [Speech & Audio](#speech--audio) (55)
 - [Tool Use](#tool-use) (30)
 - [Video Understanding](#video-understanding) (57)
 - [World Models](#world-models) (19)
@@ -140,6 +140,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
+- **SWE-PolyVision** (2026-09-24) — Evaluates repository-level software engineering agents on 92 real-world tasks requiring cross-image abductive reasoning, with 48 public tasks and 44 private holdouts. [Paper](https://arxiv.org/abs/2609.29754)
 - **VibeMemBench** (2026-09-20) — Evaluates memory systems for coding agents on 111 coding targets from 90 SWE-rebench V2 repositories using 3,634 history trajectories. [Paper](https://arxiv.org/abs/2609.23570)
 - **GameLogicBench** (2026-09-18) — Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using black-box behavioral assertions under deterministic simulation. [Paper](https://arxiv.org/abs/2609.21562) · [Code](https://github.com/NJU-LINK/GameLogicBench)
 - **GameASG-Bench** (2026-09-18) — Evaluates coding agents on generating complete browser games from natural-language requirements with static and behavioral tests. [Paper](https://arxiv.org/abs/2609.21293) · [Code](https://github.com/areal-project/GameASG-Bench)
@@ -467,10 +468,12 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **TopU-LBVS** (2026-09-24) — TopU-LBVS evaluates ligand-based virtual screening across 93 protein targets in seven protein classes, using property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio under three protocols,… [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **SWE-Prometheus** (2026-09-24) — An evaluation aimed at improving repository engineering governance. [Paper](https://arxiv.org/abs/2609.29465)
-- **RLCDAlignBench** (2026-09-24) — A labelled detection suite of 7,193 instances spanning ten alignment failure types and five target models, evaluating whether a detector can flag a model output as an alignment failure and scoring detectors with precisi… [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
-- **CTC-Bench** (2026-09-24) — CTC-Bench is a 22-task suite for studying how corpus task complexity affects performance as corpora grow, with released code and data for running the tasks. [Paper](https://arxiv.org/abs/2609.29245)
+- **Zero Trust Agent Benchmark** (2026-09-26) — Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks. [Code](https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark)
+- **Election: issue-contingent bias benchmark** (2026-09-26) — Assesses whether an LLM's treatment of a candidate's tax position changes with the candidate's stance on AGI regulation, using a factorial candidate set and a blind rubric judge over sampled text. [Code](https://github.com/kilojoules/election-bias-benchmark)
+- **Analog Design Bench** (2026-09-26) — Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130 process, where agents produce SPICE netlists verified by ngspice against specifications. [Data](https://huggingface.co/datasets/Arcadia-2026/analog-design-bench)
+- **TopU-LBVS** (2026-09-24) — A 93-target LBVS benchmark with hard-negative decoys, offering full, few-shot, and mini protocols for train-test evaluation. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **Synthetic Hospital** (2026-09-24) — Evaluates models on synthetic longitudinal electronic health records with physician-validated ground truth. [Paper](https://arxiv.org/abs/2609.30027)
+- **RLCDAlignBench** (2026-09-24) — Evaluates zero-shot detection of AI alignment failures across ten types using 44 sub-benchmarks with 7,193 labelled instances and five target models. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
 - **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — ART evaluates whether language models separate attacker-reachable vulnerabilities from patched twins, safe code, and vacuous noise, scoring vulnerability, patched, and filler accuracy via a weighted ART score and a Twin… [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
@@ -1638,7 +1641,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **VeriSpeak** (2026-09-24) — VeriSpeak is a probe suite of synthetic speech claims derived from KVQA and Wikidata, paired with veracity labels, for studying speech-based fact verification in large audio language models. [Paper](https://arxiv.org/abs/2609.30227) · [Data](https://huggingface.co/datasets/abhiram4572/VeriSpeak)
 - **NADI 2026** (2026-09-22) — Shared task for multidialectal Arabic speech processing with evaluation and rankings. [Paper](https://arxiv.org/abs/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
 - **HearInContext** (2026-09-16) — A benchmark for implicit context in speech recognition, pairing Mandarin-English synthetic speech with assistant replies that support varying interpretations, to test models' handling of contextual ambiguity. [Paper](https://arxiv.org/abs/2609.18680)
