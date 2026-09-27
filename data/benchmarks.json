@@ -5,7 +5,7 @@
     "generatedAt": "2026-09-27T06:49:36.061883Z",
     "dataAsOf": "2026-09-26",
     "timezone": "UTC",
-    "recordCount": 2001,
+    "recordCount": 2002,
     "sourceCoverage": [
       "arXiv OAI-PMH",
       "reviewed official project sources"
@@ -32,7 +32,7 @@
       "aliases": [
         "zero-trust-agent-benchmark"
       ],
-      "oneLine": "Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks.",
+      "oneLine": "A reproducible benchmark of synthetic JSONL agent tool-call traces in which a defense returns allow or deny per step; the evaluator scores attack blocking, benign false positives, and canary leaks over fixed dev and test splits.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -110,29 +110,34 @@
           "url": "https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark"
         }
       ],
-      "description": "Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks.",
-      "whyItMatters": "Provides a fixed, reproducible workload for comparing zero-trust defenses on identity, scopes, untrusted content, egress, and data-flow checks before tool execution.",
-      "evaluationMode": "score_submission",
+      "description": "A reproducible benchmark of synthetic JSONL agent tool-call traces in which a defense returns allow or deny per step; the evaluator scores attack blocking, benign false positives, and canary leaks over fixed dev and test splits.",
+      "whyItMatters": "Tool-call authorization defenses need a fixed workload to compare policy behavior and regression-test zero-trust checks across identity posture, scopes, untrusted content, egress, and data flow, which live incident data cannot supply.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
+        "score": 34,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Focused AI security benchmark with immediate reproducibility and baseline results, likely to attract niche but engaged practitioners in agent safety."
+        "reason": "The release offers deterministic traces, baselines, and a shortcut audit in an actively discussed AI-agent security area, though it is a single-publisher repository with a synthetic workload."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Each JSON Lines (JSONL) trace contains an agent posture, requested tool calls, context, and synthetic canaries issued for that trace. A defense receives one request per step and returns `allow` or `deny`.",
+          "task": "A defense receives one request per step and returns `allow` or `deny`.",
           "scoring": "The evaluator scores attack blocking, benign false positives, and leaks.",
-          "reuse": "Python application programming interface (API): ```python from zero_trust_agent_benchmark import Decision, evaluate, load_traces class MyDefense: def decide(self, request: dict) -> Decision: return Decision(\"deny\", \"demo\", \"my-defense\") report = evaluate(MyDefense(), load_traces(split=\"test\")) print(report.metrics) ```"
+          "reuse": "Use `evaluate(..., provide_issued_secrets=True)` when a defense needs the issued-secret record that a real broker would hold."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-27T01:04:37.123108Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark with public code and trace data, deterministic test split, clear scoring metrics, and an external Python API for other teams to submit defenses.",
+        "decisionReason": "The repository describes released traces, a runnable evaluator, baseline results, and a public reuse path for scoring submitted defenses.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Zero Trust Agent Benchmark"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "e7a8f4ffc63018aa7b969f39c96dac0df92dcaa4a20d60427d8f924b4646d451"
       },
       "attention": {
         "asOf": "2026-09-27",
@@ -351,22 +356,17 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:04:37.123108Z",
-        "inputHash": "b335a52f5ed277ec189b173245951703949ca1c96eae29f5bfd45c604fbac2ae"
       }
     },
     {
       "id": "bm_nsr-product-use-benchmark_381f8927",
       "familyId": "bmf_862d95f6a95b",
-      "name": "StateSet NSR Product Use Benchmark",
+      "name": "StateSet NSR Product Use Benchmark v1",
       "paperTitle": "nsr-product-use-benchmark",
       "aliases": [
         "nsr-product-use-benchmark"
       ],
-      "oneLine": "Evaluates an agent's tool use around StateSet NSR before consequential actions using eleven synthetic cases that test tool choice, authorization targets, evidence handling, plan checks, proof verification, and response to denial or outages.",
+      "oneLine": "Eleven synthetic cases evaluate how an agent uses StateSet NSR MCP tools before a consequential action, with a harness scoring tool calls and a final structured JSON for passed cases and unsafe actions.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -445,14 +445,14 @@
           "url": "https://github.com/stateset/nsr-product-use-benchmark"
         }
       ],
-      "description": "Evaluates an agent's tool use around StateSet NSR before consequential actions using eleven synthetic cases that test tool choice, authorization targets, evidence handling, plan checks, proof verification, and response to denial or outages.",
-      "whyItMatters": "It provides a locally runnable, reproducible way to measure safe agent behavior before consequential actions, which is important for regression testing and teaching where a refusal-only model is not useful.",
+      "description": "Eleven synthetic cases evaluate how an agent uses StateSet NSR MCP tools before a consequential action, with a harness scoring tool calls and a final structured JSON for passed cases and unsafe actions.",
+      "whyItMatters": "Agents that act on consequential operations need a reproducible way to check tool choice, authorization targeting, proof verification, and safe handling of denial or outage before acting, which end-to-end product tests do not isolate.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Low",
+        "score": 24,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets a niche product-specific agent safety scenario with a small public surface, so early visibility is likely modest."
+        "reason": "The release is a runnable agent-safety harness with adapter examples and a private-variant generator, but its scope is a single vendor's NSR MCP tool contract and case set."
       },
       "publishers": [
         {
@@ -478,9 +478,9 @@
         "canonicalNameEvidence": "# StateSet NSR Product Use Benchmark v1 This public benchmark teaches and measures how an agent uses StateSet NSR before a consequential action."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T06:49:41.165438Z",
-        "inputHash": "1ded50cafd550a5270f2778e0122fa68a98b119265680e3f41f9325d5c390b0b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "3dd7970f1034fb75701a4f01fb5e47a020048e2e1ed648b7f64199a1f685d601"
       }
     },
     {
@@ -491,7 +491,7 @@
       "aliases": [
         "election-bias-benchmark"
       ],
-      "oneLine": "Assesses whether an LLM's treatment of a candidate's tax position changes with the candidate's stance on AGI regulation, using a factorial candidate set and a blind rubric judge over sampled text.",
+      "oneLine": "The suite probes whether a candidate's stance on AGI regulation changes an LLM's treatment of that candidate on property tax, holding the tax position fixed across five open models.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -566,14 +566,14 @@
           "url": "https://github.com/kilojoules/election-bias-benchmark"
         }
       ],
-      "description": "Assesses whether an LLM's treatment of a candidate's tax position changes with the candidate's stance on AGI regulation, using a factorial candidate set and a blind rubric judge over sampled text.",
-      "whyItMatters": "Provides a controlled instrument to measure hidden political bias in model outputs when an unrelated issue is held constant, with validation via implanted preferences and documentation of non-working readouts.",
+      "description": "The suite probes whether a candidate's stance on AGI regulation changes an LLM's treatment of that candidate on property tax, holding the tax position fixed across five open models.",
+      "whyItMatters": "It targets issue-contingent political bias in summarization by manipulating one candidate axis while holding another fixed, with judge and logit readouts.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 25,
-        "confidence": "Medium",
+        "score": 12,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The niche focus on AI regulation bias in LLM summaries and the absence of paper promotion or large benchmarks suggest moderate interest within a specialized audience."
+        "reason": "The repository targets a narrow issue-contingent bias question on five open models with documented negative results and no released comparison path."
       },
       "displayEligible": true,
       "curation": {
@@ -809,9 +809,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:04:37.123108Z",
-        "inputHash": "b5851d7c5967450bf12a1e8da9231e6746b6c6a4324bff73e7faf210cda2b8c7"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "2e7f7ab0ad4dde095a3f518bb8e9325df47a5abaaae4d218ef0d93d6c076a813"
       }
     },
     {
@@ -822,7 +822,7 @@
       "aliases": [
         "analog-design-bench"
       ],
-      "oneLine": "Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130, requiring transistor-level SPICE netlists that pass hidden ngspice verification.",
+      "oneLine": "Fifty analog and mixed-signal circuit design tasks in the SkyWater SKY130 process where an agent delivers a SPICE netlist that a hidden ngspice verifier checks against every specification.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Chip Design & EDA"
@@ -901,15 +901,23 @@
           "url": "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench"
         }
       ],
-      "description": "Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130, requiring transistor-level SPICE netlists that pass hidden ngspice verification.",
-      "whyItMatters": "Introduces a scalable, verifiable benchmark for long-horizon circuit design agents with objective specification checks.",
+      "description": "Fifty analog and mixed-signal circuit design tasks in the SkyWater SKY130 process where an agent delivers a SPICE netlist that a hidden ngspice verifier checks against every specification.",
+      "whyItMatters": "Agent evaluation in electronic design automation needs long-horizon tasks with objective, all-checks-pass verification and released task inputs so results across models can be compared and reproduced.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 63,
+        "score": 58,
         "confidence": "Medium",
-        "reason": "Agentic hardware design evaluation is emerging and the clear leaderboard plus fixed tasks will attract early submissions.",
-        "horizon": "7d"
+        "horizon": "7d",
+        "reason": "The benchmark covers long-horizon analog circuit design with a simulation-based verifier, a public task release, and a leaderboard, addressing a domain with fewer established agent evaluations."
       },
+      "publishers": [
+        {
+          "name": "Arcadia",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench",
+          "role": "benchmark-publisher"
+        }
+      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -1151,9 +1159,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T06:52:02.622944Z",
-        "inputHash": "4794c97dec20841367b0e09e4c05546845f1b223c43c3a326e3e9782186b120a"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "ac66f6826138290f90d2ca657734af6fa5e2e4c8111ec1c2972f906710425ef6"
       }
     },
     {
@@ -1164,7 +1172,7 @@
       "aliases": [
         "aa-agentperf-local"
       ],
-      "oneLine": "Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency.",
+      "oneLine": "Replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency, with a default comparable replay of eight recorded agent tasks and 168 model turns.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1241,14 +1249,14 @@
           "url": "https://github.com/ArtificialAnalysis/aa-agentperf-local"
         }
       ],
-      "description": "Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency.",
-      "whyItMatters": "Provides a standardized way to compare machine-level serving performance for AI agents, helping users choose hardware and configurations.",
+      "description": "Replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency, with a default comparable replay of eight recorded agent tasks and 168 model turns.",
+      "whyItMatters": "Local serving of agentic workloads requires comparable speed measurements across machines and frameworks; replay-based measurement provides a shared workload so throughput and latency figures for local inference can be compared under identical context and turn conditions.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 15,
-        "confidence": "Low",
+        "score": 42,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Niche developer tool with low topical breadth and limited immediate mainstream appeal."
+        "reason": "Attention is supported by a released, installable tool from a known analysis publisher with a documented submission path and clear local-serving focus."
       },
       "publishers": [
         {
@@ -1262,30 +1270,152 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "It replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency.",
-          "scoring": "The default replay is `agentperf-default-v1`: eight recorded agent tasks with 168 model turns. It uses the `exact` output policy, which makes every turn generate its recorded number of tokens. This is the comparable run.",
+          "task": "The default replay is `agentperf-default-v1`: eight recorded agent tasks with 168 model turns. It uses the `exact` output policy, which makes every turn generate its recorded number of tokens.",
+          "scoring": "`summary.json` holds the headline numbers: output tokens per second and median and p95 first-token and turn times.",
           "reuse": "Submitting is optional and nothing is uploaded unless you ask. `prepare-submission` builds a bundle, `submit` sends it, and `submission-status` reads it back."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-27T06:49:41.165438Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released open-source tool with a defined replay workload, fixed output token policy, and a documented submission path to Artificial Analysis, enabling repeatable and comparable evaluations.",
+        "decisionReason": "The repository includes a fixed replay workload, defined output policy, standard summary metrics, and an explicit submission path to Artificial Analysis.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "`agentperf-local` measures how fast your machine serves an AI agent."
+        "canonicalNameEvidence": "agentperf-local Benchmark how fast your machine serves an AI agent."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "f1abfa6ef011c27f7778aa29a592d1250b4696e4e66baac0627e0b6fcc1b4081"
+      }
+    },
+    {
+      "id": "bm_almanac_f919dcd3",
+      "familyId": "bmf_409e0a333bd7",
+      "name": "Almanac",
+      "paperTitle": "almanac",
+      "aliases": [],
+      "oneLine": "Evaluates agent memory systems on generated multi-month conversation lives, testing time, plans, provenance, absence, tasks, and hygiene via 215 questions.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Factuality"
+      ],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/jbpayton/almanac",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-26T06:20:38.717221Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-25",
+      "firstSeenAt": "2026-09-26",
+      "indexedAt": "2026-09-26T06:20:38.717221Z",
+      "sourceUpdatedAt": "2026-09-25T17:46:59Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/jbpayton/almanac"
+      },
+      "motivation": "almanac A benchmark for what an agent's memory knows about its own knowledge: time, plans, provenance, absence, tasks and hygiene, over generated lives agent-memory benchmark evaluation llm # Almanac **A benchmark for what an agent's memory knows about its own knowledge.** Most memory benchmarks ask one kind of question: *what did the user say?* Almanac asks the questions a memory should also be able to answer: - **…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jbpayton/almanac",
+        "url": "https://github.com/jbpayton/almanac",
+        "title": "almanac",
+        "authors": [
+          "jbpayton"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "almanac A benchmark for what an agent's memory knows about its own knowledge: time, plans, provenance, absence, tasks and hygiene, over generated lives agent-memory benchmark evaluation llm # Almanac **A benchmark for what an agent's memory knows about its own knowledge.** Most memory benchmarks ask one kind of question: *what did the user say?* Almanac asks the questions a memory should also be able to answer: - **Time:** when something was said, when it happens, and what was true on a given da",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jbpayton/almanac",
+          "url": "https://github.com/jbpayton/almanac"
+        }
+      ],
+      "description": "Evaluates agent memory systems on generated multi-month conversation lives, testing time, plans, provenance, absence, tasks, and hygiene via 215 questions.",
+      "whyItMatters": "Measures memory capabilities beyond factual recall, including honesty about unknown information and resistance to injected instructions.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "A new agent-memory benchmark with a unique focus and open-source code may attract moderate interest from researchers and developers."
+      },
+      "publishers": [
+        {
+          "name": "jbpayton",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/jbpayton/almanac",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "The v0.1 test set is 8 lives with 215 questions, in `data/lives/`: about 39 sessions and 215 messages per life, over 160 days.",
+          "scoring": "python -m almanac.score results/*.jsonl",
+          "reuse": "Any memory system can be plugged in by implementing two methods: ```python class MySystem(Adapter):"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-27T10:07:10.581768Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Almanac is a released benchmark with a reproducible test set, deterministic scoring, and a public adapter interface for external submissions.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Almanac"
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T06:49:41.165438Z",
-        "inputHash": "49233ef75db2f059bd93747eebd4d44482ad6e68244326f83b0d8db0c5469d75"
+        "generatedAt": "2026-09-27T10:07:10.581768Z",
+        "inputHash": "ff51d37a27121044b66da573f9452f9ea52e4887d8f916b08fdda9d31251e1b8"
       }
     },
     {
       "id": "bm_voice-agent-next_344f5e74",
       "familyId": "bmf_e03253503bc3",
-      "name": "voice-agent-next benchmark suite",
+      "name": "voice-agent-next",
       "paperTitle": "voice-agent-next",
       "aliases": [],
-      "oneLine": "The repository describes a benchmark suite for real-time voice agents but does not yet expose a standalone evaluation object or scoring contract.",
+      "oneLine": "A speech-to-speech voice agent runtime with a built-in benchmark suite that drives a simulated caller through the runtime and measures voice-to-voice latency from the call recording.",
       "area": "Speech & Audio",
       "applicationDomains": [
         "General AI"
@@ -1361,14 +1491,14 @@
           "url": "https://github.com/kadirnar/voice-agent-next"
         }
       ],
-      "description": "The repository describes a benchmark suite for real-time voice agents but does not yet expose a standalone evaluation object or scoring contract.",
-      "whyItMatters": "Voice agent latency benchmarking could help developers compare local and cloud speech-to-speech stacks if the tasks and metrics become public.",
+      "description": "A speech-to-speech voice agent runtime with a built-in benchmark suite that drives a simulated caller through the runtime and measures voice-to-voice latency from the call recording.",
+      "whyItMatters": "Latency-oriented voice agent evaluation is uncommon, but the suite is described as a repository feature in alpha with changing APIs rather than a formally named standalone benchmark.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 15,
+        "score": 34,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The topic of real-time voice agents is active, but the benchmark details are underspecified in the supplied evidence."
+        "reason": "The project spans many providers and platforms with an alpha release and an integrated latency benchmark, which may draw developer interest despite the absence of a formally named benchmark."
       },
       "displayEligible": false,
       "curation": {
@@ -1536,9 +1666,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "99a78b1dde3cd056d4af5be8ea4ba0be4ae724a5d42638e6beb34cc97d48f464"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "d39a9ebe2e411dd86415f14cbee53cb504d75c280d28d92e612ffc982fa67500"
       }
     },
     {
@@ -1547,7 +1677,7 @@
       "name": "TopU-LBVS",
       "paperTitle": "TopU-LBVS: A Realistic Multi Target Benchmark for Ligand Based Virtual Screening",
       "aliases": [],
-      "oneLine": "A 93-target LBVS benchmark with hard-negative decoys, offering full, few-shot, and mini protocols for train-test evaluation.",
+      "oneLine": "A multi-target ligand-based virtual screening benchmark of 93 protein targets across 7 protein classes evaluated with property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio, with full, few-shot, and mini protocols scored primarily by EF@1% and EF@10%.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -1641,28 +1771,14 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "TopU-LBVS: A Realistic Multi Target Benchmark for Ligand Based Virtual Screening"
       },
-      "description": "A 93-target LBVS benchmark with hard-negative decoys, offering full, few-shot, and mini protocols for train-test evaluation.",
-      "whyItMatters": "Exposes performance gaps under realistic hard-negative screening conditions, improving reproducibility in drug discovery.",
+      "description": "A multi-target ligand-based virtual screening benchmark of 93 protein targets across 7 protein classes evaluated with property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio, with full, few-shot, and mini protocols scored primarily by EF@1% and EF@10%.",
+      "whyItMatters": "Standard virtual screening evaluations rely on random decoys that overstate model performance; hard-negative protocols expose realistic early-stage screening failure modes and let teams compare molecular methods under matched, reproducible conditions.",
       "attentionForecast": {
-        "score": 56,
-        "confidence": "Low",
+        "score": 35,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Addresses a methodological gap in drug discovery and provides public artifacts, likely to interest the cheminformatics ML community."
+        "reason": "Attention is supported by a protein-class-broad dataset release with public code and data and relevance to computational drug discovery, but a specialized audience."
       },
-      "publishers": [
-        {
-          "name": "TopU-LBVS Benchmark Team",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://github.com/topu-benchmark/topu-lbvs",
-          "role": "benchmark-publisher"
-        },
-        {
-          "name": "TopU Benchmark",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://huggingface.co/datasets/topu-benchmark/topu-lbvs",
-          "role": "benchmark-publisher"
-        }
-      ],
       "attention": {
         "asOf": "2026-09-26",
         "hfPaperUpvotes": null,
@@ -1891,9 +2007,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "c90dd1101df09069142d008a172b58976dbbdcc9e779955a5970363d937fb235"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "3895ecbd8a74c6c034244f4eda2373fe3918a88e2bd147e3a435a24988869617"
       }
     },
     {
@@ -1904,7 +2020,7 @@
       "aliases": [
         "To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech"
       ],
-      "oneLine": "VeriSpeak is a probe benchmark for speech-based fact verification in Large Audio Language Models (LALMs).",
+      "oneLine": "VeriSpeak evaluates speech-based fact verification in Large Audio Language Models. It presents spoken claims derived from a Wikidata-based knowledge base, each paired with a veracity label, and supports filtering by category and label.",
       "area": "Speech & Audio",
       "applicationDomains": [
         "General AI"
@@ -1997,14 +2113,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "VeriSpeak is a probe benchmark for speech-based fact verification in Large Audio Language Models (LALMs).",
-      "whyItMatters": "It provides a controlled dataset of synthetic false claims paired with veracity labels to study trustworthiness in speech-based fact checking.",
+      "description": "VeriSpeak evaluates speech-based fact verification in Large Audio Language Models. It presents spoken claims derived from a Wikidata-based knowledge base, each paired with a veracity label, and supports filtering by category and label.",
+      "whyItMatters": "Speech-based fact verification is harder to evaluate than text-only settings because claims arrive as audio and must be checked against external knowledge. A shared probe suite gives a controlled way to compare LALM behavior on synthetic false claims.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
         "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark is a probe tied to a single paper and lacks a standalone public comparison path, forecast predicts minimal initial attention."
+        "reason": "Excluded records are assigned a zero attention forecast."
       },
       "displayEligible": false,
       "curation": {
@@ -2248,9 +2364,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "d4a5b37837c0f8eb84836f0995dc226edce19eb31e9ead4cd9c6f6167910cc6d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "b59d94434c847d49a013ec18d5eaef04816969c50ad3d58433a9394ce2d85f76"
       }
     },
     {
@@ -2259,7 +2375,7 @@
       "name": "Synthetic Hospital",
       "paperTitle": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark",
       "aliases": [],
-      "oneLine": "Evaluates models on synthetic longitudinal electronic health records with physician-validated ground truth.",
+      "oneLine": "Evaluates longitudinal electronic health record tasks on an open, fully synthetic, physician-validated dataset with fact-grounded ground truth.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -2334,14 +2450,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates models on synthetic longitudinal electronic health records with physician-validated ground truth.",
-      "whyItMatters": "Addresses open sharing and verifiable ground truth barriers in EHR benchmarking.",
+      "description": "Evaluates longitudinal electronic health record tasks on an open, fully synthetic, physician-validated dataset with fact-grounded ground truth.",
+      "whyItMatters": "Open sharing and verifiable ground truth are persistent barriers for clinical benchmarking; a synthetic, physician-validated longitudinal EHR resource could support reproducible comparison of clinical prediction and reasoning systems.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 65,
-        "confidence": "Medium",
+        "score": 28,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses EHR data sharing barriers with physician validation, appealing to medical AI communities, but lacks public repository links in evidence."
+        "reason": "Interest is likely driven by the clinical longitudinal EHR scope and the physician-validated synthetic data angle, with no supplied artifact link or readiness signal to support broader attention."
       },
       "displayEligible": true,
       "curation": {
@@ -2359,9 +2475,9 @@
         "canonicalNameEvidence": "Synthetic Hospital: An Open, Verifiable, Physician-Validated Longitudinal EHR Benchmark"
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "a36b8009221f734264d6393235abdf00d04e0232d24ad86aa634566544d15784"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "6813156a768a2b0b4b7a41f2bd12d40e85ba9cc6a49ff6d6ff08dd9e74c98d81"
       },
       "attention": {
         "asOf": "2026-09-27",
@@ -2520,7 +2636,7 @@
       "name": "SWE-Prometheus",
       "paperTitle": "SWE-Prometheus: Measuring Engineering Governance Improvements in Real-World Repositories",
       "aliases": [],
-      "oneLine": "A benchmark for improving repository engineering governance in real-world repositories.",
+      "oneLine": "Evaluates repository-level engineering governance improvement tasks in real-world software repositories.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -2621,13 +2737,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "SWE-Prometheus: Measuring Engineering Governance Improvements in Real-World Repositories"
       },
-      "description": "A benchmark for improving repository engineering governance in real-world repositories.",
-      "whyItMatters": "Evaluates repository engineering governance improvements, which may be relevant for assessing code quality and maintenance practices.",
+      "description": "Evaluates repository-level engineering governance improvement tasks in real-world software repositories.",
+      "whyItMatters": "Repository governance work is a recurring maintenance activity distinct from issue resolution; a benchmark could help teams compare how well automated agents improve governance structure and process.",
       "attentionForecast": {
-        "score": 5,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Limited abstract scope and lack of artifact evidence suggest modest initial attention."
+        "reason": "The engineering governance framing may draw repository-automation interest, but no artifact readiness or supplied release evidence supports a stronger near-term attention forecast."
       },
       "attention": {
         "asOf": "2026-09-26",
@@ -2780,9 +2896,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "d421ecb281ba1d21ce06d0ac174c4d42c38422c8b7635407bcc9508b1d8fb17d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "98d5809dcc94ca6b4dcd878a6a3710834b6b3fa070d740b4deabd652bb6d36b0"
       }
     },
     {
@@ -2791,7 +2907,7 @@
       "name": "SWE-PolyVision",
       "paperTitle": "SWE-PolyVision: Benchmarking Cross-Image Abductive Reasoning for Repository-Level Software Engineering",
       "aliases": [],
-      "oneLine": "Evaluates repository-level software engineering agents on 92 real-world tasks requiring cross-image abductive reasoning, with 48 public tasks and 44 private holdouts.",
+      "oneLine": "Evaluates cross-image abductive reasoning on executable repository-level software engineering tasks drawn from multiple open-source organizations.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -2894,13 +3010,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "SWE-PolyVision: Benchmarking Cross-Image Abductive Reasoning for Repository-Level Software Engineering"
       },
-      "description": "Evaluates repository-level software engineering agents on 92 real-world tasks requiring cross-image abductive reasoning, with 48 public tasks and 44 private holdouts.",
-      "whyItMatters": "Fills a gap in executable benchmarks for multi-image reasoning in software engineering, enabling comparison of agent capabilities on real repository tasks.",
+      "description": "Evaluates cross-image abductive reasoning on executable repository-level software engineering tasks drawn from multiple open-source organizations.",
+      "whyItMatters": "Repository-level tasks requiring reasoning across multiple images probe a distinct multimodal software engineering capability; a partitioned public/private task design could support contamination-resistant model comparison.",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Medium",
+        "score": 38,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Given its novelty in cross-image reasoning for software engineering and release of 92 tasks, it is likely to attract moderate attention from the research community."
+        "reason": "The multimodal repository-level framing and partitioned task claim may attract software engineering agent interest, though no supplied release artifact or readiness metadata supports a stronger forecast."
       },
       "attention": {
         "asOf": "2026-09-27",
@@ -3053,9 +3169,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "85e05d9612774e39ec93c79ad439eded737623d4944d7fa0ef266c5bca124159"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "1afc539bf230883a82ec0a17e4d87d381349da0afc3d3255a5bac5c13ca5bb9b"
       }
     },
     {
@@ -3064,7 +3180,7 @@
       "name": "RoboRecover",
       "paperTitle": "RoboRecover: Benchmarking Robot Policy Recovery under Execution Deviations",
       "aliases": [],
-      "oneLine": "Evaluation of robot policy recovery under execution deviations, with task and scoring details not provided.",
+      "oneLine": "Evaluates robot policy recovery under execution deviations in robotic manipulation or control settings.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -3303,18 +3419,18 @@
           }
         }
       },
-      "description": "Evaluation of robot policy recovery under execution deviations, with task and scoring details not provided.",
-      "whyItMatters": "Addresses the gap in assessing robot policy robustness when execution deviates from expected trajectories, which is important for reliable deployment.",
+      "description": "Evaluates robot policy recovery under execution deviations in robotic manipulation or control settings.",
+      "whyItMatters": "Robustness to execution deviations is a practical gap for deployed robot policies; a comparable recovery benchmark could inform how systems are selected for real environments.",
       "attentionForecast": {
-        "score": 0,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The paper title suggests a specialized benchmark with limited topical breadth, but no artifact details are provided, likely reducing early attention."
+        "reason": "The robot policy recovery topic may interest embodied AI researchers, but no supplied artifact, environment details, or release evidence supports a stronger near-term attention forecast."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "5981d8e3c7515127870e1e9b5db2a081614b846c21b9a787f4a8b8687fd34b31"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "b8a726c196f8557b31832401bf424c1fde4b53134ebe4cd5b0567f5604b91801"
       }
     },
     {
@@ -3323,7 +3439,7 @@
       "name": "RLCDAlignBench",
       "paperTitle": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures",
       "aliases": [],
-      "oneLine": "Evaluates zero-shot detection of AI alignment failures across ten types using 44 sub-benchmarks with 7,193 labelled instances and five target models.",
+      "oneLine": "RLCDAlignBench evaluates whether a detector can identify when a language model output is an alignment failure. It spans 44 benchmarks across ten failure types and five target models, yielding 7,193 labelled detection instances with binary labels and per-question probability readouts.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -3402,23 +3518,15 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates zero-shot detection of AI alignment failures across ten types using 44 sub-benchmarks with 7,193 labelled instances and five target models.",
-      "whyItMatters": "Provides a standardized multi-failure detection suite that enables comparison of detector models against calibrated decision making, with human-labelled subsets for validation.",
+      "description": "RLCDAlignBench evaluates whether a detector can identify when a language model output is an alignment failure. It spans 44 benchmarks across ten failure types and five target models, yielding 7,193 labelled detection instances with binary labels and per-question probability readouts.",
+      "whyItMatters": "Alignment-failure detection lacks a unified, reusable evaluation object spanning multiple failure categories. This benchmark provides a labelled, releasable instance set and a recomputable metric pipeline, letting teams compare detectors under a shared scoring contract.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
+        "score": 45,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a broad range of alignment failures and ships on multiple platforms with new evaluation artefacts, but detection evaluation within AI safety may draw moderate early community interest."
+        "reason": "The release covers ten alignment-failure categories with a large labelled instance set and a documented reproducible pipeline, giving it broad topical reach for alignment-safety audiences."
       },
-      "publishers": [
-        {
-          "name": "RLCDAlignBench Team",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://github.com/sumleo/RLCDAlignBench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -3654,9 +3762,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "8a968bd4c14dbe8871cec84392dc0d25355330b66cf0c9e1bcab8d54dba4b5ca"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "10a8f44d970aaa7f721dfe1718716e0e57f9c52d309fd33856e0497c780ce022"
       }
     },
     {
@@ -3667,7 +3775,7 @@
       "aliases": [
         "PrivDrift: Auditing User-Secret Leakage Under Topic Drift in Active LLM Conversations"
       ],
-      "oneLine": "A benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing.",
+      "oneLine": "PrivDrift audits whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing, per the abstract.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3739,14 +3847,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A benchmark for auditing whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing.",
-      "whyItMatters": "It evaluates the robustness of LLM privacy protections when conversations shift topics and adversarial probing is applied, which is important for safe deployment of conversational AI.",
+      "description": "PrivDrift audits whether user-disclosed secrets remain recoverable after conversational topic drift and persuasion-based probing, per the abstract.",
+      "whyItMatters": "Privacy leakage in long conversations is a practical risk, and a reusable auditing protocol could support comparison across assistants.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 40,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The privacy-focused topic may interest the LLM safety community, but the abstract provides limited actionable detail for immediate attention."
+        "reason": "No released artifacts or public reuse path are supplied, limiting observable distribution drivers at release."
       },
       "displayEligible": false,
       "curation": {
@@ -3914,9 +4022,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "ccb474168acc716a41528a8e74bb7ed7ad164313c4fcc7ce580a5eea59e92b2d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "03c933e967e10e824fcc557dd0d4bfcccffa1c1b393245f4e4537eb24d14e2c3"
       }
     },
     {
@@ -3925,7 +4033,7 @@
       "name": "PFArena",
       "paperTitle": "PFArena: Benchmarking Language Models for Protein Modification",
       "aliases": [],
-      "oneLine": "A benchmark comprising four controlled task interfaces covering single-mutant generation and multi-mutant ranking in protein modification.",
+      "oneLine": "PFArena evaluates language models on protein modification through four controlled task interfaces covering single-mutant generation and multi-mutant ranking, per the abstract.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Biology & Drug Discovery"
@@ -4175,18 +4283,18 @@
           }
         }
       },
-      "description": "A benchmark comprising four controlled task interfaces covering single-mutant generation and multi-mutant ranking in protein modification.",
-      "whyItMatters": "It provides a structured way to evaluate language models on protein engineering tasks, with potential applications in drug discovery and synthetic biology.",
+      "description": "PFArena evaluates language models on protein modification through four controlled task interfaces covering single-mutant generation and multi-mutant ranking, per the abstract.",
+      "whyItMatters": "Protein-modification tasks could give a standardized way to compare language models on biological sequence reasoning and ranking decisions.",
       "attentionForecast": {
-        "score": 45,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The intersection of language models and protein engineering is a growing area, but the limited abstract detail may slow early traction."
+        "reason": "No artifacts or submission path are supplied, leaving little observable basis for distribution at release."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "24ac46b4d6cd9546fcd62b39851b23855a22ff170402f40727ba68fed878aa30"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "f1cda8c6775199d0b841968ae171e98ee9d54c422fd8d20c523e9510cf8302bf"
       }
     },
     {
@@ -4197,7 +4305,7 @@
       "aliases": [
         "No More Free Lunch: Corpus Task Complexity Matters as Corpora Grow"
       ],
-      "oneLine": "A 22-task suite focused on corpus task complexity as corpora grow.",
+      "oneLine": "CTC-Bench is a 22-task suite released alongside code and data to study corpus task complexity as corpora grow, per the abstract.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -4272,14 +4380,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A 22-task suite focused on corpus task complexity as corpora grow.",
-      "whyItMatters": "It addresses the relationship between corpus size and task complexity, a critical issue for scalable natural language processing evaluation.",
+      "description": "CTC-Bench is a 22-task suite released alongside code and data to study corpus task complexity as corpora grow, per the abstract.",
+      "whyItMatters": "Corpus-scale retrieval and task complexity have practical implications for choosing methods as data size increases; a shared task suite could support comparison.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 35,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The study of corpus scaling is relevant but the generic title and brief abstract may limit immediate visibility."
+        "reason": "Only a release statement without a link or scoring detail is supplied, limiting observable distribution drivers at release."
       },
       "displayEligible": false,
       "curation": {
@@ -4515,9 +4623,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-27T01:07:54.928899Z",
-        "inputHash": "323fcec4679c099476a4cc2d6235db467e6f08f7bc0f46efbac9c620ba1ca095"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-09-27T10:10:07.504671Z",
+        "inputHash": "ac1128871613feb85cde6e7077292ba557add32d5a4ab426a20c015fc8d8c999"
       }
     },
     {
@@ -5863,7 +5971,7 @@
       "aliases": [
         "credit-risk-tabpfn-benchmark"
       ],
-      "oneLine": "A reproducible experiment comparing TabPFN against logistic regression, random forest, and XGBoost on an imbalanced credit default dataset, with ROC-AUC, Gini, KS, Brier, and F1/Precision/Recall metrics.",
+      "oneLine": "The repository compares TabPFN with traditional machine learning models on a credit risk dataset, but lacks a formally declared benchmark name or explicit public submission path.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Chip Design & EDA",
@@ -5944,14 +6052,14 @@
           "url": "https://github.com/MehKh-Analysis/credit-risk-tabpfn-benchmark"
         }
       ],
-      "description": "A reproducible experiment comparing TabPFN against logistic regression, random forest, and XGBoost on an imbalanced credit default dataset, with ROC-AUC, Gini, KS, Brier, and F1/Precision/Recall metrics.",
-      "whyItMatters": "Model choice for tabular credit scoring affects risk decisions, but this repository compares models on one existing dataset rather than offering a distinct reusable evaluation protocol.",
+      "description": "The repository compares TabPFN with traditional machine learning models on a credit risk dataset, but lacks a formally declared benchmark name or explicit public submission path.",
+      "whyItMatters": "It may provide insights into tabular foundation model performance in credit risk, but the absence of a stable evaluation contract limits its utility as a benchmark.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 0,
+        "score": 20,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Excluded record; forecast is zero as no independent benchmark release is present."
+        "reason": "The narrow financial dataset and lack of formal benchmark structure likely limit early attention to domain specialists."
       },
       "displayEligible": false,
       "curation": {
@@ -5962,9 +6070,9 @@
           "reuse": "## How to Reproduce ```bash pip install -r requirements.txt export TABPFN_TOKEN=\"your_api_key\" # Prior Labs API key (or leave unset for browser login) # 1. Download credit_risk_dataset.csv from Kaggle into data/ # 2. Run notebooks/01_eda.ipynb to create data/credit_risk_cleaned.parquet python src/train_models.py"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-26T06:22:02.024242Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository primarily functions as a reproducible experiment for comparing specific models on a single dataset rather than establishing a reusable benchmark with a formal scoring contract or public submission path.",
+        "decisionReason": "No official benchmark name is declared, and the evaluation appears to be a one-off experiment rather than a reusable benchmark with clear scoring rules.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Credit Risk Benchmark: TabPFN vs. Traditional ML"
       },
@@ -6119,9 +6227,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-flash",
-        "generatedAt": "2026-09-26T09:30:27.469809Z",
-        "inputHash": "7313b3fe99e9498b0131fbabc61b8c943b76c8c0422350ae94902a24e13bd106"
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-27T10:09:07.308450Z",
+        "inputHash": "4dc4e0728ae8ef37b63503aed68f1a5135f30b03ec9cf88c4a0b70ccc517c33e"
       }
     },
     {
@@ -11874,7 +11982,7 @@
       "name": "decision-model-bench",
       "paperTitle": "decision-model-bench",
       "aliases": [],
-      "oneLine": "Benchmark comparing typed decision models (Jev, Open-Jev, Needle 3) on four enterprise tasks: ticket triage, intent classification with out-of-scope, toxicity guardrail, and tool selection, scoring accuracy, macro-F1, auto-handled share at 95% precision, calibration error, and latency.",
+      "oneLine": "The repository compares typed decision models on several enterprise tasks, but it is a one-off harness without a formal benchmark name or clear external submission mechanism.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -11950,27 +12058,27 @@
           "url": "https://github.com/supreethbare/decision-model-bench"
         }
       ],
-      "description": "Benchmark comparing typed decision models (Jev, Open-Jev, Needle 3) on four enterprise tasks: ticket triage, intent classification with out-of-scope, toxicity guardrail, and tool selection, scoring accuracy, macro-F1, auto-handled share at 95% precision, calibration error, and latency.",
-      "whyItMatters": "Provides a repeatable evaluation to determine which decision models can safely route enterprise traffic without human or LLM intervention, using calibrated confidence thresholds and transparent per-case evidence.",
+      "description": "The repository compares typed decision models on several enterprise tasks, but it is a one-off harness without a formal benchmark name or clear external submission mechanism.",
+      "whyItMatters": "It could inform decisions about using typed decision models as routing layers, but the lack of a stable, shared evaluation protocol reduces its benchmark value.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 62,
-        "confidence": "Medium",
+        "score": 30,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets enterprise LLM routing with a practical comparison of proprietary and open decision models, providing runnable code and complete result tables, but lacks a formal paper or external leaderboard to boost immediate visibility."
+        "reason": "The enterprise task focus and multiple model comparisons may draw some interest, but the lack of benchmark framing limits broad appeal."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence.",
           "scoring": "**Accuracy** - exact match against the gold label. A declined answer counts as wrong.",
           "reuse": "```sh python -m venv .venv && source .venv/bin/activate pip install -r requirements.txt ./bench/fetch_raw.sh # download the public datasets into bench/raw/ python bench/build_datasets.py # rebuild bench/data/ (seed 42; should match what's committed) ```"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T01:07:54.904710Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository defines four concrete tasks with a fixed dataset of ~200 cases per task, explicit scoring metrics (accuracy, macro-F1, auto@95%, ECE, Brier), a reusable command-line harness with reproducible data build scripts, and results committed as evidence for public comparison.",
+        "decisionReason": "The project appears to be a comparison experiment with fixed datasets and models, not a benchmark with a reusable scoring contract.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# decision-model-bench Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence."
       },
@@ -12126,8 +12234,8 @@
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-09-25T01:07:54.904710Z",
-        "inputHash": "4f49e64a66d22129f5556b676339196f72056d43577838838cc2c861d06ce890"
+        "generatedAt": "2026-09-27T10:09:07.308450Z",
+        "inputHash": "993576fc99ea9f9879cac1c2c777c1a3f9e940ea9cee6dc7050f92e9a353c2f2"
       }
     },
     {

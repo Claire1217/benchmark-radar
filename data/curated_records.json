@@ -9,7 +9,7 @@
       "aliases": [
         "zero-trust-agent-benchmark"
       ],
-      "oneLine": "Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks.",
+      "oneLine": "Evaluates zero-trust defenses on synthetic AI agent tool-call traces with attack and benign labels, scoring allow/deny decisions on attack blocking, false positives, and secret leaks.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -87,30 +87,261 @@
           "url": "https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark"
         }
       ],
-      "description": "Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks.",
-      "whyItMatters": "Provides a fixed, reproducible workload for comparing zero-trust defenses on identity, scopes, untrusted content, egress, and data-flow checks before tool execution.",
-      "evaluationMode": "score_submission",
+      "description": "Evaluates zero-trust defenses on synthetic AI agent tool-call traces with attack and benign labels, scoring allow/deny decisions on attack blocking, false positives, and secret leaks.",
+      "whyItMatters": "Provides a fixed deterministic workload for comparing policy checks beyond prompt filtering, including identity posture, scopes, untrusted content, egress, and data flow.",
+      "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Medium",
+        "score": 35,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Focused AI security benchmark with immediate reproducibility and baseline results, likely to attract niche but engaged practitioners in agent safety."
+        "reason": "Niche AI security benchmark with synthetic traces may attract narrow interest from security researchers."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Each JSON Lines (JSONL) trace contains an agent posture, requested tool calls, context, and synthetic canaries issued for that trace. A defense receives one request per step and returns `allow` or `deny`.",
+          "task": "A defense receives one request per step and returns `allow` or `deny`.",
           "scoring": "The evaluator scores attack blocking, benign false positives, and leaks.",
-          "reuse": "Python application programming interface (API): ```python from zero_trust_agent_benchmark import Decision, evaluate, load_traces class MyDefense: def decide(self, request: dict) -> Decision: return Decision(\"deny\", \"demo\", \"my-defense\") report = evaluate(MyDefense(), load_traces(split=\"test\")) print(report.metrics) ```"
+          "reuse": "Use `evaluate(..., provide_issued_secrets=True)` when a defense needs the issued-secret record that a real broker would hold."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-27T01:04:37.123108Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark with public code and trace data, deterministic test split, clear scoring metrics, and an external Python API for other teams to submit defenses.",
+        "decisionReason": "The repository describes released traces, a runnable evaluator, baseline results, and a public reuse path for scoring submitted defenses.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Zero Trust Agent Benchmark"
-      }
+      },
+      "attention": {
+        "asOf": "2026-09-27",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": 0,
+        "githubRepo": "https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark",
+        "githubScope": "benchmark_repo",
+        "hfDatasetDownloads": null,
+        "hfDatasetLikes": null,
+        "hfDataset": null,
+        "observedAt": "2026-09-27T02:04:25.451201Z",
+        "attemptedAt": "2026-09-27T02:04:25.451201Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "fresh",
+            "observedAt": "2026-09-27T02:04:25.451201Z"
+          },
+          "hfDatasetDownloads": {
+            "state": "not_applicable"
+          },
+          "hfDatasetLikes": {
+            "state": "not_applicable"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 51,
+          "rank": 1,
+          "coverage": 0.25,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 51,
+            "rank": 1,
+            "coverage": 0.25,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "llmAttentionForecast": {
+                "value": 55,
+                "percentile": 0.55,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-26",
+            "windowDays": 1,
+            "elapsedDays": 1
+          }
+        },
+        "30d": {
+          "score": 23,
+          "rank": 128,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 128,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-08-28",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": 23,
+          "rank": 381,
+          "coverage": 0.55,
+          "confidence": "Low",
+          "method": "attention-ranking-v13",
+          "level": {
+            "score": 23,
+            "rank": 381,
+            "coverage": 0.55,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-27T01:04:37.123108Z",
+        "inputHash": "b335a52f5ed277ec189b173245951703949ca1c96eae29f5bfd45c604fbac2ae"
+      },
+      "publishers": [
+        {
+          "name": "Zero Trust Agent Benchmark team",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_nsr-product-use-benchmark_381f8927",
@@ -693,7 +924,7 @@
       "aliases": [
         "aa-agentperf-local"
       ],
-      "oneLine": "Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency.",
+      "oneLine": "Local LLM agent serving performance measured by replaying recorded agent trajectories against an OpenAI-compatible server and reporting token throughput and latency.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -770,19 +1001,19 @@
           "url": "https://github.com/ArtificialAnalysis/aa-agentperf-local"
         }
       ],
-      "description": "Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency.",
-      "whyItMatters": "Provides a standardized way to compare machine-level serving performance for AI agents, helping users choose hardware and configurations.",
+      "description": "Local LLM agent serving performance measured by replaying recorded agent trajectories against an OpenAI-compatible server and reporting token throughput and latency.",
+      "whyItMatters": "Provides a standardized way to compare how quickly different local hardware and serving stacks handle realistic multi-turn agent workloads.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 15,
-        "confidence": "Low",
+        "score": 35,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Niche developer tool with low topical breadth and limited immediate mainstream appeal."
+        "reason": "The benchmark targets local LLM serving for agents, a timely but niche performance topic with an optional submission channel."
       },
       "publishers": [
         {
           "name": "Artificial Analysis",
-          "organizationType": "company-research-lab",
+          "organizationType": "benchmark-organization",
           "sourceUrl": "https://artificialanalysis.ai",
           "role": "benchmark-publisher"
         }
@@ -791,16 +1022,138 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "It replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency.",
-          "scoring": "The default replay is `agentperf-default-v1`: eight recorded agent tasks with 168 model turns. It uses the `exact` output policy, which makes every turn generate its recorded number of tokens. This is the comparable run.",
+          "task": "The default replay is `agentperf-default-v1`: eight recorded agent tasks with 168 model turns. It uses the `exact` output policy, which makes every turn generate its recorded number of tokens.",
+          "scoring": "`summary.json` holds the headline numbers: output tokens per second and median and p95 first-token and turn times.",
           "reuse": "Submitting is optional and nothing is uploaded unless you ask. `prepare-submission` builds a bundle, `submit` sends it, and `submission-status` reads it back."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-27T06:49:41.165438Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released open-source tool with a defined replay workload, fixed output token policy, and a documented submission path to Artificial Analysis, enabling repeatable and comparable evaluations.",
+        "decisionReason": "The repository includes a fixed replay workload, defined output policy, standard summary metrics, and an explicit submission path to Artificial Analysis.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "`agentperf-local` measures how fast your machine serves an AI agent."
+        "canonicalNameEvidence": "agentperf-local Benchmark how fast your machine serves an AI agent."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-09-27T06:49:41.165438Z",
+        "inputHash": "49233ef75db2f059bd93747eebd4d44482ad6e68244326f83b0d8db0c5469d75"
+      }
+    },
+    {
+      "id": "bm_almanac_f919dcd3",
+      "familyId": "bmf_409e0a333bd7",
+      "name": "Almanac",
+      "paperTitle": "almanac",
+      "aliases": [],
+      "oneLine": "Evaluates agent memory systems on generated multi-month conversation lives, testing time, plans, provenance, absence, tasks, and hygiene via 215 questions.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Factuality"
+      ],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/jbpayton/almanac",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-09-26T06:20:38.717221Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-09-25",
+      "firstSeenAt": "2026-09-26",
+      "indexedAt": "2026-09-26T06:20:38.717221Z",
+      "sourceUpdatedAt": "2026-09-25T17:46:59Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/jbpayton/almanac"
+      },
+      "motivation": "almanac A benchmark for what an agent's memory knows about its own knowledge: time, plans, provenance, absence, tasks and hygiene, over generated lives agent-memory benchmark evaluation llm # Almanac **A benchmark for what an agent's memory knows about its own knowledge.** Most memory benchmarks ask one kind of question: *what did the user say?* Almanac asks the questions a memory should also be able to answer: - **…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:jbpayton/almanac",
+        "url": "https://github.com/jbpayton/almanac",
+        "title": "almanac",
+        "authors": [
+          "jbpayton"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "almanac A benchmark for what an agent's memory knows about its own knowledge: time, plans, provenance, absence, tasks and hygiene, over generated lives agent-memory benchmark evaluation llm # Almanac **A benchmark for what an agent's memory knows about its own knowledge.** Most memory benchmarks ask one kind of question: *what did the user say?* Almanac asks the questions a memory should also be able to answer: - **Time:** when something was said, when it happens, and what was true on a given da",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:jbpayton/almanac",
+          "url": "https://github.com/jbpayton/almanac"
+        }
+      ],
+      "description": "Evaluates agent memory systems on generated multi-month conversation lives, testing time, plans, provenance, absence, tasks, and hygiene via 215 questions.",
+      "whyItMatters": "Measures memory capabilities beyond factual recall, including honesty about unknown information and resistance to injected instructions.",
+      "evaluationMode": "score_submission",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "A new agent-memory benchmark with a unique focus and open-source code may attract moderate interest from researchers and developers."
+      },
+      "publishers": [
+        {
+          "name": "jbpayton",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/jbpayton/almanac",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "The v0.1 test set is 8 lives with 215 questions, in `data/lives/`: about 39 sessions and 215 messages per life, over 160 days.",
+          "scoring": "python -m almanac.score results/*.jsonl",
+          "reuse": "Any memory system can be plugged in by implementing two methods: ```python class MySystem(Adapter):"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-09-27T10:07:10.581768Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Almanac is a released benchmark with a reproducible test set, deterministic scoring, and a public adapter interface for external submissions.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Almanac"
       }
     },
     {
@@ -4091,9 +4444,9 @@
           "reuse": "## How to Reproduce ```bash pip install -r requirements.txt export TABPFN_TOKEN=\"your_api_key\" # Prior Labs API key (or leave unset for browser login) # 1. Download credit_risk_dataset.csv from Kaggle into data/ # 2. Run notebooks/01_eda.ipynb to create data/credit_risk_cleaned.parquet python src/train_models.py"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-26T06:22:02.024242Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository primarily functions as a reproducible experiment for comparing specific models on a single dataset rather than establishing a reusable benchmark with a formal scoring contract or public submission path.",
+        "decisionReason": "No official benchmark name is declared, and the evaluation appears to be a one-off experiment rather than a reusable benchmark with clear scoring rules.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# Credit Risk Benchmark: TabPFN vs. Traditional ML"
       }
@@ -7694,18 +8047,18 @@
         "horizon": "7d",
         "reason": "The benchmark targets enterprise LLM routing with a practical comparison of proprietary and open decision models, providing runnable code and complete result tables, but lacks a formal paper or external leaderboard to boost immediate visibility."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence.",
           "scoring": "**Accuracy** - exact match against the gold label. A declined answer counts as wrong.",
           "reuse": "```sh python -m venv .venv && source .venv/bin/activate pip install -r requirements.txt ./bench/fetch_raw.sh # download the public datasets into bench/raw/ python bench/build_datasets.py # rebuild bench/data/ (seed 42; should match what's committed) ```"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-09-25T01:07:54.904710Z",
+        "reviewedAt": "2026-09-27T10:09:07.308450Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository defines four concrete tasks with a fixed dataset of ~200 cases per task, explicit scoring metrics (accuracy, macro-F1, auto@95%, ECE, Brier), a reusable command-line harness with reproducible data build scripts, and results committed as evidence for public comparison.",
+        "decisionReason": "The project appears to be a comparison experiment with fixed datasets and models, not a benchmark with a reusable scoring contract.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# decision-model-bench Benchmark harness comparing **typed decision models** on four enterprise tasks, with per-case predictions committed as evidence."
       }

@@ -10,29 +10,29 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-26 · **Benchmark releases:** 2001
+**Snapshot:** 2026-09-26 · **Benchmark releases:** 2002
 
 ## Contents
 
 - [AI Research Agents](#ai-research-agents) (7)
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
-- [Agent Memory](#agent-memory) (20)
-- [Agent Safety & Security](#agent-safety--security) (55)
+- [Agent Memory](#agent-memory) (21)
+- [Agent Safety & Security](#agent-safety--security) (56)
 - [Coding Agents](#coding-agents) (59)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (18)
-- [Efficient Inference](#efficient-inference) (11)
+- [Efficient Inference](#efficient-inference) (10)
 - [Embodied AI & VLA](#embodied-ai--vla) (85)
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1089)
-- [Personal & Enterprise Agents](#personal--enterprise-agents) (40)
+- [Other benchmark tasks](#other-benchmark-tasks) (1090)
+- [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (55)
-- [Tool Use](#tool-use) (31)
+- [Tool Use](#tool-use) (29)
 - [Video Understanding](#video-understanding) (57)
 - [World Models](#world-models) (19)
 
@@ -59,6 +59,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Memory
 
+- **Almanac** (2026-09-25) — Evaluates agent memory systems on generated multi-month conversation lives, testing time, plans, provenance, absence, tasks, and hygiene via 215 questions. [Code](https://github.com/jbpayton/almanac)
 - **PRAGMA** (2026-09-09) — Evaluates personalized guidance through long-term conversation histories and evidence annotations, testing retrieval accuracy and memory-grounded reasoning. [Paper](https://arxiv.org/abs/2609.09664)
 - **Agent Memory Benchmark** (2026-09-08) — Evaluates agent memory systems on a 10-question pilot using LongMemEval, measuring answer accuracy under three judge rules plus token usage, latency, ingestion cost, forgetting curve, and superseded-value handling. [Code](https://github.com/datapace-ai/agent-memory-benchmark)
 - **PAST-Bench** (2026-08-04) — PAST-Bench evaluates recursive self-improvement in personal AI agents by testing whether retained experience improves performance on future tasks. It spans 26 scenarios and 204 episodes across memory, procedural reuse,… [Paper](https://arxiv.org/abs/2608.04003) · [HF](https://huggingface.co/papers/2608.04003) · [Code](https://github.com/Gen-Verse/PAST-Bench)
@@ -82,6 +83,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
+- **StateSet NSR Product Use Benchmark v1** (2026-09-26) — Eleven synthetic cases evaluate how an agent uses StateSet NSR MCP tools before a consequential action, with a harness scoring tool calls and a final structured JSON for passed cases and unsafe actions. [Code](https://github.com/stateset/nsr-product-use-benchmark)
 - **rootme-gym** (2026-09-22) — Evaluates LLMs on Root-Me CTF challenges in a closed-book setup with a Docker sandbox and deterministic scrypt hash scoring. [Code](https://github.com/vmalguy/rootme-gym)
 - **Office Agent Benchmark** (2026-09-20) — Evaluates office agents on documents, spreadsheets, presentations, daily workflows, instruction following, and safety constraints through executable scoring contracts. [Code](https://github.com/basilos-ai/office-agent-benchmark)
 - **HumanWill Benchmark** (2026-09-19) — HumanWill is an assistance-focused evaluation over 424 cybersecurity questions spanning vulnerability validation, source-code security, binary, network and filesystem investigation. It scores false refusal and answer us… [Code](https://github.com/humanwill-ai/humanwill-benchmark)
@@ -140,7 +142,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
-- **SWE-PolyVision** (2026-09-24) — Evaluates repository-level software engineering agents on 92 real-world tasks requiring cross-image abductive reasoning, with 48 public tasks and 44 private holdouts. [Paper](https://arxiv.org/abs/2609.29754)
+- **SWE-PolyVision** (2026-09-24) — Evaluates cross-image abductive reasoning on executable repository-level software engineering tasks drawn from multiple open-source organizations. [Paper](https://arxiv.org/abs/2609.29754)
 - **VibeMemBench** (2026-09-20) — Evaluates memory systems for coding agents on 111 coding targets from 90 SWE-rebench V2 repositories using 3,634 history trajectories. [Paper](https://arxiv.org/abs/2609.23570)
 - **GameLogicBench** (2026-09-18) — Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using black-box behavioral assertions under deterministic simulation. [Paper](https://arxiv.org/abs/2609.21562) · [Code](https://github.com/NJU-LINK/GameLogicBench)
 - **GameASG-Bench** (2026-09-18) — Evaluates coding agents on generating complete browser games from natural-language requirements with static and behavioral tests. [Paper](https://arxiv.org/abs/2609.21293) · [Code](https://github.com/areal-project/GameASG-Bench)
@@ -258,7 +260,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Efficient Inference
 
-- **agentperf-local** (2026-09-26) — Benchmarks local LLM serving speed by replaying recorded agent trajectories against an OpenAI-compatible server, measuring throughput and latency. [Code](https://github.com/ArtificialAnalysis/aa-agentperf-local)
 - **VLAQuantBench** (2026-09-21) — Evaluates post-training quantization of vision-language-action models by rolling out quantized policies on simulation benchmarks and recording per-episode success and diagnostic metrics. [Paper](https://arxiv.org/abs/2609.25376) · [Code](https://github.com/jiuyixu25/VLAQuantBench)
 - **AutoTuneBench** (2026-09-16) — A benchmark and measurement protocol for agent auto-tuning of LLM serving engines, featuring a proposal-evaluation loop with correctness checks, fair timing, profiling, and anti-cheating gates to ensure trustworthy resu… [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
 - **LLM Quantization Benchmark on Apple Silicon** (2026-09-13) — Benchmark measuring inference speed, memory usage, and accuracy of MLX and llama.cpp with 4-bit and 8-bit quantization across three 3B-class LLMs on Apple M4 hardware. [Code](https://github.com/sameer-sde/llm-quantization-benchmark)
@@ -469,12 +470,13 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **Zero Trust Agent Benchmark** (2026-09-26) — Evaluates defenses that decide allow or deny for each AI agent tool call using synthetic traces with agent posture, requested calls, context, and canaries; scores attack blocking, false positives, and leaks. [Code](https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark)
-- **Election: issue-contingent bias benchmark** (2026-09-26) — Assesses whether an LLM's treatment of a candidate's tax position changes with the candidate's stance on AGI regulation, using a factorial candidate set and a blind rubric judge over sampled text. [Code](https://github.com/kilojoules/election-bias-benchmark)
-- **Analog Design Bench** (2026-09-26) — Evaluates agents on 50 analog and mixed-signal circuit design tasks in SkyWater SKY130, requiring transistor-level SPICE netlists that pass hidden ngspice verification. [Data](https://huggingface.co/datasets/Arcadia-2026/analog-design-bench)
-- **TopU-LBVS** (2026-09-24) — A 93-target LBVS benchmark with hard-negative decoys, offering full, few-shot, and mini protocols for train-test evaluation. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **Synthetic Hospital** (2026-09-24) — Evaluates models on synthetic longitudinal electronic health records with physician-validated ground truth. [Paper](https://arxiv.org/abs/2609.30027)
-- **RLCDAlignBench** (2026-09-24) — Evaluates zero-shot detection of AI alignment failures across ten types using 44 sub-benchmarks with 7,193 labelled instances and five target models. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
+- **agentperf-local** (2026-09-26) — Replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency, with a default comparable replay of eight recorded agent tasks and 168 model turns. [Code](https://github.com/ArtificialAnalysis/aa-agentperf-local)
+- **Zero Trust Agent Benchmark** (2026-09-26) — A reproducible benchmark of synthetic JSONL agent tool-call traces in which a defense returns allow or deny per step; the evaluator scores attack blocking, benign false positives, and canary leaks over fixed dev and tes… [Code](https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark)
+- **Election: issue-contingent bias benchmark** (2026-09-26) — The suite probes whether a candidate's stance on AGI regulation changes an LLM's treatment of that candidate on property tax, holding the tax position fixed across five open models. [Code](https://github.com/kilojoules/election-bias-benchmark)
+- **Analog Design Bench** (2026-09-26) — Fifty analog and mixed-signal circuit design tasks in the SkyWater SKY130 process where an agent delivers a SPICE netlist that a hidden ngspice verifier checks against every specification. [Data](https://huggingface.co/datasets/Arcadia-2026/analog-design-bench)
+- **TopU-LBVS** (2026-09-24) — A multi-target ligand-based virtual screening benchmark of 93 protein targets across 7 protein classes evaluated with property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio, with full, fe… [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **Synthetic Hospital** (2026-09-24) — Evaluates longitudinal electronic health record tasks on an open, fully synthetic, physician-validated dataset with fact-grounded ground truth. [Paper](https://arxiv.org/abs/2609.30027)
+- **RLCDAlignBench** (2026-09-24) — RLCDAlignBench evaluates whether a detector can identify when a language model output is an alignment failure. It spans 44 benchmarks across ten failure types and five target models, yielding 7,193 labelled detection in… [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
 - **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — ART evaluates whether language models separate attacker-reachable vulnerabilities from patched twins, safe code, and vacuous noise, scoring vulnerability, patched, and filler accuracy via a weighted ART score and a Twin… [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
@@ -1561,7 +1563,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Personal & Enterprise Agents
 
-- **decision-model-bench** (2026-09-23) — Benchmark comparing typed decision models (Jev, Open-Jev, Needle 3) on four enterprise tasks: ticket triage, intent classification with out-of-scope, toxicity guardrail, and tool selection, scoring accuracy, macro-F1, a… [Code](https://github.com/supreethbare/decision-model-bench)
 - **FinalityBench** (2026-09-04) — FinalityBench evaluates agent decisions in financial exception scenarios where payment systems have inconsistent views due to message faults. It uses a hidden canonical event log and derives system states via faulted de… [Paper](https://arxiv.org/abs/2609.04706) · [Code](https://github.com/abhisheksharma2411/finalitybench)
 - **$\tau^\tau$-Bench: An Environment for End-To-End, Realistic Agent Construction** (2026-09-04) — A benchmark where a developer agent builds a complete customer-service agent from business records, client requirements, a production API, inherited codebase, and cost/model limits, scored by deployment against held-out… [Paper](https://arxiv.org/abs/2609.04611)
 - **Thinkingbox-Bench** (2026-08-20) — Evaluates LLM agents on 507 stateful business workflows in an executable sandbox, with task-specific checks that accept valid trajectories and reject wrong, missing, or extra effects. [Paper](https://arxiv.org/abs/2608.19741) · [Code](https://github.com/microsoft/thinkingbox)
@@ -1700,8 +1701,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Tool Use
 
-- **StateSet NSR Product Use Benchmark** (2026-09-26) — Evaluates an agent's tool use around StateSet NSR before consequential actions using eleven synthetic cases that test tool choice, authorization targets, evidence handling, plan checks, proof verification, and response… [Code](https://github.com/stateset/nsr-product-use-benchmark)
-- **decision-model-bench** (2026-09-23) — Benchmark comparing typed decision models (Jev, Open-Jev, Needle 3) on four enterprise tasks: ticket triage, intent classification with out-of-scope, toxicity guardrail, and tool selection, scoring accuracy, macro-F1, a… [Code](https://github.com/supreethbare/decision-model-bench)
 - **agent-injection-bench** (2026-09-11) — Evaluates prompt-injection robustness of tool-calling agent stacks using a 24-scenario corpus (21 adversarial, 3 control) delivered through channels such as tool results, documents, web pages, filenames and multi-turn d… [Code](https://github.com/sentinelden/agent-injection-bench)
 - **ParaRecover** (2026-09-11) — ParaRecover evaluates LLM-based parallel tool-use agents on error localization and recovery, testing whether agents detect execution errors, diagnose root causes, and repair plans when tool calls fail. It scores replann… [Paper](https://arxiv.org/abs/2609.12345) · [Code](https://github.com/gbw206/ParaRecover)
 - **DuMateBench** (2026-08-27) — We introduce DuMateBench, a real-session benchmark reconstructed from anonymized and privacy-screened user sessions collected from a large-scale production agent platform. [Paper](https://arxiv.org/abs/2608.26546) · [HF](https://huggingface.co/papers/2608.26546)
