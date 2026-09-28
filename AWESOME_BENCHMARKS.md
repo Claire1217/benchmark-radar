@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-09-28 · **Benchmark releases:** 2002
+**Snapshot:** 2026-09-27 · **Benchmark releases:** 2018
 
 ## Contents
 
@@ -18,22 +18,22 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Agent Harnesses & Skills](#agent-harnesses--skills) (8)
 - [Agent Memory](#agent-memory) (21)
 - [Agent Safety & Security](#agent-safety--security) (56)
-- [Coding Agents](#coding-agents) (59)
+- [Coding Agents](#coding-agents) (58)
 - [Computer Use](#computer-use) (23)
 - [Data Analysis Agents](#data-analysis-agents) (6)
 - [Deep Research & Web Search](#deep-research--web-search) (18)
-- [Efficient Inference](#efficient-inference) (10)
+- [Efficient Inference](#efficient-inference) (11)
 - [Embodied AI & VLA](#embodied-ai--vla) (85)
 - [Image & Video Generation](#image--video-generation) (68)
 - [Multi-Agent Systems](#multi-agent-systems) (13)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1090)
+- [Other benchmark tasks](#other-benchmark-tasks) (1093)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (39)
 - [Scientific Agents](#scientific-agents) (18)
 - [Self-Improving Agents](#self-improving-agents) (14)
 - [Speech & Audio](#speech--audio) (55)
 - [Tool Use](#tool-use) (29)
-- [Video Understanding](#video-understanding) (57)
+- [Video Understanding](#video-understanding) (58)
 - [World Models](#world-models) (19)
 
 ## AI Research Agents
@@ -142,7 +142,6 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
-- **SWE-PolyVision** (2026-09-24) — Evaluates cross-image abductive reasoning on executable repository-level software engineering tasks drawn from multiple open-source organizations. [Paper](https://arxiv.org/abs/2609.29754)
 - **VibeMemBench** (2026-09-20) — Evaluates memory systems for coding agents on 111 coding targets from 90 SWE-rebench V2 repositories using 3,634 history trajectories. [Paper](https://arxiv.org/abs/2609.23570)
 - **GameLogicBench** (2026-09-18) — Evaluates coding agents on 72 gameplay-logic tasks in Godot projects using black-box behavioral assertions under deterministic simulation. [Paper](https://arxiv.org/abs/2609.21562) · [Code](https://github.com/NJU-LINK/GameLogicBench)
 - **GameASG-Bench** (2026-09-18) — Evaluates coding agents on generating complete browser games from natural-language requirements with static and behavioral tests. [Paper](https://arxiv.org/abs/2609.21293) · [Code](https://github.com/areal-project/GameASG-Bench)
@@ -260,6 +259,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Efficient Inference
 
+- **inference-bench: serving engine benchmarks on Akamai Cloud GPUs** (2026-09-27) — Evaluates six LLM serving engines (vLLM, SGLang, TGI, Ollama, llama.cpp, NVIDIA NIM) on latency, throughput, and cost per million tokens using fixed workloads and guidellm on Akamai Cloud GPUs. [Code](https://github.com/cmcconnell1/inference-bench)
 - **VLAQuantBench** (2026-09-21) — Evaluates post-training quantization of vision-language-action models by rolling out quantized policies on simulation benchmarks and recording per-episode success and diagnostic metrics. [Paper](https://arxiv.org/abs/2609.25376) · [Code](https://github.com/jiuyixu25/VLAQuantBench)
 - **AutoTuneBench** (2026-09-16) — A benchmark and measurement protocol for agent auto-tuning of LLM serving engines, featuring a proposal-evaluation loop with correctness checks, fair timing, profiling, and anti-cheating gates to ensure trustworthy resu… [Paper](https://arxiv.org/abs/2609.18123) · [Code](https://github.com/li-ch/autotunebench)
 - **LLM Quantization Benchmark on Apple Silicon** (2026-09-13) — Benchmark measuring inference speed, memory usage, and accuracy of MLX and llama.cpp with 4-bit and 8-bit quantization across three 3B-class LLMs on Apple M4 hardware. [Code](https://github.com/sameer-sde/llm-quantization-benchmark)
@@ -470,13 +470,16 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
+- **Hermes Code Agent Benchmark** (2026-09-27) — Evaluates software engineering task completion across 20 selected SWE-bench Verified, SWE-bench Pro V2, and Terminal-Bench instances using official verifiers. [Code](https://github.com/FlapPearLabs/hermes-code-agent-benchmark)
 - **agentperf-local** (2026-09-26) — Replays recorded agent conversations against an OpenAI-compatible model server and reports throughput and latency, with a default comparable replay of eight recorded agent tasks and 168 model turns. [Code](https://github.com/ArtificialAnalysis/aa-agentperf-local)
 - **Zero Trust Agent Benchmark** (2026-09-26) — A reproducible benchmark of synthetic JSONL agent tool-call traces in which a defense returns allow or deny per step; the evaluator scores attack blocking, benign false positives, and canary leaks over fixed dev and tes… [Code](https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark)
-- **Election: issue-contingent bias benchmark** (2026-09-26) — The suite probes whether a candidate's stance on AGI regulation changes an LLM's treatment of that candidate on property tax, holding the tax position fixed across five open models. [Code](https://github.com/kilojoules/election-bias-benchmark)
 - **Analog Design Bench** (2026-09-26) — Fifty analog and mixed-signal circuit design tasks in the SkyWater SKY130 process where an agent delivers a SPICE netlist that a hidden ngspice verifier checks against every specification. [Data](https://huggingface.co/datasets/Arcadia-2026/analog-design-bench)
-- **TopU-LBVS** (2026-09-24) — A multi-target ligand-based virtual screening benchmark of 93 protein targets across 7 protein classes evaluated with property-matched and structurally similar decoys at a fixed 1:40 active-to-decoy ratio, with full, fe… [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
-- **Synthetic Hospital** (2026-09-24) — Evaluates longitudinal electronic health record tasks on an open, fully synthetic, physician-validated dataset with fact-grounded ground truth. [Paper](https://arxiv.org/abs/2609.30027)
-- **RLCDAlignBench** (2026-09-24) — RLCDAlignBench evaluates whether a detector can identify when a language model output is an alignment failure. It spans 44 benchmarks across ten failure types and five target models, yielding 7,193 labelled detection in… [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
+- **UltraG-Bench** (2026-09-25) — Evaluates vision-language models on pixel-level evidence grounding in ultrasound via segmentation, VQA, and report generation tasks. [Paper](https://arxiv.org/abs/2609.30928) · [Code](https://github.com/zhuqh19/UltraG-Bench)
+- **SAGE: A sampling-aware global evaluation benchmark for species distribution modeling** (2026-09-25) — Evaluates species distribution models on 5771 plant species using GBIF training data and sPlotOpen presence-absence plots, with species grouped by sampling effort and relative prevalence. [Paper](https://arxiv.org/abs/2609.31082)
+- **Roundtrip** (2026-09-25) — A roundtrip benchmark that scores natural-language code descriptions by regenerating code from them and measuring test pass fraction against original tests, along with description metrics. [Paper](https://arxiv.org/abs/2609.31587) · [Code](https://github.com/haw-ai-i/roundtrip)
+- **PriceBench** (2026-09-25) — Evaluates LLM price, quality, and brand preferences from hotel-booking choices using a logit choice model. [Paper](https://arxiv.org/abs/2609.31468) · [Code](https://github.com/Pashasan/pricebench-emnlp)
+- **TopU-LBVS** (2026-09-24) — TopU-LBVS is a multi-target ligand-based virtual screening benchmark with 93 protein targets and hard-negative decoys, scored by enrichment factor metrics. [Paper](https://arxiv.org/abs/2609.29740) · [Code](https://github.com/topu-benchmark/topu-lbvs) · [Data](https://huggingface.co/datasets/topu-benchmark/topu-lbvs)
+- **RLCDAlignBench** (2026-09-24) — Evaluates binary detection of AI alignment failures across ten failure types, covering 44 benchmarks and target-model outputs presented in a standard instance format. [Paper](https://arxiv.org/abs/2609.29429) · [Code](https://github.com/sumleo/RLCDAlignBench)
 - **Attacker-Reachable Sink Triage (ART)** (2026-09-24) — ART evaluates whether language models separate attacker-reachable vulnerabilities from patched twins, safe code, and vacuous noise, scoring vulnerability, patched, and filler accuracy via a weighted ART score and a Twin… [Code](https://github.com/mziqudhd92/kaggle-art-benchmark)
 - **Uncheatable Eval** (2026-09-23) — Evaluates base language models on newly collected internet data using compression-based negative log likelihood. [Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)
 - **StudentBench** (2026-09-23) — Evaluates large language model tutors via GRE learning gains, comparing AI vs human tutoring and assessing teaching quality and cost efficiency across seven GRE domains. [Paper](https://arxiv.org/abs/2609.28470) · [Code](https://github.com/Handshake-AI-Research/studentbench)
@@ -1733,6 +1736,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Video Understanding
 
+- **TRACE: Temporal Audit and Condition-aware Evaluation of Streaming Video Understanding** (2026-09-25) — Streaming video understanding evaluation with annotated timing and trigger conditions, scored on accuracy, timeliness, response behavior, workload, completion, and reliability. [Paper](https://arxiv.org/abs/2609.30670) · [Code](https://github.com/om-ai-lab/trace-bench)
 - **AgentVidBench** (2026-09-18) — Evaluates MLLM agents on 100 multi-hop video question answering tasks with 26 answer choices per question, requiring spatial, temporal, and causal reasoning over video content. [Paper](https://arxiv.org/abs/2609.21386) · [Code](https://github.com/krafton-ai/agentvidbench) · [Data](https://huggingface.co/datasets/agentvidbench/agentvidbench)
 - **VWG-Bench** (2026-09-10) — VWG-Bench evaluates image-to-video generation models on rule-following, physical and commonsense constraints, and goal realization over time, using 380 annotated initial images across 9 reasoning dimensions and 38 ten-s… [Paper](https://arxiv.org/abs/2609.11242) · [Data](https://huggingface.co/datasets/KlingTeam/VWG-Bench)
 - **BuddyVQA** (2026-09-06) — BuddyVQA evaluates model performance on companion-style question answering in streaming egocentric video, including ego-deictic and chained questions. [Paper](https://arxiv.org/abs/2609.06721) · [Code](https://github.com/QHUni/BuddyVQA)
