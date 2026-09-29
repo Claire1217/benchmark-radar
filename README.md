@@ -26,28 +26,28 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-09-29 · benchmarks first released in September 2026</sub>
+<sub>Updated 2026-09-28 · benchmarks first released in September 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **GameHorizon-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.25001) · [Code](https://github.com/TencentARC/GameHorizon)</sub> | Other benchmark tasks | 130 HF votes · 339 GitHub stars |
 | 2 | **ModularRSI**<br><sub>[Paper](https://arxiv.org/abs/2609.14857)</sub> | Self-Improving Agents | 213 HF votes · 66 GitHub stars |
 | 3 | **OV-SGG-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.12552)</sub> | Other benchmark tasks | 5 HF votes · 678 GitHub stars |
-| 4 | **TriWorldBench**<br><sub>[Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)</sub> | World Models · Embodied AI & VLA | 234 GitHub stars |
+| 4 | **TriWorldBench**<br><sub>[Paper](https://arxiv.org/abs/2609.26314) · [Code](https://github.com/TriWorldBench/TriWorldBench)</sub> | World Models · Embodied AI & VLA | 232 GitHub stars |
 | 5 | **Uncheatable Eval**<br><sub>[Paper](https://arxiv.org/abs/2609.27510) · [Code](https://github.com/Jellyfish042/uncheatable_eval)</sub> | Other benchmark tasks | 124 GitHub stars |
-| 6 | **Last Translation Benchmark**<br><sub>[Paper](https://arxiv.org/abs/2609.04173)</sub> | Speech & Audio | 44 HF votes · 59 GitHub stars |
-| 7 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 55 HF votes · 42 GitHub stars |
-| 8 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 54 HF votes · 653 dataset downloads |
-| 9 | **Taste-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.25804) · [Code](https://github.com/wbopan/tastebench)</sub> | Other benchmark tasks | 159 HF votes · 18 GitHub stars · 61 dataset downloads |
-| 10 | **Φ-Bench**<br><sub>[Paper](https://arxiv.org/abs/2609.10226)</sub> | Other benchmark tasks | 18 HF votes · 63 GitHub stars |
+| 6 | **Panda-CVL**<br><sub>[Paper](https://arxiv.org/abs/2609.24983)</sub> | Other benchmark tasks | 55 HF votes · 42 GitHub stars |
+| 7 | **ReactHuman**<br><sub>[Paper](https://arxiv.org/abs/2609.10895)</sub> | Other benchmark tasks | 54 HF votes · 653 dataset downloads |
+| 8 | **FinFIRST**<br><sub>[Paper](https://arxiv.org/abs/2609.25192)</sub> | Deep Research & Web Search | 3,951 dataset downloads |
+| 9 | **WearableQA**<br><sub>[Paper](https://arxiv.org/abs/2609.05405)</sub> | Other benchmark tasks | 43 HF votes · 23 GitHub stars |
+| 10 | **EMBODIEDSWE-BENCH**<br><sub>[Paper](https://arxiv.org/abs/2609.27308)</sub> | Coding Agents | 4 HF votes · 97 GitHub stars |
 
 ### Explore the library
 
 | Agent research | Related research |
 |---|---|
-| [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 130<br>[Computer Use](https://benchmark-radar.com/#library?direction=computer-use) · 47<br>[Deep Research & Web Search](https://benchmark-radar.com/#library?direction=search-research) · 38<br>[Tool Use](https://benchmark-radar.com/#library?direction=tool-use) · 81<br>[Agent Memory](https://benchmark-radar.com/#library?direction=agent-memory) · 27<br>[Multi-Agent Systems](https://benchmark-radar.com/#library?direction=multi-agent) · 17<br>[Personal & Enterprise Agents](https://benchmark-radar.com/#library?direction=personal-workplace) · 55<br>[Data Analysis Agents](https://benchmark-radar.com/#library?direction=data-analysis-agents) · 27<br>[AI Research Agents](https://benchmark-radar.com/#library?direction=ai-research-agents) · 21<br>[Self-Improving Agents](https://benchmark-radar.com/#library?direction=self-improving-agents) · 15<br>[Agent Harnesses & Skills](https://benchmark-radar.com/#library?direction=agent-harness-skills) · 9<br>[Agent Safety & Security](https://benchmark-radar.com/#library?direction=agent-safety-security) · 81<br>[Scientific Agents](https://benchmark-radar.com/#library?direction=scientific-agents) · 31 | [OCR & Document Understanding](https://benchmark-radar.com/#library?direction=ocr-documents) · 44<br>[Video Understanding](https://benchmark-radar.com/#library?direction=video-understanding) · 85<br>[Speech & Audio](https://benchmark-radar.com/#library?direction=realtime-multimodal) · 84<br>[World Models](https://benchmark-radar.com/#library?direction=world-models) · 20<br>[Embodied AI & VLA](https://benchmark-radar.com/#library?direction=embodied-vla) · 90<br>[Image & Video Generation](https://benchmark-radar.com/#library?direction=image-video-generation) · 71<br>[Efficient Inference](https://benchmark-radar.com/#library?direction=efficient-inference) · 13 |
+| [Coding Agents](https://benchmark-radar.com/#library?direction=coding-agents) · 135<br>[Computer Use](https://benchmark-radar.com/#library?direction=computer-use) · 49<br>[Deep Research & Web Search](https://benchmark-radar.com/#library?direction=search-research) · 39<br>[Tool Use](https://benchmark-radar.com/#library?direction=tool-use) · 82<br>[Agent Memory](https://benchmark-radar.com/#library?direction=agent-memory) · 29<br>[Multi-Agent Systems](https://benchmark-radar.com/#library?direction=multi-agent) · 20<br>[Personal & Enterprise Agents](https://benchmark-radar.com/#library?direction=personal-workplace) · 59<br>[Data Analysis Agents](https://benchmark-radar.com/#library?direction=data-analysis-agents) · 27<br>[AI Research Agents](https://benchmark-radar.com/#library?direction=ai-research-agents) · 21<br>[Self-Improving Agents](https://benchmark-radar.com/#library?direction=self-improving-agents) · 16<br>[Agent Harnesses & Skills](https://benchmark-radar.com/#library?direction=agent-harness-skills) · 10<br>[Agent Safety & Security](https://benchmark-radar.com/#library?direction=agent-safety-security) · 83<br>[Scientific Agents](https://benchmark-radar.com/#library?direction=scientific-agents) · 32 | [OCR & Document Understanding](https://benchmark-radar.com/#library?direction=ocr-documents) · 43<br>[Video Understanding](https://benchmark-radar.com/#library?direction=video-understanding) · 86<br>[Speech & Audio](https://benchmark-radar.com/#library?direction=realtime-multimodal) · 86<br>[World Models](https://benchmark-radar.com/#library?direction=world-models) · 22<br>[Embodied AI & VLA](https://benchmark-radar.com/#library?direction=embodied-vla) · 96<br>[Image & Video Generation](https://benchmark-radar.com/#library?direction=image-video-generation) · 72<br>[Efficient Inference](https://benchmark-radar.com/#library?direction=efficient-inference) · 13 |
 
-**[Browse all 2,830 Library records →](https://benchmark-radar.com/#library)**
+**[Browse all 2,917 Library records →](https://benchmark-radar.com/#library)**
 <!-- GENERATED_OVERVIEW_END -->
 
 ## What you can find
