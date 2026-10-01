@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-01 · **Benchmark releases:** 2153
+**Snapshot:** 2026-09-30 · **Benchmark releases:** 2154
 
 ## Contents
 
@@ -27,7 +27,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - [Image & Video Generation](#image--video-generation) (72)
 - [Multi-Agent Systems](#multi-agent-systems) (19)
 - [OCR & Document Understanding](#ocr--document-understanding) (19)
-- [Other benchmark tasks](#other-benchmark-tasks) (1171)
+- [Other benchmark tasks](#other-benchmark-tasks) (1172)
 - [Personal & Enterprise Agents](#personal--enterprise-agents) (44)
 - [Scientific Agents](#scientific-agents) (19)
 - [Self-Improving Agents](#self-improving-agents) (15)
@@ -88,7 +88,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Agent Safety & Security
 
-- **CATCH** (2026-09-30) — We introduce CATCH, a controllable testbed for studying reward hacking in coding RL. [Paper](https://arxiv.org/abs/2609.39533) · [HF](https://huggingface.co/papers/2609.39533) · [Code](https://github.com/THUAIS-Lab/CATCH)
+- **CATCH** (2026-09-30) — We introduce CATCH, a controllable testbed for studying reward hacking in coding RL. [Paper](https://arxiv.org/abs/2609.39533) · [Code](https://github.com/THUAIS-Lab/CATCH)
 - **CoSec** (2026-09-28) — CoSec evaluates privacy and authorization enforcement in LLM agent systems across 208 scenarios involving community boundaries, protected information, and attacks via dialogue, environment, memory, and workflows. [Paper](https://arxiv.org/abs/2609.34790)
 - **CineSubBench** (2026-09-28) — We introduce CineSubBench, a benchmark for evaluating long-context film understanding from multilingual movie subtitles. [Paper](https://arxiv.org/abs/2609.36218)
 - **StateSet NSR Product Use Benchmark v1** (2026-09-26) — Eleven synthetic cases evaluate how an agent uses StateSet NSR MCP tools before a consequential action, with a harness scoring tool calls and a final structured JSON for passed cases and unsafe actions. [Code](https://github.com/stateset/nsr-product-use-benchmark)
@@ -151,8 +151,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Coding Agents
 
-- **Zero2Repo** (2026-09-29) — We introduce Zero2Repo, a benchmark in which an agent receives a product requirements document, an interface contract, and an empty workspace, and must deliver a complete repository in the project's native ecosystem. [Paper](https://arxiv.org/abs/2609.38269) · [HF](https://huggingface.co/papers/2609.38269)
-- **E2E-SWE** (2026-09-29) — We introduce E2E-SWE, a benchmark for evaluating whether coding agents can build complete, functional software repositories end to end. [Paper](https://arxiv.org/abs/2609.38335) · [HF](https://huggingface.co/papers/2609.38335)
+- **Zero2Repo** (2026-09-29) — We introduce Zero2Repo, a benchmark in which an agent receives a product requirements document, an interface contract, and an empty workspace, and must deliver a complete repository in the project's native ecosystem. [Paper](https://arxiv.org/abs/2609.38269)
+- **E2E-SWE** (2026-09-29) — We introduce E2E-SWE, a benchmark for evaluating whether coding agents can build complete, functional software repositories end to end. [Paper](https://arxiv.org/abs/2609.38335)
 - **Code4Scene** (2026-09-29) — We introduce Code4Scene, a benchmark of 190 Unreal Engine cases built from human-assembled scenes that evaluates coding agents on two complementary settings under a shared execution interface. [Paper](https://arxiv.org/abs/2609.36777)
 - **ReviveBench** (2026-09-28) — Here we introduce ReviveBench, a benchmark with two task families evaluated by hidden verifiers calibrated against native execution environments, established engineering tools, or purpose-built reference implementations. [Paper](https://arxiv.org/abs/2609.36161)
 - **RepoReuse** (2026-09-28) — Evaluates coding agents on reuse of existing code in real repositories through multi-turn tasks measuring reuse rate, recall, and redundancy. [Paper](https://arxiv.org/abs/2609.35357)
@@ -221,7 +221,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Computer Use
 
-- **Talk2Agent** (2026-09-30) — We introduce Talk2Agent, a benchmark for evaluating how effectively voice interfaces convey human-spoken instructions to LLM-based computer-use agents. [Paper](https://arxiv.org/abs/2609.38867) · [HF](https://huggingface.co/papers/2609.38867)
+- **Talk2Agent** (2026-09-30) — We introduce Talk2Agent, a benchmark for evaluating how effectively voice interfaces convey human-spoken instructions to LLM-based computer-use agents. [Paper](https://arxiv.org/abs/2609.38867)
 - **MatToolBench** (2026-09-29) — We present MatToolBench, the first real-environment benchmark for evaluating multimodal GUI agents on professional materials science software, comprising 204 tasks across 10 tools in three modalities: GUI operation, Ori… [Paper](https://arxiv.org/abs/2609.37053) · [Code](https://github.com/meiwu5/MatToolBench)
 - **EngiWorld** (2026-09-29) — We present EngiWorld, the first benchmark structured around the complete design loop: 1,301 expert-curated tasks spanning 6 engineering domains (CAD, CAE, CAM, BIM, EDA, and 3D visualization) and 26 professional softwar… [Paper](https://arxiv.org/abs/2609.37686)
 - **AdaptArena** (2026-09-29) — To address this gap, we introduce AdaptArena, a benchmark for evaluating test-time personalization of web agents via implicit preference inference. [Paper](https://arxiv.org/abs/2609.36488) · [Code](https://github.com/McGill-NLP/web-agents-test-time-adaptations)
@@ -297,9 +297,9 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
-- **Video2SwimFish** (2026-09-30) — We present Video2SwimFish, an automated pipeline and benchmark for building controllable fish assets from real-fish videos for underwater embodied AI. [Paper](https://arxiv.org/abs/2609.38966) · [HF](https://huggingface.co/papers/2609.38966)
-- **LIBERO-Agent** (2026-09-30) — To investigate this question, we introduce LIBERO-Agent, an agent-native benchmark for evaluating these agents in robot manipulation tasks. [Paper](https://arxiv.org/abs/2609.39507) · [HF](https://huggingface.co/papers/2609.39507)
-- **DynBench** (2026-09-30) — In addition, we introduce \textbf{DynBench}, a MuJoCo-based benchmark for dynamic object manipulation that comprises nine tasks. [Paper](https://arxiv.org/abs/2609.39198) · [HF](https://huggingface.co/papers/2609.39198)
+- **Video2SwimFish** (2026-09-30) — We present Video2SwimFish, an automated pipeline and benchmark for building controllable fish assets from real-fish videos for underwater embodied AI. [Paper](https://arxiv.org/abs/2609.38966)
+- **LIBERO-Agent** (2026-09-30) — To investigate this question, we introduce LIBERO-Agent, an agent-native benchmark for evaluating these agents in robot manipulation tasks. [Paper](https://arxiv.org/abs/2609.39507)
+- **DynBench** (2026-09-30) — In addition, we introduce \textbf{DynBench}, a MuJoCo-based benchmark for dynamic object manipulation that comprises nine tasks. [Paper](https://arxiv.org/abs/2609.39198)
 - **Video2Skill** (2026-09-29) — To systematically measure this ability, we introduce Video2Skill, a benchmark that covers robot tabletop manipulation and human kitchen activity and tests three core capabilities: (i) locating manipulation events in tim… [Paper](https://arxiv.org/abs/2609.36691)
 - **RoboChrono** (2026-09-29) — We introduce RoboChrono, a benchmark for streaming task understanding comprising 39 scenarios and 34,713 evaluation instances, constructed from real robot executions and complementary bare-hand human recordings. [Paper](https://arxiv.org/abs/2609.36605) · [Code](https://github.com/mfan-res/ROBOCHRONO) · [Data](https://huggingface.co/datasets/gimai/RC-Tianji)
 - **LIBERO-MAX** (2026-09-29) — We introduce LIBERO-MAX, a benchmark of 8,000 paired cases spanning eight types of changes to geometry, observations, appearance, clutter, and paths. [Paper](https://arxiv.org/abs/2609.36518)
@@ -474,8 +474,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Multi-Agent Systems
 
-- **MADBench** (2026-09-30) — In this paper, we present MADBench, a benchmark for evaluating the security of MAD. [Paper](https://arxiv.org/abs/2609.39146) · [HF](https://huggingface.co/papers/2609.39146)
-- **GraphMAS** (2026-09-30) — To address this gap, we introduce GraphMAS, a systematic benchmark of multi-agent coordination for graph learning. [Paper](https://arxiv.org/abs/2609.39777) · [HF](https://huggingface.co/papers/2609.39777)
+- **MADBench** (2026-09-30) — In this paper, we present MADBench, a benchmark for evaluating the security of MAD. [Paper](https://arxiv.org/abs/2609.39146)
+- **GraphMAS** (2026-09-30) — To address this gap, we introduce GraphMAS, a systematic benchmark of multi-agent coordination for graph learning. [Paper](https://arxiv.org/abs/2609.39777)
 - **Frontier Autolab** (2026-09-29) — We release all records and an API harness, and specify fictional and post-cutoff eras that would turn the testbed into a benchmark. [Paper](https://arxiv.org/abs/2609.36739) · [Code](https://github.com/LoopGlitch26/Frontier-Autolab)
 - **CoDrive-Bench** (2026-09-28) — For systematic evaluation, we introduce CoDrive-Bench, a benchmark covering real and synthetic multi-vehicle scenarios and evaluating trajectory controllability, scene geometry consistency, and instance-level consistenc… [Paper](https://arxiv.org/abs/2609.34749)
 - **CoMemBench** (2026-09-26) — We introduce CoMemBench, an execution-grounded benchmark for collaborative memory sharing and isolation across multi-agent workflow topologies. [Paper](https://arxiv.org/abs/2609.32192) · [HF](https://huggingface.co/papers/2609.32192)
@@ -518,31 +518,32 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **VeriCodeBench** (2026-09-30) — In this paper, we introduce VeriCodeBench, a benchmark for self-spec verifiable code generation, where the LLM relies solely on its own generated specification and code throughout the entire process. [Paper](https://arxiv.org/abs/2609.39568) · [HF](https://huggingface.co/papers/2609.39568)
-- **OSWorld-Science** (2026-09-30) — We thus introduce OSWorld-Science, a benchmark and evaluation environment that combines scientifically meaningful tasks, artifact-based evaluation, and an efficient agent harness for studying computer use in the scienti… [Paper](https://arxiv.org/abs/2609.39903) · [HF](https://huggingface.co/papers/2609.39903)
-- **NodeGround** (2026-09-30) — We present NodeGround, a node classification benchmark that puts graph foundation models (GFMs) and dataset-specific supervised learning under a common evaluation framework. [Paper](https://arxiv.org/abs/2609.39673) · [HF](https://huggingface.co/papers/2609.39673) · [Code](https://github.com/nums-ai/nodeground)
-- **FlapKAD** (2026-09-30) — FlapKAD supports a unified bidirectional sequence-prediction benchmark constructed from the same temporally aligned episodes. [Paper](https://arxiv.org/abs/2609.38719) · [HF](https://huggingface.co/papers/2609.38719)
-- **FANVIDv2** (2026-09-30) — We present FANVIDv2, a benchmark that scores VSR by what a recognition pipeline can do with its output. [Paper](https://arxiv.org/abs/2609.39649) · [HF](https://huggingface.co/papers/2609.39649)
-- **EngramBench** (2026-09-30) — To resolve this, we introduce EngramBench, a rigorous, capability-grounded benchmark governed by the strict axiom of capability overlap without solution overlap. [Paper](https://arxiv.org/abs/2609.39284) · [HF](https://huggingface.co/papers/2609.39284)
-- **DrivingBench** (2026-09-30) — We present DrivingBench, to our knowledge the first benchmark where general-purpose vision-language models must drive a real car. [Paper](https://arxiv.org/abs/2609.38948) · [HF](https://huggingface.co/papers/2609.38948)
-- **DoGBench** (2026-09-30) — We introduce DoGBENCH (Documentation Generation Benchmark), to our knowledge, the first benchmark for generating and maintaining real user-facing software documentation. [Paper](https://arxiv.org/abs/2609.39909) · [HF](https://huggingface.co/papers/2609.39909)
-- **CircleNest-Bench** (2026-09-30) — For evaluation, we introduce CircleNest-Bench, a benchmark comprising 2,391 load-controlled instances from four contour sources, including a held-out industrial CAD source. [Paper](https://arxiv.org/abs/2609.38863) · [HF](https://huggingface.co/papers/2609.38863)
-- **AutoDataBench** (2026-09-30) — We introduce AutoDataBench, a controlled testbed built on a conceptual framework of data intelligence spanning data diagnosis, data organization, and data construction, instantiated through three highly curated optimiza… [Paper](https://arxiv.org/abs/2609.40097) · [HF](https://huggingface.co/papers/2609.40097) · [Code](https://github.com/AutoDataBench/AutoDataBench)
+- **WorldAuditBench** (2026-09-30) — In this paper, we introduce WorldAuditBench, a benchmark for 3D world auditing comprising 213 anomaly tasks across 13 environments built with Unreal Engine 5 and Three.js, spanning five anomaly families. [Paper](https://arxiv.org/abs/2609.40325)
+- **VeriCodeBench** (2026-09-30) — In this paper, we introduce VeriCodeBench, a benchmark for self-spec verifiable code generation, where the LLM relies solely on its own generated specification and code throughout the entire process. [Paper](https://arxiv.org/abs/2609.39568)
+- **OSWorld-Science** (2026-09-30) — We thus introduce OSWorld-Science, a benchmark and evaluation environment that combines scientifically meaningful tasks, artifact-based evaluation, and an efficient agent harness for studying computer use in the scienti… [Paper](https://arxiv.org/abs/2609.39903)
+- **NodeGround** (2026-09-30) — We present NodeGround, a node classification benchmark that puts graph foundation models (GFMs) and dataset-specific supervised learning under a common evaluation framework. [Paper](https://arxiv.org/abs/2609.39673) · [Code](https://github.com/nums-ai/nodeground)
+- **FlapKAD** (2026-09-30) — FlapKAD supports a unified bidirectional sequence-prediction benchmark constructed from the same temporally aligned episodes. [Paper](https://arxiv.org/abs/2609.38719)
+- **FANVIDv2** (2026-09-30) — We present FANVIDv2, a benchmark that scores VSR by what a recognition pipeline can do with its output. [Paper](https://arxiv.org/abs/2609.39649)
+- **EngramBench** (2026-09-30) — To resolve this, we introduce EngramBench, a rigorous, capability-grounded benchmark governed by the strict axiom of capability overlap without solution overlap. [Paper](https://arxiv.org/abs/2609.39284)
+- **DrivingBench** (2026-09-30) — We present DrivingBench, to our knowledge the first benchmark where general-purpose vision-language models must drive a real car. [Paper](https://arxiv.org/abs/2609.38948)
+- **DoGBench** (2026-09-30) — We introduce DoGBENCH (Documentation Generation Benchmark), to our knowledge, the first benchmark for generating and maintaining real user-facing software documentation. [Paper](https://arxiv.org/abs/2609.39909)
+- **CircleNest-Bench** (2026-09-30) — For evaluation, we introduce CircleNest-Bench, a benchmark comprising 2,391 load-controlled instances from four contour sources, including a held-out industrial CAD source. [Paper](https://arxiv.org/abs/2609.38863)
+- **AutoDataBench** (2026-09-30) — We introduce AutoDataBench, a controlled testbed built on a conceptual framework of data intelligence spanning data diagnosis, data organization, and data construction, instantiated through three highly curated optimiza… [Paper](https://arxiv.org/abs/2609.40097) · [Code](https://github.com/AutoDataBench/AutoDataBench)
 - **VISTA-Bench** (2026-09-29) — To systematically evaluate this capability, we introduce VISTA-Bench, covering 22 languages and 10 domains, and develop an image-specific rubric evaluation protocol. [Paper](https://arxiv.org/abs/2609.37287)
 - **UserProxyBench** (2026-09-29) — We introduce UserProxyBench, an evaluation layer over the tau-bench family, and the User Fidelity Score (UFS), which measures adherence to the benchmark's private user instructions using task-grounded rubric criteria sc… [Paper](https://arxiv.org/abs/2609.38043)
 - **RunyaNER** (2026-09-29) — We introduce RunyaNER, the first publicly available NER benchmark for the East African language Runyankore, and use it to investigate the choice of which languages to use for transfer. [Paper](https://arxiv.org/abs/2609.37543)
 - **OmniVCBench** (2026-09-29) — We introduce OmniVCBench, a figure-centric, source-traceable benchmark for the interpretation component of an AIVC. [Paper](https://arxiv.org/abs/2609.37773)
-- **MM-FinEval** (2026-09-29) — In this paper, we introduce MM-FinEval, a novel benchmark designed to evaluate multimodal LLMs across multiple financial tasks. [Paper](https://arxiv.org/abs/2609.38523) · [HF](https://huggingface.co/papers/2609.38523)
+- **MM-FinEval** (2026-09-29) — In this paper, we introduce MM-FinEval, a novel benchmark designed to evaluate multimodal LLMs across multiple financial tasks. [Paper](https://arxiv.org/abs/2609.38523)
 - **LongHarness Bench** (2026-09-29) — In this paper, we introduce a benchmark for evaluating both the effectiveness and efficiency of long-context harnesses. [Paper](https://arxiv.org/abs/2609.38137)
 - **LibraryDesignBench** (2026-09-29) — To measure how well agents design libraries for other agents, we introduce LibraryDesignBench, a two-phase benchmark in which an agent implements a full-featured library from a specification that defines required capabi… [Paper](https://arxiv.org/abs/2609.36730) · [Code](https://github.com/SprocketLab/librarydesignbench)
-- **KlinikeBench** (2026-09-29) — To address this gap, we introduce KlinikeBench, a benchmark of 333 clinician-authored tasks, each providing an isolated sandbox environment with a virtual patient, clinical tools, and task-specific success criteria. [Paper](https://arxiv.org/abs/2609.38480) · [HF](https://huggingface.co/papers/2609.38480)
+- **KlinikeBench** (2026-09-29) — To address this gap, we introduce KlinikeBench, a benchmark of 333 clinician-authored tasks, each providing an isolated sandbox environment with a virtual patient, clinical tools, and task-specific success criteria. [Paper](https://arxiv.org/abs/2609.38480)
 - **InterfereBench** (2026-09-29) — For robust evaluation, we develop AutoTraj, an automatic data-generation engine, to construct InterfereBench, a benchmark for long-horizon tasks with strong disturbances. [Paper](https://arxiv.org/abs/2609.36923)
 - **ExceptionDrive** (2026-09-29) — We proposed ExceptionDrive, a counterfactual planning benchmark that uses VLM-assisted screening, localized multi-view editing, and quality auditing to insert hazards into real nuScenes scenes while preserving their con… [Paper](https://arxiv.org/abs/2609.37871)
-- **Drift-Bench** (2026-09-29) — To study this setting, we introduce Drift-Bench++, a principled benchmark construction pipeline for verified executable tasks with controlled misalignment and intent shifts, along with an interaction protocol featuring… [Paper](https://arxiv.org/abs/2609.38604) · [HF](https://huggingface.co/papers/2609.38604)
+- **Drift-Bench** (2026-09-29) — To study this setting, we introduce Drift-Bench++, a principled benchmark construction pipeline for verified executable tasks with controlled misalignment and intent shifts, along with an interaction protocol featuring… [Paper](https://arxiv.org/abs/2609.38604)
 - **DatalogBench** (2026-09-29) — We present DatalogBench, a benchmark of 136 text-to-Datalog synthesis tasks curated from existing Datalog-based artifacts. [Paper](https://arxiv.org/abs/2609.37233)
 - **CypherTurn** (2026-09-29) — We introduce CypherTurn, the first benchmark for conversational Text-to-Cypher evaluation, comprising 721 sessions and 5,927 turns across 7 knowledge graphs and 13 conversational phenomena. [Paper](https://arxiv.org/abs/2609.36987) · [Code](https://github.com/BarryQ/CypherTurn)
 - **CRJudgeBench** (2026-09-29) — To fill this gap, we introduce CRJudgeBench, a benchmark of 1199 instances constructed from real pull requests and expert-verified perturbations, covering both trustworthy and plausible but untrustworthy comments. [Paper](https://arxiv.org/abs/2609.37216) · [Data](https://huggingface.co/datasets/dcloud347/CRJudgeBenchmark)
-- **ArgGYM** (2026-09-29) — We introduce ArgGYM, a procedural benchmark and RLVR-compatible training environment for structured defeasible reasoning. [Paper](https://arxiv.org/abs/2609.38409) · [HF](https://huggingface.co/papers/2609.38409)
+- **ArgGYM** (2026-09-29) — We introduce ArgGYM, a procedural benchmark and RLVR-compatible training environment for structured defeasible reasoning. [Paper](https://arxiv.org/abs/2609.38409)
 - **WebPageBench** (2026-09-28) — An open framework for evaluating web agents, with 152 tasks across six instrumented mock sites, using event-log verification and controlled UI variants. [Paper](https://arxiv.org/abs/2609.35026)
 - **VEX-Bench** (2026-09-28) — A unified benchmark for evaluating verification complexity of LLM-generated misinformation, covering multiple dimensions and using LLM-as-judge validated by content analysis. [Paper](https://arxiv.org/abs/2609.35028) · [Code](https://github.com/HanxunH/VEX-Bench)
 - **TCSAlgBench** (2026-09-28) — We introduce TCSAlgBench, a benchmark and reusable pipeline for natural-language proof discovery, comprising 398 theorem-level challenges from 138 STOC and COLT 2026 papers. [Paper](https://arxiv.org/abs/2609.35606)
@@ -1779,8 +1780,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Speech & Audio
 
-- **Talk2Agent** (2026-09-30) — We introduce Talk2Agent, a benchmark for evaluating how effectively voice interfaces convey human-spoken instructions to LLM-based computer-use agents. [Paper](https://arxiv.org/abs/2609.38867) · [HF](https://huggingface.co/papers/2609.38867)
-- **OmniReasoningBench** (2026-09-30) — First, we introduce OmniReasoningBench, a benchmark where both audio and visual evidence are indispensable. [Paper](https://arxiv.org/abs/2609.39490) · [HF](https://huggingface.co/papers/2609.39490)
+- **Talk2Agent** (2026-09-30) — We introduce Talk2Agent, a benchmark for evaluating how effectively voice interfaces convey human-spoken instructions to LLM-based computer-use agents. [Paper](https://arxiv.org/abs/2609.38867)
+- **OmniReasoningBench** (2026-09-30) — First, we introduce OmniReasoningBench, a benchmark where both audio and visual evidence are indispensable. [Paper](https://arxiv.org/abs/2609.39490)
 - **Omni-StoryBench** (2026-09-29) — We introduce Omni-StoryBench, a story-grounded omnimodal benchmark evaluating whether models can coherently continue stories across image, narration, and speech. [Paper](https://arxiv.org/abs/2609.37317)
 - **APEX-Voice** (2026-09-28) — We introduce APEX-Voice, a benchmark of 120 interactive professional workflows spanning ten work archetypes such as form completion, corporate negotiation, coordination, consulting, and interviewing. [Paper](https://arxiv.org/abs/2609.34973)
 - **MISHAP-Bench** (2026-09-27) — We introduce MISHAP-Bench, a comprehensive benchmark with 12,000 challenging open-ended question-audio pairs and a rigorous evaluation pipeline covering both categories. [Paper](https://arxiv.org/abs/2609.33893) · [HF](https://huggingface.co/papers/2609.33893)
