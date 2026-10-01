@@ -1,5 +1,7 @@
 """Reuse the production navigation markup and its CSS on standalone pages."""
 import re
+import hashlib
+import os
 
 def header_css(text):
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
@@ -29,3 +31,23 @@ def apply_shared_header(source,output):
     )
     p=output/'trends/index.html';s=p.read_text();s=re.sub(r'<!-- SITE_HEADER_START -->.*?<!-- SITE_HEADER_END -->','<!-- SITE_HEADER_START -->'+header+'<!-- SITE_HEADER_END -->',s,flags=re.S);p.write_text(s)
     (output/'site-header.css').write_text(header_css((source/'styles.css').read_text()))
+    apply_repository_menu(main, output)
+
+
+def apply_repository_menu(main, output):
+    """Keep the repository picker consistent on every page with a GitHub header."""
+    picker = re.search(r'<details class="github-repositories">.*?</details>', main, re.S).group(0)
+    for page in output.rglob('*.html'):
+        text = page.read_text()
+        text = re.sub(r'<a class="github"\s[^>]*>.*?</a>', lambda _: picker, text, flags=re.S)
+        if 'class="github-repositories"' not in text:
+            continue
+        # Reinsert one content-addressed asset pair at the page's own depth.
+        text = re.sub(r'\s*<link[^>]*href="[^"\s]*github-repositories\.css[^"\s]*"[^>]*>', '', text)
+        text = re.sub(r'\s*<script[^>]*src="[^"\s]*github-repositories\.js[^"\s]*"[^>]*>\s*</script>', '', text)
+        def asset(name):
+            digest = hashlib.sha256((output / name).read_bytes()).hexdigest()[:12]
+            return os.path.relpath(output / name, page.parent).replace(os.sep, '/') + '?v=' + digest
+        text = text.replace('</head>', f'<link rel="stylesheet" href="{asset("github-repositories.css")}">\n</head>')
+        text = text.replace('</body>', f'<script src="{asset("github-repositories.js")}" defer></script>\n</body>')
+        page.write_text(text)
