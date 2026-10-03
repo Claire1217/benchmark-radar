@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-03 · **Benchmark releases:** 2154
+**Snapshot:** 2026-10-04 · **Benchmark releases:** 2154
 
 ## Contents
 
@@ -589,7 +589,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 - **Zero Trust Agent Benchmark** (2026-09-26) — A reproducible benchmark of synthetic JSONL agent tool-call traces in which a defense returns allow or deny per step; the evaluator scores attack blocking, benign false positives, and canary leaks over fixed dev and tes… [Code](https://github.com/zero-trust-agent-benchmark/zero-trust-agent-benchmark)
 - **SRE-Marathon** (2026-09-26) — We present SRE-Marathon, a benchmark for long-horizon, continuous SRE operation. [Paper](https://arxiv.org/abs/2609.33023) · [HF](https://huggingface.co/papers/2609.33023)
 - **REALIS** (2026-09-26) — Based on REALIS, our benchmark evaluates pretrained detectors, fine-tuned models, and zero-shot vision-language models under generator and post-processing shifts. [Paper](https://arxiv.org/abs/2609.32734) · [HF](https://huggingface.co/papers/2609.32734)
-- **OpenTumorBoard** (2026-09-26) — We introduce OpenTumorBoard, a benchmark with 611 patient cases and 19,157 discussion turns across ten specialist roles, transcribed from 12,534 minutes of publicly available tumor board recordings on YouTube. [Paper](https://arxiv.org/abs/2609.32810) · [HF](https://huggingface.co/papers/2609.32810)
+- **OpenTumorBoard** (2026-09-26) — We introduce OpenTumorBoard, a benchmark with 611 patient cases and 19,157 discussion turns across ten specialist roles, transcribed from 12,534 minutes of publicly available tumor board recordings on YouTube. [Paper](https://arxiv.org/abs/2609.32810) · [HF](https://huggingface.co/papers/2609.32810) · [Code](https://github.com/AnqiLi24/OpenTumorBoard)
 - **OmniSmartHome** (2026-09-26) — To bridge this gap, we introduce OmniSmartHome, a multimodal smart-home benchmark where each spoken request is paired with the surrounding visual and spatial-audio context, providing complementary cues to disambiguate u… [Paper](https://arxiv.org/abs/2609.32569) · [HF](https://huggingface.co/papers/2609.32569)
 - **IChart2Code** (2026-09-26) — We introduce IChart2Code, a benchmark comprising 377 tasks across 20 chart forms and 13 data families, with 1209 interaction requirements in six families. [Paper](https://arxiv.org/abs/2609.32413) · [HF](https://huggingface.co/papers/2609.32413)
 - **FinancialAuditBench** (2026-09-26) — We introduce FinancialAuditBench, a benchmark for evaluating agents on financial statement audit tasks, along with a framework for systematically generating synthetic engagements. [Paper](https://arxiv.org/abs/2609.32835) · [HF](https://huggingface.co/papers/2609.32835)
