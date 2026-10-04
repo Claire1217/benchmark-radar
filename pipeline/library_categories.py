@@ -104,6 +104,8 @@ def category_manifest(records):
         'method': 'One primary category plus up to two secondary categories per benchmark, from reviewed assignments; unreviewed records use a provisional keyword match. Categories overlap through secondary membership.',
         'groups': taxonomy()['groups'],
         'aliases': aliases(),
+        # Old ?domain= / ?capability= links open the closest v5 category.
+        'legacyFilters': taxonomy().get('legacyFilters', {}),
         'directions': [{**d,
                         'count': sum(d['id'] in r.get('libraryCategories', []) for r in visible),
                         'primaryCount': sum((r.get('libraryCategories') or [None])[0] == d['id'] for r in visible)}

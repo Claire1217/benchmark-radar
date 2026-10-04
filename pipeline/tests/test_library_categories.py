@@ -45,6 +45,9 @@ class LibraryCategoryTests(unittest.TestCase):
                         'software-engineering':'agentic-coding','ai-for-science':'science','gui-grounding':'computer-use'}.items():
             self.assertEqual(aliases[old],new)
         ids={d['id'] for d in category_manifest([])['directions']}
+        legacy=category_manifest([])['legacyFilters']
+        for kind in ('domain','capability'):
+            self.assertTrue(set(legacy[kind].values()) <= ids, kind)
         self.assertFalse({'vision-language-models','data-analysis-agents','software-engineering'} & ids)
 
     def test_sidebar_search_and_route_agree_for_every_public_category(self):
@@ -82,18 +85,16 @@ for(const [alias,canonical] of Object.entries(payload.manifest.libraryTaxonomy.a
  c.location.hash='#library?direction='+alias;c.route();assert.equal(state.libraryDirection,canonical);
  assert.equal(state.library.filter(c.matchesLibraryFilters).length,Number(buttons.find(b=>b[1]===canonical)[3]));
 }
-const fields=[...html.matchAll(/data-library-domain="([^"]+)"[^>]*><span>([^<]+)<\/span><small>(\d+)<\/small>/g)];
-for(const [_,domain,name,count] of fields){
- nodes['library-domain-list'].onclick({target:{closest:()=>({dataset:{libraryDomain:domain}})}});
- const clicked=state.library.filter(c.matchesLibraryFilters).map(r=>r.id);
- assert.equal(clicked.length,Number(count));
- c.location.hash='#library?domain='+encodeURIComponent(domain);c.route();
- assert.equal(state.libraryDomain,domain,'Application field changed on reload');
- assert.equal(state.libraryDirection,'');
- assert.deepEqual(state.library.filter(c.matchesLibraryFilters).map(r=>r.id),clicked);
+// The old Application fields section is gone; its links open the matching v5 category.
+assert(!html.includes('data-library-domain'),'no second classification in the sidebar');
+for(const [kind,map] of Object.entries(payload.manifest.libraryTaxonomy.legacyFilters)){
+ for(const [label,target] of Object.entries(map)){
+  c.location.hash='#library?'+kind+'='+encodeURIComponent(label);c.route();
+  assert.equal(state.libraryDirection,target,kind+'='+label);
+  assert.equal(state.libraryDomain||'','',kind+'='+label+' left a domain filter');
+  assert.equal(state.library.filter(c.matchesLibraryFilters).length,Number(buttons.find(b=>b[1]===target)[3]));
+ }
 }
-assert(fields.some(f=>f[1]==='Science & Research'));
-assert.equal(new Set([...buttons,...fields].map(b=>b[2].toLowerCase())).size,buttons.length+fields.length);
 state.libraryDomain='';
 state.libraryDirection='';nodes['library-search'].value='Computer Use';c.showTypes();
 assert.match(nodes['type-options'].children[0].textContent,/^Computer Use & GUI Agents · Type · /);

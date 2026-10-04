@@ -94,3 +94,15 @@ class FallbackTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class LegacyFilterCoverageTests(unittest.TestCase):
+    def test_every_legacy_label_in_data_has_a_v5_target(self):
+        library = json.loads((ROOT / 'data/library_index.json').read_text())['records']
+        legacy = TAXONOMY['legacyFilters']
+        domains = {d for r in library for d in r.get('applicationDomains') or []}
+        capabilities = {c for r in library for c in r.get('capabilityGroups') or []}
+        self.assertEqual(domains - set(legacy['domain']), set())
+        self.assertEqual(capabilities - set(legacy['capability']), set())
+        for kind in legacy.values():
+            self.assertTrue(set(kind.values()) <= IDS)

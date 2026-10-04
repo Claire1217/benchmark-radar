@@ -28,7 +28,7 @@ function libraryCopy(r){const value=r.description||r.oneLine||"";return /^Establ
 function displayEligible(r){return r.displayEligible!==false&&r.evaluationMode!=="viewpoint_probe";}
 function librarySignal(r){const adoption=r.detail?.adoption?.independentOrganizations?.length||0;if(adoption)return `${adoption} independently tracked organization${adoption===1?"":"s"}`;const reports=r.modelReportReferences||[];if(reports.length){const labels=[...new Set(reports.map(x=>x.provider).filter(Boolean))];return labels.length?`Used in reports by ${labels.slice(0,2).join(" · ")}${labels.length>2?` +${labels.length-2}`:""}`:`Referenced in ${reports.length} tracked model reports`;}if(r.catalogModelCount)return `${fmt(r.catalogModelCount)} tracked model${r.catalogModelCount===1?"":"s"} on llm-stats`;return "";}
 
-function normalizeLibraryQuery(query){const params=new URLSearchParams(query);const taxonomy=state.libraryManifest?.researchTaxonomy||{};if(params.has("direction"))params.set("direction",publicDirection(params.get("direction")));for(const [kind,aliases] of Object.entries(taxonomy.legacyFilters||{})){if(kind==="domain"&&state.library.some(r=>(r.applicationDomains||[]).includes(params.get(kind))))continue;const canonical=aliases[params.get(kind)];if(canonical){if(!params.has("direction"))params.set("direction",publicDirection(canonical));params.delete(kind);}}return params;}
+function normalizeLibraryQuery(query){const params=new URLSearchParams(query);const taxonomy=state.libraryManifest?.researchTaxonomy||{},v5=state.libraryManifest?.libraryTaxonomy?.legacyFilters||{};if(params.has("direction"))params.set("direction",publicDirection(params.get("direction")));for(const kind of new Set([...Object.keys(taxonomy.legacyFilters||{}),...Object.keys(v5)])){const value=params.get(kind);if(value==null)continue;const canonical=v5[kind]?.[value]||taxonomy.legacyFilters?.[kind]?.[value];if(canonical){if(!params.has("direction"))params.set("direction",publicDirection(canonical));params.delete(kind);}}return params;}
 function publicDirection(id){const taxonomy=state.libraryManifest?.libraryTaxonomy;if(taxonomy){if(taxonomy.retiredIds?.includes(id))return "";if(taxonomy.directions.some(d=>d.id===id))return id;return taxonomy.aliases?.[id]||id;}return state.libraryManifest?.topicTaxonomy?.aliases?.[id]||state.libraryManifest?.researchTaxonomy?.aliases?.[id]||id;}
 function researchDefinitions(){return state.libraryManifest?.libraryTaxonomy?.directions||state.libraryManifest?.topicTaxonomy?.directions||state.libraryManifest?.researchTaxonomy?.directions||[];}
 function allResearchDefinitions(){return researchDefinitions();}
@@ -98,7 +98,7 @@ function setup(){
 }
 
 let typeOptions=[],typeCursor=-1;
-function typeDefinitions(){return [...allResearchDefinitions().map(d=>({id:d.id,name:d.name,kind:"direction",description:d.description||"",aliases:d.searchAliases||[]})),...[...new Set(state.library.flatMap(r=>r.applicationDomains||[]))].sort().map(name=>({id:name,name,kind:"domain",description:"Application field"}))];}
+function typeDefinitions(){return [...allResearchDefinitions().map(d=>({id:d.id,name:d.name,kind:"direction",description:d.description||"",aliases:d.searchAliases||[]})),];}
 function syncType(){const d=typeDefinitions().find(d=>d.kind==="direction"?d.id===state.libraryDirection:d.id===state.libraryDomain);$("selected-type").replaceChildren();if(d){const b=document.createElement("button");b.textContent=d.name+" ×";b.onclick=()=>chooseType(null);$("selected-type").append(b);}}
 function closeTypes(){const input=$("library-search");$("type-options").hidden=true;input.setAttribute("aria-expanded","false");input.removeAttribute("aria-activedescendant");typeCursor=-1;}
 function chooseType(d){
@@ -149,10 +149,8 @@ function setupLibraryNavigation(){
     const count=eligibleRecords.filter(r=>matchesDirection(r,d.id)).length;
     return `<button data-library-direction="${escapeHtml(d.id)}" title="${escapeHtml(d.description)}"><span>${escapeHtml(d.name)}</span><small>${count}</small></button>`;
   }).join("");
-  const applicationDomains=[...new Set(eligibleRecords.flatMap(r=>r.applicationDomains||[]))].sort();
-  $("library-domain-list").innerHTML=`<p class="category-note">Categories can overlap. Broader categories include their subtopics.</p><button data-library-scope=""><span>All benchmarks</span><small>${eligibleRecords.length}</small></button>`+
-    groups.map((group,i)=>i<2?`<h3>${escapeHtml(group)}</h3>${directionButtons(group)}`:`<details class="research-group" ${definitions.some(d=>d.section===group&&d.id===state.libraryDirection)?"open":""}><summary>${escapeHtml(group)}</summary>${directionButtons(group)}</details>`).join("")+
-    `<details class="research-group" ${state.libraryDomain?"open":""}><summary>Application fields</summary>`+applicationDomains.map(domain=>`<button data-library-domain="${escapeHtml(domain)}"><span>${escapeHtml(domain)}</span><small>${eligibleRecords.filter(r=>(r.applicationDomains||[]).includes(domain)).length}</small></button>`).join("")+"</details>";
+  $("library-domain-list").innerHTML=`<p class="category-note">Each benchmark has one main category and up to two secondary ones.</p><button data-library-scope=""><span>All benchmarks</span><small>${eligibleRecords.length}</small></button>`+
+    groups.map((group,i)=>i<2?`<h3>${escapeHtml(group)}</h3>${directionButtons(group)}`:`<details class="research-group" ${definitions.some(d=>d.section===group&&d.id===state.libraryDirection)?"open":""}><summary>${escapeHtml(group)}</summary>${directionButtons(group)}</details>`).join("");
   $("library-domain-list").onclick=e=>{
     const button=e.target.closest("[data-library-direction],[data-library-domain],[data-library-scope]");
     if(!button)return;

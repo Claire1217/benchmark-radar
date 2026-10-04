@@ -128,7 +128,8 @@ for(const r of context.payload.records){
 vm.runInContext('state.libraryDirection=publicDirection("ai-scientist");',context);
 context.record={researchTopics:['scientific-agents','tool-use'],researchDirections:['ai-for-science','tool-use']};
 assert.equal(context.publicDirection('ai-r-d'),'ai-rnd');
-assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('domain'),'Science & Research');
+assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('direction'),'science');
+assert(!context.normalizeLibraryQuery('domain=Science%20%26%20Research').has('domain'));
 assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'agent-skills-evolution');
 assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'ai-rnd');
 assert.equal(context.record.researchDirections.length,2);
