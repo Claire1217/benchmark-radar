@@ -61,10 +61,7 @@ These files are build artifacts and must not be edited by hand.
 |---|---|
 | `benchmarks_index.json` | Radar. |
 | `library_index.json` | Library and the canonical taxonomy used across surfaces. |
-| `domain_trends.json` | Legacy domain summaries on the main site. |
 | `trends_topics.json` | Topic-level release and GitHub attention Trends. |
-| `trends_comparison.json` | Supporting Trends comparison snapshot. |
-| `github_history_coverage.json` | Published GitHub-history coverage receipt. |
 | `research_topic_audit.json` | Published topic consistency audit. |
 
 `library_index.json.manifest.recordCount` is the number of stored records,

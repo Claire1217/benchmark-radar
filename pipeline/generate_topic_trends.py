@@ -2,7 +2,7 @@
 import calendar,json
 from datetime import date,timedelta,datetime,timezone
 from pathlib import Path
-from generate_trends_comparison import repo_key,current_repo_directions
+from repo_keys import repo_key,current_repo_directions
 ROOT=Path(__file__).resolve().parents[1]
 def shift(d,months):
  n=d.year*12+d.month-1+months;y,m=divmod(n,12);return date(y,m+1,min(d.day,calendar.monthrange(y,m+1)[1]))

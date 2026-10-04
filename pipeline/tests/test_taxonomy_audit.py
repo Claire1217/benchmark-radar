@@ -6,7 +6,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'pipeline'))
 from research_directions import classify_directions, annotate_records
-from generate_trends_comparison import current_repo_directions, repo_key
+from repo_keys import current_repo_directions, repo_key
 
 class TaxonomyAuditTests(unittest.TestCase):
     def test_frozen_sample_and_regeneration(self):
@@ -40,9 +40,3 @@ class TaxonomyAuditTests(unittest.TestCase):
         ]
         mapping=current_repo_directions(rows)
         self.assertEqual(mapping, {'org/repo': {'software-engineering', 'coding-agents'}})
-        library=json.loads((ROOT/'data/library_index.json').read_text())['records']
-        mapping=current_repo_directions(library)
-        repos=json.loads((ROOT/'data/trends_comparison.json').read_text())['repos']
-        self.assertEqual(len(repos),len({repo_key(r['url']) for r in repos}))
-        for r in repos:
-            self.assertEqual(set(r['directions']),mapping[repo_key(r['url'])])

@@ -22,7 +22,7 @@ from datetime import date, datetime, timedelta, timezone
 import json
 from pathlib import Path
 
-from generate_trends_comparison import repo_key
+from repo_keys import repo_key
 
 ROOT = Path(__file__).resolve().parents[1]
 HISTORY_PATH = ROOT / 'data/signal_history.json'

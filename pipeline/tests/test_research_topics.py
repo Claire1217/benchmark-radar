@@ -3,7 +3,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'pipeline'))
 from research_topics import annotate_topics,TOPICS
-from generate_trends_comparison import current_repo_directions
+from repo_keys import current_repo_directions
 class ResearchTopicsTests(unittest.TestCase):
  def test_target_not_construction(self):
   rows=[{'description':'A self-evolving benchmark for evaluating software security vulnerabilities.'},{'description':'Video evaluation built by a multi-agent pipeline.'},{'description':'We evaluate language world models that simulate agentic environments.'}]

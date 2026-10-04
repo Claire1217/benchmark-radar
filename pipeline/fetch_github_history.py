@@ -1,6 +1,6 @@
 """Refresh source-linked benchmark repository star histories; resume same-day downloads."""
 import json,pathlib,urllib.request,urllib.error,concurrent.futures,os,subprocess,threading,datetime
-from generate_trends_comparison import repo_key
+from repo_keys import repo_key
 P=pathlib.Path(__file__).resolve().parents[1];D=P/'data';out=D/'repository_audit/history';out.mkdir(parents=True,exist_ok=True)
 lib={r['id']:r for r in json.load(open(D/'library_index.json'))['records']};snap=json.load(open(sorted((D/'metrics').glob('*.json'))[-1]));repos={}
 metric_map={r['benchmarkId']:r for r in snap['records']}

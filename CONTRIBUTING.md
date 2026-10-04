@@ -29,7 +29,6 @@ Generated files must not be edited directly:
 
 - `data/benchmarks.json`
 - `data/benchmarks_index.json`
-- `data/domain_trends.json`
 - `data/metrics/`, `data/publication/`, `data/runs/`
 - `data/review_queue.json`
 - `AWESOME_BENCHMARKS.md`

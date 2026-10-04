@@ -9,7 +9,6 @@ check:
 	node --check web/trends/trends.js
 
 build: check
-	python3 pipeline/generate_trends_comparison.py
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
 	python3 pipeline/audit_library_categories.py
@@ -22,7 +21,6 @@ generate:
 	python3 pipeline/generate_public_index.py
 	python3 pipeline/generate_library_index.py
 	python3 pipeline/signal_history.py
-	python3 pipeline/generate_domain_trends.py
 	python3 pipeline/generate_awesome.py
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py

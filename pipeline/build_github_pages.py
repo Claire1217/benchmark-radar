@@ -90,7 +90,7 @@ def main() -> None:
     shutil.copy2(ROOT / "docs" / "assets" / "benchmark-radar-overview.png", OUTPUT / "social-preview.png")
     data_dir = OUTPUT / "data"
     data_dir.mkdir()
-    for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json", "trends_comparison.json", "github_history_coverage.json", "trends_topics.json", "trends_search.json", "research_topic_audit.json"):
+    for name in ("benchmarks_index.json", "library_index.json", "trends_topics.json", "trends_search.json", "research_topic_audit.json"):
         shutil.copy2(ROOT / "data" / name, data_dir / name)
     page = OUTPUT / "index.html"
     html = page.read_text()

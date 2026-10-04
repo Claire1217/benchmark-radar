@@ -45,7 +45,7 @@ def main() -> None:
         target = OUTPUT / urlsplit(asset).path.removeprefix("./")
         if not target.exists():
             raise SystemExit(f"missing referenced asset: {asset}")
-    expected_ids = {"radar-view", "library-view", "trends-view", "saved-count", "benchmark-list", "library-list", "library-domain-list", "line-chart"}
+    expected_ids = {"radar-view", "library-view", "saved-count", "benchmark-list", "library-list", "library-domain-list"}
     if missing := expected_ids - set(document.ids):
         raise SystemExit(f"missing interactive regions: {sorted(missing)}")
     app = (OUTPUT / "app.js").read_text(encoding="utf-8")
@@ -85,13 +85,11 @@ def main() -> None:
     topic_data = json.loads((OUTPUT / "data" / urlsplit(data_ref[1]).path).read_text())
     if not topic_data.get("topics"):
         raise SystemExit("Trends topics empty")
-    comparison = json.loads((OUTPUT / "data/trends_comparison.json").read_text())
-    coverage = json.loads((OUTPUT / "data/github_history_coverage.json").read_text())
-    if not comparison or not coverage:
-        raise SystemExit("Trends data or history coverage empty")
+    if not topic_data.get("coverage", {}).get("completeHistories"):
+        raise SystemExit("Trends star-history coverage empty")
     if not all(rule in styles for rule in (".library-domains{position:sticky", "overflow-y:auto", "overscroll-behavior:contain")):
         raise SystemExit("desktop Library sidebar must scroll independently")
-    for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json"):
+    for name in ("benchmarks_index.json", "library_index.json"):
         json.loads((OUTPUT / "data" / name).read_text(encoding="utf-8"))
     for name in ("robots.txt", "sitemap.xml", "feed.xml", "llms.txt", "social-preview.png", "about/index.html", "model-evals/index.html", "3bf256ad2bac3dbab62facad3a131fdd.txt"):
         if not (OUTPUT / name).exists():

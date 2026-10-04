@@ -4,9 +4,9 @@ from datetime import datetime, timezone
 import json, os, subprocess, urllib.request, urllib.error
 from pathlib import Path
 try:
-    from .generate_trends_comparison import repo_key
+    from .repo_keys import repo_key
 except ImportError:
-    from generate_trends_comparison import repo_key
+    from repo_keys import repo_key
 ROOT=Path(__file__).resolve().parents[1]
 
 def token_value():
