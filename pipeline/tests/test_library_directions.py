@@ -62,3 +62,16 @@ assert(node('library-domain-list').innerHTML.includes('href="./trends/"'));
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class TrendLinkTests(unittest.TestCase):
+    def test_link_targets(self):
+        run(r"""
+const link=node('library-trend-link');let href=null;link.setAttribute=(k,v)=>{if(k==='href')href=v};link.removeAttribute=k=>{if(k==='href')href=null};
+node('library-domain-list').onclick({target:{closest:()=>({dataset:{libraryDirection:'computer-use'}})}});
+assert.equal(href,'./trends/#c=computer-use');assert.equal(link.hidden,false);
+node('library-domain-list').onclick({target:{closest:()=>({dataset:{libraryCustom:'gpu,kernel'}})}});
+assert.equal(href,'./trends/#d=gpu%2Ckernel');
+node('library-domain-list').onclick({target:{closest:()=>({dataset:{libraryScope:''}})}});
+assert.equal(href,null);assert.equal(link.hidden,true);
+""")

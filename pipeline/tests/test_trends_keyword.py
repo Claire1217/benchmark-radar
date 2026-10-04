@@ -187,3 +187,14 @@ const counts=[...flat.matchAll(/<span class="num">([\d,—]+)<\/span>/g)].map(m=
 for(let i=1;i<counts.length;i++)assert(counts[i-1]>=counts[i],'All layout ranks every category by count');
 node('groupLayout').onclick();assert(node('rows').innerHTML.includes('group-label'));
 """)
+
+
+class CategoryHashTests(unittest.TestCase):
+    def test_category_hash_opens_that_category(self):
+        node(PAGE.replace("window:{},", "window:{addEventListener:(t,f)=>{if(t==='hashchange')c.onhash=f}},") + r"""
+vm.runInContext('DATA=payload;SEARCH=search;periods.release=12;render()',c);
+HASH='#c=speech-audio';c.onhash();
+assert.equal(S(),'speech-audio');assert(node('detail').innerHTML.includes('Speech &amp; Audio')||node('detail').innerHTML.includes('Speech & Audio'));
+HASH='#c=not-a-category';c.onhash();assert.equal(S(),'speech-audio');
+c.click({target:{closest:s=>s==='[data-id]'?{dataset:{id:'math'}}:null}});assert.equal(HASH,'#c=math');
+""")
