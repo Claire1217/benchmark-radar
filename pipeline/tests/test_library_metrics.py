@@ -55,3 +55,20 @@ class LibraryMetricsTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class PartialObservationTests(unittest.TestCase):
+    def test_github_only_observation_keeps_radar_hf_signals(self):
+        row = {'id': 'x', 'attention': {'hfPaperUpvotes': 95, 'githubStars': 1,
+                                        'signalStatus': {'hfPaperUpvotes': {'state': 'fresh'}}}}
+        apply_library_metrics([row], {'records': [{'benchmarkId': 'x', 'githubStars': 4,
+                                                   'signalStatus': {'githubStars': {'state': 'fresh'}}}]})
+        self.assertEqual(row['attention']['hfPaperUpvotes'], 95)
+        self.assertEqual(row['attention']['githubStars'], 4)
+        self.assertEqual(set(row['attention']['signalStatus']), {'hfPaperUpvotes', 'githubStars'})
+
+    def test_explicit_not_applicable_still_wins(self):
+        row = {'id': 'x', 'attention': {'hfDatasetDownloads': 10}}
+        apply_library_metrics([row], {'records': [{'benchmarkId': 'x', 'hfDatasetDownloads': None,
+                                                   'signalStatus': {'hfDatasetDownloads': {'state': 'not_applicable'}}}]})
+        self.assertIsNone(row['attention']['hfDatasetDownloads'])
