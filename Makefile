@@ -26,6 +26,7 @@ generate:
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
 	python3 pipeline/audit_library_categories.py
+	python3 pipeline/audit_signal_coverage.py
 
 serve: build
 	python3 -m http.server 8000 --directory _site
