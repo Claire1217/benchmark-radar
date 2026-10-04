@@ -11,10 +11,11 @@ import math
 import os
 from pathlib import Path
 import re
+import threading
 import time
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -62,10 +63,45 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def get_json(url: str, headers: dict[str, str] | None = None) -> dict[str, Any] | None:
+# Requests to the same host are spaced out so a bulk refresh stays under its
+# rate limit; Hugging Face allows roughly a few hundred anonymous calls per 5 min.
+MIN_INTERVAL = {"huggingface.co": 0.7}
+_host_locks: dict[str, threading.Lock] = {}
+_host_next: dict[str, float] = {}
+_locks_guard = threading.Lock()
+RATE_LIMIT_ATTEMPTS = 5
+
+
+def throttle(url: str, sleep=time.sleep, clock=time.monotonic) -> None:
+    host = urlparse(url).hostname or ""
+    interval = MIN_INTERVAL.get(host)
+    if not interval:
+        return
+    with _locks_guard:
+        lock = _host_locks.setdefault(host, threading.Lock())
+    with lock:
+        wait = _host_next.get(host, 0) - clock()
+        if wait > 0:
+            sleep(wait)
+        _host_next[host] = clock() + interval
+
+
+def retry_delay(error: HTTPError, attempt: int) -> float:
+    """Honour Retry-After; otherwise back off 5, 10, 20, 40 s (capped at 60)."""
+    value = (error.headers or {}).get("Retry-After") if error.headers is not None else None
+    try:
+        return min(max(float(value), 1.0), 300.0)
+    except (TypeError, ValueError):
+        return min(5 * 2 ** attempt, 60)
+
+
+def get_json(url: str, headers: dict[str, str] | None = None, sleep=time.sleep) -> dict[str, Any] | None:
     request_headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
+    if "huggingface.co" in url and os.environ.get("HF_TOKEN"):
+        request_headers["Authorization"] = "Bearer " + os.environ["HF_TOKEN"]
     request_headers.update(headers or {})
-    for attempt in range(3):
+    for attempt in range(RATE_LIMIT_ATTEMPTS):
+        throttle(url, sleep)
         try:
             with urlopen(Request(url, headers=request_headers), timeout=45) as response:
                 return json.loads(response.read())
@@ -73,16 +109,16 @@ def get_json(url: str, headers: dict[str, str] | None = None) -> dict[str, Any] 
             # A public artifact can later become private or gated. Treat that
             # single signal as unavailable so preserve_last_known() can retain
             # its previous observation instead of aborting the daily update.
+            if error.code == 429 and attempt < RATE_LIMIT_ATTEMPTS - 1:
+                sleep(retry_delay(error, attempt))
+                continue
             if error.code in {401, 403, 404, 429}:
-                if error.code == 429 and attempt < 2:
-                    time.sleep(2 ** attempt)
-                    continue
                 return None
             raise
         except URLError:
-            if attempt == 2:
+            if attempt >= 2:
                 return None
-            time.sleep(2 ** attempt)
+            sleep(2 ** attempt)
     return None
 
 
@@ -99,6 +135,7 @@ def github_stars_from_public_page(repo: str) -> int | None:
 
 
 def get_public_html(url: str) -> str:
+    throttle(url)
     try:
         request = Request(url, headers={"User-Agent": USER_AGENT})
         with urlopen(request, timeout=45) as response:

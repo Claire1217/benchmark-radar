@@ -366,3 +366,44 @@ class MetricTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RateLimitTests(unittest.TestCase):
+    def test_429_waits_for_retry_after_then_succeeds(self):
+        import io
+        from email.message import Message
+        from urllib.error import HTTPError
+        import enrich_metrics as em
+        headers = Message(); headers['Retry-After'] = '7'
+        calls, sleeps = [], []
+        class Ok(io.BytesIO):
+            def __enter__(self): return self
+            def __exit__(self, *a): pass
+        def fake_urlopen(request, timeout):
+            calls.append(request.full_url)
+            if len(calls) < 3:
+                raise HTTPError(request.full_url, 429, 'Too Many', headers, None)
+            return Ok(b'{"upvotes": 12}')
+        original = em.urlopen
+        em.urlopen = fake_urlopen
+        try:
+            self.assertEqual(em.get_json('https://example.org/x', sleep=sleeps.append), {'upvotes': 12})
+        finally:
+            em.urlopen = original
+        self.assertEqual(len(calls), 3)
+        self.assertEqual(sleeps, [7.0, 7.0])
+
+    def test_backoff_without_header_and_throttle_spacing(self):
+        from urllib.error import HTTPError
+        import enrich_metrics as em
+        error = HTTPError('u', 429, 'x', None, None)
+        self.assertEqual([em.retry_delay(error, a) for a in range(5)], [5, 10, 20, 40, 60])
+        clock = iter([0.0, 0.0, 0.1, 0.8]).__next__
+        waits = []
+        em._host_next.pop('huggingface.co', None)
+        em.throttle('https://huggingface.co/api/papers/1', waits.append, clock)
+        em.throttle('https://huggingface.co/api/papers/2', waits.append, clock)
+        self.assertEqual(len(waits), 1)
+        self.assertAlmostEqual(waits[0], 0.6)
+        em.throttle('https://api.github.com/x', waits.append, clock)  # unthrottled host
+        self.assertEqual(len(waits), 1)

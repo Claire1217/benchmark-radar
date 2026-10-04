@@ -82,13 +82,21 @@ def main():
     parser.add_argument('--all-visible', action='store_true',
                         help='Refresh every visible Library record, stalest first')
     parser.add_argument('--max', type=int, default=0, help='With --all-visible: records per run (0 = all)')
+    parser.add_argument('--missing', choices=['hfPaperUpvotes', 'githubStars', 'hfDatasetDownloads'],
+                        help='With --all-visible: only records still lacking this signal, regardless of last attempt')
     args = parser.parse_args()
     previous = json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {'records': []}
     now = datetime.now(timezone.utc).isoformat()
     token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
     if args.all_visible:
         library = json.loads((ROOT / 'data/library_index.json').read_text())['records']
-        seeds = [library_input(r) for r in stalest(library, previous, args.max, now[:10])]
+        if args.missing:
+            from audit_signal_coverage import visible
+            pool = [r for r in library if visible(r) and (r.get('attention') or {}).get(args.missing) is None]
+            pool = pool[:args.max] if args.max else pool
+        else:
+            pool = stalest(library, previous, args.max, now[:10])
+        seeds = [library_input(r) for r in pool]
         prepare = lambda seed: seed
     else:
         seeds = json.loads((ROOT / 'data/library_seed_records.json').read_text())['records']
