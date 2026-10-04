@@ -34,3 +34,23 @@ class TrendsAssetVersionsTest(unittest.TestCase):
             self.assertEqual(first, build('{"version":1}'))
             self.assertNotEqual(first, build('{"version":2}'))
             self.assertTrue((root / 'trends' / urlsplit(first).path).exists())
+
+
+class DirectionsScriptVersionTest(unittest.TestCase):
+    def test_directions_script_and_search_index_are_versioned(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'trends').mkdir()
+            (root / 'data').mkdir()
+            (root / 'site-header.css').write_text('x')
+            (root / 'benchmark-name.js').write_text('x')
+            (root / 'data/trends_topics.json').write_text('{}')
+            (root / 'data/trends_search.json').write_text('{"version":1}')
+            (root / 'trends/directions.js').write_text('const Directions={}')
+            (root / 'trends/trends.js').write_text("fetch('../data/trends_topics.json');fetch('../data/trends_search.json')")
+            (root / 'trends/index.html').write_text('<script src="./directions.js"></script><script src="./trends.js"></script>')
+            version_trends_assets(root)
+            page = (root / 'trends/index.html').read_text()
+            script = (root / 'trends/trends.js').read_text()
+            self.assertRegex(page, r'\./directions\.js\?v=[0-9a-f]{12}')
+            self.assertRegex(script, r'\.\./data/trends_search\.json\?v=[0-9a-f]{12}')

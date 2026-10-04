@@ -70,7 +70,11 @@ def version_trends_assets(output: Path) -> None:
     css_name = version(output / "site-header.css")
     title_digest = hashlib.sha256((output / "benchmark-name.js").read_bytes()).hexdigest()[:12]
     page = output / "trends" / "index.html"
-    page.write_text(page.read_text().replace(
+    directions = output / "trends" / "directions.js"
+    page_text = page.read_text()
+    if directions.exists():
+        page_text = page_text.replace('./directions.js', './' + version(directions))
+    page.write_text(page_text.replace(
         './trends.js', './' + script_name
     ).replace('../site-header.css', '../' + css_name).replace(
         '../benchmark-name.js', '../benchmark-name.js?v=' + title_digest

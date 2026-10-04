@@ -92,7 +92,16 @@ def build_all(library,recent,history):
   ) for v in family.values()
  )
  missing_exact=sum(not v['date'] for v in family.values())-scoped_out
- catalog=search_catalog(releases,repos,end,taxonomy)
+ # Undated families still belong to a keyword direction; they are listed, not charted.
+ undated=[]
+ for f,v in family.items():
+  if v['date']:continue
+  r=v['members'][0]
+  undated.append({'id':f,'date':'','directions':sorted(v['topics']),'name':r['name'],'description':r.get('description',''),'url':(r.get('links') or {}).get('report'),
+   'aliases':sorted({a for m in v['members'] for a in [m['name'],*(m.get('aliases') or [])]}-{r['name']}),
+   'labs':sorted({x['provider'] for m in v['members'] for x in m.get('modelReportReferences') or [] if x.get('provider')}),
+   'repos':sorted({repo_key((m.get('links') or {}).get('code')) for m in v['members']}-{None,''})})
+ catalog=search_catalog(releases+undated,repos,end,taxonomy)
  return catalog,{
   'taxonomyVersion':taxonomy['version'],
   'asOf':(release_end-timedelta(days=1)).isoformat(),'endExclusive':release_end.isoformat(),'starAsOf':(end-timedelta(days=1)).isoformat(),'starEndExclusive':end.isoformat(),
@@ -116,7 +125,7 @@ def build_all(library,recent,history):
 def build(library,recent,history):return build_all(library,recent,history)[1]
 SEARCH_WEEKS=60
 def search_catalog(releases,repos,end,taxonomy):
- """Compact rows for free-keyword Trends: every dated release family plus weekly star events."""
+ """Compact rows for keyword directions: every Library family (date '' when unknown) plus weekly star events."""
  cats=[d['id'] for d in taxonomy['directions']];index={c:i for i,c in enumerate(cats)}
  start=end-timedelta(days=7*SEARCH_WEEKS)
  repo_rows=[];repo_index={}
