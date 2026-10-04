@@ -74,3 +74,19 @@ assert(node('rows').innerHTML.includes('Loading keyword index'));
 assert(node('rows').innerHTML.includes('Robotics'),'categories still shown while loading');
 """
         subprocess.run(["node", "-e", script], cwd=ROOT, check=True, capture_output=True, text=True)
+
+
+class LibraryKeywordLinkTests(unittest.TestCase):
+    def test_library_route_applies_q_parameter(self):
+        script = r"""
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const nodes={};const el=()=>({value:'',innerHTML:'',textContent:'',hidden:false,classList:{toggle(){}},setAttribute(){},removeAttribute(){},replaceChildren(){},append(){}});
+const node=id=>nodes[id]??(nodes[id]=el());
+const c={console,window:{},URLSearchParams,location:{hash:'#library?q=Robot'},history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:el}};
+vm.createContext(c);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),c);vm.runInContext(fs.readFileSync('web/app.js','utf8'),c);
+c.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
+vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;renderLibrary=()=>{};route()',c);
+assert.equal(vm.runInContext('state.librarySearch',c),'robot');
+assert.equal(node('library-search').value,'Robot');
+"""
+        subprocess.run(["node", "-e", script], cwd=ROOT, check=True, capture_output=True, text=True)
