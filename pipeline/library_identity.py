@@ -36,3 +36,18 @@ def merge_library_identities(records, decisions):
             if url and not target.setdefault('links', {}).get(kind):
                 target['links'][kind] = url
     return sorted(by_id.values(), key=lambda r: (r['name'].casefold(), r['id'])), redirects
+
+
+def apply_reviewed_aliases(records: list[dict], payload: dict, redirects: dict | None = None) -> list[str]:
+    """Attach reviewed model-card/leaderboard labels; return targets that no longer exist."""
+    redirects = redirects or {}
+    by_id = {r['id']: r for r in records}
+    missing = []
+    for target, labels in payload.get('aliases', {}).items():
+        target = redirects.get(target, target)
+        row = by_id.get(target)
+        if row is None:
+            missing.append(target)
+            continue
+        row['aliases'] = list(dict.fromkeys([*(row.get('aliases') or []), *(l for l in labels if l != row['name'])]))
+    return missing

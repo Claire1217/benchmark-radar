@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from datetime import date
 import hashlib
+import sys
 import json
 from pathlib import Path
 import re
@@ -12,7 +13,7 @@ import unicodedata
 
 from generate_public_index import project_record
 from taxonomy import normalize_taxonomy
-from library_identity import merge_library_identities
+from library_identity import apply_reviewed_aliases, merge_library_identities
 from library_release_dates import apply_release_dates
 from library_source_reviews import apply_source_reviews
 from research_directions import annotate_records, direction_manifest
@@ -266,6 +267,13 @@ def main() -> None:
         reviews = json.loads(review_path.read_text())
         reviewed_additions = len(reviews.get("additions", []))
         apply_source_reviews(records, reviews)
+    # After reviewed additions, so labels can target them too.
+    # Reviewed labels from model cards and leaderboards ("SWE Verified", "AIME25").
+    alias_path = ROOT / "data" / "library_aliases.json"
+    if alias_path.exists():
+        stale = apply_reviewed_aliases(records, json.loads(alias_path.read_text()), identity_redirects)
+        if stale:
+            print("warning: aliases for missing Library records: " + ", ".join(stale), file=sys.stderr)
     from repository_index import load_and_apply
     load_and_apply(records, ROOT / "data")
     from library_metrics import apply_library_metrics
