@@ -198,6 +198,10 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
         if github_token:
             headers["Authorization"] = f"Bearer {github_token}"
         repo_info = get_json(f"https://api.github.com/repos/{repo}", headers)
+        # Hub pages sometimes link a personal fork; attention belongs to the upstream repository.
+        if repo_info and repo_info.get("fork") and (repo_info.get("parent") or {}).get("full_name"):
+            repo = repo_info["parent"]["full_name"]
+            repo_info = get_json(f"https://api.github.com/repos/{repo}", headers)
         if repo_info and repo_info.get("stargazers_count") is not None:
             github_stars = repo_info["stargazers_count"]
             github_source = "github-rest"

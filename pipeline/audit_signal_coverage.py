@@ -30,7 +30,7 @@ def github_repo(r):
 
 def arxiv_id(r):
     links = r.get('links') or {}
-    for url in (links.get('report'), links.get('pdf'), links.get('hfPaper')):
+    for url in (links.get('paper'), links.get('report'), links.get('pdf'), links.get('hfPaper')):
         if url and (m := ARXIV.search(url)):
             return m[1]
     if (m := re.search(r'huggingface\.co/papers/(\d{4}\.\d{4,5})', links.get('hfPaper') or '')):

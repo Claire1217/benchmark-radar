@@ -282,6 +282,8 @@ def main() -> None:
         apply_library_metrics(records, json.loads(metrics_path.read_text()))
     if release_path.exists():
         apply_release_dates(records, json.loads(release_path.read_text()), {**catalog_redirects, **identity_redirects})
+    from paper_links import link_reviewed_papers
+    link_reviewed_papers(records)
     annotate_records(records)
     annotate_topics(records)
     annotate_categories(records)
@@ -296,7 +298,7 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth", "paperLinkBasis"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]
