@@ -64,3 +64,16 @@ class AlignmentTests(unittest.TestCase):
         self.assertEqual(rows[0]['links']['data'], 'https://huggingface.co/datasets/o/d')
         self.assertEqual(rows[0]['paperLinkBasis'], 'source-alignment')
         self.assertNotIn('paper', rows[1]['links'])
+
+
+class SharedScopeTests(unittest.TestCase):
+    def test_medium_alignment_signals_are_shared_not_own(self):
+        from enrich_library_metrics import library_input, scope_observation
+        rows = [{'id': 'v', 'links': {}}]
+        link_reviewed_papers(rows, {'v': {'paper': 'https://arxiv.org/abs/2506.07982', 'confidence': 'medium',
+                                          'metricScopes': {'github': 'hosting_repo', 'hfPaper': 'parent-benchmark-paper'}}})
+        seed = library_input(rows[0])
+        raw = scope_observation({'hfPaperUpvotes': 40, 'githubStars': 900, 'signalStatus': {}}, seed)
+        self.assertIsNone(raw['hfPaperUpvotes'])
+        self.assertEqual(raw['sharedResourceSignals']['hfPaper']['hfPaperUpvotes'], 40)
+        self.assertEqual(raw['githubScope'], 'hosting_repo')

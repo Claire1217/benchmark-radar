@@ -38,6 +38,8 @@ def apply_alignments(records, alignments):
         if record is None:
             continue
         links = record.setdefault('links', {})
+        if item.get('metricScopes'):
+            record['metricScopes'] = {**item['metricScopes'], **(record.get('metricScopes') or {})}
         for field, key in (('paper', 'paper'), ('code', 'code'), ('dataset', 'data')):
             url = item.get(field)
             if not url or links.get(key) or (key == 'paper' and has_paper(links)):
