@@ -158,6 +158,29 @@ def seed(history: dict) -> int:
     return total
 
 
+RETAIN_SNAPSHOT_DAYS = 100  # Radar ranking compares with snapshots up to 90 days old
+
+
+def prune_snapshots(history: dict, as_of: str, directory: Path | None = None) -> list[str]:
+    """Delete daily Radar snapshots older than the ranking window.
+
+    Their values are first folded into the sparse history, so growth keeps
+    working after the full snapshot files are gone.
+    """
+    directory = directory or ROOT / 'data/metrics'
+    cutoff = (date.fromisoformat(as_of) - timedelta(days=RETAIN_SNAPSHOT_DAYS)).isoformat()
+    removed = []
+    for path in sorted(directory.glob('*.json')):
+        if path.stem >= cutoff:
+            break
+        snapshot = json.loads(path.read_text())
+        rows = [{'id': r['benchmarkId'], 'attention': r} for r in snapshot.get('records', [])]
+        record_values(history, rows, snapshot.get('date') or path.stem)
+        path.unlink()
+        removed.append(path.name)
+    return removed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--seed', action='store_true')
@@ -168,12 +191,13 @@ def main() -> None:
     seeded = seed(history) if args.seed else 0
     as_of = library['manifest'].get('dataAsOf') or date.today().isoformat()
     changed = record_values(history, [r for r in library['records'] if visible(r)], as_of)
+    pruned = prune_snapshots(history, as_of)
     HISTORY_PATH.write_text(json.dumps({'schemaVersion': '1.0', 'note': 'Sparse: a value is stored only when it changes.',
                                         'records': dict(sorted(history.items()))}, separators=(',', ':')) + '\n')
     apply_growth(library['records'], as_of)
     library_path.write_text(json.dumps(library, ensure_ascii=False, separators=(',', ':')) + '\n')
     with_growth = sum('growth' in r for r in library['records'] if visible(r))
-    print(f'signal_history seeded={seeded} changed={changed} records_with_growth={with_growth}')
+    print(f'signal_history seeded={seeded} changed={changed} pruned_snapshots={len(pruned)} records_with_growth={with_growth}')
 
 
 if __name__ == '__main__':

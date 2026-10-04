@@ -83,3 +83,19 @@ assert(html.includes('stars · 3 mo'));
 """
         result = subprocess.run(["node", "-e", script], cwd=root, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr[-800:])
+
+
+class RetentionTests(unittest.TestCase):
+    def test_old_snapshots_are_folded_into_history_then_removed(self):
+        import json, tempfile
+        from signal_history import prune_snapshots
+        with tempfile.TemporaryDirectory() as temp:
+            d = Path(temp)
+            for day, votes in (('2026-05-01', 3), ('2026-06-20', 5), ('2026-09-30', 9)):
+                (d / f'{day}.json').write_text(json.dumps({'date': day, 'records': [{'benchmarkId': 'a', 'hfPaperUpvotes': votes}]}))
+            history = {}
+            removed = prune_snapshots(history, '2026-10-05', d)
+            self.assertEqual(removed, ['2026-05-01.json', '2026-06-20.json'])   # older than 100 days
+            self.assertEqual(sorted(p.name for p in d.iterdir()), ['2026-09-30.json'])
+            self.assertEqual(history['a']['hfPaperUpvotes'], [['2026-05-01', 3], ['2026-06-20', 5]])
+            self.assertEqual(prune_snapshots(history, '2026-10-05', d), [])
