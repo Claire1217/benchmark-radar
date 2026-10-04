@@ -82,7 +82,7 @@ def build_all(library,recent,history):
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
    if refs:used.append({'id':r['id'],'name':r['name'],'reports':refs})
-  topics.append({'id':t['id'],'name':t['name'],'description':t['description'],'library':len(members),'windows':windows,'trackedUse':used,'linkedRepos':len({repo_key((r.get('links') or {}).get('code')) for r in members if repo_key((r.get('links') or {}).get('code'))})})
+  topics.append({'id':t['id'],'name':t['name'],'description':t['description'],'group':t.get('group'),'section':t.get('section'),'library':len(members),'windows':windows,'trackedUse':used,'linkedRepos':len({repo_key((r.get('links') or {}).get('code')) for r in members if repo_key((r.get('links') or {}).get('code'))})})
  scoped_out=sum(
   not v['date'] and any(
    r.get('releasedAt') and r.get('releasedAt')!='0001-01-01'
@@ -103,7 +103,7 @@ def build_all(library,recent,history):
    'repos':sorted({repo_key((m.get('links') or {}).get('code')) for m in v['members']}-{None,''})})
  catalog=search_catalog(releases+undated,repos,end,taxonomy)
  return catalog,{
-  'taxonomyVersion':taxonomy['version'],
+  'taxonomyVersion':taxonomy['version'],'groups':taxonomy.get('groups',[]),
   'asOf':(release_end-timedelta(days=1)).isoformat(),'endExclusive':release_end.isoformat(),'starAsOf':(end-timedelta(days=1)).isoformat(),'starEndExclusive':end.isoformat(),
   'earliestKnownRelease':earliest,
   'releaseTotals':{str(m):sum(shift(release_end,-m).isoformat()<=f['date']<release_end.isoformat() for f in releases) for m in (1,3,6,12)},

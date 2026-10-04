@@ -166,3 +166,24 @@ HASH='#d=pde,navier-stokes';c.onhash();
 assert.equal(S(),'custom:pde+navier-stokes');assert(T().draft);assert.equal(node('search').value,'pde, navier stokes');
 assert(vm.runInContext("Directions.termRegex('navier stokes').test(' solving navier-stokes flows')",c));
 """)
+
+
+class LayoutTests(unittest.TestCase):
+    def test_grouped_layout_matches_library_groups(self):
+        node(PAGE + r"""
+vm.runInContext('DATA=payload;SEARCH=search;periods.release=12;render()',c);
+const html=node('rows').innerHTML;
+const lib=JSON.parse(fs.readFileSync('data/library_index.json','utf8')).manifest.libraryTaxonomy;
+const labels=[...html.matchAll(/class="group-label">([^<]+)</g)].map(m=>m[1].replace(/&amp;/g,'&'));
+assert.deepEqual(labels,lib.groups.map(g=>g.name).filter(n=>lib.directions.some(d=>d.section===n)));
+// Same categories, same group membership as the Library sidebar.
+const order=[...html.matchAll(/data-id="([^"]+)"/g)].map(m=>m[1]);
+assert.deepEqual([...order].sort(),lib.directions.map(d=>d.id).sort());
+for(const d of lib.directions){const t=c.payload.topics.find(t=>t.id===d.id);assert.equal(t.section,d.section,d.id);assert.equal(t.library,d.count,d.id);}
+node('allLayout').onclick();
+const flat=node('rows').innerHTML;assert(!flat.includes('group-label'));
+assert.equal(mem['benchmark-radar:trends:layout'],'all');
+const counts=[...flat.matchAll(/<span class="num">([\d,—]+)<\/span>/g)].map(m=>Number(m[1].replace(/,/g,''))||0);
+for(let i=1;i<counts.length;i++)assert(counts[i-1]>=counts[i],'All layout ranks every category by count');
+node('groupLayout').onclick();assert(node('rows').innerHTML.includes('group-label'));
+""")
