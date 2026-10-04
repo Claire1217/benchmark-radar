@@ -14,7 +14,8 @@ def chart_bounds(start,end,months,stars=False):
  while bounds[-1]<end:bounds.append(min(bounds[-1]+step,end))
  return bounds,'daily' if months==1 else 'weekly'
 def visible(r):return r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe'
-def build(library,recent,history):
+def build_all(library,recent,history):
+ """Return (keyword search catalog, topic Trends payload)."""
  records=[r for r in library['records'] if visible(r)]
  taxonomy=library['manifest'].get('libraryTaxonomy',library['manifest']['topicTaxonomy'])
  membership=lambda r:r.get('libraryCategories',r.get('researchTopics',[]))
@@ -38,7 +39,8 @@ def build(library,recent,history):
   if not v['date'] or v['date']>=release_end.isoformat():continue
   r=next(r for r in v['members'] if r.get('releasedAt')==v['date'] and r.get('releaseDatePrecision') not in ('year','month','unknown'))
   evidence=r.get('releaseEvidence') or {}
-  releases.append({'id':f,'date':v['date'],'directions':sorted(v['topics']),'name':r['name'],'description':r.get('description',''),'url':evidence.get('sourceUrl') or (r.get('links') or {}).get('report'),'dateBasis':evidence.get('basis','released')})
+  labs=sorted({x['provider'] for m in v['members'] for x in m.get('modelReportReferences') or [] if x.get('provider')})
+  releases.append({'id':f,'date':v['date'],'directions':sorted(v['topics']),'name':r['name'],'description':r.get('description',''),'url':evidence.get('sourceUrl') or (r.get('links') or {}).get('report'),'dateBasis':evidence.get('basis','released'),'aliases':sorted({a for m in v['members'] for a in [m['name'],*(m.get('aliases') or [])]}-{r['name']}),'labs':labs,'repos':sorted({repo_key((m.get('links') or {}).get('code')) for m in v['members']}-{None,''})})
  earliest=min((f['date'] for f in releases),default=None)
  names={};repoentries={}
  for r in records:
@@ -75,7 +77,7 @@ def build(library,recent,history):
    star_bounds,star_unit=chart_bounds(start,end,months,stars=True)
    release_chart=[sum(a.isoformat()<=f['date']<b.isoformat() for f in current) for a,b in zip(release_bounds,release_bounds[1:])]
    star_chart=[sum(n for r in rr for d,n in r['days'] if a<=d<b) for a,b in zip(star_bounds,star_bounds[1:])] if rr else [None]*(len(star_bounds)-1)
-   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','releaseChart':{'values':release_chart,'dates':[d.isoformat() for d in release_bounds],'unit':release_unit},'starChart':{'values':star_chart,'dates':[d.isoformat() for d in star_bounds],'unit':star_unit},'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':sorted(current,key=lambda x:x['date'],reverse=True),'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
+   windows[str(months)]={'start':release_start.isoformat(),'previousStart':release_prev.isoformat(),'starStart':start.isoformat(),'starPreviousStart':prev.isoformat(),'count':len(current),'observedCount':len(current),'previous':len(prior),'delta':len(current)-len(prior),'comparisonBasis':'indexed-releases','releaseChart':{'values':release_chart,'dates':[d.isoformat() for d in release_bounds],'unit':release_unit},'starChart':{'values':star_chart,'dates':[d.isoformat() for d in star_bounds],'unit':star_unit},'bars':bins,'barDates':[d.isoformat() for d in bounds],'releases':[{k:x[k] for k in ('id','date','directions','name','description','url','dateBasis')} for x in sorted(current,key=lambda x:x['date'],reverse=True)],'repos':stars,'stars':total if stars else None,'baseline':base if stars else None,'growthRate':100*total/base if base else None,'active':sum(r['stars']>0 for r in stars),'share':top/total if total else None,'otherStars':total-top,'newRepoStars':sum(r['stars'] for r in stars if r['newRepository'])}
   used=[]
   for r in members:
    refs=[x for x in r.get('modelReportReferences',[]) if x.get('provider') and (x.get('url') or x.get('sourceUrl'))]
@@ -90,7 +92,8 @@ def build(library,recent,history):
   ) for v in family.values()
  )
  missing_exact=sum(not v['date'] for v in family.values())-scoped_out
- return {
+ catalog=search_catalog(releases,repos,end,taxonomy)
+ return catalog,{
   'taxonomyVersion':taxonomy['version'],
   'asOf':(release_end-timedelta(days=1)).isoformat(),'endExclusive':release_end.isoformat(),'starAsOf':(end-timedelta(days=1)).isoformat(),'starEndExclusive':end.isoformat(),
   'earliestKnownRelease':earliest,
@@ -110,7 +113,26 @@ def build(library,recent,history):
    'classification':'Same current topic mapping applied retrospectively to every window.'
   }
  }
+def build(library,recent,history):return build_all(library,recent,history)[1]
+SEARCH_WEEKS=60
+def search_catalog(releases,repos,end,taxonomy):
+ """Compact rows for free-keyword Trends: every dated release family plus weekly star events."""
+ cats=[d['id'] for d in taxonomy['directions']];index={c:i for i,c in enumerate(cats)}
+ start=end-timedelta(days=7*SEARCH_WEEKS)
+ repo_rows=[];repo_index={}
+ for r in repos:
+  weekly=[0]*SEARCH_WEEKS
+  for d,n in r['days']:
+   if start<=d<end:weekly[(d-start).days//7]+=n
+  repo_index[r['name']]=len(repo_rows);repo_rows.append([r['url'],weekly,sum(n for d,n in r['days'] if d<start)])
+ rows=[]
+ for f in sorted(releases,key=lambda x:x['date']):
+  rows.append([f['name'],f['date'],[index[c] for c in f['directions'] if c in index],(f.get('description') or '')[:160],f.get('url') or '',' '.join(f.get('aliases') or []),f.get('labs') or [],[repo_index[k] for k in f.get('repos') or [] if k in repo_index]])
+ return {'version':1,'categories':cats,'weekStart':start.isoformat(),'weeks':SEARCH_WEEKS,'fields':['name','date','categories','description','url','aliases','labs','repos'],'releases':rows,'repoFields':['url','weekly','baseline'],'repos':repo_rows}
 def main():
  load=lambda n:json.loads((ROOT/'data'/n).read_text())
- result=build(load('library_index.json'),load('benchmarks_index.json'),load('github_star_history.json'));(ROOT/'data/trends_topics.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n');print('Topic Trends:',len(result['topics']),result['coverage'])
+ catalog,result=build_all(load('library_index.json'),load('benchmarks_index.json'),load('github_star_history.json'))
+ (ROOT/'data/trends_topics.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':'))+'\n')
+ (ROOT/'data/trends_search.json').write_text(json.dumps(catalog,ensure_ascii=False,separators=(',',':'))+'\n')
+ print('Topic Trends:',len(result['topics']),result['coverage'],'search_rows=',len(catalog['releases']))
 if __name__=='__main__':main()

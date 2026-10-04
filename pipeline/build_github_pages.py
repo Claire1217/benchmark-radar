@@ -62,9 +62,10 @@ def version_trends_assets(output: Path) -> None:
 
     data_name = version(output / "data" / "trends_topics.json")
     script = output / "trends" / "trends.js"
-    script.write_text(script.read_text().replace(
-        "../data/trends_topics.json", "../data/" + data_name
-    ))
+    text = script.read_text().replace("../data/trends_topics.json", "../data/" + data_name)
+    if (output / "data" / "trends_search.json").exists():
+        text = text.replace("../data/trends_search.json", "../data/" + version(output / "data" / "trends_search.json"))
+    script.write_text(text)
     script_name = version(script)
     css_name = version(output / "site-header.css")
     title_digest = hashlib.sha256((output / "benchmark-name.js").read_bytes()).hexdigest()[:12]
@@ -85,7 +86,7 @@ def main() -> None:
     shutil.copy2(ROOT / "docs" / "assets" / "benchmark-radar-overview.png", OUTPUT / "social-preview.png")
     data_dir = OUTPUT / "data"
     data_dir.mkdir()
-    for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json", "trends_comparison.json", "github_history_coverage.json", "trends_topics.json", "research_topic_audit.json"):
+    for name in ("benchmarks_index.json", "library_index.json", "domain_trends.json", "trends_comparison.json", "github_history_coverage.json", "trends_topics.json", "trends_search.json", "research_topic_audit.json"):
         shutil.copy2(ROOT / "data" / name, data_dir / name)
     page = OUTPUT / "index.html"
     html = page.read_text()
