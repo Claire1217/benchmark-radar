@@ -106,7 +106,7 @@ const context={console,window:{},URLSearchParams,history:{replaceState(){}},loca
 vm.createContext(context);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 context.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',context);
-assert(node('library-domain-list').innerHTML.includes('Self-Improving Agents'));
+assert(node('library-domain-list').innerHTML.includes('Agent Skills'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-capability'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-scientist"'));
 assert(!node('library-domain-list').innerHTML.includes('data-library-direction="ai-r-d"'));
@@ -127,13 +127,13 @@ for(const r of context.payload.records){
 }
 vm.runInContext('state.libraryDirection=publicDirection("ai-scientist");',context);
 context.record={researchTopics:['scientific-agents','tool-use'],researchDirections:['ai-for-science','tool-use']};
-assert.equal(context.publicDirection('ai-r-d'),'ai-research-agents');
+assert.equal(context.publicDirection('ai-r-d'),'ai-rnd');
 assert.equal(context.normalizeLibraryQuery('domain=Science%20%26%20Research').get('domain'),'Science & Research');
-assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'self-improving-agents');
-assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'ai-research-agents');
+assert.equal(context.normalizeLibraryQuery('topic=Self-Evolution').get('direction'),'agent-skills-evolution');
+assert.equal(context.normalizeLibraryQuery('direction=ai-r-d').get('direction'),'ai-rnd');
 assert.equal(context.record.researchDirections.length,2);
-assert.deepEqual(Array.from(vm.runInContext('directionChips(record,state.libraryDirection)',context)),['Tool Use']);
-context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],researchTopics:['scientific-agents'],researchDirections:['ai-for-science']};
+assert.deepEqual(Array.from(vm.runInContext('directionChips(record,state.libraryDirection)',context)),['Tool Use & Function Calling']);
+context.record={domainScope:'domain-specific',applicationDomains:['Science & Research'],libraryCategories:['science'],researchTopics:['scientific-agents'],researchDirections:['ai-for-science']};
 assert(vm.runInContext('matchesLibraryFilters(record)',context));
 context.record.displayEligible=false;
 assert(!vm.runInContext('matchesLibraryFilters(record)',context));

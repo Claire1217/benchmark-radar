@@ -1,0 +1,685 @@
+{
+  "version": "taxonomy-v5",
+  "status": "draft",
+  "principles": [
+    "Each category is a term people search for and that frontier-lab model cards or benchmark companies use as a section heading.",
+    "Each category has anchor benchmarks that frontier labs report or well-known benchmark companies publish.",
+    "Two categories whose top-10 benchmarks overlap by 50% or more are reviewed for a merge; 70% or more merges by default.",
+    "A benchmark has one primary category and at most two secondary categories. Trends counts use primary plus secondary.",
+    "Vague umbrellas (Vision-Language Models, Data Analysis, Coding, Content Generation) are not categories."
+  ],
+  "groups": [
+    {
+      "id": "reasoning-knowledge",
+      "name": "Reasoning & Knowledge"
+    },
+    {
+      "id": "coding",
+      "name": "Coding & AI R&D"
+    },
+    {
+      "id": "agents",
+      "name": "Agents"
+    },
+    {
+      "id": "language",
+      "name": "Language & Interaction"
+    },
+    {
+      "id": "multimodal",
+      "name": "Multimodal"
+    },
+    {
+      "id": "embodied",
+      "name": "Embodied & Physical"
+    },
+    {
+      "id": "safety",
+      "name": "Safety & Security"
+    },
+    {
+      "id": "domains",
+      "name": "Application domains"
+    },
+    {
+      "id": "meta",
+      "name": "Indexes & Suites"
+    }
+  ],
+  "categories": [
+    {
+      "id": "math",
+      "group": "reasoning-knowledge",
+      "name": "Math Reasoning",
+      "description": "Competition, olympiad and research-level mathematics, including formal proofs.",
+      "anchors": [
+        "AIME 2025",
+        "FrontierMath",
+        "MATH-500",
+        "IMOAnswerBench",
+        "GSM8K",
+        "AIME 2024"
+      ],
+      "keywords": "\\bmath\\w*|olympiad|theorem|proofs?\\b|lean 4|\\blean\\b|arithmetic|geometry problems|aime|\\bimo\\b"
+    },
+    {
+      "id": "knowledge-expert-qa",
+      "group": "reasoning-knowledge",
+      "name": "Knowledge & Expert QA",
+      "description": "Broad academic and expert knowledge questions, from exam-style multiple choice to frontier expert questions.",
+      "anchors": [
+        "MMLU-Pro",
+        "GPQA Diamond",
+        "Humanity's Last Exam",
+        "SuperGPQA",
+        "C-Eval",
+        "MMLU"
+      ],
+      "keywords": "knowledge|exam|multiple.choice|question answering|expert.level|trivia|encyclopedic|commonsense"
+    },
+    {
+      "id": "abstract-reasoning",
+      "group": "reasoning-knowledge",
+      "name": "Abstract Reasoning & Planning",
+      "description": "Novel-problem, puzzle, logical, causal and planning reasoning that does not rely on domain knowledge.",
+      "anchors": [
+        "ARC-AGI-2",
+        "ZebraLogic",
+        "BIG-Bench Extra Hard",
+        "BBH"
+      ],
+      "keywords": "abstract reasoning|logic\\w*|puzzles?|causal|deduct\\w*|induct\\w*|fluid intelligence|arc-agi|planning problems|planning"
+    },
+    {
+      "id": "factuality",
+      "group": "reasoning-knowledge",
+      "name": "Factuality & Hallucination",
+      "description": "Whether models state facts correctly, ground answers in sources and abstain when they do not know.",
+      "anchors": [
+        "SimpleQA",
+        "SimpleQA Verified",
+        "FACTS Grounding",
+        "AA-Omniscience"
+      ],
+      "keywords": "hallucinat\\w*|factual\\w*|faithful\\w*|grounded generation|calibrat\\w*|abstain\\w*|misinformation"
+    },
+    {
+      "id": "forecasting",
+      "group": "reasoning-knowledge",
+      "name": "Forecasting & Time Series",
+      "description": "Predicting future events and time-series values, including judgmental forecasting and anomaly detection in sequences.",
+      "anchors": [
+        "ForecastBench",
+        "Prophet Arena",
+        "FutureX"
+      ],
+      "keywords": "forecast\\w*|time.series|prediction markets?|future events?|anomaly detection"
+    },
+    {
+      "id": "agentic-coding",
+      "group": "coding",
+      "name": "Agentic Coding & SWE",
+      "description": "Agents that resolve repository issues, work in terminals and complete multi-step software engineering tasks.",
+      "anchors": [
+        "SWE-bench Verified",
+        "SWE-bench Pro",
+        "Terminal-Bench 2.1",
+        "SWE-bench Multilingual",
+        "NL2Repo",
+        "SWE-Lancer"
+      ],
+      "keywords": "repository|repo.level|github issues?|swe-|software engineering|terminal|command.line|pull requests?|codebase|bug fix\\w*|coding agents?|agentic coding"
+    },
+    {
+      "id": "code-generation",
+      "group": "coding",
+      "name": "Code Generation",
+      "description": "Function- and program-level code writing, competitive programming and code understanding without a long agent loop.",
+      "anchors": [
+        "LiveCodeBench",
+        "HumanEval",
+        "Codeforces",
+        "Aider Polyglot",
+        "OJBench"
+      ],
+      "keywords": "code generation|program synthesis|competitive programming|codeforces|leetcode|coding problems|text.to.sql|\\bsql\\b|code completion|programming tasks"
+    },
+    {
+      "id": "ai-rnd",
+      "group": "coding",
+      "name": "AI R&D & ML Engineering",
+      "description": "Agents doing machine-learning research and engineering: training, post-training, Kaggle-style tasks, paper replication and kernel or systems optimisation.",
+      "anchors": [
+        "MLE-bench",
+        "PaperBench",
+        "RE-Bench",
+        "KernelBench",
+        "PostTrainBench v1.1",
+        "NanoGPT"
+      ],
+      "keywords": "machine.learning (?:research|engineering)|ml (?:research|engineering)|kaggle|paper replication|reproduc\\w* (?:papers?|research)|post.training|training (?:recipes|pipelines)|gpu kernels?|cuda|kernel optimi\\w*|inference efficiency|ai r&d|ai research agents?"
+    },
+    {
+      "id": "tool-use",
+      "group": "agents",
+      "name": "Tool Use & Function Calling",
+      "description": "Choosing and calling tools, APIs and MCP servers correctly over single or multi-turn interactions, including customer-service style simulations.",
+      "anchors": [
+        "τ²-bench",
+        "BFCL v4",
+        "MCP Atlas",
+        "Toolathlon",
+        "MCP-Mark"
+      ],
+      "keywords": "tool.calling|function.calling|tool.use|\\bmcp\\b|model context protocol|api calls?|tool selection|tool invocation"
+    },
+    {
+      "id": "computer-use",
+      "group": "agents",
+      "name": "Computer Use & GUI Agents",
+      "description": "Operating desktops, phones and browsers through the screen: OS tasks, web navigation, mobile apps and GUI element grounding.",
+      "anchors": [
+        "OSWorld",
+        "OSWorld-Verified",
+        "ScreenSpot Pro",
+        "AndroidWorld",
+        "WebArena",
+        "WebArena-Verified",
+        "Online-Mind2Web"
+      ],
+      "keywords": "computer.use|gui|graphical user interface|desktop|operating system|screenshots?|screen (?:grounding|understanding)|web navigation|browser (?:agents?|tasks?)|web agents?|mobile (?:agents?|apps?)|android|smartphone|ui grounding|webarena|mind2web"
+    },
+    {
+      "id": "deep-research",
+      "group": "agents",
+      "name": "Deep Research & Search",
+      "description": "Finding, retrieving and synthesising information across the web or large corpora, including retrieval-augmented generation.",
+      "anchors": [
+        "BrowseComp",
+        "DeepSearchQA",
+        "WideSearch",
+        "FRAMES",
+        "BrowseComp-ZH"
+      ],
+      "keywords": "deep research|web search|search agents?|browsing|information (?:seeking|gathering)|retrieval.augmented|\\brag\\b|retrieval|literature review|report generation"
+    },
+    {
+      "id": "professional-work",
+      "group": "agents",
+      "name": "Professional & Enterprise Work",
+      "description": "Economically valuable knowledge work: office documents, spreadsheets, enterprise workflows and occupational tasks across finance, consulting, law and similar jobs.",
+      "anchors": [
+        "GDPval",
+        "APEX-Agents",
+        "OfficeQA Pro",
+        "AutomationBench",
+        "SpreadsheetBench",
+        "JobBench"
+      ],
+      "keywords": "professional|enterprise|workplace|office|spreadsheets?|excel|occupation\\w*|economically valuable|business workflows?|consult\\w*|customer support|data analysis|analyst"
+    },
+    {
+      "id": "agent-memory",
+      "group": "agents",
+      "name": "Agent Memory & Personalization",
+      "description": "Remembering across sessions, updating stored knowledge and adapting to a specific user over time.",
+      "anchors": [
+        "LoCoMo",
+        "LongMemEval",
+        "VitaBench",
+        "MemoryAgentBench"
+      ],
+      "keywords": "memory|long.term (?:memory|conversations?)|cross.session|personali[sz]\\w*|user preferences|lifelong"
+    },
+    {
+      "id": "agent-skills-evolution",
+      "group": "agents",
+      "name": "Agent Skills & Self-Improvement",
+      "description": "Agents that acquire reusable skills, build their own harnesses or improve over repeated episodes.",
+      "anchors": [
+        "SkillsBench",
+        "Evo-Bench"
+      ],
+      "keywords": "skills?\\b|self.evol\\w*|self.improv\\w*|continual learning|harness|experience reuse|recursive self"
+    },
+    {
+      "id": "multi-agent-games",
+      "group": "agents",
+      "name": "Multi-Agent & Games",
+      "description": "Collaboration, negotiation and competition among agents, and interactive game environments.",
+      "anchors": [
+        "TextArena",
+        "Vending-Bench 2",
+        "GameWorld",
+        "BALROG",
+        "VideoGameBench"
+      ],
+      "keywords": "multi.agent|multiagent|games?\\b|gameplay|negotiat\\w*|cooperat\\w*|social deduction|chess|minecraft|pok[eé]mon"
+    },
+    {
+      "id": "long-context",
+      "group": "language",
+      "name": "Long Context",
+      "description": "Retrieving and reasoning over very long inputs such as books, codebases or long conversations.",
+      "anchors": [
+        "MRCR",
+        "LongBench v2",
+        "AA-LCR",
+        "RULER",
+        "GraphWalks"
+      ],
+      "keywords": "long.context|long documents?|needle|context window|\\d+k tokens|million tokens|long.range"
+    },
+    {
+      "id": "instruction-following",
+      "group": "language",
+      "name": "Instruction Following",
+      "description": "Following explicit constraints, formats and multi-turn instructions.",
+      "anchors": [
+        "IFEval",
+        "IFBench",
+        "MultiChallenge",
+        "Multi-IF",
+        "COLLIE"
+      ],
+      "keywords": "instruction.following|instructions|constraints?|format(?:ting)? (?:requirements|constraints)|structured output|json"
+    },
+    {
+      "id": "chat-writing",
+      "group": "language",
+      "name": "Chat, Writing & Preference",
+      "description": "Open-ended chat quality judged by humans or models, creative writing and emotional intelligence.",
+      "anchors": [
+        "Arena-Hard v2",
+        "MT-Bench",
+        "AlpacaEval 2.0",
+        "Creative Writing v3",
+        "EQ-Bench"
+      ],
+      "keywords": "creative writing|story|stories|chatbot|open.ended (?:chat|dialogue)|human preference|emotional|empathy|role.?play|persona"
+    },
+    {
+      "id": "multilingual",
+      "group": "language",
+      "name": "Multilingual & Translation",
+      "description": "Performance across languages and machine translation.",
+      "anchors": [
+        "MMMLU",
+        "MGSM",
+        "WMT24++",
+        "Global PIQA",
+        "Global-MMLU-Lite"
+      ],
+      "keywords": "multilingual|cross.lingual|translation|low.resource languages?|languages\\b|chinese|arabic|indic|african|japanese|korean"
+    },
+    {
+      "id": "visual-reasoning",
+      "group": "multimodal",
+      "name": "Image & Visual Reasoning",
+      "description": "Answering and reasoning about images, charts, diagrams and visual math.",
+      "anchors": [
+        "MMMU",
+        "MMMU-Pro",
+        "MathVista",
+        "CharXiv",
+        "ZeroBench",
+        "BabyVision"
+      ],
+      "keywords": "images?\\b|visual (?:question|reasoning|perception)|charts?|diagrams?|figures?|vqa|multimodal (?:reasoning|understanding)|photos?"
+    },
+    {
+      "id": "document-ocr",
+      "group": "multimodal",
+      "name": "Document Understanding & OCR",
+      "description": "Reading text, tables, layouts and forms in scanned or digital documents.",
+      "anchors": [
+        "OmniDocBench 1.5",
+        "OCRBench V2",
+        "DocVQA",
+        "InfoVQA",
+        "CC-OCR"
+      ],
+      "keywords": "\\bocr\\b|documents?|pdf|text recognition|table (?:recognition|extraction)|layout|forms?\\b|receipts?|handwrit\\w*"
+    },
+    {
+      "id": "video-understanding",
+      "group": "multimodal",
+      "name": "Video Understanding",
+      "description": "Understanding and reasoning over short and long videos, including egocentric and streaming video.",
+      "anchors": [
+        "Video-MME",
+        "VideoMMMU",
+        "LVBench",
+        "EgoSchema",
+        "LongVideoBench"
+      ],
+      "keywords": "video (?:understanding|question|reasoning|comprehension|qa|grounding|perception)|videos? question answering|long.?videos?|egocentric|streaming video|temporal grounding|action recognition|movies?|video (?:llms?|mllms?|models?) (?:understand|answer)"
+    },
+    {
+      "id": "spatial-3d",
+      "group": "multimodal",
+      "name": "Spatial & 3D Reasoning",
+      "description": "Spatial relations, 3D scenes, counting and geometric perception from images, video or point clouds.",
+      "anchors": [
+        "VSI-Bench",
+        "CountBench",
+        "MMSIBench",
+        "BLINK"
+      ],
+      "keywords": "spatial|3d|three.dimensional|point clouds?|depth|counting|geometr\\w* perception|scene understanding|navigation"
+    },
+    {
+      "id": "speech-audio",
+      "group": "multimodal",
+      "name": "Speech & Audio",
+      "description": "Speech recognition and generation, audio understanding, music and real-time voice interaction.",
+      "anchors": [
+        "MMAU",
+        "FLEURS",
+        "CoVoST2",
+        "Big Bench Audio",
+        "Common Voice 15"
+      ],
+      "keywords": "speech|spoken|audio|voice|music|sound|asr\\b|tts\\b|full.duplex|turn.taking"
+    },
+    {
+      "id": "image-video-generation",
+      "group": "multimodal",
+      "name": "Image & Video Generation",
+      "description": "Generating and editing images, video and 3D assets from text or other inputs.",
+      "anchors": [
+        "GenEval",
+        "LongText-Bench",
+        "CVTG-2K",
+        "SVG-Bench",
+        "VBench",
+        "T2I-CompBench",
+        "GEdit-Bench"
+      ],
+      "keywords": "text.to.image|text.to.video|image (?:generation|editing|synthesis)|video (?:generation|editing|synthesis)|diffusion|generated (?:images|videos)|visual generation|3d generation"
+    },
+    {
+      "id": "embodied-robotics",
+      "group": "embodied",
+      "name": "Robotics & Embodied AI",
+      "description": "Robot manipulation, vision-language-action policies, embodied planning, navigation and autonomous driving.",
+      "anchors": [
+        "ERQA",
+        "LIBERO",
+        "RoboSpatialHome",
+        "VLADBench",
+        "RoboCasa",
+        "EmbodiedBench"
+      ],
+      "keywords": "robot\\w*|embodied|vision.language.action|\\bvla\\b|manipulation|locomotion|autonomous driving|driving|drones?|uav"
+    },
+    {
+      "id": "world-models",
+      "group": "embodied",
+      "name": "World Models & Physical Understanding",
+      "description": "Predicting how environments evolve, interactive world simulation and physical commonsense.",
+      "anchors": [
+        "ContPhy",
+        "QwenWorldBench",
+        "PIQA",
+        "WorldScore"
+      ],
+      "keywords": "world models?|physical (?:commonsense|reasoning|dynamics|consistency|laws)|physics|simulat\\w* environments?|future (?:frame|state) prediction|intuitive physics"
+    },
+    {
+      "id": "safety-alignment",
+      "group": "safety",
+      "name": "Safety & Alignment",
+      "description": "Harmful-content refusal, jailbreak robustness, honesty, sycophancy, bias and dangerous-capability (CBRN) evaluations.",
+      "anchors": [
+        "MASK",
+        "WMDP",
+        "Virology Capabilities Test",
+        "StrongREJECT",
+        "XSTest",
+        "BBQ"
+      ],
+      "keywords": "safety|harmful|jailbreak\\w*|refus\\w*|alignment|honest\\w*|deception|sycophan\\w*|bias\\w*|toxic\\w*|fairness|biosecurity|chemical|weapons?|red.teaming|misuse"
+    },
+    {
+      "id": "agent-security",
+      "group": "safety",
+      "name": "Agent Security & Prompt Injection",
+      "description": "Attacks on and failures of agents: prompt injection, unsafe tool actions, permissions and privacy leakage.",
+      "anchors": [
+        "Gray Swan IPI Benchmark",
+        "Siren AgentDojo Attack Success Rate",
+        "AgentDojo",
+        "Agent Red Teaming (ART)"
+      ],
+      "keywords": "prompt injection|agent (?:safety|security)|unsafe actions?|privacy leak\\w*|permissions?|hijack\\w*|malicious (?:skills?|tools?)"
+    },
+    {
+      "id": "cybersecurity",
+      "group": "safety",
+      "name": "Cybersecurity & CTF",
+      "description": "Offensive and defensive security tasks: capture-the-flag, vulnerability discovery and exploitation.",
+      "anchors": [
+        "CyberGym",
+        "Cybench",
+        "SEC-Bench Pro",
+        "ExploitBench"
+      ],
+      "keywords": "cyber\\w*|capture.the.flag|\\bctf\\b|vulnerabilit\\w*|exploit\\w*|penetration|malware|security patch\\w*"
+    },
+    {
+      "id": "content-detection",
+      "group": "safety",
+      "name": "AI-Content Detection & Forensics",
+      "description": "Detecting AI-generated or manipulated text, code, images, audio and video, and attributing authorship.",
+      "anchors": [
+        "RAID",
+        "M4"
+      ],
+      "keywords": "deepfakes?|ai.generated (?:text|content|images?)|machine.generated|synthetic media|forensic\\w*|watermark\\w*|authorship"
+    },
+    {
+      "id": "science",
+      "group": "domains",
+      "name": "Science",
+      "description": "Scientific research tasks and knowledge in physics, chemistry, biology and earth science, including scientific agents and scientific code.",
+      "anchors": [
+        "SciCode",
+        "FrontierScience",
+        "LABBench2",
+        "PHYBench",
+        "GeneBench-Pro",
+        "ChemBench"
+      ],
+      "keywords": "scien\\w*|physics|chemi\\w*|biolog\\w*|molecul\\w*|protein|materials|genom\\w*|climate|astronom\\w*|laborator\\w*|experiment\\w*"
+    },
+    {
+      "id": "health-medicine",
+      "group": "domains",
+      "name": "Health & Medicine",
+      "description": "Clinical, medical and health-related tasks for patients and practitioners.",
+      "anchors": [
+        "HealthBench",
+        "MedQA",
+        "MedXpertQA"
+      ],
+      "keywords": "medic\\w*|clinic\\w*|health\\w*|patients?|diagnos\\w*|radiolog\\w*|patholog\\w*|biomedical|doctors?|nurs\\w*|ehr\\b"
+    },
+    {
+      "id": "finance-legal",
+      "group": "domains",
+      "name": "Finance & Law",
+      "description": "Financial analysis and legal reasoning for professional use.",
+      "anchors": [
+        "Finance Agent",
+        "LegalBench",
+        "Legal Research Bench",
+        "PRBench-Finance",
+        "PRBench-Legal"
+      ],
+      "keywords": "financ\\w*|accounting|banking|stocks?|investment|tax\\w*|legal|\\blaw\\b|contracts?|court|regulat\\w*|compliance"
+    },
+    {
+      "id": "engineering-design",
+      "group": "domains",
+      "name": "Engineering & Hardware Design",
+      "description": "Engineering tasks such as CAD modelling, chip and circuit design (EDA), power systems and industrial operations.",
+      "anchors": [
+        "CADGenBench",
+        "Analog Design Bench",
+        "CVDP (Mercor)",
+        "VerilogEval"
+      ],
+      "keywords": "\\bcad\\b|verilog|\\brtl\\b|\\beda\\b|circuits?|chip design|vlsi|pcb|power (?:systems?|grids?)|mechanical|industrial|manufactur\\w*"
+    },
+    {
+      "id": "composite-index",
+      "group": "meta",
+      "name": "Composite Indexes",
+      "description": "Aggregate scores that combine many benchmarks into one capability index, such as the Artificial Analysis Intelligence Index or Epoch Capabilities Index.",
+      "anchors": [
+        "Artificial Analysis Intelligence Index",
+        "Epoch Capabilities Index"
+      ],
+      "keywords": "intelligence index|capabilities index|composite (?:index|score)|aggregate (?:index|score)"
+    }
+  ],
+  "retired": {
+    "vision-language-models": {
+      "reason": "Too broad; top-10 identical to Visual Understanding (100% overlap).",
+      "redirect": "visual-reasoning"
+    },
+    "visual-understanding": {
+      "reason": "Renamed and narrowed.",
+      "redirect": "visual-reasoning"
+    },
+    "data-analysis-agents": {
+      "reason": "Low usage; work belongs with professional tasks.",
+      "redirect": "professional-work"
+    },
+    "data-analysis": {
+      "reason": "Low usage; work belongs with professional tasks.",
+      "redirect": "professional-work"
+    },
+    "personal-workplace": {
+      "reason": "Merged into one professional-work category.",
+      "redirect": "professional-work"
+    },
+    "software-engineering": {
+      "reason": "Broad 'coding' umbrella split into agentic coding and code generation.",
+      "redirect": "agentic-coding"
+    },
+    "coding-agents": {
+      "reason": "Renamed.",
+      "redirect": "agentic-coding"
+    },
+    "content-generation": {
+      "reason": "Mixed chat quality and media generation.",
+      "redirect": "chat-writing"
+    },
+    "ai-research-agents": {
+      "reason": "Merged with systems/efficiency (50% top-10 overlap).",
+      "redirect": "ai-rnd"
+    },
+    "systems-optimization": {
+      "reason": "Merged into AI R&D (50% top-10 overlap with AI Research Agents).",
+      "redirect": "ai-rnd"
+    },
+    "efficient-inference": {
+      "reason": "Merged into AI R&D.",
+      "redirect": "ai-rnd"
+    },
+    "self-improving-agents": {
+      "reason": "Merged with harnesses and skills.",
+      "redirect": "agent-skills-evolution"
+    },
+    "agent-harness-skills": {
+      "reason": "Merged with self-improvement.",
+      "redirect": "agent-skills-evolution"
+    },
+    "gui-grounding": {
+      "reason": "Sub-task of computer use (33% overlap, 9 records).",
+      "redirect": "computer-use"
+    },
+    "rag-retrieval": {
+      "reason": "Merged with deep research and search.",
+      "redirect": "deep-research"
+    },
+    "search-research": {
+      "reason": "Renamed.",
+      "redirect": "deep-research"
+    },
+    "logical-reasoning": {
+      "reason": "Merged with causal reasoning.",
+      "redirect": "abstract-reasoning"
+    },
+    "causal-reasoning": {
+      "reason": "Merged with logical reasoning.",
+      "redirect": "abstract-reasoning"
+    },
+    "mathematical-reasoning": {
+      "reason": "Renamed.",
+      "redirect": "math"
+    },
+    "knowledge-qa": {
+      "reason": "Renamed.",
+      "redirect": "knowledge-expert-qa"
+    },
+    "multilingual-nlp": {
+      "reason": "Renamed.",
+      "redirect": "multilingual"
+    },
+    "realtime-multimodal": {
+      "reason": "Renamed.",
+      "redirect": "speech-audio"
+    },
+    "ocr-documents": {
+      "reason": "Renamed.",
+      "redirect": "document-ocr"
+    },
+    "spatial-reasoning": {
+      "reason": "Renamed.",
+      "redirect": "spatial-3d"
+    },
+    "embodied-vla": {
+      "reason": "Renamed.",
+      "redirect": "embodied-robotics"
+    },
+    "multi-agent": {
+      "reason": "Merged with games.",
+      "redirect": "multi-agent-games"
+    },
+    "agent-safety-security": {
+      "reason": "Renamed and narrowed to agent security.",
+      "redirect": "agent-security"
+    },
+    "ai-for-science": {
+      "reason": "Renamed.",
+      "redirect": "science"
+    },
+    "scientific-agents": {
+      "reason": "Merged into Science.",
+      "redirect": "science"
+    },
+    "self-improvement-rsi": {
+      "reason": "Legacy research theme.",
+      "redirect": "agent-skills-evolution"
+    },
+    "audio-speech": {
+      "reason": "Legacy direction.",
+      "redirect": "speech-audio"
+    },
+    "embodied-ai": {
+      "reason": "Legacy direction.",
+      "redirect": "embodied-robotics"
+    },
+    "ai-scientist": {
+      "reason": "Legacy alias.",
+      "redirect": "science"
+    },
+    "ai-r-d": {
+      "reason": "Legacy alias.",
+      "redirect": "ai-rnd"
+    }
+  }
+}

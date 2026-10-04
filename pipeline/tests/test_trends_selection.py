@@ -12,9 +12,9 @@ vm.createContext(c);vm.runInContext(fs.readFileSync('web/trends/trends.js','utf8
 c.payload=JSON.parse(fs.readFileSync('data/trends_topics.json','utf8'));
 vm.runInContext('DATA=payload;periods.release=3;render()',c);
 node('search').value='Multi-Agent';node('search').oninput();
-assert(node('detail').innerHTML.includes('Multi-Agent Systems'));
-assert(node('detail').innerHTML.includes('direction=multi-agent'));
-assert(!node('detail').innerHTML.includes('direction=coding-agents'));
+assert(node('detail').innerHTML.includes('Multi-Agent &amp; Games')||node('detail').innerHTML.includes('Multi-Agent & Games'));
+assert(node('detail').innerHTML.includes('direction=multi-agent-games'));
+assert(!node('detail').innerHTML.includes('direction=agentic-coding'));
 node('search').value='no-matching-topic-xyz';node('search').oninput();
 assert(node('detail').innerHTML.includes('No matching'));
 assert(!node('detail').innerHTML.includes('View in Library'));

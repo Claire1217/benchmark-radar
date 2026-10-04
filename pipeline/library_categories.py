@@ -1,90 +1,113 @@
-"""One public Library registry, with explicit broad/narrow relationships.
+"""One public category registry (taxonomy-v5) shared by Library, Trends and README.
 
-Legacy labels remain internal evidence. They are never appended by the client
-or used to choose a different membership rule after a URL reload.
+Membership comes from reviewed assignments in data/taxonomy_v5_assignments.json.
+Records without a review (for example, today's new Radar admissions) receive a
+provisional keyword assignment and are flagged so they can be reviewed later.
+Legacy researchTopics/researchDirections remain internal evidence only.
 """
-from research_directions import DIRECTIONS
-from research_topics import TOPICS, ALIASES as TOPIC_ALIASES
+from functools import lru_cache
+import json
+from pathlib import Path
+import re
 
-VERSION = 'library-categories-v2'
-RETIRED_IDS = {'data-analysis'}
-# These are broader capabilities, not synonyms for the corresponding agent topic.
-PARENTS = {
-    'scientific-agents': 'ai-for-science',
-    'coding-agents': 'software-engineering',
-    'efficient-inference': 'systems-optimization',
-    'image-video-generation': 'content-generation',
-}
-BROAD_NAMES = {
-    'ai-for-science': ('AI for Science', 'Scientific knowledge and reasoning, science questions, scientific figures, prediction and research tasks. Includes the narrower Scientific Agents category.'),
-    'data-analysis': ('Data Analysis & SQL', 'Data analysis, database querying and tabular tasks, including Data Analysis Agents.'),
-    'software-engineering': ('Programming & Software Engineering', 'Code understanding, generation, testing and repository-level software work, including Coding Agents.'),
-    'systems-optimization': ('Systems & Performance', 'Software and system performance, including the narrower Efficient Inference research topic.'),
-    'content-generation': ('Content Generation', 'Text, image, video and other generation tasks. Includes Image & Video Generation.'),
-}
-# Broad IDs retain their original scope. Only deprecated names redirect.
-ALIASES = {key: value for key, value in TOPIC_ALIASES.items() if key not in BROAD_NAMES}
+ROOT = Path(__file__).resolve().parents[1]
+TAXONOMY_PATH = ROOT / 'data' / 'taxonomy_v5.json'
+ASSIGNMENTS_PATH = ROOT / 'data' / 'taxonomy_v5_assignments.json'
+MAX_SECONDARY = 2
+# Kept for callers that import it; v5 categories are flat within their group.
+PARENTS: dict[str, str] = {}
 
 
-def definitions():
-    topics = [{**topic, 'membership': 'researchTopics'} for topic in TOPICS]
-    used = {topic['id'] for topic in topics}
-    capabilities = []
-    for direction in DIRECTIONS:
-        identity = direction['id']
-        if identity in used or identity in ALIASES or identity in RETIRED_IDS:
-            continue
-        definition = {**direction, 'section': 'General capabilities', 'membership': 'researchDirections'}
-        if identity in BROAD_NAMES:
-            definition['name'], definition['description'] = BROAD_NAMES[identity]
-        if identity == 'ai-for-science':
-            definition['searchAliases'] = ['science benchmarks', 'scientific knowledge']
-            definition['section'] = 'Agent research'
-        if identity == 'cybersecurity':
-            definition['name'] = 'Cybersecurity Tasks'
-            definition['searchAliases'] = ['Cybersecurity']
-        if identity == 'gui-grounding':
-            definition['section'] = 'Specific tasks'
-            definition['description'] = 'Locate a requested interface element from a screenshot. This is a specific task, distinct from completing a computer-use workflow.'
-        capabilities.append(definition)
-    # Keep the broad AI for Science direction beside its narrower Scientific
-    # Agents category, without pinning either one to the top of the Library.
-    science = next(d for d in capabilities if d['id'] == 'ai-for-science')
+@lru_cache(maxsize=1)
+def taxonomy() -> dict:
+    return json.loads(TAXONOMY_PATH.read_text())
+
+
+@lru_cache(maxsize=1)
+def assignments() -> dict:
+    if not ASSIGNMENTS_PATH.exists():
+        return {}
+    return json.loads(ASSIGNMENTS_PATH.read_text()).get('records', {})
+
+
+@lru_cache(maxsize=1)
+def _patterns() -> dict:
+    return {c['id']: re.compile(c['keywords'], re.I) for c in taxonomy()['categories']}
+
+
+def definitions() -> list[dict]:
+    groups = {g['id']: g['name'] for g in taxonomy()['groups']}
     result = []
-    for topic in topics:
-        if topic['id'] == 'scientific-agents':
-            result.append(science)
-        result.append(topic)
-    result.extend(d for d in capabilities if d['id'] != 'ai-for-science')
-    for definition in result:
-        if definition['id'] in PARENTS:
-            definition['parentId'] = PARENTS[definition['id']]
+    for c in taxonomy()['categories']:
+        result.append({
+            'id': c['id'], 'name': c['name'], 'description': c['description'],
+            'group': c['group'], 'section': groups[c['group']],
+            'anchors': c.get('anchors', []), 'searchAliases': c.get('searchAliases', []),
+        })
     ids = {d['id'] for d in result}
     assert len(ids) == len(result)
     assert len({d['name'].casefold() for d in result}) == len(result)
-    assert not ids.intersection(ALIASES), 'Canonical IDs cannot also be redirects'
-    assert set(ALIASES.values()) <= ids
+    assert not ids.intersection(aliases()), 'Canonical IDs cannot also be redirects'
+    assert set(aliases().values()) <= ids
     return result
 
 
+def aliases() -> dict:
+    return {old: item['redirect'] for old, item in taxonomy().get('retired', {}).items()}
+
+
+def keyword_assignment(record: dict) -> dict | None:
+    """Provisional placement for unreviewed records; name matches count double."""
+    name = record.get('name') or ''
+    text = ' '.join(filter(None, [record.get('description'), record.get('oneLine')]))
+    scores = {}
+    for identity, pattern in _patterns().items():
+        score = 2 * len(pattern.findall(name)) + len(pattern.findall(text))
+        if score:
+            scores[identity] = score
+    if not scores:
+        return None
+    order = [c['id'] for c in taxonomy()['categories']]
+    ranked = sorted(scores, key=lambda k: (-scores[k], order.index(k)))
+    secondary = [k for k in ranked[1:] if scores[k] >= 2][:MAX_SECONDARY]
+    return {'primary': ranked[0], 'secondary': secondary, 'basis': 'keyword-provisional'}
+
+
+def assignment_for(record: dict) -> dict | None:
+    reviewed = assignments()
+    for key in (record['id'], record.get('variantOf'), record.get('familyId')):
+        if key and key in reviewed:
+            item = reviewed[key]
+            basis = item.get('basis', 'reviewed') if key == record['id'] else 'inherited-from-family'
+            return {'primary': item['primary'], 'secondary': item.get('secondary', []), 'basis': basis}
+    return keyword_assignment(record)
+
+
 def annotate_categories(records):
-    registry = definitions()
-    order = [d['id'] for d in registry]
+    valid = {d['id'] for d in definitions()}
     for record in records:
-        members = {d['id'] for d in registry if d['id'] in record.get(d['membership'], [])}
-        # Broad category counts include each child entry once, even when both
-        # the old capability evidence and the newer task review match it.
-        members.update(PARENTS[identity] for identity in list(members) if identity in PARENTS)
-        record['libraryCategories'] = [identity for identity in order if identity in members]
+        item = assignment_for(record)
+        if not item or item['primary'] not in valid:
+            record['libraryCategories'] = []
+            record['categoryAssignment'] = {'basis': 'unclassified'}
+            continue
+        members = [item['primary']] + [s for s in item['secondary'] if s in valid and s != item['primary']]
+        record['libraryCategories'] = list(dict.fromkeys(members))[:1 + MAX_SECONDARY]
+        record['categoryAssignment'] = {'primary': item['primary'], 'basis': item['basis']}
 
 
 def category_manifest(records):
     visible = [r for r in records if r.get('displayEligible') is not False and r.get('evaluationMode') != 'viewpoint_probe']
     return {
-        'version': VERSION,
-        'retiredIds': sorted(RETIRED_IDS),
-        'method': 'One membership list for navigation, search, chips, counts and URL filters. Categories overlap; parent categories include their children.',
-        'aliases': ALIASES,
-        'directions': [{**d, 'count': sum(d['id'] in r.get('libraryCategories', []) for r in visible)} for d in definitions()],
+        'version': taxonomy()['version'],
+        'retiredIds': [],
+        'method': 'One primary category plus up to two secondary categories per benchmark, from reviewed assignments; unreviewed records use a provisional keyword match. Categories overlap through secondary membership.',
+        'groups': taxonomy()['groups'],
+        'aliases': aliases(),
+        'directions': [{**d,
+                        'count': sum(d['id'] in r.get('libraryCategories', []) for r in visible),
+                        'primaryCount': sum((r.get('libraryCategories') or [None])[0] == d['id'] for r in visible)}
+                       for d in definitions()],
         'unclassifiedCount': sum(not r.get('libraryCategories') for r in visible),
+        'provisionalCount': sum((r.get('categoryAssignment') or {}).get('basis') == 'keyword-provisional' for r in visible),
     }

@@ -6,7 +6,7 @@ const titleHtml=benchmarkNameHtml;
 
 const fmt=n=>n==null?'—':n.toLocaleString('en-US'), signed=n=>n==null?'—':(n>0?'+':'')+fmt(n);
 const day=86400000, date=(s,offset=0)=>new Date(Date.parse(s+'T00:00:00Z')+offset*day).toISOString().slice(0,10), short=s=>s.slice(5).replace('-','/');
-let DATA,mode='release',selected='coding-agents',sort='count',ascending=false,showAll=false;
+let DATA,mode='release',selected='agentic-coding',sort='count',ascending=false,showAll=false;
 const periods={release:12,star:3}, current=t=>t.windows[String(periods[mode])];
 function values(t){const w=current(t),star=mode==='star',series=star?w.starChart:w.releaseChart;
 const p=star?(w.stars==null?null:w.repos.reduce((s,r)=>s+r.previous,0)):w.previous;

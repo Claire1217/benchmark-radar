@@ -10,34 +10,42 @@ from library_categories import annotate_categories, category_manifest
 
 
 class LibraryCategoryTests(unittest.TestCase):
-    def test_retired_data_analysis_keeps_records_and_agent_topic(self):
-        records=[{'id':'data','researchDirections':['data-analysis']},
-                 {'id':'agent','researchTopics':['data-analysis-agents']}]
-        annotate_categories(records)
-        manifest=category_manifest(records)
-        self.assertEqual(len(records),2)
-        self.assertNotIn('data-analysis',[d['id'] for d in manifest['directions']])
-        self.assertNotIn('data-analysis',manifest['aliases'])
-        self.assertIn('data-analysis',manifest['retiredIds'])
-        self.assertEqual(records[0]['libraryCategories'],[])
-        self.assertEqual(records[1]['libraryCategories'],['data-analysis-agents'])
+    def test_reviewed_assignment_puts_primary_first_and_counts_secondary(self):
+        import library_categories as lc
+        reviewed={'a':{'primary':'tool-use','secondary':['professional-work']},'b':{'primary':'other','secondary':[]}}
+        original=lc.assignments
+        lc.assignments=lambda:reviewed
+        try:
+            records=[{'id':'a','name':'A'},{'id':'b','name':'B'},
+                     {'id':'a-variant','name':'A Lite','variantOf':'a'},
+                     {'id':'hidden','name':'H','variantOf':'a','displayEligible':False}]
+            annotate_categories(records)
+            manifest=category_manifest(records)
+        finally:
+            lc.assignments=original
+        by={d['id']:d for d in manifest['directions']}
+        self.assertEqual(records[0]['libraryCategories'],['tool-use','professional-work'])
+        self.assertEqual(records[1]['libraryCategories'],[])  # reviewed as outside every category
+        self.assertEqual(records[2]['categoryAssignment']['basis'],'inherited-from-family')
+        self.assertEqual(by['tool-use']['count'],2)
+        self.assertEqual(by['professional-work']['count'],2)
+        self.assertEqual(by['professional-work']['primaryCount'],0)
+        self.assertEqual(manifest['unclassifiedCount'],1)
 
-    def test_science_parent_is_broad_and_counts_each_record_once(self):
-        records=[{'id':'broad','researchDirections':['ai-for-science']},
-                 {'id':'agent','researchTopics':['scientific-agents']},
-                 {'id':'both','researchTopics':['scientific-agents'],'researchDirections':['ai-for-science']},
-                 {'id':'hidden','displayEligible':False,'researchTopics':['scientific-agents']}]
+    def test_unreviewed_record_gets_flagged_keyword_assignment(self):
+        records=[{'id':'new-today','name':'GUIBench','description':'Agents operate desktop applications from screenshots.'}]
         annotate_categories(records)
-        manifest=category_manifest(records);by={d['id']:d for d in manifest['directions']}
-        self.assertEqual(by['ai-for-science']['count'],3)
-        self.assertEqual(by['scientific-agents']['count'],2)
-        self.assertEqual(by['ai-for-science']['name'],'AI for Science')
-        self.assertEqual(by['scientific-agents']['name'],'Scientific Agents')
-        ids=[d['id'] for d in manifest['directions']]
-        self.assertEqual(ids.index('scientific-agents'),ids.index('ai-for-science')+1)
-        self.assertEqual(by['ai-for-science']['section'],'Agent research')
-        self.assertNotEqual(by['ai-for-science']['name'],by['scientific-agents']['name'])
-        self.assertNotIn('ai-for-science',manifest['aliases'])
+        self.assertEqual(records[0]['libraryCategories'][0],'computer-use')
+        self.assertEqual(records[0]['categoryAssignment']['basis'],'keyword-provisional')
+        self.assertEqual(category_manifest(records)['provisionalCount'],1)
+
+    def test_retired_categories_redirect_to_v5(self):
+        aliases=category_manifest([])['aliases']
+        for old,new in {'vision-language-models':'visual-reasoning','data-analysis-agents':'professional-work',
+                        'software-engineering':'agentic-coding','ai-for-science':'science','gui-grounding':'computer-use'}.items():
+            self.assertEqual(aliases[old],new)
+        ids={d['id'] for d in category_manifest([])['directions']}
+        self.assertFalse({'vision-language-models','data-analysis-agents','software-engineering'} & ids)
 
     def test_sidebar_search_and_route_agree_for_every_public_category(self):
         script=r'''
@@ -87,9 +95,9 @@ for(const [_,domain,name,count] of fields){
 assert(fields.some(f=>f[1]==='Science & Research'));
 assert.equal(new Set([...buttons,...fields].map(b=>b[2].toLowerCase())).size,buttons.length+fields.length);
 state.libraryDomain='';
-state.libraryDirection='';nodes['library-search'].value='AI for Science';c.showTypes();
-assert.match(nodes['type-options'].children[0].textContent,/^AI for Science · Type · /);
-nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'ai-for-science');
+state.libraryDirection='';nodes['library-search'].value='Computer Use';c.showTypes();
+assert.match(nodes['type-options'].children[0].textContent,/^Computer Use & GUI Agents · Type · /);
+nodes['type-options'].children[0].onclick();assert.equal(state.libraryDirection,'computer-use');
 console.log('Verified all '+buttons.length+' categories: unique sidebar names, search, counts, click/reload membership and legacy links.');
 '''
         subprocess.run(['node','-e',script],cwd=ROOT,check=True)
