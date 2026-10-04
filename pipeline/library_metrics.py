@@ -20,7 +20,11 @@ def apply_library_metrics(records, payload):
         observed.pop('benchmarkId', None)
         attention = copy.deepcopy(record.get('attention') or {})
         status = {**(attention.get('signalStatus') or {}), **(observed.pop('signalStatus', None) or {})}
-        attention.update(observed)
+        for key, value in observed.items():
+            # A failed fetch is not evidence; only a not-applicable status clears a value.
+            if value is None and key in attention and (status.get(key) or {}).get('state') != 'not_applicable':
+                continue
+            attention[key] = value
         if status:
             attention['signalStatus'] = status
         record['attention'] = attention

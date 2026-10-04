@@ -34,6 +34,14 @@ class SignalCoverageTests(unittest.TestCase):
         self.assertEqual(got['hfDatasetDownloads'], {'count': 1, 'of': 1, 'share': 1.0})  # zero is a real value
         self.assertEqual(got['noSignal']['count'], 2)
 
+    def test_exact_date_matches_trends_rule(self):
+        from audit_signal_coverage import exact_date
+        self.assertTrue(exact_date({'releasedAt': '2026-09-04'}))                       # Radar: no precision field
+        self.assertTrue(exact_date({'releasedAt': '2026-09-04', 'releaseDatePrecision': 'day'}))
+        self.assertFalse(exact_date({'releasedAt': '2026-09-01', 'releaseDatePrecision': 'month'}))
+        self.assertFalse(exact_date({'releasedAt': '0001-01-01', 'releaseDatePrecision': 'unknown'}))
+        self.assertFalse(exact_date({}))
+
 
 if __name__ == '__main__':
     unittest.main()

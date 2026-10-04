@@ -72,3 +72,26 @@ class PartialObservationTests(unittest.TestCase):
         apply_library_metrics([row], {'records': [{'benchmarkId': 'x', 'hfDatasetDownloads': None,
                                                    'signalStatus': {'hfDatasetDownloads': {'state': 'not_applicable'}}}]})
         self.assertIsNone(row['attention']['hfDatasetDownloads'])
+
+
+class FailedFetchTests(unittest.TestCase):
+    def test_failed_fetch_does_not_erase_known_value(self):
+        row = {'id': 'x', 'attention': {'hfPaperUpvotes': 7}}
+        apply_library_metrics([row], {'records': [{'benchmarkId': 'x', 'hfPaperUpvotes': None,
+                                                   'signalStatus': {'hfPaperUpvotes': {'state': 'unavailable'}}}]})
+        self.assertEqual(row['attention']['hfPaperUpvotes'], 7)
+
+
+class AllVisibleSelectionTests(unittest.TestCase):
+    def test_stalest_first_skips_today_and_hidden(self):
+        from enrich_library_metrics import library_input, stalest
+        records = [{'id': 'a'}, {'id': 'b'}, {'id': 'c'}, {'id': 'h', 'displayEligible': False}]
+        previous = {'records': [{'benchmarkId': 'a', 'attemptedAt': '2026-10-01T00:00:00'},
+                                {'benchmarkId': 'b', 'attemptedAt': '2026-10-05T01:00:00'}]}
+        self.assertEqual([r['id'] for r in stalest(records, previous, 0, '2026-10-05')], ['c', 'a'])
+        self.assertEqual([r['id'] for r in stalest(records, previous, 1, '2026-10-05')], ['c'])
+        seed = library_input({'id': 'z', 'links': {'pdf': 'https://arxiv.org/pdf/2501.00001'},
+                              'attention': {'githubRepo': 'https://github.com/o/z', 'hfPaperUpvotes': 3}})
+        self.assertEqual(seed['source'], {'type': 'arxiv', 'id': '2501.00001'})
+        self.assertEqual(seed['links']['code'], 'https://github.com/o/z')
+        self.assertEqual(seed['attention']['hfPaperUpvotes'], 3)

@@ -43,6 +43,12 @@ def hf_dataset(r):
     return 'huggingface.co/datasets/' in url
 
 
+def exact_date(r):
+    # Same rule as Trends: Radar records carry an arXiv day without a precision field.
+    return bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}', r.get('releasedAt') or '')) and r.get('releasedAt') != '0001-01-01' \
+        and r.get('releaseDatePrecision') not in ('year', 'month', 'unknown')
+
+
 def coverage(records, history):
     complete = {re.sub(r'^https?://(www\.)?', '', h['url']).lower().rstrip('/').removeprefix('github.com/')
                 for h in history.get('records', []) if h.get('status') == 'complete'}
@@ -62,7 +68,7 @@ def coverage(records, history):
         'hfPaperUpvotes': share(sum(att(r, 'hfPaperUpvotes') for r in paper), len(paper)),
         'hfDataset': share(len(dataset), len(rows)),
         'hfDatasetDownloads': share(sum(att(r, 'hfDatasetDownloads') for r in dataset), len(dataset)),
-        'exactReleaseDate': share(sum(r.get('releaseDatePrecision') == 'day' for r in rows), len(rows)),
+        'exactReleaseDate': share(sum(exact_date(r) for r in rows), len(rows)),
         'noSignal': share(sum(not any(att(r, k) for k in ('githubStars', 'hfPaperUpvotes', 'hfDatasetDownloads')) for r in rows), len(rows)),
     }
 
