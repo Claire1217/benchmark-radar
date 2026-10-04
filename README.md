@@ -26,12 +26,12 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-10-04 · benchmarks first released in October 2026</sub>
+<sub>Updated 2026-10-03 · benchmarks first released in October 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **DAYJOB**<br><sub>[Paper](https://arxiv.org/abs/2610.01306) · [Code](https://github.com/surge-ai/dayjob)</sub> | Personal & Enterprise Agents | 4 GitHub stars |
-| 2 | **Ego2Act**<br><sub>[Paper](https://arxiv.org/abs/2610.01092) · [Code](https://github.com/ego2act/ego2act)</sub> | Embodied AI & VLA · Image & Video Generation | 21 HF votes · 1 GitHub stars |
+| 2 | **Ego2Act**<br><sub>[Paper](https://arxiv.org/abs/2610.01092)</sub> | Embodied AI & VLA · Image & Video Generation | 21 HF votes · 1 GitHub stars |
 | 3 | **DrillBench**<br><sub>[Paper](https://arxiv.org/abs/2610.01204) · [Code](https://github.com/yihaoding/drillbench)</sub> | Other benchmark tasks | 0 GitHub stars |
 
 ### Explore the library

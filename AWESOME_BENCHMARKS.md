@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-04 · **Benchmark releases:** 2161
+**Snapshot:** 2026-10-03 · **Benchmark releases:** 2161
 
 ## Contents
 
@@ -297,8 +297,8 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Embodied AI & VLA
 
-- **HumanoidToolBench** (2026-10-01) — We introduce HumanoidToolBench, an 18-task benchmark spanning three scenarios, three execution levels, and two tool-set modes, together with ToolBook, a dataset of 3.1k demonstrations collected in simulation and on a re… [Paper](https://arxiv.org/abs/2610.02089) · [HF](https://huggingface.co/papers/2610.02089)
-- **Ego2Act** (2026-10-01) — We introduce Ego2Act, a goal-directed benchmark featuring 2,640 videos from 110 real-world tasks across day-to-day settings, varying object clutter and multi-step complexity. [Paper](https://arxiv.org/abs/2610.01092) · [HF](https://huggingface.co/papers/2610.01092) · [Code](https://github.com/ego2act/ego2act)
+- **HumanoidToolBench** (2026-10-01) — We introduce HumanoidToolBench, an 18-task benchmark spanning three scenarios, three execution levels, and two tool-set modes, together with ToolBook, a dataset of 3.1k demonstrations collected in simulation and on a re… [Paper](https://arxiv.org/abs/2610.02089)
+- **Ego2Act** (2026-10-01) — We introduce Ego2Act, a goal-directed benchmark featuring 2,640 videos from 110 real-world tasks across day-to-day settings, varying object clutter and multi-step complexity. [Paper](https://arxiv.org/abs/2610.01092)
 - **Video2SwimFish** (2026-09-30) — We present Video2SwimFish, an automated pipeline and benchmark for building controllable fish assets from real-fish videos for underwater embodied AI. [Paper](https://arxiv.org/abs/2609.38966) · [HF](https://huggingface.co/papers/2609.38966)
 - **LIBERO-Agent** (2026-09-30) — To investigate this question, we introduce LIBERO-Agent, an agent-native benchmark for evaluating these agents in robot manipulation tasks. [Paper](https://arxiv.org/abs/2609.39507) · [HF](https://huggingface.co/papers/2609.39507)
 - **DynBench** (2026-09-30) — In addition, we introduce \textbf{DynBench}, a MuJoCo-based benchmark for dynamic object manipulation that comprises nine tasks. [Paper](https://arxiv.org/abs/2609.39198) · [HF](https://huggingface.co/papers/2609.39198)
@@ -401,7 +401,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Image & Video Generation
 
-- **Ego2Act** (2026-10-01) — We introduce Ego2Act, a goal-directed benchmark featuring 2,640 videos from 110 real-world tasks across day-to-day settings, varying object clutter and multi-step complexity. [Paper](https://arxiv.org/abs/2610.01092) · [HF](https://huggingface.co/papers/2610.01092) · [Code](https://github.com/ego2act/ego2act)
+- **Ego2Act** (2026-10-01) — We introduce Ego2Act, a goal-directed benchmark featuring 2,640 videos from 110 real-world tasks across day-to-day settings, varying object clutter and multi-step complexity. [Paper](https://arxiv.org/abs/2610.01092)
 - **VIF-Bench** (2026-09-29) — To address this gap, we introduce VIF-Bench, a benchmark of 1,241 tasks designed to assess the edge of model capabilities in this joint setting by covering: (i) multi-reference generation (up to 7) under multiple hetero… [Paper](https://arxiv.org/abs/2609.37709) · [HF](https://huggingface.co/papers/2609.37709) · [Code](https://github.com/shim0114/VIF-Bench) · [Data](https://huggingface.co/datasets/shim0114/VIF-Bench)
 - **SQUARE-Bench** (2026-09-29) — To bridge this gap, we introduce SQUARE-Bench, a comprehensive benchmark that systematically evaluates LMM capabilities as evaluators of AI-generated images across four aspects: Semantics, Quality, Authenticity, and Res… [Paper](https://arxiv.org/abs/2609.37576) · [HF](https://huggingface.co/papers/2609.37576)
 - **Refiner-Bench** (2026-09-29) — We introduce Refiner-Bench, a video refinement benchmark constructed from the outputs of different video generators, and use a shared-input protocol to compare refiners at approximately 2K output resolution. [Paper](https://arxiv.org/abs/2609.37969) · [HF](https://huggingface.co/papers/2609.37969)
@@ -521,10 +521,10 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Other benchmark tasks
 
-- **OpenMTB-Audit** (2026-10-01) — We introduce OpenMTB-Audit, an open-source benchmark of 500 synthetic non-small cell lung cancer cases spanning five adversarial error categories and four safety labels: Supported, Partially Supported, Unsupported, and… [Paper](https://arxiv.org/abs/2610.01497) · [HF](https://huggingface.co/papers/2610.01497)
-- **Hob-VL** (2026-10-01) — We introduce Hob-VL, a benchmark for visually grounded Boolean reasoning. [Paper](https://arxiv.org/abs/2610.01605) · [HF](https://huggingface.co/papers/2610.01605)
-- **GIFTBench** (2026-10-01) — We introduce GIFTBench, a multi-axis benchmark of 115,013 manipulated images with pixel-level annotations spanning manipulation source, semantic target, editing operation, and composition complexity. [Paper](https://arxiv.org/abs/2610.01778) · [HF](https://huggingface.co/papers/2610.01778)
-- **DrillBench** (2026-10-01) — We introduce DrillBench, a benchmark of 49,671 Western Australian drillholes for next-layer prediction and autoregressive stratigraphic generation across a graded transfer spectrum, from local prediction through spatial… [Paper](https://arxiv.org/abs/2610.01204) · [HF](https://huggingface.co/papers/2610.01204) · [Code](https://github.com/yihaoding/drillbench)
+- **OpenMTB-Audit** (2026-10-01) — We introduce OpenMTB-Audit, an open-source benchmark of 500 synthetic non-small cell lung cancer cases spanning five adversarial error categories and four safety labels: Supported, Partially Supported, Unsupported, and… [Paper](https://arxiv.org/abs/2610.01497)
+- **Hob-VL** (2026-10-01) — We introduce Hob-VL, a benchmark for visually grounded Boolean reasoning. [Paper](https://arxiv.org/abs/2610.01605)
+- **GIFTBench** (2026-10-01) — We introduce GIFTBench, a multi-axis benchmark of 115,013 manipulated images with pixel-level annotations spanning manipulation source, semantic target, editing operation, and composition complexity. [Paper](https://arxiv.org/abs/2610.01778)
+- **DrillBench** (2026-10-01) — We introduce DrillBench, a benchmark of 49,671 Western Australian drillholes for next-layer prediction and autoregressive stratigraphic generation across a graded transfer spectrum, from local prediction through spatial… [Paper](https://arxiv.org/abs/2610.01204) · [Code](https://github.com/yihaoding/drillbench)
 - **WorldAuditBench** (2026-09-30) — In this paper, we introduce WorldAuditBench, a benchmark for 3D world auditing comprising 213 anomaly tasks across 13 environments built with Unreal Engine 5 and Three.js, spanning five anomaly families. [Paper](https://arxiv.org/abs/2609.40325) · [HF](https://huggingface.co/papers/2609.40325) · [Code](https://github.com/UCSB-NLP-Chang/WorldAuditBench)
 - **VeriCodeBench** (2026-09-30) — In this paper, we introduce VeriCodeBench, a benchmark for self-spec verifiable code generation, where the LLM relies solely on its own generated specification and code throughout the entire process. [Paper](https://arxiv.org/abs/2609.39568) · [HF](https://huggingface.co/papers/2609.39568)
 - **OSWorld-Science** (2026-09-30) — We thus introduce OSWorld-Science, a benchmark and evaluation environment that combines scientifically meaningful tasks, artifact-based evaluation, and an efficient agent harness for studying computer use in the scienti… [Paper](https://arxiv.org/abs/2609.39903) · [HF](https://huggingface.co/papers/2609.39903) · [Code](https://github.com/DiscoAILab/OSWorld-Science)
@@ -1700,7 +1700,7 @@ A daily-updated discovery index grouped by the same research topics as Radar, Li
 
 ## Personal & Enterprise Agents
 
-- **DAYJOB** (2026-10-01) — We introduce DAYJOB, a benchmark of 130 tasks built by professionals in healthcare (50) and finance (80). [Paper](https://arxiv.org/abs/2610.01306) · [HF](https://huggingface.co/papers/2610.01306) · [Code](https://github.com/surge-ai/dayjob)
+- **DAYJOB** (2026-10-01) — We introduce DAYJOB, a benchmark of 130 tasks built by professionals in healthcare (50) and finance (80). [Paper](https://arxiv.org/abs/2610.01306) · [Code](https://github.com/surge-ai/dayjob)
 - **EnterpriseBench** (2026-09-29) — To bridge this gap, we introduce EnterpriseBench, a benchmark that evaluates LLM agents across this spectrum, from static question answering to dynamic decision-making. [Paper](https://arxiv.org/abs/2609.37658) · [HF](https://huggingface.co/papers/2609.37658)
 - **APM-Bench** (2026-09-29) — To fill this gap, we introduce APM-Bench, which reformulates real-world streaming interaction as multi-session life trajectories. [Paper](https://arxiv.org/abs/2609.37559) · [HF](https://huggingface.co/papers/2609.37559) · [Code](https://github.com/Jianguo-Huang11/APM-Bench)
 - **Timeline-Bench** (2026-09-28) — To this end, we introduce Timeline-Bench, a benchmark of 56 real video-editing tasks, each asking an agent to turn raw production material into a finished video. [Paper](https://arxiv.org/abs/2609.35143) · [HF](https://huggingface.co/papers/2609.35143)
