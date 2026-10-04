@@ -285,6 +285,9 @@ def main() -> None:
     annotate_records(records)
     annotate_topics(records)
     annotate_categories(records)
+    # Growth by stage reads stored signal history; pipeline/signal_history.py writes it.
+    from signal_history import apply_growth
+    apply_growth(records, recent.get("manifest", {}).get("dataAsOf") or date.today().isoformat())
     # Both surfaces use the merged Library classification, including catalog evidence.
     public_path = ROOT / "data" / "benchmarks_index.json"
     if public_path.exists():
@@ -293,7 +296,7 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]

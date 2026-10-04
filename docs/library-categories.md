@@ -1,3 +1,5 @@
+> **2026-10-05:** the public registry is now taxonomy-v5 (36 categories, reviewed assignments, lab-anchored). See [taxonomy-v5.md](taxonomy-v5.md). The text below describes the retired v2 registry.
+
 # Public Library categories
 
 The Library uses one generated registry, `manifest.libraryTaxonomy`, and one per-record membership list, `libraryCategories`. Sidebar entries, result chips, type-search suggestions, filters, counts and URL routing read this registry. The client must not append internal legacy directions to it.

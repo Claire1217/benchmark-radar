@@ -21,6 +21,7 @@ generate:
 	python3 pipeline/build_library_records.py
 	python3 pipeline/generate_public_index.py
 	python3 pipeline/generate_library_index.py
+	python3 pipeline/signal_history.py
 	python3 pipeline/generate_domain_trends.py
 	python3 pipeline/generate_awesome.py
 	python3 pipeline/generate_topic_trends.py
