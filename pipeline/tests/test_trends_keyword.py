@@ -110,7 +110,7 @@ type('zzzz-no-such-keyword');assert(node('rows').innerHTML.includes('No benchmar
 vm.runInContext('DATA=payload;SEARCH=search;periods.release=12;render()',c);
 type('gpu, cuda');node('starTab').onclick();
 const html=node('detail').innerHTML;assert(!html.includes('undefined')&&!html.includes('NaN'));
-assert(html.includes('q=gpu'),'Library link carries the first term');
+assert(html.includes('d=gpu%2Ccuda'),'Library link carries the direction terms');
 """)
 
 

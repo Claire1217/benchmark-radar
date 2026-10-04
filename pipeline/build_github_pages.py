@@ -94,7 +94,7 @@ def main() -> None:
         shutil.copy2(ROOT / "data" / name, data_dir / name)
     page = OUTPUT / "index.html"
     html = page.read_text()
-    for name in ("app.js", "benchmark-name.js", "following.js", "styles.css"):
+    for name in ("app.js", "benchmark-name.js", "following.js", "styles.css", "trends/directions.js"):
         digest = hashlib.sha256((OUTPUT / name).read_bytes()).hexdigest()[:12]
         html = re.sub(r'\./' + re.escape(name) + r'(?:\?[^"\s]*)?', './' + name + '?v=' + digest, html)
     page.write_text(html)
