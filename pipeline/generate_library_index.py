@@ -237,6 +237,9 @@ def main() -> None:
                 identities.setdefault(normalized, item)
     catalog_only = 0
     catalog_merged = 0
+    # Catalog rows absorbed by a same-named record keep a pointer, so reviewed
+    # evidence keyed to the catalog id still reaches the surviving record.
+    catalog_redirects: dict[str, str] = {}
     for source in catalogs.get("records", []):
         existing = next((identities[key] for name in [source["name"], *source.get("aliases", [])] if (key := normalized_name(name)) in identities), None)
         if existing:
@@ -245,6 +248,8 @@ def main() -> None:
             existing["catalogModelCount"] = max(existing.get("catalogModelCount", 0), source.get("modelCount", 0))
             existing["catalogStarCount"] = max(existing.get("catalogStarCount", 0), source.get("starCount", 0))
             catalog_merged += 1
+            if source["id"] != existing["id"]:
+                catalog_redirects[source["id"]] = existing["id"]
             continue
         item = public_catalog(source, catalogs.get("retrievedAt", date.today().isoformat()))
         by_id[item["id"]] = item
@@ -268,7 +273,7 @@ def main() -> None:
     if metrics_path.exists():
         apply_library_metrics(records, json.loads(metrics_path.read_text()))
     if release_path.exists():
-        apply_release_dates(records, json.loads(release_path.read_text()))
+        apply_release_dates(records, json.loads(release_path.read_text()), {**catalog_redirects, **identity_redirects})
     annotate_records(records)
     annotate_topics(records)
     annotate_categories(records)

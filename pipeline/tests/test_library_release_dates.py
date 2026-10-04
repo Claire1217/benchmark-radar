@@ -41,10 +41,25 @@ class ReleaseDatesTest(unittest.TestCase):
         self.assertEqual(self.rows[0]["releaseEvidence"]["date"], "2026-04")
 
     def test_bad_evidence_fails_build(self):
-        for patch in [{"id": "missing"}, {"date": "2018-02-30"},
+        for patch in [{"date": "2018-02-30"},
                       {"basis": "catalog-year"}, {"sourceUrl": "javascript:alert(1)"}]:
             with self.subTest(patch=patch), self.assertRaises(ValueError):
                 apply_release_dates(copy.deepcopy(self.rows), {"records": [{**self.entry, **patch}]})
+
+    def test_absorbed_catalog_row_follows_redirect(self):
+        entry = {**self.entry, "id": "catalog_x"}
+        self.assertEqual(apply_release_dates(self.rows, {"records": [entry]}, {"catalog_x": "arc"}), [])
+        self.assertEqual(self.rows[0]["releasedAt"], "2018-03-14")
+
+    def test_direct_evidence_wins_over_redirected(self):
+        other = {**self.entry, "id": "catalog_x", "date": "2020-01-01"}
+        apply_release_dates(self.rows, {"records": [other, self.entry]}, {"catalog_x": "arc"})
+        self.assertEqual(self.rows[0]["releasedAt"], "2018-03-14")
+
+    def test_orphaned_evidence_is_reported_not_fatal(self):
+        entry = {**self.entry, "id": "missing"}
+        self.assertEqual(apply_release_dates(self.rows, {"records": [entry]}), ["missing"])
+        self.assertEqual(self.rows[0]["releaseDatePrecision"], "unknown")
 
     def test_duplicate_target_fails_build(self):
         with self.assertRaises(ValueError):
