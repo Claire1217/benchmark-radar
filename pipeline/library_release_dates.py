@@ -1,22 +1,41 @@
 """Apply reviewed release evidence independently of refreshed catalog snapshots."""
 
 from datetime import date
+import re
+import sys
 from urllib.parse import urlparse
 
 
-def apply_release_dates(records: list[dict], evidence: dict) -> None:
+def _resolve(identity: str, by_id: dict, redirects: dict) -> str | None:
+    seen = set()
+    while identity not in by_id and identity in redirects and identity not in seen:
+        seen.add(identity)
+        identity = redirects[identity]
+    return identity if identity in by_id else None
+
+
+def apply_release_dates(records: list[dict], evidence: dict, redirects: dict | None = None) -> list[str]:
+    """Apply evidence; return ids that no longer resolve to any record.
+
+    A record can disappear between runs when a newly admitted Radar record
+    absorbs a catalog row of the same name. Evidence for such ids follows the
+    redirect; evidence with no surviving target is reported, not fatal, so one
+    stale review cannot block the whole daily publish.
+    """
+    redirects = redirects or {}
     by_id = {record["id"]: record for record in records}
     seen = set()
+    direct = {item["id"] for item in evidence.get("records", [])}
+    orphaned = []
     for item in evidence.get("records", []):
         identity = item["id"]
-        if identity in seen or identity not in by_id:
-            raise ValueError(f"Duplicate or missing release evidence target: {identity}")
+        if identity in seen:
+            raise ValueError(f"Duplicate release evidence target: {identity}")
         seen.add(identity)
         precision = item["precision"]
         if precision not in {"day", "month", "year"}:
             raise ValueError(f"Invalid release precision: {precision}")
         value = item["date"]
-        import re
         pattern = {"day": r"\d{4}-\d{2}-\d{2}", "month": r"\d{4}-\d{2}", "year": r"\d{4}"}[precision]
         if not re.fullmatch(pattern, value):
             raise ValueError(f"Invalid release date shape: {identity}")
@@ -28,7 +47,14 @@ def apply_release_dates(records: list[dict], evidence: dict) -> None:
         url = urlparse(item["sourceUrl"])
         if url.scheme != "https" or not url.netloc:
             raise ValueError(f"Invalid release evidence URL: {identity}")
-        record = by_id[identity]
+        target = _resolve(identity, by_id, redirects)
+        if target is None:
+            orphaned.append(identity)
+            continue
+        # Evidence reviewed for the surviving record itself takes precedence.
+        if target != identity and target in direct:
+            continue
+        record = by_id[target]
         record["releasedAt"] = parsed.isoformat()
         record["releaseDatePrecision"] = precision
         record["firstRelease"] = {
@@ -38,3 +64,6 @@ def apply_release_dates(records: list[dict], evidence: dict) -> None:
             "sourceUrl": item["sourceUrl"],
         }
         record["releaseEvidence"] = dict(item)
+    if orphaned:
+        print(f"warning: release evidence without a Library record: {', '.join(orphaned)}", file=sys.stderr)
+    return orphaned
