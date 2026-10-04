@@ -75,25 +75,31 @@ def update_readme() -> None:
                 link("Code", links.get("code")),
             ) if item
         )
-        names = {d["id"]: d["name"] for d in library["manifest"]["topicTaxonomy"]["directions"]}
-        area = " · ".join(names[t] for t in record.get("researchTopics", [])[:2] if t in names) or "Other benchmark tasks"
+        names = {d["id"]: d["name"] for d in library["manifest"]["libraryTaxonomy"]["directions"]}
+        area = " · ".join(names[t] for t in record.get("libraryCategories", [])[:2] if t in names) or "Other benchmark tasks"
         source_line = f"<br><sub>{sources}</sub>" if sources else ""
         overview.append(
             f"| {position} | **{record['name']}**{source_line} | {area} | {attention_text(record)} |"
         )
 
     records = [r for r in library.get("records", []) if r.get("displayEligible") is not False and r.get("evaluationMode") != "viewpoint_probe"]
-    directions = library["manifest"]["topicTaxonomy"]["directions"]
-    theme_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["section"] == "Agent research"]
-    highlighted = {"software-engineering", "coding-agents", "data-analysis", "vision-language-models", "knowledge-qa", "safety-alignment"}
-    capability_links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["section"] != "Agent research"]
+    taxonomy = library["manifest"]["libraryTaxonomy"]
+    directions = taxonomy["directions"]
+    group_cells = []
+    for group in taxonomy["groups"]:
+        links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["group"] == group["id"]]
+        if links:
+            group_cells.append((group["name"], "<br>".join(links)))
+    # Two columns keep the README table readable on GitHub.
+    half = (len(group_cells) + 1) // 2
+    column = lambda cells: "<br><br>".join(f"**{name}**<br>{links}" for name, links in cells)
     overview.extend([
         "",
         "### Explore the library",
         "",
-        "| Agent research | Related research |",
+        "| Capabilities | Agents, safety & domains |",
         "|---|---|",
-        f"| {'<br>'.join(theme_links)} | {'<br>'.join(capability_links)} |",
+        f"| {column(group_cells[:half])} | {column(group_cells[half:])} |",
         "",
         f"**[Browse all {len(records):,} Library records →]({SITE_URL}/#library)**",
     ])
@@ -112,12 +118,13 @@ def update_readme() -> None:
 def main() -> None:
     payload = json.loads((ROOT / "data" / "benchmarks_index.json").read_text(encoding="utf-8"))
     library = json.loads((ROOT / "data" / "library_index.json").read_text())
-    topics = {t["id"]:t["name"] for t in library["manifest"]["topicTaxonomy"]["directions"]}
+    categories = {t["id"]: t["name"] for t in library["manifest"]["libraryTaxonomy"]["directions"]}
     groups: dict[str, list[dict]] = defaultdict(list)
     for record in payload.get("records", []):
         if record.get("displayEligible") is False or record.get("evaluationMode") == "viewpoint_probe": continue
-        for name in ([topics[t] for t in record.get("researchTopics",[]) if t in topics] or ["Other benchmark tasks"]):
-            groups[name].append(record)
+        # Each release is listed once, under its primary category.
+        primary = (record.get("libraryCategories") or [None])[0]
+        groups[categories.get(primary, "Other benchmark tasks")].append(record)
 
     lines = [
         "# Awesome Emerging AI Benchmarks",
@@ -126,7 +133,7 @@ def main() -> None:
         "",
         "[![Daily update](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml/badge.svg)](https://github.com/Claire1217/benchmark-radar/actions/workflows/daily-index.yml)",
         "",
-        "A daily-updated discovery index grouped by the same research topics as Radar, Library and Trends. Topics overlap; entries may appear in multiple groups.",
+        "A daily-updated discovery index grouped by the same categories as Radar, Library and Trends. Each entry is listed once, under its primary category.",
         "",
         f"**[Browse and filter on Benchmark Radar →]({SITE_URL}/)**",
         "",
