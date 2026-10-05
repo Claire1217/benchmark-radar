@@ -190,6 +190,13 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_library_metrics.py
 
+      - name: Find author-linked repositories for new papers
+        # Only papers not checked before (~20 a day, one arXiv page every 3 s).
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python pipeline/discover_paper_repos.py --limit 200
+
       - name: Refresh the stalest Library signals
         # About 500 records a day: every visible record is revisited within a week,
         # and each run adds a snapshot used for HF upvote/download growth.
