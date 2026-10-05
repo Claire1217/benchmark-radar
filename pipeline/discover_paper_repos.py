@@ -52,6 +52,11 @@ def candidate_links(text: str) -> list[dict]:
     return found
 
 
+def name_matches(name: str, repo: str) -> bool:
+    target, repo = norm(name), norm(repo)
+    return bool(target and repo) and (target in repo or repo in target)
+
+
 def pick(candidates: list[dict], name: str) -> dict | None:
     """Prefer a repository whose name matches the benchmark; otherwise the only one."""
     if not candidates:
@@ -159,8 +164,11 @@ def resolve(record: dict, text: str, token: str | None, get=None) -> dict | None
     info = github_repo(choice['owner'], choice['repo'], token, get)
     if not info or not info.get('full_name'):
         return None
+    # A repository counts as the benchmark's own only when its name matches the
+    # benchmark; toolkits, model repos and monorepos keep the link but share stars.
+    own = not choice['subpath'] and name_matches(record['name'], info['full_name'].split('/')[1])
     return {'code': 'https://github.com/' + info['full_name'],
-            'scope': 'hosting_repo' if choice['subpath'] else 'benchmark_repo',
+            'scope': 'benchmark_repo' if own else 'hosting_repo',
             'source': 'arxiv-abstract-or-comment', 'arxiv': record['arxiv']}
 
 

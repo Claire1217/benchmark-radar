@@ -92,3 +92,12 @@ class AbsPageTests(unittest.TestCase):
         out = abs_pages(['2501.00001'], fetch=lambda url: ABS_HTML, sleep=waits.append)
         self.assertIn('github.com/lab/xbench', out['2501.00001'])
         self.assertEqual(waits, [3])
+
+
+class OwnRepoTests(unittest.TestCase):
+    def test_only_name_matching_repo_counts_as_own(self):
+        repos = {'open-compass/VLMEvalKit': {'full_name': 'open-compass/VLMEvalKit'},
+                 'scaleapi/mcp-atlas': {'full_name': 'scaleapi/mcp-atlas'}}
+        get = lambda path: repos.get(path)
+        self.assertEqual(resolve({'name': 'MMBench', 'arxiv': '1'}, 'github.com/open-compass/VLMEvalKit', None, get)['scope'], 'hosting_repo')
+        self.assertEqual(resolve({'name': 'MCP Atlas', 'arxiv': '1'}, 'github.com/scaleapi/mcp-atlas', None, get)['scope'], 'benchmark_repo')
