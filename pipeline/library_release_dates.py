@@ -1,5 +1,6 @@
 """Apply reviewed release evidence independently of refreshed catalog snapshots."""
 
+from __future__ import annotations
 from datetime import date
 import re
 import sys

@@ -4,6 +4,7 @@ Top-10 = category members ranked by number of frontier labs reporting the
 benchmark, then report count, catalog model count and GitHub stars.
 Usage: python3 pipeline/category_overlap.py [-v]
 """
+from __future__ import annotations
 from collections import defaultdict
 from itertools import combinations
 import json

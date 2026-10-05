@@ -47,6 +47,9 @@ def discover(payload, args):
     end = args.date if args.command == 'daily' else args.as_of
     end = end or manifest.get('latestSourceDate') or manifest['dataAsOf']
     start = (date.fromisoformat(end) - timedelta(days=(1 if args.command == 'daily' else int(args.window[:-1])) - 1)).isoformat()
+    from benchmark_reader import check_category
+    from library_categories import category_names
+    category = check_category(getattr(args, 'category', None))
     basis = args.basis if args.command == 'daily' else 'released'
     field = 'releasedAt' if basis == 'released' else 'firstSeenAt'
     rows = []
@@ -55,12 +58,15 @@ def discover(payload, args):
             continue
         if not start <= (record.get(field) or '') <= end:
             continue
-        domains = sorted({x for x in [record.get('primaryDomain', ''), *record.get('applicationDomains', []), *record.get('topics', [])] if x})
+        categories = category_names(record)
+        domains = sorted({x for x in [record.get('primaryDomain', ''), *record.get('applicationDomains', []), *record.get('topics', []), *categories] if x})
         if not domain_match(args.domain, domains) or not keyword_match(args.query, record, domains):
+            continue
+        if category and category not in (record.get('libraryCategories') or []):
             continue
         rows.append({'id': record['id'], 'name': record['name'], 'description': record.get('oneLine'),
                      'releasedAt': record.get('releasedAt'), 'firstSeenAt': record.get('firstSeenAt'),
-                     'domains': domains, 'links': record.get('links', {}), 'attention': attention(record)})
+                     'domains': domains, 'categories': categories, 'links': record.get('links', {}), 'attention': attention(record)})
     rows.sort(key=attention_order)
     return {'results': rows[args.offset:args.offset + args.limit], 'total': len(rows),
             'nextOffset': args.offset + args.limit if args.offset + args.limit < len(rows) else None,

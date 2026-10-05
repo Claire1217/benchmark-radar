@@ -30,6 +30,7 @@ Agent workflow: search → read IDs and coverage → show selected IDs → cite 
 Command details:
 
 - `search [query] [--domain LABEL]`: Weighted BM25 retrieval across names, aliases, descriptions and domain labels. Default `--sort relevance` puts exact primary names first, exact aliases next, then BM25 relevance. Explicit alternatives: `--sort usage|attention|newest`. Domain filters match stored labels, not a complete scientific taxonomy. Default limit 20.
+- `--category ID|NAME` (search, daily, hot): exact filter on the Benchmark Radar categories shared with the Library and Trends (`data/taxonomy_v5.json`), e.g. `computer-use` or `"Computer Use & GUI Agents"`. Retired ids such as `vision-language-models` resolve to their replacement; an unknown value returns `invalid_arguments` with the valid ids as `candidates`. Every result lists its `categories`, main category first.
 - `show ID_OR_EXACT_NAME`: identity, usage summary, evidence and source documents. Prefer an ID returned by search. Ambiguous names return candidates instead of choosing a version. Default observation limit 50.
 
 All commands accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow `nextOffset` until null. Show pagination applies only to observations; summary counts cover all observations. Commands perform no network requests. In JSON mode standard output is one JSON object (except `--help`), with `schemaVersion`, `ok`, `data`, `coverage`, `error`. Exit codes: 0 success, 1 invalid database, 2 invalid arguments/ambiguous identity, 3 identity not found. Empty search is successful. Agents should inspect `ok`, preserve source IDs and cite returned evidence URLs.
@@ -42,6 +43,7 @@ All commands accept `--limit 1..100`, `--offset N` and `--data-dir PATH`. Follow
 ./benchmark-reader daily --date 2026-09-13 --basis discovered
 ./benchmark-reader hot --window 7d
 ./benchmark-reader hot --window 90d --domain biology --limit 10
+./benchmark-reader hot --window 90d --category agentic-coding --limit 10
 ./benchmark-reader hot "protein folding" --window 30d
 ./benchmark-reader search "scientific coding" --sort attention
 ./benchmark-reader search --domain chemistry --sort attention

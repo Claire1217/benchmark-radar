@@ -29,8 +29,22 @@ def nonnegative(value):
         raise argparse.ArgumentTypeError('offset cannot be negative')
     return n
 
+from library_categories import category_names
+
+
+def check_category(text):
+    from library_categories import resolve_category, taxonomy
+    if not text:
+        return None
+    identity = resolve_category(text)
+    if not identity:
+        known = [c['id'] for c in taxonomy()['categories']]
+        raise QueryError('invalid_arguments', 'Unknown category: ' + text + '. Use one of the listed ids or names.', 2, known)
+    return identity
+
+
 def labels(record, store):
-    values = [record.get('primaryDomain', ''), *record.get('applicationDomains', []), *record.get('categories', []), *record.get('topics', [])]
+    values = [record.get('primaryDomain', ''), *record.get('applicationDomains', []), *record.get('categories', []), *record.get('topics', []), *category_names(record)]
     for rid in record.get('usageSourceIds', []):
         values += store.source_records[rid].get('categories', [])
     return sorted({v for v in values if isinstance(v, str) and v})
@@ -64,6 +78,7 @@ Run benchmark-reader COMMAND --help for command options.""")
             p.add_argument('--offset', type=nonnegative, default=0, help='Skip N results; use nextOffset from the previous response')
             if name == 'search':
                 p.add_argument('--domain', help='Stored domain label, e.g. biology, chemistry, coding')
+                p.add_argument('--category', help='Benchmark Radar category id or name, e.g. computer-use or "Computer Use & GUI Agents"')
                 p.add_argument('--sort', choices=['relevance', 'usage', 'attention', 'newest'], default='relevance')
                 p.add_argument('--expand', action='append', default=[], help='Explicit alternative search terms; repeatable')
         for name in ('daily', 'hot'):
@@ -71,6 +86,7 @@ Run benchmark-reader COMMAND --help for command options.""")
             output_flags(p)
             p.add_argument('query', nargs='?', default='')
             p.add_argument('--domain', help='Stored domain label, e.g. biology, chemistry, coding')
+            p.add_argument('--category', help='Benchmark Radar category id or name, e.g. computer-use')
             p.add_argument('--limit', type=positive, default=20)
             p.add_argument('--offset', type=nonnegative, default=0, help='Skip N results; use nextOffset from the previous response')
             p.add_argument('--data-dir', type=Path, default=ROOT / 'data')
@@ -91,6 +107,7 @@ Run benchmark-reader COMMAND --help for command options.""")
         manifest = store.manifest
         records = list(store.entities.values())
         if args.command == 'search':
+            category = check_category(args.category)
             candidates = [r for r in records if r.get('displayEligible') is not False and r.get('evaluationMode') != 'viewpoint_probe']
             index = SearchIndex(candidates, lambda r: labels(r, store))
             try:
@@ -104,7 +121,9 @@ Run benchmark-reader COMMAND --help for command options.""")
                 domains = labels(r, store)
                 if r['id'] not in hits or not domain_match(args.domain, domains):
                     continue
-                found.append({'id': r['id'], 'name': r['name'], 'domains': domains,
+                if category and category not in (r.get('libraryCategories') or []):
+                    continue
+                found.append({'id': r['id'], 'name': r['name'], 'domains': domains, 'categories': category_names(r),
                               'relevance': hits[r['id']], 'releasedAt': r.get('releasedAt'), 'description': r.get('oneLine') or r.get('description'), 'links': r.get('links', {}), 'attention': attention(r), 'sourceIds': r.get('usageSourceIds', []), 'usage': store.summary(r.get('usageSourceIds', []))})
             found.sort(key=lambda r: (-r['usage']['reportedLabCount'], r['name'].casefold(), r['id']))
             if args.sort == 'relevance':
@@ -113,7 +132,7 @@ Run benchmark-reader COMMAND --help for command options.""")
                 found.sort(key=attention_order)
             elif args.sort == 'newest':
                 found.sort(key=lambda r: r.get('releasedAt') or '', reverse=True)
-            data = {'sort': args.sort, 'search': search_meta, 'domainFilter': {'value': args.domain, 'basis': 'stored labels only; missing labels may cause omissions'}, 'results': found[args.offset:args.offset+args.limit], 'total': len(found),
+            data = {'sort': args.sort, 'search': search_meta, 'domainFilter': {'value': args.domain, 'basis': 'stored labels only; missing labels may cause omissions'}, 'categoryFilter': category, 'results': found[args.offset:args.offset+args.limit], 'total': len(found),
                     'nextOffset': args.offset+args.limit if args.offset+args.limit < len(found) else None}
         else:
             if args.query in store.entities:

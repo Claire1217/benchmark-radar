@@ -7,11 +7,13 @@ identity match), and BenchLM's own paperUrl. Only arXiv papers are used, and
 an existing paper link is never replaced. data/catalog_source_alignments.json
 holds verified paper/code/dataset links for entries neither source covers.
 """
+from __future__ import annotations
 import json
 from pathlib import Path
 import re
 
 ALIGNMENTS = Path(__file__).resolve().parents[1] / 'data/catalog_source_alignments.json'
+PAPER_REPOS = Path(__file__).resolve().parents[1] / 'data/paper_repository_links.json'
 
 ARXIV = re.compile(r'arxiv\.org/(?:abs|pdf)/(\d{4}\.\d{4,5})')
 
@@ -51,9 +53,24 @@ def apply_alignments(records, alignments):
     return applied
 
 
-def link_reviewed_papers(records, alignments=None):
+def apply_paper_repositories(records, links):
+    """Author-linked repositories from the paper text; only fills a missing code link."""
+    by_id = {r['id']: r for r in records}
+    for rid, item in links.items():
+        record = by_id.get(rid)
+        if record is None or (record.get('links') or {}).get('code'):
+            continue
+        record.setdefault('links', {})['code'] = item['code']
+        record['codeLinkBasis'] = item['source']
+        if item.get('scope') == 'hosting_repo':
+            record['metricScopes'] = {'github': 'hosting_repo', **(record.get('metricScopes') or {})}
+
+
+def link_reviewed_papers(records, alignments=None, paper_repos=None):
     if alignments is None and ALIGNMENTS.exists():
         alignments = json.loads(ALIGNMENTS.read_text()).get('records', {})
+    if paper_repos is None and PAPER_REPOS.exists():
+        paper_repos = json.loads(PAPER_REPOS.read_text()).get('records', {})
     apply_alignments(records, alignments or {})
     linked = 0
     for record in records:
@@ -65,4 +82,5 @@ def link_reviewed_papers(records, alignments=None):
             links['paper'] = url
             record['paperLinkBasis'] = basis
             linked += 1
+    apply_paper_repositories(records, paper_repos or {})
     return linked

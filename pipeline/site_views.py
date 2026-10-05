@@ -6,6 +6,7 @@ data/library_index.json and data/benchmarks_index.json are public downloads
 found by scanning web/**/*.js. A field the UI starts using is therefore kept
 automatically; nested values are kept whole.
 """
+from __future__ import annotations
 import json
 from pathlib import Path
 import re

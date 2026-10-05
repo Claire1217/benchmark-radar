@@ -1,4 +1,5 @@
 """Apply reviewed entity merges only; fuzzy names and shared papers are not identities."""
+from __future__ import annotations
 import copy
 
 

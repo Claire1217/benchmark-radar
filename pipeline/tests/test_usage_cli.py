@@ -69,3 +69,38 @@ class UsageTests(unittest.TestCase):
         self.assertEqual(len(result['data']['observations']), 1)
         self.assertEqual(result['data']['pagination']['nextOffset'], 1)
         self.assertEqual(result['data']['usage']['reportCount'], 27)
+
+
+import subprocess
+ROOT = Path(__file__).resolve().parents[2]
+
+
+class CategoryFilterTests(unittest.TestCase):
+    def cli(self, *args, python=sys.executable):
+        result = subprocess.run([python, str(ROOT / 'benchmark-reader'), *args], cwd=ROOT, capture_output=True, text=True)
+        return result.returncode, json.loads(result.stdout)
+
+    def test_category_filter_by_id_name_and_retired_id(self):
+        for value in ('computer-use', 'Computer Use & GUI Agents', 'gui-grounding'):
+            code, out = self.cli('search', 'bench', '--category', value, '--limit', '50')
+            self.assertEqual(code, 0, out)
+            self.assertEqual(out['data']['categoryFilter'], 'computer-use')
+            self.assertTrue(out['data']['results'])
+            self.assertTrue(all('Computer Use & GUI Agents' in r['categories'] for r in out['data']['results']))
+        code, out = self.cli('hot', '--window', '90d', '--category', 'agent-memory')
+        self.assertEqual(code, 0)
+        self.assertTrue(all('Agent Memory & Personalization' in r['categories'] for r in out['data']['results']))
+
+    def test_unknown_category_is_an_argument_error(self):
+        code, out = self.cli('search', 'x', '--category', 'nope')
+        self.assertEqual(code, 2)
+        self.assertEqual(out['error']['code'], 'invalid_arguments')
+        self.assertIn('computer-use', out['error']['candidates'])
+
+    def test_cli_runs_on_the_oldest_supported_python(self):
+        # The CLI promises to run without installation; macOS ships Python 3.9.
+        old = Path('/usr/bin/python3')
+        if not old.exists():
+            self.skipTest('no system python3')
+        code, out = self.cli('search', 'memory', '--category', 'agent-memory', '--limit', '2', python=str(old))
+        self.assertEqual(code, 0, out)

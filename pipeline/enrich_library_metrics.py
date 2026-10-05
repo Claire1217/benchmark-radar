@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Refresh opted-in Library seeds; preserve failed signals as dated stale values."""
+from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone

@@ -298,7 +298,7 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth", "paperLinkBasis"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth", "paperLinkBasis", "codeLinkBasis"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]

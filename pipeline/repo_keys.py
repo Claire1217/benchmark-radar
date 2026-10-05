@@ -1,4 +1,5 @@
 """Canonical GitHub repository keys shared by Trends, star histories and growth."""
+from __future__ import annotations
 from pathlib import Path
 import json
 

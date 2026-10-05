@@ -6,6 +6,7 @@ records and against records whose source is known (e.g. stars among records
 with a GitHub repository), so a missing link and a missing fetch are
 distinguishable.
 """
+from __future__ import annotations
 from datetime import date
 import json
 from pathlib import Path

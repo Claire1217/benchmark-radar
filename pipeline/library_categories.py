@@ -5,6 +5,7 @@ Records without a review (for example, today's new Radar admissions) receive a
 provisional keyword assignment and are flagged so they can be reviewed later.
 Legacy researchTopics/researchDirections remain internal evidence only.
 """
+from __future__ import annotations
 from functools import lru_cache
 import json
 from pathlib import Path
@@ -113,3 +114,20 @@ def category_manifest(records):
         'unclassifiedCount': sum(not r.get('libraryCategories') for r in visible),
         'provisionalCount': sum((r.get('categoryAssignment') or {}).get('basis') == 'keyword-provisional' for r in visible),
     }
+
+
+def category_names(record) -> list[str]:
+    """Display names of a record's v5 categories, primary first."""
+    names = {c['id']: c['name'] for c in taxonomy()['categories']}
+    return [names[c] for c in record.get('libraryCategories') or [] if c in names]
+
+
+def resolve_category(text: str) -> str | None:
+    """Category id from an id, a display name or a retired id (case-insensitive)."""
+    if not text:
+        return None
+    key = text.strip().casefold()
+    for c in taxonomy()['categories']:
+        if key in (c['id'], c['name'].casefold()):
+            return c['id']
+    return aliases().get(key)

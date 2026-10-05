@@ -1,4 +1,5 @@
 """Project Library observations onto records using the same attention fields as Radar."""
+from __future__ import annotations
 import copy
 
 
