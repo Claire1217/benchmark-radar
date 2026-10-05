@@ -2,7 +2,7 @@
 """Find benchmark code repositories that the paper authors link themselves.
 
 For Library records with an arXiv paper but no GitHub link, read the paper's
-abstract and comments from the arXiv API and keep GitHub links written there
+abstract and comments from its arXiv page and keep GitHub links written there
 by the authors ("Code is available at github.com/..."). Each candidate is
 checked with the GitHub API: it must exist, forks resolve to their upstream,
 and a link into a subfolder (/tree/...) is recorded as a shared hosting
@@ -91,6 +91,49 @@ def arxiv_entries(ids: list[str], fetch=None, sleep=time.sleep) -> dict[str, str
     return out
 
 
+ABSTRACT = re.compile(r'<blockquote class="abstract[^"]*">([\s\S]*?)</blockquote>')
+COMMENTS = re.compile(r'<td class="tablecell comments[^"]*">([\s\S]*?)</td>')
+
+
+def abs_page_text(html: str) -> str:
+    """Abstract + comments of an arXiv abs page, with link targets spelled out.
+
+    arXiv renders URLs as "this https URL" anchors, so hrefs carry the address.
+    """
+    parts = []
+    for block in ABSTRACT.findall(html) + COMMENTS.findall(html):
+        parts += re.findall(r'href="([^"]+)"', block)
+        parts.append(re.sub(r'<[^>]+>', ' ', block))
+    return ' '.join(parts)
+
+
+def abs_pages(ids: list[str], fetch=None, sleep=time.sleep, on_page=None) -> dict[str, str]:
+    """arXiv id -> text from https://arxiv.org/abs/<id>, one page every 3 seconds."""
+    def default_fetch(url):
+        return urlopen(Request(url, headers={'User-Agent': 'BenchmarkRadar (https://github.com/Claire1217/benchmark-radar)'}), timeout=60).read().decode('utf-8', 'ignore')
+    fetch = fetch or default_fetch
+    out = {}
+    for n, arxiv_id in enumerate(ids):
+        for wait in BACKOFF + [None]:
+            try:
+                out[arxiv_id] = abs_page_text(fetch('https://arxiv.org/abs/' + arxiv_id))
+                break
+            except HTTPError as error:
+                if error.code == 404:
+                    break
+                if wait is None:
+                    raise
+                sleep(wait)
+            except (URLError, TimeoutError):
+                if wait is None:
+                    raise
+                sleep(wait)
+        if on_page:
+            on_page(n)
+        sleep(3)
+    return out
+
+
 def github_repo(owner: str, repo: str, token: str | None, get=None) -> dict | None:
     def default_get(path):
         headers = {'Accept': 'application/vnd.github+json', 'User-Agent': 'BenchmarkRadar'}
@@ -135,9 +178,9 @@ def main() -> None:
         rows = rows[:args.limit]
     token = os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN')
     found = 0
-    for start in range(0, len(rows), 100):  # save after each arXiv batch so a stopped run resumes
-        batch = rows[start:start + 100]
-        texts = arxiv_entries(sorted({r['arxiv'] for r in batch}))
+    for start in range(0, len(rows), 25):  # save every 25 papers so a stopped run resumes
+        batch = rows[start:start + 25]
+        texts = abs_pages(sorted({r['arxiv'] for r in batch}))
         for row in batch:
             result = resolve(row, texts.get(row['arxiv'], ''), token)
             payload['checked'][row['id']] = date.today().isoformat()
@@ -148,8 +191,7 @@ def main() -> None:
         payload['records'] = dict(sorted(payload['records'].items()))
         payload['checked'] = dict(sorted(payload['checked'].items()))
         OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + '\n')
-        print(f'batch {start // 100 + 1}: found so far {found}', flush=True)
-        time.sleep(3)
+        print(f'checked {start + len(batch)}/{len(rows)}: found so far {found}', flush=True)
     print(f'paper_repos checked={len(rows)} found={found} total={len(payload["records"])}')
 
 

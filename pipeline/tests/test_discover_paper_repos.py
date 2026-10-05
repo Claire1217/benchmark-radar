@@ -72,3 +72,23 @@ class BackoffTests(unittest.TestCase):
         self.assertIn('2510.25726', texts)
         self.assertEqual(waits, [30, 60])
         self.assertTrue(calls[0].startswith('https://export.arxiv.org/'))
+
+
+ABS_HTML = '''<html><blockquote class="abstract mathjax"><span class="descriptor">Abstract:</span>We present X.
+Code at <a href="https://github.com/lab/xbench" class="link-external">this https URL</a>.</blockquote>
+<table><tr><td class="tablecell comments mathjax">ICLR 2026, project <a href="https://xbench.ai/">this https URL</a></td></tr></table>
+<div>Related: <a href="https://github.com/unrelated/sidebar">x</a></div></html>'''
+
+
+class AbsPageTests(unittest.TestCase):
+    def test_reads_hrefs_from_abstract_and_comments_only(self):
+        from discover_paper_repos import abs_page_text, abs_pages
+        text = abs_page_text(ABS_HTML)
+        self.assertIn('github.com/lab/xbench', text)
+        self.assertIn('xbench.ai', text)
+        self.assertNotIn('unrelated/sidebar', text)
+        self.assertEqual([c['repo'] for c in candidate_links(text)], ['xbench'])
+        waits = []
+        out = abs_pages(['2501.00001'], fetch=lambda url: ABS_HTML, sleep=waits.append)
+        self.assertIn('github.com/lab/xbench', out['2501.00001'])
+        self.assertEqual(waits, [3])
