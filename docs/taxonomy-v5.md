@@ -122,12 +122,43 @@ GitHub star events; HF upvotes and downloads from stored snapshots, reported onl
 once the history reaches back to the start of the window. The Library's
 *Growing* sort ranks by stars gained in 3 months, one entry per repository.
 
+## Where the categories appear
+
+- **Library sidebar and Trends** list the same 36 categories in the same 9 groups
+  (Trends also has an *All* ranking). Each Library category links to its trend
+  (`trends/#c=<id>`) and Trends links back. Directions kept on Trends also show
+  in the Library sidebar (`#library?d=term,term`).
+- **README and AWESOME_BENCHMARKS.md** group by category; AWESOME lists each
+  release once, under its main category.
+- **CLI:** `benchmark-reader search|daily|hot --category <id or name>`; results
+  list their categories (see `docs/CLI.md`).
+- Old `?direction=`, `?domain=` and `?capability=` links redirect to v5 categories.
+
+## Review status
+
+A second review (2026-10-05) re-read the 235 least certain assignments with full
+descriptions, paper titles and links: 23 main categories changed, 83 confidences
+rose. Now 1,894 high / 1,169 medium / 112 low; 118 records sit outside every
+category, mostly classic non-LLM tasks (text and decision classification, classic
+computer vision, tabular ML) or entries whose sources do not say what they test.
+These were deliberately not given new categories, since labs do not report them.
+
+## Data size
+
+`data/library_index.json` and `data/benchmarks_index.json` stay complete public
+downloads. The website loads `library_view.json` / `radar_view.json`, which keep
+only fields the web code references (`pipeline/site_views.py`). Daily Radar
+snapshots in `data/metrics` are kept for 100 days; older values live on in
+`data/signal_history.json`.
+
 ## Open items
 
-- 174 low-confidence and 108 "other" assignments are candidates for source review
-  (largest "other" clusters: typed decision systems, education/tutoring, remote
-  sensing, classic text classification, agent serving performance).
+- 112 low-confidence assignments and the 118 records outside every category can
+  be checked against full papers.
 - Composite Indexes (13) is small by design; it keeps aggregate scores out of the
   capability categories rather than tracking a research direction.
-- Records added by the daily job after this snapshot are keyword-provisional until
-  the next review pass.
+- New records added by the daily job get a model review the same day; if that
+  fails they stay keyword-provisional until the next run.
+- Legacy classification fields (`researchTopics`, `researchDirections`,
+  `applicationDomains`, `capabilityGroups`) are still generated as internal
+  evidence for older audits and the CLI's `--domain`; nothing displays them.
