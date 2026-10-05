@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-04 · **Benchmark releases:** 2176
+**Snapshot:** 2026-10-05 · **Benchmark releases:** 2176
 
 ## Contents
 
@@ -54,7 +54,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI R&D & ML Engineering
 
-- **D2K-Bench** (2026-10-02) — We introduce D2K-Bench, a diagnostic benchmark of 26 tasks and 85 workloads that measures how effectively agents translate expert design guidance into efficient GPU kernels. [Paper](https://arxiv.org/abs/2610.03226)
+- **D2K-Bench** (2026-10-02) — We introduce D2K-Bench, a diagnostic benchmark of 26 tasks and 85 workloads that measures how effectively agents translate expert design guidance into efficient GPU kernels. [Paper](https://arxiv.org/abs/2610.03226) · [HF](https://huggingface.co/papers/2610.03226)
 - **AutoDataBench** (2026-09-30) — We introduce AutoDataBench, a controlled testbed built on a conceptual framework of data intelligence spanning data diagnosis, data organization, and data construction, instantiated through three highly curated optimiza… [Paper](https://arxiv.org/abs/2609.40097) · [HF](https://huggingface.co/papers/2609.40097) · [Code](https://github.com/AutoDataBench/AutoDataBench)
 - **Frontier Autolab** (2026-09-29) — We release all records and an API harness, and specify fictional and post-cutoff eras that would turn the testbed into a benchmark. [Paper](https://arxiv.org/abs/2609.36739) · [HF](https://huggingface.co/papers/2609.36739) · [Code](https://github.com/LoopGlitch26/Frontier-Autolab)
 - **RCV-Bench** (2026-09-28) — Evaluates research-claim verification by scoring agents on classifying claimed results as reproduced, deviation, fabricated, or fragile using code re-execution and robustness probing. [Data](https://huggingface.co/datasets/GrobeStreet/rcv-bench)
@@ -118,7 +118,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Abstract Reasoning & Planning
 
-- **PLCWorld** (2026-10-02) — We introduce PLCWorld, a common closed-loop execution environment and benchmark that couples Structured Text (ST) execution with simulated plant responses and sensor feedback. [Paper](https://arxiv.org/abs/2610.02982)
+- **PLCWorld** (2026-10-02) — We introduce PLCWorld, a common closed-loop execution environment and benchmark that couples Structured Text (ST) execution with simulated plant responses and sensor feedback. [Paper](https://arxiv.org/abs/2610.02982) · [HF](https://huggingface.co/papers/2610.02982)
 - **CircleNest-Bench** (2026-09-30) — For evaluation, we introduce CircleNest-Bench, a benchmark comprising 2,391 load-controlled instances from four contour sources, including a held-out industrial CAD source. [Paper](https://arxiv.org/abs/2609.38863) · [HF](https://huggingface.co/papers/2609.38863)
 - **ArgGYM** (2026-09-29) — We introduce ArgGYM, a procedural benchmark and RLVR-compatible training environment for structured defeasible reasoning. [Paper](https://arxiv.org/abs/2609.38409) · [HF](https://huggingface.co/papers/2609.38409)
 - **MemoReason** (2026-09-28) — Human-curated benchmark pairing factual reasoning tasks with structurally identical fictitious versions to measure parametric memory effects on contextual reasoning. [Paper](https://arxiv.org/abs/2609.35312)
@@ -273,7 +273,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Skills & Self-Improvement
 
-- **EvoRiskBench** (2026-10-02) — We introduce EvoRiskBench, an evolving benchmark organized around the EP-Path-EF framework, which links an initial risk entry point to a one-hop technical effect through an agent-mediated risk path. [Paper](https://arxiv.org/abs/2610.03153)
+- **EvoRiskBench** (2026-10-02) — We introduce EvoRiskBench, an evolving benchmark organized around the EP-Path-EF framework, which links an initial risk entry point to a one-hop technical effect through an agent-mediated risk path. [Paper](https://arxiv.org/abs/2610.03153) · [HF](https://huggingface.co/papers/2610.03153)
 - **SEABench** (2026-09-28) — To study this risk, we introduce SEABench, a benchmark for studying endogenous misalignment arising from agent self-evolution, with 48 longitudinal task sequences that span multiple evolution surfaces, task domains, and… [Paper](https://arxiv.org/abs/2609.35596) · [HF](https://huggingface.co/papers/2609.35596)
 - **HarnessDev** (2026-09-01) — HarnessDev evaluates LLMs on creating and evolving runnable agent harnesses, shifting evaluation from task outputs to the infrastructure capabilities themselves. [Paper](https://arxiv.org/abs/2609.01437)
 - **ASPIRE** (2026-08-31) — ASPIRE evaluates LLM agents and models on self-evolution from vague natural-language goals, using a hidden expert-authored set of 520 items across six goals in an interactive environment. [Paper](https://arxiv.org/abs/2608.31111)
@@ -376,7 +376,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **DyadMem** (2026-10-02) — In summary, DyadMem is a dual-domain, full-pipeline memory benchmark with extensive annotation efforts for advancing the domain's development. [Paper](https://arxiv.org/abs/2610.03020)
+- **DyadMem** (2026-10-02) — In summary, DyadMem is a dual-domain, full-pipeline memory benchmark with extensive annotation efforts for advancing the domain's development. [Paper](https://arxiv.org/abs/2610.03020) · [HF](https://huggingface.co/papers/2610.03020)
 - **PainterBench** (2026-09-28) — We introduce PainterBench, a benchmark that ports the incomplete-drawing task to the agentic setting. [Paper](https://arxiv.org/abs/2609.34195) · [HF](https://huggingface.co/papers/2609.34195)
 - **SlopBench** (2026-09-27) — SlopBench evaluates repetitive AI writing across 112 hand-written tasks in email, social posts, essays, and workplace chat, scoring four surface behaviors: word count, opener repetition, paragraph rhythm, and fixed lexi… [Paper](https://arxiv.org/abs/2609.33905)
 - **LLMAdBench** (2026-09-26) — We introduce LLMAdBench, a human-preference benchmark for studying advertising in LLM-generated content. [Paper](https://arxiv.org/abs/2609.32533) · [HF](https://huggingface.co/papers/2609.32533)
@@ -607,7 +607,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Document Understanding & OCR
 
-- **AptMQL-Bench** (2026-10-02) — Applying it to BIRD, we build an access-pattern-based text-to-MQL benchmark (AptMQL-Bench). [Paper](https://arxiv.org/abs/2610.02770)
+- **AptMQL-Bench** (2026-10-02) — Applying it to BIRD, we build an access-pattern-based text-to-MQL benchmark (AptMQL-Bench). [Paper](https://arxiv.org/abs/2610.02770) · [HF](https://huggingface.co/papers/2610.02770)
 - **mini-CommonForms** (2026-09-20) — Evaluates form field detection models on 47,355 document pages in COCO format with annotations for text, choice, and signature fields. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
 - **DocAttriBench** (2026-09-17) — Evaluates source attribution in Document VQA by grounding answers to layout elements such as text blocks, tables, and images. [Paper](https://arxiv.org/abs/2609.20574) · [HF](https://huggingface.co/papers/2609.20574)
 - **Clouda OCR Benchmark** (2026-09-07) — Evaluates distorted Arabic document OCR on 177 page images with reference transcriptions using normalized Arabic character error rate and a primary leaderboard for models with full coverage. [Code](https://github.com/sahrasayed3-crypto/clouda-ocr-benchmark)
@@ -640,7 +640,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Engineering & Hardware Design
 
-- **ReFract** (2026-10-02) — To this end, we introduce ReFract, a benchmark of 150 expert-validated entries in which an agent must act differently in response to the same query depending on user's role. [Paper](https://arxiv.org/abs/2610.03356)
+- **ReFract** (2026-10-02) — To this end, we introduce ReFract, a benchmark of 150 expert-validated entries in which an agent must act differently in response to the same query depending on user's role. [Paper](https://arxiv.org/abs/2610.03356) · [HF](https://huggingface.co/papers/2610.03356)
 - **FlapKAD** (2026-09-30) — FlapKAD supports a unified bidirectional sequence-prediction benchmark constructed from the same temporally aligned episodes. [Paper](https://arxiv.org/abs/2609.38719) · [HF](https://huggingface.co/papers/2609.38719)
 - **PowerBench** (2026-09-28) — PowerBench evaluates LLM agents on 300 questions across three task families requiring autonomous evidence retrieval and reasoning over interconnected power system data. [Paper](https://arxiv.org/abs/2609.34492) · [Code](https://github.com/open-compass/PowerBench)
 - **SpecRead** (2026-09-27) — SpecRead evaluates specification comprehension via 383 questions over 10 OpenTitan IP blocks: exact retrieval, cross-section reasoning, contradiction detection in mutated specs, and spec-RTL consistency checking. [Paper](https://arxiv.org/abs/2609.33699) · [Code](https://github.com/EDGAhab/specread)
@@ -696,8 +696,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
-- **SyntaxBench** (2026-10-02) — We introduce SyntaxBench, a diagnostic benchmark and statistical evaluation framework for character-level reasoning. [Paper](https://arxiv.org/abs/2610.03329)
-- **FinSkillBench** (2026-10-02) — We introduce FinSkillBench, an evaluation suite of 2,603 point in time episodes across 12 subtasks in portfolio construction, risk management, and fundamental analysis, with hidden regenerable ground truth and task spec… [Paper](https://arxiv.org/abs/2610.03564)
+- **SyntaxBench** (2026-10-02) — We introduce SyntaxBench, a diagnostic benchmark and statistical evaluation framework for character-level reasoning. [Paper](https://arxiv.org/abs/2610.03329) · [HF](https://huggingface.co/papers/2610.03329)
+- **FinSkillBench** (2026-10-02) — We introduce FinSkillBench, an evaluation suite of 2,603 point in time episodes across 12 subtasks in portfolio construction, risk management, and fundamental analysis, with hidden regenerable ground truth and task spec… [Paper](https://arxiv.org/abs/2610.03564) · [HF](https://huggingface.co/papers/2610.03564)
 - **MM-FinEval** (2026-09-29) — In this paper, we introduce MM-FinEval, a novel benchmark designed to evaluate multimodal LLMs across multiple financial tasks. [Paper](https://arxiv.org/abs/2609.38523) · [HF](https://huggingface.co/papers/2609.38523)
 - **RGDT-Bench** (2026-09-28) — We introduce RGDT-Bench, providing 202.1K condition-level supervision slots across four task tracks and eight supported task-probe combinations that vary access to supporting information. [Paper](https://arxiv.org/abs/2609.34455) · [HF](https://huggingface.co/papers/2609.34455)
 - **Can AI Make Money in Crypto?** (2026-09-28) — Evaluates machine learning, reinforcement learning, LLM-based, and agent-based trading methods in cryptocurrency markets across three stages: historical backtesting, prospective exchange-based paper trading, and real-mo… [Paper](https://arxiv.org/abs/2609.34510) · [Code](https://github.com/Starlien95/Awesome-TradingAI)
@@ -969,7 +969,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Visual Reasoning
 
-- **EmbPASS** (2026-10-02) — Meanwhile, we establish EmbPASS, a multi-platform panoramic semantic segmentation benchmark spanning Vehicle, Drone, Wearable, and Quadruped platforms under a unified semantic taxonomy, providing a testbed for systemati… [Paper](https://arxiv.org/abs/2610.03248) · [Code](https://github.com/guopj1/EmbPASS)
+- **EmbPASS** (2026-10-02) — Meanwhile, we establish EmbPASS, a multi-platform panoramic semantic segmentation benchmark spanning Vehicle, Drone, Wearable, and Quadruped platforms under a unified semantic taxonomy, providing a testbed for systemati… [Paper](https://arxiv.org/abs/2610.03248) · [HF](https://huggingface.co/papers/2610.03248) · [Code](https://github.com/guopj1/EmbPASS)
 - **Hob-VL** (2026-10-01) — We introduce Hob-VL, a benchmark for visually grounded Boolean reasoning. [Paper](https://arxiv.org/abs/2610.01605) · [HF](https://huggingface.co/papers/2610.01605)
 - **OmniReasoningBench** (2026-09-30) — First, we introduce OmniReasoningBench, a benchmark where both audio and visual evidence are indispensable. [Paper](https://arxiv.org/abs/2609.39490) · [HF](https://huggingface.co/papers/2609.39490)
 - **AUV-Bench** (2026-09-28) — To address this gap, we introduce AUV-Bench, developed in collaboration with professional UI designers around 1,395 executable web interfaces and four tasks: aesthetic scoring, diagnosis, repair, and text-to-UI generati… [Paper](https://arxiv.org/abs/2609.34854) · [HF](https://huggingface.co/papers/2609.34854)
@@ -1119,7 +1119,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Math Reasoning
 
-- **WebUIProof** (2026-10-02) — We introduce WebUIProof, an execution-oriented benchmark that provides structured specifications and dense, executable interaction tests for WebUI generation across two task families: general WebUIs (e.g., dashboards, g… [Paper](https://arxiv.org/abs/2610.02617)
+- **WebUIProof** (2026-10-02) — We introduce WebUIProof, an execution-oriented benchmark that provides structured specifications and dense, executable interaction tests for WebUI generation across two task families: general WebUIs (e.g., dashboards, g… [Paper](https://arxiv.org/abs/2610.02617) · [HF](https://huggingface.co/papers/2610.02617)
 - **TCSAlgBench** (2026-09-28) — We introduce TCSAlgBench, a benchmark and reusable pipeline for natural-language proof discovery, comprising 398 theorem-level challenges from 138 STOC and COLT 2026 papers. [Paper](https://arxiv.org/abs/2609.35606) · [HF](https://huggingface.co/papers/2609.35606)
 - **LLM Mathematical Reasoning Evaluation Benchmark** (2026-09-23) — Evaluates final-answer accuracy, reasoning quality, instruction following, and causal error classification across 20 math problems in six categories with deterministic validators and human annotation. [Code](https://github.com/Buguerito/llm-math-reasoning-benchmark)
 - **The Endless Exam** (2026-09-21) — Measures mathematical progress on fourteen parameterised construction families. [Paper](https://arxiv.org/abs/2609.24555)
@@ -1179,7 +1179,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Multilingual & Translation
 
-- **HyperBrowseComp** (2026-10-02) — We introduce HyperBrowseComp, a multilingual and multimodal browsing benchmark comprising 423 manually authored and human-validated questions across 13 languages, written by native or highly proficient speakers. [Paper](https://arxiv.org/abs/2610.03574)
+- **HyperBrowseComp** (2026-10-02) — We introduce HyperBrowseComp, a multilingual and multimodal browsing benchmark comprising 423 manually authored and human-validated questions across 13 languages, written by native or highly proficient speakers. [Paper](https://arxiv.org/abs/2610.03574) · [HF](https://huggingface.co/papers/2610.03574)
 - **VISTA-Bench** (2026-09-29) — To systematically evaluate this capability, we introduce VISTA-Bench, covering 22 languages and 10 domains, and develop an image-specific rubric evaluation protocol. [Paper](https://arxiv.org/abs/2609.37287) · [HF](https://huggingface.co/papers/2609.37287)
 - **RunyaNER** (2026-09-29) — We introduce RunyaNER, the first publicly available NER benchmark for the East African language Runyankore, and use it to investigate the choice of which languages to use for transfer. [Paper](https://arxiv.org/abs/2609.37543) · [HF](https://huggingface.co/papers/2609.37543)
 - **CIBuzzBench** (2026-09-18) — Evaluates Chinese-to-English cross-lingual understanding of internet buzzwords through explanation, equivalence selection, and harmfulness classification. [Paper](https://arxiv.org/abs/2609.21722) · [Code](https://github.com/SuperYFan/CIBuzzBench)
@@ -1210,9 +1210,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **OLMo-Detect** (2026-10-02) — To address these limitations, we propose OLMo-Detect, a multi-stage, confounder-controlled benchmark built upon the fully open OLMo 2 pipeline. [Paper](https://arxiv.org/abs/2610.02986)
-- **MintEval** (2026-10-02) — We introduce MintEval, a benchmark in which reference strategies are generated programmatically from a library of composable building blocks, back-translated into colloquial trader instructions, and re-implemented by th… [Paper](https://arxiv.org/abs/2610.03080) · [Code](https://github.com/spearmintai/minteval)
-- **DexJoCo-X** (2026-10-02) — We introduce DexJoCo-X, a benchmark and toolkit for controlled comparison across seven representative dexterous hands, six single-arm and bimanual tasks, and 2,100 balanced demonstrations. [Paper](https://arxiv.org/abs/2610.03278)
+- **OLMo-Detect** (2026-10-02) — To address these limitations, we propose OLMo-Detect, a multi-stage, confounder-controlled benchmark built upon the fully open OLMo 2 pipeline. [Paper](https://arxiv.org/abs/2610.02986) · [HF](https://huggingface.co/papers/2610.02986)
+- **MintEval** (2026-10-02) — We introduce MintEval, a benchmark in which reference strategies are generated programmatically from a library of composable building blocks, back-translated into colloquial trader instructions, and re-implemented by th… [Paper](https://arxiv.org/abs/2610.03080) · [HF](https://huggingface.co/papers/2610.03080) · [Code](https://github.com/spearmintai/minteval)
+- **DexJoCo-X** (2026-10-02) — We introduce DexJoCo-X, a benchmark and toolkit for controlled comparison across seven representative dexterous hands, six single-arm and bimanual tasks, and 2,100 balanced demonstrations. [Paper](https://arxiv.org/abs/2610.03278) · [HF](https://huggingface.co/papers/2610.03278)
 - **NodeGround** (2026-09-30) — We present NodeGround, a node classification benchmark that puts graph foundation models (GFMs) and dataset-specific supervised learning under a common evaluation framework. [Paper](https://arxiv.org/abs/2609.39673) · [HF](https://huggingface.co/papers/2609.39673) · [Code](https://github.com/nums-ai/nodeground)
 - **FANVIDv2** (2026-09-30) — We present FANVIDv2, a benchmark that scores VSR by what a recognition pipeline can do with its output. [Paper](https://arxiv.org/abs/2609.39649) · [HF](https://huggingface.co/papers/2609.39649)
 - **UserProxyBench** (2026-09-29) — We introduce UserProxyBench, an evaluation layer over the tau-bench family, and the User Fidelity Score (UFS), which measures adherence to the benchmark's private user instructions using task-grounded rubric criteria sc… [Paper](https://arxiv.org/abs/2609.38043) · [HF](https://huggingface.co/papers/2609.38043)
@@ -1833,7 +1833,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
-- **Ego2World** (2026-10-02) — We introduce Ego2World, a benchmark that turns annotated cooking activities into executable planning environments under partial observation. [Paper](https://arxiv.org/abs/2610.02715)
+- **Ego2World** (2026-10-02) — We introduce Ego2World, a benchmark that turns annotated cooking activities into executable planning environments under partial observation. [Paper](https://arxiv.org/abs/2610.02715) · [HF](https://huggingface.co/papers/2610.02715)
 - **APM-Bench** (2026-09-29) — To fill this gap, we introduce APM-Bench, which reformulates real-world streaming interaction as multi-session life trajectories. [Paper](https://arxiv.org/abs/2609.37559) · [HF](https://huggingface.co/papers/2609.37559) · [Code](https://github.com/Jianguo-Huang11/APM-Bench)
 - **PlaylistEval** (2026-09-28) — PlaylistEval evaluates video-language judges on 630 question-answer pairs derived from 100-hour playlists, testing retrieval and judgment across seven domains. [Paper](https://arxiv.org/abs/2609.34314)
 - **ActionLens** (2026-09-28) — We introduce ActionLens, a diagnostic benchmark of 6,701 multiple-choice video questions spanning five targeted diagnostics: transition detection, actor-specific identification, concurrent action binding, directed inter… [Paper](https://arxiv.org/abs/2609.34547) · [HF](https://huggingface.co/papers/2609.34547)
