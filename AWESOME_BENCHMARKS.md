@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-05 · **Benchmark releases:** 2202
+**Snapshot:** 2026-10-05 · **Benchmark releases:** 2205
 
 ## Contents
 
@@ -39,15 +39,15 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Knowledge & Expert QA](#knowledge--expert-qa) (13)
 - [Long Context](#long-context) (5)
 - [Math Reasoning](#math-reasoning) (24)
-- [Multi-Agent & Games](#multi-agent--games) (31)
+- [Multi-Agent & Games](#multi-agent--games) (32)
 - [Multilingual & Translation](#multilingual--translation) (29)
 - [Other benchmark tasks](#other-benchmark-tasks) (97)
 - [Professional & Enterprise Work](#professional--enterprise-work) (62)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (112)
 - [Safety & Alignment](#safety--alignment) (92)
-- [Science](#science) (111)
+- [Science](#science) (112)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (49)
-- [Speech & Audio](#speech--audio) (33)
+- [Speech & Audio](#speech--audio) (34)
 - [Tool Use & Function Calling](#tool-use--function-calling) (59)
 - [Video Understanding](#video-understanding) (96)
 - [World Models & Physical Understanding](#world-models--physical-understanding) (32)
@@ -1153,6 +1153,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Multi-Agent & Games
 
+- **BazaarBench** (2026-10-05) — We introduce BazaarBench, a simulated C2C marketplace and benchmark for evaluating the safety of these agents. [Paper](https://arxiv.org/abs/2610.06748) · [Code](https://github.com/ziyan-wang98/BazaarBench)
 - **Spec2Game** (2026-10-03) — To evaluate large language models' ability to realize detailed specifications as complete interactive programs, we introduce Spec2Game, a benchmark that requires models to generate complete Pygame projects from detailed… [Paper](https://arxiv.org/abs/2610.04253)
 - **MADBench** (2026-09-30) — In this paper, we present MADBench, a benchmark for evaluating the security of MAD. [Paper](https://arxiv.org/abs/2609.39146) · [HF](https://huggingface.co/papers/2609.39146)
 - **GraphMAS** (2026-09-30) — To address this gap, we introduce GraphMAS, a systematic benchmark of multi-agent coordination for graph learning. [Paper](https://arxiv.org/abs/2609.39777) · [HF](https://huggingface.co/papers/2609.39777)
@@ -1594,6 +1595,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **TasteVal** (2026-10-05) — We introduce TasteVal, a benchmark to evaluate the experimental research taste of frontier models. [Paper](https://arxiv.org/abs/2610.06824)
 - **MMPostTrainBench** (2026-10-04) — We introduce MMPostTrainBench, a benchmark spanning eight tasks in image, audio, video, and joint audio-video understanding and image-grounded software repair. [Paper](https://arxiv.org/abs/2610.05398) · [Code](https://github.com/sod1010/MMPostTrainBench)
 - **OmniVCBench** (2026-09-29) — We introduce OmniVCBench, a figure-centric, source-traceable benchmark for the interpretation component of an AIVC. [Paper](https://arxiv.org/abs/2609.37773) · [HF](https://huggingface.co/papers/2609.37773)
 - **SymbolicArena** (2026-09-28) — Existing SR benchmarks face a tradeoff between evaluation cost and benchmark validity. [Paper](https://arxiv.org/abs/2609.35113) · [HF](https://huggingface.co/papers/2609.35113)
@@ -1760,6 +1762,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
+- **CavaBench** (2026-10-05) — We introduce CavaBench, the first internally collected benchmark of spoken financial queries, and use it to evaluate a range of ASR models and their end-to-end ASR-LLM pipeline behaviour across self-reported British acc… [Paper](https://arxiv.org/abs/2610.06587)
 - **APEX-Voice** (2026-09-28) — We introduce APEX-Voice, a benchmark of 120 interactive professional workflows spanning ten work archetypes such as form completion, corporate negotiation, coordination, consulting, and interviewing. [Paper](https://arxiv.org/abs/2609.34973) · [HF](https://huggingface.co/papers/2609.34973)
 - **NADI 2026** (2026-09-22) — Shared task for multidialectal Arabic speech processing with evaluation and rankings. [Paper](https://arxiv.org/abs/2609.27086)
 - **MSI-Bench** (2026-09-21) — MSI-Bench evaluates multi-speaker voice interaction for collaborative AI agents using 1,152 audio cases with six patterns, scored via LLM judge and deterministic tool validation. [Paper](https://arxiv.org/abs/2609.24812) · [Code](https://github.com/boson-ai/MSI-Bench) · [Data](https://huggingface.co/datasets/M2cha4l1124/MSI-Bench)
