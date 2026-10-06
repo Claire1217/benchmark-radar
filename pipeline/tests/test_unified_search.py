@@ -35,3 +35,16 @@ assert(!fs.readFileSync('web/index.html','utf8').includes('id="type-query"'));
 console.log('Unified search: text, click, keyboard, selected type, clear, aliases, dismissal passed');
 '''
         subprocess.run(['node', '-e', script], cwd=pathlib.Path(__file__).resolve().parents[2], check=True)
+
+    def test_spaced_query_matches_joined_benchmark_name(self):
+        script = r'''
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const app=fs.readFileSync('web/app.js','utf8');const c={};vm.createContext(c);
+vm.runInContext(app.split('\n').find(l=>l.startsWith('function matchesSearch(')),c);
+assert(c.matchesSearch('FrontierSWE v2','frontier swe'));
+assert(c.matchesSearch('DeepSWE 1.1','deep swe'));
+assert(c.matchesSearch('Terminal-Bench 3.0','terminal bench'));
+assert(c.matchesSearch('Agents benchmark for tools','tool agents'));
+assert(!c.matchesSearch('Frontier-Bench v0.1','frontier swe'));
+'''
+        subprocess.run(['node', '-e', script], cwd=pathlib.Path(__file__).resolve().parents[2], check=True)

@@ -45,7 +45,7 @@ function directionChips(r,selected=""){
   if(selected==="computer-use")ids=ids.filter(id=>id!=="gui-grounding");
   return ids.map(id=>researchDefinitions().find(d=>d.id===id)?.name).filter(Boolean).slice(0,2);
 }
-function matchesSearch(text,query){const normalize=s=>String(s).toLowerCase().replace(/[^\p{L}\p{N}+]+/gu," ").trim();const hay=normalize(text),q=normalize(query);if(hay.includes(q))return true;const words=new Set(hay.split(/\s+/));return q.split(/\s+/).every(t=>words.has(t)||words.has(t+"s"));}
+function matchesSearch(text,query){const normalize=s=>String(s).toLowerCase().replace(/[^\p{L}\p{N}+]+/gu," ").trim();const hay=normalize(text),q=normalize(query);if(hay.includes(q))return true;const compact=s=>s.replace(/\s+/g,"");if(q.includes(" ")&&compact(hay).includes(compact(q)))return true;const words=new Set(hay.split(/\s+/));return q.split(/\s+/).every(t=>words.has(t)||words.has(t+"s"));}
 function matchesLibraryFilters(r){
   return displayEligible(r)&&(!state.libraryDirection||matchesDirection(r,state.libraryDirection))&&(!state.libraryCustom?.length||matchesCustom(r,state.libraryCustom))
     &&(state.libraryScope!=="general"||r.domainScope==="general")
