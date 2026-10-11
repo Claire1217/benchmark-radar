@@ -23,8 +23,9 @@ def link(label: str, url: str | None) -> str | None:
     return f"[{label}]({url})" if url else None
 
 
-def site_filter(kind: str, value: str) -> str:
-    return f"{SITE_URL}/#library?{kind}={quote(value)}"
+def category_page(category_id: str) -> str:
+    """Static, crawlable category page written by pipeline/static_pages.py."""
+    return f"{SITE_URL}/categories/{quote(category_id)}/"
 
 
 def attention_text(record: dict) -> str:
@@ -87,7 +88,7 @@ def update_readme() -> None:
     directions = taxonomy["directions"]
     group_cells = []
     for group in taxonomy["groups"]:
-        links = [f"[{d['name']}]({site_filter('direction', d['id'])}) · {d['count']:,}" for d in directions if d["group"] == group["id"]]
+        links = [f"[{d['name']}]({category_page(d['id'])}) · {d['count']:,}" for d in directions if d["group"] == group["id"]]
         if links:
             group_cells.append((group["name"], "<br>".join(links)))
     # Two columns keep the README table readable on GitHub.
