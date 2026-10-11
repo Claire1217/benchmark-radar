@@ -13,6 +13,8 @@ import xml.etree.ElementTree as ET
 
 ENDPOINT = "https://api.indexnow.org/indexnow"
 HOST = "benchmark-radar.com"
+# IndexNow accepts at most 10,000 URLs per request.
+BATCH_SIZE = 10_000
 
 
 def sitemap_urls(path: Path, days: int, include_all: bool) -> list[str]:
@@ -28,6 +30,10 @@ def sitemap_urls(path: Path, days: int, include_all: bool) -> list[str]:
     return urls
 
 
+def batches(urls: list[str], size: int = BATCH_SIZE) -> list[list[str]]:
+    return [urls[i:i + size] for i in range(0, len(urls), size)]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sitemap", type=Path, required=True)
@@ -36,15 +42,16 @@ def main() -> None:
     parser.add_argument("--all", action="store_true")
     args = parser.parse_args()
     urls = sitemap_urls(args.sitemap, args.days, args.all)
-    payload = json.dumps({
-        "host": HOST,
-        "key": args.key,
-        "keyLocation": f"https://{HOST}/{args.key}.txt",
-        "urlList": urls,
-    }).encode()
-    request = Request(ENDPOINT, data=payload, headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
-    with urlopen(request, timeout=30) as response:
-        print(f"indexnow_status={response.status} urls={len(urls)}")
+    for batch in batches(urls):
+        payload = json.dumps({
+            "host": HOST,
+            "key": args.key,
+            "keyLocation": f"https://{HOST}/{args.key}.txt",
+            "urlList": batch,
+        }).encode()
+        request = Request(ENDPOINT, data=payload, headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+        with urlopen(request, timeout=30) as response:
+            print(f"indexnow_status={response.status} urls={len(batch)}")
 
 
 if __name__ == "__main__":

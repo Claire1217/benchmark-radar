@@ -17,8 +17,9 @@ class GeneratedListTests(unittest.TestCase):
 
     def test_readme_links_every_category_with_its_count(self):
         for d in self.manifest['directions']:
-            self.assertIn(f"direction={d['id']}) · {d['count']:,}", self.readme, d['id'])
+            self.assertIn(f"/categories/{d['id']}/) · {d['count']:,}", self.readme, d['id'])
         for retired in ('vision-language-models', 'data-analysis-agents', 'coding-agents'):
+            self.assertNotIn('/categories/' + retired + '/', self.readme)
             self.assertNotIn('direction=' + retired, self.readme)
 
     def test_readme_groups_follow_taxonomy_groups(self):
