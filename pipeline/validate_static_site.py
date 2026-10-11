@@ -115,16 +115,118 @@ def main() -> None:
     )
     if not repository or repository.get("codeRepository") != "https://github.com/Claire1217/benchmark-radar":
         raise SystemExit("official GitHub repository schema missing")
-    sitemap = ET.parse(OUTPUT / "sitemap.xml")
-    urls = sitemap.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url")
-    if len(urls) != 3 or (OUTPUT / "benchmarks").exists():
-        raise SystemExit("unexpected generated detail pages or sitemap entries")
+    pages = validate_static_pages(OUTPUT)
     model_evals = (OUTPUT / "model-evals" / "index.html").read_text(encoding="utf-8")
     if '<link rel="canonical" href="https://benchmark-radar.com/model-evals/">' not in model_evals:
         raise SystemExit("Model Evals canonical production URL missing")
     if "Model Evals" not in document_title(model_evals):
         raise SystemExit("Model Evals page title missing")
-    print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)}")
+    print(f"validated_static_site assets={len(document.scripts) + len(document.styles)} ids={len(document.ids)} static_pages={pages}")
+
+
+class StaticPage(HTMLParser):
+    """Title, canonical, H1 count and JSON-LD blocks of one generated page."""
+    def __init__(self) -> None:
+        super().__init__()
+        self.titles: list[str] = []
+        self.canonical: list[str] = []
+        self.h1 = 0
+        self.json_ld: list[str] = []
+        self.ids: list[str] = []
+        self._capture: str | None = None
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = dict(attrs)
+        if values.get("id"):
+            self.ids.append(str(values["id"]))
+        if tag == "link" and values.get("rel") == "canonical":
+            self.canonical.append(str(values.get("href")))
+        self.h1 += tag == "h1"
+        if tag == "title":
+            self._capture = "title"
+            self.titles.append("")
+        if tag == "script" and values.get("type") == "application/ld+json":
+            self._capture = "json"
+            self.json_ld.append("")
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in ("title", "script"):
+            self._capture = None
+
+    def handle_data(self, data: str) -> None:
+        if self._capture == "title":
+            self.titles[-1] += data
+        elif self._capture == "json":
+            self.json_ld[-1] += data
+
+
+def validate_static_pages(output: Path) -> int:
+    """Every generated page is indexable and every sitemap URL is a built page."""
+    base = "https://benchmark-radar.com"
+    library = json.loads((output / "data" / "library_index.json").read_text(encoding="utf-8"))
+    visible = [r for r in library["records"] if r.get("displayEligible") is not False and r.get("evaluationMode") != "viewpoint_probe"]
+    categories = [d["id"] for d in library["manifest"]["libraryTaxonomy"]["directions"]]
+    pages = sorted(output.glob("benchmarks/*/index.html")) + sorted(output.glob("categories/*/index.html"))
+    pages += [output / "benchmarks" / "index.html", output / "categories" / "index.html"]
+    if len(list(output.glob("benchmarks/*/index.html"))) != len(visible):
+        raise SystemExit("one static page per visible Library record expected")
+    if missing := [c for c in categories if not (output / "categories" / c / "index.html").exists()]:
+        raise SystemExit(f"missing category pages: {missing}")
+    titles = []
+    for page in pages:
+        path = "/" + page.parent.relative_to(output).as_posix() + "/"
+        parsed = StaticPage()
+        parsed.feed(page.read_text(encoding="utf-8"))
+        if len(parsed.titles) != 1 or "Benchmark Radar" not in parsed.titles[0]:
+            raise SystemExit(f"{path}: one Benchmark Radar title expected")
+        if parsed.canonical != [base + path]:
+            raise SystemExit(f"{path}: canonical must be {base + path}")
+        if parsed.h1 != 1:
+            raise SystemExit(f"{path}: exactly one h1 expected")
+        if len(parsed.ids) != len(set(parsed.ids)):
+            raise SystemExit(f"{path}: duplicate HTML id")
+        if len(parsed.json_ld) != 1:
+            raise SystemExit(f"{path}: one JSON-LD block expected")
+        try:
+            graph = json.loads(parsed.json_ld[0])["@graph"]
+        except (ValueError, KeyError) as error:
+            raise SystemExit(f"{path}: invalid JSON-LD ({error})")
+        types = {item.get("@type") for item in graph}
+        expected = "Dataset" if path.count("/") == 3 and path.startswith("/benchmarks/") else "CollectionPage"
+        if not {expected, "BreadcrumbList"} <= types:
+            raise SystemExit(f"{path}: JSON-LD needs {expected} and BreadcrumbList")
+        titles.append(parsed.titles[0])
+    if len(titles) != len(set(titles)):
+        raise SystemExit("static page titles must be unique")
+    namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    sitemap = ET.parse(output / "sitemap.xml").getroot()
+    locations = []
+    for url in sitemap.findall(namespace + "url"):
+        location = url.findtext(namespace + "loc") or ""
+        modified = url.findtext(namespace + "lastmod")
+        if not location.startswith(base + "/") or not (output / location[len(base) + 1:] / "index.html").exists():
+            raise SystemExit(f"sitemap URL has no built page: {location}")
+        if modified is not None and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", modified):
+            raise SystemExit(f"sitemap lastmod must be a date: {location}")
+        locations.append(location)
+    if len(locations) != len(set(locations)) or len(locations) > 50000:
+        raise SystemExit("sitemap URLs must be unique and fit one file")
+    expected_urls = {base + p for p in ("/", "/about/", "/model-evals/", "/trends/", "/benchmarks/", "/categories/")}
+    if missing := expected_urls - set(locations) or {base + "/" + p.parent.relative_to(output).as_posix() + "/" for p in pages} - set(locations):
+        raise SystemExit(f"sitemap misses pages: {sorted(missing)[:5]}")
+    feed = ET.parse(output / "feed.xml").getroot()
+    for link in feed.iter("link"):
+        target = (link.text or "").removeprefix(base + "/").split("#")[0]
+        if target and not (output / target / "index.html").exists():
+            raise SystemExit(f"feed item links to a missing page: {link.text}")
+    for name, marker in (("llms.txt", "<!-- CATEGORY_LIST -->"), ("index.html", "<!-- STATIC_CATEGORY_LINKS -->")):
+        text = (output / name).read_text(encoding="utf-8")
+        if marker in text or "/categories/" not in text or "/benchmarks/" not in text:
+            raise SystemExit(f"{name} must link the static benchmark and category pages")
+    for name in ("about/index.html", "trends/index.html", "model-evals/index.html"):
+        if 'href="/categories/"' not in (output / name).read_text(encoding="utf-8").replace('href="../categories/"', 'href="/categories/"'):
+            raise SystemExit(f"{name} must link the category index")
+    return len(pages)
 
 
 def document_title(html: str) -> str:

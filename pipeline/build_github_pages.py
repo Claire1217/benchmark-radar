@@ -23,7 +23,7 @@ def visible(record: dict) -> bool:
     return record.get("displayEligible") is not False and record.get("evaluationMode") != "viewpoint_probe"
 
 
-def write_feed(records: list[dict], data_as_of: str) -> None:
+def write_feed(records: list[dict], data_as_of: str, slugs: dict[str, str] | None = None) -> None:
     recent = sorted(
         records,
         key=lambda item: (str(item.get("releasedAt") or ""), str(item.get("name") or "")),
@@ -37,8 +37,10 @@ def write_feed(records: list[dict], data_as_of: str) -> None:
         description = record.get("description") or record.get("oneLine") or "Public AI benchmark indexed by Benchmark Radar."
         name = str(record.get("name") or "Unnamed benchmark")
         identifier = str(record.get("id") or name)
+        slug = (slugs or {}).get(identifier)
+        link = f"{BASE_URL}/benchmarks/{slug}/" if slug else f"{BASE_URL}/#library"
         items.append(
-            f'<item><title>{xml_escape(name)}</title><link>{BASE_URL}/#library</link>'
+            f'<item><title>{xml_escape(name)}</title><link>{link}</link>'
             f'<guid isPermaLink="false">benchmark-radar:{xml_escape(identifier)}</guid>'
             f'<pubDate>{format_datetime(released)}</pubDate>'
             f'<description>{xml_escape(str(description))}</description></item>'
@@ -102,9 +104,17 @@ def main() -> None:
     page.write_text(html)
     version_trends_assets(OUTPUT)
     library = json.loads((ROOT / "data" / "library_index.json").read_text(encoding="utf-8"))
-    write_feed([record for record in library["records"] if visible(record)], library["manifest"]["dataAsOf"])
+    manifest = library["manifest"]
+    trends = json.loads((ROOT / "data" / "trends_topics.json").read_text(encoding="utf-8"))
+    from static_pages import assign_slugs, write_static_pages
+    counts = write_static_pages(
+        OUTPUT, library, visible, {topic["id"] for topic in trends["topics"]},
+        # Hand-written pages; About has no data-driven date.
+        {"/": manifest["dataAsOf"], "/about/": None, "/model-evals/": manifest.get("modelReportsAsOf"), "/trends/": trends.get("asOf")},
+    )
+    write_feed([record for record in library["records"] if visible(record)], manifest["dataAsOf"], assign_slugs(library["records"]))
     (OUTPUT / ".nojekyll").write_text("", encoding="utf-8")
-    print(f"built={OUTPUT}")
+    print(f"built={OUTPUT} benchmark_pages={counts['benchmarks']} category_pages={counts['categories']} sitemap_urls={counts['sitemap']}")
 
 
 if __name__ == "__main__":
