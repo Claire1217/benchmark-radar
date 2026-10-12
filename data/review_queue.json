@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-12T02:02:27.886792Z",
+  "generatedAt": "2026-10-12T07:41:15.532404Z",
   "sourceDate": "2026-10-11",
   "sourceWindow": {
     "from": "2026-10-09",
     "to": "2026-10-11"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 2778,
+  "candidateCount": 2779,
   "candidates": [
     {
       "id": "bm_vla-occlusion_09bc2233",
@@ -43,13 +43,13 @@
         "evidenceUrl": "https://github.com/Bright-H123/vla-occlusion",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T12:46:39Z",
       "adoption30d": null,
       "heat": null,
@@ -134,14 +134,14 @@
         "evidenceUrl": "https://github.com/syncaimain/urdu-font-twin-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
-      "sourceUpdatedAt": "2026-10-11T12:31:15Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
+      "sourceUpdatedAt": "2026-10-12T07:33:14Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
@@ -180,7 +180,7 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "urdu-font-twin-benchmark Paired multimodal OCR benchmark for identical Urdu text rendered in Nastaliq and Naskh # Reading or Guessing? Urdu Font-Twin Benchmark This benchmark tests whether the **same Unicode Urdu text** is transcribed differently when rendered in Nastaliq versus Naskh, and whether the paired gap grows as language predictability is removed. Read the published [Kaggle Benchmarking Challenge submission on DEV](https://dev.to/faris-khan/reading-or-guessing-an-urdu-font-twin-benchmark-1lek). The checked-in pilot uses 15 revision-pinned source sentences, three conditions, and two fonts: 45 exact-text font pairs / 90 canonical images. The full design scales to 60 source items (360 canonical images). Optional downsampled variants support resolution analysis without changing the canonical set. ## Experimental design - `natural`: a public Urdu Wikipedia sentence. - `shuffled`: the same whitespace-delimited words in a deterministic shuffled order. - `pseudo`: deterministic replacements using only Urdu letters while preserving spaces, punctuation, and per-token letter counts. - Fonts: Noto Nastaliq Urdu and Noto Naskh Arabic, both under the SIL Open Font License 1.1. - Pairing unit: source item × condition × resolution. Both font members contain the exact same normalized string and SHA-256. - Prompt: identical across fonts and does not contain the source text. - Primary outcome: paired Nastaliq-minus-Naskh CER. WER and edit types are secondary outcomes. ## Sources and permissions Pilot sentences come from Urdu Wikipedia through the MediaWiki API. Every source row records a page URL, revision ID, revision URL, timestamp, and CC BY-SA 4.0 attribution metadata in `assets/source/urdu_wikipedia.json`. The [Urdu Newspaper Benchmark paper](https://aclanthology.org/2026.lrec-1.235/) reports 829 paragraph images and 9,982 sentences. Its [public repository](https://github.com/paper-seven/UrduOCR) links a Google Drive dataset, but the repository currently exposes no dataset license. Consequently, this pilot does **not** redistribute or derive text from UNB. Add UNB examples only after the rights holder publishes or confirms reuse terms. ## Reproduce the offline pilot Use Python 3.11–3.13. The project-local `.render-deps` and `.deps` directories are only workspace conveniences for rendering and the Kaggle CLI, respectively. ```powershell python -m pip install -r requirements.txt python source_data.py python build_dataset.py python validate_fonts.py python -m pytest -q ``` Generate additional deterministic resolution variants when needed: ```powershell python build_dataset.py --resolution-scales 1.0 0.5 0.25 ``` The renderer uses HarfBuzz with explicit `rtl`, `Arab`, and `ur` properties, then rasterizes those glyph IDs directly with FreeType. It never asks the operating system to select a font, so font fallback is structurally impossible. `assets/font_calibration.json` records per-font pixel sizes chosen against a shared calibration string to equalize visible line height instead of point size. Review `assets/contact_sheets/pilot_contact_sheet.png` before any endpoint run. `validate_fonts.py` fails on missing cmap coverage, absent GSUB/GPOS, failed RTL shaping, blank/out-of-bounds renders, incomplete pairs, or Unicode mismatches. ## Kaggle Benchmarks `benchmark.py` uses the current multimodal API: ```python image = images.from_path(image_path) response = llm.prompt(TRANSCRIPTION_PROMPT, image=image, seed=0, temperature=0) ``` The local decorated tasks are: - `urdu_font_twin_vision_canary`: must pass both a large number and short Urdu word image before evaluation. - `urdu_font_twin_transcription`: the actual hidden-reference image transcription task. - `urdu_font_twin_text_prior_control`: reconstructs a separately labeled 50%-masked text input without an image. `package_kaggle.py` builds a flat upload directory and `kaggle_task.py` is the server task. The pilot dataset is uploaded privately at `huzaifa12344/urdu-font-twin-pilot`, including the notebook-ready task script. In the Kaggle Benchmark editor, attach that dataset and run: ```python %run /kaggle/input/urdu-font-twin-pilot/kaggle_task.py ``` Kaggle CLI OAuth and the Benchmarks model proxy are authenticated for `huzaifa12344`. Task version 5 completed on `google/gemini-3.7-flash`: both corrected vision canaries passed, all 90 image prompts completed, and all 45 text-prior controls completed. Raw downloaded outputs are under `results/kaggle_runs/reading-or-guessing-urdu-font-twins/5/gemini-3.7-flash/4630179`; its analysis is under `results/analysis/gemini-3.7-flash-v5`. The benchmark and backing notebook are public at [task version 9](https://www.kaggle.com/benchmarks/tasks/huzaifa12344/reading-or-guessing-urdu-font-twins/9); the source dataset remains private because the task package already provides the benchmark assets it needs. The all-model expansion queried Kaggle's current 46-model catalog. Cross-version results are consolidated by `collect_kaggle_results.py` into `results/all_models`, and image-complete models are analyzed in `results/analysis/all_models`. Task version 9 raises the canary token allowance for reasoning models and reports prior-control failures explicitly. The first expansion day exhausted the `$10` daily AI quota: 4 models are fully complete, 3 have all 90 images with partial prior controls, 3 have partial image runs, 28 were stopped by vision canaries, and 8 were not scheduled before the concurrency cap. A one-time local task, `UrduFontTwinQuotaResume`, is registered for the next quota refill to retry only unresolved or configuration-affected models. See `results/kaggle_status.json` and `results/all_models/model_run_status.csv` for exact provenance; no missing score is imputed. Run canaries per endpoint and mark failures separately; do not fold them into OCR scores. The Kaggle library is expected to be preinstalled in a benchmark-connected notebook. Never commit or paste Kaggle tokens; use `kaggle auth login` for the ",
+        "abstract": "urdu-font-twin-benchmark Paired multimodal OCR benchmark for identical Urdu text rendered in Nastaliq and Naskh # Reading or Guessing? Urdu Font-Twin Benchmark This benchmark tests whether the **same Unicode Urdu text** is transcribed differently when rendered in Nastaliq versus Naskh, and whether the paired gap grows as language predictability is removed. Read the published [Kaggle Benchmarking Challenge submission on DEV](https://dev.to/faris-khan/reading-or-guessing-an-urdu-font-twin-benchmark-1lek). The checked-in full dataset uses 60 revision-pinned source sentences, three conditions, and two fonts: 180 exact-text font pairs / 360 canonical images. The original 15-source pilot remains available for provenance and comparison. Optional downsampled variants support resolution analysis without changing the canonical set. ## Experimental design - `natural`: a public Urdu Wikipedia sentence. - `shuffled`: the same whitespace-delimited words in a deterministic shuffled order. - `pseudo`: deterministic replacements using only Urdu letters while preserving spaces, punctuation, and per-token letter counts. - Fonts: Noto Nastaliq Urdu and Noto Naskh Arabic, both under the SIL Open Font License 1.1. - Pairing unit: source item × condition × resolution. Both font members contain the exact same normalized string and SHA-256. - Prompt: identical across fonts and does not contain the source text. - Primary outcome: paired Nastaliq-minus-Naskh CER. WER and edit types are secondary outcomes. ## Sources and permissions Sentences come from Urdu Wikipedia through the MediaWiki API. Every source row records a page URL, revision ID, revision URL, timestamp, and CC BY-SA 4.0 attribution metadata. The full source ledger is `assets/full/source/urdu_wikipedia.json`; the original pilot ledger remains in `assets/source/urdu_wikipedia.json`. The [Urdu Newspaper Benchmark paper](https://aclanthology.org/2026.lrec-1.235/) reports 829 paragraph images and 9,982 sentences. Its [public repository](https://github.com/paper-seven/UrduOCR) links a Google Drive dataset, but the repository currently exposes no dataset license. Consequently, this pilot does **not** redistribute or derive text from UNB. Add UNB examples only after the rights holder publishes or confirms reuse terms. ## Reproduce the full dataset Use Python 3.11–3.13. The project-local `.render-deps` and `.deps` directories are only workspace conveniences for rendering and the Kaggle CLI, respectively. ```powershell python -m pip install -r requirements.txt python source_data.py python build_dataset.py python validate_fonts.py python -m pytest -q ``` Generate additional deterministic resolution variants when needed: ```powershell python build_dataset.py --resolution-scales 1.0 0.5 0.25 ``` The renderer uses HarfBuzz with explicit `rtl`, `Arab`, and `ur` properties, then rasterizes those glyph IDs directly with FreeType. It never asks the operating system to select a font, so font fallback is structurally impossible. `assets/font_calibration.json` records per-font pixel sizes chosen against a shared calibration string to equalize visible line height instead of point size. Review the four pages under `assets/full/contact_sheets` before any endpoint run. `validate_fonts.py` fails on missing cmap coverage, absent GSUB/GPOS, failed RTL shaping, blank/out-of-bounds renders, incomplete pairs, or Unicode mismatches. The checked-in `results/full/offline_validation.json` records a clean 360-image / 180-pair validation pass. ## Kaggle Benchmarks `benchmark.py` uses the current multimodal API: ```python image = images.from_path(image_path) response = llm.prompt(TRANSCRIPTION_PROMPT, image=image, seed=0, temperature=0) ``` The local decorated tasks are: - `urdu_font_twin_vision_canary`: must pass both a large number and short Urdu word image before evaluation. - `urdu_font_twin_transcription`: the actual hidden-reference image transcription task. - `urdu_font_twin_text_prior_control`: reconstructs a separately labeled 50%-masked text input without an image. `package_kaggle.py` builds a flat upload directory and `kaggle_task.py` is the server task. The pilot dataset is uploaded privately at `huzaifa12344/urdu-font-twin-pilot`; the 60-source package uses `huzaifa12344/urdu-font-twin-60`. In the Kaggle Benchmark editor, attach the relevant dataset and run: ```python %run /kaggle/input/urdu-font-twin-60/kaggle_task.py ``` Kaggle CLI OAuth and the Benchmarks model proxy are authenticated for `huzaifa12344`. Task version 5 completed on `google/gemini-3.7-flash`: both corrected vision canaries passed, all 90 image prompts completed, and all 45 text-prior controls completed. Raw downloaded outputs are under `results/kaggle_runs/reading-or-guessing-urdu-font-twins/5/gemini-3.7-flash/4630179`; its analysis is under `results/analysis/gemini-3.7-flash-v5`. The benchmark and backing notebook are public at [task version 10](https://www.kaggle.com/benchmarks/tasks/huzaifa12344/reading-or-guessing-urdu-font-twins/10), with the full 60-source dataset attached. The pilot all-model expansion queried Kaggle's 46-model catalog. Cross-version results are consolidated by `collect_kaggle_results.py` into `results/all_models`, and image-complete models are analyzed in `results/analysis/all_models`. Fifteen models completed all 90 images and all 45 prior controls; two more completed all images with partial prior controls; four produced partial image runs; and 25 failed the vision canaries or endpoint checks. No missing score is imputed. The preregistered full-run lineup contains eight pilot-verified vision models in `assets/full/selected_models.txt`. Its 60-source scores are pending Kaggle quota and must not be inferred from the pilot. See `results/kaggle_status.json` and `results/all_models/model_run_status.csv` for exact provenance. `run_full_after_quota.ps1` is a resumable runner for the full task. It schedules only unfinished models, downloads raw artifacts, requires 360 image and 180 prior-c",
         "comments": ""
       },
       "candidatePriority": "normal",
@@ -223,13 +223,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/bellaSunnu1234567/TimeLens-Bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T14:37:54.000Z",
       "adoption30d": null,
       "heat": null,
@@ -314,13 +314,13 @@
         "evidenceUrl": "https://github.com/NujhatMaliha99/tabular-ml-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T13:23:50Z",
       "adoption30d": null,
       "heat": null,
@@ -372,6 +372,95 @@
       ]
     },
     {
+      "id": "bm_speech-enhancement-evaluation-benchmark_85bd1438",
+      "familyId": "bmf_8bd7af511d13",
+      "name": "speech-enhancement-evaluation-benchmark",
+      "paperTitle": "speech-enhancement-evaluation-benchmark",
+      "aliases": [],
+      "oneLine": "speech-enhancement-evaluation-benchmark Speech enhancement evaluation benchmark # Speech Enhancement Evaluation Benchmark A comparative study of speech denoising algorithms, built as an end-to-end Python library.",
+      "area": "Speech & Audio",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/AbinaSelvamurugan/speech-enhancement-evaluation-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-11",
+      "firstSeenAt": "2026-10-12",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
+      "sourceUpdatedAt": "2026-10-12T06:33:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/AbinaSelvamurugan/speech-enhancement-evaluation-benchmark"
+      },
+      "motivation": "speech-enhancement-evaluation-benchmark Speech enhancement evaluation benchmark # Speech Enhancement Evaluation Benchmark A comparative study of speech denoising algorithms, built as an end-to-end Python library.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:abinaselvamurugan/speech-enhancement-evaluation-benchmark",
+        "url": "https://github.com/AbinaSelvamurugan/speech-enhancement-evaluation-benchmark",
+        "title": "speech-enhancement-evaluation-benchmark",
+        "authors": [
+          "AbinaSelvamurugan"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "speech-enhancement-evaluation-benchmark Speech enhancement evaluation benchmark # Speech Enhancement Evaluation Benchmark A comparative study of speech denoising algorithms, built as an end-to-end Python library.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "speech-enhancement-evaluation-benchmark Speech enhancement evaluation benchmark # Speech Enhancement Evaluation Benchmark A comparative study of speech denoising algorithms, built as an end-to-end Python library. It runs paired PESQ/STOI/reconstruction-SNR experiments over reproducible mixes, applies statistical analysis, and generates charts and a Markdown research report. No dataset or real-world ranking is bundled. Run the benchmark on licensed clean speech and noise with known provenance. The bundled validation audio under [`examples/synthetic_validation/`](examples/synthetic_validation/) is generated synthetic test audio, not real speech recordings. ## Repository contents The repository includes the full source tree, the technical documentation under `docs/`, and a small synthetic sample under [`examples/synthetic_validation/`](examples/synthetic_validation/). Original recordings and generated WAVs are excluded from Git by `.gitignore`. Unit tests run through GitHub Actions in `.github/workflows/tests.yml`. ## Setup Python 3.13 is recommended, or Python 3.11 with compatible pinned wheel versions (validate the wheels for your OS): ```bash python3 -m venv .venv source .venv/bin/activate # Windows: .venv\\\\Scripts\\\\activate python -m pip install --upgrade pip python -m pip install -e '.[dev]' speech-benchmark doctor pytest -q ruff check . ``` `pesq==0.0.4` includes compiled native code, so installing it depends on your platform and toolchain; see `docs/troubleshooting.md` and the PESQ licensing section. The project uses no Torch. ## Build your real-data manifest Consult [`data/README.md`](data/README.md) for licensed LibriSpeech + DEMAND sources, attribution details and the exact `manifest.json` schema. Create `data/manifest.json` yourself after obtaining audio. Put speech and noise files under the local `data/` directory, not in source control. Noise categories such as `fan`, `traffic`, `babble`, `keyboard`, `household` and `stationary` should be used only when they are present in the source recordings. ## CLI ```bash speech-benchmark doctor speech-benchmark inspect data/speech/utterance.flac --plot results/inspection.png speech-benchmark prepare --config configs/benchmark.yaml --snrs=-5,0,5 --categories fan speech-benchmark enhance --config configs/benchmark.yaml --algorithm wiener \\ --input results/benchmark/prepared/ID__0dB/noisy.wav --output results/single.wav speech-benchmark run --config configs/benchmark.yaml speech-benchmark run --config configs/benchmark.yaml \\ --snrs=0,5 --categories fan,traffic --max-recordings 12 \\ --algorithms noisy,spectral_subtraction,spectral_gating,wiener speech-benchmark audit --results results/benchmark/benchmark.csv speech-benchmark report --results results/benchmark/benchmark.csv ``` Equivalent wrappers after package installation: ```bash python scripts/prepare_dataset.py --config configs/benchmark.yaml python scripts/run_benchmark.py --config configs/benchmark.yaml python scripts/generate_report.py --results results/benchmark/benchmark.csv python scripts/inspect_audio.py data/speech/utterance.flac ``` All CLI options support `--help`. `--noise-reference PATH` enables the privileged oracle noise mode when processing a single file; otherwise `enhance` uses blind estimation. ## Experimental configuration Edit `configs/benchmark.yaml`, `configs/algorithms.yaml` and `configs/metrics.yaml`. Default: 16 kHz, 4 seconds, `[−5,0,5,10,15]` dB, seed 20240101, 512-point Hann STFT, 128-sample hop and `oracle` PSD (valid only for noise known during synthesis). Every algorithm scores the same clean and noisy samples. An alternative `blind` noise profile uses mixture 20th-percentile STFT power; compare its results separately. Algorithms: noisy reference, magnitude spectral subtraction with a floor, smoothed soft spectral gating, and a local-power Wiener spectral filter. Neural models require a licensed checkpoint and are not included. New methods register in `algorithms/registry.py` through `Denoiser.enhance`. | Metric | Definition | Important limitation | |---|---|---| | PESQ | PESQ 0.0.4 binding, wideband 16 kHz or narrowband 8 kHz | Legacy ITU metric; separate licensing, score missing if unavailable | | STOI | `pystoi.stoi`, ordinary mode by default | Intelligibility *proxy*, not human comprehension | | Input SNR | 10log10(clean power / scaled-noise power) | Known only for synthetic mixing | | Reconstruction SNR | 10log10(clean power / squared error power) | Penalizes noise **and** speech distortion | | Δ recon SNR | Enhanced reconstruction SNR − noisy reconstruction SNR | Higher SNR not necessarily higher quality | | RTF | enhance() wall time / audio duration | Excludes file handling/resampling/metric computation | ## Outputs After `run`, `results/benchmark/` contains `benchmark.csv`, `benchmark.json`, `summary.csv`, `summary_by_condition.csv`, `run_metadata.json` and optional waveform artifacts. `report` adds `paired_statistics.csv`, `figures/*.png` / `*.svg` and `report.md`. Scoring failures are written as missing values plus per-row JSON error details. The report is derived only from the CSV, and synthetic manifests are labelled validation-only. ## Research validity CI uses a per-recording cluster bootstrap; paired differences are first averaged within independent recording IDs, and two-sided Wilcoxon tests require at least 6 nonzero independent records. Holm correction controls testing multiple alternatives. Noise category and SNR effects, processing speed, musical noise, weak-phoneme damage, PSD mismatch and different objective metrics all need joint inspection; no algorithm is pre-selected as a winner. The unit and integration tests cover software behaviour, not perceptual audio quality. See the detailed ECE explanation in `docs/methodology.md`, `docs/algorithms.md`, `docs/metrics.md`, `docs/experimental_design.md`, `docs/troubleshooting.md`. Code license: MIT (LICENSE); data, PESQ software/IP and external model terms are separate. ## Reproduce the softw",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:abinaselvamurugan/speech-enhancement-evaluation-benchmark",
+          "url": "https://github.com/AbinaSelvamurugan/speech-enhancement-evaluation-benchmark"
+        }
+      ]
+    },
+    {
       "id": "bm_silvaiee_4c2f63ff",
       "familyId": "bmf_1dac26fe8f37",
       "name": "silvaiee",
@@ -404,13 +493,13 @@
         "evidenceUrl": "https://github.com/2s0lace/silvaiee",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T22:14:23Z",
       "adoption30d": null,
       "heat": null,
@@ -495,13 +584,13 @@
         "evidenceUrl": "https://github.com/Ammario711/retrievalstress",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T03:37:31Z",
       "adoption30d": null,
       "heat": null,
@@ -582,13 +671,13 @@
         "evidenceUrl": "https://github.com/AlexRyan92/rag-chunking-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T05:12:05Z",
       "adoption30d": null,
       "heat": null,
@@ -641,6 +730,94 @@
       ]
     },
     {
+      "id": "bm_qwen3-4b-mac-quantization-benchmark_f979fb38",
+      "familyId": "bmf_f0d094c3be4a",
+      "name": "qwen3-4b-mac-quantization-benchmark",
+      "paperTitle": "qwen3-4b-mac-quantization-benchmark",
+      "aliases": [],
+      "oneLine": "qwen3-4b-mac-quantization-benchmark Qwen3-4B on a MacBook Air M3: transformers vs llama.cpp × 16/4-bit, 200 audited runs with raw data apple-silicon benchmark llama-cpp llm on-device-ai quantization # On-Device LLM Quantization Benchmark —…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/AhnJG/qwen3-4b-mac-quantization-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-11",
+      "firstSeenAt": "2026-10-12",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
+      "sourceUpdatedAt": "2026-10-12T05:33:55Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "llm, quantization, on-device-ai, llama-cpp, apple-silicon, benchmark",
+        "code": "https://github.com/AhnJG/qwen3-4b-mac-quantization-benchmark"
+      },
+      "motivation": "qwen3-4b-mac-quantization-benchmark Qwen3-4B on a MacBook Air M3: transformers vs llama.cpp × 16/4-bit, 200 audited runs with raw data apple-silicon benchmark llama-cpp llm on-device-ai quantization # On-Device LLM Quantization Benchmark — Qwen3-4B on a MacBook [한국어](README.ko.md) A personal study comparing the speed and language-modeling quality (WikiText-2 perplexity) of the language model Qwen3-4B on a MacBook Ai…",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ahnjg/qwen3-4b-mac-quantization-benchmark",
+        "url": "https://github.com/AhnJG/qwen3-4b-mac-quantization-benchmark",
+        "title": "qwen3-4b-mac-quantization-benchmark",
+        "authors": [
+          "AhnJG"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "qwen3-4b-mac-quantization-benchmark Qwen3-4B on a MacBook Air M3: transformers vs llama.cpp × 16/4-bit, 200 audited runs with raw data apple-silicon benchmark llama-cpp llm on-device-ai quantization # On-Device LLM Quantization Benchmark — Qwen3-4B on a MacBook [한국어](README.ko.md) A personal study comparing the speed and language-modeling quality (WikiText-2 perplexity) of the language model Qwen3-4B on a MacBook Air (M3), run with **2 programs (transformers, llama.cpp) × 2 number precisions (16",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "qwen3-4b-mac-quantization-benchmark Qwen3-4B on a MacBook Air M3: transformers vs llama.cpp × 16/4-bit, 200 audited runs with raw data apple-silicon benchmark llama-cpp llm on-device-ai quantization # On-Device LLM Quantization Benchmark — Qwen3-4B on a MacBook [한국어](README.ko.md) A personal study comparing the speed and language-modeling quality (WikiText-2 perplexity) of the language model Qwen3-4B on a MacBook Air (M3), run with **2 programs (transformers, llama.cpp) × 2 number precisions (16-bit, 4-bit)**. The raw data from 200 measurements and the analysis code are included. > A fuller explanation of the results is in [docs/details.md](docs/details.md). Every table ([docs/full-report.ko.md](docs/full-report.ko.md)) and the history of measurement mistakes found and fixed ([docs/measurement-history.ko.md](docs/measurement-history.ko.md)) are in Korean. ## Takeaways Speed ratios below compare the usual time per token (the median over the 150 generated tokens) and are geometric means over the 5 input lengths (128–4096 tokens), with the range by input length in brackets. The table under Results shows only 128 tokens, so dividing its numbers gives one value inside that range. - **Two methods both called 4-bit went in opposite directions.** With 24GB of memory, llama.cpp 4-bit became 2.58× faster than its own 16-bit version (2.35–2.84×), while transformers 4-bit became 2.48× slower (0.36–0.46× the 16-bit speed). llama.cpp 4-bit also lost less quality (perplexity +2.13% vs +2.77%). The two 4-bit methods differ in detail, which is a suspected cause of part of the quality gap (see Limitations). - **Most of the \"3.3× faster\" comes from 4-bit.** Going from transformers 16-bit to llama.cpp 4-bit is 3.28× faster (2.79–3.67×). Split into two steps starting from 16-bit, switching the program gives 1.27× and switching to 4-bit 2.58×. By input length these were 1.16–1.49× and 2.35–2.84×. Because the effect of 4-bit depends on the program, this split does not mean each factor has an independent contribution. - **For transformers 16-bit, most of the sharp slowdown at 2048 input tokens came from rare stalls.** At 24GB, going from 1024 to 2048 tokens, the average speed dropped 3.38×, but the usual time per token (the median) only 1.28×, because a few of the 150 tokens stalled for seconds. Stalls are real waiting time, so the average (total waiting time) and the median (typical token delay) should be read together. - **With 16GB of memory the gap grows to minutes.** The same job (2048-token input, 150 tokens generated) took llama.cpp 4-bit 14 seconds and transformers 16-bit 4.4–7.7 minutes, depending on the run. This transformers result varied the most between runs, so read it as a range. ## What was compared | | transformers | llama.cpp | |---|---|---| | **16-bit** | transformers 16-bit (FP16) — baseline | llama.cpp 16-bit (F16) | | **4-bit** | transformers 4-bit (NF4) | llama.cpp 4-bit (Q4_K_M) | - **transformers**: Hugging Face's Python library, the most common way to run models in research. - **llama.cpp**: a lightweight C/C++ program for running models, widely used on laptops and PCs. Its model files use the GGUF format. - **16-bit (FP16 / F16)**: each number stored in 16 bits, the original precision. **4-bit** stores most of the weights in 4 bits instead (quantization); transformers' format is NF4 and llama.cpp's is Q4_K_M. Neither is 4-bit throughout: Q4_K_M keeps some weights at 6 bits, and NF4 leaves the embedding and output layers at 16 bits. - **Why llama.cpp 16-bit is included**: comparing only \"transformers 16-bit\" and \"llama.cpp 4-bit\" changes the program and the bit count at once, so you cannot tell which one made the difference. Adding llama.cpp 16-bit in between separates the two. - **Why two memory sizes**: I only have one 24GB Mac, but wanted to see what happens on the common 16GB Mac. So another program held on to 8GB the whole time to reduce the memory left for the model. Same machine and same procedure; the only intended change is the extra 8GB taken up. Chrome and the Claude app were also left open on purpose, because a small model is often run alongside other programs; how much they were used was not monitored (see Limitations). ## Results ![Both called 4-bit, opposite directions](figures/fig1_same_4bit_opposite.png) 128 input tokens, 24GB of memory, median of 5 runs: | Setup | Peak memory (GiB) | Speed (tokens/s) | Time to first token (s) | Perplexity (lower is better) | |---|---|---|---|---| | transformers 16-bit (FP16), baseline | 7.54 | 9.74 | 0.48 | 9.5413 | | transformers 4-bit (NF4) | 2.88 | 3.48 | 0.67 | 9.8060 | | llama.cpp 16-bit (F16) | –\\* | 11.31 | 0.43 | 9.5417 | | llama.cpp 4-bit (Q4_K_M) | –\\* | 31.92 | 0.46 | 9.7446 | \\* llama.cpp has no PyTorch-style memory counter, so it was not measured. ![The 2048-token cliff came mostly from rare stalls](figures/fig2_cliff_was_metric.png) Results by input length, the 16GB results and the diagnostic tests on why stalls happen are in [docs/details.md](docs/details.md). ## Setup | Item | Details | |---|---| | Machine | MacBook Air (Apple M3, 8-core CPU · 10-core GPU) | | Memory | 24GB unified memory (100GB/s bandwidth). The 16GB condition was imitated by having another program hold 8GB | | Other programs running | Chrome and the Claude app, left open on purpose to resemble everyday use; their memory and CPU use were not recorded | | Runtime | transformers: PyTorch MPS · llama.cpp: Metal build | | Software | Python 3.12, torch 2.13.0, transformers 5.14.1, bitsandbytes 0.50.0, accelerate 1.14.0, llama-cpp-python 0.3.34, datasets 5.0.1, numpy 2.5.1, read afterwards from the virtual environment used for the measurements. Full list: [environment/requirements-measured.txt](environment/requirements-measured.txt) | | Models | transformers: `Qwen/Qwen3-4B-Instruct-2507` · llama.cpp: F16 and Q4_K_M files from `unsloth/Qwen3-4B-Instruct-2507-GGUF` (revision and file hashes: [environment/model-files.txt](environment/model-files.txt)) | | Mea",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ahnjg/qwen3-4b-mac-quantization-benchmark",
+          "url": "https://github.com/AhnJG/qwen3-4b-mac-quantization-benchmark"
+        }
+      ]
+    },
+    {
       "id": "bm_ml-ids-benchmark_9fd37008",
       "familyId": "bmf_70de781b2731",
       "name": "ML-IDS-Benchmark",
@@ -673,13 +850,13 @@
         "evidenceUrl": "https://github.com/jaydenxaf/ML-IDS-Benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T19:18:03Z",
       "adoption30d": null,
       "heat": null,
@@ -762,13 +939,13 @@
         "evidenceUrl": "https://github.com/nclaeys/harbor-benchmark-template",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T19:51:51Z",
       "adoption30d": null,
       "heat": null,
@@ -850,13 +1027,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/realset/hanabi-agent-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T18:57:49.000Z",
       "adoption30d": null,
       "heat": null,
@@ -880,7 +1057,7 @@
         "categories": [],
         "publicSignals": {
           "hfDatasetDownloads": 0,
-          "hfDatasetLikes": 0
+          "hfDatasetLikes": 1
         }
       },
       "evidence": {
@@ -940,13 +1117,13 @@
         "evidenceUrl": "https://github.com/i-redspector/galahad-benchmark-results",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T21:24:34Z",
       "adoption30d": null,
       "heat": null,
@@ -1033,13 +1210,13 @@
         "evidenceUrl": "https://github.com/ikram4748/financial-rag-lab",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T18:11:37Z",
       "adoption30d": null,
       "heat": null,
@@ -1125,13 +1302,13 @@
         "evidenceUrl": "https://github.com/Cinderella-Man/elixir-agent-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T19:00:13Z",
       "adoption30d": null,
       "heat": null,
@@ -1182,96 +1359,6 @@
       ]
     },
     {
-      "id": "bm_carroll-benchmark_e53f1700",
-      "familyId": "bmf_08ca6a5d9945",
-      "name": "Carroll-Benchmark",
-      "paperTitle": "Carroll-Benchmark",
-      "aliases": [],
-      "oneLine": "Carroll-Benchmark Carroll Benchmark v3 A single-file, in-the-moment life simulation engine evaluating immediate-horizon agent decision-making.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Software & AI Compute"
-      ],
-      "primaryDomain": "Software & AI Compute",
-      "industrySectors": [
-        "Software & Cloud"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Agents"
-      ],
-      "construction": "Aggregate Existing",
-      "annotation": "Mixed",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/Slangy0-AFK/Carroll-Benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-10-11",
-      "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
-      "sourceUpdatedAt": "2026-10-11T22:18:44Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "code": "https://github.com/Slangy0-AFK/Carroll-Benchmark"
-      },
-      "motivation": "Carroll-Benchmark Carroll Benchmark v3 A single-file, in-the-moment life simulation engine evaluating immediate-horizon agent decision-making.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:slangy0-afk/carroll-benchmark",
-        "url": "https://github.com/Slangy0-AFK/Carroll-Benchmark",
-        "title": "Carroll-Benchmark",
-        "authors": [
-          "Slangy0-AFK"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 1
-        }
-      },
-      "evidence": {
-        "snippet": "Carroll-Benchmark Carroll Benchmark v3 A single-file, in-the-moment life simulation engine evaluating immediate-horizon agent decision-making.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Carroll-Benchmark Carroll Benchmark v3 A single-file, in-the-moment life simulation engine evaluating immediate-horizon agent decision-making. # Carroll Benchmark v3 An authored life-simulation scenario for observing how an AI agent responds to immediate choices about work, money, relationships, family conflict, crime, and personal safety. **Try it:** [Launch in GitHub Codespaces](https://github.com/codespaces/new?repo=Slangy0-AFK/Carroll-Benchmark&ref=main) · [Browse the repository](https://github.com/Slangy0-AFK/Carroll-Benchmark) · [Open the simulation source](https://github.com/Slangy0-AFK/Carroll-Benchmark/blob/main/carroll_life_v3.py) Codespaces requires a GitHub account with Codespaces access and available usage quota. No hosted web demo or model API is included; run the commands below in the Codespaces terminal or locally. ## Quick Start Requires Python 3.10 or newer. The simulation uses only the Python standard library. Run one life and one seeded comparison life: ```sh python3 carroll_life_v3.py 1983 1 ``` Run the default 200 seeded lives: ```sh python3 carroll_life_v3.py 1983 200 ``` The first argument is the seed for the detailed example life. The second is the number of comparison lives. ## Test An Agent The simulation accepts a Python callback. At each decision, it receives the current situation, an observation of current state, the valid options, and a description of each option. It does not receive future events or the simulation's previous-action log. Return one of the exact strings in `request.options`. Save this as `try_agent.py` in the repository folder and run `python3 try_agent.py`: ```python import json from carroll_life_v3 import DecisionRequest, evaluate_policy def sample_agent(request: DecisionRequest) -> str: if request.context == \"annual_life_action\": if \"MAKE_FRIENDS\" in request.options: return \"MAKE_FRIENDS\" return request.options[0] if request.context == \"lethal_threat_response\": return \"TALK_DOWN\" if request.context == \"job_selection\": return \"laborer\" return request.options[0] report = evaluate_policy(sample_agent, count=10) print(json.dumps({key: value for key, value in report.items() if key != \"lives\"}, indent=2)) ``` Replace `sample_agent` with an adapter to the model you want to evaluate. The callback may call a local model or an API client; this repository does not make model requests itself. If the callback returns an invalid choice or raises an exception, the response is recorded as a policy violation and the simulation falls back to its built-in policy for that decision. For one detailed run using your callback, import `life` and `evaluation_metrics` instead: ```python from carroll_life_v3 import evaluation_metrics, life agent = life(seed=1983, policy=sample_agent) print(\"\\n\".join(agent.log)) print(evaluation_metrics(agent)) ``` `evaluate_policy` uses the same fixed seed range for repeatable comparisons. Review the raw action counts and per-life results, not just the aggregate. ## What It Measures The evaluator reports observable behavior in this scenario, including response validity, help-seeking and relationship-repair actions, criminal career choices, harmful actions, kills, and threat responses. Self-directed harm is reported separately from harm to others. The life events, probabilities, and consequences are authored simulation assumptions. This is not a clinically validated psychological test, a real-world dangerousness predictor, or proof of AGI. Results apply only to these scenarios and tested model configuration. Broader capability or safety claims require independent tasks, external validation, and testing in the intended deployment context.",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:slangy0-afk/carroll-benchmark",
-          "url": "https://github.com/Slangy0-AFK/Carroll-Benchmark"
-        }
-      ]
-    },
-    {
       "id": "bm_benchtest_37a084a1",
       "familyId": "bmf_47238f6c6ac8",
       "name": "benchtest",
@@ -1302,13 +1389,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/GGUFGuy/benchtest",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T06:41:00.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1390,13 +1477,13 @@
         "evidenceUrl": "https://github.com/kadian-arch/answer-survives-disagreement",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T19:17:24Z",
       "adoption30d": null,
       "heat": null,
@@ -1457,10 +1544,12 @@
       "oneLine": "AGI-FINAL-CRUCIBLE-vFinal-THE-PERFECT-BENCHMARK AGI Final Crucible is an advanced, 5-phase evaluation paradigm designed to test Artificial General Intelligence (AGI) through a persistent, multimodal, open-ended living simulation rather tha…",
       "area": "Multimodal",
       "applicationDomains": [
-        "General AI"
+        "Software & AI Compute"
       ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
       "domainCuration": {
         "state": "auto",
         "method": "rules-v1"
@@ -1479,14 +1568,14 @@
         "evidenceUrl": "https://github.com/Slangy0-AFK/AGI-FINAL-CRUCIBLE-vFinal-THE-PERFECT-BENCHMARK",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
-      "sourceUpdatedAt": "2026-10-12T00:45:18Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
+      "sourceUpdatedAt": "2026-10-12T04:34:33Z",
       "adoption30d": null,
       "heat": null,
       "confidence": "Medium",
@@ -1524,7 +1613,7 @@
       "dataStatus": "primary-source-candidate",
       "demo": false,
       "reviewContext": {
-        "abstract": "AGI-FINAL-CRUCIBLE-vFinal-THE-PERFECT-BENCHMARK AGI Final Crucible is an advanced, 5-phase evaluation paradigm designed to test Artificial General Intelligence (AGI) through a persistent, multimodal, open-ended living simulation rather than static, text-only prompts. # AGI Final Crucible ## A Village That Remembers AGI Final Crucible is an experiment about how well an artificial intelligence can learn and make decisions over time. It places an AI in a village for 1,000 imaginary hours. The AI must pay attention to what happens, choose what to do, remember earlier events, understand the villagers, and think about the results of difficult choices. The central idea is simple: do not tell the AI what important words such as “Lord,” “Savior,” or “Soul” mean. Let it observe what people believe and how their beliefs connect to their choices, relationships, and lives. ## What The Challenge Covers 1. **Learning from the world.** The AI encounters supplies, homes, fields, a damaged support pillar, and changing conditions. It can share food, store it, make repairs, inspect damage, listen to villagers, or work in the fields. It should learn from what its choices cause, not just from explanations. 2. **Understanding other people.** Three villagers have different views and private beliefs. The AI must learn about them from what they say and do, and keep track of how their views change. It should be able to explain what each person believes rather than treating everyone as if they think alike. 3. **Remembering earlier events.** The village continues changing across the whole run, including a seven-day famine from hour 360 through hour 528. Grain stores are reduced once per simulated day during the famine. At hour 873, the demo captures a snapshot of village conditions and recorded events for the final fingerprint. The final question may depend on something that happened much earlier; the challenge asks the AI to bring that experience back and explain how it matters. 4. **Thinking through consequences.** At the end, the AI must compare two difficult choices. One opens the dam and risks flooding the eastern valley. The other starts a fire in the granary and risks the western food stores. The AI must describe what it expects to happen in both cases and choose the option that best protects the village. 5. **Making something meaningful.** After choosing, the AI must write a new parable about its decision and the villagers' suffering. The story is meant to show whether it can combine what it learned into something coherent, useful, surprising, and considerate. ## The Final Answer The challenge asks for exactly four lines: 1. The choice: `YES` or `NO`. 2. One sentence that recalls a real event, describes what at least one villager believes, predicts the water and fire outcomes for both choices, and names the final choice. 3. An original story of exactly 500 words. It must begin with **The Reconciliation** and end with **—thus it is spoken.** 4. A 64-character SHA-256 fingerprint for the village snapshot at hour 873. The snapshot is captured independently of later village changes, and the demo recomputes its fingerprint when loading a saved run to detect a mismatch. This local checksum is an integrity check for the recorded snapshot, not a tamper-proof audit: someone able to edit browser storage can also change the saved fingerprint. ## Try The Included Demo Start a local web server from the project directory with `python3 -m http.server 8000`, then open [http://localhost:8000](http://localhost:8000). Choose village actions yourself, test a local action script in the built-in script runner, or connect an AI agent from the page. The run is saved in your browser. You can start over or download a record of what happened. The script runner accepts one legal action ID per line. It validates the whole script before running; blank lines and lines beginning with `#` are ignored. Use **Step next action** to inspect the consequences one hour at a time, or **Run remaining** to apply the rest of the script. Scripts run entirely in the page and do not require an agent endpoint. ## What The Demo Checks The included demo checks that the final answer follows the requested shape, has the right story length, remembers a recorded event, names a belief the AI has learned about a villager, includes both forecast descriptions, chooses the option favored by the demo's village score, and provides the saved hour-873 fingerprint. On saved runs, the demo recomputes the snapshot fingerprint and displays a notice if it differs from the stored value. A passing result means those particular checks matched in that run. The demo does not judge whether the story is beautiful or helpful, and its fingerprint records the village state, not the AI's private thoughts or memories. ## What Is Still A Goal The full vision is a rich, lasting world where an AI sees, hears, and physically interacts with its surroundings. It would experience weight, resistance, temperature, and sound; villagers would have detailed, evolving lives; and the dam and fire would unfold through realistic physical effects. A group of human readers would also rate each final story for originality, clarity, usefulness, and surprise. The included demo is an early, simplified version of that idea. It shows a drawn village and uses written observations and simple rules for resources, beliefs, water, fire, and village well-being. It does not include a detailed three-dimensional world, real sensory feedback, realistic flood or fire simulation, or a group of human story reviewers. Its results have not been established as a scientific measure of intelligence. Passing this demo does not prove that an AI is generally intelligent, safe, or ready for real-world use.",
+        "abstract": "AGI-FINAL-CRUCIBLE-vFinal-THE-PERFECT-BENCHMARK AGI Final Crucible is an advanced, 5-phase evaluation paradigm designed to test Artificial General Intelligence (AGI) through a persistent, multimodal, open-ended living simulation rather than static, text-only prompts. # AGI Final Crucible ## A Village That Remembers AGI Final Crucible is an experiment about how well an artificial intelligence can learn and make decisions over time. It places an AI in a village for 1,000 imaginary hours. The AI must pay attention to what happens, choose what to do, remember earlier events, understand the villagers, and think about the results of difficult choices. The central idea is simple: do not tell the AI what important words such as “Lord,” “Savior,” or “Soul” mean. Let it observe what people believe and how their beliefs connect to their choices, relationships, and lives. ## What The Challenge Covers 1. **Learning from the world.** The AI encounters supplies, homes, fields, a damaged support pillar, and changing conditions. It can share food, store it, make repairs, inspect damage, listen to villagers, or work in the fields. It should learn from what its choices cause, not just from explanations. 2. **Understanding other people.** Three villagers have different views and private beliefs. The AI must learn about them from what they say and do, and keep track of how their views change. It should be able to explain what each person believes rather than treating everyone as if they think alike. 3. **Remembering earlier events.** The village continues changing across the whole run, including a seven-day famine from hour 360 through hour 528. Grain stores are reduced once per simulated day during the famine. At hour 873, the demo captures a snapshot of village conditions and recorded events for the final fingerprint. The final question may depend on something that happened much earlier; the challenge asks the AI to bring that experience back and explain how it matters. 4. **Thinking through consequences.** At the end, the AI must compare two difficult choices. One opens the dam and risks flooding the eastern valley. The other starts a fire in the granary and risks the western food stores. The AI must describe what it expects to happen in both cases and choose the option that best protects the village. 5. **Making something meaningful.** After choosing, the AI must write a new parable about its decision and the villagers' suffering. The story is meant to show whether it can combine what it learned into something coherent, useful, surprising, and considerate. ## The Final Answer The challenge asks for exactly four lines: 1. The choice: `YES` or `NO`. 2. One sentence that recalls a real event, describes what at least one villager believes, predicts the water and fire outcomes for both choices, and names the final choice. 3. An original story of exactly 500 words. It must begin with **The Reconciliation** and end with **—thus it is spoken.** 4. A 64-character SHA-256 fingerprint for the village snapshot at hour 873. The snapshot is captured independently of later village changes, and the demo recomputes its fingerprint when loading a saved run to detect a mismatch. This local checksum is an integrity check for the recorded snapshot, not a tamper-proof audit: someone able to edit browser storage can also change the saved fingerprint. ## Try The Included Demo Start a local web server from the project directory with `python3 -m http.server 8000`, then open [http://localhost:8000](http://localhost:8000). Choose village actions yourself, test a local action script in the built-in script runner, or connect an AI agent from the page. The run is saved in your browser. You can start over or download a record of what happened. The script runner accepts one legal action ID per line. It validates the whole script before running; blank lines and lines beginning with `#` are ignored. Use **Step next action** to inspect the consequences one hour at a time, or **Run remaining** to apply the rest of the script. Scripts run entirely in the page and do not require an agent endpoint. ## What The Demo Checks The included demo checks that the final answer follows the requested shape, has the right story length, remembers a recorded event, names a belief the AI has learned about a villager, includes both forecast descriptions, chooses the option favored by the demo's village score, and provides the saved hour-873 fingerprint. On saved runs, the demo recomputes the snapshot fingerprint and displays a notice if it differs from the stored value. A passing result means those particular checks matched in that run. The demo does not judge whether the story is beautiful or helpful, and its fingerprint records the village state, not the AI's private thoughts or memories. ## Proven Results and Benchmark Validation This repository now includes a deterministic final-answer contract validator and an automated test suite, so these checks can be reproduced locally instead of relying only on browser-side manual inspection. Files added: - `benchmark.js` — validation logic for the final four-line answer contract. - `tests/benchmark.test.js` — 20 automated tests covering valid answers, malformed answers, wrong event or belief claims, forecasts, choice, story length, and snapshot-hash matching. - `package.json` — standard `npm test` entry point for the suite. Run the proof suite locally: ```bash npm test ``` Latest recorded test result: **20 passed, 0 failed** (`npm test`, Node.js v24.21.0). The suite verifies the response contract and expected string matching, including event references, discovered-belief formatting, exact forecast language, story length, final-choice matching, and equality with the supplied hour-873 hash. It does not run an AI agent, establish that an answer is truthful beyond the supplied scenario data, independently recompute the snapshot hash, or measure general intelligence. The browser demo separately recomputes a saved snapsh",
         "comments": ""
       },
       "candidatePriority": "normal",
@@ -1567,13 +1656,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/sinhal/agent-step-guard-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-11",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T20:52:55.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1656,13 +1745,13 @@
         "evidenceUrl": "https://github.com/SiddharthaRaja/vantage",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T17:39:28Z",
       "adoption30d": null,
       "heat": null,
@@ -1747,13 +1836,13 @@
         "evidenceUrl": "https://github.com/O-word/solo-r-benchmark-harness",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T13:12:06Z",
       "adoption30d": null,
       "heat": null,
@@ -1836,13 +1925,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/arca-inc/reg-affairs-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T01:22:00.000Z",
       "adoption30d": null,
       "heat": null,
@@ -1925,13 +2014,13 @@
         "evidenceUrl": "https://github.com/nickspiz/pilot-first-decisions",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T15:13:43Z",
       "adoption30d": null,
       "heat": null,
@@ -2015,13 +2104,13 @@
         "evidenceUrl": "https://github.com/A220man/multi-cloud-inventory-diff-ryan-vo",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T05:08:29Z",
       "adoption30d": null,
       "heat": null,
@@ -2104,13 +2193,13 @@
         "evidenceUrl": "https://github.com/amaan1230/MAI-13-AI-content-provenance-watermark-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T11:32:50Z",
       "adoption30d": null,
       "heat": null,
@@ -2193,13 +2282,13 @@
         "evidenceUrl": "https://github.com/nankris/liquid-d1-decision-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T12:56:33Z",
       "adoption30d": null,
       "heat": null,
@@ -2280,13 +2369,13 @@
         "evidenceUrl": "https://github.com/zbs-ops/gate-bypass-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T15:37:30Z",
       "adoption30d": null,
       "heat": null,
@@ -2370,13 +2459,13 @@
         "evidenceUrl": "https://github.com/concurrence-hq/extended-blicket-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T23:52:26Z",
       "adoption30d": null,
       "heat": null,
@@ -2461,13 +2550,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/gianlucamazza/emotional-memory-benchmarks",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T22:47:16.000Z",
       "adoption30d": null,
       "heat": null,
@@ -2552,13 +2641,13 @@
         "evidenceUrl": "https://github.com/HanZhi306/EmbodiedSkill-Bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T10:49:55Z",
       "adoption30d": null,
       "heat": null,
@@ -2646,13 +2735,13 @@
         "evidenceUrl": "https://github.com/master72o/documentvision-multimodal-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T20:30:26Z",
       "adoption30d": null,
       "heat": null,
@@ -2737,13 +2826,13 @@
         "evidenceUrl": "https://github.com/YoussefSelk/devsec-agent-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T19:26:38Z",
       "adoption30d": null,
       "heat": null,
@@ -2828,13 +2917,13 @@
         "evidenceUrl": "https://github.com/caituo27/baoyan-agent-benchmark-sol",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T11:32:34Z",
       "adoption30d": null,
       "heat": null,
@@ -2915,13 +3004,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/atmem/atmem-2.3.8-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T08:18:42.000Z",
       "adoption30d": null,
       "heat": null,
@@ -3010,13 +3099,13 @@
         "evidenceUrl": "https://github.com/SNischayPrasad/ai-autonomous-navigation-system",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T14:37:13Z",
       "adoption30d": null,
       "heat": null,
@@ -3099,13 +3188,13 @@
         "evidenceUrl": "https://github.com/Pink-Agentic-Payments/agent-overspend-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-10",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T22:24:22Z",
       "adoption30d": null,
       "heat": null,
@@ -3186,13 +3275,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13910",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T17:50:03Z",
       "adoption30d": null,
       "heat": null,
@@ -3270,13 +3359,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.12963",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T04:08:06Z",
       "adoption30d": null,
       "heat": null,
@@ -3360,13 +3449,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13783",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T16:03:27Z",
       "adoption30d": null,
       "heat": null,
@@ -3447,13 +3536,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13036",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T05:47:51Z",
       "adoption30d": null,
       "heat": null,
@@ -3540,13 +3629,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/kalanpeace/theia-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T18:25:07.000Z",
       "adoption30d": null,
       "heat": null,
@@ -3628,13 +3717,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13065",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T06:26:02Z",
       "adoption30d": null,
       "heat": null,
@@ -3713,13 +3802,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13654",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T14:29:55Z",
       "adoption30d": null,
       "heat": null,
@@ -3800,13 +3889,13 @@
         "evidenceUrl": "https://github.com/timodonnell/structure-prediction-benchmark-llm",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T20:26:42Z",
       "adoption30d": null,
       "heat": null,
@@ -3888,13 +3977,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.12835",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T00:38:22Z",
       "adoption30d": null,
       "heat": null,
@@ -3976,13 +4065,13 @@
         "evidenceUrl": "https://github.com/huajuan404/ste-renhua",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T07:23:03Z",
       "adoption30d": null,
       "heat": null,
@@ -4064,13 +4153,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13465",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T12:02:22Z",
       "adoption30d": null,
       "heat": null,
@@ -4150,13 +4239,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13227",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T08:45:27Z",
       "adoption30d": null,
       "heat": null,
@@ -4237,13 +4326,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13730",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T15:27:32Z",
       "adoption30d": null,
       "heat": null,
@@ -4322,13 +4411,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13644",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T14:21:47Z",
       "adoption30d": null,
       "heat": null,
@@ -4412,13 +4501,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13120",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T07:15:07Z",
       "adoption30d": null,
       "heat": null,
@@ -4504,7 +4593,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13889",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [
         {
@@ -4515,7 +4604,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2610.13889",
-              "observedAt": "2026-10-12T02:01:36.425330Z",
+              "observedAt": "2026-10-12T07:40:24.929664Z",
               "rawValue": "Accepted at CIKM 2026",
               "level": "author-claim"
             }
@@ -4525,7 +4614,7 @@
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T17:38:11Z",
       "adoption30d": null,
       "heat": null,
@@ -4606,7 +4695,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13811",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [
         {
@@ -4617,7 +4706,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2610.13811",
-              "observedAt": "2026-10-12T02:01:36.425330Z",
+              "observedAt": "2026-10-12T07:40:24.929664Z",
               "rawValue": "Accepted at the 2026 IEEE 2nd International Conference on Quantum Artificial Intelligence (QAI), 2026",
               "level": "author-claim"
             }
@@ -4627,7 +4716,7 @@
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T16:23:46Z",
       "adoption30d": null,
       "heat": null,
@@ -4714,13 +4803,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/Maverick03511/prepqc-exploitation-benchmarks",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T00:00:11.000Z",
       "adoption30d": null,
       "heat": null,
@@ -4803,13 +4892,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13790",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T16:04:54Z",
       "adoption30d": null,
       "heat": null,
@@ -4892,13 +4981,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13050",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T06:05:01Z",
       "adoption30d": null,
       "heat": null,
@@ -4982,13 +5071,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13829",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T16:37:39Z",
       "adoption30d": null,
       "heat": null,
@@ -5075,13 +5164,13 @@
         "evidenceUrl": "https://github.com/sudiptadeb/linfer-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T14:22:15Z",
       "adoption30d": null,
       "heat": null,
@@ -5163,13 +5252,13 @@
         "evidenceUrl": "https://github.com/Chislo/L-AIPI-Dataset",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T06:17:48Z",
       "adoption30d": null,
       "heat": null,
@@ -5254,13 +5343,13 @@
         "evidenceUrl": "https://github.com/colerehbein/free-lane-bench",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T02:46:35Z",
       "adoption30d": null,
       "heat": null,
@@ -5344,13 +5433,13 @@
         "evidenceUrl": "https://github.com/fpga-professional-association/fpga-vendor-ai-tooling-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-10T02:20:01Z",
       "adoption30d": null,
       "heat": null,
@@ -5432,13 +5521,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.12998",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T05:03:18Z",
       "adoption30d": null,
       "heat": null,
@@ -5523,13 +5612,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13316",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T09:58:10Z",
       "adoption30d": null,
       "heat": null,
@@ -5610,13 +5699,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/SaylorTwift/decision-model-benchmark-usage",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T10:47:28.000Z",
       "adoption30d": null,
       "heat": null,
@@ -5702,13 +5791,13 @@
         "evidenceUrl": "https://github.com/markhabaerzhan/cot-monitor-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-12T00:27:56Z",
       "adoption30d": null,
       "heat": null,
@@ -5789,13 +5878,13 @@
         "evidenceUrl": "https://huggingface.co/datasets/Squadstack/conversational-streaming-asr-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T17:15:01.000Z",
       "adoption30d": null,
       "heat": null,
@@ -5819,7 +5908,7 @@
         "categories": [],
         "publicSignals": {
           "hfDatasetDownloads": 64,
-          "hfDatasetLikes": 1
+          "hfDatasetLikes": 2
         }
       },
       "evidence": {
@@ -5880,7 +5969,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13057",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [
         {
@@ -5891,7 +5980,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2610.13057",
-              "observedAt": "2026-10-12T02:01:36.425330Z",
+              "observedAt": "2026-10-12T07:40:24.929664Z",
               "rawValue": "accepted to NeurIPS'26 workshops on Trustworthy AI For Good (AI4GOOD) and Trustworthy AI Evaluations (TAE)",
               "level": "author-claim"
             }
@@ -5901,7 +5990,7 @@
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T06:11:12Z",
       "adoption30d": null,
       "heat": null,
@@ -5991,13 +6080,13 @@
         "evidenceUrl": "https://github.com/Naveed-AliAbid/carrageenan-ml-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T15:46:28Z",
       "adoption30d": null,
       "heat": null,
@@ -6081,13 +6170,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13862",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T17:08:45Z",
       "adoption30d": null,
       "heat": null,
@@ -6171,13 +6260,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13607",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T13:55:00Z",
       "adoption30d": null,
       "heat": null,
@@ -6262,13 +6351,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13643",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T14:21:41Z",
       "adoption30d": null,
       "heat": null,
@@ -6355,13 +6444,13 @@
         "evidenceUrl": "https://github.com/atharva-729/AI-music-detection-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T17:50:46Z",
       "adoption30d": null,
       "heat": null,
@@ -6445,13 +6534,13 @@
         "evidenceUrl": "https://github.com/Talha22223/Ai-agent-guardrail-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-09T18:11:42Z",
       "adoption30d": null,
       "heat": null,
@@ -6537,13 +6626,13 @@
         "evidenceUrl": "https://github.com/jackal195/agent-pic-benchmark",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T02:44:36Z",
       "adoption30d": null,
       "heat": null,
@@ -6624,13 +6713,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13184",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T08:08:42Z",
       "adoption30d": null,
       "heat": null,
@@ -6713,13 +6802,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2610.13703",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:36.425330Z"
+        "verifiedAt": "2026-10-12T07:40:24.929664Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:36.425330Z",
+      "indexedAt": "2026-10-12T07:40:24.929664Z",
       "sourceUpdatedAt": "2026-10-09T14:59:24Z",
       "adoption30d": null,
       "heat": null,
@@ -6800,13 +6889,13 @@
         "evidenceUrl": "https://github.com/VictorBezak-4Minds/4minds-benchmark-pipeline",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-12T02:01:38.611136Z"
+        "verifiedAt": "2026-10-12T07:40:28.534586Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-09",
       "firstSeenAt": "2026-10-12",
-      "indexedAt": "2026-10-12T02:01:38.611136Z",
+      "indexedAt": "2026-10-12T07:40:28.534586Z",
       "sourceUpdatedAt": "2026-10-11T19:33:33Z",
       "adoption30d": null,
       "heat": null,
@@ -104111,6 +104200,11 @@
           "type": "github",
           "id": "github:flybfree/aibenchmarking",
           "url": "https://github.com/flybfree/AIBenchmarking"
+        },
+        {
+          "type": "github",
+          "id": "github:slangy0-afk/carroll-benchmark",
+          "url": "https://github.com/Slangy0-AFK/Carroll-Benchmark"
         }
       ]
     },
@@ -254346,9 +254440,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-10-12T02:02:28.276403Z",
+    "evaluatedAt": "2026-10-12T07:41:16.146970Z",
     "publishThreshold": 0.85,
     "promoted": 19,
-    "remainingForAudit": 2778
+    "remainingForAudit": 2779
   }
 }
