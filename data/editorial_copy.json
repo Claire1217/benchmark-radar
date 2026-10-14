@@ -75475,26 +75475,26 @@
     },
     "2610.15425": {
       "evaluationEvidence": {
-        "task": "19 compositional tasks across full_inst, oracle_hse, ordered_hse tracks requiring skill recombination without combined-skill training trajectories",
-        "scoring": "Primary metric sr_ordered (ordered success) plus transition conversion, with runs writing summary.json and summary.md",
-        "reuse": "Public GitHub repository with run_split.py, spec files, policy adapters for Motus and pi05, and documented CLI evaluation commands"
+        "task": "Benchmark tasks: 19 compositional tasks for skill recombination in embodied manipulation, with tracks full_inst, oracle_hse, ordered_hse.",
+        "scoring": "Primary metric is ordered success (sr_ordered), with metrics for ordered success and transition conversion across subtask boundaries.",
+        "reuse": "The evaluation runtime is available at https://github.com/AutoLab-SAI-SJTU/RoboCombine, allowing external teams to run the benchmark with supported policies."
       },
       "evaluationEvidenceVerified": false,
       "decision": "publish",
       "canonicalName": "RoboCombine",
       "canonicalNameSource": "abstract",
       "canonicalNameEvidence": "We introduce RoboCombine, a benchmark for skill recombination without combined skill training trajectories",
-      "benchmarkMode": "public_reusable",
+      "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates compositional robot manipulation through 19 tasks that require chaining atomic skills without demonstrations of combined skills, using full instruction, oracle hierarchical subtask execution, and ordered hierarchical subtask execution tracks.",
-      "whyItMatters": "It isolates skill recombination failures that atomic-task scores miss, especially the start state gap at subtask handoffs, helping improve long-horizon manipulation policies.",
-      "decisionReason": "The benchmark names 19 tasks, tracks, metrics, and provides executable evaluation code and public run commands, making it reusable by other teams.",
+      "description": "A benchmark for skill recombination in embodied manipulation without combined skill training trajectories, consisting of 19 compositional tasks with evaluation tracks for different skill execution paradigms.",
+      "whyItMatters": "Addresses the under-explored challenge of combinatorial generalization in robotics, providing a controlled testbed to diagnose and improve compositional manipulation.",
+      "decisionReason": "The benchmark is formally named, released with evaluation code, and includes a clear scoring metric, enabling external evaluation.",
       "attentionForecast": {
-        "score": 30,
-        "confidence": "Low",
+        "score": 60,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Specialized robotics benchmark with public code but narrow community and no social signal yet, likely to draw moderate early interest."
+        "reason": "The benchmark tackles a foundational problem in robot learning and is accompanied by code, likely to draw interest from embodied AI researchers."
       },
       "publishers": [
         {
@@ -75506,9 +75506,9 @@
       ],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-09-09.1",
-      "generatedAt": "2026-10-14T01:35:12.807072Z",
-      "inputHash": "a65deef4a9248dde9975a7e70565be7da4203441b3aaedaad5dba8c8faf9415b",
-      "selectionFingerprint": "dd7ce5195111b6bc1f4da7f7f2c8649db7d35d83988407737c56ca4d3bb0295d"
+      "generatedAt": "2026-10-14T09:41:23.144327Z",
+      "inputHash": "af14e2c8f3fe661aec3ae8da43569e82fdc8570c402ca56acdb2f4bbfa320dde",
+      "selectionFingerprint": "b6244ce3ad09bb88cc3b2e84eac6ff21cd9839874cf1c707828e737d8fc68596"
     },
     "2610.15277": {
       "evaluationEvidence": {
@@ -75572,30 +75572,30 @@
     },
     "2610.15562": {
       "evaluationEvidence": {
-        "task": "Image-to-video models generate causal cascades in simulator-grounded Blender scenes; evaluation covers motion agreement, diagnostic VQA on event graphs, and counterfactual interventions.",
-        "scoring": "Metrics include Spatial IoU, Weighted Spatial IoU, Strict ST-IoU for motion, VQA scoring across five dimensions, and Effect/Preserve IoU for counterfactuals; scores averaged over scenes and tasks.",
-        "reuse": "Code and dataset are available at https://github.com/SJTU-DeepDeltaLab/CausalCascade; the repository provides evaluation scripts and a Hugging Face dataset for external use."
+        "task": "The benchmark evaluates causal cascade generation in image-to-video models using 50 event-rich Blender scenes with structured event graphs and counterfactual variants.",
+        "scoring": "Metrics include motion agreement (Spatial IoU, Weighted Spatial IoU, Strict ST-IoU), counterfactual Effect/Preserve scores, and diagnostic VQA across five dimensions.",
+        "reuse": "Code and dataset are available at https://github.com/SJTU-DeepDeltaLab/CausalCascade, with scripts for evaluating generated videos against the benchmark."
       },
       "evaluationEvidenceVerified": false,
       "decision": "publish",
       "canonicalName": "CausalCascade",
       "canonicalNameSource": "abstract",
-      "canonicalNameEvidence": "We introduce CausalCascade, a simulator-grounded benchmark centered on 50 event-rich Blender scenes with structured event graphs, graph-grounded diagnostic VQA, three levels of future-event specification, and 2,832 controlled counterfactual variants",
+      "canonicalNameEvidence": "We introduce CausalCascade, a simulator-grounded benchmark centered on 50 event-rich Blender scenes",
       "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "CausalCascade evaluates image-to-video models on causal cascade generation across 50 Blender scenes, using motion metrics, diagnostic VQA over event graphs, and 2,832 counterfactual variants.",
-      "whyItMatters": "It fills a gap in world-model evaluation by testing causal coherence beyond visual plausibility, useful for developing models that faithfully simulate physical dynamics and interventions.",
-      "decisionReason": "The paper introduces a named benchmark with simulator-grounded tasks, detailed metrics, and released code/data, providing a public path for external teams to run evaluations.",
+      "description": "A simulator-grounded benchmark for assessing causal cascade generation in image-to-video models through event-rich scenes, motion metrics, and diagnostic question answering.",
+      "whyItMatters": "Provides a process-level test of world modeling, focusing on causal coherence rather than visual quality alone, which is essential for advancing reliable video generation models.",
+      "decisionReason": "The benchmark is formally named, released with evaluation code and dataset, and defines clear scoring protocols for reproducible model comparison.",
       "attentionForecast": {
-        "score": 80,
+        "score": 70,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets the high-interest area of video world models and includes a full public evaluation suite, likely to draw attention from the generation-model research community."
+        "reason": "The benchmark addresses a timely challenge in evaluating video generation models for physical causality, with a comprehensive and accessible evaluation toolkit."
       },
       "publishers": [
         {
-          "name": "SJTU-DeepDeltaLab",
+          "name": "SJTU DeepDelta Lab",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/SJTU-DeepDeltaLab/CausalCascade",
           "role": "benchmark-publisher"
@@ -75603,9 +75603,9 @@
       ],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-09-09.1",
-      "generatedAt": "2026-10-14T01:35:12.807072Z",
-      "inputHash": "db80b5dba6ee5b0ae7e986f5595a5df751ce288b71c905a9b64b50c95f28bebe",
-      "selectionFingerprint": "0cb866078a48e09fb46a57f35a29bc935efbc70d20d94c4fcff01c2679535f4b"
+      "generatedAt": "2026-10-14T09:41:23.144327Z",
+      "inputHash": "9e52086dee71aba2b2344b75992c6ec698364c244a140d0f85df8900697e8fbc",
+      "selectionFingerprint": "ab72b7ebbf1a9112355e4155fed5445d21e6bc6e3cb11a8ef17674cbb74c2a4c"
     },
     "huggingface:arca-inc/reg-affairs-bench": {
       "evaluationEvidence": {
@@ -75880,6 +75880,253 @@
       "generatedAt": "2026-10-14T01:46:39.631755Z",
       "inputHash": "97e0a97938ee08c0b02d4346c1fb03e3816bc6caa22730dc60bb904ea81c9101",
       "selectionFingerprint": "55d8e9724a052a424dbb235e1171ccccf9336dcfe91eed054143fb2f625d52ab"
+    },
+    "github:hamzawamiqhq/b2b-saas-ai-visibility-benchmark-2026": {
+      "evaluationEvidence": {
+        "task": "50 real buying questions (10 per category, frozen before collection), five AI platforms",
+        "scoring": "Named = whole-word brand name, alias or domain match in the final answer text",
+        "reuse": "CC BY 4.0. Reuse freely, with credit and a link."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "The B2B SaaS AI Visibility Benchmark 2026",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "pretty_name: The B2B SaaS AI Visibility Benchmark 2026",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates which of 94 B2B SaaS brands are named by ChatGPT, Claude, Perplexity, Google Gemini and Google AI Overviews on 50 real buying questions across five G2 categories.",
+      "whyItMatters": "Measures AI answer engine visibility for B2B SaaS brands, revealing how often brands are surfaced as named recommendations during software buying research.",
+      "decisionReason": "The repository provides frozen questions, explicit naming criteria, per-brand aggregate results, and open data under CC BY 4.0, enabling other teams to reuse the benchmark.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche B2B SaaS marketing audience with clear data and methods but limited broad appeal, likely generating modest early attention."
+      },
+      "publishers": [
+        {
+          "name": "Citant",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://citant.ai/research/b2b-saas-ai-visibility-benchmark-2026/",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "053bf2b60c02a8a0aa37495cc448f9b5c81dc9ec5cc4f079ccb68c4c594daf95",
+      "selectionFingerprint": "a252224eada9bba6c34de9d5431429d6687c0ff4282d99ef8a081ba3622581e5"
+    },
+    "github:caioagiani/skillarena": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "skillarena",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "skillarena Do Claude Code skills actually help? Measure it. Benchmark AI coding agent skills, plugins and CLAUDE.md / AGENTS.md files.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluates the effect of AI coding agent skills, plugins, and CLAUDE.md/AGENTS.md files on coding agent performance using generated task suites and hidden tests.",
+      "whyItMatters": "Provides a way to measure whether AI coding skills actually improve pass rate, cost, false completion claims, and test tampering, which could help developers decide whether to use them.",
+      "decisionReason": "The README describes metrics and methodology but lacks a formally declared benchmark name. No clear public leaderboard or external submission path is provided, leaving the evaluation contract unestablished.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The niche focus on AI coding skills and the absence of a formal benchmark name or public leaderboard limit immediate visibility."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "577a9b908d9550b9480ad9b7ae92bf9fdaae8516ddcfd51682291d421024c10d",
+      "selectionFingerprint": "ae7318b18c9a66514708694f20bd96ed3baf41e9f68e55f0f3bcfd8d812be5d2"
+    },
+    "github:tannerl22/frontier-ai-benchmark-lab": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "Frontier AI Benchmark Lab",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# Frontier AI Benchmark Lab",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A local Python project aggregating existing benchmark scores into a comparative index, with reproducible calculations and sensitivity analyses.",
+      "whyItMatters": "It attempts to provide a transparent aggregation method across heterogeneous LLM benchmarks, though its status as a prospective benchmark is undeveloped.",
+      "decisionReason": "The project is described as a working local prototype that reconstructs historical indices; it does not yet provide a externally usable evaluation object or public submission scoring path.",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The repository appeals mainly to methodology-focused researchers interested in benchmark aggregation, but its local prototype status limits immediate adoption."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "6a25c4cb64fa8b14c7fddc2ccfebfc23e74fd50bb31748f6ed3552efabfdb62e",
+      "selectionFingerprint": "40c93e050be5e2a584cbeead4c857fef229c1c61f6a6042adee95777f36c5279"
+    },
+    "huggingface:voidmatcha/e2e-skills-benchmarks": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Dataset containing raw run records for e2e-skills benchmarks, including responses and protocol artifacts.",
+      "whyItMatters": "It provides evidence artifacts for the e2e-skills repository, but the dataset itself is not a benchmark with a defined scoring contract.",
+      "decisionReason": "The dataset is explicitly described as raw run records and development-stage evidence, not as a standalone benchmark with public submission or comparison path.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The dataset serves as supporting evidence for an existing benchmark repository and is unlikely to attract independent attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "172b2ca90c419e68260b9959fe07be5dbd682b8d2a33ef0444112e1b94d123d2",
+      "selectionFingerprint": "d6900739bae278b5a650ef6180acc325c2560917aeefe85b7c9a0b379468447b"
+    },
+    "github:gohaike/decision-layer-benchmark": {
+      "evaluationEvidence": {
+        "task": "This benchmark prices that decision layer at list price under three baselines, from naive to tuned, and prices the same layer on Jev, a model that answers typed questions with calibrated probabilities and writes no text.",
+        "scoring": "100,000 requests a day for 30 days, list prices as of 12 October 2026.",
+        "reuse": "Run it The calculator is one Python file with no dependencies (Python 3.9 or later)."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "Decision Layer Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# Decision Layer Benchmark",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "A token-cost model for an AI agent's decision layer: estimating monthly spend for five decision questions across naive, cached, and tuned OpenAI, Anthropic, and Google baselines versus Jev.",
+      "whyItMatters": "Provides a public pricing protocol to compare the cost of AI decision-layer calls, showing where a typed calibrated-probability model may reduce spending without changing final replies.",
+      "decisionReason": "The repository is released with a one-file calculator, documented baselines, and official pricing sources, making it a repeatable public evaluation object for decision-layer cost.",
+      "attentionForecast": {
+        "score": 25,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The fast-developing area of cost comparisons across frontier model providers and a specialized typed-probability model gives moderate potential attention, while missing popularity signals and the developer-authored nature keep the forecast moderate."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "e867fc7b70657baf0e808658203696c226f4044fbfdf986c93ba4b1bb978d1dd",
+      "selectionFingerprint": "dd67f05e0a02c95ddb2187e68f6966fe6dbd587d0f089fe75980c8e66140e109"
+    },
+    "github:yeyuxin777/baoyan-agent-benchmark": {
+      "evaluationEvidence": {
+        "task": "The benchmark contains 70 Chinese-language tasks, 23 cases and 83 answer stages, with per-task rubrics and reference programs.",
+        "scoring": "Each task is worth 100 points. Full recommendation tasks allocate 70 points to reference-program matching and 30 to recommendation quality.",
+        "reuse": "The public dataset is available without access approval; scoring materials must be withheld from the agents being evaluated."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "Graduate Admissions Agent Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# Graduate Admissions Agent Benchmark This is 屿智同行's benchmark project for graduate admissions agents",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates Chinese-language agent products on graduate admissions advising, covering recommendation, planning, and two-stage information-update tasks with per-task rubrics.",
+      "whyItMatters": "Provides a structured benchmark for comparing complete agent configurations on real graduate admissions scenarios, including dynamic information updates that simple static Q&A benchmarks miss.",
+      "decisionReason": "The repository explicitly defines tasks, scoring rules, and public dataset access, with a leaderboard and CLI integration enabling repeated submissions.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Medium",
+        "reason": "Targets a niche but practical domain with a clear leaderboard and public dataset, likely to attract modest interest from graduate admissions agent developers.",
+        "horizon": "7d"
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:38:38.513294Z",
+      "inputHash": "3dd008b63ed8df644b52cffdcdbf483eba275bd7a3fdbbc85516dce147d2c1e7",
+      "selectionFingerprint": "1bc51224a924f569fcb55b066c63737a2bec600b93d3c6859b1280495f4f194a"
+    },
+    "2610.13412": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "TextVBench",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "TextVBench: Evaluating Text Rendering and Preservation in Video Generation",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "ArXiv paper introducing a benchmark for text rendering and preservation in video generation, with abstract stating two tracks and scoring metrics, but no public artifact available.",
+      "whyItMatters": "Addresses evaluation challenges in video generation text fidelity, but readiness is unclear without a public code or data link.",
+      "decisionReason": "No artifact evidence or direct URL to code, data, or leaderboard is supplied; cannot confirm a public reusable path or stable scoring contract.",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Text rendering in video generation is a current topic, but the absence of supplied public artifacts is expected to limit attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:41:23.144327Z",
+      "inputHash": "eaa34c752ea71e32cd444edd55742bc1209c926ef7c4ef534719e598504f76c4",
+      "selectionFingerprint": "2b154a03f76e484e0666945d146893b3da19dc559a9994facbdff270e8545f12"
+    },
+    "2610.13626": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "SWE-DeceptionBench",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "SWE-DeceptionBench: Benchmarking Deceptive Behaviors of LLMs Across the Software Development Lifecycle",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "ArXiv paper introducing a benchmark for deceptive behaviors of LLMs across the software development lifecycle, with abstract stating tasks and results, but no public artifact available.",
+      "whyItMatters": "Addresses trustworthiness of LLMs in software engineering, with potential relevance for safety-critical applications.",
+      "decisionReason": "No artifact evidence or direct URL to code, data, or leaderboard is supplied; cannot confirm a public reusable path or stable scoring contract.",
+      "attentionForecast": {
+        "score": 48,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "LLM deception in software engineering is a timely topic, but the lack of supplied public artifacts likely reduces immediate traction."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-14T09:41:23.144327Z",
+      "inputHash": "96ef3674eccd295fa0a6c40cfc0e10042adf7cb705ab98ece8dca74b4d35f8a0",
+      "selectionFingerprint": "13b6f472fa25135ac50a781f21602a7c9e99683bd861418cb2b948c520c66513"
     }
   }
 }
