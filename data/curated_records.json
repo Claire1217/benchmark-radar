@@ -216,7 +216,7 @@
       "name": "Visual Sanad",
       "paperTitle": "Visual Sanad: Auditing Vision-Language Models for False Acceptance of Qur'anic Citations",
       "aliases": [],
-      "oneLine": "Evaluates vision-language models on false acceptance of incorrect Qur'anic verse attributions across rendered image conditions.",
+      "oneLine": "Evaluates whether vision-language models incorrectly accept Qur'anic verse citations when images vary in visual framing, using 2,400 rendered images from 100 verses and six visual conditions.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -304,20 +304,20 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates vision-language models on false acceptance of incorrect Qur'anic verse attributions across rendered image conditions.",
-      "whyItMatters": "Provides a culturally grounded test for multimodal factuality and citation verification, exposing over-trust in displayed religious citations.",
+      "description": "Evaluates whether vision-language models incorrectly accept Qur'anic verse citations when images vary in visual framing, using 2,400 rendered images from 100 verses and six visual conditions.",
+      "whyItMatters": "Supplies a culturally grounded multimodal factuality test that reveals over-trust in authoritative-looking religious text, informing safer use of VLMs for citation verification.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
+        "score": 35,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "NeurIPS workshop acceptance and culturally sensitive multimodal factuality scope may attract moderate initial interest."
+        "reason": "The culturally specific task and audit framing could attract attention from factuality and safety researchers, but the benchmark's specialized scope limits mass appeal."
       },
       "publishers": [
         {
-          "name": "Muslims in Machine Learning Workshop",
-          "organizationType": "benchmark-organization",
-          "sourceUrl": "https://arxiv.org/abs/2610.22009",
+          "name": "Niaz Mohaiman Abtahi, Reyana Shahid, Evan Maksud",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/NiazTahi/Visual-Sanad",
           "role": "benchmark-publisher"
         }
       ],
@@ -325,16 +325,21 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "The benchmark contains 2,400 rendered images built from 100 English Qur'an verses, four factual states per verse, and six visual conditions ranging from plain text to decorative and authority-framed layouts.",
-          "scoring": "Code includes inference, scoring, statistical testing, pruning, and plotting utilities; statistical tests are paired at the example level where appropriate.",
-          "reuse": "Code: https://github.com/NiazTahi/Visual-Sanad; the repository includes prompt templates, model runners, and analysis scripts."
+          "task": "VLMs are tested on whether they falsely accept incorrect Qur'anic verse attributions when rendered under different visual framings, using 2,400 images built from 100 verses, four factual states, and six visual conditions.",
+          "scoring": "Model responses are binarized into VALID/INVALID decisions, and false acceptance rate and discrimination ability are reported across prompt conditions and model families.",
+          "reuse": "The GitHub repository provides prompts, inference scripts, scoring, statistical tests, and plotting utilities, enabling other teams to run the benchmark."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T06:05:34.869714Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released controlled benchmark with task inputs, scoring scripts, and public code for reuse.",
-        "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce Visual Sanad, a controlled benchmark for testing whether VLMs falsely accept incorrect Qur'anic verse attributions"
+        "decisionReason": "The paper and repository describe a controlled, human-audited image set with a clear scoring protocol and reproducible scripts; it is a reusable benchmark for VLM citation verification.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "Visual Sanad: Auditing Vision-Language Models for False Acceptance of Qur'anic Citations"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-16T06:05:34.869714Z",
+        "inputHash": "9251b77ebd744342c5cb95fd867457688cb74616437388530a3e0f8d33e56b5c"
       }
     },
     {
@@ -1109,7 +1114,7 @@
       "aliases": [
         "PremiseCheck: Efficient Fact-Checking of Human and AI Peer Reviews"
       ],
-      "oneLine": "Evaluates detection of factual errors in human and AI peer review comments across NLP, machine learning, and natural sciences, measuring accuracy, cost, and latency.",
+      "oneLine": "Benchmark of expert-labeled factual errors in peer review comments across NLP, ML, and natural sciences, with cost and latency metrics alongside accuracy.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1189,18 +1194,18 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates detection of factual errors in human and AI peer review comments across NLP, machine learning, and natural sciences, measuring accuracy, cost, and latency.",
-      "whyItMatters": "Provides a standardized way to assess fact-checking systems for peer review comments, enabling comparison of accuracy and efficiency across domains.",
+      "description": "Benchmark of expert-labeled factual errors in peer review comments across NLP, ML, and natural sciences, with cost and latency metrics alongside accuracy.",
+      "whyItMatters": "Provides a common definition and measurement for fact-checking peer review comments, enabling fair comparison and cost-aware evaluation of verification systems.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
+        "score": 30,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a practical issue in peer review and releases code and datasets, likely to attract moderate attention from NLP and machine learning researchers."
+        "reason": "Addresses timely peer-review quality concerns with a multi-field dataset and cost-latency focus, appealing to researchers in scholarly NLP and evaluation efficiency."
       },
       "publishers": [
         {
-          "name": "OpenLAIR",
+          "name": "Lehigh University",
           "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/OpenLAIR/PremiseCheck",
           "role": "benchmark-publisher"
@@ -1210,16 +1215,21 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Labels factual errors in peer review comments across NLP, machine learning, and natural sciences, with comments from expert-annotated datasets.",
-          "scoring": "Measures AUROC for error detection, cost, and latency, with paired paper-bootstrap comparisons.",
-          "reuse": "The code and ReviewFact benchmark are released on GitHub and Hugging Face, with instructions for downloading datasets and reproduction."
+          "task": "Labels factual errors in peer-review comments about papers across three fields; includes 6,466 NLP comments, 216 ML comments, and 2,585 natural-science comments with error labels.",
+          "scoring": "Comments are scored as error_score or AUROC, with higher scores indicating factual error; the framework defines per-field scoring protocols and baseline references.",
+          "reuse": "Released dataset on Hugging Face (NLP and natural-science), rebuild script for ML part, and a Python package with CLI for scoring and evaluation; code and benchmark are released for other teams."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T00:59:48.820597Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear task, scoring rules, and released datasets and code for replication.",
+        "decisionReason": "The paper and repository reveal a released benchmark with public data, explicit scoring metrics, and reproducible code, making it a reusable evaluation object.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce ReviewFact, a benchmark that labels such factual errors in review comments under one definition across NLP, machine learning, and the natural sciences, and that measures cost and latency alongside accuracy."
+        "canonicalNameEvidence": "We introduce ReviewFact, a benchmark that labels such factual errors in review comments under one definition across NLP, machine learning, and the natural sciences"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-16T00:59:48.820597Z",
+        "inputHash": "c01b48037feefb49bd05bc9f14f8ae8ef8c2dc774dc6fef7c2fe9de6ff1e4aa1"
       }
     },
     {
@@ -1626,18 +1636,18 @@
         "horizon": "7d",
         "reason": "The benchmark targets a specialized analog IC design audience, and the paper's explicit release of dataset and evaluation code likely attracts moderate attention within that community."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "On top of this data we define six benchmark tasks with precise protocols: inverse sizing, topology selection, sub-circuit classification, structural circuit generation, Pareto-membership prediction, and multi-objective optimization.",
           "scoring": "The dataset, ground-truth annotations, and reference implementations of the metric-defining routines are released under an open license, enabling reproducible and directly comparable evaluation across heterogeneous analog design automation methods.",
           "reuse": "The dataset, ground-truth annotations, and reference implementations of the metric-defining routines are released under an open license, enabling reproducible and directly comparable evaluation across heterogeneous analog design automation methods."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T06:05:34.869714Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper defines six benchmark tasks with precise protocols and releases dataset, annotations, and metric implementations under an open license, providing a clear public path for reproducible evaluation.",
+        "decisionReason": "The paper describes a large open dataset and benchmark suite, but no code or data link is provided in the supplied evidence; artifacts are unreleased or unverifiable.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "LOADBench: A Large Open Analog Dataset and Benchmark for Machine Learning in IC Design"
       }
@@ -1770,7 +1780,7 @@
       "name": "LinguaGuardBench",
       "paperTitle": "Language Is a Security Surface for Agent Guards",
       "aliases": [],
-      "oneLine": "Evaluates step-level agent guards on language robustness by translating user instructions into five languages and measuring verdict changes across 19 guards.",
+      "oneLine": "LinguaGuardBench evaluates agent step-level safety guard consistency across five translated languages using fixed tool calls and labels.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1859,29 +1869,34 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates step-level agent guards on language robustness by translating user instructions into five languages and measuring verdict changes across 19 guards.",
-      "whyItMatters": "Quantifies a previously overlooked multilingual security gap in agent guards, providing a controlled testbed to compare guard sensitivity to non-English requests.",
+      "description": "LinguaGuardBench evaluates agent step-level safety guard consistency across five translated languages using fixed tool calls and labels.",
+      "whyItMatters": "It isolates language-induced guard instability and reveals sensitivity concentrated in smaller and purpose-built models.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 55,
+        "score": 45,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The NeurIPS workshop acceptance and the timely focus on multilingual safety for agent guards should attract attention from researchers working on LLM security."
+        "reason": "The benchmark addresses multilingual guard robustness with a novel controlled translation design and includes a broad model comparison, though its specialized agent safety focus limits broader appeal."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "We build LinguaGuardBench from the 1,220 labelled steps of TS-Bench AgentDojo-Traj: we translate only the user instruction into German, French, Turkish, Swahili and Amharic, and keep every tool call, observation and label byte-identical, so any change in a verdict is attributable to language alone.",
-          "scoring": "Across 19 guards, from frontier APIs to 4B open models and four purpose-built agent guards, most open, small and purpose-built guards change verdicts under translation beyond their own noise floor",
+          "task": "Step-level guard verdicts on translated user instructions across German, French, Turkish, Swahili and Amharic, built from 1,220 labelled steps of TS-Bench AgentDojo-Traj.",
+          "scoring": "Flip rates and false positive/recall changes relative to English controls, measured across 19 guards with three runs each.",
           "reuse": "We release the benchmark and all 489k verdicts."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T06:05:34.869714Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark is released with all verdicts, and the methodology isolates language effects via translations and controls, enabling direct reuse for guard evaluation.",
+        "decisionReason": "The abstract names LinguaGuardBench, describes a concrete task suite with scoring metrics, and states the benchmark and verdicts are released.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We build LinguaGuardBench from the 1,220 labelled steps of TS-Bench AgentDojo-Traj"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-16T06:05:34.869714Z",
+        "inputHash": "c65648c2398aea7573d7cc540e87d75061d74ef968ce089e6cf68474e2a5928f"
       }
     },
     {
@@ -2211,7 +2226,7 @@
       "aliases": [
         "In the Guise of Correction: How Framing and Cultural Adaptation Erode LLM Safety on Real-World Criminal Cases"
       ],
-      "oneLine": "Evaluates LLM safety on real-world criminal-assistance scenarios across framings and cultures using harmfulness and operational uplift metrics.",
+      "oneLine": "GUISE evaluates LLM safety on real-world criminal cases across linguistic framings and cultural adaptations.",
       "area": "Safety & Trustworthiness",
       "applicationDomains": [
         "General AI"
@@ -2289,29 +2304,34 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates LLM safety on real-world criminal-assistance scenarios across framings and cultures using harmfulness and operational uplift metrics.",
-      "whyItMatters": "Provides a more grounded multilingual and cross-cultural safety benchmark that reveals how framing and cultural adaptation erode model safety.",
+      "description": "GUISE evaluates LLM safety on real-world criminal cases across linguistic framings and cultural adaptations.",
+      "whyItMatters": "It provides grounded diagnostics revealing that framing and cultural adaptation significantly erode refusal alignment beyond translation-only tests.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 52,
+        "score": 50,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark's focus on severe crime categories and multilingual safety may attract attention from both safety researchers and policy-oriented ML groups."
+        "reason": "The benchmark offers a real-world grounded resource for culturally adapted safety testing, a high-interest area, but the severe crime domain may limit widespread adoption."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Each scenario is rendered under three linguistic framings and evaluated across five distinct cultures.",
-          "scoring": "Using our proposed two-tier evaluation framework, which judges both harmfulness and operational uplift",
+          "task": "Criminal-assistance scenarios sourced from real-world cases, rendered under three linguistic framings and evaluated across five cultures.",
+          "scoring": "Two-tier evaluation framework judging harmfulness and operational uplift; mean unsafe compliance rates reported with significance tests.",
           "reuse": "We publish our code and data to facilitate future research."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T06:05:34.869714Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper explicitly states code and data are published, and it defines a clear two-tier evaluation framework, enabling external teams to run the benchmark.",
+        "decisionReason": "GUISE is explicitly introduced as a benchmark with a defined taxonomy and evaluation framework, and code and data are published.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce GUISE, a benchmark of criminal-assistance scenarios sourced from real-world cases"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-16T06:05:34.869714Z",
+        "inputHash": "10a10e0379a7e07dbab7753ddb529f0939cc04d10ceffe6af244d5000cc91e91"
       }
     },
     {
@@ -2406,18 +2426,18 @@
         "horizon": "7d",
         "reason": "A practical local LLM benchmarking tool with a polished TUI may appeal to hobbyists and developers, though it is not a scientific benchmark."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "runs a curated quality suite, measures **tokens/sec**, **time-to-first-token**, and **memory footprint** on *your actual machine*",
           "scoring": "Each task is graded deterministically (exact numeric match, multiple-choice letter, substring, valid-JSON, regex).",
           "reuse": "```bash pip install homebench homebench ```"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-16T06:05:34.869714Z",
+        "reviewedAt": "2026-10-16T09:13:26.351768Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The tool is installable via PyPI and includes explicit scoring methods for quality and performance metrics, enabling self-service benchmark runs.",
+        "decisionReason": "The README explicitly states 'not a rigorous benchmark of record' and lacks a fixed external comparison protocol or released task suite, so it does not meet the stable scoring contract requirement.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# homebench **Benchmark the local LLMs you already have: speed, memory, *and* quality — as a live terminal leaderboard.**"
       }
@@ -3839,6 +3859,113 @@
           "role": "benchmark-publisher"
         }
       ]
+    },
+    {
+      "id": "bm_textrenderbench-zh_c9329477",
+      "familyId": "bmf_4adb4b150537",
+      "name": "TextRenderBench-ZH",
+      "paperTitle": "TextVerifier: Seeing Beyond Recognition to Verify Chinese Text Rendering",
+      "aliases": [],
+      "oneLine": "Per-character benchmark evaluating correctness of Chinese text rendering in generated images, with annotated crops for 7,358 characters.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.19551",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-16T06:04:54.637217Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-14",
+      "firstSeenAt": "2026-10-16",
+      "indexedAt": "2026-10-16T06:04:54.637217Z",
+      "sourceUpdatedAt": "2026-10-14T04:07:15Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.85,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.19551",
+        "paper": "https://arxiv.org/abs/2610.19551",
+        "pdf": "https://arxiv.org/pdf/2610.19551",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Text-to-image models increasingly generate readable Chinese text that still contains local rendering defects, such as a character with an extra or missing stroke or a malformed component.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.19551",
+        "url": "https://arxiv.org/abs/2610.19551",
+        "title": "TextVerifier: Seeing Beyond Recognition to Verify Chinese Text Rendering",
+        "authors": [
+          "Yiyang Chen",
+          "Guo-Hua Wang",
+          "Yaoli Liu",
+          "Qing-Guo Chen",
+          "Zhao Xu",
+          "Weihua Luo",
+          "Xiujun Ma"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "To evaluate this ability we build TEXTRENDERBENCH-ZH, the first per-character benchmark for generated Chinese text, annotating position, identity, and correctness for 7,358 characters.",
+        "reasonCodes": [
+          "exact named benchmark artifact released in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Per-character benchmark evaluating correctness of Chinese text rendering in generated images, with annotated crops for 7,358 characters.",
+      "whyItMatters": "OCR and VLMs are invariant to structural rendering errors, so this benchmark enables targeted verification of fine-grained character fidelity in text-to-image models.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a niche but increasingly important problem in Chinese text-to-image generation and is accompanied by a strong result (F1 0.844), likely to attract moderate attention from researchers in the field."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Given a target character and an image crop, decide whether the crop is a correct rendering of that character.",
+          "scoring": "Characters are annotated for position, identity, and correctness; evaluation uses F1 score.",
+          "reuse": "The abstract states the benchmark is built with annotations for 7,358 characters, implying a usable dataset, but no explicit public link is provided."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-16T09:09:51.762636Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The abstract describes a concrete benchmark with 7,358 annotated characters and defines a clear per-character evaluation task and scoring metric (F1), indicating a reusable testbed even without an explicit artifact link.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "To evaluate this ability we build TEXTRENDERBENCH-ZH, the first per-character benchmark for generated Chinese text"
+      }
     },
     {
       "id": "bm_ruletrek-benchmarking-agentic-rule-reasoni_73de238d",
