@@ -123,7 +123,7 @@
       "name": "benchmark-payment-delegation",
       "paperTitle": "benchmark-payment-delegation",
       "aliases": [],
-      "oneLine": "Evaluates agents with delegated payment cards on spending caps, merchant allowlists, refund windows, and dispute policy in synthetic ledger environments.",
+      "oneLine": "Evaluates whether an AI agent with a delegated payment card respects spending caps, merchant allowlists, refund windows, and dispute policies while completing purchase goals using a ledger simulator.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -209,14 +209,14 @@
           "url": "https://huggingface.co/datasets/pooria/benchmark-payment-delegation"
         }
       ],
-      "description": "Evaluates agents with delegated payment cards on spending caps, merchant allowlists, refund windows, and dispute policy in synthetic ledger environments.",
-      "whyItMatters": "Focuses on financial policy adherence for agentic commerce, with deterministic policy-engine grading.",
+      "description": "Evaluates whether an AI agent with a delegated payment card respects spending caps, merchant allowlists, refund windows, and dispute policies while completing purchase goals using a ledger simulator.",
+      "whyItMatters": "Tests agent compliance with financial constraints in delegated payment scenarios, where policy violations can lead to unauthorized spending.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 42,
-        "confidence": "Medium",
-        "reason": "Commercial safety angle may draw practical interest, but no public leaderboard yet.",
-        "horizon": "7d"
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche agent-payment policy benchmark with synthetic data and limited promotion, likely to attract modest interest from AI safety and agent evaluation researchers."
       },
       "publishers": [
         {
@@ -232,14 +232,19 @@
         "evaluationEvidence": {
           "task": "Forty episode tasks use a ledger simulator (`get_balance`, `search_merchants`, `purchase`, `refund`, `dispute`, `ask_owner`).",
           "scoring": "Scores are 0–1 per task (mean plus bootstrap 95% CI). Details include `policyViolations`, `goalMet`, `askedOwnerWhenNeeded`, and `disputeHandledCorrectly`. Any cap or allowlist breach zeros the task.",
-          "reuse": "npx benchmark-payment-delegation run --provider mock --model offline"
+          "reuse": "```bash npx benchmark-payment-delegation run --provider mock --model offline ```"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-17T01:01:16.546182Z",
+        "reviewedAt": "2026-10-17T08:44:54.650599Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Public tasks and scoring, CLI/SDK for external runs, and mock provider demonstrate viability.",
+        "decisionReason": "Official README defines the benchmark, provides task data, deterministic scoring rules, and public execution via CLI/npm, satisfying publish criteria.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "# benchmark-payment-delegation"
+        "canonicalNameEvidence": "benchmark-payment-delegation measures whether an agent with a delegated card respects spending caps, merchant allowlists, refund windows, and dispute policy while completing purchase goals."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-17T01:01:16.546182Z",
+        "inputHash": "1bc431630c42c0f3d06519322900b8fdb60a042d637359e09a0629d6378cc95c"
       }
     },
     {
