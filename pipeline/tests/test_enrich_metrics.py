@@ -22,6 +22,38 @@ from enrich_metrics import (
 
 
 class MetricTests(unittest.TestCase):
+    @patch("enrich_metrics.closest_history", return_value=None)
+    @patch("enrich_metrics.get_json", side_effect=AssertionError("offline rerank must not fetch"))
+    def test_known_rerank_updates_whole_window_without_rewriting_observations(self, _fetch, _history):
+        records = [
+            {"id": key, "releasedAt": released, "links": {},
+             "attention": {"asOf": "2026-10-05", "githubStars": stars,
+                           "githubScope": "benchmark_repo", "hfPaperUpvotes": votes},
+             "ranking": {"today": {"score": 12}, "90d": {"score": 99, "rank": 1}}}
+            for key, released, stars, votes in [
+                ("expired", "2026-07-10", 10000, 1000),
+                ("existing", "2026-08-18", 300, 50),
+                ("newcomer", "2026-10-10", 1000, 2),
+            ]
+        ]
+        del records[2]["ranking"]["90d"]
+        observations = json.dumps([r["attention"] for r in records], sort_keys=True)
+        payload = {"manifest": {"dataAsOf": "2026-10-17",
+                                "metrics": {"observedAt": "2026-10-05T00:00:00Z"}},
+                   "records": records}
+        enrich_metrics.rerank_known(payload)
+        self.assertNotIn("90d", records[0]["ranking"])
+        self.assertEqual(records[2]["ranking"]["90d"]["rank"], 1)
+        self.assertEqual(records[1]["ranking"]["90d"]["rank"], 2)
+        self.assertEqual(records[2]["ranking"]["90d"]["level"]["components"]["githubStars"]["normalized"], 1)
+        self.assertEqual(json.dumps([r["attention"] for r in records], sort_keys=True), observations)
+        self.assertTrue(all(r["ranking"]["today"] == {"score": 12} for r in records))
+        self.assertEqual(payload["manifest"]["metrics"]["observedAt"], "2026-10-05T00:00:00Z")
+        self.assertEqual(payload["manifest"]["metrics"]["rankedAsOf"], "2026-10-17")
+        once = json.dumps(payload, sort_keys=True)
+        enrich_metrics.rerank_known(payload)
+        self.assertEqual(json.dumps(payload, sort_keys=True), once)
+
     def test_today_refresh_fills_missing_history_without_refetching_existing_history(self):
         from contextlib import ExitStack
         from argparse import Namespace
@@ -94,8 +126,8 @@ class MetricTests(unittest.TestCase):
     def test_attention_uses_fixed_signal_weights_with_neutral_missing_prior(self) -> None:
         self.assertEqual(enrich_metrics.WINDOW_WEIGHTS, {
             "today": {"hfPaperUpvotes": 0.45, "githubStars": 0.25, "hfDatasetDownloads": 0.05},
-            "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
-            "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
+            "30d": {"hfPaperUpvotes": 0.20, "githubStars": 0.6286, "hfDatasetDownloads": 0.1714},
+            "90d": {"hfPaperUpvotes": 0.05, "githubStars": 0.6147, "hfDatasetDownloads": 0.3353},
         })
         self.assertEqual(enrich_metrics.TODAY_FORECAST_BONUS_WEIGHT, 0.25)
         weights = enrich_metrics.WINDOW_WEIGHTS["today"]
@@ -211,7 +243,7 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(popular["rank"], 1)
         self.assertEqual(popular["confidence"], "Low")
         self.assertEqual(popular["components"]["githubStars"]["value"], 119)
-        self.assertEqual(popular["score"], 78)
+        self.assertEqual(popular["score"], 81)
 
     @patch("enrich_metrics.closest_history", return_value=None)
     def test_window_log_normalization_does_not_reverse_larger_hf_vote_count(self, _history) -> None:

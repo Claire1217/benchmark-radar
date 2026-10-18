@@ -30,13 +30,14 @@ DATA_PATH = ROOT / "data" / "benchmarks.json"
 OVERRIDES_PATH = ROOT / "data" / "curated_overrides.json"
 METRICS_DIR = ROOT / "data" / "metrics"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
-METHOD_VERSION = "attention-ranking-v13"
+METHOD_VERSION = "attention-ranking-v14"
 MISSING_SIGNAL_PRIOR = 0.50
 WINDOW_DAYS = {"today": 0, "30d": 30, "90d": 90}
 WINDOW_WEIGHTS = {
     "today": {"hfPaperUpvotes": 0.45, "githubStars": 0.25, "hfDatasetDownloads": 0.05},
-    "30d": {"hfPaperUpvotes": 0.30, "githubStars": 0.55, "hfDatasetDownloads": 0.15},
-    "90d": {"hfPaperUpvotes": 0.15, "githubStars": 0.55, "hfDatasetDownloads": 0.30},
+    # Preserve the previous stars:downloads ratio, rounded to 0.01 percentage points.
+    "30d": {"hfPaperUpvotes": 0.20, "githubStars": 0.6286, "hfDatasetDownloads": 0.1714},
+    "90d": {"hfPaperUpvotes": 0.05, "githubStars": 0.6147, "hfDatasetDownloads": 0.3353},
 }
 TODAY_FORECAST_BONUS_WEIGHT = 0.25
 TRACKED_SIGNALS = ("hfPaperUpvotes", "githubStars", "hfDatasetDownloads", "hfDatasetLikes")
@@ -583,11 +584,34 @@ def rank_records(
             record["ranking"][window]["datasetRankPopulation"] = len(datasets)
 
 
+def rerank_known(payload: dict[str, Any]) -> None:
+    """Rebuild longer windows from known observations without claiming a new fetch."""
+    records = payload.get("records", [])
+    manifest = payload["manifest"]
+    as_of = date.fromisoformat(manifest["dataAsOf"])
+    batch = effective_latest_batch(
+        records, as_of.isoformat(), (manifest.get("run") or {}).get("sourceWindow"),
+        manifest.get("latestReportDate") or manifest.get("latestSourceDate"),
+    )
+    raw = {record["id"]: record.get("attention") or {} for record in records}
+    rank_records(records, raw, as_of, batch["to"], batch["from"], windows=("30d", "90d"))
+    manifest.setdefault("metrics", {}).update({
+        "methodVersion": METHOD_VERSION,
+        "rankedAsOf": as_of.isoformat(),
+        "rankingSource": "latest-known-record-observations",
+        "rankingNote": "30/90-day windows recomputed offline. Observation dates and missing signals are preserved; this is not a signal refresh.",
+    })
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Snapshot HF/GitHub attention signals and rank benchmarks.")
     parser.add_argument("--date", help="Observation date in YYYY-MM-DD; defaults to manifest dataAsOf.")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--github-limit", type=int, default=50)
+    parser.add_argument(
+        "--rerank-known", action="store_true",
+        help="Rebuild 30/90-day windows from known record observations without network access or a new snapshot.",
+    )
     parser.add_argument(
         "--rerank-only",
         action="store_true",
@@ -620,6 +644,14 @@ def observation_mode(as_of: date, today: date, explicit_date: bool, snapshot_exi
 
 def main() -> None:
     args = parse_args()
+    if getattr(args, "rerank_known", False):
+        if args.rerank_only or args.today_only or args.date or args.only_ids:
+            raise RuntimeError("--rerank-known cannot be combined with fetch or snapshot options.")
+        payload = read_json(DATA_PATH)
+        rerank_known(payload)
+        write_json(DATA_PATH, payload)
+        print(f"reranked_known_records={len(payload.get('records', []))} method={METHOD_VERSION}")
+        return
     if args.rerank_only and args.today_only:
         raise RuntimeError("--rerank-only and --today-only cannot be combined.")
     payload = read_json(DATA_PATH)
