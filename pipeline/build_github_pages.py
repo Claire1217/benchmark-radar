@@ -10,6 +10,7 @@ import json
 import re
 from pathlib import Path
 import shutil
+import subprocess
 from xml.sax.saxutils import escape as xml_escape
 
 
@@ -96,6 +97,30 @@ def main() -> None:
     write_views(data_dir)
     page = OUTPUT / "index.html"
     html = page.read_text()
+    from site_views import bootstrap
+    radar = json.loads((data_dir / 'radar_view.json').read_text())
+    library = json.loads((data_dir / 'library_view.json').read_text())
+    initial = bootstrap(radar, library)
+    rendered = json.loads(subprocess.run(
+        ['node', str(ROOT / 'pipeline/render_home.cjs')], input=json.dumps(initial),
+        capture_output=True, text=True, check=True,
+    ).stdout)
+    for key in ('benchmark-list', 'summary', 'result-count', 'updated', 'feed-title'):
+        value = rendered[key]['innerHTML'] or rendered[key]['textContent']
+        # Replace only this element's original (empty or plain-text) content.
+        html = re.sub(r'(<(?:div|span|h2)[^>]*\bid="' + key + r'"[^>]*>).*?(</(?:div|span|h2)>)',
+                      lambda match: match[1] + value + match[2], html, count=1, flags=re.S)
+    if initial['previousDate']:
+        html = html.replace('id="load-more" class="load-more" type="button" hidden',
+                            'id="load-more" class="load-more" type="button"')
+    encoded = json.dumps(initial, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
+    html = html.replace('</body>', '<script id="radar-bootstrap" type="application/json">' + encoded + '</script></body>')
+    script = OUTPUT / 'app.js'
+    text = script.read_text()
+    for name in ('radar_view.json', 'library_view.json'):
+        digest = hashlib.sha256((data_dir / name).read_bytes()).hexdigest()[:12]
+        text = text.replace('./data/' + name, './data/' + name + '?v=' + digest)
+    script.write_text(text)
     for name in ("app.js", "benchmark-name.js", "following.js", "styles.css", "trends/directions.js"):
         digest = hashlib.sha256((OUTPUT / name).read_bytes()).hexdigest()[:12]
         html = re.sub(r'\./' + re.escape(name) + r'(?:\?[^"\s]*)?', './' + name + '?v=' + digest, html)
