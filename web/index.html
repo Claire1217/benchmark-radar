@@ -140,11 +140,11 @@
             <p><strong>What the score means.</strong> Attention is a relative 0–100 estimate of how much public interest a benchmark is receiving—or, for a brand-new release, may receive. It does not measure benchmark quality or model performance.</p>
             <ul>
               <li><strong>Latest:</strong> 45% Hugging Face paper votes + 25% GitHub stars + 5% dataset downloads, with up to 25 bonus points from the experimental LLM 7-day forecast.</li>
-              <li><strong>30 days:</strong> 30% paper votes + 55% GitHub stars + 15% dataset downloads. No LLM forecast.</li>
-              <li><strong>90 days:</strong> 15% paper votes + 55% GitHub stars + 30% dataset downloads. No LLM forecast.</li>
+              <li><strong>30 days:</strong> 20% paper votes + 62.86% GitHub stars + 17.14% dataset downloads. No LLM forecast.</li>
+              <li><strong>90 days:</strong> 5% paper votes + 61.47% GitHub stars + 33.53% dataset downloads. No LLM forecast.</li>
             </ul>
             <p><strong>How the forecast works.</strong> The LLM considers only the supplied benchmark scope, artifact readiness, topical breadth, and verified publisher evidence. It does not invent stars, votes, downloads, or adoption.</p>
-            <p><strong>When data is missing.</strong> Each observed signal is converted to a percentile within the selected time window. A missing signal receives a neutral 50th-percentile value—not zero—and the result is marked with lower confidence.</p>
+            <p><strong>Normalization and missing data.</strong> Latest uses within-batch percentiles; 30- and 90-day counts use log normalization against the window maximum. A missing signal receives a neutral value of 0.5—not zero—and lowers confidence. Scores use the last known observations; the page update date does not mean every signal was freshly collected.</p>
           </div>
         </details>
         <div class="section-heading"><div><h2 id="feed-title">Rising benchmarks</h2><span id="result-count"></span></div><span id="updated"></span></div>
@@ -175,7 +175,7 @@
               <div class="library-sort-field"><span>Sort by</span><div class="segmented" id="library-sort"><button data-sort="latest">Latest</button><button data-sort="attention" class="active">Attention</button><button data-sort="growth">Growing</button></div></div>
             </div>
             <div class="section-heading library-results-heading"><div><h2 id="library-title">All benchmarks</h2><span id="library-count"></span></div><a id="library-trend-link" class="trend-link" hidden>See trend →</a></div>
-            <details class="library-help"><summary>About categories &amp; ranking</summary><div><p>Research themes describe the goal; capabilities describe the task. A benchmark can belong to both. Categories are based on task descriptions and source tags; uncertain records remain searchable in All benchmarks.</p><p>Attention reflects public interest, not benchmark quality: 30% Hugging Face votes, 55% GitHub stars, and 15% dataset downloads, with log normalization and neutral values for missing signals.</p></div></details>
+            <details class="library-help"><summary>About categories &amp; ranking</summary><div><p>Research themes describe the goal; capabilities describe the task. A benchmark can belong to both. Categories are based on task descriptions and source tags; uncertain records remain searchable in All benchmarks.</p><p>Library Attention reflects public interest across the full catalog: 15% Hugging Face votes, 55% GitHub stars, and 30% dataset downloads, with log normalization and neutral values for missing signals. Radar uses its own time-window weights. Attention does not measure benchmark quality.</p></div></details>
             <p id="library-direction-description" class="research-description"></p>
             <div id="library-list"></div>
             <button id="library-more" class="load-more" type="button" hidden>Show 120 more</button>

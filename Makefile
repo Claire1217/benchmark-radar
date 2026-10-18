@@ -1,4 +1,4 @@
-.PHONY: test check build generate serve update-model-evals
+.PHONY: test check build generate serve update-model-evals update-attention
 
 test:
 	python3 -m unittest discover -s pipeline/tests -v
@@ -12,7 +12,11 @@ update-model-evals:
 	python3 pipeline/update_model_evals.py
 	python3 pipeline/generate_library_index.py
 
-build: update-model-evals check
+update-attention:
+	python3 pipeline/enrich_metrics.py --rerank-known
+	python3 pipeline/generate_public_index.py
+
+build: update-attention update-model-evals check
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
 	python3 pipeline/audit_library_categories.py
@@ -21,6 +25,7 @@ build: update-model-evals check
 
 generate:
 	python3 pipeline/apply_overrides.py
+	python3 pipeline/enrich_metrics.py --rerank-known
 	python3 pipeline/build_library_records.py
 	python3 pipeline/generate_public_index.py
 	python3 pipeline/generate_library_index.py

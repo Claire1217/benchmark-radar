@@ -68,8 +68,16 @@ the meaning of a GitHub star or HF vote.
 | Window | HF paper votes | GitHub stars | HF dataset downloads | LLM forecast bonus |
 | --- | ---: | ---: | ---: | ---: |
 | Latest release day | 45% | 25% | 5% | up to 25% |
-| 30 days | 30% | 55% | 15% | none |
-| 90 days | 15% | 55% | 30% | none |
+| 30 days | 20% | 62.86% | 17.14% | none |
+| 90 days | 5% | 61.47% | 33.53% | none |
+
+Longer-window paper-vote weights decrease as benchmarks mature. Remaining weight
+preserves each window's previous stars-to-downloads ratio, rounded to two decimal
+percentage points. Version `attention-ranking-v14` applies these weights. Every
+build recomputes the 30/90-day candidate pools from the known record observations
+at the reporting date, so releases entering or leaving a window receive matching
+scores and ranks. This offline step preserves observation dates, missing signals
+and real historical snapshots; it does not represent a fresh signal collection.
 
 On the latest release day, the three observed signals form the base Attention
 score. The experimental seven-day LLM forecast is then added as a bonus worth
