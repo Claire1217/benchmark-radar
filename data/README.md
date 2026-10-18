@@ -16,6 +16,7 @@ generated output.
 | `library_seed_records.json` | Editorial all-time benchmark families, variants, source links, and tracked-use references. |
 | `editorial_copy.json` | Admission decisions and reviewed public copy. |
 | `library_identity_merges.json` | Stable identity redirects for duplicate Library entities. |
+| `model_eval_updates.json` | Reviewed provider model releases, exact evaluation settings, scores, coverage-only disclosures, sources and explicit Library IDs. |
 
 ## 2. Reviewed evidence overlays
 
@@ -100,8 +101,33 @@ canonical inputs + reviewed overlays
   inferred from unrelated artifacts.
 - Model-report references remain evidence pointers unless the record includes
   a dated, named, primary-source usage observation.
+- Run `make update-model-evals` after editing the reviewed model evidence.
+  `pipeline/update_model_evals.py` updates the embedded Model Evals dataset and
+  `model_eval_references.json`; the Library generator then projects the links.
+  `make build` includes this step. Historical imported dates/counts remain
+  unchanged; `manifest.reviewedUpdates` describes the additional review.
+- New results preserve report dates, versions, subsets, tool access, effort,
+  harnesses and fallbacks. `Reported` means the official source discloses the
+  evaluation but its absolute numeric value has not been transcribed. It does
+  not enter charts or become zero. Elo snapshots use the latest report, rather
+  than the highest historical value. Multiple effort results remain inspectable.
 - `pipeline/validate_data.py` checks stored and displayed record counts before a
   website build can succeed.
 
 The snapshot contains public scholarly metadata and short evidence snippets
 from primary sources. It does not redistribute paper PDFs.
+
+## Website loading
+
+The static build creates compact `radar_view.json` and `library_view.json`
+presentation projections. `pipeline/site_views.py` explicitly retains fields
+used by cards, filtering, search and sorting; nested audit receipts stay in the
+complete public downloads. Rendering-equivalence tests protect the projections.
+
+`pipeline/render_home.cjs` uses the actual browser renderer to build the latest
+feed into `index.html`. An embedded bootstrap includes the same complete release
+days and category definitions. The first screen requires no JSON requests.
+Full Radar history loads when a user requests another window or previous day;
+Library loads on navigation or deliberate pointer/keyboard intent. Generated
+data URLs and scripts are versioned by content hash. Library search covers all
+records, while the DOM initially contains at most 60 result cards.

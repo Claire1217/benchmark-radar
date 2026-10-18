@@ -1,4 +1,4 @@
-.PHONY: test check build generate serve
+.PHONY: test check build generate serve update-model-evals
 
 test:
 	python3 -m unittest discover -s pipeline/tests -v
@@ -8,7 +8,11 @@ check:
 	node --check web/app.js
 	node --check web/trends/trends.js
 
-build: check
+update-model-evals:
+	python3 pipeline/update_model_evals.py
+	python3 pipeline/generate_library_index.py
+
+build: update-model-evals check
 	python3 pipeline/generate_topic_trends.py
 	python3 pipeline/audit_topic_consistency.py
 	python3 pipeline/audit_library_categories.py

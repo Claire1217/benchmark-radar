@@ -64,7 +64,7 @@ vm.createContext(c);const app=fs.readFileSync('web/app.js','utf8');
 for(const prefix of ['function route()','function displayEligible('])vm.runInContext(app.split('\n').find(l=>l.startsWith(prefix)),c);
 vm.runInContext(app.slice(app.indexOf('function normalizeLibraryQuery('),app.indexOf('function directionChips(')),c);
 vm.runInContext(app.slice(app.indexOf('function matchesSearch('),app.indexOf('function card(')),c);
-vm.runInContext(app.slice(app.indexOf('let typeOptions='),app.indexOf('Promise.all([')),c);
+vm.runInContext(app.slice(app.indexOf('let typeOptions='),app.indexOf('// Application startup')),c);
 c.setupLibraryNavigation();
 const html=nodes['library-domain-list'].innerHTML;
 assert(!html.includes('More benchmark categories'));
