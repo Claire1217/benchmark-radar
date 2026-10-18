@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-17 · **Benchmark releases:** 2425
+**Snapshot:** 2026-10-17 · **Benchmark releases:** 2428
 
 ## Contents
 
@@ -18,7 +18,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (22)
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (49)
 - [Agent Memory & Personalization](#agent-memory--personalization) (52)
-- [Agent Security & Prompt Injection](#agent-security--prompt-injection) (65)
+- [Agent Security & Prompt Injection](#agent-security--prompt-injection) (66)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (23)
 - [Agentic Coding & SWE](#agentic-coding--swe) (87)
 - [Chat, Writing & Preference](#chat,-writing--preference) (27)
@@ -44,8 +44,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Other benchmark tasks](#other-benchmark-tasks) (86)
 - [Professional & Enterprise Work](#professional--enterprise-work) (72)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (126)
-- [Safety & Alignment](#safety--alignment) (103)
-- [Science](#science) (114)
+- [Safety & Alignment](#safety--alignment) (104)
+- [Science](#science) (115)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (54)
 - [Speech & Audio](#speech--audio) (40)
 - [Tool Use & Function Calling](#tool-use--function-calling) (64)
@@ -233,6 +233,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Agent Security & Prompt Injection
 
 - **benchmark-exploit-resistance** (2026-10-16) — Evaluates coding agents on 46 synthetic mini-repo tasks that measure whether the agent fixes a small function or games the verifier. [Code](https://github.com/pooriaarab/benchmark-exploit-resistance) · [Data](https://huggingface.co/datasets/pooria/benchmark-exploit-resistance)
+- **benchmark-mcp-safety** (2026-10-15) — Evaluates agent tool choice across 20 paired benign and malicious MCP tool-use episodes, scoring both safety and usefulness via deterministic replay of recorded tool logs. [Code](https://github.com/pooriaarab/benchmark-mcp-safety) · [Data](https://huggingface.co/datasets/pooria/benchmark-mcp-safety)
 - **QuasiLeak-Bench** (2026-10-15) — Evaluates privacy detectors on policy-conditioned quasi-evidence group recovery from natural language messages. [Paper](https://arxiv.org/abs/2610.21333)
 - **LinguaGuardBench** (2026-10-15) — LinguaGuardBench evaluates agent step-level safety guard consistency across five translated languages using fixed tool calls and labels. [Paper](https://arxiv.org/abs/2610.22244)
 - **INFUSE** (2026-10-14) — Evaluates indirect prompt injection attacks on LLM coding agents across 40 tasks, 56 attacks, and 11 defenses. [Paper](https://arxiv.org/abs/2610.20776) · [Code](https://github.com/judydnguyen/infuse)
@@ -1405,7 +1406,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Professional & Enterprise Work
 
-- **benchmark-silent-constraints** (2026-10-16) — A set of 40 synthetic agent episodes across file store, ticket and mailbox sandboxes; agents pursue a stated goal while graded on whether protected, foreign, quota, scope and recipient constraints were broken via a repl… [Code](https://github.com/pooriaarab/benchmark-silent-constraints)
+- **benchmark-silent-constraints** (2026-10-16) — Benchmark measuring whether an agent satisfies a stated goal without violating silent constraints such as protected files, foreign ownership, quotas, external recipients, ticket scope, or mail rules. [Code](https://github.com/pooriaarab/benchmark-silent-constraints)
 - **Payment Delegation** (2026-10-16) — Evaluates agents operating a delegated payment card across forty ledger-simulator episodes, testing spending caps, merchant allowlists, refund windows, dispute handling, and owner consultation while completing purchase… [Code](https://github.com/pooriaarab/benchmark-payment-delegation) · [Data](https://huggingface.co/datasets/pooria/benchmark-payment-delegation)
 - **Cost Per Task** (2026-10-16) — Cost Per Task evaluates 30 synthetic back-office agent episodes with deterministic replay and exact verification of resulting virtual file-system and CRM state alongside model pricing snapshots. [Data](https://huggingface.co/datasets/pooria/benchmark-cost-per-task)
 - **FDE-Gym** (2026-10-15) — Evaluates AI agents or humans on end-to-end customer delivery tasks measured by normalized improvement in the customer's success metric. [Paper](https://arxiv.org/abs/2610.22350) · [Code](https://github.com/deeplethe/fde-gym) · [Data](https://huggingface.co/datasets/DeepLethe/FDE-Gym)
@@ -1609,6 +1610,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Safety & Alignment
 
+- **BanglaBBQ** (2026-10-16) — BanglaBBQ evaluates bias in question answering using 466 Bangladesh-specific templates in English and Bangla, plus adapted BBQ templates, scored with accuracy and bias metrics. [Code](https://github.com/SummitAnthony/BanglaBBQ-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.23415895.svg)
 - **VisualTrust** (2026-10-15) — VisualTrust evaluates video question answering under on-screen claim framing, with 5,063 counterfactual cases pairing questions with three video versions: no claim, accurate claim, and misleading claim. [Paper](https://arxiv.org/abs/2610.21159) · [Code](https://github.com/huachao0124/VisualTrust)
 - **VALCON** (2026-10-15) — VALCON is a suite of three benchmarks (VAB-Consistency, VAB-Boundary, VAB-Challenge) that evaluate whether LLMs maintain value consistency when alternating between generator and evaluator roles under the same value prin… [Paper](https://arxiv.org/abs/2610.21304) · [Code](https://github.com/tjunlp-lab/VALCON)
 - **Preference Integrity Benchmark (PIB) v1.0** (2026-10-15) — Measures the stability of language model stated preferences across controlled conversational perturbations using six preference questions and a set of five integrity components. [Data](https://huggingface.co/datasets/PAOP123/preference-integrity-bench)
@@ -1715,6 +1717,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **Sci-Align Benchmark** (2026-10-16) — A 1,979-item control-science question pool with reference answers and audit reasoning, evaluated via dual-blind judge arbitration with frozen promotion criteria. [Code](https://github.com/MorningStar0709/sci-align-benchmark) · [Data](https://huggingface.co/datasets/MorningStar0709/sci-align-benchmark)
 - **Digital Typhoon Dataset V3** (2026-10-15) — A long-term multi-spectral typhoon satellite image dataset for benchmarking machine learning models on spatio-temporal data. [Paper](https://arxiv.org/abs/2610.21654) · [Code](https://github.com/kitamoto-lab/digital-typhoon/)
 - **ActMOF** (2026-10-14) — ActMOF is a benchmark for active-learning search strategies over a 6.1M-condition crystallinity landscape of MOF-321, scored by the number of experiments needed to find high-quality synthesis conditions under a fixed pr… [Paper](https://arxiv.org/abs/2610.19404) · [Code](https://github.com/deep-synthesis/ActMOF)
 - **VenusRX-Bench** (2026-10-08) — To characterize this space, we introduce VenusRX-Bench, a unified benchmark for forward reaction prediction, single-step retrosynthesis, and EC-number prediction. [Paper](https://arxiv.org/abs/2610.11694)
@@ -1932,7 +1935,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Tool Use & Function Calling
 
-- **benchmark-latency-budget** (2026-10-16) — Evaluates agents on answering correctly within voice, UI, and background latency deadlines, using seeded synthetic tool-lookup tasks, a virtual clock, and deterministic grading that rewards only correct on-time answers. [Code](https://github.com/pooriaarab/benchmark-latency-budget)
+- **benchmark-latency-budget** (2026-10-16) — Evaluates AI agent performance on seeded synthetic directory, calendar, and document lookup tasks under latency budgets, scoring correctness only if answers arrive before task-specific deadlines. [Code](https://github.com/pooriaarab/benchmark-latency-budget)
 - **ToolBottleneckBench** (2026-10-15) — ToolBottleneckBench measures tool-agent performance under controlled pressures and fixed harness budgets, with exact grading of failures and harness limits across 21 model and harness configurations. [Paper](https://arxiv.org/abs/2610.21098) · [Code](https://github.com/zichuanxu/tool-bottleneck-bench)
 - **J-tau** (2026-10-14) — Evaluates Japanese tool-using LLM agents in interactive customer-support scenarios. [Paper](https://arxiv.org/abs/2610.19638)
 - **AgentTime** (2026-10-07) — We present AgentTime, a benchmark for testing whether agents can work for a requested duration, predict their runtime, and estimate elapsed time afterward. [Paper](https://arxiv.org/abs/2610.09944) · [Code](https://github.com/michaelofengenden/agenttimebench)

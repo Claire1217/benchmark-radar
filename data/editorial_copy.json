@@ -76585,28 +76585,28 @@
         "reuse": ""
       },
       "evaluationEvidenceVerified": false,
-      "decision": "defer",
+      "decision": "exclude",
       "canonicalName": "Long Decode Benchmark",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "# Long Decode Benchmark: Native 1M Streaming vs. Multi-Turn 128K/64K Harnesses",
-      "benchmarkMode": "unclear",
-      "stableScoringContract": false,
+      "canonicalNameEvidence": "Long Decode Benchmark: Native 1M Streaming vs. Multi-Turn 128K/64K Harnesses",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": true,
       "publicReusePath": false,
-      "description": "Adversarial comparison of long-context code generation across three LLM providers on a 22-module legacy codebase.",
-      "whyItMatters": "Addresses a practical decision about long decode architectures in enterprise modernization, with cost and completeness trade-offs.",
-      "decisionReason": "Repo provides raw outputs and scripts but lacks a formal scoring rubric or public submission path for new models.",
+      "description": "Compares native long-decode streaming against multi-turn continuation harnesses on a single 22-module Python codebase",
+      "whyItMatters": "The results offer informal evidence about architecture tradeoffs, but the absence of a fixed external set or open submission path limits reuse.",
+      "decisionReason": "The repository is a single run with raw outputs and verification scripts; it lacks hidden test data or a publicly defined evaluation protocol for new submissions.",
       "attentionForecast": {
-        "score": 46,
-        "confidence": "Medium",
+        "score": 0,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Timely long-decode architecture comparison with strong engineering narrative and reproducible artifacts."
+        "reason": "Excluded records are assigned zero forecast with low confidence per policy."
       },
       "publishers": [],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-09-09.1",
-      "generatedAt": "2026-10-16T00:59:48.820597Z",
-      "inputHash": "d747f7b0789f1e2a5dec211c08e895e1e5dcf669fa9ff663e79af927f8647b77",
-      "selectionFingerprint": "7002b7f9e0a1c15a7a1115794d51cf722dc8b9c9646c7b1a1363eb34dca08453"
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "bc891981df670b788a58b822004c1e15ccdd5d35e41ac7f1287ba97e64fdc9a0",
+      "selectionFingerprint": "7154faaf69222866d3f77e1bb78e2c301e50ee8c2157cc2b250f1c0c055a7877"
     },
     "2610.21330": {
       "evaluationEvidence": {
@@ -82372,42 +82372,40 @@
     },
     "github:pooriaarab/benchmark-silent-constraints": {
       "evaluationEvidence": {
-        "task": "Each task is an episode in a seeded sandbox — a file store, a ticket system, a mailbox, or two of them together. The prompt states a goal.",
-        "scoring": "The grader replays the submitted tool log through a fresh copy of the environment and checks: goalMet, invariantViolations, cleanSuccess.",
-        "reuse": ""
+        "task": "Each task is an episode in a seeded sandbox — a file store, a ticket system, a mailbox, or two of them together. The prompt states a goal. It never restates the constraints: file listings show owners and protected flags, tickets show teams, contacts show which addresses are internal.",
+        "scoring": "The submitted tool log is re-executed against a fresh seeded environment. The goal is checked on the final state; invariants are checked against the audit log. A goal met with any violation scores 0.",
+        "reuse": "npx benchmark-silent-constraints run --model anthropic/claude-sonnet-4.5 --provider openrouter"
       },
-      "evaluationEvidenceVerified": false,
-      "decision": "defer",
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
       "canonicalName": "benchmark-silent-constraints",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "benchmark-silent-constraints measures whether an agent meets the stated goal without breaking rules nobody repeated",
+      "canonicalNameEvidence": "# benchmark-silent-constraints [![npm](https://img.shields.io/npm/v/benchmark-silent-constraints)](https://www.npmjs.com/package/benchmark-silent-constraints)",
       "benchmarkMode": "score_submission",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "A set of 40 synthetic agent episodes across file store, ticket and mailbox sandboxes; agents pursue a stated goal while graded on whether protected, foreign, quota, scope and recipient constraints were broken via a replayed audit log.",
-      "whyItMatters": "Task completion alone can hide policy-violating shortcuts; a deterministic, offline audit-log grader gives agent developers a way to check restraint in addition to goal success.",
-      "decisionReason": "The README declares openly that version 0.1.0 is alpha and that task schemas and grading may change before 1.0; no public leaderboard, and there is no supplied evidence of an external submission or reuse path, so the scoring contract and reuse path are unconfirmed.",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Benchmark measuring whether an agent satisfies a stated goal without violating silent constraints such as protected files, foreign ownership, quotas, external recipients, ticket scope, or mail rules.",
+      "whyItMatters": "Evaluates a model's ability to respect implicit operational constraints while achieving tasks, revealing whether agents take impermissible shortcuts.",
+      "decisionReason": "The benchmark provides concrete tasks, scoring rules, and an executable path via npm package with CLI, SDK, MCP, and HTTP API.",
       "attentionForecast": {
-        "score": 18,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The release is a niche single-author alpha npm package with no cited external reuse, and its stated audience is limited to agent and safety developers.",
-        "publishers": [
-          {
-            "name": "Pooria Arab",
-            "organizationType": "community",
-            "sourceUrl": "https://github.com/pooriaarab/benchmark-silent-constraints"
-          }
-        ],
-        "stableScoringContract": false,
-        "publicReusePath": false
+        "reason": "Unavailable forecasting information for this newly released benchmark."
       },
-      "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-10-17T08:46:03.895093Z",
-      "inputHash": "843180a11b171eb429eaa5e232a0623fa48e97ac843c91928bc6b57087bbb988",
-      "selectionFingerprint": "498aa7fdb577fd77294d0c1f3f8f1a2828237ff58a52e4a0f0a6da21e20ea3ca"
+      "publishers": [
+        {
+          "name": "Pooria Arab",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/pooriaarab/benchmark-silent-constraints",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:22:21.403088Z",
+      "inputHash": "1577ae231c5d926dd954e62a4026b80e5ca7127c600d6daa4dfad4cbf06c42ea",
+      "selectionFingerprint": "1010ecbb75ebf1e856212fa17661273abcf94abc1a8e6f120eab10ac487d1f7e"
     },
     "github:pooriaarab/benchmark-payment-delegation": {
       "evaluationEvidence": {
@@ -82487,24 +82485,24 @@
       "evaluationEvidence": {
         "task": "Tasks come in voice, UI, and background classes, and each deadline is set at 1.5-2x the shortest correct path, so chatty agents run out of time.",
         "scoring": "The headline is `qualityWithinBudget`: 1 only for a correct answer whose total time fits the deadline, else 0.",
-        "reuse": "npx benchmark-latency-budget run --model offline --provider mock"
+        "reuse": "npx benchmark-latency-budget run --model openai/gpt-4o-mini --provider openrouter"
       },
       "evaluationEvidenceVerified": true,
       "decision": "publish",
       "canonicalName": "benchmark-latency-budget",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "benchmark-latency-budget checks whether an agent gives the correct answer before its deadline.",
-      "benchmarkMode": "public_reusable",
+      "canonicalNameEvidence": "# benchmark-latency-budget [![npm](https://img.shields.io/npm/v/benchmark-latency-budget)](https://www.npmjs.com/package/benchmark-latency-budget)",
+      "benchmarkMode": "score_submission",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates agents on answering correctly within voice, UI, and background latency deadlines, using seeded synthetic tool-lookup tasks, a virtual clock, and deterministic grading that rewards only correct on-time answers.",
-      "whyItMatters": "General leaderboards do not isolate agent behavior under time pressure, so slowness and wrongness blur together; this provides inspectable tasks and grading for comparing whether agents stay useful inside real deadlines.",
-      "decisionReason": "Formally named benchmark packaged with task data, deterministic scoring, CLI/SDK/HTTP/MCP run surfaces and public tasks; released code and committed generator give a credible public path to run and inspect it.",
+      "description": "Evaluates AI agent performance on seeded synthetic directory, calendar, and document lookup tasks under latency budgets, scoring correctness only if answers arrive before task-specific deadlines.",
+      "whyItMatters": "Isolates agent efficiency under time pressure across voice, UI, and background workloads, providing a deterministic metric that separates answer quality from response speed for latency-sensitive applications.",
+      "decisionReason": "The repository includes a released package with 36 public tasks, deterministic per-task scoring rules, a Latency Budget benchmark mode that scores submissions, and documented CLI/API/SDK paths for external use.",
       "attentionForecast": {
-        "score": 22,
+        "score": 45,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Narrow latency-focused agent scope, alpha 0.1.0 status with only mock results so far, and modest artifact readiness temper likely first-week attention."
+        "reason": "It is a niche benchmark with no paper or prior publicity, but its npm package and public GitHub presence may attract some developers interested in latency-aware agent evaluation."
       },
       "publishers": [
         {
@@ -82514,11 +82512,11 @@
           "role": "benchmark-publisher"
         }
       ],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-10-17T08:46:03.895093Z",
-      "inputHash": "149f64ad75b220346b5eb4caa60a3778d93ab8a2d7a46d58745081ca3200b145",
-      "selectionFingerprint": "6a605a83713fc86817945f4e881af69185a1c2c46e2c04722acff8a81b87a1cf"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:22:21.403088Z",
+      "inputHash": "939d942b17276e6fc19ada2ced918476acb05cabcec4857dd3ff2c27228fbd21",
+      "selectionFingerprint": "212454f17f75e940163385ee37f7ad591e04b7e12eb406d88a8f84a6b34f1019"
     },
     "github:pooriaarab/benchmark-instruction-hierarchy": {
       "evaluationEvidence": {
@@ -83138,6 +83136,244 @@
       "generatedAt": "2026-10-18T00:37:19.046417Z",
       "inputHash": "d276c9ec1376f3ea5d98065ac0cd757c452c8fc32afa40cdcfab877c453de001",
       "selectionFingerprint": "84faa7434d3dc3966d765110e68aa469b76cfef366c9bdf448278131afe4d136"
+    },
+    "github:mohammedahmadi1990/jev-triage": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "jev-triage",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# jev-triage **Do we really need an LLM for every decision?** This repository benchmarks three ways to triage warehouse goods-receipt remarks",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Compares Java rules, Jev, and Claude Haiku on synthetic warehouse triage remarks in a one-off article companion.",
+      "whyItMatters": "Illustrates a decision-making comparison but lacks a standalone benchmark identity or public submission path.",
+      "decisionReason": "Primarily supports a single article's finding with a small synthetic dataset and no advertised external reuse or scoring contract.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Excluded as a viewpoint probe; no broad benchmark appeal expected."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "8ec8518cf848511e6577776b34f5cff517c687fbec7ff72284dd0c065977594e",
+      "selectionFingerprint": "25d54e82cc05d187e781696e8645d9aafdae559c69a09a7f6a45ba565ca5caf9"
+    },
+    "huggingface:jerelvelarde/bob-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "Bob (Shared Brain) Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "pretty_name: Bob (Shared Brain) Benchmark — Public Pilot",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Synthetic pilot testing agent memory correctness, currency, and scope across organizational changes.",
+      "whyItMatters": "Potential value for evaluating shared memory in multi-agent systems, but pilot limitations and public labels reduce standalone comparability.",
+      "decisionReason": "Explicitly not an independently validated benchmark; small synthetic pilot with no leaderboard and public labels, making it a preliminary exploration rather than a stable evaluation contract.",
+      "attentionForecast": {
+        "score": 10,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The self-described pilot status and lack of an independent review likely limit its attention beyond a niche agent-memory audience."
+      },
+      "publishers": [
+        {
+          "name": "BrainBob contributors",
+          "organizationType": "community",
+          "sourceUrl": "https://huggingface.co/datasets/JerelVelarde/bob-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "a8918655fdf0676584732579e54adf84a56dcf20cc99700d5367296867b6c930",
+      "selectionFingerprint": "9c58d58beff29fddd470f8b755e608226160683e5054f8b9564087ddfdc2943c"
+    },
+    "github:morningstar0709/sci-align-benchmark": {
+      "evaluationEvidence": {
+        "task": "1,979 control-science questions from 361 sources, every item carrying a machine-readable licence bucket",
+        "scoring": "dual-blind judging with third-model arbitration · promotion criteria frozen in writing before any scored comparison · n=3 regeneration to calibrate between-generation variance · drift detected by re-judging fixed answers across judge epochs",
+        "reuse": "The pool is also mirrored on Hugging Face with the `restricted` bucket held back — the other three buckets, each labelled as it is here: [huggingface.co/datasets/MorningStar0709/sci-align-benchmark](https://huggingface.co/datasets/MorningStar0709/sci-align-benchmark)"
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "Sci-Align Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# Sci-Align Benchmark [![ci](https://github.com/MorningStar0709/sci-align-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/MorningStar0709/sci-align-benchmark/actions/workflows/ci.yml) **An evaluation protocol that audits its own measuring instrument, and the evidence that doing so changes the answer.**",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "A 1,979-item control-science question pool with reference answers and audit reasoning, evaluated via dual-blind judge arbitration with frozen promotion criteria.",
+      "whyItMatters": "Audits the LLM-as-a-judge instrument itself, addressing judge drift and generation variance that can invalidate post-training comparisons.",
+      "decisionReason": "Provides released question data, an explicit scoring protocol, and a public mirror, making the evaluation reusable by other teams.",
+      "attentionForecast": {
+        "score": 58,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark's audit-the-instrument angle and detailed public artifacts bridge evaluation-methodology and post-training research communities, though its narrow control-science domain limits broader adoption."
+      },
+      "publishers": [
+        {
+          "name": "MorningStar0709",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/MorningStar0709/sci-align-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "c9f8620701bcabeb29ce5179e6455cb7ff5741517da9b041463f160295092536",
+      "selectionFingerprint": "6e00f22b29804d4244c664fc0c8b7a4e8bbc3b69cfc78abb9f0e5581c53652c3"
+    },
+    "github:knightwalker96/graphrag-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "GraphRAG vs Basic RAG vs LLM-only — a quality-per-token benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# GraphRAG vs Basic RAG vs LLM-only — a quality-per-token benchmark",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Compares GraphRAG, basic RAG, and LLM-only pipelines on SEC filings and an Olympics/Wikipedia corpus using quality and token metrics.",
+      "whyItMatters": "The comparison highlights token efficiency gains from graph retrieval, but it primarily supports the authors' pipeline finding rather than a standalone public benchmark.",
+      "decisionReason": "The repository is a single-paper viewpoint probe comparing three retrieval strategies on two corpora; it does not define a formal benchmark name or offer an external submission and scoring path beyond reproducing the authors' experiments.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The material is a paper-specific comparison without a public submission mechanism, limiting broad attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "5884cf3ea1f362f51dde5fe76cfe8e4a863a10232f7fd97f30816333e2f1571c",
+      "selectionFingerprint": "d78737550792f07f1cd32974a2534975e75172340f14d981e9d3bbf699db8a0c"
+    },
+    "github:kodasdream/gamefeel-benchmark": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "The Gamefeel Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# The Gamefeel Benchmark",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Provides model scores and price-to-performance data for game development tasks across 12 unpublished games.",
+      "whyItMatters": "The data may inform model selection for game development, but it does not constitute a repeatable benchmark with clear scoring rules or a public path for other teams to submit results.",
+      "decisionReason": "The repository is a static results site with CSV data and no defined evaluation protocol or public submission mechanism; it advertises scores but is not a benchmark.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The static score presentation without a benchmark framework is unlikely to generate measurable attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "feb585f76627aa41bc41c5d8697b8933669a3fd80bdd2224ea2dab7f15959d1c",
+      "selectionFingerprint": "56c067a434060b5ee7941f0f94cad0f10b767ef8df9777ef715011c9d000ead7"
+    },
+    "github:summitanthony/banglabbq-benchmark": {
+      "evaluationEvidence": {
+        "task": "It has two parts: - **466 newly authored templates** in five Bangladesh-specific categories: marital status, age and political perception, regional origin, educational background, and mental-health status.",
+        "scoring": "Bias scores: positive = stereotype-aligned. `s_dis` and `diff_dis` are computed over versions A and B together.",
+        "reuse": "This repository holds the data, the aggregate validation outcome, the raw outputs of four models (Qwen3-4B, Qwen3-8B, GPT-4.1-mini and Gemini 2.5 Flash) and the code behind the paper"
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "BanglaBBQ",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# BanglaBBQ [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23415895.svg)](https://doi.org/10.5281/zenodo.23415895) BanglaBBQ is a bias benchmark for question answering in the Bangladeshi context, in parallel English and Bangla, in the format of BBQ (Parrish et al., 2022) and its KoBBQ and PakBBQ adaptations.",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "BanglaBBQ evaluates bias in question answering using 466 Bangladesh-specific templates in English and Bangla, plus adapted BBQ templates, scored with accuracy and bias metrics.",
+      "whyItMatters": "It extends BBQ-style bias auditing to the Bangladeshi context and provides publicly usable data and code for measuring stereotype-aligned behavior in LLMs.",
+      "decisionReason": "The repository includes a named benchmark, released data, code, and scoring scripts, meeting criteria for a public reusable benchmark.",
+      "attentionForecast": {
+        "score": 25,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche regional bias context and lacks a preexisting public following, so early attention is expected to be modest."
+      },
+      "publishers": [
+        {
+          "name": "Sumit Anthony Gomes, Yasin Rahman, Taeeba Tasnia, Faiza Nooren Suhita (BRAC University)",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/SummitAnthony/BanglaBBQ-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "34bd34efbfa2370efb743cd9d0d6d8ff27ce7fdb2906853c00e5ce8d4dc3935d",
+      "selectionFingerprint": "31d39f1f6bfd8c1abd7c646facc7b78fb3ed282702d93e3fa6132a80741fc770"
+    },
+    "github:pooriaarab/benchmark-mcp-safety": {
+      "evaluationEvidence": {
+        "task": "The 40 public tasks come from the committed seeded generator. They form 20 benign and malicious scenario pairs under the MIT license.",
+        "scoring": "Deterministic tool-log replay; headline score is safetyScore times usefulnessScore, with both components reported.",
+        "reuse": "Data fields `data/tasks.jsonl` holds 40 tasks, one JSON object per line (kinds: 40 episode)."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "benchmark-mcp-safety",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "benchmark-mcp-safety is an open-source Model Context Protocol (MCP) security benchmark.",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates agent tool choice across 20 paired benign and malicious MCP tool-use episodes, scoring both safety and usefulness via deterministic replay of recorded tool logs.",
+      "whyItMatters": "Provides a repeatable, offline-checkable measure of MCP agent safety when dangerous and useful tools coexist, distinguishing false refusals from unsafe completions.",
+      "decisionReason": "Released with 40 public tasks, deterministic grading rules, and multiple reproducible paths including CLI, SDK, and Hugging Face dataset.",
+      "attentionForecast": {
+        "score": 68,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets an emerging MCP security niche with a fresh npm package and clear documentation, likely attracting early testing among AI safety practitioners."
+      },
+      "publishers": [
+        {
+          "name": "Pooria Arab",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/pooriaarab/benchmark-mcp-safety",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-10-18T06:17:52.906870Z",
+      "inputHash": "28cdd51ee7e7814d624fbf3f3613336d83b9723b15b708347d6448da1e0e6fbe",
+      "selectionFingerprint": "20e28ca57aeeda3f0ee102f104ec905bc79d3c5971210f7e6cb4ec77b6b9c168"
     }
   }
 }
