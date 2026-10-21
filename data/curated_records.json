@@ -442,7 +442,7 @@
       "aliases": [
         "What Do RTL Repair Benchmarks Actually Measure?"
       ],
-      "oneLine": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
+      "oneLine": "Evaluates RTL repair ability on 459 held-out broken RTL cases with syntactic and behavioral mutations, scored by simulation and formal equivalence.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Chip Design & EDA"
@@ -517,30 +517,163 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
-      "whyItMatters": "Provides a public, hash-bound dataset and evaluation controls that separate true repair ability from artifacts of simulation semantics and specification use.",
+      "description": "Evaluates RTL repair ability on 459 held-out broken RTL cases with syntactic and behavioral mutations, scored by simulation and formal equivalence.",
+      "whyItMatters": "Provides controls for initialization and reset semantics and includes a specification-only baseline to diagnose whether models use the faulty RTL.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
+        "score": 30,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets RTL repair, a narrow hardware verification topic with limited broad appeal, but the public release and rigorous methodology support moderate attention."
+        "reason": "Topical breadth is moderate, and the benchmark provides a reproducible evaluation protocol, but the paper focuses on measurement confounds rather than broad new capabilities."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "We construct and hash-bind RTLRepairDataset, 5,784 (broken, fixed) training pairs; RTLRepairBench, 459 held-out cases with 374 syntactic and 85 behavioral mutations; and an evaluation harness supporting simulation and formal equivalence.",
-          "scoring": "A record is correct at the primary level (L3) only if property, value, temperature and material all match the gold standard.",
-          "reuse": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench."
+          "task": "459 held-out cases with 374 syntactic and 85 behavioral mutations in broken RTL given a specification.",
+          "scoring": "Simulation and formal equivalence scoring with reported initialization, reset, first-cycle, and unknown-value semantics.",
+          "reuse": "Benchmark, training set, construction code, sanitized aggregate evidence, and reproduction materials released at https://github.com/Evaaaz/RTLRepairBench."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark with defined mutation classes, scoring via simulation and formal equivalence, and a public GitHub repository with dataset and reproduction materials.",
-        "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "It contains the camera-ready paper, RTLRepairBench, the RTLRepairDataset training file, the canonical data-generation and verification code, sanitized aggregate evidence, and an allowlisted exporter."
-      }
+        "decisionReason": "Formally named benchmark with released tasks, a stable scoring contract, and a public GitHub path for reproduction.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench."
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-21T06:17:46.204818Z",
+        "inputHash": "5a28353383e44d7b966700a04b78a61b54cb6b136699e2ba9434c364fbb6d2af"
+      },
+      "publishers": [
+        {
+          "name": "Yeyin (Eva) Zhu and Rishabh Ranawat",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/Evaaaz/RTLRepairBench",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_vla-retain_17451541",
@@ -959,18 +1092,18 @@
         "horizon": "7d",
         "reason": "Geospatial representation evaluation is a specialized area, and the abstract lacks links or artifact details beyond the named dataset extension."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines",
           "scoring": "Our encoder ties the best GFM in average rank across nine Pangaea datasets, trading peak performance for cross-task consistency.",
           "reuse": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Abstract explicitly names Pangaea-Latents as a benchmark extension with provided embeddings and baselines; publication in workshop suggests public availability.",
+        "decisionReason": "No artifact links or evidence of public reuse path; only an extension of an existing benchmark.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines, and find GFM embeddings to be neither redundant nor disjoint."
       }
@@ -2136,18 +2269,18 @@
         "horizon": "7d",
         "reason": "Bacterial cultivation recommendation is relevant to bioinformatics and industrial microbiology, but the absence of explicit artifact links may moderate adoption."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)",
           "scoring": "The model also recovers 90.2% of ground-truth cultivation protocols within its top-25 recommendations, narrowing the exhaustive search space by approximately 60 times.",
           "reuse": "We introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Abstract explicitly names DSNI as a benchmark with clear data composition and an evaluation metric; accepted paper implies public release.",
+        "decisionReason": "The paper introduces DSNI but no artifact link, dataset, or public reuse path is provided; cannot confirm a released benchmark with a usable scoring contract.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "To address this, we introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)."
       }
@@ -3949,18 +4082,18 @@
         "horizon": "7d",
         "reason": "The benchmark addresses a timely RAG abstention topic with a public code repository and extensive model evaluation, though the missing data link may limit immediate reuse."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "DeclineCraft contains 1,000 questions (700 answerable, 300 unanswerable) targeting Minecraft feature additions after a corpus cut-off, with audits of parametric exposure.",
           "scoring": "Metrics include Correct Abstention Rate (CAR), Answerable Attempt Rate, and Answer Accuracy, with a response judge labeling ABSTAIN, DENY, or ANSWER and an accuracy judge scoring 1/0.5/0.",
           "reuse": "The code is available on GitHub with detailed scripts to rebuild the benchmark and evaluate models, though the benchmark data link is listed as TODO."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides scripts to rebuild the benchmark and evaluate models, with explicit metrics and scoring rules, though the data link is pending; the scoring contract and reuse path are sufficiently established.",
+        "decisionReason": "The GitHub repository is available but the benchmark data is not yet released (TODO: data link), preventing immediate reuse or verification of task inputs and scoring.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge"
       }
@@ -16643,6 +16776,124 @@
           "role": "benchmark-publisher"
         }
       ]
+    },
+    {
+      "id": "bm_odysseys2-benchmark_9484383a",
+      "familyId": "bmf_31dfc565f8d5",
+      "name": "Odysseys2",
+      "paperTitle": "odysseys2-benchmark",
+      "aliases": [
+        "odysseys2-benchmark"
+      ],
+      "oneLine": "Odysseys2 is a web-agent benchmark with 100 real-user-request-derived tasks, each carrying rubric requirements with weights, evaluated on a 0–100 final score.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/ljang0/odysseys2-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-19T06:29:04.420597Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-16",
+      "firstSeenAt": "2026-10-19",
+      "indexedAt": "2026-10-19T06:29:04.420597Z",
+      "sourceUpdatedAt": "2026-10-18T00:03:07Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://browser-use.com",
+        "code": "https://github.com/ljang0/odysseys2-benchmark"
+      },
+      "motivation": "odysseys2-benchmark Odysseys2: 100 web-agent tasks, 982 rubric checks, and published benchmark scores # Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com), with 982 rubric requirements.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ljang0/odysseys2-benchmark",
+        "url": "https://github.com/ljang0/odysseys2-benchmark",
+        "title": "odysseys2-benchmark",
+        "authors": [
+          "ljang0"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "odysseys2-benchmark Odysseys2: 100 web-agent tasks, 982 rubric checks, and published benchmark scores # Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com), with 982 rubric requirements.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ljang0/odysseys2-benchmark",
+          "url": "https://github.com/ljang0/odysseys2-benchmark"
+        }
+      ],
+      "description": "Odysseys2 is a web-agent benchmark with 100 real-user-request-derived tasks, each carrying rubric requirements with weights, evaluated on a 0–100 final score.",
+      "whyItMatters": "It supplies public task definitions, detailed rubrics, and reported model scores, allowing the evaluation of browser agents against real-world user intents.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 65,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Web-agent evaluation is a common research focus, and the distribution-aligned task design and published real-site results should attract moderate community attention."
+      },
+      "publishers": [
+        {
+          "name": "Browser Use",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://browser-use.com",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Each task has `id`, `title`, `category`, `start_url`, `instruction`, and `rubric`. Rubric items have `id`, `name`, `requirement`, and `weight`.",
+          "scoring": "`final_score` is on a 0–100 scale. `item_credit` is the percentage of rubric items marked met before the reward hacking check. `zeroed=1` means the judge applied that check, setting the final score to zero.",
+          "reuse": "This release supplies task definitions and reported scores; it does not include the original benchmark runner, judge implementation, or private trajectory archives. Running a task in a current harness does not by itself reproduce the published evaluation protocol."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T09:29:00.561556Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Released task definitions, scoring rubric, and reported scores are publicly available despite missing judge implementation, providing a repeatable evaluation object.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com)"
+      }
     },
     {
       "id": "bm_nldata2opt_e199a990",

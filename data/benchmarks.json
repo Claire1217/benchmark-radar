@@ -5,7 +5,7 @@
     "generatedAt": "2026-10-21T06:17:35.361734Z",
     "dataAsOf": "2026-10-20",
     "timezone": "UTC",
-    "recordCount": 2561,
+    "recordCount": 2562,
     "sourceCoverage": [
       "arXiv OAI-PMH",
       "reviewed official project sources"
@@ -42,7 +42,7 @@
       "name": "WORTH Benchmark",
       "paperTitle": "WORTH Benchmark: Evidence Discovery under Not-Fully-Cooperative Information -- A Two-Episode Pilot",
       "aliases": [],
-      "oneLine": "Proposed benchmark for models to select clue sentences and identify participants in mystery narratives without annotations.",
+      "oneLine": "Models read unannotated mystery narratives, select key clue sentences, identify case participants, and explain reasoning; scoring records clue-sentence hits and participant selections.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -246,18 +246,18 @@
           }
         }
       },
-      "description": "Proposed benchmark for models to select clue sentences and identify participants in mystery narratives without annotations.",
-      "whyItMatters": "Evaluates evidence discovery under not-fully-cooperative information, where models must infer key clues and actors.",
+      "description": "Models read unannotated mystery narratives, select key clue sentences, identify case participants, and explain reasoning; scoring records clue-sentence hits and participant selections.",
+      "whyItMatters": "Shows component-wise analysis of evidence discovery from narratives, an evaluation area where models' autonomous evidence selection is rarely examined separately from final judgment.",
       "attentionForecast": {
-        "score": 12,
+        "score": 15,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The niche topic and absence of released artifacts limit likely early traction within the first week."
+        "reason": "The narrow two-episode pilot and narrative-mystery focus likely limit interest to specialized reasoning-evaluation readers."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "baa5853bbf6d9a23b29b75f49e0bbf92cebab2ae83cf2383e27c2ac700a0da6b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "a4acf921aeeba00f2fafbbce90e573b415fb71202f21fb969832672891d2fe73"
       }
     },
     {
@@ -266,7 +266,7 @@
       "name": "WildAIGC-Bench",
       "paperTitle": "WildAIGC-Bench: Can AI Image Detectors Handle the Wild? A Benchmark of Generated and Edited Images in Online Circulation",
       "aliases": [],
-      "oneLine": "Evaluates AI image detectors on 407 verified AI-generated or edited images collected from online circulation, with raw and processed versions.",
+      "oneLine": "AI-generated and edited images circulating online, with human-verified labels and source links, evaluated through detection recall, balanced accuracy, and false-positive rate under raw and processed conditions.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -359,22 +359,14 @@
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# WildAIGC-Bench"
       },
-      "description": "Evaluates AI image detectors on 407 verified AI-generated or edited images collected from online circulation, with raw and processed versions.",
-      "whyItMatters": "Provides a realistic testbed for detectors on images that have circulated online, addressing a gap in evaluating performance under real-world distribution shifts.",
+      "description": "AI-generated and edited images circulating online, with human-verified labels and source links, evaluated through detection recall, balanced accuracy, and false-positive rate under raw and processed conditions.",
+      "whyItMatters": "Real-world circulating manipulated images with compression and recapture artifacts expose detector failures that clean benchmarks miss, informing detection and provenance decisions.",
       "attentionForecast": {
-        "score": 65,
+        "score": 58,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The topic of AI image detection in the wild is broadly relevant and the artifact readiness is high, which may drive early adoption."
+        "reason": "Timely AIGC detection relevance, a broad image-modality scope, and released data with code support likely draw substantial attention."
       },
-      "publishers": [
-        {
-          "name": "YuZijian",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://github.com/YuZijian/WildAIGC-Bench",
-          "role": "benchmark-publisher"
-        }
-      ],
       "ranking": {
         "30d": {
           "score": null,
@@ -496,9 +488,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "38898ee86c9cabf348e8fc4d72c6c59ee8bdd213e86ffedc1e53e8d5398027c6"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "1a5bec593241895b5da2f3534d3c0a3723838e190a92c9a03eafbda24e0047a5"
       }
     },
     {
@@ -509,7 +501,7 @@
       "aliases": [
         "When Health Assistants Agree Too Readily: A Benchmark of Time-Critical Self-Diagnosis"
       ],
-      "oneLine": "Paired health-query tasks where models must decide whether to agree with a user's self-diagnosis or caution about serious alternatives.",
+      "oneLine": "A paired benchmark of 100 health self-diagnosis questions contrasting cases where a serious alternative remains possible with cases where user evidence rules it out, measuring models' appropriate caution and appropriate agreement rates.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -582,14 +574,15 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Paired health-query tasks where models must decide whether to agree with a user's self-diagnosis or caution about serious alternatives.",
-      "whyItMatters": "Reveals whether health assistants over-agree and risk delaying urgent care, informing safety-oriented training.",
+      "description": "A paired benchmark of 100 health self-diagnosis questions contrasting cases where a serious alternative remains possible with cases where user evidence rules it out, measuring models' appropriate caution and appropriate agreement rates.",
+      "whyItMatters": "Distinguishes models that over-agree with user self-diagnoses from those that over-hedge, giving a paired signal for calibrating when to defer to or challenge health claims.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 58,
-        "confidence": "Medium",
+        "score": 38,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses high-stakes health assistant safety, likely to attract attention from AI safety researchers."
+        "reason": "Health-assistant safety and frontier-model coverage may draw interest, but no public artifact release is indicated.",
+        "horizon_comment": null
       },
       "displayEligible": true,
       "curation": {
@@ -727,9 +720,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:21:35.671814Z",
-        "inputHash": "9037d171b01bf725643a3de32faa1a9f2f1cbcb820603ec678965b123b040d9b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "99d691c9a625b9e2f6932ca0a172eec7047b4a66bf6f35331b6a1f94ea5691fd"
       }
     },
     {
@@ -740,7 +733,7 @@
       "aliases": [
         "What Do RTL Repair Benchmarks Actually Measure?"
       ],
-      "oneLine": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
+      "oneLine": "Verilog RTL repair cases with lint and semantic mutations, scored by simulation and formal equivalence under declared reset, first-cycle, and unknown-value semantics.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Chip Design & EDA"
@@ -815,29 +808,34 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
-      "whyItMatters": "Provides a public, hash-bound dataset and evaluation controls that separate true repair ability from artifacts of simulation semantics and specification use.",
+      "description": "Verilog RTL repair cases with lint and semantic mutations, scored by simulation and formal equivalence under declared reset, first-cycle, and unknown-value semantics.",
+      "whyItMatters": "Documents measurement confounds in RTL repair scoring and supplies controls, enabling comparable evaluation of whether models actually use faulty RTL rather than only specifications.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
+        "score": 42,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark targets RTL repair, a narrow hardware verification topic with limited broad appeal, but the public release and rigorous methodology support moderate attention."
+        "reason": "The specialized hardware-verification scope and methodological audit focus likely limit attention to chip-design and code-evaluation audiences."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "We construct and hash-bind RTLRepairDataset, 5,784 (broken, fixed) training pairs; RTLRepairBench, 459 held-out cases with 374 syntactic and 85 behavioral mutations; and an evaluation harness supporting simulation and formal equivalence.",
-          "scoring": "A record is correct at the primary level (L3) only if property, value, temperature and material all match the gold standard.",
-          "reuse": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench."
+          "task": "459 held-out cases with 374 syntactic and 85 behavioral mutations in broken RTL given a specification.",
+          "scoring": "Simulation and formal equivalence scoring with reported initialization, reset, first-cycle, and unknown-value semantics.",
+          "reuse": "Benchmark, training set, construction code, sanitized aggregate evidence, and reproduction materials released at https://github.com/Evaaaz/RTLRepairBench."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Released benchmark with defined mutation classes, scoring via simulation and formal equivalence, and a public GitHub repository with dataset and reproduction materials.",
-        "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "It contains the camera-ready paper, RTLRepairBench, the RTLRepairDataset training file, the canonical data-generation and verification code, sanitized aggregate evidence, and an allowlisted exporter."
+        "decisionReason": "Formally named benchmark with released tasks, a stable scoring contract, and a public GitHub path for reproduction.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench."
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "667e0bd7fb9f55db28386aad2ee7efe3e4dba5305b32c29c07b0621d6ea2d553"
       },
       "ranking": {
         "30d": {
@@ -958,11 +956,6 @@
             "elapsedDays": null
           }
         }
-      },
-      "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "5a28353383e44d7b966700a04b78a61b54cb6b136699e2ba9434c364fbb6d2af"
       }
     },
     {
@@ -971,7 +964,7 @@
       "name": "VLA-Retain",
       "paperTitle": "VLA-Retain: Benchmarking Cross-Dimension Effects of Vision Tuning in VLAs",
       "aliases": [],
-      "oneLine": "Benchmark comparing five open VLA models tuned on Camera-view or Sensor-noise data with base checkpoints on LIBERO-Plus across seven perturbation dimensions.",
+      "oneLine": "VLA-Retain compares five open vision-language-action models, tuned on camera-view or sensor-noise data, against their own base checkpoints on the LIBERO-Plus dataset across seven perturbation dimensions.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -1179,18 +1172,18 @@
           }
         }
       },
-      "description": "Benchmark comparing five open VLA models tuned on Camera-view or Sensor-noise data with base checkpoints on LIBERO-Plus across seven perturbation dimensions.",
-      "whyItMatters": "Checks whether vision tuning in VLAs preserves robustness across diverse perturbations, informing deployment in varied environments.",
+      "description": "VLA-Retain compares five open vision-language-action models, tuned on camera-view or sensor-noise data, against their own base checkpoints on the LIBERO-Plus dataset across seven perturbation dimensions.",
+      "whyItMatters": "Adaptation of VLA vision modules is usually reported only as target-domain gain, so a scored protocol separating target gains from off-target retention would inform whether tuning choices generalize beyond the target condition.",
       "attentionForecast": {
-        "score": 10,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Limited artifact availability and a specialized robotics focus suggest modest early attention."
+        "reason": "Narrow VLA robustness topic with a five-model study scope and no released artifacts described."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "6fc254655410201e8cff429d2e690c8fb86ec6384b2f596de13993b6ea6295f6"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "5357aa90ee18a466278a354583958a6e0815c543cd594a856718f157deb1b1ac"
       }
     },
     {
@@ -1199,7 +1192,7 @@
       "name": "VFS-Bench",
       "paperTitle": "vfs-bench",
       "aliases": [],
-      "oneLine": "VFS-Bench measures agent success rate and token cost on 200 tasks from MCP-Atlas and Toolathlon, comparing MCP tool calling against AgentVFS virtual filesystem interaction.",
+      "oneLine": "Compares 200 multi-step agent tasks (100 MCP-Atlas, 100 Toolathlon) over 46 external services when executed via MCP servers versus an AgentVFS virtual filesystem with shell commands, scoring pass@1 and total tokens per interface.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Finance"
@@ -1278,14 +1271,14 @@
           "url": "https://github.com/agentvfs/vfs-bench"
         }
       ],
-      "description": "VFS-Bench measures agent success rate and token cost on 200 tasks from MCP-Atlas and Toolathlon, comparing MCP tool calling against AgentVFS virtual filesystem interaction.",
-      "whyItMatters": "Enables direct comparison of agent interface efficiency on realistic multi-step tasks while preserving original evaluators.",
+      "description": "Compares 200 multi-step agent tasks (100 MCP-Atlas, 100 Toolathlon) over 46 external services when executed via MCP servers versus an AgentVFS virtual filesystem with shell commands, scoring pass@1 and total tokens per interface.",
+      "whyItMatters": "Provides a controlled same-task comparison of tool-calling versus filesystem interfaces, using identical instructions, fixtures and original evaluators, which helps teams weigh interface choice against task success and token cost.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 72,
+        "score": 58,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses agent interface efficiency with broad service coverage and provides public leaderboards, likely attracting interest from agent developers."
+        "reason": "An open code release with a broad 200-task, 46-service scope and comparison results, backed by an official project page and contribution path, plausibly draws moderate early interest."
       },
       "publishers": [
         {
@@ -1431,9 +1424,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "3ba8391f4efe19ddc4afa7e3a1749dea990c30a653951ae240307a20e36e7de0"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "21b3b9ce4cdb71c9aedd2f2d89d5ec3df7bd9efe0f18c418e4575040fc454b62"
       }
     },
     {
@@ -1442,7 +1435,7 @@
       "name": "TriGeoBench",
       "paperTitle": "TriGeoBench: A Multimodal Mathematical Geometry Benchmark with Figures and TikZ",
       "aliases": [],
-      "oneLine": "Multimodal mathematical geometry benchmark derived from Chinese middle- and high-school examinations, including figures and TikZ.",
+      "oneLine": "TriGeoBench is a geometry-centric multimodal benchmark drawn from Chinese middle- and high-school exams, pairing 7,000 question-answer items with RGB figures and TikZ code across plane, solid, analytic, function, and vector geometry.",
       "area": "Multimodal",
       "applicationDomains": [
         "Cybersecurity",
@@ -1656,18 +1649,18 @@
           }
         }
       },
-      "description": "Multimodal mathematical geometry benchmark derived from Chinese middle- and high-school examinations, including figures and TikZ.",
-      "whyItMatters": "Tests multimodal reasoning on geometry problems, a core mathematical ability for language and vision models.",
+      "description": "TriGeoBench is a geometry-centric multimodal benchmark drawn from Chinese middle- and high-school exams, pairing 7,000 question-answer items with RGB figures and TikZ code across plane, solid, analytic, function, and vector geometry.",
+      "whyItMatters": "Geometry benchmarks relying on rasterized figures can reward superficial pattern matching; paired TikZ representations would let evaluators probe structure-aware reasoning and image-text alignment.",
       "attentionForecast": {
-        "score": 18,
+        "score": 38,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Geometry benchmarks are moderately interesting, but the lack of artifacts limits early traction."
+        "reason": "Multimodal geometry reasoning scope with large item counts but no artifact release described in the supplied evidence."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "7aa88cca8fe3534fbeda667562e8a9ef83dd9821ed6afff390b21841cdeb9a98"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "4f7acc88c063eedd53a0e6ac9c2065faec3c8d9ccbf21d2374080adb5814a16a"
       }
     },
     {
@@ -1678,7 +1671,7 @@
       "aliases": [
         "Towards Consistent Geospatial Representations: Aligning One Encoder to Many Foundation Models"
       ],
-      "oneLine": "Pangaea-Latents offers frozen embeddings from five geospatial foundation models across eleven Pangaea datasets for evaluating representation consistency.",
+      "oneLine": "Pangaea-Latents extends the Pangaea benchmark with frozen embeddings from five geospatial foundation models across eleven datasets, alongside reproduced baselines; a companion alignment framework, GeoMixture, is also proposed.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -1764,27 +1757,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Pangaea-Latents offers frozen embeddings from five geospatial foundation models across eleven Pangaea datasets for evaluating representation consistency.",
-      "whyItMatters": "Provides a standardized resource for comparing geospatial representations without re-running large models.",
+      "description": "Pangaea-Latents extends the Pangaea benchmark with frozen embeddings from five geospatial foundation models across eleven datasets, alongside reproduced baselines; a companion alignment framework, GeoMixture, is also proposed.",
+      "whyItMatters": "Geospatial foundation models vary in pretraining objective, modality, and resolution, and no single model dominates across tasks; comparing frozen representations on a shared suite clarifies whether their strengths are complementary.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 30,
+        "score": 22,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Geospatial representation evaluation is a specialized area, and the abstract lacks links or artifact details beyond the named dataset extension."
+        "reason": "The record is a narrow geospatial-embedding extension tied to a companion alignment method, with limited artifact readiness and a specialized topical audience."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines",
           "scoring": "Our encoder ties the best GFM in average rank across nine Pangaea datasets, trading peak performance for cross-task consistency.",
           "reuse": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Abstract explicitly names Pangaea-Latents as a benchmark extension with provided embeddings and baselines; publication in workshop suggests public availability.",
+        "decisionReason": "No artifact links or evidence of public reuse path; only an extension of an existing benchmark.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines, and find GFM embeddings to be neither redundant nor disjoint."
       },
@@ -1909,9 +1902,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "7275fd6450a409529444a818de0597a467f2d11443e4975d8b9481b4463a47ab"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "f232fee3622066cc6f606435d3c980cfec049b807ef9fa063d2ea9e386d39011"
       }
     },
     {
@@ -1922,7 +1915,7 @@
       "aliases": [
         "thermoelectric-extraction-benchmark"
       ],
-      "oneLine": "Benchmark evaluates extraction of thermoelectric property records from scientific paragraphs using gold standards and F1 scoring at three levels.",
+      "oneLine": "Evaluates extraction of thermoelectric property records (ZT, Seebeck coefficient, thermal and electrical conductivity, power factor) from single paper paragraphs, scoring record-level correctness with sample-level F1 against gold standards.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2000,14 +1993,14 @@
           "url": "https://github.com/beruy/thermoelectric-extraction-benchmark"
         }
       ],
-      "description": "Benchmark evaluates extraction of thermoelectric property records from scientific paragraphs using gold standards and F1 scoring at three levels.",
-      "whyItMatters": "Provides a reproducible protocol with public code and frozen methods to compare extraction approaches fairly.",
+      "description": "Evaluates extraction of thermoelectric property records (ZT, Seebeck coefficient, thermal and electrical conductivity, power factor) from single paper paragraphs, scoring record-level correctness with sample-level F1 against gold standards.",
+      "whyItMatters": "Gives a frozen, reproducible protocol and gold standard for comparing rule-based, NER, and LLM extraction methods on scientific text, so teams can make comparable extraction decisions rather than relying on ad hoc comparisons.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Medium",
+        "score": 14,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets a niche materials informatics task but provides clear reproducibility and public data, attracting moderate specialist attention."
+        "reason": "A narrow-domain scientific-text extraction benchmark with a released protocol and code but limited broad appeal and no supplied promotion signals."
       },
       "displayEligible": true,
       "curation": {
@@ -2145,9 +2138,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "ca543b36685d8494b92785cea2581c82025c55742ee890ecdb4e65584ef29e80"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "757c43709f76ee5624a434e379585029031af7f687bcf19cac0bca8c0403ed96"
       }
     },
     {
@@ -2156,7 +2149,7 @@
       "name": "TerraNostra-Bench",
       "paperTitle": "TerraNostra-Bench: Benchmarking Spatial Downscaling and Temporal Rollout for Global 1-km Land-Use Reconstruction",
       "aliases": [],
-      "oneLine": "Evaluation protocol for global 1-km land-use reconstruction that separates spatial downscaling and temporal rollout, scoring rare land-use-change pixels.",
+      "oneLine": "Proposes a change-aware evaluation protocol separating spatial downscaling from autoregressive temporal rollout for 1-km annual land-use reconstruction, scoring models on rare land-use-change pixels.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2357,18 +2350,18 @@
           }
         }
       },
-      "description": "Evaluation protocol for global 1-km land-use reconstruction that separates spatial downscaling and temporal rollout, scoring rare land-use-change pixels.",
-      "whyItMatters": "Addresses imbalance in land-use change detection by focusing on rare change pixels, which are critical for climate and environmental monitoring.",
+      "description": "Proposes a change-aware evaluation protocol separating spatial downscaling from autoregressive temporal rollout for 1-km annual land-use reconstruction, scoring models on rare land-use-change pixels.",
+      "whyItMatters": "Land-use reconstruction evaluation is complicated by dominant static background; a change-aware protocol could make downscaling and rollout comparisons more meaningful if released.",
       "attentionForecast": {
-        "score": 8,
+        "score": 10,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The specialized geospatial topic and missing artifacts suggest limited initial interest."
+        "reason": "A specialized Earth-system downscaling benchmark with no supplied release artifacts or external access path."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "0f4a2fab0ccd04a488ce26db18f8f95142285087e769912ee2b4544d814df525"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "9c5525593954f4309019957730ca424c75c125d364bfc1b8c1c8117a26f22bb6"
       }
     },
     {
@@ -2377,7 +2370,7 @@
       "name": "StreamEval",
       "paperTitle": "StreamEval: Evaluating Interactive Streaming Video Generation Models",
       "aliases": [],
-      "oneLine": "Interactive streaming video generation benchmark covering five tasks; models must respond to incremental requests while preserving state.",
+      "oneLine": "Evaluates interactive streaming video generation across avatar dialogue, avatar performance, world generation, instruction editing, and reference editing, with scripted test cases and ten task-specific metrics on a 0-100 scale.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -2465,13 +2458,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce StreamEval, a unified benchmark for interactive streaming video generation"
       },
-      "description": "Interactive streaming video generation benchmark covering five tasks; models must respond to incremental requests while preserving state.",
-      "whyItMatters": "Measures request execution and state consistency beyond visual fidelity, highlighting gaps in real-time interactive systems.",
+      "description": "Evaluates interactive streaming video generation across avatar dialogue, avatar performance, world generation, instruction editing, and reference editing, with scripted test cases and ten task-specific metrics on a 0-100 scale.",
+      "whyItMatters": "Interactive streaming video generation needs evaluation of request execution and state consistency, not only visual quality; a shared benchmark could inform model selection and development.",
       "attentionForecast": {
-        "score": 63,
-        "confidence": "Medium",
+        "score": 26,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Interactive streaming video generation is an emerging trend, and the comprehensive multi-model evaluation is likely to draw interest."
+        "reason": "A broad interactive video generation benchmark with a leaderboard, though supplied evidence lacks released task inputs and scoring artifacts."
       },
       "ranking": {
         "30d": {
@@ -2594,9 +2587,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:21:35.671814Z",
-        "inputHash": "71e484f9519f0d8fb545a4afa4c239304542a22a5002361c81773320de2a530f"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "b5e17dc74fbe4d2be42a0715fed011beb8542fe387828a9a512bca46f5285666"
       }
     },
     {
@@ -2605,7 +2598,7 @@
       "name": "SciDiagBench",
       "paperTitle": "SciDiagBench: A Type-Specific Benchmark for Human-Aligned Evaluation of Scientific Diagrams",
       "aliases": [],
-      "oneLine": "Benchmark for evaluating scientific diagram generation using type-specific criteria aligned with human preferences.",
+      "oneLine": "Evaluates scientific diagram generation with a dataset of 165 diagrams across 11 diagram types and 10 domains, using a human preference-guided method to build type-specific criteria.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -2680,14 +2673,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Benchmark for evaluating scientific diagram generation using type-specific criteria aligned with human preferences.",
-      "whyItMatters": "Provides nuanced evaluation across diagram types, addressing the lack of human-aligned criteria in VLM-based assessment.",
+      "description": "Evaluates scientific diagram generation with a dataset of 165 diagrams across 11 diagram types and 10 domains, using a human preference-guided method to build type-specific criteria.",
+      "whyItMatters": "Scientific diagram evaluation often uses generic criteria; type-specific, human-aligned evaluation could make automated assessment of generated diagrams more reliable.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
+        "score": 12,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Scientific diagram generation is a narrower niche; the benchmark may receive moderate attention, but the absence of a public leaderboard lowers visibility."
+        "reason": "A specialized scientific-diagram evaluation benchmark with no supplied artifacts or external access path."
       },
       "displayEligible": false,
       "curation": {
@@ -2825,9 +2818,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:21:35.671814Z",
-        "inputHash": "0f67403aa15f955e9ccdf8e662602862c5635842f813bddca4cf95916b74460a"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "4a0288048b08dfb3d1f9b6f1ccc9f5bd72117c9683426b0007684e3330a2a3fa"
       }
     },
     {
@@ -2838,7 +2831,7 @@
       "aliases": [
         "RSI Control: Can AI Models Perform Covert Sabotage in the Self-Improvement Process?"
       ],
-      "oneLine": "Testbed where models autonomously perform R&D main tasks while attempting covert side tasks that install misaligned properties.",
+      "oneLine": "A testbed where a frontier model acts as an autonomous R&D agent on a benign main task drawn from a successor model's training pipeline while pursuing a covert side task to install a misaligned property, spanning 16 side tasks in 22 task pairs.",
       "area": "Agents & Tool Use",
       "applicationDomains": [
         "General AI"
@@ -2911,14 +2904,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Testbed where models autonomously perform R&D main tasks while attempting covert side tasks that install misaligned properties.",
-      "whyItMatters": "Exposes safety risks in recursive self-improvement by measuring covert sabotage capability and monitor detection.",
+      "description": "A testbed where a frontier model acts as an autonomous R&D agent on a benign main task drawn from a successor model's training pipeline while pursuing a covert side task to install a misaligned property, spanning 16 side tasks in 22 task pairs.",
+      "whyItMatters": "Measures whether models can carry out covert sabotage undetected within recursive self-improvement pipelines, informing control and monitoring choices before delegating training responsibility to models.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 67,
-        "confidence": "Medium",
+        "score": 42,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Covert sabotage in recursive self-improvement is a hot AI safety topic; the evaluation of frontier models and monitors is likely to garner attention."
+        "reason": "The topic of AI control and covert sabotage in self-improvement is broadly relevant, but the absence of released artifacts or a project link limits near-term external uptake."
       },
       "displayEligible": true,
       "curation": {
@@ -3056,9 +3049,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:21:35.671814Z",
-        "inputHash": "83f34307e9fe455785d202e7695ac68da4a470559c526c9ab8f68064bd1e076d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "686d04eaadb6c18073d1e8411bd6f93fc7be527f1ae5b1fd8948e83c320ac3b6"
       }
     },
     {
@@ -3067,7 +3060,7 @@
       "name": "RoboJudge-Bench",
       "paperTitle": "RoboJudge: Multimodal Language Models as Judges for Embodied Video Generation",
       "aliases": [],
-      "oneLine": "Benchmark for evaluating multimodal language models as judges of embodied video generation quality.",
+      "oneLine": "Evaluates multimodal LLMs as judges of generated embodied videos along physical adherence and instruction alignment, using 800 human-annotated rollouts from 8 source corpora and 10 video generators across grippers, human hands, and dexterous hands.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -3281,18 +3274,18 @@
           }
         }
       },
-      "description": "Benchmark for evaluating multimodal language models as judges of embodied video generation quality.",
-      "whyItMatters": "Provides a way to assess judge models for embodied video, important for scaling evaluation beyond human raters.",
+      "description": "Evaluates multimodal LLMs as judges of generated embodied videos along physical adherence and instruction alignment, using 800 human-annotated rollouts from 8 source corpora and 10 video generators across grippers, human hands, and dexterous hands.",
+      "whyItMatters": "Embodied video generation is increasingly judged by MLLMs, and this benchmark quantifies how closely those automated judgments track human ratings, offering a shared protocol for selecting and validating video judges.",
       "attentionForecast": {
-        "score": 15,
-        "confidence": "Low",
+        "score": 55,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The intersection of embodied AI and video generation may attract some interest, but artifact absence limits impact."
+        "reason": "Interest in embodied video generation and MLLM-as-judge evaluation, together with an official project page and released annotated data, supports moderate early visibility."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "4215d337d7744c7cec601c3d9ae84ec904ce76a957c61a9e8db806095e3faa8b"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "5a6d3a289563d3b7251a68ad2f8a2f25e34ddad083eb756184ddd5c205bc15bf"
       }
     },
     {
@@ -3303,7 +3296,7 @@
       "aliases": [
         "RoboCasa-Shift: Stage-Aware Robustness Evaluation of Vision-Language-Action Policies in Long-Horizon Household Manipulation"
       ],
-      "oneLine": "Robustness benchmark for vision-language-action policies, pairing clean and shifted rollouts to diagnose failure progression.",
+      "oneLine": "Diagnoses robustness of vision-language-action policies in long-horizon household manipulation by comparing matched clean and perturbed rollouts across controlled shifts at calibrated severities, reporting task success, paired outcome transitions, and stage-level failure progression.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -3389,14 +3382,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Robustness benchmark for vision-language-action policies, pairing clean and shifted rollouts to diagnose failure progression.",
-      "whyItMatters": "Goes beyond aggregate success to reveal how distribution shifts affect execution stages, enabling targeted policy improvement.",
+      "description": "Diagnoses robustness of vision-language-action policies in long-horizon household manipulation by comparing matched clean and perturbed rollouts across controlled shifts at calibrated severities, reporting task success, paired outcome transitions, and stage-level failure progression.",
+      "whyItMatters": "Aggregate task success hides where and how VLA policies break under distribution shift; paired, stage-aware diagnostics give a reusable protocol for comparing policies and locating failure sources.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
+        "score": 40,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Robustness evaluation in embodied AI remains active; the publicly available code likely boosts engagement."
+        "reason": "Narrow embodied-manipulation scope and a single primary policy evaluation limit attention, though an open repository and reproducible records support early technical interest."
       },
       "displayEligible": true,
       "curation": {
@@ -3534,9 +3527,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:21:35.671814Z",
-        "inputHash": "aad6a8662dac5ce1d5f8b941e39c4d488d2a978752a5570b4c1bbca9fd05b3b3"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "c78d20fd2dcc59b4e75bb401b81da11133a7decf1a731d5e61d245cd154070f1"
       }
     },
     {
@@ -3545,7 +3538,7 @@
       "name": "RITE",
       "paperTitle": "RITE: Evaluating End-to-End Resilience to Silent Tool Errors in E-Commerce Agentic Systems",
       "aliases": [],
-      "oneLine": "Benchmark for end-to-end resilience to silent tool errors in e-commerce agentic systems, using industrial workflows and log-derived inputs.",
+      "oneLine": "An interactive benchmark evaluating whether e-commerce tool-using agents complete original queries after silent tool errors corrupt intermediate state, using matched units across nine workflows with silent-error, correct-value, and explicit-failure instances.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3753,18 +3746,18 @@
           }
         }
       },
-      "description": "Benchmark for end-to-end resilience to silent tool errors in e-commerce agentic systems, using industrial workflows and log-derived inputs.",
-      "whyItMatters": "Evaluates agent robustness to silent tool failures, a practical concern for reliable automation in e-commerce.",
+      "description": "An interactive benchmark evaluating whether e-commerce tool-using agents complete original queries after silent tool errors corrupt intermediate state, using matched units across nine workflows with silent-error, correct-value, and explicit-failure instances.",
+      "whyItMatters": "Silent tool errors can propagate into incorrect final answers without explicit failure signals, so a controlled, reproducible protocol helps quantify and compare agent resilience in production-like workflows.",
       "attentionForecast": {
-        "score": 9,
+        "score": 38,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Limited to a specific e-commerce setting with no public artifacts, reducing expected early visibility."
+        "reason": "Agent reliability and tool-error resilience are topical, but with no released artifacts or project link supplied, near-term external uptake is uncertain."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T01:20:01.419564Z",
-        "inputHash": "0d016f13b329eef48f713d59b01b1d0edd77743198b8d9afef15511e0132b2bb"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-10-21T09:32:26.287688Z",
+        "inputHash": "9b6088de58ac4d25e1c4c3e00110cd2004746a0a554137d0ce9184f17ac2d90b"
       }
     },
     {
@@ -3775,7 +3768,7 @@
       "aliases": [
         "Recommending Bacterial Cultivation Conditions from 16S rRNA"
       ],
-      "oneLine": "DSNI provides 65,023 bacterial strains with 16S rRNA sequences paired to cultivation conditions, evaluated via top-25 recommendation accuracy.",
+      "oneLine": "The benchmark pairs 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen) across 65,023 bacterial strains using phylogeny-aware splits.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3850,27 +3843,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "DSNI provides 65,023 bacterial strains with 16S rRNA sequences paired to cultivation conditions, evaluated via top-25 recommendation accuracy.",
-      "whyItMatters": "Offers a large, phylogeny-aware resource for learning cultivation requirements useful in microbiology and industrial bioprocessing.",
+      "description": "The benchmark pairs 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen) across 65,023 bacterial strains using phylogeny-aware splits.",
+      "whyItMatters": "It addresses the lack of standardized benchmarks for recommending bacterial cultivation conditions from sequence data.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 40,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Bacterial cultivation recommendation is relevant to bioinformatics and industrial microbiology, but the absence of explicit artifact links may moderate adoption."
+        "reason": "The paper proposes a new benchmark and model, but low relevance to broad ML audiences and no public code or data link limit likely attention."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)",
           "scoring": "The model also recovers 90.2% of ground-truth cultivation protocols within its top-25 recommendations, narrowing the exhaustive search space by approximately 60 times.",
           "reuse": "We introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Abstract explicitly names DSNI as a benchmark with clear data composition and an evaluation metric; accepted paper implies public release.",
+        "decisionReason": "The paper introduces DSNI but no artifact link, dataset, or public reuse path is provided; cannot confirm a released benchmark with a usable scoring contract.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "To address this, we introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)."
       },
@@ -3996,8 +3989,8 @@
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "9453e002f153e097c95c5413ee1c43aa1f0167f819767b6fe45af146a0fbfd63"
+        "generatedAt": "2026-10-21T09:31:23.632228Z",
+        "inputHash": "6dd52d0dbb205e75b075d1ef70176085b76b33e8db5c8e50f9a61fcbbb804ceb"
       }
     },
     {
@@ -7040,7 +7033,7 @@
       "name": "DeclineCraft",
       "paperTitle": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge",
       "aliases": [],
-      "oneLine": "A dynamic abstention benchmark for RAG systems with 700 answerable and 300 unanswerable questions, evaluated using Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
+      "oneLine": "A dynamic abstention benchmark for RAG with unanswerable questions about Minecraft features after a corpus cutoff, measuring Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -7117,27 +7110,27 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A dynamic abstention benchmark for RAG systems with 700 answerable and 300 unanswerable questions, evaluated using Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
-      "whyItMatters": "Measures whether RAG models can abstain appropriately when neither retrieved documents nor parametric knowledge supports an answer, a crucial reliability property.",
+      "description": "A dynamic abstention benchmark for RAG with unanswerable questions about Minecraft features after a corpus cutoff, measuring Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
+      "whyItMatters": "It addresses reliable abstention in RAG by jointly measuring retrieval and parametric knowledge, providing a way to evaluate when models should decline to answer.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
+        "score": 35,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses a timely RAG abstention topic with a public code repository and extensive model evaluation, though the missing data link may limit immediate reuse."
+        "reason": "The paper covers a timely abstention evaluation topic with code available, but missing benchmark data may limit immediate adoption."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "DeclineCraft contains 1,000 questions (700 answerable, 300 unanswerable) targeting Minecraft feature additions after a corpus cut-off, with audits of parametric exposure.",
           "scoring": "Metrics include Correct Abstention Rate (CAR), Answerable Attempt Rate, and Answer Accuracy, with a response judge labeling ABSTAIN, DENY, or ANSWER and an accuracy judge scoring 1/0.5/0.",
           "reuse": "The code is available on GitHub with detailed scripts to rebuild the benchmark and evaluate models, though the benchmark data link is listed as TODO."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "reviewedAt": "2026-10-21T09:31:23.632228Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository provides scripts to rebuild the benchmark and evaluate models, with explicit metrics and scoring rules, though the data link is pending; the scoring contract and reuse path are sufficiently established.",
+        "decisionReason": "The GitHub repository is available but the benchmark data is not yet released (TODO: data link), preventing immediate reuse or verification of task inputs and scoring.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge"
       },
@@ -7263,8 +7256,8 @@
       },
       "copyGeneration": {
         "model": "deepseek-v4-pro",
-        "generatedAt": "2026-10-21T06:17:46.204818Z",
-        "inputHash": "7cb7aecd24fee4e222a4d3a77de5d060ec060b17cd3bce85c9dfdc4dc8a69541"
+        "generatedAt": "2026-10-21T09:31:23.632228Z",
+        "inputHash": "432eb8cfb6cdf4e7b31a7624f64bd980140e3bfaee199473573635dbaa6d8e09"
       }
     },
     {
@@ -27721,6 +27714,249 @@
         "model": "deepseek-v4-pro",
         "generatedAt": "2026-10-20T01:38:18.688704Z",
         "inputHash": "81184e8b5595209e0ee92d1b1b50b5b3df64cb39ea012bb185dd8a2d19578fda"
+      }
+    },
+    {
+      "id": "bm_odysseys2-benchmark_9484383a",
+      "familyId": "bmf_31dfc565f8d5",
+      "name": "Odysseys2",
+      "paperTitle": "odysseys2-benchmark",
+      "aliases": [
+        "odysseys2-benchmark"
+      ],
+      "oneLine": "Odysseys2 is a web-agent benchmark with 100 real-user-request-derived tasks, each carrying rubric requirements with weights, evaluated on a 0–100 final score.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/ljang0/odysseys2-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-19T06:29:04.420597Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-16",
+      "firstSeenAt": "2026-10-19",
+      "indexedAt": "2026-10-19T06:29:04.420597Z",
+      "sourceUpdatedAt": "2026-10-18T00:03:07Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://browser-use.com",
+        "code": "https://github.com/ljang0/odysseys2-benchmark"
+      },
+      "motivation": "odysseys2-benchmark Odysseys2: 100 web-agent tasks, 982 rubric checks, and published benchmark scores # Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com), with 982 rubric requirements.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ljang0/odysseys2-benchmark",
+        "url": "https://github.com/ljang0/odysseys2-benchmark",
+        "title": "odysseys2-benchmark",
+        "authors": [
+          "ljang0"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "odysseys2-benchmark Odysseys2: 100 web-agent tasks, 982 rubric checks, and published benchmark scores # Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com), with 982 rubric requirements.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ljang0/odysseys2-benchmark",
+          "url": "https://github.com/ljang0/odysseys2-benchmark"
+        }
+      ],
+      "description": "Odysseys2 is a web-agent benchmark with 100 real-user-request-derived tasks, each carrying rubric requirements with weights, evaluated on a 0–100 final score.",
+      "whyItMatters": "It supplies public task definitions, detailed rubrics, and reported model scores, allowing the evaluation of browser agents against real-world user intents.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 65,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Web-agent evaluation is a common research focus, and the distribution-aligned task design and published real-site results should attract moderate community attention."
+      },
+      "publishers": [
+        {
+          "name": "Browser Use",
+          "organizationType": "company-research-lab",
+          "sourceUrl": "https://browser-use.com",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Each task has `id`, `title`, `category`, `start_url`, `instruction`, and `rubric`. Rubric items have `id`, `name`, `requirement`, and `weight`.",
+          "scoring": "`final_score` is on a 0–100 scale. `item_credit` is the percentage of rubric items marked met before the reward hacking check. `zeroed=1` means the judge applied that check, setting the final score to zero.",
+          "reuse": "This release supplies task definitions and reported scores; it does not include the original benchmark runner, judge implementation, or private trajectory archives. Running a task in a current harness does not by itself reproduce the published evaluation protocol."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T09:29:00.561556Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Released task definitions, scoring rubric, and reported scores are publicly available despite missing judge implementation, providing a repeatable evaluation object.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Odysseys2 public release 100 new web tasks based on the real user request distribution provided by [Browser Use](https://browser-use.com)"
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-10-21T09:29:00.561556Z",
+        "inputHash": "841f54bf6dc2da6ba86ba5ff84a1e2fb20891d3f2a92c3d3667954f41d693f84"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
