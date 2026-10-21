@@ -140,6 +140,21 @@ class DeepSeekReviewTests(unittest.TestCase):
         }]
         validate_copy({"1": {"title": "Agent Evaluation Study", "officialLinks": {}}}, rows)
 
+    def test_out_of_enum_semantic_fields_are_rejected(self) -> None:
+        # "public_reusable" as a decision hid Decision Layer Benchmark as not publishable.
+        source = {"1": {"title": "ExampleBench: A repeatable evaluation", "officialLinks": {}}}
+        base = {
+            **self.valid_decision(), "sourceId": "1", "publishers": [],
+            "description": "Evaluates agents on repeatable tasks.",
+            "whyItMatters": "Supports comparable system evaluation.",
+        }
+        validate_copy(source, [dict(base)])
+        for field, value in (("decision", "public_reusable"), ("decision", "def"),
+                             ("benchmarkMode", "reusable"), ("stableScoringContract", "true"),
+                             ("canonicalNameSource", "")):
+            with self.subTest(field=field, value=value), self.assertRaises(RuntimeError):
+                validate_copy(source, [{**base, field: value}])
+
     def test_name_audit_hides_existing_record_without_supported_name(self) -> None:
         candidate = {
             "name": "odd-repository-slug",
@@ -255,6 +270,49 @@ class DeepSeekReviewTests(unittest.TestCase):
             reviewed = review_batch(sources, "test-model", "test-key")
         self.assertEqual(mocked.call_count, 2)
         self.assertEqual([item["canonicalName"] for item in reviewed], ["OneBench", "TwoBench"])
+
+    def test_invalid_output_is_recorded_with_its_reason(self) -> None:
+        sources = [{"sourceId": "1", "title": "OneBench: Evaluation", "officialLinks": {}}]
+        bad = [{**self.valid_decision(), "sourceId": "1", "description": "We evaluate agents.",
+                "whyItMatters": "Supports comparison.", "publishers": []}]
+        failures = {}
+        with patch("generate_editorial_copy.call_deepseek", side_effect=[bad, bad]):
+            self.assertEqual(review_batch(sources, "test-model", "test-key", failures), [])
+        self.assertEqual(failures, {"1": "Invalid third-person copy for 1:description"})
+
+    def test_unchanged_source_stops_being_retried_after_repeated_invalid_output(self) -> None:
+        existing = {"bySourceId": {}}
+        for attempt in range(1, generate_editorial_copy.MAX_INVALID_ATTEMPTS + 1):
+            self.assertFalse(generate_editorial_copy.repeatedly_invalid(existing, "1", "fp-a"))
+            generate_editorial_copy.record_invalid_output(existing, "1", "reason", "fp-a", f"2026-10-2{attempt}")
+        self.assertTrue(generate_editorial_copy.repeatedly_invalid(existing, "1", "fp-a"))
+        self.assertEqual(existing["invalidOutput"]["1"]["attempts"], generate_editorial_copy.MAX_INVALID_ATTEMPTS)
+        # A changed source (new fingerprint) is reviewed again from a fresh count.
+        self.assertFalse(generate_editorial_copy.repeatedly_invalid(existing, "1", "fp-b"))
+        generate_editorial_copy.record_invalid_output(existing, "1", "reason", "fp-b", "2026-10-25")
+        self.assertEqual(existing["invalidOutput"]["1"]["attempts"], 1)
+
+    def test_selection_holds_back_repeated_failures_and_reviews_bad_stored_decisions(self) -> None:
+        import contextlib, io, sys
+        from generate_editorial_copy import COPY_POLICY_VERSION, MAX_INVALID_ATTEMPTS, main
+        records = [{"source": {"id": key}, "name": key, "releasedAt": "2026-10-20",
+                    "evidence": {"snippet": "Evaluates agents."}} for key in ("held", "bad", "fresh")]
+        fingerprint = {r["source"]["id"]: selection_fingerprint(r, COPY_POLICY_VERSION) for r in records}
+        existing = {"schemaVersion": "1.0", "bySourceId": {
+            "bad": {"selectionFingerprint": fingerprint["bad"], "decision": "public_reusable"}},
+            "invalidOutput": {"held": {"selectionFingerprint": fingerprint["held"], "attempts": MAX_INVALID_ATTEMPTS}}}
+        with tempfile.TemporaryDirectory() as directory:
+            data, output = Path(directory) / "data.json", Path(directory) / "copy.json"
+            data.write_text(json.dumps({"records": records}))
+            output.write_text(json.dumps(existing))
+            printed = io.StringIO()
+            with patch.object(generate_editorial_copy, "DATA_PATH", data), \
+                    patch.object(generate_editorial_copy, "OUTPUT_PATH", output), \
+                    patch.object(sys, "argv", ["generate_editorial_copy.py", "--dry-run", "--limit", "0"]), \
+                    contextlib.redirect_stdout(printed):
+                main()
+        self.assertIn("editorial_copy_repeatedly_invalid=1", printed.getvalue())
+        self.assertIn("editorial_copy_candidates=2 dry_run=true", printed.getvalue())
 
     def test_repository_name_is_not_treated_as_a_publisher(self) -> None:
         self.assertFalse(
