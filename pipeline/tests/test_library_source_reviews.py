@@ -86,6 +86,14 @@ class ReviewedCoverageTests(unittest.TestCase):
         self.assertEqual(by_id['catalog_child']['benchmarkParentId'], 'bm_new')
         self.assertEqual(by_id['bm_new']['taskReview']['id'], 'catalog_parent')
 
+    def test_child_and_parent_absorbed_by_one_record_do_not_self_parent(self):
+        rows = [{'id': 'bm_new', 'name': 'ScreenSpot'}]
+        payload = {'reviewedAt': '2026-10-17', 'reviews': [
+            {'id': 'catalog_child', 'parentId': 'catalog_parent', 'directions': ['computer-use'],
+             'sources': ['https://example.org/pro'], 'role': 'version'}]}
+        apply_source_reviews(rows, payload, {'catalog_parent': 'bm_new', 'catalog_child': 'bm_new'})
+        self.assertNotIn('benchmarkParentId', rows[0])
+
     def test_review_without_a_surviving_target_is_reported_not_fatal(self):
         rows = [{'id': 'child', 'name': 'Child'}]
         payload = {'reviewedAt': '2026-10-17', 'reviews': [

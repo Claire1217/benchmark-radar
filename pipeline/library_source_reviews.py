@@ -40,7 +40,8 @@ def apply_source_reviews(records, payload, redirects=None):
         row['evaluationRole']=review['role']
         if review.get('parentId'):
             parent=target(review['parentId'])
-            if parent is not None: row['benchmarkParentId']=parent['id']
+            # A child and its parent can both be absorbed by one record; never self-parent.
+            if parent is not None and parent is not row: row['benchmarkParentId']=parent['id']
     # Publisher reviews are independent of task and adoption classifications.
     for review in payload.get('publisherReviews', []):
         publishers = review.get('publishers', [])
