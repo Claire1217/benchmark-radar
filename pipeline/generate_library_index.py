@@ -266,7 +266,9 @@ def main() -> None:
     if review_path.exists():
         reviews = json.loads(review_path.read_text())
         reviewed_additions = len(reviews.get("additions", []))
-        apply_source_reviews(records, reviews)
+        orphaned = apply_source_reviews(records, reviews, {**catalog_redirects, **identity_redirects})
+        if orphaned:
+            print("warning: source reviews for missing Library records: " + ", ".join(orphaned), file=sys.stderr)
     # After reviewed additions, so labels can target them too.
     # Reviewed labels from model cards and leaderboards ("SWE Verified", "AIME25").
     alias_path = ROOT / "data" / "library_aliases.json"
