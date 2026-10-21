@@ -398,6 +398,20 @@ def public_release_ready(record: dict[str, Any], decision: dict[str, Any] | None
     return bool(decision and publishable(decision) and decision.get("evaluationEvidenceVerified") is True)
 
 
+def public_links(links: dict[str, Any] | None) -> dict[str, Any]:
+    """Drop candidate links that are not web URLs before they reach public records."""
+    def web_url(value: Any) -> bool:
+        parsed = urlparse(str(value))
+        return parsed.scheme in {"http", "https"} and bool(parsed.netloc) and not re.search(r"\s", str(value))
+    return {key: value for key, value in (links or {}).items() if value and web_url(value)}
+
+
+def candidate_record(candidate: dict[str, Any]) -> dict[str, Any]:
+    record = {key: value for key, value in candidate.items() if key not in {"reviewContext", "candidatePriority"}}
+    record["links"] = public_links(record.get("links"))
+    return record
+
+
 def upsert_curated(
     candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str,
     *, audit_existing: bool = False,
@@ -410,10 +424,7 @@ def upsert_curated(
         if not publishable(decision):
             source_id = decision["sourceId"]
             if audit_existing and source_id in candidate_by_source:
-                record = by_source.get(source_id) or {
-                    key: value for key, value in candidate_by_source[source_id].items()
-                    if key not in {"reviewContext", "candidatePriority"}
-                }
+                record = by_source.get(source_id) or candidate_record(candidate_by_source[source_id])
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -428,10 +439,7 @@ def upsert_curated(
         source = candidate_by_source[source_id]
         if not public_release_ready(source, decision):
             if audit_existing:
-                record = by_source.get(source_id) or {
-                    key: value for key, value in source.items()
-                    if key not in {"reviewContext", "candidatePriority"}
-                }
+                record = by_source.get(source_id) or candidate_record(source)
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -445,7 +453,7 @@ def upsert_curated(
                 }
                 by_source[source_id] = record
             continue
-        record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
+        record = candidate_record(source)
         old_name = str(record.get("name") or "").strip()
         record["name"] = decision["canonicalName"]
         if old_name and old_name.casefold() != record["name"].casefold():
