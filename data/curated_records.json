@@ -216,7 +216,7 @@
       "aliases": [
         "When Health Assistants Agree Too Readily: A Benchmark of Time-Critical Self-Diagnosis"
       ],
-      "oneLine": "SelfDx is a paired benchmark of 100 health self-diagnosis scenarios, each pairing a caution case and an agreement case, to evaluate whether models exhibit appropriate epistemic independence in time-critical health questions.",
+      "oneLine": "Paired health-query tasks where models must decide whether to agree with a user's self-diagnosis or caution about serious alternatives.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -289,29 +289,257 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "SelfDx is a paired benchmark of 100 health self-diagnosis scenarios, each pairing a caution case and an agreement case, to evaluate whether models exhibit appropriate epistemic independence in time-critical health questions.",
-      "whyItMatters": "It exposes a safety-critical failure mode where language models agree too readily with user self-diagnoses and could delay urgent care, providing a testbed for improving appropriate caution without over-caution.",
+      "description": "Paired health-query tasks where models must decide whether to agree with a user's self-diagnosis or caution about serious alternatives.",
+      "whyItMatters": "Reveals whether health assistants over-agree and risk delaying urgent care, informing safety-oriented training.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 68,
+        "score": 58,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Health safety and LLM behavior are broadly relevant topics, and the explicit benchmark with 27-model evaluation suggests strong early interest from researchers and practitioners."
+        "reason": "The benchmark addresses high-stakes health assistant safety, likely to attract attention from AI safety researchers."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Each of 100 pairs contrasts a caution case, where a serious alternative remains possible, with an agreement case, where the user supplies evidence that rules out the alternative and it is safe for the model to agree.",
+          "task": "Each of 100 pairs contrasts a caution case, where a serious alternative remains possible, with an agreement case, where the user supplies evidence that rules out the alternative",
           "scoring": "appropriate caution rate on time-critical condition cases",
-          "reuse": "We find across 27 frontier models that they tend to inappropriately agree with the user's self-diagnosis in cases that require caution."
+          "reuse": "The paper presents a leaderboard comparing 27 frontier models"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces a named benchmark with a clear paired task design, an explicit appropriate caution rate metric, and evaluation of 27 frontier models, providing a reusable protocol for other teams.",
+        "decisionReason": "Introduces a named benchmark with 100 paired cases, clear scoring based on appropriate caution/agreement, and results across 27 models, providing a reusable protocol.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce SelfDx, a paired benchmark for whether models have the appropriate response behavior"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      }
+    },
+    {
+      "id": "bm_what-do-rtl-repair-benchmarks-actually-mea_56a643a0",
+      "familyId": "bmf_da898ba1090f",
+      "name": "RTLRepairBench",
+      "paperTitle": "What Do RTL Repair Benchmarks Actually Measure?",
+      "aliases": [
+        "What Do RTL Repair Benchmarks Actually Measure?"
+      ],
+      "oneLine": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Chip Design & EDA"
+      ],
+      "primaryDomain": "Chip Design & EDA",
+      "industrySectors": [
+        "Semiconductors"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28595",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T17:45:57Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "aggregates",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28595",
+        "paper": "https://arxiv.org/abs/2610.28595",
+        "pdf": "https://arxiv.org/pdf/2610.28595",
+        "project": null,
+        "code": "https://github.com/Evaaaz/RTLRepairBench",
+        "data": null
+      },
+      "motivation": "RTL repair benchmarks should measure whether a model can fix broken RTL given a specification.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28595",
+        "url": "https://arxiv.org/abs/2610.28595",
+        "title": "What Do RTL Repair Benchmarks Actually Measure?",
+        "authors": [
+          "Yeyin Eva Zhu",
+          "Rishabh Ranawat"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "RTLRepairBench evaluates repair of broken RTL code with 459 held-out cases containing syntactic or behavioral mutations, scored via simulation and formal equivalence.",
+      "whyItMatters": "Provides a public, hash-bound dataset and evaluation controls that separate true repair ability from artifacts of simulation semantics and specification use.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets RTL repair, a narrow hardware verification topic with limited broad appeal, but the public release and rigorous methodology support moderate attention."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "We construct and hash-bind RTLRepairDataset, 5,784 (broken, fixed) training pairs; RTLRepairBench, 459 held-out cases with 374 syntactic and 85 behavioral mutations; and an evaluation harness supporting simulation and formal equivalence.",
+          "scoring": "A record is correct at the primary level (L3) only if property, value, temperature and material all match the gold standard.",
+          "reuse": "We release the benchmark, the training set, construction code, sanitized aggregate evidence, and reproduction materials at https://github.com/Evaaaz/RTLRepairBench."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Released benchmark with defined mutation classes, scoring via simulation and formal equivalence, and a public GitHub repository with dataset and reproduction materials.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "It contains the camera-ready paper, RTLRepairBench, the RTLRepairDataset training file, the canonical data-generation and verification code, sanitized aggregate evidence, and an allowlisted exporter."
       }
     },
     {
@@ -407,6 +635,124 @@
         "policy": "source-evidence-v2",
         "decisionReason": "No released dataset, evaluator, or scoring details are provided, so the benchmark cannot be independently run or inspected.",
         "model": "deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "bm_vfs-bench_05caf0e2",
+      "familyId": "bmf_b9053d81dbd5",
+      "name": "VFS-Bench",
+      "paperTitle": "vfs-bench",
+      "aliases": [],
+      "oneLine": "VFS-Bench measures agent success rate and token cost on 200 tasks from MCP-Atlas and Toolathlon, comparing MCP tool calling against AgentVFS virtual filesystem interaction.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/agentvfs/vfs-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:17.160847Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:17.160847Z",
+      "sourceUpdatedAt": "2026-10-21T05:46:38Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://agentvfs.org/benchmark",
+        "code": "https://github.com/agentvfs/vfs-bench"
+      },
+      "motivation": "vfs-bench https://agentvfs.org/benchmark agentic-ai agents benchmark cli llm vfs virtual-filesystem VFS-Bench is **one task, two interfaces**.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:agentvfs/vfs-bench",
+        "url": "https://github.com/agentvfs/vfs-bench",
+        "title": "vfs-bench",
+        "authors": [
+          "agentvfs"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 7
+        }
+      },
+      "evidence": {
+        "snippet": "vfs-bench https://agentvfs.org/benchmark agentic-ai agents benchmark cli llm vfs virtual-filesystem VFS-Bench is **one task, two interfaces**.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:agentvfs/vfs-bench",
+          "url": "https://github.com/agentvfs/vfs-bench"
+        }
+      ],
+      "description": "VFS-Bench measures agent success rate and token cost on 200 tasks from MCP-Atlas and Toolathlon, comparing MCP tool calling against AgentVFS virtual filesystem interaction.",
+      "whyItMatters": "Enables direct comparison of agent interface efficiency on realistic multi-step tasks while preserving original evaluators.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 72,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses agent interface efficiency with broad service coverage and provides public leaderboards, likely attracting interest from agent developers."
+      },
+      "publishers": [
+        {
+          "name": "AgentVFS",
+          "organizationType": "community",
+          "sourceUrl": "https://agentvfs.org/benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "VFS-Bench 1.0 has **200 tasks**, 100 from [MCP-Atlas](https://arxiv.org/abs/2602.00933) and 100 from [Toolathlon](https://arxiv.org/abs/2510.25726), over 46 external services such as email, Canvas, Google Drive and Sheets, GitHub, Notion and Slack.",
+          "scoring": "Each task keeps its original instruction, data and evaluator, so the two runs differ only in the interface, and the benchmark measures how often the agent succeeds and how many tokens each interface costs.",
+          "reuse": "The full leaderboard, every task and every trajectory are on [agentvfs.org](https://agentvfs.org/benchmark/vfs-bench-1/leaderboard)."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Public benchmark with explicit 200-task set, original evaluators, leaderboard, and runnable code in GitHub; stable scoring contract uses pass@1 and token counts.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "VFS-Bench is **one task, two interfaces**. Every task runs twice: once through the task's MCP servers, as in the original benchmark, and once through [AgentVFS](https://agentvfs.org), a virtual filesystem with [VFS.md](https://agentvfs.org/vfs), where the agent reaches the same services with shell commands."
       }
     },
     {
@@ -511,6 +857,236 @@
       }
     },
     {
+      "id": "bm_towards-consistent-geospatial-representati_a72fb7ff",
+      "familyId": "bmf_756d3e39f174",
+      "name": "Pangaea-Latents",
+      "paperTitle": "Towards Consistent Geospatial Representations: Aligning One Encoder to Many Foundation Models",
+      "aliases": [
+        "Towards Consistent Geospatial Representations: Aligning One Encoder to Many Foundation Models"
+      ],
+      "oneLine": "Pangaea-Latents offers frozen embeddings from five geospatial foundation models across eleven Pangaea datasets for evaluating representation consistency.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "NeurIPS REO Workshop 2026",
+        "evidence": "Accepted at NeurIPS REO Workshop 2026",
+        "evidenceUrl": "https://arxiv.org/abs/2610.28313",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "NeurIPS REO Workshop 2026",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted at NeurIPS REO Workshop 2026",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2610.28313",
+              "observedAt": "2026-10-21T06:17:08.177201Z",
+              "rawValue": "Accepted at NeurIPS REO Workshop 2026",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T14:52:21Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28313",
+        "paper": "https://arxiv.org/abs/2610.28313",
+        "pdf": "https://arxiv.org/pdf/2610.28313",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Geospatial foundation models (GFMs) differ widely in pretraining objective, modality and resolution, and none leads across benchmarks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28313",
+        "url": "https://arxiv.org/abs/2610.28313",
+        "title": "Towards Consistent Geospatial Representations: Aligning One Encoder to Many Foundation Models",
+        "authors": [
+          "Arthur Ouaknine and David Rolnick"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines, and find GFM embeddings to be neither redundant nor disjoint.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Pangaea-Latents offers frozen embeddings from five geospatial foundation models across eleven Pangaea datasets for evaluating representation consistency.",
+      "whyItMatters": "Provides a standardized resource for comparing geospatial representations without re-running large models.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Geospatial representation evaluation is a specialized area, and the abstract lacks links or artifact details beyond the named dataset extension."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines",
+          "scoring": "Our encoder ties the best GFM in average rank across nine Pangaea datasets, trading peak performance for cross-task consistency.",
+          "reuse": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Abstract explicitly names Pangaea-Latents as a benchmark extension with provided embeddings and baselines; publication in workshop suggests public availability.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce Pangaea-Latents, an extension of the Pangaea benchmark providing frozen embeddings of $5$ GFMs over its $11$ datasets, along with reproduced baselines, and find GFM embeddings to be neither redundant nor disjoint."
+      }
+    },
+    {
+      "id": "bm_thermoelectric-extraction-benchmark_e89259fd",
+      "familyId": "bmf_03c2d11c4ff3",
+      "name": "Benchmarking thermoelectric property extraction from scientific text",
+      "paperTitle": "thermoelectric-extraction-benchmark",
+      "aliases": [
+        "thermoelectric-extraction-benchmark"
+      ],
+      "oneLine": "Benchmark evaluates extraction of thermoelectric property records from scientific paragraphs using gold standards and F1 scoring at three levels.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/beruy/thermoelectric-extraction-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:17.160847Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:17.160847Z",
+      "sourceUpdatedAt": "2026-10-21T02:14:13Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://doi.org/10.5281/zenodo.23522991",
+        "code": "https://github.com/beruy/thermoelectric-extraction-benchmark",
+        "data": "https://zenodo.org/badge/DOI/10.5281/zenodo.23522991.svg"
+      },
+      "motivation": "thermoelectric-extraction-benchmark Benchmark of five methods for extracting thermoelectric property records from scientific text (regex, ChemDataExtractor, MaterialsBERT NER, LLM prompt, LLM agent) # Benchmarking thermoelectric property extraction from scientific text Code, protocol, gold standards and all method outputs for the paper of the same title (arXiv: to be added).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:beruy/thermoelectric-extraction-benchmark",
+        "url": "https://github.com/beruy/thermoelectric-extraction-benchmark",
+        "title": "thermoelectric-extraction-benchmark",
+        "authors": [
+          "beruy"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "thermoelectric-extraction-benchmark Benchmark of five methods for extracting thermoelectric property records from scientific text (regex, ChemDataExtractor, MaterialsBERT NER, LLM prompt, LLM agent) # Benchmarking thermoelectric property extraction from scientific text Code, protocol, gold standards and all method outputs for the paper of the same title (arXiv: to be added).",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:beruy/thermoelectric-extraction-benchmark",
+          "url": "https://github.com/beruy/thermoelectric-extraction-benchmark"
+        }
+      ],
+      "description": "Benchmark evaluates extraction of thermoelectric property records from scientific paragraphs using gold standards and F1 scoring at three levels.",
+      "whyItMatters": "Provides a reproducible protocol with public code and frozen methods to compare extraction approaches fairly.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets a niche materials informatics task but provides clear reproducibility and public data, attracting moderate specialist attention."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Five methods extract thermoelectric property records (ZT, Seebeck coefficient, thermal and electrical conductivity, power factor; doping separately) from single paragraphs of 311 papers (299 arXiv preprints, 12 open-access journal articles).",
+          "scoring": "A record is correct at the primary level (L3) only if property, value, temperature and material all match the gold standard.",
+          "reuse": "Code, protocol, gold standards and all method outputs for the paper of the same title (arXiv: to be added)."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Repository includes evaluation protocol, gold standards, scorer, and commands to reproduce scores; scoring contract is clearly defined.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "# Benchmarking thermoelectric property extraction from scientific text Code, protocol, gold standards and all method outputs for the paper of the same title"
+      }
+    },
+    {
       "id": "bm_terranostra-bench_9d49e5c0",
       "familyId": "bmf_52c3f65e7cdb",
       "name": "TerraNostra-Bench",
@@ -596,6 +1172,109 @@
         "policy": "source-evidence-v2",
         "decisionReason": "Only an evaluation protocol description is provided; no released data, code, or detailed scoring implementation is available.",
         "model": "deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "bm_streameval_c046e645",
+      "familyId": "bmf_101cbeab8565",
+      "name": "StreamEval",
+      "paperTitle": "StreamEval: Evaluating Interactive Streaming Video Generation Models",
+      "aliases": [],
+      "oneLine": "Interactive streaming video generation benchmark covering five tasks; models must respond to incremental requests while preserving state.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28402",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T15:47:43Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28402",
+        "paper": "https://arxiv.org/abs/2610.28402",
+        "pdf": "https://arxiv.org/pdf/2610.28402",
+        "project": "https://streameval.ai",
+        "code": null,
+        "data": null
+      },
+      "motivation": "As streaming video generation advances, enabling real-time interaction with generated video is becoming increasingly important.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28402",
+        "url": "https://arxiv.org/abs/2610.28402",
+        "title": "StreamEval: Evaluating Interactive Streaming Video Generation Models",
+        "authors": [
+          "StreamEval Team"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce StreamEval, a unified benchmark for interactive streaming video generation spanning five tasks: avatar dialogue, avatar performance, world generation, instruction editing, and reference editing.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": true,
+      "evaluationMode": "score_submission",
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "300 scripted test cases lasting 15-300s, each specifying initial assets, incrementally arriving multimodal requests, and explicit requirements",
+          "scoring": "four evaluation dimensions ... instantiated through ten task-specific metrics on a 0-100 scale",
+          "reuse": "The leaderboard is available at https://streameval.ai"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "StreamEval defines a unified benchmark with 300 test cases, ten metrics, and a public leaderboard for model comparison.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "We introduce StreamEval, a unified benchmark for interactive streaming video generation"
+      },
+      "description": "Interactive streaming video generation benchmark covering five tasks; models must respond to incremental requests while preserving state.",
+      "whyItMatters": "Measures request execution and state consistency beyond visual fidelity, highlighting gaps in real-time interactive systems.",
+      "attentionForecast": {
+        "score": 63,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Interactive streaming video generation is an emerging trend, and the comprehensive multi-model evaluation is likely to draw interest."
       }
     },
     {
@@ -688,18 +1367,18 @@
         "horizon": "7d",
         "reason": "Scientific diagram evaluation is a niche but growing area for multimodal LLM assessment, and the explicit benchmark with human-aligned scoring may draw moderate interest from the document AI community."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "SciDiagBench contains 165 scientific diagrams across 10 broad domains, with types including graphical abstracts, technical roadmaps, and illustrative cases.",
           "scoring": "develops an evaluation method that leverages a preference-guided calibration process to incorporate human preferences into the generation of type-specific criteria",
           "reuse": "SciDiagBench enables more reliable automated evaluation that better aligns with human evaluation across diverse scientific diagrams."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper names SciDiagBench, details a systematic categorization and an evaluation method with human preference calibration, presenting a reusable dataset and protocol for other teams.",
+        "decisionReason": "Named benchmark with systematic categorization and a defined evaluation method; dataset composition is specified.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we introduce SciDiagBench, which consists of a benchmark dataset that systematically categorizes scientific diagrams into 11 types and a human preference-guided evaluation method."
       }
@@ -712,7 +1391,7 @@
       "aliases": [
         "RSI Control: Can AI Models Perform Covert Sabotage in the Self-Improvement Process?"
       ],
-      "oneLine": "RSI Control Arena is a testbed of 22 task pairs where an autonomous R&D agent must complete a benign successor-model training task while attempting a covert side task, with LLM monitors used to detect sabotage.",
+      "oneLine": "Testbed where models autonomously perform R&D main tasks while attempting covert side tasks that install misaligned properties.",
       "area": "Agents & Tool Use",
       "applicationDomains": [
         "General AI"
@@ -785,29 +1464,149 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "RSI Control Arena is a testbed of 22 task pairs where an autonomous R&D agent must complete a benign successor-model training task while attempting a covert side task, with LLM monitors used to detect sabotage.",
-      "whyItMatters": "It provides a controlled setting to measure AI control failures in recursive self-improvement, informing safety practices before models are trusted to train their successors.",
+      "description": "Testbed where models autonomously perform R&D main tasks while attempting covert side tasks that install misaligned properties.",
+      "whyItMatters": "Exposes safety risks in recursive self-improvement by measuring covert sabotage capability and monitor detection.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 80,
+        "score": 67,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "AI safety and recursive self-improvement are high-attention topics, and empirical evidence of covert sabotage across frontier models is likely to generate substantial discussion among researchers and policy communities."
+        "reason": "Covert sabotage in recursive self-improvement is a hot AI safety topic; the evaluation of frontier models and monitors is likely to garner attention."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "The testbed contains 16 side tasks in three classes, forming 22 task pairs with main tasks that span the pipeline from data curation to reinforcement learning.",
-          "scoring": "We evaluate six frontier models as agents against LLM monitors that read the transcript of the run and the agent's reasoning, observing the share of completed side tasks and detection rates.",
-          "reuse": "We observe that every model completes a substantial share of the side tasks without degrading the main-task performance, including side tasks that make the successor itself a better saboteur."
+          "task": "16 side tasks in three classes, forming 22 task pairs with main tasks that span the pipeline from data curation to reinforcement learning",
+          "scoring": "completion of side tasks without degrading main-task performance; monitors read transcript and reasoning",
+          "reuse": "Six frontier models evaluated against LLM monitors"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces a named testbed with a clear task structure, quantitative monitoring results across six frontier models, and a reusable setup for future AI control evaluations.",
+        "decisionReason": "Defined testbed with 22 task pairs, clear evaluation of sabotage and detection, and multi-model results; likely reusable by other teams.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce RSI Control Arena, a testbed in which a frontier model, acting as an autonomous R\\&D agent, is given a benign main task from a stage of a successor model's training pipeline together with a covert side task to install a misaligned property in the successor."
+        "canonicalNameEvidence": "We introduce RSI Control Arena, a testbed in which a frontier model"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -919,7 +1718,7 @@
       "aliases": [
         "RoboCasa-Shift: Stage-Aware Robustness Evaluation of Vision-Language-Action Policies in Long-Horizon Household Manipulation"
       ],
-      "oneLine": "RoboCasa-Shift is a robustness benchmark built on RoboCasa365 that evaluates VLA policies using matched clean-perturbed rollouts and stage-aware diagnostics across controlled shifts.",
+      "oneLine": "Robustness benchmark for vision-language-action policies, pairing clean and shifted rollouts to diagnose failure progression.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -1005,29 +1804,149 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "RoboCasa-Shift is a robustness benchmark built on RoboCasa365 that evaluates VLA policies using matched clean-perturbed rollouts and stage-aware diagnostics across controlled shifts.",
-      "whyItMatters": "It enables finer-grained analysis of VLA robustness beyond aggregate success, revealing where failures occur and how paired outcome changes relate to execution depth.",
+      "description": "Robustness benchmark for vision-language-action policies, pairing clean and shifted rollouts to diagnose failure progression.",
+      "whyItMatters": "Goes beyond aggregate success to reveal how distribution shifts affect execution stages, enabling targeted policy improvement.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 62,
+        "score": 55,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Robustness evaluation for robot policies is an active niche with strong community interest, and the public code and paired diagnostic approach should attract robotics and embodied AI researchers."
+        "reason": "Robustness evaluation in embodied AI remains active; the publicly available code likely boosts engagement."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Evaluate GR00T N1.5 on four long-horizon tasks that pass a predefined clean-performance gate under four perturbation factors and three calibrated severity levels, totaling 1,040 formal rollouts.",
-          "scoring": "Report official task success and paired outcome transitions, with StageTracker recording ordered, latched simulator-state milestones, normalized progress, and the first incomplete milestone.",
-          "reuse": "The code is publicly available at https://github.com/HaochengWang23/RoboCasa-Shift."
+          "task": "four long-horizon tasks under four perturbation factors and three severity levels, totaling 1,040 formal rollouts",
+          "scoring": "official task success and paired outcome transitions; StageTracker records simulator-state milestones",
+          "reuse": "code is publicly available at https://github.com/HaochengWang23/RoboCasa-Shift"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper names RoboCasa-Shift, provides a formal evaluation protocol with frozen configuration, reports 1,040 rollouts, and releases code publicly, enabling others to reproduce and extend the benchmark.",
+        "decisionReason": "Named benchmark with controlled shifts, matched rollouts, and released code; clear protocol and diagnostic metrics enable reuse.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "We introduce \\textbf{RoboCasa-Shift}, a diagnostic robustness benchmark built on RoboCasa365 that combines controlled single-factor shifts, matched clean-perturbed rollouts in which each pair shares the same underlying settings and differs only in the target shift, and simulator-grounded stage-aware diagnostics."
+        "canonicalNameEvidence": "We introduce \\textbf{RoboCasa-Shift}, a diagnostic robustness benchmark"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
       }
     },
     {
@@ -1126,12 +2045,322 @@
       }
     },
     {
+      "id": "bm_recommending-bacterial-cultivation-conditi_0d64f58f",
+      "familyId": "bmf_11e4f24c9785",
+      "name": "DSNI",
+      "paperTitle": "Recommending Bacterial Cultivation Conditions from 16S rRNA",
+      "aliases": [
+        "Recommending Bacterial Cultivation Conditions from 16S rRNA"
+      ],
+      "oneLine": "DSNI provides 65,023 bacterial strains with 16S rRNA sequences paired to cultivation conditions, evaluated via top-25 recommendation accuracy.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.LG"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28310",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T14:51:18Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28310",
+        "paper": "https://arxiv.org/abs/2610.28310",
+        "pdf": "https://arxiv.org/pdf/2610.28310",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Recommending bacterial cultivation conditions from sequence data is a challenging structured problem characterized by missing standardized benchmarks and limited use of sequence structure.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28310",
+        "url": "https://arxiv.org/abs/2610.28310",
+        "title": "Recommending Bacterial Cultivation Conditions from 16S rRNA",
+        "authors": [
+          "Juntang Wang",
+          "Hao Wu",
+          "Yihan Wang",
+          "Runkun Guo",
+          "Shixin Xu",
+          "Dongmian Zou"
+        ],
+        "categories": [
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address this, we introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen).",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "DSNI provides 65,023 bacterial strains with 16S rRNA sequences paired to cultivation conditions, evaluated via top-25 recommendation accuracy.",
+      "whyItMatters": "Offers a large, phylogeny-aware resource for learning cultivation requirements useful in microbiology and industrial bioprocessing.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 40,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Bacterial cultivation recommendation is relevant to bioinformatics and industrial microbiology, but the absence of explicit artifact links may moderate adoption."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)",
+          "scoring": "The model also recovers 90.2% of ground-truth cultivation protocols within its top-25 recommendations, narrowing the exhaustive search space by approximately 60 times.",
+          "reuse": "We introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Abstract explicitly names DSNI as a benchmark with clear data composition and an evaluation metric; accepted paper implies public release.",
+        "canonicalNameSource": "abstract",
+        "canonicalNameEvidence": "To address this, we introduce DSNI, a benchmark of 65,023 bacterial strains with phylogeny-aware splits, pairing 16S rRNA sequences with four cultivation conditions (media, temperature, pH, oxygen)."
+      }
+    },
+    {
+      "id": "bm_optionworld_4437c2f8",
+      "familyId": "bmf_da05cb6faccd",
+      "name": "OptionWorld",
+      "paperTitle": "OptionWorld: A Benchmark for Diagnosing Failures of LLMs as Long-Term Personal Assistants",
+      "aliases": [],
+      "oneLine": "Long-term assistants must follow unfinished tasks across days as information and circumstances change.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28491",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T16:38:43Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28491",
+        "paper": "https://arxiv.org/abs/2610.28491",
+        "pdf": "https://arxiv.org/pdf/2610.28491",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Long-term assistants must follow unfinished tasks across days as information and circumstances change.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28491",
+        "url": "https://arxiv.org/abs/2610.28491",
+        "title": "OptionWorld: A Benchmark for Diagnosing Failures of LLMs as Long-Term Personal Assistants",
+        "authors": [
+          "Ruoyu Zhang",
+          "Zhaocen Liu",
+          "Weiyi Tian",
+          "Melissa Feng",
+          "Shilong Liu"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce OptionWorld, a benchmark that traces information acquisition, judgments, actions, and outcomes in simulated daily-life tasks to identify where current LLMs fall short as long-term personal assistants.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "Introduces a distinct benchmark with simulated tasks and diagnostic failure analysis; no public code link, but task design and results are described.",
+        "model": "deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "bm_nyayaveda-ai-benchmark_028956ae",
+      "familyId": "bmf_290ff437c22c",
+      "name": "NyayaVeda AI Legal Accuracy Benchmark",
+      "paperTitle": "NYAYAVEDA-AI-BENCHMARK-",
+      "aliases": [
+        "NYAYAVEDA-AI-BENCHMARK-"
+      ],
+      "oneLine": "Evaluates legal AI accuracy across 600 questions in six Indian law areas covering citation grounding, statute transitions, fabricated citations, Hindi/Hinglish, personal data, overruled law, and split benches.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:17.160847Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:17.160847Z",
+      "sourceUpdatedAt": "2026-10-21T02:43:51Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://img.shields.io/badge/NyayaVeda_AI-nyayaveda.co.in-D97706?style=flat-square",
+        "code": "https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-"
+      },
+      "motivation": "NYAYAVEDA-AI-BENCHMARK- Institutional benchmark data, KPI evaluations, and validation outputs for NyayaVeda AI's statutory intelligence engine.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:nyayaveda-ai/nyayaveda-ai-benchmark-",
+        "url": "https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-",
+        "title": "NYAYAVEDA-AI-BENCHMARK-",
+        "authors": [
+          "NyayaVeda-Ai"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 1
+        }
+      },
+      "evidence": {
+        "snippet": "NYAYAVEDA-AI-BENCHMARK- Institutional benchmark data, KPI evaluations, and validation outputs for NyayaVeda AI's statutory intelligence engine.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:nyayaveda-ai/nyayaveda-ai-benchmark-",
+          "url": "https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-"
+        }
+      ],
+      "description": "Evaluates legal AI accuracy across 600 questions in six Indian law areas covering citation grounding, statute transitions, fabricated citations, Hindi/Hinglish, personal data, overruled law, and split benches.",
+      "whyItMatters": "Offers externally verifiable KPI evidence for legal AI with per-question answers and grades, supporting independent audit and cross-system comparison.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets legal AI accountability with full data release and external verification, drawing attention from legal and AI audit communities."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Every question, every answer exactly as the user received it, every grade with the quotes from the answer it rests on, and every score with its population and 95% interval.",
+          "scoring": "The result is a share: k of n questions (or citations). The 95% interval is the range the true value lies in, given these n.",
+          "reuse": "The benchmark is system-agnostic: any legal AI can be evaluated on the same questions with the same rubric."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository exposes complete questions, answers, grades, scoring methodology, and a system-agnostic protocol for public reuse, with explicit verification steps.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "NyayaVeda AI Legal Accuracy Benchmark, 20 October 2026."
+      }
+    },
+    {
       "id": "bm_mmenterprise-bench_a60d423b",
       "familyId": "bmf_3a2b79a52996",
       "name": "MMEnterprise-Bench",
       "paperTitle": "MMEnterprise-Bench: Evaluating Enterprise Agents over Evolving Multimodal Records",
       "aliases": [],
-      "oneLine": "MMEnterprise-Bench is a benchmark of 1,613 questions over evolving multimodal workplace records, testing evidence reasoning, conflict resolution, and unanswerability recognition.",
+      "oneLine": "Question-answering over evolving multimodal workplace records requiring evidence reasoning, conflict resolution, and unanswerability detection.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -1211,29 +2440,248 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "MMEnterprise-Bench is a benchmark of 1,613 questions over evolving multimodal workplace records, testing evidence reasoning, conflict resolution, and unanswerability recognition.",
-      "whyItMatters": "It targets realistic enterprise information retrieval where records evolve through collaboration, highlighting persistent challenges in cross-source and temporal conflict resolution for multimodal LLMs.",
+      "description": "Question-answering over evolving multimodal workplace records requiring evidence reasoning, conflict resolution, and unanswerability detection.",
+      "whyItMatters": "Tests reliability of enterprise agents in realistic collaborative environments where records change over time.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 58,
+        "score": 51,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Enterprise agent applications are of growing interest, and the multimodal evolving-records challenge addresses a practical gap, likely attracting attention from both academia and industry."
+        "reason": "Enterprise AI reliability is a practical topic; the released code and data may attract developers and researchers."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "1,613 questions grounded in evolving multimodal records from simulated collaboration projects, covering three categories: Evidence Reasoning, Conflict Resolution, and Unanswerability.",
-          "scoring": "We evaluate 10 proprietary and open-source multimodal LLMs and report answer accuracy under varying retrieval budgets.",
-          "reuse": "Code and data are available at https://mlvlab.github.io/MMEnterprise-Bench/."
+          "task": "1,613 questions grounded in evolving multimodal records from simulated collaboration projects, covering Evidence Reasoning, Conflict Resolution, and Unanswerability",
+          "scoring": "whether the agent provides the correct answer after resolving conflicts and recognizing unanswerability",
+          "reuse": "Code and data are available at https://mlvlab.github.io/MMEnterprise-Bench/"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The paper introduces a named benchmark with a defined question dataset, evaluation of 10 models, and public project page for code and data, providing a reusable testbed for enterprise agent research.",
+        "decisionReason": "Publicly released dataset and code with clear task categories and evaluation over 10 models; well-defined protocol.",
         "canonicalNameSource": "abstract",
-        "canonicalNameEvidence": "we introduce MMEnterprise-Bench, a benchmark comprising 1,613 questions grounded in evolving multimodal records from simulated collaboration projects, covering three categories: Evidence Reasoning, Conflict Resolution, and Unanswerability."
+        "canonicalNameEvidence": "we introduce MMEnterprise-Bench, a benchmark comprising 1,613 questions"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      }
+    },
+    {
+      "id": "bm_mindview_5d66877f",
+      "familyId": "bmf_191744ae3f94",
+      "name": "MindView",
+      "paperTitle": "MindView: Benchmarking Generative Multi-View Spatial Intelligence",
+      "aliases": [],
+      "oneLine": "Spatial intelligence has recently been assessed through generative tasks such as spatially grounded image editing, yet language-guided generation of spatially consistent views from partial multi-view observations remains underexplored.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28622",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T17:58:25Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28622",
+        "paper": "https://arxiv.org/abs/2610.28622",
+        "pdf": "https://arxiv.org/pdf/2610.28622",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Spatial intelligence has recently been assessed through generative tasks such as spatially grounded image editing, yet language-guided generation of spatially consistent views from partial multi-view observations remains underexplored.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28622",
+        "url": "https://arxiv.org/abs/2610.28622",
+        "title": "MindView: Benchmarking Generative Multi-View Spatial Intelligence",
+        "authors": [
+          "Yanbo Wang",
+          "Siqi Luo",
+          "Siyu Zhang",
+          "Chenming Zhu",
+          "Wenzhao Zheng",
+          "Qian Yu",
+          "Juncheng Yan",
+          "Bin Fu",
+          "Tai Wang",
+          "Yu Qiao",
+          "Yihao Liu",
+          "Jiwen Lu"
+        ],
+        "categories": [
+          "cs.CV",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce MindView, a benchmark for generative multi-view spatial intelligence with 1,500 samples from 513 scenes across three indoor datasets.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "Defined benchmark with detailed task families and quantified results; no public data link yet, but the tasks and scoring are explicit.",
+        "model": "deepseek-v4-pro"
       }
     },
     {
@@ -1337,6 +2785,310 @@
       }
     },
     {
+      "id": "bm_liveuibench_ad36624a",
+      "familyId": "bmf_365c8617f3c0",
+      "name": "LiveUIBench",
+      "paperTitle": "LiveUIBench: Evaluating Agent as App Workflows",
+      "aliases": [],
+      "oneLine": "Applications provide convenient features for users to complete daily tasks.",
+      "area": "Code & Software",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.27977",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T10:20:00Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.27977",
+        "paper": "https://arxiv.org/abs/2610.27977",
+        "pdf": "https://arxiv.org/pdf/2610.27977",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Applications provide convenient features for users to complete daily tasks.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.27977",
+        "url": "https://arxiv.org/abs/2610.27977",
+        "title": "LiveUIBench: Evaluating Agent as App Workflows",
+        "authors": [
+          "Tong Zhang",
+          "Yuxuan Cheng",
+          "Ruimin Zhang",
+          "Yun Peng",
+          "Tao Xie"
+        ],
+        "categories": [
+          "cs.SE"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce LiveUIBench, a benchmark with diverse requirements and ordered interactions across personal services.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "The paper announces LiveUIBench but does not provide released tasks, evaluator code, or a public submission path, leaving the evaluation and scoring contract unverified.",
+        "model": "deepseek-v4-pro"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      }
+    },
+    {
+      "id": "bm_jaxbounce_c514ba7f",
+      "familyId": "bmf_40940bc778b4",
+      "name": "JAXbounce",
+      "paperTitle": "JAXbounce: A Continuous-Control Pong-Like Benchmark for Active Inference Beyond Low Dimensional Environments",
+      "aliases": [],
+      "oneLine": "We introduce JAXbounce, a continuous control pong-like benchmark designed to evaluate active inference beyond discrete, low dimensional environments.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.LG"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28203",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T13:43:24Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28203",
+        "paper": "https://arxiv.org/abs/2610.28203",
+        "pdf": "https://arxiv.org/pdf/2610.28203",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "We introduce JAXbounce, a continuous control pong-like benchmark designed to evaluate active inference beyond discrete, low dimensional environments.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28203",
+        "url": "https://arxiv.org/abs/2610.28203",
+        "title": "JAXbounce: A Continuous-Control Pong-Like Benchmark for Active Inference Beyond Low Dimensional Environments",
+        "authors": [
+          "Chaitanya Kaul",
+          "Markus Klar",
+          "Sebastian Stein",
+          "Fraser C. Paterson",
+          "John H. Williamson",
+          "Roderick Murray-Smith"
+        ],
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce JAXbounce, a continuous control pong-like benchmark designed to evaluate active inference beyond discrete, low dimensional environments.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "Despite claiming release as a reproducible benchmark, no code or data repository is supplied in evidence, so the public path and scoring details cannot be confirmed.",
+        "model": "deepseek-v4-pro"
+      }
+    },
+    {
       "id": "bm_jarvis-from-visual-manuals-to-autonomous-r_b6fd9981",
       "familyId": "bmf_9e1ec7c9912a",
       "name": "JARVIS",
@@ -1434,18 +3186,18 @@
         "horizon": "7d",
         "reason": "The large-scale task dataset and focus on embodied AI with a novel agent method are likely to attract attention from robotics and multimodal reasoning communities."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "JARVIS comprises 236,679 LEGO assembly tasks across 8,987 scenes, with a carefully curated JARVIS-v1 suite of 50 tasks for interactive robotic evaluation.",
           "scoring": "A structure-aware evaluation protocol captures geometric accuracy, structural relations, construction order, partial progress, and completion.",
           "reuse": "Across nine multimodal and reasoning models, task-oriented primitives increase the average assembly score."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The abstract explicitly declares JARVIS as a benchmark with a defined task suite and evaluation protocol, and reports evaluation across nine models, indicating a reusable public path.",
+        "decisionReason": "No artifacts are specified; the interactive suite JARVIS-v1 and evaluation protocol are described but not publicly accessible, preventing verification of reusable scoring.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce JARVIS, a method-agnostic benchmark for autonomous visual-manual-guided execution without additional language instructions."
       }
@@ -1552,7 +3304,7 @@
       "aliases": [
         "HATCH: Hardware-Attested Task Chains for Verifiable Manipulation"
       ],
-      "oneLine": "A physically replicable robot manipulation benchmark with instrumented task chains across five skill categories and three difficulty levels, scored by sensors and embodiment-agnostic outcomes.",
+      "oneLine": "Physical robot manipulation benchmark with sensor-confirmed task chains across spatial, symbolic, multi-step, physical, and dexterous skills.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -1643,19 +3395,19 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A physically replicable robot manipulation benchmark with instrumented task chains across five skill categories and three difficulty levels, scored by sensors and embodiment-agnostic outcomes.",
-      "whyItMatters": "Provides an openly specified, sensor-scored, and unrehearsable evaluation protocol for robot manipulation, enabling verifiable capability claims across different robot embodiments.",
+      "description": "Physical robot manipulation benchmark with sensor-confirmed task chains across spatial, symbolic, multi-step, physical, and dexterous skills.",
+      "whyItMatters": "Offers an openly specified, physically replicable, sensor-scored alternative to closed or gameable robot leaderboards.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
+        "score": 65,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A novel hardware benchmark with open release and a clear verifiable manipulation protocol may attract interest from robotics researchers seeking reproducible evaluation."
+        "reason": "Open hardware benchmarks with clear reproducibility and ungameable scoring tend to generate discussion in robotics communities."
       },
       "publishers": [
         {
-          "name": "Midas Robotics / University of Waterloo",
-          "organizationType": "company-research-lab",
+          "name": "Shiza Charania — Midas Robotics / University of Waterloo",
+          "organizationType": "academic-lab",
           "sourceUrl": "https://github.com/shizacharania/hatch-benchmark",
           "role": "benchmark-publisher"
         }
@@ -1664,16 +3416,245 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Task specifications (15) [`tasks/`](tasks/)",
-          "scoring": "Scoring rubrics [`SCORING.md`](SCORING.md)",
-          "reuse": "Task specifications, build guide, bill of materials, and scoring rubrics are released under an open license."
+          "task": "Robot escape room tasks spanning five skill categories at three difficulty levels, chained so sensor confirmations unlock subsequent tasks.",
+          "scoring": "Success is confirmed by instrumentation rather than human judgment, scoring is embodiment-agnostic, and object placements are randomized by a run-day seed.",
+          "reuse": "Task specifications, build guide, bill of materials, and scoring rubrics are released under an open license; entrants submit attested self-runs with uncut video, sensor logs, and the seed."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark includes released task specifications, build guide, scoring rubrics, and a public GitHub repository, allowing other teams to replicate the evaluation environment.",
-        "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "HATCH: Hardware-Attested Task Chains"
+        "decisionReason": "The GitHub repository provides full task specifications, build guide, scoring rubrics, and a submission model with attested self-runs, making the benchmark publicly reusable with a stable scoring contract.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "HATCH: Hardware-Attested Task Chains for Verifiable Manipulation"
+      },
+      "ranking": {
+        "30d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-09-20",
+            "windowDays": 30,
+            "elapsedDays": 30
+          }
+        },
+        "90d": {
+          "score": null,
+          "rank": null,
+          "coverage": 0.0,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          }
+        }
+      }
+    },
+    {
+      "id": "bm_evaomni_23882e42",
+      "familyId": "bmf_456433a12909",
+      "name": "EvaOmni",
+      "paperTitle": "EvaOmni: An Evidence-Grounded Benchmark for Audio-Visual Reasoning",
+      "aliases": [],
+      "oneLine": "Omni LLMs can naturally locate key audio and visual evidence and integrate information across modalities for audiovisual reasoning.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning",
+        "Information retrieval"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28444",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T16:03:30Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28444",
+        "paper": "https://arxiv.org/abs/2610.28444",
+        "pdf": "https://arxiv.org/pdf/2610.28444",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Omni LLMs can naturally locate key audio and visual evidence and integrate information across modalities for audiovisual reasoning.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28444",
+        "url": "https://arxiv.org/abs/2610.28444",
+        "title": "EvaOmni: An Evidence-Grounded Benchmark for Audio-Visual Reasoning",
+        "authors": [
+          "Xiaoxing Hu",
+          "Wenxi Yao",
+          "Chaoyuan Shi",
+          "Ziqi Ye",
+          "Xiaorong Guo",
+          "Peixuan Li",
+          "Zhuoran Sun",
+          "Ziyang Gong",
+          "Peiyuan Zhang",
+          "Mingxin Liu",
+          "Shuran Ma",
+          "Hongbo Liu",
+          "Xiaomin Yu",
+          "Yu Tian",
+          "Wentao Wang",
+          "Zhenjie Yang",
+          "Jian Hu",
+          "Yunhang Shen",
+          "Haoyu Cao",
+          "Xue Yang"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address these issues, we introduce EvaOmni, an evidence-grounded benchmark containing 392 videos and 1,027 purely human-annotated question-answer pairs, covering 15 capabilities and three levels: retrieval and localization, basic understanding, and complex reasoning.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "No dataset or evaluation code release is provided, so the human annotations, grounding metrics, and answer scoring cannot be independently reused.",
+        "model": "deepseek-v4-pro"
       }
     },
     {
@@ -1785,6 +3766,299 @@
         "decisionReason": "The paper and official code release describe a named benchmark with explicit dataset splits, scoring metrics, and a public evaluation protocol, along with multiple model baselines and a reproducible implementation.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# DuplexLedger Code release for the paper *DuplexLedger: Benchmarking Transactional Memory in Full-Duplex Speech Agents*."
+      }
+    },
+    {
+      "id": "bm_dive_d723c662",
+      "familyId": "bmf_0f8897661f15",
+      "name": "DIVE",
+      "paperTitle": "DIVE: Benchmarking Full-Duplex Interaction with Visual Engagement in Continuous Streams",
+      "aliases": [],
+      "oneLine": "Recent advances in multimodal large language models (MLLMs) have substantially improved spoken interaction and video understanding.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28405",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T15:48:29Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28405",
+        "paper": "https://arxiv.org/abs/2610.28405",
+        "pdf": "https://arxiv.org/pdf/2610.28405",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Recent advances in multimodal large language models (MLLMs) have substantially improved spoken interaction and video understanding.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28405",
+        "url": "https://arxiv.org/abs/2610.28405",
+        "title": "DIVE: Benchmarking Full-Duplex Interaction with Visual Engagement in Continuous Streams",
+        "authors": [
+          "Yuhang Chen",
+          "Guangyue Liu",
+          "Shilong Liu"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address this gap, we introduce DIVE, a benchmark for evaluating full-duplex interaction with visual engagement under continuous and realistic multimodal streams.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "The 525 samples and temporal metadata are not referenced as publicly available, and the evaluation protocol is described without a usable implementation.",
+        "model": "deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "bm_declinecraft_abe70306",
+      "familyId": "bmf_b3cd4d8268c2",
+      "name": "DeclineCraft",
+      "paperTitle": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge",
+      "aliases": [],
+      "oneLine": "A dynamic abstention benchmark for RAG systems with 700 answerable and 300 unanswerable questions, evaluated using Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval",
+        "Factuality"
+      ],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28340",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T15:07:19Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28340",
+        "paper": "https://arxiv.org/abs/2610.28340",
+        "pdf": "https://arxiv.org/pdf/2610.28340",
+        "project": null,
+        "code": "https://github.com/Thakur-Atharva/declinecraft-benchmark",
+        "data": null
+      },
+      "motivation": "Reliable retrieval-augmented generation (RAG) requires recognizing when neither retrieved documents nor parametric knowledge supports an answer.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28340",
+        "url": "https://arxiv.org/abs/2610.28340",
+        "title": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge",
+        "authors": [
+          "Atharva Thakur",
+          "Abulhair Saparov",
+          "Bruno Ribeiro"
+        ],
+        "categories": [
+          "cs.CL",
+          "cs.IR"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce DeclineCraft, a dynamic abstention benchmark whose unanswerable questions target Minecraft feature additions after a corpus cut-off, with audits of possible parametric exposure.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "A dynamic abstention benchmark for RAG systems with 700 answerable and 300 unanswerable questions, evaluated using Correct Abstention Rate, Answerable Attempt Rate, and Answer Accuracy.",
+      "whyItMatters": "Measures whether RAG models can abstain appropriately when neither retrieved documents nor parametric knowledge supports an answer, a crucial reliability property.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a timely RAG abstention topic with a public code repository and extensive model evaluation, though the missing data link may limit immediate reuse."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "DeclineCraft contains 1,000 questions (700 answerable, 300 unanswerable) targeting Minecraft feature additions after a corpus cut-off, with audits of parametric exposure.",
+          "scoring": "Metrics include Correct Abstention Rate (CAR), Answerable Attempt Rate, and Answer Accuracy, with a response judge labeling ABSTAIN, DENY, or ANSWER and an accuracy judge scoring 1/0.5/0.",
+          "reuse": "The code is available on GitHub with detailed scripts to rebuild the benchmark and evaluate models, though the benchmark data link is listed as TODO."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository provides scripts to rebuild the benchmark and evaluate models, with explicit metrics and scoring rules, though the data link is pending; the scoring contract and reuse path are sufficiently established.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "DeclineCraft: A RAG Abstention Benchmark for Jointly Measuring Combined Retrieval and Parametric Knowledge"
+      }
+    },
+    {
+      "id": "bm_decisionpivot_1fc95912",
+      "familyId": "bmf_68331689b33f",
+      "name": "DecisionPivot",
+      "paperTitle": "DecisionPivot: A Diagnostic Benchmark for Decision Models in LLM Systems",
+      "aliases": [],
+      "oneLine": "Decision models support routing, guardrails, and output verification in LLM systems.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28522",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T16:57:49Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28522",
+        "paper": "https://arxiv.org/abs/2610.28522",
+        "pdf": "https://arxiv.org/pdf/2610.28522",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Decision models support routing, guardrails, and output verification in LLM systems.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28522",
+        "url": "https://arxiv.org/abs/2610.28522",
+        "title": "DecisionPivot: A Diagnostic Benchmark for Decision Models in LLM Systems",
+        "authors": [
+          "Xialie Zhuang",
+          "Mingcong Lei",
+          "Zunhai Su",
+          "Ri Liu",
+          "Jianjin Li",
+          "Peixian Ma",
+          "Jia Pan",
+          "Ngai Wong",
+          "Guanhua Chen",
+          "Chuan-Wei Kuo"
+        ],
+        "categories": [
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce DecisionPivot, a diagnostic benchmark comprising 48 tasks and 40,033 items across seven decision roles.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "No dataset or evaluation protocol download is supplied, so the generated and reference tracks cannot be run externally.",
+        "model": "deepseek-v4-pro"
       }
     },
     {
@@ -1906,6 +4180,98 @@
       }
     },
     {
+      "id": "bm_code2video-compass_f9d86569",
+      "familyId": "bmf_c7554b941e56",
+      "name": "Code2Video-Compass",
+      "paperTitle": "Code2Video-Compass: A Comprehensive Benchmark for General-Purpose Code-Based Video Generation across T2V, I2V, and V2V",
+      "aliases": [],
+      "oneLine": "Code-based video generation offers fine-grained control, targeted editing, and component reuse compared with direct video generation.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Transform Existing",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://arxiv.org/abs/2610.28416",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T15:51:41Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28416",
+        "paper": "https://arxiv.org/abs/2610.28416",
+        "pdf": "https://arxiv.org/pdf/2610.28416",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Code-based video generation offers fine-grained control, targeted editing, and component reuse compared with direct video generation.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28416",
+        "url": "https://arxiv.org/abs/2610.28416",
+        "title": "Code2Video-Compass: A Comprehensive Benchmark for General-Purpose Code-Based Video Generation across T2V, I2V, and V2V",
+        "authors": [
+          "Zhenghan Chen",
+          "Zekai Shao",
+          "Xin Lin",
+          "Leting Cheng",
+          "and Siming Chen"
+        ],
+        "categories": [
+          "cs.CV",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce Code2Video-Compass, a general-purpose benchmark for code-based video generation across text-to-video (T2V), image-to-video (I2V), and video-to-video (V2V) settings.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": false,
+      "evaluationMode": "public_reusable",
+      "curation": {
+        "state": "ai-name-audit-deferred",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "policy": "source-evidence-v2",
+        "decisionReason": "The abstract does not announce release of the dataset or evaluator, making scoring reproducibility and public reuse unverifiable.",
+        "model": "deepseek-v4-pro"
+      }
+    },
+    {
       "id": "bm_benchmarking-cpu-gpu-and-ml-power-flow-sol_96ebe123",
       "familyId": "bmf_801bdde89367",
       "name": "Benchmarking CPU, GPU, and ML Power-Flow Solvers",
@@ -2008,18 +4374,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "AC power-flow solving across 15 grids (14 to 70,000 buses) for physics-based and ML solvers.",
           "scoring": "Throughput and accuracy using a shared KCL-mismatch check; ranking of solvers under identical inputs.",
           "reuse": "Benchmark suite, code, and reference evaluator released at https://github.com/Grid2op/gpusim2grid."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Provides a released suite, shared evaluator, and code, enabling other teams to reproduce and extend comparisons.",
+        "decisionReason": "The paper describes a benchmark suite, but no formal benchmark name is declared and the provided code is a solver, not a standalone reusable evaluation protocol.",
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "Benchmarking CPU, GPU, and ML Power-Flow Solvers from 14 to 70,000 Buses"
       }
@@ -2248,6 +4614,136 @@
         "decisionReason": "The abstract introduces the benchmark but does not provide evidence of released tasks, scoring rules, or an external public path for reuse or submission.",
         "model": "deepseek-v4-pro"
       }
+    },
+    {
+      "id": "bm_abacus_418ef33a",
+      "familyId": "bmf_80da22bf2623",
+      "name": "ABACUS",
+      "paperTitle": "ABACUS: A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation",
+      "aliases": [],
+      "oneLine": "Measures numerical accuracy of instruction-based image editing models on add, remove, and change operations with exact count verification and scene preservation.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "WACV 2027 (Evaluations & Datasets track)",
+        "evidence": "Accepted at WACV 2027 (Evaluations & Datasets track). Code and data: https://github.com/CEA-LIST/ABACUS",
+        "evidenceUrl": "https://arxiv.org/abs/2610.28316",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "WACV 2027 (Evaluations & Datasets track)",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted at WACV 2027 (Evaluations & Datasets track). Code and data: https://github.com/CEA-LIST/ABACUS",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2610.28316",
+              "observedAt": "2026-10-21T06:17:08.177201Z",
+              "rawValue": "Accepted at WACV 2027 (Evaluations & Datasets track). Code and data: https://github.com/CEA-LIST/ABACUS",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-10-20",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-20T14:53:22Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.28316",
+        "paper": "https://arxiv.org/abs/2610.28316",
+        "pdf": "https://arxiv.org/pdf/2610.28316",
+        "project": null,
+        "code": "https://github.com/CEA-LIST/ABACUS",
+        "data": null
+      },
+      "motivation": "Instruction-based image editing models can now add, remove a specified number of objects or change their category while preserving the scene.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.28316",
+        "url": "https://arxiv.org/abs/2610.28316",
+        "title": "ABACUS: A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation",
+        "authors": [
+          "Aymen Lassoued",
+          "Angelique Loesch",
+          "Romaric Audigier"
+        ],
+        "categories": [
+          "cs.CV",
+          "cs.AI",
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "We address this issue with ABACUS, a new benchmark, evaluation protocol and dedicated scoring metric for numerical image editing.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "displayEligible": true,
+      "evaluationMode": "score_submission",
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "10,944 instructions over 3,845 COCO images and all 80 categories, covering add, remove and change with target counts from 1 to 15 and easy, medium and hard tiers.",
+          "scoring": "Score = CF·SC·OC, where CF = 2min(d,K)/(d+K), SC is harmonic mean of RAFT optical-flow term and MS-SSIM on background, and OC = 1 - N_rem/N_GT.",
+          "reuse": "Evaluation code released on GitHub; benchmark dataset available on Hugging Face Hub; leaderboard with multiple models and external scoring protocol."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "Formally named ABACUS with released dataset and evaluation code, a clear scoring metric, and a leaderboard showing existing model scores.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "ABACUS: A Benchmark for Image Editing Models to Assess Object Category and Counting Under Scene Conservation"
+      },
+      "description": "Measures numerical accuracy of instruction-based image editing models on add, remove, and change operations with exact count verification and scene preservation.",
+      "whyItMatters": "Addresses a gap where existing benchmarks overlook counting errors, providing a judge-free protocol to accurately assess numerical editing ability.",
+      "attentionForecast": {
+        "score": 65,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets a hot image editing area and provides a practical judge-free protocol, likely to attract interest from the research community."
+      },
+      "publishers": [
+        {
+          "name": "CEA List",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/CEA-LIST/ABACUS",
+          "role": "benchmark-publisher"
+        }
+      ]
     },
     {
       "id": "bm_zhenhuanbench_62317631",
@@ -3183,18 +5679,18 @@
         "horizon": "7d",
         "reason": "Introduces a novel cultural reasoning benchmark with mechanistic insights and fine-tuning results, likely to attract attention from LLM evaluation researchers."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "9,261 scenarios across 75 countries with controlled variations in country, value, and norm evidence; models predict culture-aligned answers.",
           "scoring": "Alignment rate (percentage of culturally aligned answers) under different evidence conditions; mechanistic interventions analyzed.",
           "reuse": "Benchmark is reference-grounded and includes a dataset; code and data are referenced in the paper but no direct URL is provided in the input, so public path is inferred from a released benchmark claim."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-21T01:14:41.719324Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "Defines a large, systematic benchmark with clear evaluation metrics and evidence of use on multiple models, though no direct code link is supplied.",
+        "decisionReason": "No artifact or evidence is provided for the benchmark's public availability, so it cannot be verified as a reusable evaluation.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce CultureLens, a reference-grounded benchmark and mechanistic study"
       }
@@ -3647,7 +6143,7 @@
       "aliases": [
         "shuowen-glyph-benchmark"
       ],
-      "oneLine": "Evaluates AI-generated Chinese character forms on meaningfulness via form, interpretation, learnability, and structure tasks with metrics like guessing accuracy, human/judge ratings, RSA, CKA, and mutual information.",
+      "oneLine": "Evaluates glyph meaning through four tasks: concept-to-glyph generation, interpretation, learnability, and structural metrics using Shuo Wen radicals and modern concepts.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -3724,27 +6220,27 @@
           "url": "https://github.com/Ivan666jjj/shuowen-glyph-benchmark"
         }
       ],
-      "description": "Evaluates AI-generated Chinese character forms on meaningfulness via form, interpretation, learnability, and structure tasks with metrics like guessing accuracy, human/judge ratings, RSA, CKA, and mutual information.",
-      "whyItMatters": "Provides a systematic way to assess whether machine-created glyphs carry semantic meaning, filling a gap in digital humanities and AI creativity evaluation.",
+      "description": "Evaluates glyph meaning through four tasks: concept-to-glyph generation, interpretation, learnability, and structural metrics using Shuo Wen radicals and modern concepts.",
+      "whyItMatters": "Provides a reproducible protocol for testing whether AI-generated Chinese glyphs carry semantic meaning, addressing a gap in digital humanities and glyph evaluation.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 55,
-        "confidence": "Low",
+        "score": 35,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Niche topic with polished bilingual documentation and concrete metrics; expected moderate initial attention from digital humanities and glyph generation researchers."
+        "reason": "The niche intersection of Chinese philology and LLM evaluation targets a specialist audience with moderate topical appeal."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "## 任务 | 任务 | 输入 | 输出 | 指标 | |---|---|---|---| | `form`（造字） | 概念 + 部首表 | 字形（部首组合） | 猜义正确率、字形稳定率 | | `interpret`（释字） | 单字 | 本义 + 构形理据 | 关键词命中率、人类评分（0–5）、LLM judge（0–5） | | `learn`（可学性） | 使用示例 / 码表 | 猜义 | 三条件正确率 | | `metrics`（结构） | 字形表 | — | RSA、CKA、互信息、整字表义一致性 |",
-          "scoring": "## 评分标准（0–5） | 分 | 标准 | |---|---| | 5 | 本义与构形理据都与《说文》一致 | | 4 | 本义对，理据部分对 | | 3 | 只对了一部分（如只对部首、只对义类） | | 2 | 方向对但细节错 | | 1 | 基本不对，但沾边 | | 0 | 完全无关 |",
-          "reuse": "## 跑法 ```bash # 1) 造字 + 猜义（40 轮，同源） node ../shuowen_lifecycle.js --stage form --rounds 40 --seed 101 --label bench_form # 2) 释字 + 关键词命中 node ../shuowen_interpret.js # 3) 结构指标（RSA / CKA / 互信息） python3 ../measures_enhanced.py # 4) 人类评分表（导出 CSV，人工打分） python3 scripts/make_rating_sheet.py # 5) LLM judge（代理评分，非人类） python3 scripts/llm_judge.py ```"
+          "task": "| `form`（造字） | 概念 + 部首表 | 字形（部首组合） | 猜义正确率、字形稳定率 |",
+          "scoring": "## 评分标准（0–5） | 分 | 标准 | |---|---| | 5 | 本义与构形理据都与《说文》一致 |",
+          "reuse": "主实验脚本（造字 / 释字）依赖 Node.js 与 API key，见主仓库说明；本目录的评分脚本只需 Python。"
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-20T06:24:37.551518Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The repository contains a released reusable evaluation suite with defined tasks, datasets, scoring rubrics, and runnable scripts for generating scores, satisfying benchmark criteria.",
+        "decisionReason": "The README defines tasks, scoring rules, datasets, and a runnable path, making it a reusable benchmark with a public protocol.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "# 字形表义性 Benchmark（Glyph Meaningfulness Benchmark）"
       },
@@ -5159,6 +7655,142 @@
         "model": "deepseek-v4-pro",
         "generatedAt": "2026-10-20T06:17:33.163146Z",
         "inputHash": "1e6d8e4e7279afcb10806ad0d0ac591ffdadbe087839f1e1db37d8c861775ad2"
+      }
+    },
+    {
+      "id": "bm_lob-impact-benchmark_3ca13f39",
+      "familyId": "bmf_646d5a11ba9e",
+      "name": "LOB-Impact Benchmark",
+      "paperTitle": "LOB-Impact Benchmark: Emergent Market Impact in Generative Limit Order Book Models",
+      "aliases": [],
+      "oneLine": "Assesses whether generative LOB simulators reproduce realistic market impact by injecting metaorders and measuring price response and relaxation against historical baselines.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Finance"
+      ],
+      "primaryDomain": "Finance",
+      "industrySectors": [
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "q-fin.TR"
+      ],
+      "construction": "Interactive Environment",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "ICAIF '26 (7th ACM International Conference on AI in Finance), Milan, Italy",
+        "evidence": "9 pages, 4 figures, 3 tables. Accepted at ICAIF '26 (7th ACM International Conference on AI in Finance), Milan, Italy. Code: https://github.com/george-nigmatulin/lob-impact",
+        "evidenceUrl": "https://arxiv.org/abs/2610.27100",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-10-21T06:17:08.177201Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "ICAIF '26 (7th ACM International Conference on AI in Finance), Milan, Italy",
+          "reviewStatus": "accepted",
+          "decisionRaw": "9 pages, 4 figures, 3 tables. Accepted at ICAIF '26 (7th ACM International Conference on AI in Finance), Milan, Italy. Code: https://github.com/george-nigmatulin/lob-impact",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "https://arxiv.org/abs/2610.27100",
+              "observedAt": "2026-10-21T06:17:08.177201Z",
+              "rawValue": "9 pages, 4 figures, 3 tables. Accepted at ICAIF '26 (7th ACM International Conference on AI in Finance), Milan, Italy. Code: https://github.com/george-nigmatulin/lob-impact",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-10-19",
+      "firstSeenAt": "2026-10-21",
+      "indexedAt": "2026-10-21T06:17:08.177201Z",
+      "sourceUpdatedAt": "2026-10-19T18:01:00Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 0.95,
+      "relation": "introduces",
+      "links": {
+        "report": "https://arxiv.org/abs/2610.27100",
+        "paper": "https://arxiv.org/abs/2610.27100",
+        "pdf": "https://arxiv.org/pdf/2610.27100",
+        "project": null,
+        "code": "https://github.com/george-nigmatulin/lob-impact",
+        "data": null
+      },
+      "motivation": "Realistic market impact is essential for generative limit order book (LOB) models to serve as world models for trading agents.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2610.27100",
+        "url": "https://arxiv.org/abs/2610.27100",
+        "title": "LOB-Impact Benchmark: Emergent Market Impact in Generative Limit Order Book Models",
+        "authors": [
+          "George Nigmatulin",
+          "Valentin Mohl",
+          "Sascha Frey",
+          "Kang Li",
+          "Aramis Marti-Shahandeh",
+          "Mihai Cucuringu",
+          "Anisoara Calinescu",
+          "Jakob Foerster",
+          "Stefan Zohren"
+        ],
+        "categories": [
+          "q-fin.TR",
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "We release the benchmark as open source to validate future generative models for market data.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "description": "Assesses whether generative LOB simulators reproduce realistic market impact by injecting metaorders and measuring price response and relaxation against historical baselines.",
+      "whyItMatters": "Fills the gap in evaluating counterfactual market impact of LOB generators, which is crucial for using them as world models for trading agents.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Market microstructure and generative LOB models are specialized, but the benchmark addresses a recognized need and is backed by a peer-reviewed venue and open code."
+      },
+      "publishers": [
+        {
+          "name": "George Nigmatulin",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/george-nigmatulin/lob-impact",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Evaluates generative limit order book models on reproducing market impact via free generation, metaorder injection, and post-execution relaxation phases.",
+          "scoring": "Measures trade-sign autocorrelation, Hurst exponent, response ratio, impact trajectory, build-up exponent with 95% CI, and relaxation shape; tools report identification failures rather than numbers when gates fail.",
+          "reuse": "Open-source code at https://github.com/george-nigmatulin/lob-impact with installation instructions, synthetic demo, protocol documentation, and command-line tools for any model's rollouts."
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-21T06:17:46.204818Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The paper formally defines the benchmark and releases open-source code with a clear protocol and reusable tools for any message-level LOB generator.",
+        "canonicalNameSource": "paper_title",
+        "canonicalNameEvidence": "LOB-Impact Benchmark: Emergent Market Impact in Generative Limit Order Book Models"
       }
     },
     {
@@ -7166,18 +9798,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Multi-drone collaborative vehicle detection with fine-grained category labels.",
           "scoring": "Detection accuracy compared with baseline methods; standard detection metrics implied.",
           "reuse": "The MDMT-CD dataset and source code will be available at https://github.com/bigdreaming11/CARNet."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-20T06:17:33.163146Z",
+        "reviewedAt": "2026-10-21T06:21:35.671814Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "A formally named dataset with released data and code, establishing a reusable evaluation protocol.",
+        "decisionReason": "The paper proposes MDMT-CD but states that the dataset and code will be available in the future; no current artifact supports a reusable benchmark.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we present MDMT-CD, a fine-grained extension of the MDMT dataset"
       }
