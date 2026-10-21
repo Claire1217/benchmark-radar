@@ -292,20 +292,34 @@ def fetch_priority(
     previous_by_id = {
         item["benchmarkId"]: item for item in (previous_snapshot or {}).get("records", [])
     }
-    # Snapshots written before fetchedAt existed were fetched as one run.
-    fallback = (previous_snapshot or {}).get("attemptedAt") or ""
 
     def key(record: dict[str, Any]) -> tuple[bool, str]:
         in_batch = batch_start <= record.get("releasedAt", "") <= batch_end
-        row = previous_by_id.get(record["id"])
-        return (not in_batch, "" if row is None else row.get("fetchedAt") or fallback)
+        return (not in_batch, last_fetched_at(previous_by_id.get(record["id"]), previous_snapshot))
 
     newest_first = sorted(records, key=lambda record: record.get("releasedAt", ""), reverse=True)
     return sorted(newest_first, key=key)
 
 
-def unfetched_row(record: dict[str, Any], previous_row: dict[str, Any] | None) -> dict[str, Any]:
+def last_fetched_at(row: dict[str, Any] | None, snapshot: dict[str, Any] | None) -> str:
+    """When a snapshot row was last fetched; "" when it never was.
+
+    Rows written before fetchedAt existed were fetched with their whole snapshot.
+    """
+    if row is None:
+        return ""
+    if "fetchedAt" in row:
+        return row["fetchedAt"] or ""
+    return (snapshot or {}).get("attemptedAt") or ""
+
+
+def unfetched_row(
+    record: dict[str, Any], previous_row: dict[str, Any] | None, previous_snapshot: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """A record the time budget did not reach; preserve_last_known() fills its signals."""
+    # Resolve the fetch time now: tomorrow's fallback would be today's run time,
+    # which would tie this row with the rows actually fetched today.
+    fetched_at = last_fetched_at(previous_row, previous_snapshot)
     previous_row = previous_row or {}
     row = {field: previous_row.get(field) for field in RESULT_FIELDS}
     row.update({signal: None for signal in TRACKED_SIGNALS})
@@ -319,7 +333,7 @@ def unfetched_row(record: dict[str, Any], previous_row: dict[str, Any] | None) -
         for signal in TRACKED_SIGNALS
     }
     row["benchmarkId"] = record["id"]
-    row["fetchedAt"] = previous_row.get("fetchedAt")
+    row["fetchedAt"] = fetched_at
     return row
 
 
@@ -837,7 +851,7 @@ def main() -> None:
             if item is None:
                 deferred += 1
                 record = futures[future]
-                item = unfetched_row(record, previous_rows.get(record["id"]))
+                item = unfetched_row(record, previous_rows.get(record["id"]), previous_snapshot)
             results.append(item)
     _deadline = None
     if only_ids:
