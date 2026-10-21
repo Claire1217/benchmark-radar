@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-21 · **Benchmark releases:** 2562
+**Snapshot:** 2026-10-22 · **Benchmark releases:** 2562
 
 ## Contents
 
@@ -937,7 +937,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **OmniFood-Bench** (2026-07-09) — A benchmark for evaluating Vision-Language Models on nutrient reasoning and personalized health advice, with progressive capabilities: basic perception, quantitative reasoning, and safety-critical advisory. [Paper](https://arxiv.org/abs/2607.08423) · [HF](https://huggingface.co/papers/2607.08423)
 - **MedStreamBench** (2026-07-02) — MedStreamBench is a time-aware benchmark for medical video understanding, integrating 22 medical datasets and 5,419 QA instances across four temporal settings: retrospective, present, future, and proactive. Models are r… [Paper](https://arxiv.org/abs/2607.01751) · [HF](https://huggingface.co/papers/2607.01751) · [Data](https://huggingface.co/datasets/Venn2024/MedStreamBench)
 - **HealthAgentBench** (2026-06-30) — Evaluates AI agents on 54 realistic healthcare tasks across 7 categories, including medical imaging, EHR analysis, and clinical trial matching. Agents operate in terminal environments with task-specific verifiers and a… [Paper](https://arxiv.org/abs/2606.31179) · [HF](https://huggingface.co/papers/2606.31179) · [Code](https://github.com/microsoft/HealthAgentBench)
-- **SHOVIR** (2026-06-29) — SHOVIR evaluates vision shortcut learning in radiology report generation by extending MIMIC-CXR and PadChest-GR with per-box CheXpert labels. It defines image-level and disease-level occlusion experiments that compare m… [Paper](https://arxiv.org/abs/2606.30201) · [HF](https://huggingface.co/papers/2606.30201)
+- **SHOVIR** (2026-06-29) — SHOVIR evaluates vision shortcut learning in radiology report generation by extending MIMIC-CXR and PadChest-GR with per-box CheXpert labels. It defines image-level and disease-level occlusion experiments that compare m… [Paper](https://arxiv.org/abs/2606.30201) · [HF](https://huggingface.co/papers/2606.30201) · [Code](https://github.com/arco-group/ShoViR-Bench)
 - **IMCBench** (2026-06-26) — IMCBench evaluates multimodal LLMs in image-grounded, multi-turn medical conversations, scoring safety, accuracy, and uncertainty use on a 1-5 scale. [Paper](https://arxiv.org/abs/2606.28556) · [HF](https://huggingface.co/papers/2606.28556)
 - **FunPiQ** (2026-06-24) — FunPiQ is a benchmark for pixel-level fundus image quality assessment with pixel-level annotations for anatomical visibility, using a three-class scheme (good, usable, bad). It also introduces EFIQA-CP, an explainable m… [Paper](https://arxiv.org/abs/2606.25915) · [HF](https://huggingface.co/papers/2606.25915) · [Code](https://github.com/penway/FunPiQ)
 - **T2D-Bench** (2026-06-23) — T2D-Bench evaluates LLM outputs for type 2 diabetes against evidence constraints using a multi-layer clinical-lifestyle knowledge graph, covering diagnosis, medication safety, and lifestyle conflicts across 100 structur… [Paper](https://arxiv.org/abs/2606.24145) · [HF](https://huggingface.co/papers/2606.24145)
