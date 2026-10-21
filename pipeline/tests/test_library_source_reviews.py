@@ -71,6 +71,41 @@ class ReviewedCoverageTests(unittest.TestCase):
             self.assertEqual(row['name'], rows[parent]['name'] + ' (Qwen comparison)')
             self.assertEqual(row['releaseEvidence']['dateScope'], 'underlying-dataset')
 
+    def test_reviews_follow_a_catalog_row_absorbed_by_a_same_named_record(self):
+        # A new Radar record named like a reviewed catalog row absorbs it; this
+        # used to abort the daily build with "Missing parent benchmark".
+        rows = [{'id': 'bm_new', 'name': 'ScreenSpot'}, {'id': 'catalog_child', 'name': 'ScreenSpot Pro'}]
+        payload = {'reviewedAt': '2026-10-17', 'reviews': [
+            {'id': 'catalog_child', 'parentId': 'catalog_parent', 'directions': ['computer-use'],
+             'sources': ['https://example.org/pro'], 'role': 'version'},
+            {'id': 'catalog_parent', 'directions': ['computer-use'],
+             'sources': ['https://example.org/base'], 'role': 'benchmark'}]}
+        orphaned = apply_source_reviews(rows, payload, {'catalog_parent': 'bm_new'})
+        by_id = {r['id']: r for r in rows}
+        self.assertEqual(orphaned, [])
+        self.assertEqual(by_id['catalog_child']['benchmarkParentId'], 'bm_new')
+        self.assertEqual(by_id['bm_new']['taskReview']['id'], 'catalog_parent')
+
+    def test_child_and_parent_absorbed_by_one_record_do_not_self_parent(self):
+        rows = [{'id': 'bm_new', 'name': 'ScreenSpot'}]
+        payload = {'reviewedAt': '2026-10-17', 'reviews': [
+            {'id': 'catalog_child', 'parentId': 'catalog_parent', 'directions': ['computer-use'],
+             'sources': ['https://example.org/pro'], 'role': 'version'}]}
+        apply_source_reviews(rows, payload, {'catalog_parent': 'bm_new', 'catalog_child': 'bm_new'})
+        self.assertNotIn('benchmarkParentId', rows[0])
+
+    def test_review_without_a_surviving_target_is_reported_not_fatal(self):
+        rows = [{'id': 'child', 'name': 'Child'}]
+        payload = {'reviewedAt': '2026-10-17', 'reviews': [
+            {'id': 'child', 'parentId': 'gone_parent', 'directions': ['computer-use'],
+             'sources': ['https://example.org/c'], 'role': 'version'},
+            {'id': 'gone', 'directions': ['computer-use'], 'sources': ['https://example.org/g'], 'role': 'benchmark'}],
+            'publisherReviews': [{'id': 'gone', 'publishers': [
+                {'name': 'Lab', 'role': 'benchmark-publisher', 'sourceUrl': 'https://example.org/lab'}]}]}
+        self.assertEqual(apply_source_reviews(rows, payload), ['gone_parent', 'gone'])
+        self.assertNotIn('benchmarkParentId', rows[0])
+        self.assertEqual(rows[0]['evaluationRole'], 'version')
+
     def test_review_wins_over_incidental_wording(self):
         record={'id':'a','name':'Example','description':'GUI grounding supports multi-step task completion'}
         review={'reviewedAt':'2026-09-15','reviews':[{'id':'a','directions':['computer-use'],'sources':['https://example.org/task'],'note':'Scored on full task completion','role':'observation-setting'}]}

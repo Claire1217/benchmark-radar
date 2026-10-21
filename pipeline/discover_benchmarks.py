@@ -12,7 +12,7 @@ import re
 import time as time_module
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 import index_benchmarks as arxiv
@@ -73,6 +73,19 @@ def fetch_text(url: str, headers: dict[str, str] | None = None) -> str:
 
 def clean(value: Any, limit: int = 6000) -> str:
     return " ".join(re.sub(r"<[^>]+>", " ", str(value or "")).split())[:limit]
+
+
+def homepage_url(value: Any) -> str | None:
+    """A GitHub homepage is free text; keep it only when it is a web URL.
+
+    Owners type topics or bare domains there, and one non-URL link fails
+    validate_data.py for the whole daily publish.
+    """
+    text = str(value or "").strip()
+    if text and "://" not in text and re.fullmatch(r"[\w.-]+\.[a-z]{2,}(?:/\S*)?", text, re.I):
+        text = "https://" + text
+    parsed = urlparse(text)
+    return text if parsed.scheme in {"http", "https"} and parsed.netloc and not re.search(r"\s", text) else None
 
 
 def generic_artifact_name(value: str) -> bool:
@@ -164,7 +177,7 @@ def github_candidates(target: str) -> list[dict[str, Any]]:
                 "publicSignals": {"githubStars": int(item.get("stargazers_count") or 0)},
                 "links": {
                     "code": str(item.get("html_url") or f"https://github.com/{source_id}"),
-                    "project": str(item.get("homepage") or "") or None,
+                    "project": homepage_url(item.get("homepage")),
                 },
                 "authors": [str((item.get("owner") or {}).get("login") or "")],
             }

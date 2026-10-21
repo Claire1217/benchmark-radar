@@ -172,7 +172,10 @@ jobs:
         if: ${{ inputs.metrics_only == true }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python pipeline/enrich_metrics.py
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        # The Library refresh steps below still run in this mode (~19 min), inside
+        # the 45-minute job timeout.
+        run: python pipeline/enrich_metrics.py --max-minutes 15
 
       - name: Refresh public benchmark catalogs
         if: ${{ inputs.metrics_only != true }}

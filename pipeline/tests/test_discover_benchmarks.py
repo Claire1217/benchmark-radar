@@ -55,6 +55,27 @@ class AdapterTests(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["links"]["code"], "https://github.com/lab/AgentBench")
 
+    @patch("discover_benchmarks.fetch_text", return_value="100 agent tasks scored by task success rate")
+    @patch("discover_benchmarks.fetch_json")
+    def test_github_homepage_is_kept_only_as_a_web_url(self, fetch_json, _fetch_text) -> None:
+        # A free-text homepage (here: topics) failed validate_data for the whole daily run.
+        cases = [
+            ("llm, quantization, on-device-ai, llama-cpp, apple-silicon, benchmark", None),
+            ("lab.example.org/bench", "https://lab.example.org/bench"),
+            ("https://lab.example.org", "https://lab.example.org"),
+            ("javascript:alert(1)", None),
+        ]
+        for homepage, expected in cases:
+            with self.subTest(homepage=homepage):
+                fetch_json.return_value = {"items": [{
+                    "name": "AgentBench", "full_name": "lab/AgentBench", "description": "LLM agent benchmark",
+                    "created_at": "2026-08-22T04:00:00Z", "updated_at": "2026-08-22T05:00:00Z",
+                    "html_url": "https://github.com/lab/AgentBench", "homepage": homepage, "topics": ["llm"],
+                    "owner": {"login": "lab"}, "fork": False, "archived": False, "disabled": False,
+                }]}
+                [row] = discover_benchmarks.github_candidates("2026-08-22")
+                self.assertEqual(row["links"]["project"], expected)
+
     @patch("discover_benchmarks.fetch_json")
     def test_huggingface_uses_dataset_creation_date(self, fetch_json) -> None:
         fetch_json.return_value = [{

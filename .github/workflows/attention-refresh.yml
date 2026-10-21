@@ -46,12 +46,17 @@ jobs:
         if: steps.snapshot.outputs.ready == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python pipeline/enrich_metrics.py --today-only
       - name: Create the daily full snapshot when missing
         if: steps.snapshot.outputs.ready != 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python pipeline/enrich_metrics.py
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        # A full fetch of every record exceeds the job timeout under the HF rate
+        # limit. Stop fetching with time left to generate and commit the snapshot;
+        # records not reached keep last-known values and are fetched first next day.
+        run: python pipeline/enrich_metrics.py --max-minutes 12
       - name: Generate and validate every public view
         run: |
           make generate

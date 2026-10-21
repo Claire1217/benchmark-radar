@@ -439,3 +439,120 @@ class RateLimitTests(unittest.TestCase):
         self.assertAlmostEqual(waits[0], 0.6)
         em.throttle('https://api.github.com/x', waits.append, clock)  # unthrottled host
         self.assertEqual(len(waits), 1)
+
+
+class FetchBudgetTests(unittest.TestCase):
+    def test_hf_404_skips_the_public_page_fallback(self):
+        record = {"id": "b", "source": {"type": "arxiv", "id": "2610.00001"},
+                  "links": {"data": "https://huggingface.co/datasets/org/set"}}
+        for status, page_calls in ((404, 0), (401, 2)):
+            with self.subTest(status=status), \
+                    patch.object(enrich_metrics, "get_json_status", return_value=(status, None)), \
+                    patch.object(enrich_metrics, "get_public_html", return_value="") as page:
+                item = enrich_metrics.enrich_one(record, None, False)
+            self.assertEqual(page.call_count, page_calls)
+            self.assertEqual(item["signalStatus"]["hfPaperUpvotes"]["state"], "unavailable")
+
+    def test_rate_limit_wait_past_the_deadline_gives_up_without_sleeping(self):
+        error = HTTPError("https://example.test/x", 429, "slow down", None, None)
+        sleeps = []
+        with patch.object(enrich_metrics, "urlopen", side_effect=error), \
+                patch.object(enrich_metrics, "_deadline", enrich_metrics.time.monotonic() + 1):
+            self.assertEqual(enrich_metrics.get_json_status("https://example.test/x", sleep=sleeps.append), (429, None))
+        self.assertEqual(sleeps, [])
+
+    def test_priority_is_latest_batch_then_unseen_then_least_recently_fetched(self):
+        records = [{"id": key, "releasedAt": released} for key, released in (
+            ("recent-fetch", "2026-09-01"), ("old-fetch", "2026-09-02"), ("legacy", "2026-09-03"),
+            ("unseen", "2026-08-01"), ("today", "2026-10-19"))]
+        previous = {"attemptedAt": "2026-10-05T00:00:00Z", "records": [
+            {"benchmarkId": "recent-fetch", "fetchedAt": "2026-10-19T00:00:00Z"},
+            {"benchmarkId": "old-fetch", "fetchedAt": "2026-10-10T00:00:00Z"},
+            {"benchmarkId": "legacy"},
+            {"benchmarkId": "today", "fetchedAt": "2026-10-19T00:00:00Z"},
+        ]}
+        order = enrich_metrics.fetch_priority(records, previous, "2026-10-19", "2026-10-19")
+        self.assertEqual([r["id"] for r in order], ["today", "unseen", "legacy", "old-fetch", "recent-fetch"])
+
+    def test_deferred_record_keeps_last_known_values_as_stale(self):
+        previous_row = {
+            "benchmarkId": "b", "hfPaperUpvotes": 9, "githubStars": 40, "githubRepo": "https://github.com/o/r",
+            "hfDailySubmittedAt": "2026-09-01T00:00:00Z", "fetchedAt": "2026-10-04T00:00:00Z",
+            "signalStatus": {"hfPaperUpvotes": {"state": "fresh"}, "githubStars": {"state": "fresh"},
+                             "hfDatasetDownloads": {"state": "not_applicable"},
+                             "hfDatasetLikes": {"state": "not_applicable"}},
+        }
+        row = enrich_metrics.unfetched_row({"id": "b"}, previous_row)
+        self.assertEqual(row["fetchedAt"], "2026-10-04T00:00:00Z")
+        self.assertEqual(row["hfDailySubmittedAt"], "2026-09-01T00:00:00Z")
+        [item] = preserve_last_known([row], [{"id": "b"}], {"date": "2026-10-04", "records": [previous_row]})
+        self.assertEqual((item["hfPaperUpvotes"], item["githubStars"]), (9, 40))
+        self.assertEqual(item["signalStatus"]["githubStars"], {"state": "stale", "lastSuccessfulDate": "2026-10-04"})
+        self.assertEqual(item["signalStatus"]["hfDatasetDownloads"]["state"], "not_applicable")
+
+    def test_budget_defers_records_instead_of_running_past_it(self):
+        from argparse import Namespace
+        from contextlib import ExitStack
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+            root = Path(directory)
+            records = [{"id": key, "releasedAt": "2026-10-19", "links": {}} for key in ("a", "b", "c")]
+            data = root / "benchmarks.json"
+            data.write_text(json.dumps({"manifest": {}, "records": records}))
+            stack.enter_context(patch.object(enrich_metrics, "DATA_PATH", data))
+            stack.enter_context(patch.object(enrich_metrics, "METRICS_DIR", root))
+            stack.enter_context(patch.object(enrich_metrics, "publication_today", return_value=date(2026, 10, 20)))
+            stack.enter_context(patch.object(enrich_metrics, "effective_latest_batch",
+                                             return_value={"from": "2026-10-19", "to": "2026-10-19"}))
+            calls = []
+            def slow_fetch(record, *args):
+                calls.append(record["id"])
+                enrich_metrics._deadline = 0  # the budget runs out during the first fetch
+                return {**{field: None for field in enrich_metrics.RESULT_FIELDS},
+                        "benchmarkId": record["id"], "hfPaperUpvotes": 3,
+                        "signalStatus": {"hfPaperUpvotes": {"state": "fresh"}}}
+            stack.enter_context(patch.object(enrich_metrics, "enrich_one", side_effect=slow_fetch))
+            args = Namespace(rerank_only=False, today_only=False, date=None, only_ids=None,
+                             github_limit=0, workers=1, max_minutes=10)
+            stack.enter_context(patch.object(enrich_metrics, "parse_args", return_value=args))
+            enrich_metrics.main()
+            self.assertEqual(len(calls), 1)
+            self.assertIsNone(enrich_metrics._deadline)
+            saved = {r["benchmarkId"]: r for r in json.loads((root / "2026-10-20.json").read_text())["records"]}
+            self.assertEqual(set(saved), {"a", "b", "c"})
+            deferred = [r for r in saved.values() if r["benchmarkId"] not in calls]
+            self.assertTrue(all(r["signalStatus"]["hfPaperUpvotes"]["state"] == "not_refreshed" for r in deferred))
+            self.assertIsNotNone(saved[calls[0]]["fetchedAt"])
+
+    def test_budget_rotates_through_records_across_days(self):
+        # Rows deferred on day 1 must sort before rows fetched on day 1; otherwise
+        # the newest records are refetched every day and older ones never are.
+        from argparse import Namespace
+        from contextlib import ExitStack
+        with tempfile.TemporaryDirectory() as directory, ExitStack() as stack:
+            root = Path(directory)
+            records = [{"id": key, "releasedAt": released, "links": {}}
+                       for key, released in (("a", "2026-09-01"), ("b", "2026-09-02"), ("c", "2026-09-03"))]
+            data = root / "benchmarks.json"
+            data.write_text(json.dumps({"manifest": {}, "records": records}))
+            legacy = {"date": "2026-10-05", "attemptedAt": "2026-10-05T00:00:00Z", "records": [
+                {"benchmarkId": key, "hfPaperUpvotes": 1, "signalStatus": {}} for key in ("a", "b", "c")]}
+            (root / "2026-10-05.json").write_text(json.dumps(legacy))
+            stack.enter_context(patch.object(enrich_metrics, "DATA_PATH", data))
+            stack.enter_context(patch.object(enrich_metrics, "METRICS_DIR", root))
+            stack.enter_context(patch.object(enrich_metrics, "effective_latest_batch",
+                                             return_value={"from": "2026-10-30", "to": "2026-10-30"}))
+            calls = []
+            def one_fetch_per_day(record, *args):
+                calls.append(record["id"])
+                enrich_metrics._deadline = 0
+                return {**{field: None for field in enrich_metrics.RESULT_FIELDS},
+                        "benchmarkId": record["id"], "hfPaperUpvotes": 2,
+                        "signalStatus": {"hfPaperUpvotes": {"state": "fresh"}}}
+            stack.enter_context(patch.object(enrich_metrics, "enrich_one", side_effect=one_fetch_per_day))
+            args = Namespace(rerank_only=False, today_only=False, date=None, only_ids=None,
+                             github_limit=0, workers=1, max_minutes=10)
+            stack.enter_context(patch.object(enrich_metrics, "parse_args", return_value=args))
+            for day in (20, 21, 22):
+                with patch.object(enrich_metrics, "publication_today", return_value=date(2026, 10, day)):
+                    enrich_metrics.main()
+            self.assertEqual(calls, ["c", "b", "a"])

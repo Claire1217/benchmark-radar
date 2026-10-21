@@ -29,6 +29,12 @@ DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-26.2"
 ADMISSION_POLICY_VERSION = "2026-09-09.1"
 ATOM = "{http://www.w3.org/2005/Atom}"
+DECISIONS = ("publish", "defer", "exclude")
+BENCHMARK_MODES = ("score_submission", "public_reusable", "viewpoint_probe", "uses_existing", "not_benchmark", "unclear")
+NAME_SOURCES = ("paper_title", "abstract", "official_readme")
+# Model output for an unchanged source that failed validation this many times is
+# not requested again until the source changes; each attempt costs two calls.
+MAX_INVALID_ATTEMPTS = 3
 
 
 class ProviderError(RuntimeError):
@@ -130,13 +136,13 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                         "canonicalName": {"type": "string", "maxLength": 120},
                         "canonicalNameSource": {
                             "type": "string",
-                            "enum": ["paper_title", "abstract", "official_readme"],
+                            "enum": list(NAME_SOURCES),
                         },
                         "canonicalNameEvidence": {"type": "string", "maxLength": 240},
-                        "decision": {"type": "string", "enum": ["publish", "defer", "exclude"]},
+                        "decision": {"type": "string", "enum": list(DECISIONS)},
                         "benchmarkMode": {
                             "type": "string",
-                            "enum": ["score_submission", "public_reusable", "viewpoint_probe", "uses_existing", "not_benchmark", "unclear"],
+                            "enum": list(BENCHMARK_MODES),
                         },
                         "evaluationEvidence": {
                             "type": "object",
@@ -270,6 +276,16 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
         }
         if any(field not in row for field in required):
             raise ReviewValidationError(f"Incomplete semantic decision for {row.get('sourceId')}")
+        # The schema is only a prompt; an out-of-enum decision such as
+        # "public_reusable" would otherwise hide a record as not publishable.
+        if (
+            row["decision"] not in DECISIONS
+            or row["benchmarkMode"] not in BENCHMARK_MODES
+            or not isinstance(row["stableScoringContract"], bool)
+            or not isinstance(row["publicReusePath"], bool)
+            or (row["decision"] == "publish" and row["canonicalNameSource"] not in NAME_SOURCES)
+        ):
+            raise ReviewValidationError(f"Invalid semantic decision for {row.get('sourceId')}")
         source = sources[row["sourceId"]]
         canonical_name = " ".join(str(row["canonicalName"]).split())
         name_evidence = " ".join(str(row["canonicalNameEvidence"]).split())
@@ -355,8 +371,13 @@ def write_editorial_copy(payload: dict[str, Any]) -> None:
     OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def review_batch(batch: list[dict[str, Any]], model: str, api_key: str) -> list[dict[str, Any]]:
-    """Keep valid batch rows and retry only malformed records one at a time."""
+def review_batch(
+    batch: list[dict[str, Any]], model: str, api_key: str, failures: dict[str, str] | None = None
+) -> list[dict[str, Any]]:
+    """Keep valid batch rows and retry only malformed records one at a time.
+
+    Sources still invalid after the retry are recorded in ``failures`` with the reason.
+    """
     try:
         rows = call_deepseek(batch, model, api_key)
     except ReviewValidationError:
@@ -377,9 +398,27 @@ def review_batch(batch: list[dict[str, Any]], model: str, api_key: str) -> list[
             retry_rows = call_deepseek([source], model, api_key)
             validate_copy({source_id: source}, retry_rows)
             recovered.extend(retry_rows)
-        except ReviewValidationError:
-            print(f"editorial_copy_invalid_output source={source_id} deferred=true")
+        except ReviewValidationError as error:
+            print(f"editorial_copy_invalid_output source={source_id} reason={json.dumps(str(error))} deferred=true")
+            if failures is not None:
+                failures[source_id] = str(error)
     return recovered
+
+
+def repeatedly_invalid(existing: dict[str, Any], source_id: str, fingerprint: str) -> bool:
+    attempt = existing.get("invalidOutput", {}).get(source_id) or {}
+    return attempt.get("selectionFingerprint") == fingerprint and attempt.get("attempts", 0) >= MAX_INVALID_ATTEMPTS
+
+
+def record_invalid_output(
+    existing: dict[str, Any], source_id: str, reason: str, fingerprint: str, now: str
+) -> None:
+    attempts = existing.setdefault("invalidOutput", {})
+    previous = attempts.get(source_id) or {}
+    count = previous.get("attempts", 0) + 1 if previous.get("selectionFingerprint") == fingerprint else 1
+    attempts[source_id] = {
+        "selectionFingerprint": fingerprint, "attempts": count, "lastError": reason, "lastAttemptAt": now,
+    }
 
 
 def publishable(row: dict[str, Any]) -> bool:
@@ -398,6 +437,20 @@ def public_release_ready(record: dict[str, Any], decision: dict[str, Any] | None
     return bool(decision and publishable(decision) and decision.get("evaluationEvidenceVerified") is True)
 
 
+def public_links(links: dict[str, Any] | None) -> dict[str, Any]:
+    """Drop candidate links that are not web URLs before they reach public records."""
+    def web_url(value: Any) -> bool:
+        parsed = urlparse(str(value))
+        return parsed.scheme in {"http", "https"} and bool(parsed.netloc) and not re.search(r"\s", str(value))
+    return {key: value for key, value in (links or {}).items() if value and web_url(value)}
+
+
+def candidate_record(candidate: dict[str, Any]) -> dict[str, Any]:
+    record = {key: value for key, value in candidate.items() if key not in {"reviewContext", "candidatePriority"}}
+    record["links"] = public_links(record.get("links"))
+    return record
+
+
 def upsert_curated(
     candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str,
     *, audit_existing: bool = False,
@@ -410,10 +463,7 @@ def upsert_curated(
         if not publishable(decision):
             source_id = decision["sourceId"]
             if audit_existing and source_id in candidate_by_source:
-                record = by_source.get(source_id) or {
-                    key: value for key, value in candidate_by_source[source_id].items()
-                    if key not in {"reviewContext", "candidatePriority"}
-                }
+                record = by_source.get(source_id) or candidate_record(candidate_by_source[source_id])
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -428,10 +478,7 @@ def upsert_curated(
         source = candidate_by_source[source_id]
         if not public_release_ready(source, decision):
             if audit_existing:
-                record = by_source.get(source_id) or {
-                    key: value for key, value in source.items()
-                    if key not in {"reviewContext", "candidatePriority"}
-                }
+                record = by_source.get(source_id) or candidate_record(source)
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
@@ -445,7 +492,7 @@ def upsert_curated(
                 }
                 by_source[source_id] = record
             continue
-        record = {key: value for key, value in source.items() if key not in {"reviewContext", "candidatePriority"}}
+        record = candidate_record(source)
         old_name = str(record.get("name") or "").strip()
         record["name"] = decision["canonicalName"]
         if old_name and old_name.casefold() != record["name"].casefold():
@@ -512,11 +559,22 @@ def main() -> None:
         and (not args.first_seen_through or record.get("firstSeenAt", "") <= args.first_seen_through)
     ]
     policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated or args.review_public else COPY_POLICY_VERSION
-    records = [
-        record for record in records
-        if existing.get("bySourceId", {}).get(str(record["source"]["id"]), {}).get("selectionFingerprint")
-        != selection_fingerprint(record, policy_version)
-    ]
+    def needs_review(record: dict[str, Any]) -> bool:
+        source_id = str(record["source"]["id"])
+        stored = existing.get("bySourceId", {}).get(source_id, {})
+        fingerprint = selection_fingerprint(record, policy_version)
+        if repeatedly_invalid(existing, source_id, fingerprint) and not requested:
+            return False
+        # Entries stored before decisions were validated can hold an out-of-enum value.
+        return stored.get("selectionFingerprint") != fingerprint or stored.get("decision") not in DECISIONS
+
+    held_back = sum(
+        repeatedly_invalid(existing, str(record["source"]["id"]), selection_fingerprint(record, policy_version))
+        for record in records
+    ) if not requested else 0
+    if held_back:
+        print(f"editorial_copy_repeatedly_invalid={held_back} skipped_until_source_changes=true")
+    records = [record for record in records if needs_review(record)]
     if args.limit > 0:
         records = records[:args.limit]
     if not records:
@@ -584,6 +642,7 @@ def main() -> None:
     source_rows = [
         row for row in source_rows
         if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row, policy_version))
+        or existing.get("bySourceId", {}).get(row["sourceId"], {}).get("decision") not in DECISIONS
     ]
     if not source_rows:
         print("deepseek_review_candidates=0 unchanged=true")
@@ -601,9 +660,16 @@ def main() -> None:
     published = 0
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
-        rows = review_batch(batch, args.model, api_key)
+        failures: dict[str, str] = {}
+        rows = review_batch(batch, args.model, api_key, failures)
         generated.extend(rows)
+        for source_id, reason in failures.items():
+            record_invalid_output(
+                existing, source_id, reason,
+                selection_fingerprint(record_by_id[source_id], policy_version), now,
+            )
         for row in rows:
+            existing.get("invalidOutput", {}).pop(row["sourceId"], None)
             source = source_by_id[row["sourceId"]]
             existing["bySourceId"][row["sourceId"]] = {
                 "evaluationEvidence": row.get("evaluationEvidence", {}),
