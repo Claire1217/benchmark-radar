@@ -65,17 +65,26 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
 
 
 # Requests to the same host are spaced out so a bulk refresh stays under its
-# rate limit; Hugging Face allows roughly a few hundred anonymous calls per 5 min.
+# rate limit; Hugging Face reports "api";q=500;w=300 for anonymous callers, and
+# a token roughly doubles that quota.
 MIN_INTERVAL = {"huggingface.co": 0.7}
+MIN_INTERVAL_WITH_TOKEN = {"huggingface.co": 0.35}
 _host_locks: dict[str, threading.Lock] = {}
 _host_next: dict[str, float] = {}
 _locks_guard = threading.Lock()
 RATE_LIMIT_ATTEMPTS = 5
+# Monotonic time after which a bulk refresh stops fetching (see --max-minutes).
+_deadline: float | None = None
+
+
+def past_deadline(extra: float = 0.0, clock=time.monotonic) -> bool:
+    return _deadline is not None and clock() + extra > _deadline
 
 
 def throttle(url: str, sleep=time.sleep, clock=time.monotonic) -> None:
     host = urlparse(url).hostname or ""
-    interval = MIN_INTERVAL.get(host)
+    intervals = MIN_INTERVAL_WITH_TOKEN if os.environ.get("HF_TOKEN") else MIN_INTERVAL
+    interval = intervals.get(host)
     if not interval:
         return
     with _locks_guard:
@@ -96,7 +105,10 @@ def retry_delay(error: HTTPError, attempt: int) -> float:
         return min(5 * 2 ** attempt, 60)
 
 
-def get_json(url: str, headers: dict[str, str] | None = None, sleep=time.sleep) -> dict[str, Any] | None:
+def get_json_status(
+    url: str, headers: dict[str, str] | None = None, sleep=time.sleep
+) -> tuple[int | None, dict[str, Any] | None]:
+    """Return (HTTP status, payload); status is None when the host was unreachable."""
     request_headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
     if "huggingface.co" in url and os.environ.get("HF_TOKEN"):
         request_headers["Authorization"] = "Bearer " + os.environ["HF_TOKEN"]
@@ -105,22 +117,30 @@ def get_json(url: str, headers: dict[str, str] | None = None, sleep=time.sleep) 
         throttle(url, sleep)
         try:
             with urlopen(Request(url, headers=request_headers), timeout=45) as response:
-                return json.loads(response.read())
+                return 200, json.loads(response.read())
         except HTTPError as error:
             # A public artifact can later become private or gated. Treat that
             # single signal as unavailable so preserve_last_known() can retain
             # its previous observation instead of aborting the daily update.
             if error.code == 429 and attempt < RATE_LIMIT_ATTEMPTS - 1:
-                sleep(retry_delay(error, attempt))
+                delay = retry_delay(error, attempt)
+                # Waiting past the refresh budget would only get the job cancelled.
+                if past_deadline(delay):
+                    return 429, None
+                sleep(delay)
                 continue
             if error.code in {401, 403, 404, 429}:
-                return None
+                return error.code, None
             raise
         except URLError:
             if attempt >= 2:
-                return None
+                return None, None
             sleep(2 ** attempt)
-    return None
+    return None, None
+
+
+def get_json(url: str, headers: dict[str, str] | None = None, sleep=time.sleep) -> dict[str, Any] | None:
+    return get_json_status(url, headers, sleep)[1]
 
 
 def github_stars_from_public_page(repo: str) -> int | None:
@@ -180,9 +200,13 @@ def readiness_from_links(links: dict[str, Any]) -> str:
 def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: bool) -> dict[str, Any]:
     source = record.get("source", {})
     arxiv_id = str(source.get("id", "")) if source.get("type") == "arxiv" else ""
-    paper = get_json(f"https://huggingface.co/api/papers/{quote(arxiv_id)}") if arxiv_id else None
+    paper_status, paper = (
+        get_json_status(f"https://huggingface.co/api/papers/{quote(arxiv_id)}") if arxiv_id else (None, None)
+    )
     paper = paper or {}
-    if arxiv_id and paper.get("upvotes") is None:
+    # A 404 from the API means the Hub has no page for this paper either; the
+    # page fallback is only for API errors, and skipping it halves HF traffic.
+    if arxiv_id and paper.get("upvotes") is None and paper_status != 404:
         paper.update(hf_public_page_counts(f"https://huggingface.co/papers/{quote(arxiv_id)}", ("upvotes",)))
     # The canonical code URL carries benchmark scope (for example a subfolder in
     # a monorepo); prefer it over HF's repo-level association.
@@ -212,9 +236,11 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
 
     data_url = record.get("links", {}).get("data")
     dataset = dataset_slug(data_url)
-    dataset_info = get_json(f"https://huggingface.co/api/datasets/{dataset}") if dataset else None
+    dataset_status, dataset_info = (
+        get_json_status(f"https://huggingface.co/api/datasets/{dataset}") if dataset else (None, None)
+    )
     dataset_info = dataset_info or {}
-    if dataset and dataset_info.get("downloads") is None:
+    if dataset and dataset_info.get("downloads") is None and dataset_status != 404:
         dataset_info.update(
             hf_public_page_counts(
                 f"https://huggingface.co/datasets/{dataset}", ("downloads", "likes")
@@ -248,6 +274,53 @@ def enrich_one(record: dict[str, Any], github_token: str | None, allow_github: b
         "hfDatasetLikes": dataset_info.get("likes"),
         "signalStatus": signal_status,
     }
+
+
+RESULT_FIELDS = (
+    "hfPaperUpvotes", "hfDailySubmittedAt", "hfPaperUrl", "githubRepo", "githubStars",
+    "githubScope", "githubStarsSource", "hfDataset", "hfDatasetDownloads", "hfDatasetLikes",
+)
+
+
+def fetch_priority(
+    records: list[dict[str, Any]],
+    previous_snapshot: dict[str, Any] | None,
+    batch_start: str,
+    batch_end: str,
+) -> list[dict[str, Any]]:
+    """Latest batch first, then records never fetched, then the least recently fetched."""
+    previous_by_id = {
+        item["benchmarkId"]: item for item in (previous_snapshot or {}).get("records", [])
+    }
+    # Snapshots written before fetchedAt existed were fetched as one run.
+    fallback = (previous_snapshot or {}).get("attemptedAt") or ""
+
+    def key(record: dict[str, Any]) -> tuple[bool, str]:
+        in_batch = batch_start <= record.get("releasedAt", "") <= batch_end
+        row = previous_by_id.get(record["id"])
+        return (not in_batch, "" if row is None else row.get("fetchedAt") or fallback)
+
+    newest_first = sorted(records, key=lambda record: record.get("releasedAt", ""), reverse=True)
+    return sorted(newest_first, key=key)
+
+
+def unfetched_row(record: dict[str, Any], previous_row: dict[str, Any] | None) -> dict[str, Any]:
+    """A record the time budget did not reach; preserve_last_known() fills its signals."""
+    previous_row = previous_row or {}
+    row = {field: previous_row.get(field) for field in RESULT_FIELDS}
+    row.update({signal: None for signal in TRACKED_SIGNALS})
+    previous_status = previous_row.get("signalStatus", {})
+    row["signalStatus"] = {
+        signal: {
+            "state": "not_applicable"
+            if (previous_status.get(signal) or {}).get("state") == "not_applicable"
+            else "not_refreshed"
+        }
+        for signal in TRACKED_SIGNALS
+    }
+    row["benchmarkId"] = record["id"]
+    row["fetchedAt"] = previous_row.get("fetchedAt")
+    return row
 
 
 def preserve_last_known(
@@ -626,6 +699,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Refresh the latest public batch and recompute only the Today ranking.",
     )
+    parser.add_argument(
+        "--max-minutes", type=float, default=0,
+        help="Stop fetching after this long (0 = no limit). Records not reached keep their "
+             "last known values as stale and are fetched first next time.",
+    )
     return parser.parse_args()
 
 
@@ -707,7 +785,11 @@ def main() -> None:
         if not only_ids:
             print(f"no Today records for latest release {latest_source_date}")
             return
-    selected_records = [record for record in records if not only_ids or record["id"] in only_ids]
+    previous_snapshot = latest_snapshot_before(as_of)
+    selected_records = fetch_priority(
+        [record for record in records if not only_ids or record["id"] in only_ids],
+        previous_snapshot, latest_batch_start, latest_source_date,
+    )
     github_token = os.environ.get("GITHUB_TOKEN")
     github_candidates = [
         record for record in records if github_slug(record.get("links", {}).get("code"))
@@ -731,14 +813,33 @@ def main() -> None:
             record["id"] for record in github_candidates[: max(args.github_limit, 0)]
         }
 
+    global _deadline
+    max_minutes = getattr(args, "max_minutes", 0)
+    _deadline = time.monotonic() + max_minutes * 60 if max_minutes else None
+
+    def fetch(record: dict[str, Any]) -> dict[str, Any] | None:
+        if past_deadline():
+            return None
+        item = enrich_one(record, github_token, record["id"] in github_slots)
+        item["fetchedAt"] = attempted_at
+        return item
+
+    previous_rows = {
+        item["benchmarkId"]: item for item in (previous_snapshot or {}).get("records", [])
+    }
     results: list[dict[str, Any]] = []
+    deferred = 0
+    # The pool runs submissions in order, so the budget is spent on the highest priority.
     with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
-        futures = {
-            pool.submit(enrich_one, record, github_token, record["id"] in github_slots): record["id"]
-            for record in selected_records
-        }
+        futures = {pool.submit(fetch, record): record for record in selected_records}
         for future in as_completed(futures):
-            results.append(future.result())
+            item = future.result()
+            if item is None:
+                deferred += 1
+                record = futures[future]
+                item = unfetched_row(record, previous_rows.get(record["id"]))
+            results.append(item)
+    _deadline = None
     if only_ids:
         if not snapshot_path.exists():
             raise RuntimeError("--only-ids requires an existing snapshot for the observation date.")
@@ -748,7 +849,6 @@ def main() -> None:
         retained.update({item["benchmarkId"]: item for item in results})
         results = list(retained.values())
     results.sort(key=lambda item: item["benchmarkId"])
-    previous_snapshot = latest_snapshot_before(as_of)
     results = preserve_last_known(results, records, previous_snapshot)
     observation = summarize_observation(results, attempted_at, previous_snapshot)
     raw_by_id = {item["benchmarkId"]: item for item in results}
@@ -833,7 +933,10 @@ def main() -> None:
         dict.fromkeys(payload["manifest"].get("sourceCoverage", []) + ["Hugging Face Hub", "GitHub REST"])
     )
     write_json(DATA_PATH, payload)
-    print(f"observed={len(results)} as_of={as_of.isoformat()} metrics={METRICS_DIR / (as_of.isoformat() + '.json')}")
+    print(
+        f"observed={len(results)} fetched={len(selected_records) - deferred} deferred={deferred} "
+        f"as_of={as_of.isoformat()} metrics={METRICS_DIR / (as_of.isoformat() + '.json')}"
+    )
 
 
 if __name__ == "__main__":

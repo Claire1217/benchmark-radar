@@ -172,7 +172,8 @@ jobs:
         if: ${{ inputs.metrics_only == true }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python pipeline/enrich_metrics.py
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python pipeline/enrich_metrics.py --max-minutes 25
 
       - name: Refresh public benchmark catalogs
         if: ${{ inputs.metrics_only != true }}
