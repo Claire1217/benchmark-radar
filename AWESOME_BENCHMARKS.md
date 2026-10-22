@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-21 · **Benchmark releases:** 2592
+**Snapshot:** 2026-10-22 · **Benchmark releases:** 2592
 
 ## Contents
 
@@ -54,7 +54,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI R&D & ML Engineering
 
-- **FrontierCS 2** (2026-10-21) — We introduce FrontierCS 2, a benchmark of 48 open-ended tasks. [Paper](https://arxiv.org/abs/2610.29932) · [Code](https://github.com/FrontierCS/FrontierCS-2)
+- **FrontierCS 2** (2026-10-21) — We introduce FrontierCS 2, a benchmark of 48 open-ended tasks. [Paper](https://arxiv.org/abs/2610.29932) · [HF](https://huggingface.co/papers/2610.29932) · [Code](https://github.com/FrontierCS/FrontierCS-2)
 - **Agent4Sci** (2026-10-20) — Measures frontier coding agents' scientific progress on ML-for-science benchmarks under a fixed compute budget. [Paper](https://arxiv.org/abs/2610.28763) · [Code](https://github.com/maszhongming/agent4sci) · [Data](https://huggingface.co/datasets/MingZhong/agent4sci)
 - **Auto-MD-bench** (2026-10-18) — Evaluates autoresearch agents on 15 medical prediction tasks spanning survival analysis, classification, and sequential prediction, using hidden test sets and a fixed 12-hour budget. [Paper](https://arxiv.org/abs/2610.25069) · [Code](https://github.com/Edwin0080/Auto-MD-bench) · [Data](https://huggingface.co/datasets/Edwin0080/Auto-MD-bench)
 - **DataSense-Bench** (2026-10-08) — We introduce DataSense-Bench to study this capability through the fundamental problem of data selection and performance forecasting in machine learning. [Paper](https://arxiv.org/abs/2610.12190) · [HF](https://huggingface.co/papers/2610.12190) · [Code](https://github.com/DataSense-Bench/DataSense-Bench)
