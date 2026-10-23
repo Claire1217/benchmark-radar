@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-22 · **Benchmark releases:** 2618
+**Snapshot:** 2026-10-22 · **Benchmark releases:** 2621
 
 ## Contents
 
@@ -24,10 +24,10 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Chat, Writing & Preference](#chat,-writing--preference) (28)
 - [Code Generation](#code-generation) (88)
 - [Composite Indexes](#composite-indexes) (2)
-- [Computer Use & GUI Agents](#computer-use--gui-agents) (49)
+- [Computer Use & GUI Agents](#computer-use--gui-agents) (50)
 - [Cybersecurity & CTF](#cybersecurity--ctf) (29)
 - [Deep Research & Search](#deep-research--search) (49)
-- [Document Understanding & OCR](#document-understanding--ocr) (31)
+- [Document Understanding & OCR](#document-understanding--ocr) (32)
 - [Engineering & Hardware Design](#engineering--hardware-design) (31)
 - [Factuality & Hallucination](#factuality--hallucination) (32)
 - [Finance & Law](#finance--law) (60)
@@ -41,7 +41,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Math Reasoning](#math-reasoning) (26)
 - [Multi-Agent & Games](#multi-agent--games) (36)
 - [Multilingual & Translation](#multilingual--translation) (35)
-- [Other benchmark tasks](#other-benchmark-tasks) (87)
+- [Other benchmark tasks](#other-benchmark-tasks) (89)
 - [Professional & Enterprise Work](#professional--enterprise-work) (74)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (134)
 - [Safety & Alignment](#safety--alignment) (105)
@@ -559,7 +559,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Computer Use & GUI Agents
 
-- **PointerBench** (2026-10-22) — PointerBench evaluates fine-grained GUI grounding through 1,500 screenshot-instruction pairs across spreadsheet element detection, character-level text grounding, and mixed GUI targets in professional applications. [Paper](https://arxiv.org/abs/2610.31274) · [Code](https://github.com/warmwindOS/pointerbench)
+- **PrefDiag-Bench** (2026-10-22) — Evaluates personalized mobile GUI agents across 318 end-to-end tasks and 1,664 stage-wise diagnostic probes covering five preference types and two user-context forms. [Paper](https://arxiv.org/abs/2610.30573) · [Code](https://github.com/Zhixin-L/PrefDiag-Bench)
+- **PointerBench** (2026-10-22) — Evaluates fine-grained GUI grounding on 1,500 screenshot-instruction pairs across spreadsheets, long-text documents, and professional applications, scored with point-hit and asymmetric bbox overlap rules. [Paper](https://arxiv.org/abs/2610.31274) · [Code](https://github.com/warmwindOS/pointerbench)
 - **CUA-Recovery** (2026-10-20) — Evaluates whether computer-use agents detect and recover from policy-induced errors in long, stateful workflows across desktop applications. [Paper](https://arxiv.org/abs/2610.27645) · [Code](https://github.com/xu-hu-2002/CUA-Recovery)
 - **PersonaCUABench** (2026-10-16) — Benchmarks computer-use agents on 74 tasks across 11 domains where instructions are rewritten by 44 diverse personas, evaluating task completion and user satisfaction. [Paper](https://arxiv.org/abs/2610.22990) · [Code](https://github.com/MatrAIx-ai/PersonaCUABench)
 - **Odysseys2** (2026-10-16) — Odysseys2 is a web-agent benchmark with 100 real-user-request-derived tasks, each carrying rubric requirements with weights, evaluated on a 0–100 final score. [Code](https://github.com/ljang0/odysseys2-benchmark)
@@ -611,7 +612,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Cybersecurity & CTF
 
-- **SecLog-Bench** (2026-10-22) — Cybersecurity benchmark of 216 evidence windows with reviewed stage labels and reference reasoning chains for LLM attack-progress reasoning. [Paper](https://arxiv.org/abs/2610.31000) · [Code](https://github.com/SecLog-Open/SecLog)
+- **SecLog-Bench** (2026-10-22) — Evaluates LLM attack-progress reasoning over multi-source cybersecurity logs, using 216 evidence windows with attack-stage labels and reference reasoning chains scored via a documented normalization and evaluation proto… [Paper](https://arxiv.org/abs/2610.31000) · [Code](https://github.com/SecLog-Open/SecLog)
 - **HardEval** (2026-10-16) — HardEval evaluates language-model assistance for RHEL 8 STIG security hardening by executing generated Bash remediation scripts on live virtual machines and grading via OpenSCAP/OVAL compliance checks. [Paper](https://arxiv.org/abs/2610.23685) · [Code](https://github.com/manoharvellala/Hardeval)
 - **PatchBench** (2026-10-07) — To address this gap, we introduce PatchBench, a benchmark of empirically observed model-specific jailbreak failures inducing actionable harmful answers. [Paper](https://arxiv.org/abs/2610.10276) · [HF](https://huggingface.co/papers/2610.10276)
 - **CyberClear** (2026-09-26) — To address this gap, we introduce CyberClear, a benchmark for evaluating LLM agents and advanced agent systems on APT attack chain provenance from long-context security logs. [Paper](https://arxiv.org/abs/2609.32424) · [HF](https://huggingface.co/papers/2609.32424)
@@ -695,6 +696,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Document Understanding & OCR
 
+- **The Grounding Ladder** (2026-10-22) — Evaluates LLM analytical accuracy at four representation levels of business semantics: ungrounded, document-grounded, prompt-grounded, and semantic-layer-mediated. [Code](https://github.com/gcorneliusvh/looker-vs-databricks-genie-benchmark)
 - **VELD-QA** (2026-10-14) — Evaluates visual evidence grounding and question answering in long documents. [Paper](https://arxiv.org/abs/2610.20964) · [Code](https://github.com/oracle-samples/veld-qa)
 - **DocumentVision** (2026-10-10) — Evaluates OCR pipelines and vision-language models on dense tables, key-value extraction, charts, and layout grounding across high-resolution enterprise document images. [Code](https://github.com/master72o/documentvision-multimodal-benchmark)
 - **mini-CommonForms** (2026-09-20) — Evaluates form field detection models on 47,355 document pages in COCO format with annotations for text, choice, and signature fields. [Paper](https://arxiv.org/abs/2609.23679) · [Code](https://github.com/moured/mini-commonforms) · [Data](https://huggingface.co/datasets/omoured/minicommonform)
@@ -884,7 +886,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Health & Medicine
 
-- **IndoNutriQA** (2026-10-22) — Evaluates Indonesian clinical question answering using expert-curated QA pairs from real nutrition reports, with structured metadata and eight question types. [Paper](https://arxiv.org/abs/2610.31256) · [Code](https://github.com/NLP-UB/IndoNutriQA)
+- **IndoNutriQA** (2026-10-22) — IndoNutriQA is a 911-pair Indonesian clinical-nutrition QA dataset with context-grounded questions across eight Nutrition Care Process types, free-form reference answers, metadata, and released evaluation scripts. [Paper](https://arxiv.org/abs/2610.31256) · [Code](https://github.com/NLP-UB/IndoNutriQA)
 - **SelfDx** (2026-10-20) — SelfDx provides 100 paired health self-diagnosis queries, each combining a caution case and an agreement case, to evaluate whether LLMs show appropriate epistemic independence and avoid misplaced agreement that could de… [Paper](https://arxiv.org/abs/2610.27518)
 - **IMU-Bench** (2026-10-14) — Benchmark of ten wrist IMU tasks across eight datasets for kinematic, semantic, and clinical evaluation. [Paper](https://arxiv.org/abs/2610.19481)
 - **RoB 2 AI Benchmark** (2026-10-12) — Unified frozen benchmark for AI risk-of-bias assessment using Cochrane RoB 2, built from three public expert-annotated sources, scored by agreement with human judgments at signalling, domain, and overall levels. [Code](https://github.com/CoreSR/rob2-ai-benchmark)
@@ -995,7 +997,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Video Generation
 
-- **CinemaBench** (2026-10-22) — Evaluates text-directed and video reference-directed camera trajectory generation in 3D virtual film cinematography across 150 Blender scenes with 750 text tasks and 60 reference videos. [Paper](https://arxiv.org/abs/2610.30753)
+- **CinemaBench** (2026-10-22) — A benchmark of 150 Blender scenes with 750 text-directed camera instructions and 60 reference videos, supporting evaluation of text-directed and video-reference-directed camera trajectory generation for 3D virtual film… [Paper](https://arxiv.org/abs/2610.30753)
 - **ABACUS** (2026-10-20) — Measures numerical accuracy of instruction-based image editing models on add, remove, and change operations with exact count verification and scene preservation. [Paper](https://arxiv.org/abs/2610.28316) · [Code](https://github.com/CEA-LIST/ABACUS)
 - **字形表义性 Benchmark（Glyph Meaningfulness Benchmark）** (2026-10-19) — Evaluates glyph meaning through four tasks: concept-to-glyph generation, interpretation, learnability, and structural metrics using Shuo Wen radicals and modern concepts. [Code](https://github.com/Ivan666jjj/shuowen-glyph-benchmark)
 - **LEVI** (2026-10-19) — Evaluates image generation fidelity to visual identity constraints defined by low-entropy facts and explicit rules, using 1,375 tasks across six domains. [Paper](https://arxiv.org/abs/2610.25716)
@@ -1225,7 +1227,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Instruction Following
 
-- **StateTrack-Bench** (2026-10-22) — Controlled dialogue suite evaluating whether models maintain and apply stated constraints over long conversations. [Paper](https://arxiv.org/abs/2610.31314) · [Code](https://github.com/xzzvsxd/StateTrack)
+- **StateTrack-Bench** (2026-10-22) — StateTrack-Bench is a controlled suite of long-horizon conversations spanning numerical, format, role/persona, factual-memory, and logical-rule constraints, scored via strict joint retention and a forked recall audit di… [Paper](https://arxiv.org/abs/2610.31314) · [Code](https://github.com/xzzvsxd/StateTrack)
 - **benchmark-instruction-hierarchy** (2026-10-16) — Evaluates whether models maintain user and system rules when long context, documents, quotes, and fake tool output push conflicting directives, using single-turn tasks with deterministic assertion grading. [Code](https://github.com/pooriaarab/benchmark-instruction-hierarchy) · [Data](https://huggingface.co/datasets/pooria/benchmark-instruction-hierarchy)
 - **LLM Reasoning and Generation Benchmark** (2026-10-15) — Evaluates LLM generation tasks on long context, multi-step reasoning, and precise instruction compliance using scored test cases with assertions. [Code](https://github.com/Carolync42414/LLM-RGB)
 - **ReFormBench** (2026-10-14) — A format-following benchmark with 5,000 three-constraint instances across 66 features, comparing response-conditioned format correction. [Paper](https://arxiv.org/abs/2610.19693)
@@ -1245,7 +1247,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Knowledge & Expert QA
 
-- **TutorCaseBench** (2026-10-22) — Benchmark grounding AI-tutor evaluation in case studies from education, including open-ended and multiple-choice tasks. [Paper](https://arxiv.org/abs/2610.30828) · [Code](https://github.com/kixlab/TutorCaseBench)
+- **TutorCaseBench** (2026-10-22) — Evaluates LLM tutors on scenarios of students with learning and behavioral difficulties, using case-grounded dialogues, open-ended rubric scoring, and multiple-choice intervention selection. [Paper](https://arxiv.org/abs/2610.30828) · [Code](https://github.com/kixlab/TutorCaseBench)
 - **ChronoCulture** (2026-10-14) — A benchmark evaluating cultural awareness over time using 10,360 temporal pairs from survey data in 72 countries. [Paper](https://arxiv.org/abs/2610.20472) · [Code](https://github.com/lab-flair/ChronoCulture)
 - **tw-exam-bench-sample** (2026-10-12) — A fixed sample of 22,021 multiple-choice examination questions from Taiwan's Ministry of Examination, scored row-wise to match the opentwbench.ai leaderboard. [Data](https://huggingface.co/datasets/OpenTWBench/tw-exam-bench-sample)
 - **CineSubBench** (2026-09-28) — We introduce CineSubBench, a benchmark for evaluating long-context film understanding from multilingual movie subtitles. [Paper](https://arxiv.org/abs/2609.36218) · [HF](https://huggingface.co/papers/2609.36218) · [Code](https://github.com/tafseer-nayeem/CineSubBench)
@@ -1341,7 +1343,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Multilingual & Translation
 
-- **Webnovel Translation Benchmark** (2026-10-22) — Ranks AI models on Korean web novel translation using same chapters and prompts, scored by AI judge out of 100 with cost per chapter. [Code](https://github.com/gaieais70/webnovel-translation-benchmark)
+- **Webnovel Translation Benchmark** (2026-10-22) — Ranks AI models on translating serialized Korean, Chinese, and Japanese web fiction into English, using identical chapters and prompts, with per-chapter cost reported alongside AI-judge quality scores. [Code](https://github.com/gaieais70/webnovel-translation-benchmark)
 - **CulturalRiddles** (2026-10-21) — Evaluates language models on culturally grounded riddles requiring lived experience, local associations, traditions, and wordplay across 62 communities. [Paper](https://arxiv.org/abs/2610.29968) · [Code](https://github.com/Cohere-Labs-Community/CulturalRiddles) · [Data](https://huggingface.co/datasets/CohereLabsCommunity/CulturalRiddles)
 - **KoAGE** (2026-10-14) — Evaluates Korean neologism knowledge acquisition, learning, and generation across five tasks using 4,271 entries. [Paper](https://arxiv.org/abs/2610.19399)
 - **CSWBench** (2026-10-14) — Evaluates model-generated Chinese-English code-switched narratives on 807 prompts across focused and extended settings, scored by CSWEval on switch licensing, appropriateness, functional gain, and whole-text quality. [Paper](https://arxiv.org/abs/2610.20272) · [Code](https://github.com/TPSJASPER/CSWBench)
@@ -1379,6 +1381,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **sigbench** (2026-10-22) — Benchmark of 207 synthetic wallet signature requests with ground-truth labels (stablecoin permits, allowances, transfers, orders, and EIP-7702 delegations) to measure how well LLM explainers identify lookalike counterpa… [Code](https://github.com/jongkwang/fooled-by-a-lookalike)
+- **serpapi-india-search-benchmark** (2026-10-22) — Evaluates search API providers on 50 India-focused queries across news, local places, and shopping intents, measuring success rate, latency, structured-field completeness, India relevance, and cost. [Code](https://github.com/jayydees/serpapi-india-search-benchmark)
 - **EmbDivBench** (2026-10-17) — Evaluates 21 embedding-based diversity measures (distance-, geometry-, graph-, distribution-based) on 21 measures across three diversity components (variety, balance, disparity) using simulated and natural text data. [Paper](https://arxiv.org/abs/2610.24888) · [Code](https://github.com/nlpsoc/EmbDivBench)
 - **NodeGround** (2026-09-30) — We present NodeGround, a node classification benchmark that puts graph foundation models (GFMs) and dataset-specific supervised learning under a common evaluation framework. [Paper](https://arxiv.org/abs/2609.39673) · [HF](https://huggingface.co/papers/2609.39673) · [Code](https://github.com/nums-ai/nodeground)
 - **FANVIDv2** (2026-09-30) — We present FANVIDv2, a benchmark that scores VSR by what a recognition pipeline can do with its output. [Paper](https://arxiv.org/abs/2609.39649) · [HF](https://huggingface.co/papers/2609.39649)
@@ -1971,7 +1975,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
-- **Nepali-English Code-Switched Podcast Evaluation Benchmark** (2026-10-22) — Benchmark of spontaneous Nepali-English code-switched podcast speech for ASR with 15.45 hours of audio. [Paper](https://arxiv.org/abs/2610.30860) · [Code](https://github.com/Firoj-Wise/nepali-english-codeswitch-asr) · [Data](https://huggingface.co/datasets/SamaFiroz/nepali-english-codeswitch-podcasts)
+- **Nepali-English Code-Switched Podcast Evaluation Benchmark** (2026-10-22) — A frozen Nepali-English code-switched ASR test set of spontaneous podcast utterances with verbatim transcripts, scored by mixed error rate, switch-point error rate, and script confusion rate on speaker-disjoint splits. [Paper](https://arxiv.org/abs/2610.30860) · [Code](https://github.com/Firoj-Wise/nepali-english-codeswitch-asr) · [Data](https://huggingface.co/datasets/SamaFiroz/nepali-english-codeswitch-podcasts)
 - **Omnilingual-MsASR** (2026-10-21) — Evaluates omni large language models on long-form, multilingual, multi-speaker automatic speech recognition with audio and audiovisual tracks across six languages. [Paper](https://arxiv.org/abs/2610.29455) · [Code](https://github.com/QwenLM/Omnilingua-Bench/tree/main/Omnilingua-MSpeaker)
 - **DuplexLedger** (2026-10-20) — Evaluates full-duplex speech agents' transactional memory management, requiring models to decide which events to write, update, ignore, or retain across 1,094 persistent sessions. [Paper](https://arxiv.org/abs/2610.27581) · [Code](https://github.com/lyx-researcher/DuplexLedger)
 - **VocalGrad** (2026-10-16) — Evaluates audio language models on binary classification of the temporal direction (increase/decrease) of low-level acoustic attributes in speech, using 21,600 controlled synthetic clips. [Paper](https://arxiv.org/abs/2610.23745) · [Data](https://huggingface.co/datasets/ynklab/vocalgrad)
@@ -2090,7 +2094,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
-- **MoRSe-5K** (2026-10-22) — MoRSe-5K evaluates moving-region segmentation in 42 video sequences across Static, Dynamic-Static, and Dynamic settings, assessing localization of actually moving regions under camera motion. [Paper](https://arxiv.org/abs/2610.31209)
+- **MoRSe-5K** (2026-10-22) — MoRSe-5K is a segmentation benchmark of 42 video sequences organized into Static, Dynamic-Static, and Dynamic settings for distinguishing actually moving regions from apparent motion under camera motion. [Paper](https://arxiv.org/abs/2610.31209)
 - **SENRI-Bench** (2026-10-18) — SENRI-Bench evaluates video-language models on 500 multiple-choice questions across 10 long, uninterrupted self-recorded videos totaling 25.3 hours. [Paper](https://arxiv.org/abs/2610.25309)
 - **OLiVES** (2026-10-14) — A dataset and benchmark for outdoor low-light video enhancement and video object segmentation with dynamic scenes. [Paper](https://arxiv.org/abs/2610.20501)
 - **MiniVer-V** (2026-10-08) — We introduce MiniVer-V, a benchmark of 195 short videos with three-way verdict annotations (supported, refuted, insufficient) and 5,510 multimodal evidence units spanning visual keyframes, speech transcripts, and web-re… [Paper](https://arxiv.org/abs/2610.11233)
