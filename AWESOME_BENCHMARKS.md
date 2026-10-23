@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-23 · **Benchmark releases:** 2621
+**Snapshot:** 2026-10-24 · **Benchmark releases:** 2621
 
 ## Contents
 
@@ -1162,7 +1162,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **ComplexityWorld** (2026-08-05) — ComplexityWorld is a benchmark of 390 visual decision-making tasks across 39 worlds, scored by an executable verifier. It evaluates VLMs on tasks requiring global constraint satisfaction. [Paper](https://arxiv.org/abs/2608.07584) · [HF](https://huggingface.co/papers/2608.07584)
 - **SIGNPOST-Bench** (2026-08-04) — SIGNPOST-Bench evaluates text-vision conflict resolution in multimodal large language models via a counterfactual benchmark of image variants (Original, Blank, Similar, Random, Adversarial) for visual geolocation. It in… [Paper](https://arxiv.org/abs/2608.04244) · [HF](https://huggingface.co/papers/2608.04244) · [Code](https://github.com/inorganicwriter/SIGNPOST-Bench)
 - **LDU-Bench** (2026-08-04) — LDU-Bench evaluates multimodal LLMs on lithography defect understanding through four tasks: defect triage, morphology recognition, coarse localization, and image-conditioned cause analysis, using task-level metrics and… [Paper](https://arxiv.org/abs/2608.03078) · [HF](https://huggingface.co/papers/2608.03078)
-- **ChartAnno** (2026-08-04) — ChartAnno is a benchmark for evaluating MLLMs on chart annotation generation with 1,200 real-world charts and paired code/instructions. It evaluates annotation quality under different instruction specificity and input s… [Paper](https://arxiv.org/abs/2608.03464) · [HF](https://huggingface.co/papers/2608.03464)
+- **ChartAnno** (2026-08-04) — ChartAnno is a benchmark for evaluating MLLMs on chart annotation generation with 1,200 real-world charts and paired code/instructions. It evaluates annotation quality under different instruction specificity and input s… [Paper](https://arxiv.org/abs/2608.03464) · [HF](https://huggingface.co/papers/2608.03464) · [Code](https://github.com/ChartAnno/ChartAnno)
 - **COMEX** (2026-08-04) — COMEX is a benchmark for explainable aesthetic image cropping containing 33,161 quadruples of expanded image, crop box, composition category, and composition-grounded explanation. It supports joint evaluation of crop lo… [Paper](https://arxiv.org/abs/2608.07570) · [HF](https://huggingface.co/papers/2608.07570)
 - **ArtECulture** (2026-08-04) — ArtECulture is a benchmark for culture-conditioned visual emotion understanding with 6,792 artworks and culture-specific labels across three cultures. It evaluates MLLMs on predicting cultural emotion perception and exp… [Paper](https://arxiv.org/abs/2608.03358) · [HF](https://huggingface.co/papers/2608.03358)
 - **SciFigPlag-Bench** (2026-07-31) — SciFigPlag-Bench evaluates provenance-aware reasoning for scientific figure plagiarism detection. It includes 2,582 positive and 2,541 negative pairs, with tasks for pairwise detection, source attribution, reuse-type cl… [Paper](https://arxiv.org/abs/2607.29124) · [HF](https://huggingface.co/papers/2607.29124)

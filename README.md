@@ -26,19 +26,19 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-10-23 · benchmarks first released in October 2026</sub>
+<sub>Updated 2026-10-24 · benchmarks first released in October 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **LongLongTextBench**<br><sub>[Paper](https://arxiv.org/abs/2610.23374) · [Code](https://github.com/OpenMOSS/MOSS-Image)</sub> | Image & Video Generation | 92 HF votes · 1,426 GitHub stars |
 | 2 | **Graduate Admissions Agent Benchmark**<br><sub>[Code](https://github.com/yeyuxin777/baoyan-agent-benchmark)</sub> | Professional & Enterprise Work · Abstract Reasoning & Planning | 699 GitHub stars · 680 dataset downloads |
-| 3 | **FDE-Gym**<br><sub>[Paper](https://arxiv.org/abs/2610.22350) · [Code](https://github.com/deeplethe/fde-gym)</sub> | Professional & Enterprise Work | 78 HF votes · 109 GitHub stars · 371 dataset downloads |
-| 4 | **OmniCompass**<br><sub>[Paper](https://arxiv.org/abs/2610.18829)</sub> | Video Understanding | 62 HF votes · 115 GitHub stars |
-| 5 | **Doc2Harness**<br><sub>[Paper](https://arxiv.org/abs/2610.20344)</sub> | Agent Skills & Self-Improvement · Agentic Coding & SWE | 62 HF votes · 113 GitHub stars |
-| 6 | **DFM-Bench**<br><sub>[Paper](https://arxiv.org/abs/2610.23839) · [Code](https://github.com/Gen-Verse/DiscoveryRSI)</sub> | Science · AI R&D & ML Engineering | 20 HF votes · 127 GitHub stars |
-| 7 | **AgentSWE**<br><sub>[Paper](https://arxiv.org/abs/2610.13361) · [Code](https://github.com/VectorSpaceLab/AgentSWE)</sub> | Agentic Coding & SWE | 92 HF votes · 43 GitHub stars |
-| 8 | **ORBIA**<br><sub>[Paper](https://arxiv.org/abs/2610.20693) · [Code](https://github.com/worldbench/Orbia)</sub> | World Models & Physical Understanding · Video Understanding | 44 HF votes · 48 GitHub stars · 73 dataset downloads |
-| 9 | **RobotWorld**<br><sub>[Paper](https://arxiv.org/abs/2610.10409) · [Code](https://github.com/robotworldai/robotworld)</sub> | Robotics & Embodied AI · World Models & Physical Understanding | 40 HF votes · 44 GitHub stars |
+| 3 | **StreamEval**<br><sub>[Paper](https://arxiv.org/abs/2610.28402)</sub> | Image & Video Generation · World Models & Physical Understanding | 421 HF votes · 195 GitHub stars |
+| 4 | **FDE-Gym**<br><sub>[Paper](https://arxiv.org/abs/2610.22350) · [Code](https://github.com/deeplethe/fde-gym)</sub> | Professional & Enterprise Work | 78 HF votes · 109 GitHub stars · 371 dataset downloads |
+| 5 | **DecisionPivot**<br><sub>[Paper](https://arxiv.org/abs/2610.28522)</sub> | Health & Medicine | 71 HF votes · 142 GitHub stars |
+| 6 | **OmniCompass**<br><sub>[Paper](https://arxiv.org/abs/2610.18829)</sub> | Video Understanding | 62 HF votes · 115 GitHub stars |
+| 7 | **Doc2Harness**<br><sub>[Paper](https://arxiv.org/abs/2610.20344)</sub> | Agent Skills & Self-Improvement · Agentic Coding & SWE | 62 HF votes · 113 GitHub stars |
+| 8 | **DFM-Bench**<br><sub>[Paper](https://arxiv.org/abs/2610.23839) · [Code](https://github.com/Gen-Verse/DiscoveryRSI)</sub> | Science · AI R&D & ML Engineering | 20 HF votes · 127 GitHub stars |
+| 9 | **AgentSWE**<br><sub>[Paper](https://arxiv.org/abs/2610.13361) · [Code](https://github.com/VectorSpaceLab/AgentSWE)</sub> | Agentic Coding & SWE | 92 HF votes · 43 GitHub stars |
 | 10 | **EgoExo-Next**<br><sub>[Paper](https://arxiv.org/abs/2610.04506)</sub> | Video Understanding · Spatial & 3D Reasoning | 1,388 dataset downloads |
 
 ### Explore the library
