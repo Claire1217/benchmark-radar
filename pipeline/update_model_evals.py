@@ -105,6 +105,16 @@ def apply_updates(data, updates):
                 raise ValueError('Invalid official percentage')
     data['leaderboard_snapshots'] = snapshots
     data['benchmark_audits'] = audits
+    model_audits = updates.get('modelBenchmarkAudits', {})
+    for mid, metrics in model_audits.items():
+        if mid not in data['models']:
+            raise ValueError('Unknown model in benchmark audit')
+        for bid, audit in metrics.items():
+            if bid not in data['benchmarks'] or not audit.get('checkedAt') or not audit.get('note'):
+                raise ValueError('Model benchmark audit requires a known metric and dated rationale')
+            if audit.get('coreEligible') and audit.get('snapshotId', bid) not in snapshots:
+                raise ValueError('Model benchmark audit requires an existing official snapshot')
+    data['model_benchmark_audits'] = model_audits
     data['report_audits'] = updates.get('reportAudits', {})
     comparisons = updates.get('reportComparisons', {})
     for mid, metrics in comparisons.items():
@@ -127,6 +137,9 @@ def apply_updates(data, updates):
             if len(own) != 1 or own[0]['display_value'] != data['report_audits'][bid][mid]['value']:
                 raise ValueError('Selected comparison result must match its report receipt')
     data['report_comparisons'] = comparisons
+    from build_model_eval_review import build_review
+    queue, report_html = build_review(data, updates)
+    data['manifest']['batchReview'] = queue['summary']
     data['observations'].sort(key=lambda row: row.get('reported_at', ''), reverse=True)
     data['manifest']['reviewedUpdates'] = dict(
         reviewedAt=updates['reviewedAt'], latestModelDate=max(model['date'] for model in updates['models']),
@@ -180,6 +193,10 @@ def main():
                              json.loads((ROOT / 'data/library_index.json').read_text()))
     page.write_text(html[:match.start(2)] + encoded + html[match.end(2):])
     path.write_text(json.dumps(refs, ensure_ascii=False, indent=2) + '\n')
+    from build_model_eval_review import build_review
+    queue, report_html = build_review(data, updates)
+    (ROOT / 'data/model_eval_review_queue.json').write_text(json.dumps(queue, ensure_ascii=False, indent=2) + '\n')
+    (ROOT / 'web/model-evals/review.html').write_text(report_html)
     print(json.dumps(data['manifest']['reviewedUpdates'], ensure_ascii=False))
 
 

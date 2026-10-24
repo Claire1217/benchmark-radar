@@ -79,7 +79,7 @@ class ModelEvalUpdatesTest(unittest.TestCase):
     def test_all_kimi_metrics_and_existing_peer_reports_have_audit_receipts(self):
         data = apply_updates(self.data, self.updates)
         bids = {r['benchmark_id'] for r in data['observations'] if r['model_id'] == 'official-reviewed:kimi-k3.1-pro'}
-        self.assertEqual(bids, set(data['benchmark_audits']))
+        self.assertEqual(bids, set(data['model_benchmark_audits']['official-reviewed:kimi-k3.1-pro']))
         for bid in bids:
             audit = data['benchmark_audits'][bid]
             self.assertTrue(audit['benchmark_url'] and audit['note'] and audit['checkedAt'])
@@ -135,20 +135,25 @@ assert.equal(hle.reports.some(r=>r.name==='GLM-5.3'),false);
 assert.equal(hle.exceptions[0].display_text,'43.0*');
 assert.equal(selectRanking(d,'reviewed-202610:science',mid).exceptions[0].display_value,15.7);
 d.charts[b].rows.forEach(r=>r.display_value=10000);
-assert.deepEqual(selectRanking(d,b).official,before.official);
+assert.deepEqual(selectRanking(d,b,mid).official,before.official);
 assert.deepEqual(selectRanking(d,b,mid).reports,before.reports);
 assert.equal(selectRanking(d,b,mid).own.verifiedReport,false);
 assert.equal(selectRanking(d,'reviewed-20261024:osworld-v21').official.length,0);
-const aa = selectRanking(d,'reviewed-202610:gdp-aa');
+const aa = selectRanking(d,'reviewed-202610:gdp-aa',mid);
 assert.equal(aa.official.findIndex(r=>r.name==='Kimi K3.1 Pro'),2);
 assert.equal(aa.official[0].name,'Claude Opus 5.5');
 assert.equal(new Set(aa.official.map(r=>r.name)).size,aa.official.length);
+// Kimi's protocol audit must never silently authorize another model's result.
+assert.equal(selectRanking(d,b,'llmstats-live:claude-fable-5-1').official.length,0);
+assert.equal(selectRanking(d,b).official.length,0);
+d.model_benchmark_audits[mid][b].coreEligible=false;
+assert.equal(selectRanking(d,b,mid).official.length,0);
 '''
         subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True, capture_output=True)
 
     def test_complete_kimi_comparison_preserves_source_cells_and_missing_values(self):
         metrics = self.updates['reportComparisons']['official-reviewed:kimi-k3.1-pro']
-        self.assertEqual(set(metrics), set(self.updates['benchmarkAudits']))
+        self.assertEqual(set(metrics), set(self.updates['modelBenchmarkAudits']['official-reviewed:kimi-k3.1-pro']))
         cells = [r for c in metrics.values() for r in c['rows']]
         self.assertEqual(len(cells), 288)
         self.assertEqual(sum(r['display_value'] is None for r in cells), 36)
@@ -180,6 +185,53 @@ assert.equal(new Set(aa.official.map(r=>r.name)).size,aa.official.length);
             self.assertIsNone(row['display_value'])
             self.assertFalse(row['scale_verified'])
             self.assertNotIn(row['id'], {r['id'] for r in data['charts'][row['benchmark_id']]['rows']})
+
+    def test_batch_comparisons_keep_subsets_and_release_table_settings(self):
+        data = apply_updates(self.data, self.updates)
+        ds = data['report_comparisons']['official-reviewed:deepseek-v4.1-flash-1017']
+        full = ds['reviewed-202610:hle-no-tools']['rows']
+        text = ds['reviewed-202610:hle-text']['rows']
+        self.assertEqual(full[0]['display_value'], 42.6)
+        self.assertEqual(text[0]['display_value'], 44.0)
+        self.assertFalse(full[3]['plot_eligible'])
+        self.assertEqual([r['name'] for r in text if r['plot_eligible']],
+                         ['DeepSeek-V4.1-Flash-1017', 'DeepSeek-V4.1-Flash', 'GLM-5.3'])
+        haiku = data['report_comparisons']['official-reviewed:claude-haiku-5-5']
+        self.assertEqual(haiku['family:terminal-bench-4']['rows'][1]['display_value'], 0)
+        self.assertTrue(haiku['family:terminal-bench-4']['rows'][1]['plot_eligible'])
+        self.assertIsNone(haiku['reviewed-202610:hle-no-tools']['rows'][2]['display_value'])
+        # The launch table uses Sonnet Xhigh, unlike the card's Max-only row.
+        self.assertEqual(haiku['reviewed-202610:frontier']['rows'][3]['display_value'], 52.1)
+        self.assertIn('partial score', haiku['reviewed-202610:os21-offline']['setting'])
+
+    def test_review_queue_does_not_complete_unreviewed_source_coverage(self):
+        from build_model_eval_review import build_review
+        data = apply_updates(self.data, self.updates)
+        queue, html = build_review(data, self.updates)
+        models = {m['modelId']: m for m in queue['models']}
+        self.assertEqual(models['official-reviewed:kimi-k3.1-pro']['status'], 'reviewed')
+        self.assertNotEqual(models['official-reviewed:claude-haiku-5-5']['status'], 'reviewed')
+        self.assertTrue(models['official-reviewed:claude-haiku-5-5']['discoveredMetrics'])
+        self.assertEqual(queue['summary']['totalPairs'], len({(r['model_id'], r['benchmark_id']) for r in data['observations']}))
+        self.assertIn('Not yet reviewed', html)
+
+    def test_model_protocol_audit_requires_an_existing_official_snapshot(self):
+        updates = copy.deepcopy(self.updates)
+        updates['modelBenchmarkAudits']['official-reviewed:kimi-k3.1-pro']['family:terminal-bench-4']['snapshotId'] = 'missing'
+        with self.assertRaises(ValueError):
+            apply_updates(self.data, updates)
+
+    def test_new_official_boards_keep_exact_metric_and_subset(self):
+        data = apply_updates(self.data, self.updates)
+        frontier = data['leaderboard_snapshots']['reviewed-202610:frontier']['rows']
+        opus_medium = next(r for r in frontier if r['name'] == 'Claude Opus 5.5' and r['effort'] == 'medium')
+        self.assertEqual(opus_medium['display_value'], 54.64)
+        self.assertNotEqual(opus_medium['display_value'], 59.6)  # binary correctness is a different field
+        offline = data['leaderboard_snapshots']['reviewed-202610:os21-offline']['rows']
+        self.assertEqual(len(offline), 5)
+        self.assertEqual({r['name'] for r in offline}, {'Claude Opus 5'})
+        self.assertEqual(max(r['display_value'] for r in offline), 79.2)
+        self.assertTrue(all('v2.1 · offline subset · partial credit' in r['setting'] for r in offline))
 
     def test_tools_and_subsets_remain_distinct(self):
         data = apply_updates(self.data, self.updates)

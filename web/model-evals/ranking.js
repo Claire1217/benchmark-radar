@@ -2,8 +2,12 @@
 (function (root) {
   'use strict';
   function selectRanking(data, benchmarkId, modelId) {
-    const audit = data.benchmark_audits?.[benchmarkId];
-    const snapshot = audit?.coreEligible ? data.leaderboard_snapshots?.[benchmarkId] : null;
+    // Compatibility is reviewed for this model's reported protocol, not inherited
+    // from another publisher just because the benchmark label is the same.
+    const audit = data.model_benchmark_audits
+      ? data.model_benchmark_audits[modelId]?.[benchmarkId]
+      : data.benchmark_audits?.[benchmarkId];
+    const snapshot = audit?.coreEligible ? data.leaderboard_snapshots?.[audit.snapshotId || benchmarkId] : null;
     const lower = data.benchmarks[benchmarkId]?.direction === 'lower_is_better';
     const best = new Map();
     for (const run of snapshot?.rows || []) {
