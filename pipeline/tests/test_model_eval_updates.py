@@ -101,7 +101,7 @@ class ModelEvalUpdatesTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 apply_updates(copy.deepcopy(self.data), updates)
 
-    def test_frontend_ranks_only_official_runs_and_keeps_reports_unranked(self):
+    def test_frontend_ranks_reports_and_official_runs_separately(self):
         data = apply_updates(self.data, self.updates)
         script = r'''
 const assert = require('node:assert/strict');
@@ -116,6 +116,11 @@ assert.equal(before.reports.find(r=>r.name==='Kimi K3.1 Pro').display_value,65.7
 assert.equal(before.reports.find(r=>r.name==='Claude Fable 5.1').display_value,57.9);
 assert.equal(before.reports.find(r=>r.name==='GPT-6 Astra').display_value,58.2);
 assert.equal(before.reports.length,6);
+assert.deepEqual(before.reports.slice(0,2).map(r=>[r.name,r.display_value,r.rank]),[['Claude Opus 5.5',66.4,1],['Kimi K3.1 Pro',65.7,2]]);
+assert.equal(before.comparison.rows[0].name,'Kimi K3.1 Pro');
+const lower = selectRanking(d,'reviewed-20261024:hallu-no',mid);
+assert.equal(lower.reports[0].name,'GPT-6 Astra');
+assert.equal(lower.reports[1].name,'Kimi K3.1 Pro');
 assert.equal(before.reports.some(r=>r.name==='Claude Sonnet 5.5'),false);
 assert.equal(before.comparison.publisher,'Moonshot AI');
 const fable = selectRanking(d,b,'llmstats-live:claude-fable-5-1');
