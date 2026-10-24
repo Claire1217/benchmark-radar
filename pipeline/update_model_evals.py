@@ -89,6 +89,44 @@ def apply_updates(data, updates):
             scale_max=100 if benchmark['unit'] in {'%', 'score'} else None,
         )
     data['reviewed_sources'] = sources
+    # Core rankings require explicit benchmark-level eligibility and row provenance.
+    # An official provider URL or a verified scale alone never establishes this.
+    audits = updates.get('benchmarkAudits', {})
+    snapshots = updates.get('leaderboardSnapshots', {})
+    for bid, snapshot in snapshots.items():
+        if not audits.get(bid, {}).get('coreEligible'):
+            raise ValueError('Official ranking requires a compatible benchmark audit')
+        if not snapshot.get('source_url', '').startswith('https://') or not snapshot.get('retrievedAt'):
+            raise ValueError('Official ranking requires a dated source')
+        for row in snapshot['rows']:
+            if row.get('provenance') != 'benchmark_evaluation' or not finite(row.get('display_value')) or not row.get('setting'):
+                raise ValueError('Unverified or unspecified run cannot enter core ranking')
+            if data['benchmarks'][bid]['unit'] == '%' and not 0 <= row['display_value'] <= 100:
+                raise ValueError('Invalid official percentage')
+    data['leaderboard_snapshots'] = snapshots
+    data['benchmark_audits'] = audits
+    data['report_audits'] = updates.get('reportAudits', {})
+    comparisons = updates.get('reportComparisons', {})
+    for mid, metrics in comparisons.items():
+        for bid, comparison in metrics.items():
+            source = sources[comparison['sourceId']]
+            if (comparison['selected_model_id'] != mid or source['url'] != comparison['source_url']
+                    or source['provider'] != comparison['publisher']
+                    or data['models'][mid]['organization'] != comparison['publisher']
+                    or source['publishedAt'] != comparison['publishedAt']):
+                raise ValueError('Comparison must belong to the selected model publisher and one source')
+            for row in comparison['rows']:
+                value = row['display_value']
+                if row['provenance'] != 'publisher_comparison' or (value is not None and not finite(value)):
+                    raise ValueError('Invalid publisher comparison value or provenance')
+                if row['plot_eligible'] and (value is None or row['exception']):
+                    raise ValueError('Missing or incompatible comparison cannot enter plot')
+                if value is not None and data['benchmarks'][bid]['unit'] == '%' and not 0 <= value <= 100:
+                    raise ValueError('Invalid comparison percentage')
+            own = [r for r in comparison['rows'] if r.get('model_id') == mid]
+            if len(own) != 1 or own[0]['display_value'] != data['report_audits'][bid][mid]['value']:
+                raise ValueError('Selected comparison result must match its report receipt')
+    data['report_comparisons'] = comparisons
     data['observations'].sort(key=lambda row: row.get('reported_at', ''), reverse=True)
     data['manifest']['reviewedUpdates'] = dict(
         reviewedAt=updates['reviewedAt'], latestModelDate=max(model['date'] for model in updates['models']),

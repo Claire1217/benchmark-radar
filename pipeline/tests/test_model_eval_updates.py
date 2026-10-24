@@ -3,6 +3,7 @@ import copy
 import json
 from pathlib import Path
 import sys
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -57,6 +58,114 @@ class ModelEvalUpdatesTest(unittest.TestCase):
         chart_row = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
         self.assertEqual(chart_row['display_value'], 1840)
         self.assertEqual(chart_row['reported_at'], '2026-10-07')
+
+    def test_leaderboard_runs_do_not_replace_provider_report_scores(self):
+        data = apply_updates(self.data, self.updates)
+        bid = 'family:terminal-bench-4'
+        snapshot = data['leaderboard_snapshots'][bid]
+        best = {}
+        for row in snapshot['rows']:
+            best[row['name']] = max(best.get(row['name'], 0), row['display_value'])
+        self.assertEqual(best['Claude Sonnet 5.5'], 61.82)
+        self.assertEqual(best['GPT-6 Astra'], 58.18)
+        self.assertNotIn('Kimi K3.1 Pro', best)
+        reported = {data['models'][r['model_id']]['name']: r['display_value']
+                    for r in data['charts'][bid]['rows']}
+        self.assertEqual(reported['Claude Sonnet 5.5'], 70.6)
+        self.assertEqual(reported['GPT-6 Astra'], 57.9)
+        self.assertEqual(reported['Kimi K3.1 Pro'], 65.7)
+        self.assertTrue(all(r['trials'] > 0 and r['agent'] and r['effort'] for r in snapshot['rows']))
+
+    def test_all_kimi_metrics_and_existing_peer_reports_have_audit_receipts(self):
+        data = apply_updates(self.data, self.updates)
+        bids = {r['benchmark_id'] for r in data['observations'] if r['model_id'] == 'official-reviewed:kimi-k3.1-pro'}
+        self.assertEqual(bids, set(data['benchmark_audits']))
+        for bid in bids:
+            audit = data['benchmark_audits'][bid]
+            self.assertTrue(audit['benchmark_url'] and audit['note'] and audit['checkedAt'])
+            for row in data['charts'][bid]['rows']:
+                receipt = data['report_audits'][bid][row['model_id']]
+                self.assertEqual(receipt['value'], row['display_value'])
+                self.assertTrue(receipt['source_url'] and receipt['reported_at'])
+
+    def test_unclear_protocols_and_republished_reports_cannot_become_official(self):
+        for bid in ('benchcad-tools', 'posttrain-v12', 'osworld-v21', 'pdf-python', 'ale-v11-all', 'apex-agents'):
+            self.assertFalse(self.updates['benchmarkAudits']['reviewed-20261024:' + bid]['coreEligible'])
+        for mutation in ('provenance', 'setting', 'audit'):
+            updates = copy.deepcopy(self.updates)
+            bid = 'family:terminal-bench-4'
+            if mutation == 'audit':
+                updates['benchmarkAudits'][bid]['coreEligible'] = False
+            else:
+                updates['leaderboardSnapshots'][bid]['rows'][0][mutation] = 'provider_report' if mutation == 'provenance' else ''
+            with self.assertRaises(ValueError):
+                apply_updates(copy.deepcopy(self.data), updates)
+
+    def test_frontend_ranks_only_official_runs_and_keeps_reports_unranked(self):
+        data = apply_updates(self.data, self.updates)
+        script = r'''
+const assert = require('node:assert/strict');
+const {selectRanking} = require('./web/model-evals/ranking.js');
+const d = JSON.parse(require('node:fs').readFileSync(0, 'utf8'));
+const b = 'family:terminal-bench-4';
+const mid = 'official-reviewed:kimi-k3.1-pro';
+const before = selectRanking(d,b,mid);
+assert.equal(before.official[0].name,'Claude Opus 5.5');
+assert.equal(before.official.some(r=>r.name==='Kimi K3.1 Pro'),false);
+assert.equal(before.reports.find(r=>r.name==='Kimi K3.1 Pro').display_value,65.7);
+assert.equal(before.reports.find(r=>r.name==='Claude Fable 5.1').display_value,57.9);
+assert.equal(before.reports.find(r=>r.name==='GPT-6 Astra').display_value,58.2);
+assert.equal(before.reports.length,6);
+assert.equal(before.reports.some(r=>r.name==='Claude Sonnet 5.5'),false);
+assert.equal(before.comparison.publisher,'Moonshot AI');
+const fable = selectRanking(d,b,'llmstats-live:claude-fable-5-1');
+assert.equal(fable.reports.length,1);
+assert.equal(fable.reports[0].display_value,55.8);
+assert.equal(fable.own.source_url,'https://www.anthropic.com/claude-fable-and-mythos-5-1');
+const noTools = selectRanking(d,'reviewed-20261024:benchcad-no',mid);
+assert.equal(noTools.reports.some(r=>r.name==='GPT-6 Astra'),false);
+assert.equal(noTools.exceptions.find(r=>r.name==='GPT-6 Astra').display_value,null);
+const hle = selectRanking(d,'reviewed-202610:hle-no-tools',mid);
+assert.equal(hle.reports.some(r=>r.name==='GLM-5.3'),false);
+assert.equal(hle.exceptions[0].display_text,'43.0*');
+assert.equal(selectRanking(d,'reviewed-202610:science',mid).exceptions[0].display_value,15.7);
+d.charts[b].rows.forEach(r=>r.display_value=10000);
+assert.deepEqual(selectRanking(d,b).official,before.official);
+assert.deepEqual(selectRanking(d,b,mid).reports,before.reports);
+assert.equal(selectRanking(d,b,mid).own.verifiedReport,false);
+assert.equal(selectRanking(d,'reviewed-20261024:osworld-v21').official.length,0);
+const aa = selectRanking(d,'reviewed-202610:gdp-aa');
+assert.equal(aa.official.findIndex(r=>r.name==='Kimi K3.1 Pro'),2);
+assert.equal(aa.official[0].name,'Claude Opus 5.5');
+assert.equal(new Set(aa.official.map(r=>r.name)).size,aa.official.length);
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True, capture_output=True)
+
+    def test_complete_kimi_comparison_preserves_source_cells_and_missing_values(self):
+        metrics = self.updates['reportComparisons']['official-reviewed:kimi-k3.1-pro']
+        self.assertEqual(set(metrics), set(self.updates['benchmarkAudits']))
+        cells = [r for c in metrics.values() for r in c['rows']]
+        self.assertEqual(len(cells), 288)
+        self.assertEqual(sum(r['display_value'] is None for r in cells), 36)
+        self.assertEqual(sum(bool(r['exception']) for r in cells), 5)
+        for bid, comparison in metrics.items():
+            self.assertEqual(len(comparison['rows']), 6)
+            self.assertEqual(comparison['sourceId'], 'moonshot-k31-pro-20261024')
+            for row in comparison['rows']:
+                self.assertEqual(row['provenance'], 'publisher_comparison')
+                if row['source_value'] is None:
+                    self.assertIsNone(row['display_value'])
+                    self.assertFalse(row['plot_eligible'])
+                else:
+                    parts = row['source_value'].split(' / ')
+                    part = parts[1] if len(parts) == 2 and bid.endswith('pass5') else parts[0]
+                    self.assertEqual(float(part.replace('*', '')), row['display_value'])
+                    self.assertEqual(part, row['display_text'])
+        for field, value in [('publisher', 'Other lab'), ('source_url', 'https://example.com')]:
+            updates = copy.deepcopy(self.updates)
+            updates['reportComparisons']['official-reviewed:kimi-k3.1-pro']['family:terminal-bench-4'][field] = value
+            with self.assertRaises(ValueError):
+                apply_updates(copy.deepcopy(self.data), updates)
 
     def test_missing_chart_values_remain_coverage_without_entering_numeric_charts(self):
         data = apply_updates(self.data, self.updates)
