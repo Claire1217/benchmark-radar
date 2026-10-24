@@ -1,13 +1,16 @@
-.PHONY: test check build generate serve update-model-evals update-attention audit-workflow
+.PHONY: test check build generate serve update-model-evals update-attention audit-workflow audit-data-contract
 
 # Read-only diagnostic: known content gaps are findings, not automatic admissions.
 audit-workflow:
 	python3 pipeline/audit_workflow.py --output outputs/workflow-audit.json
 
+audit-data-contract:
+	python3 pipeline/audit_data_contract.py --check --output outputs/data-contract-audit.json
+
 test:
 	python3 -m unittest discover -s pipeline/tests -v
 
-check:
+check: audit-data-contract
 	python3 pipeline/generate_search_policy.py
 	node --check web/search.js
 	python3 pipeline/validate_data.py
