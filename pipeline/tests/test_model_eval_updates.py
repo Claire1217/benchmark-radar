@@ -244,6 +244,43 @@ assert.equal(selectRanking(d,b,mid).official.length,0);
         self.assertEqual({r['benchmark_id'] for r in sonnet if r['benchmark_id'].startswith('reviewed-202610:os21-')},
                          {'reviewed-202610:os21-offline', 'reviewed-202610:os21-partial'})
 
+    def test_system_card_protocol_variants_are_not_pooled(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        comparisons = data['report_comparisons'][mid]
+        p = 'reviewed-20261025:'
+        def own(key):
+            return next(r for r in comparisons[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('program-166-mean')['display_value'], 82.0)
+        self.assertNotIn('reviewed-20261024:program-binary', comparisons)
+        self.assertEqual(own('os21-offline-strict')['display_value'], 37.1)
+        self.assertEqual(own('health-adjusted')['display_value'], 61.6)
+        self.assertEqual(own('health-raw')['display_value'], 64.2)
+        self.assertEqual(own('benchcad-anthropic-tools')['source_value'], '0.870')
+        self.assertEqual(own('benchcad-anthropic-tools')['display_value'], 87.0)
+        self.assertEqual(len(comparisons[p + 'physician-opus5']['rows']), 6)
+        for key in ('program-166-mean', 'draco-opus46', 'wandr-frozen-opus46',
+                    'officeqa-oracle', 'health-adjusted', 'benchcad-anthropic-tools'):
+            self.assertFalse(data['model_benchmark_audits'][mid][p + key]['coreEligible'])
+        strict = data['leaderboard_snapshots'][p + 'os21-offline-strict']['rows']
+        self.assertEqual(max(r['display_value'] for r in strict), 48.65)
+        extended = data['leaderboard_snapshots'][p + 'frontier-extended']['rows']
+        self.assertEqual(next(r['display_value'] for r in extended
+                              if r['name'] == 'Claude Opus 5.5' and r['effort'] == 'medium'), 65.27)
+        self.assertTrue(all(r['agent'].startswith('SWE-agent') for r in
+                            data['leaderboard_snapshots'][p + 'swe-multimodal']['rows']))
+
+    def test_deepseek_changelog_resolves_pass5_without_inventing_tool_access(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:deepseek-v4.1-flash-1017'
+        bid = 'reviewed-20261025:zero-tools-pass5'
+        comparisons = data['report_comparisons'][mid]
+        self.assertNotIn('reviewed-202610:zero', comparisons)
+        self.assertIn('Pass@5', comparisons[bid]['setting'])
+        self.assertFalse(data['model_benchmark_audits'][mid][bid]['coreEligible'])
+        self.assertEqual(data['model_benchmark_audits'][mid]['reviewed-202610:apex']['status'],
+                         'unresolved_identity')
+
     def test_sources_and_finite_percentage_bounds_are_validated(self):
         for mutation in ({'source_url': 'https://example.com/'}, {'display_value': float('nan')}, {'display_value': 101}):
             updates = copy.deepcopy(self.updates)

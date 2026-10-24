@@ -41,7 +41,7 @@ def build_review(data, updates):
                    catalogModelsWithoutRecords=len(data['models']) - len(models))
     queue = dict(schemaVersion=1, scope='All currently collected model–benchmark pairs, including non-numeric disclosures. New source discoveries must be added to the inventory. Catalog-only identities are not counted as reviewed.',
                  order='Newest release first; preserve variants and source-qualified identities.', summary=summary, models=models)
-    e = lambda v: escape(str(v or ''))
+    e = lambda v: escape('' if v is None else str(v))
     def link(url, text):
         return '<a href="'+escape(url, quote=True)+'">'+e(text)+'</a>' if url and url.startswith(('https://', 'http://')) else e(text)
     labels = {'pending':'Not yet reviewed', 'value_verified':'Value verified; comparison pending',
@@ -50,11 +50,11 @@ def build_review(data, updates):
               'protocol_mismatch':'Evaluation setup differs', 'internal':'Internal benchmark',
               'no_verified_board':'No matching official board verified', 'republished_report':'Publisher result republished',
               'ambiguous_metric':'Metric unresolved', 'source_unavailable':'Source unavailable',
-              'not_found':'No matching board found'}
+              'not_found':'No matching board found', 'unresolved_identity':'Benchmark identity unresolved'}
     html = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Model Evals · Review progress</title><style>body{max-width:1100px;margin:32px auto;padding:0 20px;font:14px/1.6 system-ui;color:#17211c;background:#fafaf8}a{color:#285b90}details{margin:16px 0;border:1px solid #d7ded8;border-radius:5px;padding:12px}summary{cursor:pointer;font-weight:600}.table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;vertical-align:top;padding:10px;border-bottom:1px solid #d7ded8}th{background:#eaf0eb}small,.muted{color:#68736c}h1{font-size:28px}h3{margin-bottom:4px}.evidence{margin:20px 0}code{overflow-wrap:anywhere}</style></head><body><a href="./">← Model Evals</a><h1>Review progress</h1>'''
     html += '<p>'+str(summary['reviewedPairs'])+' / '+str(summary['totalPairs'])+' model–benchmark pairs reviewed across '+str(summary['modelsWithRecords'])+' models.</p>'
     html += '<p>Each comparison belongs to one publisher report. Benchmark-maintainer evaluations are reviewed separately for the exact version, subset and metric. “Not yet reviewed” does not mean a result is unavailable. Source verification checks transcription and evaluation scope; it does not reproduce the experiment.</p>'
-    html += '<p>Models are complete only after source coverage and every collected metric have been reviewed. '+str(summary['catalogModelsWithoutRecords'])+' catalog-only identities have no collected results and are not counted as reviewed.</p><p><a href="audit-2026-10-24.html">October 24 Kimi audit and complete official snapshots ↗</a></p>'
+    html += '<p>Reviewed includes documented unresolved sources and incompatible setups; these never enter the official ranking. Models are complete only after source coverage and every collected metric have been reviewed. '+str(summary['catalogModelsWithoutRecords'])+' catalog-only identities have no collected results and are not counted as reviewed.</p><p><a href="audit-2026-10-24.html">October 24 Kimi audit and complete official snapshots ↗</a></p>'
     for model in models:
         mid=model['modelId']
         html += '<details id="'+e(mid)+'"><summary>'+e(model['name'])+' · '+str(model['reviewedPairs'])+' / '+str(model['totalPairs'])+' metrics reviewed</summary>'
@@ -68,10 +68,12 @@ def build_review(data, updates):
             html += '<details class="evidence"><summary>'+e(data['benchmarks'][bid]['name'])+' · original comparison values</summary><p>'+link(c['source_url'],c['title'])+' · published '+e(c['publishedAt'])+' · checked '+e(c['checkedAt'])+'</p><p>'+e(c['setting'])+'</p><p>'+e(c.get('note'))+'</p>'
             for source in c.get('supportingSources', []):
                 html += '<p>'+link(source['url'],source['locator'])+'</p>'
-            if c.get('source_table_sha256'):html+='<p class="muted">Source snapshot SHA-256: <code>'+e(c['source_table_sha256'])+'</code></p>'
-            html += '<div class="table"><table><thead><tr><th>Original model column</th><th>Value</th><th>Setting / exception</th></tr></thead><tbody>'
+            if c.get('source_table_sha256'):
+                hash_label = 'Transcription SHA-256' if c.get('source_table_hash_basis') else 'Source snapshot SHA-256'
+                html+='<p class="muted">'+hash_label+': <code>'+e(c['source_table_sha256'])+'</code></p>'
+            html += '<div class="table"><table><thead><tr><th>Original model column</th><th>Original value</th><th>Displayed value</th><th>Setting / exception</th></tr></thead><tbody>'
             for row in c['rows']:
-                html += '<tr><td>'+e(row['source_column'])+'</td><td>'+e(row['display_text'])+'</td><td>'+e(row.get('exception') or row.get('setting'))+'</td></tr>'
+                html += '<tr><td>'+e(row['source_column'])+'</td><td>'+e(row.get('source_value') if row.get('source_value') is not None else '—')+'</td><td>'+e(row['display_text'])+'</td><td>'+e(row.get('exception') or row.get('setting'))+'</td></tr>'
             html += '</tbody></table></div></details>'
         html += '</details>'
     html += '<h2 id="official-snapshots">Captured official runs</h2>'

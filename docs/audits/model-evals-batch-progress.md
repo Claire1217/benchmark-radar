@@ -60,7 +60,7 @@ stays concise. Every later batch must keep the evidence page reproducible.
 - FrontierCode official `new_score` is the composite score. `correct` is a
   separate binary-correctness measure and must not supply this chart.
 - DeepSeek ProgramBench does not identify Almost/Fully resolved or raw mean;
-  ZeroBench does not identify aggregation. Neither gets an inferred mapping.
+  The initial card did not identify ZeroBench aggregation; the October 17 API changelog resolves Pass@5 (see Batch 2). Exact tool access remains unspecified.
 - Zapier's private-held-out strict pass protocol is not established for the
   DeepSeek AutomationBench card value. Do not map it into the official board on
   the basis of the shared v1.0.6 label alone.
@@ -70,7 +70,7 @@ stays concise. Every later batch must keep the evidence page reproducible.
 - Existing catalog links can be wrong (e.g. Qwen3.7 Max points to a Qwen3.8 card).
   Validate model identity, not just whether a URL returns successfully.
 
-## Next batch
+## Next batch after Batch 1 (superseded by the continuation below)
 
 1. Finish DeepSeek Apex identification via its own technical report or release
    documentation; record an honest unresolved result if no identity is supported.
@@ -89,3 +89,53 @@ JavaScript render checks, and static-site validation for each substantive batch.
 Keep the active long-running goal until the inventory and discovered metric
 backlog are actually completed. Do not mark the entire task complete merely
 because a batch has shipped.
+
+## Batch 2 — 2026-10-25
+
+- Added 22 Haiku system-card metrics (30 total model comparisons). All numeric
+  source figures used here were visually checked. Each transcription retains
+  its page/figure locator and original values; the full PDF SHA-256 is attached.
+- Added independent FrontierCode Extended, FrontierSWE v2, OSWorld offline
+  strict-pass, and SWE-bench Multilingual/Multimodal maintainer-run snapshots.
+  SWE-bench filters require both the SWE-agent organization and checked=true;
+  merely hosted third-party submissions are excluded.
+- Kept ProgramBench's 166-task mean test pass rate, oracle-text OfficeQA,
+  Anthropic BenchCAD subset, changed-judge DRACO/WANDR/healthcare, and multilingual
+  blocked-response exclusion separate from incompatible leaderboard metrics.
+- DeepSeek's October 17 official API changelog confirms ZeroBench Pass@5. Moved
+  that result to a distinct tools/Pass@5 metric; exact tool access is still
+  unspecified, so no Python/no-tools official view is inferred. September's
+  unreviewed record remains separate. Apex v1.1 is explicitly identity-unresolved
+  after reviewing the card, changelog and linked September technical report.
+  Reviewed means the evidence/status was checked, not that every source exists.
+- Haiku life-science figures pp.136–139 were read and visually inspected, but
+  their nine metrics are not ingested yet. Figure labels round to two decimals
+  while prose gives some percentages to one decimal; preserve original
+  precision and do not invent extra precision or splice reports.
+- Additional effort/cost curves remain source detail; the primary comparison
+  uses the report's stated headline/Max setting, not a best-effort selection.
+
+### Next continuation
+
+1. Finish Haiku's nine life-science metrics and their maintainer-source checks.
+   Cached figure: `outputs/model-evals-batch/haiku-p137.png`. The full section
+   states biology safeguards were off for Haiku, and peer safety-blocked attempts
+   were excluded. Sequence Generation uses one attempt, Library Ranking three,
+   biomedical imaging one; others five. Carry those settings into the audit.
+2. Then continue the existing newest-first model queue, beginning GPT-6.1 Sol.
+   Sonnet and Opus system cards remain cached. Do not declare the overall goal
+   complete at the end of a batch.
+
+Batch 2 checks: 18 Model Evals regression tests passed; all 2,031 drawers rendered
+in the JavaScript VM; static build and validation passed. This is programmatic
+render validation, not a browser screenshot check.
+
+Primary source leads for the next life-sciences pass:
+- https://github.com/latchbio/spatialbench (current README has 159 problems;
+  Haiku says SpatialBench Verified without a task count, so version alignment
+  must be established before showing that board).
+- https://arxiv.org/abs/2602.09063 (LatchBio scBench; do not assume equivalence
+  to the card's SingleCellBench name without checking).
+- https://www.benchling.com/blog/can-llms-work-in-the-wet-lab
+  (BenchBench-Protocol; establish whether it is the card's Understanding V2).
+- Ignore the unrelated spatialbench.com visual-spatial reasoning suite.
