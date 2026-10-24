@@ -77,7 +77,7 @@ class WorkflowAuditTests(unittest.TestCase):
                  {'id': 'substring', 'query': 'EDA', 'forbiddenIds': ['negative']}]
         result = run_browser_probe(ROOT, payload, cases)
         self.assertEqual([r['stage'] for r in result[0]['expected']], ['hidden_before_search', 'visible_but_not_retrieved', 'retrieved', 'absent_from_library_snapshot'])
-        self.assertFalse(result[1]['passes'])  # exposes today's bug; never whitelists it in runtime
+        self.assertTrue(result[1]['passes'])  # whole-word/concept matching excludes REDACT
 
     def test_snapshot_audit_is_repeatable_and_does_not_write_product_data(self):
         paths = [p for area in ('data', 'web') for p in (ROOT / area).rglob('*') if p.is_file()]

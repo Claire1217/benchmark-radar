@@ -1,4 +1,4 @@
-"""Compare old AND-substring search to BM25 on a developer-authored pilot set."""
+"""Compare old AND-substring search to shared evidence search on a developer-authored pilot set."""
 import json
 from pathlib import Path
 from benchmark_reader import labels

@@ -8,6 +8,8 @@ test:
 	python3 -m unittest discover -s pipeline/tests -v
 
 check:
+	python3 pipeline/generate_search_policy.py
+	node --check web/search.js
 	python3 pipeline/validate_data.py
 	node --check web/app.js
 	node --check web/trends/trends.js

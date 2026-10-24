@@ -16,7 +16,7 @@ function render(libraryFile, radarFile){
  const nodes=new Map();const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',value:'',hidden:false,dataset:{},replaceChildren(){},append(){},setAttribute(){},removeAttribute(){}});return nodes.get(id)};
  const c={console,window:{},URLSearchParams,history:{replaceState(){}},localStorage:{getItem:()=>null,setItem(){}},fetch:()=>new Promise(()=>{}),
   document:{getElementById:node,querySelectorAll:()=>[],querySelector:()=>({textContent:''}),addEventListener(){},createElement:()=>({setAttribute(){}})}};
- vm.createContext(c);for(const f of ['web/benchmark-name.js','web/trends/directions.js','web/following.js','web/github-repositories.js','web/app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
+ c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);for(const f of ['web/benchmark-name.js','web/trends/directions.js','web/following.js','web/github-repositories.js','web/app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
  c.lib=JSON.parse(fs.readFileSync(libraryFile,'utf8'));c.radar=JSON.parse(fs.readFileSync(radarFile,'utf8'));
  vm.runInContext('state.library=lib.records;state.libraryManifest=lib.manifest;state.benchmarks=radar.records;state.manifest=radar.manifest;setupLibraryNavigation()',c);
  const out=[node('library-domain-list').innerHTML];

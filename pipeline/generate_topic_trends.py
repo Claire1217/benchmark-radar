@@ -14,6 +14,12 @@ def chart_bounds(start,end,months,stars=False):
  while bounds[-1]<end:bounds.append(min(bounds[-1]+step,end))
  return bounds,'daily' if months==1 else 'weekly'
 def visible(r):return r.get('displayEligible') is not False and r.get('evaluationMode')!='viewpoint_probe'
+def search_member(r):
+ # Search each member separately: never join unrelated facts across a family.
+ d=r.get('searchDocument') or {}
+ return {'id':r['id'],'name':r['name'],'aliases':r.get('aliases',[]),
+         'description':r.get('description') or r.get('oneLine') or '',
+         'searchDocument':{'sourceText':d.get('sourceText',''),'concepts':[{'id':f['id']} for f in d.get('concepts',[])]}}
 def build_all(library,recent,history):
  """Return (keyword search catalog, topic Trends payload)."""
  records=[r for r in library['records'] if visible(r)]
@@ -101,6 +107,8 @@ def build_all(library,recent,history):
    'aliases':sorted({a for m in v['members'] for a in [m['name'],*(m.get('aliases') or [])]}-{r['name']}),
    'labs':sorted({x['provider'] for m in v['members'] for x in m.get('modelReportReferences') or [] if x.get('provider')}),
    'repos':sorted({repo_key((m.get('links') or {}).get('code')) for m in v['members']}-{None,''})})
+ for f in releases+undated:
+  f['searchDocument']={'members':[search_member(r) for r in family[f['id']]['members']]}
  catalog=search_catalog(releases+undated,repos,end,taxonomy)
  return catalog,{
   'taxonomyVersion':taxonomy['version'],'groups':taxonomy.get('groups',[]),
@@ -136,8 +144,8 @@ def search_catalog(releases,repos,end,taxonomy):
   repo_index[r['name']]=len(repo_rows);repo_rows.append([r['url'],weekly,sum(n for d,n in r['days'] if d<start)])
  rows=[]
  for f in sorted(releases,key=lambda x:x['date']):
-  rows.append([f['name'],f['date'],[index[c] for c in f['directions'] if c in index],(f.get('description') or '')[:160],f.get('url') or '',' '.join(f.get('aliases') or []),f.get('labs') or [],[repo_index[k] for k in f.get('repos') or [] if k in repo_index]])
- return {'version':1,'categories':cats,'weekStart':start.isoformat(),'weeks':SEARCH_WEEKS,'fields':['name','date','categories','description','url','aliases','labs','repos'],'releases':rows,'repoFields':['url','weekly','baseline'],'repos':repo_rows}
+  rows.append([f['name'],f['date'],[index[c] for c in f['directions'] if c in index],(f.get('description') or '')[:160],f.get('url') or '',' '.join(f.get('aliases') or []),f.get('labs') or [],[repo_index[k] for k in f.get('repos') or [] if k in repo_index],f.get('searchDocument',{})])
+ return {'version':2,'categories':cats,'weekStart':start.isoformat(),'weeks':SEARCH_WEEKS,'fields':['name','date','categories','description','url','aliases','labs','repos','searchDocument'],'releases':rows,'repoFields':['url','weekly','baseline'],'repos':repo_rows}
 def main():
  load=lambda n:json.loads((ROOT/'data'/n).read_text())
  catalog,result=build_all(load('library_index.json'),load('benchmarks_index.json'),load('github_star_history.json'))

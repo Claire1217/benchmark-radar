@@ -67,7 +67,7 @@ class LibraryGrowthUiTests(unittest.TestCase):
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const nodes=new Map();const node=id=>{if(!nodes.has(id))nodes.set(id,{innerHTML:'',textContent:'',value:'',hidden:false,replaceChildren(){},append(){},setAttribute(){},removeAttribute(){}});return nodes.get(id)};
 const c={console,window:{},URLSearchParams,history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:()=>({setAttribute(){}})}};
-vm.createContext(c);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),c);vm.runInContext(fs.readFileSync('web/app.js','utf8'),c);
+c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),c);vm.runInContext(fs.readFileSync('web/app.js','utf8'),c);
 c.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;state.librarySort="growth";renderLibrary()',c);
 const html=node('library-list').innerHTML;

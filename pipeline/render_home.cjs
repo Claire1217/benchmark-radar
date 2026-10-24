@@ -15,7 +15,7 @@ const context = {
   document:{getElementById:node, querySelectorAll:()=>[]},
 };
 vm.createContext(context);
-for (const name of ['benchmark-name.js', 'trends/directions.js', 'following.js', 'app.js']) {
+for (const name of ['search-policy.js', 'search.js', 'benchmark-name.js', 'trends/directions.js', 'following.js', 'app.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, 'web', name), 'utf8'), context);
 }
 context.input = input;
