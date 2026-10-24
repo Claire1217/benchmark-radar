@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-24 · **Benchmark releases:** 2621
+**Snapshot:** 2026-10-25 · **Benchmark releases:** 2621
 
 ## Contents
 
@@ -186,7 +186,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **MemPABench** (2026-10-21) — Interactive benchmark for evaluating personal agent memory on interaction preferences through simulated user sessions. [Paper](https://arxiv.org/abs/2610.30485)
 - **Bemula** (2026-10-13) — An evaluation benchmark for memory unlearning in LLM agents, with dialogues containing forget requests and corresponding questions. [Paper](https://arxiv.org/abs/2610.18052) · [Code](https://github.com/Nboxff/bemula-benchmark)
-- **DSV-Mem** (2026-10-06) — To address these challenges, we introduce DSV-Mem, a benchmark for evaluating Dense Stateful Visual Memory. [Paper](https://arxiv.org/abs/2610.08102)
+- **DSV-Mem** (2026-10-06) — To address these challenges, we introduce DSV-Mem, a benchmark for evaluating Dense Stateful Visual Memory. [Paper](https://arxiv.org/abs/2610.08102) · [HF](https://huggingface.co/papers/2610.08102)
 - **AgentPersonaBench** (2026-10-03) — We introduce AgentPersonaBench (APB), a benchmark evaluating whether persona conditioning faithfully steers downstream agent behavior. [Paper](https://arxiv.org/abs/2610.04379)
 - **DyadMem** (2026-10-02) — In summary, DyadMem is a dual-domain, full-pipeline memory benchmark with extensive annotation efforts for advancing the domain's development. [Paper](https://arxiv.org/abs/2610.03020) · [HF](https://huggingface.co/papers/2610.03020)
 - **CUE-Mem** (2026-09-26) — We introduce CUE-Mem, a text-image-audio benchmark for evaluating long-term user memory from implicit cues. [Paper](https://arxiv.org/abs/2609.32574) · [HF](https://huggingface.co/papers/2609.32574) · [Code](https://github.com/yulinlp/CUE-MEM) · [Data](https://huggingface.co/datasets/Kkryptonite/CUE-Mem)
