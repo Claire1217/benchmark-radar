@@ -6,6 +6,7 @@ from usage_store import norm
 
 # Small, auditable vocabulary. Agents can also pass explicit English alternatives.
 CONCEPTS = [
+    ('芯片设计', ('chip design', 'verilog', 'vhdl', 'rtl', 'fpga', 'asic', 'ngspice', 'tapeout', 'parasitic')),
     ('科学', ('science', 'scientific')),
     ('编程', ('coding', 'programming')),
     ('代码', ('code', 'coding')),
@@ -53,7 +54,7 @@ class SearchIndex:
         self.db.execute("CREATE VIRTUAL TABLE docs USING fts5(id UNINDEXED, name, aliases, description, domains, tokenize='porter unicode61')")
         self.fields = {}
         for r in records:
-            fields = [r['name'], ' '.join(r.get('aliases', [])),
+            fields = [r['name'], ' '.join([*r.get('aliases', []), *r.get('searchTerms', [])]),
                       r.get('description') or r.get('oneLine') or '', ' '.join([*get_labels(r),*r.get('researchTopics',[]),*[v for k in ('tasks','capabilities','environments','modalities','protocols') for v in r.get('benchmarkTaxonomy',{}).get(k,[])]])]
             self.fields[r['id']] = fields
             self.db.execute('INSERT INTO docs VALUES (?, ?, ?, ?, ?)', [r['id'], *fields])

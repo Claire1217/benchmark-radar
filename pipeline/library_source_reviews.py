@@ -42,6 +42,17 @@ def apply_source_reviews(records, payload, redirects=None):
             parent=target(review['parentId'])
             # A child and its parent can both be absorbed by one record; never self-parent.
             if parent is not None and parent is not row: row['benchmarkParentId']=parent['id']
+    # A verified subtask can make a broad suite discoverable without changing
+    # its primary taxonomy or claiming that every task tests this domain.
+    for review in payload.get('searchReviews', []):
+        if not review.get('sources') or not review.get('terms') or not review.get('note'):
+            raise ValueError('Search review requires terms, evidence and a scope note')
+        row = target(review['id'])
+        if row is None: continue
+        row['searchTerms'] = list(dict.fromkeys([*row.get('searchTerms', []), *review['terms']]))
+        row.setdefault('searchProvenance', []).append(copy.deepcopy(review))
+        # Surface the limited coverage in the visible card, not just the index.
+        row['description'] = row['oneLine'] = (row.get('description') or row.get('oneLine') or '') + ' ' + review['note']
     # Publisher reviews are independent of task and adoption classifications.
     for review in payload.get('publisherReviews', []):
         publishers = review.get('publishers', [])

@@ -152,7 +152,9 @@ def main() -> None:
     reviewed_count = len(json.loads(review_path.read_text()).get("additions", [])) if review_path.exists() else 0
     if library_manifest.get("reviewedAdditionCount", 0) != reviewed_count:
         errors.append("library reviewed addition count mismatch")
-    expected_library_count = reviewed_count + len(records) + len(library_records) + library_manifest.get("catalogOnlyCount", 0)
+    primary_ids = {row['id'] for row in [*records, *library_records]}
+    surviving_primary_ids = primary_ids - set(library_manifest.get('identityRedirects', {}))
+    expected_library_count = reviewed_count + len(surviving_primary_ids) + library_manifest.get("catalogOnlyCount", 0)
     if library_manifest.get("recordCount") != expected_library_count:
         errors.append("library public manifest recordCount mismatch")
     visible_library_count = sum(
