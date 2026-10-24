@@ -1,0 +1,1168 @@
+{
+  "schemaVersion": 1,
+  "scope": "Tracked, non-ignored data assets and declared optional runtime files. Code references are literal references, not a complete call graph. See docs/data-model.md for indirect readers and precedence.",
+  "assets": [
+    {
+      "pattern": "data/README.md",
+      "role": "documentation",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Human data guide.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/attention_forecasts.json",
+      "role": "model-estimate",
+      "required": false,
+      "writers": [
+        "pipeline/forecast_attention.py"
+      ],
+      "codeReferences": [
+        "pipeline/forecast_attention.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Forecast output; cannot own identity, admission or measured usage.",
+      "readers": [
+        "pipeline/apply_overrides.py",
+        "pipeline/forecast_attention.py"
+      ]
+    },
+    {
+      "pattern": "data/benchmarks.json",
+      "role": "materialized-state",
+      "required": true,
+      "writers": [
+        "pipeline/index_benchmarks.py",
+        "pipeline/apply_overrides.py",
+        "pipeline/auto_admit_candidates.py",
+        "pipeline/enrich_metrics.py",
+        "pipeline/enrich_publications.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/auto_admit_candidates.py",
+        "pipeline/build_library_records.py",
+        "pipeline/enrich_metrics.py",
+        "pipeline/enrich_publications.py",
+        "pipeline/forecast_attention.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/generate_public_index.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/sync_catalogs.py",
+        "pipeline/usage_store.py",
+        "pipeline/validate_data.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Historical Radar snapshot + admission, publication and attention state; not rebuildable from curated_records alone.",
+      "readers": [
+        "pipeline/apply_overrides.py",
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/auto_admit_candidates.py",
+        "pipeline/build_library_records.py",
+        "pipeline/enrich_metrics.py",
+        "pipeline/enrich_publications.py",
+        "pipeline/forecast_attention.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/generate_public_index.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/sync_catalogs.py",
+        "pipeline/usage_store.py",
+        "pipeline/validate_data.py"
+      ]
+    },
+    {
+      "pattern": "data/benchmarks_index.json",
+      "role": "public-view",
+      "required": true,
+      "writers": [
+        "pipeline/generate_public_index.py",
+        "pipeline/generate_library_index.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_library_categories.py",
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/benchmark_reader.py",
+        "pipeline/build_github_pages.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/generate_public_index.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/site_views.py",
+        "pipeline/validate_data.py",
+        "pipeline/validate_static_site.py"
+      ],
+      "retention": "rebuildable",
+      "note": "Radar projection; Library generation subsequently synchronizes classification fields.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_library_categories.py",
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/benchmark_reader.py",
+        "pipeline/build_github_pages.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/site_views.py",
+        "pipeline/validate_data.py",
+        "pipeline/validate_static_site.py"
+      ]
+    },
+    {
+      "pattern": "data/catalog_identity_bindings.json",
+      "role": "identity",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Legacy catalog-to-record compatibility map; 70 bindings explicitly need source review.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/reconcile_workflow.py"
+      ]
+    },
+    {
+      "pattern": "data/catalog_records.json",
+      "role": "source-snapshot",
+      "required": true,
+      "writers": [
+        "pipeline/sync_catalogs.py"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py",
+        "pipeline/sync_catalogs.py",
+        "pipeline/validate_data.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Source-normalized catalog rows; exact source refs preserve IDs.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/sync_catalogs.py",
+        "pipeline/validate_data.py"
+      ]
+    },
+    {
+      "pattern": "data/catalog_source_alignments.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/paper_links.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed source alignment used by paper_links.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/paper_links.py"
+      ]
+    },
+    {
+      "pattern": "data/curated_overrides.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/enrich_metrics.py",
+        "pipeline/index_benchmarks.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed narrow Radar corrections; applied after editorial copy.",
+      "readers": [
+        "pipeline/enrich_metrics.py",
+        "pipeline/index_benchmarks.py"
+      ]
+    },
+    {
+      "pattern": "data/curated_records.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "pipeline/generate_editorial_copy.py",
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/index_benchmarks.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Admitted/reassessed records; automation and reviewed repository changes both exist.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/index_benchmarks.py"
+      ]
+    },
+    {
+      "pattern": "data/editorial_copy.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "pipeline/generate_editorial_copy.py"
+      ],
+      "codeReferences": [
+        "pipeline/apply_overrides.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Versioned model decisions, copy and invalid-output holds; bySourceKey takes precedence over legacy bySourceId.",
+      "readers": [
+        "pipeline/apply_overrides.py",
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py"
+      ]
+    },
+    {
+      "pattern": "data/evidence_concepts.json",
+      "role": "policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/evidence_facets.py",
+        "pipeline/generate_search_policy.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Domain/task/capability/environment concept vocabulary and aliases.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/evidence_facets.py",
+        "pipeline/generate_search_policy.py"
+      ]
+    },
+    {
+      "pattern": "data/github_repository_aliases.json",
+      "role": "identity",
+      "required": true,
+      "writers": [
+        "pipeline/refresh_library_github_stars.py"
+      ],
+      "codeReferences": [
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/repo_keys.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Provider redirects/renames; does not merge benchmark entities.",
+      "readers": [
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/repo_keys.py"
+      ]
+    },
+    {
+      "pattern": "data/github_repository_availability.json",
+      "role": "source-snapshot",
+      "required": true,
+      "writers": [
+        "pipeline/refresh_library_github_stars.py"
+      ],
+      "codeReferences": [
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/repository_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Latest availability observations, not release evidence.",
+      "readers": [
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/repository_index.py"
+      ]
+    },
+    {
+      "pattern": "data/github_repository_index.json",
+      "role": "source-snapshot",
+      "required": true,
+      "writers": [
+        "pipeline/index_github_repositories.py"
+      ],
+      "codeReferences": [
+        "pipeline/index_github_repositories.py",
+        "pipeline/repository_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Repository association evidence + statuses.",
+      "readers": [
+        "pipeline/repository_index.py"
+      ]
+    },
+    {
+      "pattern": "data/github_star_history.json",
+      "role": "source-evidence",
+      "required": true,
+      "writers": [
+        "pipeline/fetch_github_history.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_signal_coverage.py",
+        "pipeline/fetch_github_history.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/signal_history.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Repository star timestamps with retrieval receipts.",
+      "readers": [
+        "pipeline/audit_signal_coverage.py",
+        "pipeline/fetch_github_history.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/signal_history.py"
+      ]
+    },
+    {
+      "pattern": "data/harbor_coverage_audit.json",
+      "role": "audit",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Historical manual investigation receipt.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/historical_identity_review.json",
+      "role": "audit",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Unresolved primary-source identity investigations.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/historical_reconciliation.json",
+      "role": "operational-state",
+      "required": true,
+      "writers": [
+        "pipeline/reconcile_workflow.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Staged migration receipts; not proof of full historical completion.",
+      "readers": [
+        "pipeline/audit_workflow.py",
+        "pipeline/reconcile_workflow.py"
+      ]
+    },
+    {
+      "pattern": "data/library_aliases.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed retrieval labels, not identity redirects.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py"
+      ]
+    },
+    {
+      "pattern": "data/library_category_audit.json",
+      "role": "audit",
+      "required": true,
+      "writers": [
+        "pipeline/audit_library_categories.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_library_categories.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Generated category diagnostic.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/library_identity_merges.json",
+      "role": "identity",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed redirects; do not infer merges from names.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py"
+      ]
+    },
+    {
+      "pattern": "data/library_index.json",
+      "role": "public-view",
+      "required": true,
+      "writers": [
+        "pipeline/generate_library_index.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_library_categories.py",
+        "pipeline/audit_research_taxonomy.py",
+        "pipeline/audit_signal_coverage.py",
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/build_github_pages.py",
+        "pipeline/category_overlap.py",
+        "pipeline/classify_categories.py",
+        "pipeline/discover_paper_repos.py",
+        "pipeline/enrich_library_metrics.py",
+        "pipeline/fetch_github_history.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/index_github_repositories.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/signal_history.py",
+        "pipeline/site_views.py",
+        "pipeline/update_model_evals.py",
+        "pipeline/usage_store.py",
+        "pipeline/validate_data.py",
+        "pipeline/validate_static_site.py"
+      ],
+      "retention": "rebuildable",
+      "note": "Merged Library projection; includes retained hidden records.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_library_categories.py",
+        "pipeline/audit_research_taxonomy.py",
+        "pipeline/audit_signal_coverage.py",
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/build_github_pages.py",
+        "pipeline/category_overlap.py",
+        "pipeline/classify_categories.py",
+        "pipeline/discover_paper_repos.py",
+        "pipeline/enrich_library_metrics.py",
+        "pipeline/fetch_github_history.py",
+        "pipeline/generate_awesome.py",
+        "pipeline/generate_topic_trends.py",
+        "pipeline/index_github_repositories.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/refresh_library_github_stars.py",
+        "pipeline/signal_history.py",
+        "pipeline/site_views.py",
+        "pipeline/update_model_evals.py",
+        "pipeline/usage_store.py",
+        "pipeline/validate_data.py",
+        "pipeline/validate_static_site.py"
+      ]
+    },
+    {
+      "pattern": "data/library_metrics.json",
+      "role": "source-snapshot",
+      "required": true,
+      "writers": [
+        "pipeline/enrich_library_metrics.py",
+        "pipeline/refresh_library_github_stars.py"
+      ],
+      "codeReferences": [
+        "pipeline/enrich_library_metrics.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/refresh_library_github_stars.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Latest observed Library counters and timestamps.",
+      "readers": [
+        "pipeline/enrich_library_metrics.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/refresh_library_github_stars.py"
+      ]
+    },
+    {
+      "pattern": "data/library_records.json",
+      "role": "derived-view",
+      "required": true,
+      "writers": [
+        "pipeline/build_library_records.py"
+      ],
+      "codeReferences": [
+        "pipeline/build_library_records.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/validate_data.py"
+      ],
+      "retention": "rebuildable",
+      "note": "Seed projection after Radar reconciliation, not the full Library.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/validate_data.py"
+      ]
+    },
+    {
+      "pattern": "data/library_release_dates.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed date + precision + evidence override for Library.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py"
+      ]
+    },
+    {
+      "pattern": "data/library_seed_records.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/build_library_records.py",
+        "pipeline/enrich_library_metrics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed all-time families and variants.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/build_library_records.py",
+        "pipeline/enrich_library_metrics.py"
+      ]
+    },
+    {
+      "pattern": "data/library_source_reviews.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py",
+        "pipeline/validate_data.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Additions, task/resource/publisher corrections and unresolved identity notes.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/validate_data.py"
+      ]
+    },
+    {
+      "pattern": "data/metrics/*.json",
+      "role": "source-evidence",
+      "required": false,
+      "writers": [
+        "pipeline/enrich_metrics.py"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Dated measurements; not automatically reproducible from live APIs.",
+      "readers": [
+        "pipeline/enrich_metrics.py"
+      ]
+    },
+    {
+      "pattern": "data/model_eval_references.json",
+      "role": "derived-view",
+      "required": true,
+      "writers": [
+        "pipeline/update_model_evals.py"
+      ],
+      "codeReferences": [
+        "pipeline/generate_library_index.py",
+        "pipeline/update_model_evals.py"
+      ],
+      "retention": "rebuildable",
+      "note": "Model-report links projected from embedded model dataset and reviewed updates.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/generate_library_index.py"
+      ]
+    },
+    {
+      "pattern": "data/model_eval_updates.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/update_model_evals.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed provider reports, scoped evaluation observations and Library links.",
+      "readers": [
+        "pipeline/update_model_evals.py"
+      ]
+    },
+    {
+      "pattern": "data/paper_repository_links.json",
+      "role": "source-evidence",
+      "required": true,
+      "writers": [
+        "pipeline/discover_paper_repos.py"
+      ],
+      "codeReferences": [
+        "pipeline/discover_paper_repos.py",
+        "pipeline/paper_links.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Paper-to-repo observations and checked-source state.",
+      "readers": [
+        "pipeline/discover_paper_repos.py",
+        "pipeline/paper_links.py"
+      ]
+    },
+    {
+      "pattern": "data/publication/*.json",
+      "role": "source-evidence",
+      "required": false,
+      "writers": [
+        "pipeline/enrich_publications.py"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Venue lookup receipts; not benchmark first-release dates.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/repository_link_reviews.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/repository_index.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed repository inclusion/rejection.",
+      "readers": [
+        "pipeline/repository_index.py"
+      ]
+    },
+    {
+      "pattern": "data/repository_scope_reviews.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_topics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Whether repository attention represents this benchmark.",
+      "readers": [
+        "pipeline/research_topics.py"
+      ]
+    },
+    {
+      "pattern": "data/research_topic_audit.json",
+      "role": "audit",
+      "required": true,
+      "writers": [
+        "pipeline/audit_topic_consistency.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/build_github_pages.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Generated topic diagnostic, also published.",
+      "readers": [
+        "pipeline/build_github_pages.py"
+      ]
+    },
+    {
+      "pattern": "data/research_topic_reviews.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_topics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Reviewed topic/evaluation-role overrides.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/research_topics.py"
+      ]
+    },
+    {
+      "pattern": "data/research_topic_rules.json",
+      "role": "policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_topics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Versioned topic inference rules.",
+      "readers": [
+        "pipeline/research_topics.py"
+      ]
+    },
+    {
+      "pattern": "data/research_topics.json",
+      "role": "policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_topics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Featured topic definitions.",
+      "readers": [
+        "pipeline/research_topics.py"
+      ]
+    },
+    {
+      "pattern": "data/review_queue.json",
+      "role": "operational-state",
+      "required": true,
+      "writers": [
+        "pipeline/index_benchmarks.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/refresh_source_observations.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/auto_admit_candidates.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/auto_admit_candidates.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Persistent candidate/observation store, including reviewed candidates; membership does not mean pending.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/auto_admit_candidates.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/refresh_source_observations.py"
+      ]
+    },
+    {
+      "pattern": "data/review_state.json",
+      "role": "operational-state",
+      "required": false,
+      "writers": [
+        "pipeline/generate_editorial_copy.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Attempt history and cooldowns; not admission decisions.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/generate_editorial_copy.py",
+        "pipeline/review_scheduler.py"
+      ]
+    },
+    {
+      "pattern": "data/runs/*.json",
+      "role": "operational-state",
+      "required": false,
+      "writers": [
+        "pipeline/index_benchmarks.py",
+        "pipeline/backfill_index.py",
+        "pipeline/discover_benchmarks.py"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Legacy and current retrieval receipts; filename/date alone does not prove completeness.",
+      "readers": [
+        "pipeline/audit_workflow.py",
+        "pipeline/backfill_index.py"
+      ]
+    },
+    {
+      "pattern": "data/search_eval/queries.json",
+      "role": "diagnostic-policy",
+      "required": false,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Small retrieval pilot queries and selected examples.",
+      "readers": [
+        "pipeline/evaluate_search.py"
+      ]
+    },
+    {
+      "pattern": "data/search_eval/report.json",
+      "role": "audit",
+      "required": false,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Historical pilot report; current report goes to outputs/.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/signal_coverage.json",
+      "role": "audit",
+      "required": true,
+      "writers": [
+        "pipeline/audit_signal_coverage.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_signal_coverage.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Generated availability diagnostic.",
+      "readers": [
+        "human-audit"
+      ]
+    },
+    {
+      "pattern": "data/signal_history.json",
+      "role": "source-evidence",
+      "required": true,
+      "writers": [
+        "pipeline/signal_history.py"
+      ],
+      "codeReferences": [
+        "pipeline/signal_history.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Sparse historical observed counters; preserve chronology.",
+      "readers": [
+        "pipeline/signal_history.py"
+      ]
+    },
+    {
+      "pattern": "data/source_coverage.json",
+      "role": "operational-state",
+      "required": true,
+      "writers": [
+        "pipeline/discover_benchmarks.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Source/scope/window completion receipts; no entity admission authority.",
+      "readers": [
+        "pipeline/audit_workflow.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/source_coverage.py"
+      ]
+    },
+    {
+      "pattern": "data/source_coverage_audit_policy.json",
+      "role": "diagnostic-policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Audit hypotheses; not active discovery configuration.",
+      "readers": [
+        "pipeline/audit_workflow.py"
+      ]
+    },
+    {
+      "pattern": "data/source_evidence.json",
+      "role": "source-evidence",
+      "required": true,
+      "writers": [
+        "pipeline/index_benchmarks.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/refresh_source_observations.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/evidence_facets.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/refresh_source_observations.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Latest retained primary text per source key, not an immutable observation history; writes use evidence_facets.retain_sources.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/audit_workflow.py",
+        "pipeline/discover_benchmarks.py",
+        "pipeline/evidence_facets.py",
+        "pipeline/generate_library_index.py",
+        "pipeline/index_benchmarks.py",
+        "pipeline/reconcile_workflow.py",
+        "pipeline/refresh_source_observations.py"
+      ]
+    },
+    {
+      "pattern": "data/source_refresh_state.json",
+      "role": "operational-state",
+      "required": false,
+      "writers": [
+        "pipeline/refresh_source_observations.py"
+      ],
+      "codeReferences": [
+        "pipeline/refresh_source_observations.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Refresh attempts/hashes; advances after candidate persistence.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/refresh_source_observations.py"
+      ]
+    },
+    {
+      "pattern": "data/source_registry.json",
+      "role": "policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Active and planned source scopes; active categories must agree with pipeline/config.json.",
+      "readers": [
+        "pipeline/tests/test_source_coverage.py"
+      ]
+    },
+    {
+      "pattern": "data/supplemental_catalog_records.json",
+      "role": "source-snapshot",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/sync_catalogs.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Curated imported catalog snapshot, consumed by sync_catalogs.",
+      "readers": [
+        "pipeline/sync_catalogs.py"
+      ]
+    },
+    {
+      "pattern": "data/taxonomy_review_20260915.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_directions.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Historical reviewed taxonomy inputs still read by research_directions.",
+      "readers": [
+        "pipeline/research_directions.py"
+      ]
+    },
+    {
+      "pattern": "data/taxonomy_v5.json",
+      "role": "policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/classify_categories.py",
+        "pipeline/library_categories.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Navigation taxonomy distinct from evidence facets.",
+      "readers": [
+        "pipeline/audit_workflow.py",
+        "pipeline/classify_categories.py",
+        "pipeline/library_categories.py"
+      ]
+    },
+    {
+      "pattern": "data/taxonomy_v5_assignments.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "pipeline/classify_categories.py"
+      ],
+      "codeReferences": [
+        "pipeline/classify_categories.py",
+        "pipeline/library_categories.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Human and model navigation assignments; protected review bases retain precedence.",
+      "readers": [
+        "pipeline/audit_data_contract.py",
+        "pipeline/classify_categories.py",
+        "pipeline/library_categories.py"
+      ]
+    },
+    {
+      "pattern": "data/topic_source_audit.json",
+      "role": "decision",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/research_topics.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Historical source verification results consumed by research_topics; not disposable despite filename.",
+      "readers": [
+        "pipeline/research_topics.py"
+      ]
+    },
+    {
+      "pattern": "data/trends_search.json",
+      "role": "public-view",
+      "required": true,
+      "writers": [
+        "pipeline/generate_topic_trends.py"
+      ],
+      "codeReferences": [
+        "pipeline/build_github_pages.py",
+        "pipeline/generate_topic_trends.py",
+        "web/trends/trends.js"
+      ],
+      "retention": "rebuildable",
+      "note": "Searchable per-member projection for Trends.",
+      "readers": [
+        "pipeline/build_github_pages.py",
+        "web/trends/trends.js"
+      ]
+    },
+    {
+      "pattern": "data/trends_topics.json",
+      "role": "public-view",
+      "required": true,
+      "writers": [
+        "pipeline/generate_topic_trends.py"
+      ],
+      "codeReferences": [
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/build_github_pages.py",
+        "pipeline/generate_topic_trends.py",
+        "web/trends/trends.js"
+      ],
+      "retention": "rebuildable",
+      "note": "Aggregate time-series projection.",
+      "readers": [
+        "pipeline/audit_topic_consistency.py",
+        "pipeline/build_github_pages.py",
+        "web/trends/trends.js"
+      ]
+    },
+    {
+      "pattern": "data/usage/*.json",
+      "role": "source-evidence",
+      "required": false,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Imported benchmark/document/manifest snapshot; source-local IDs remain separate from Library IDs.",
+      "readers": [
+        "pipeline/usage_store.py"
+      ]
+    },
+    {
+      "pattern": "data/usage/*.jsonl",
+      "role": "source-evidence",
+      "required": false,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Imported mention and score observations; a report mention is not an actual internal model-evaluation run.",
+      "readers": [
+        "pipeline/usage_store.py"
+      ]
+    },
+    {
+      "pattern": "data/workflow_audit_cases.json",
+      "role": "diagnostic-policy",
+      "required": true,
+      "writers": [
+        "reviewed-repository-change"
+      ],
+      "codeReferences": [
+        "pipeline/audit_workflow.py",
+        "pipeline/reconcile_workflow.py"
+      ],
+      "retention": "durable-until-explicit-retirement",
+      "note": "Pilot cases; not exhaustive recall ground truth.",
+      "readers": [
+        "pipeline/audit_workflow.py",
+        "pipeline/reconcile_workflow.py"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 # Data directory
 
-The repository uses JSON in Git as its database. Files in this directory belong
+The repository uses JSON in Git as its persistence layer. The field-level ownership,
+actual update order and known modeling gaps are documented in
+[`docs/data-model.md`](../docs/data-model.md); the machine-readable asset contract is
+[`pipeline/data_contract.json`](../pipeline/data_contract.json). Files in this directory belong
 to five different layers; they do not all have the same authority or retention
 policy. Public pages must read only the generated public views listed below.
 
@@ -80,7 +83,9 @@ summary is intentionally selected for long-term review.
 
 ## Build contract
 
-The canonical Radar snapshot is produced by `pipeline/index_benchmarks.py`.
+The Radar snapshot is persistent materialized state: discovery/admission,
+`apply_overrides`, publication enrichment and metrics enrichment update it. It is
+not fully rebuildable from `curated_records.json` alone.
 Library overlays are applied before repository and metric snapshots so reviewed
 code/data links can receive current GitHub metadata. The generated views are
 then rebuilt and validated before GitHub Pages is assembled:
@@ -88,8 +93,8 @@ then rebuilt and validated before GitHub Pages is assembled:
 ```text
 canonical inputs + reviewed overlays
   -> benchmarks.json / library_records.json / catalog_records.json
-  -> library_index.json
-  -> benchmarks_index.json / trends_topics.json / other public views
+  -> benchmarks_index.json and library_index.json (Library assembly synchronizes shared classification back into Radar)
+  -> trends_topics.json / other public views
   -> _site/data/*.json
 ```
 
@@ -131,3 +136,7 @@ Full Radar history loads when a user requests another window or previous day;
 Library loads on navigation or deliberate pointer/keyboard intent. Generated
 data URLs and scripts are versioned by content hash. Library search covers all
 records, while the DOM initially contains at most 60 result cards.
+
+Run `make audit-data-contract` for read-only ownership and cross-file integrity checks.
+Known unresolved warnings remain individually tracked; a passing check does not
+mean all identity bindings or historical decisions have been verified.
