@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const app = fs.readFileSync(process.argv[2], 'utf8');
 const {library, cases} = JSON.parse(fs.readFileSync(process.argv[3], 'utf8'));
 const state = {libraryManifest: library.manifest};
-const context = vm.createContext({state});
+const context = vm.createContext({state,BenchmarkSearch:require('../web/search.js')});
 for (const name of ['displayEligible', 'researchDefinitions', 'allResearchDefinitions', 'topicIds']) {
   const lines = app.split('\n').filter(line => line.startsWith(`function ${name}(`));
   if (lines.length !== 1) throw new Error(`Browser adapter needs updating: ${name}`);

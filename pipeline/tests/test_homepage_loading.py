@@ -23,7 +23,7 @@ const c={console,URLSearchParams,location:{hash:''},history:{replaceState(){}},w
  document:{getElementById:node,querySelectorAll:()=>[],querySelector:()=>node('today'),addEventListener(){},
   createElement:()=>node(Symbol()),createTextNode:text=>({textContent:text})},
  fetch:url=>{requests.push(url);return new Promise((resolve,reject)=>pending.push({resolve,reject}))}};
-vm.createContext(c);
+c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);
 for(const name of ['benchmark-name.js','trends/directions.js','following.js','app.js'])vm.runInContext(fs.readFileSync('web/'+name,'utf8'),c);
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 (async()=>{

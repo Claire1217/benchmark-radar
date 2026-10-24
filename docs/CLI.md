@@ -60,7 +60,7 @@ Responses use schema version `1.2`; pagination and error codes remain unchanged.
 
 ## Search relevance and Agent workflow
 
-Search uses an in-memory SQLite FTS5 index (English Porter stemming), with BM25 field weights name=10, aliases=8, description=3, domains=1. It is rebuilt from the current checkout per invocation; no service or API key is needed. Python must include SQLite FTS5; unavailable support returns `invalid_database` with a diagnostic instead of silently reverting to substring matching.
+Search uses the same deterministic JavaScript engine as Library and Trends. Node.js 18+ is required for search; Python starts one local process per invocation and reuses it across queries. No service, network request or API key is needed. A missing runtime produces a diagnostic instead of silently changing matching behavior.
 
 ```sh
 ./benchmark-reader search SciCode
@@ -69,15 +69,15 @@ Search uses an in-memory SQLite FTS5 index (English Porter stemming), with BM25 
 ./benchmark-reader search "scientific programming" --expand "research code" --sort relevance
 ```
 
-Any query concept may match. Partial matches remain candidates; multiple terms are no longer a strict AND condition. Common science/coding/reproduction terms and a small Chinese dictionary expand explicitly. This is **not general Chinese or semantic search**. Agents should translate unsupported concepts, try two or three focused English queries, and preserve the original intent. `--expand TEXT` may be repeated; expansions appear in `data.search.expandedTerms`. Generated query terms are never evidence that a benchmark has a capability.
+Short queries require every query concept; queries with four or more concepts require at least 70%. Controlled concept aliases, hierarchy, Unicode normalization, word boundaries and conservative one-edit vocabulary correction improve recall. Unknown benchmark identities are not rewritten. This is not general multilingual or semantic search. `--expand TEXT` supplies explicit OR alternatives; expansions and corrections are returned in `data.search`.
 
-Each result includes `relevance.exactMatch`, a BM25 `score`, `matchedFields`, and an indexed-text `snippet` with matches in brackets. BM25 scores are query-relative ordering signals, not probabilities, confidence or influence scores. An exact identity can have a low numeric BM25 score and still sort first. Name-only spelling suggestions appear in `data.search.suggestions` when no candidates match; they are not substituted silently. Variants including HumanEval+ and GPQA Diamond retain their separate identities. Cross-source records are not forcibly merged; agents must not add their usage counts together without reconciling evidence.
+Each result includes `relevance.exactMatch` (ID/name/alias), a query-relative ranking `score`, `matchedFields`, `matchedConcepts` and a text `snippet`. Exact identities sort first. Scores are not probabilities or measures of benchmark quality. Evidence concepts retain scope and source quotations: a task-subset match does not imply that every task belongs to the domain, or that any particular model ran that subset. Name spelling suggestions appear only when no results match. HumanEval+ and GPQA Diamond remain distinct identities.
 
 The domain filter remains based on recorded labels. A description suggesting biological content is not silently converted into a biology tag. When a strict domain query returns too little, agents should retry the keywords without the domain filter and inspect evidence. Explicit attention sorting reorders the lexical candidate set; partial matches may rank highly, so use relevance first for open-ended research. Daily/hot retain their simpler keyword filters; use search for exploratory research.
 
 Suggested Agent procedure: interpret the request → search a few focused expressions → inspect returned matches → call `show` for selected IDs → assess source evidence and freshness. For saturation, novelty or adoption, retrieve the actual evidence; retrieval relevance alone cannot answer these questions. Returning fewer results or unknown is preferable to inventing missing evidence.
 
-A reproducible developer pilot is stored in `data/search_eval/queries.json`; run `python3 pipeline/evaluate_search.py` to compare with the old AND-substring/usage-ranked search. Its 50 queries include 25 identity lookups, 20 research-intent prompts and five synthetic no-answer strings. `report.json` retains all misses. This is a regression pilot, not independent human relevance annotation: the intent metric checks whether one selected example appears in the first ten, and does not establish precision or full recall. Several benchmarks may be relevant beyond that example.
+A reproducible developer pilot is stored in `data/search_eval/queries.json`; run `python3 pipeline/evaluate_search.py` to compare the shared engine with the old AND-substring/usage-ranked search. Its 50 queries include 25 identity lookups, 20 research-intent prompts and five synthetic no-answer strings. `report.json` retains all misses. This is a regression pilot, not independent human relevance annotation: the intent metric checks whether one selected example appears in the first ten, and does not establish precision or full recall. Several benchmarks may be relevant beyond that example.
 
 ## Meaning of the results
 

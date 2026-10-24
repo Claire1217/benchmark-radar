@@ -9,7 +9,7 @@ class LatestFeedTests(unittest.TestCase):
         script = r'''
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const context={window:{},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{})};
-vm.createContext(context);vm.runInContext(fs.readFileSync('web/following.js','utf8'),context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
+context.BenchmarkSearch=require('./web/search.js');vm.createContext(context);vm.runInContext(fs.readFileSync('web/following.js','utf8'),context);vm.runInContext(fs.readFileSync('web/app.js','utf8'),context);
 vm.runInContext(`
 state.manifest={latestSourceDate:'2026-09-13',dataAsOf:'2026-09-15'};
 state.benchmarks=[{releasedAt:'2026-09-13'},...Array.from({length:4},()=>({releasedAt:'2026-09-12'})),...Array.from({length:8},()=>({releasedAt:'2026-09-11'})),{releasedAt:'2026-09-10'},...Array.from({length:20},()=>({releasedAt:'2026-09-13',displayEligible:false})),{releasedAt:'2026-09-16'}];

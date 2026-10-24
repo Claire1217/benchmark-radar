@@ -13,13 +13,13 @@ let HASH='';
 const c={console,window:{},URLSearchParams,location:{get hash(){return HASH},set hash(v){HASH=v}},history:{replaceState:(a,b,u)=>{HASH=u}},
  localStorage:{getItem:k=>mem[k]??null,setItem:(k,v)=>{mem[k]=v}},fetch:()=>new Promise(()=>{}),
  document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:()=>({setAttribute(){}})}};
-vm.createContext(c);
+c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);
 for(const f of ['web/benchmark-name.js','web/trends/directions.js','web/app.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);
 c.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;setupLibraryNavigation()',c);
 const D=require('./web/trends/directions.js');
 const expected=c.payload.records.filter(r=>r.displayEligible!==false&&r.evaluationMode!=='viewpoint_probe')
- .filter(r=>D.matches([[r.name,'',[],[r.description,r.oneLine].filter(Boolean).join(' '),'',(r.aliases||[]).join(' ')]],['gpu','kernel']).length);
+ .filter(r=>D.matches([[r.name,'',[],[r.description,r.oneLine].filter(Boolean).join(' '),'',(r.aliases||[]).join(' '),[],[],{members:[r]}]],['gpu','kernel']).length);
 """
 
 

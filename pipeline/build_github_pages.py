@@ -73,6 +73,9 @@ def version_trends_assets(output: Path) -> None:
     page = output / "trends" / "index.html"
     directions = output / "trends" / "directions.js"
     page_text = page.read_text()
+    for name in ("search-policy.js", "search.js"):
+        if (output/name).exists():
+            page_text=page_text.replace("../"+name,"../"+version(output/name))
     if directions.exists():
         page_text = page_text.replace('./directions.js', './' + version(directions))
     page.write_text(page_text.replace(
@@ -121,7 +124,7 @@ def main() -> None:
         digest = hashlib.sha256((data_dir / name).read_bytes()).hexdigest()[:12]
         text = text.replace('./data/' + name, './data/' + name + '?v=' + digest)
     script.write_text(text)
-    for name in ("app.js", "benchmark-name.js", "following.js", "styles.css", "trends/directions.js"):
+    for name in ("search-policy.js", "search.js", "app.js", "benchmark-name.js", "following.js", "styles.css", "trends/directions.js"):
         digest = hashlib.sha256((OUTPUT / name).read_bytes()).hexdigest()[:12]
         html = re.sub(r'\./' + re.escape(name) + r'(?:\?[^"\s]*)?', './' + name + '?v=' + digest, html)
     page.write_text(html)

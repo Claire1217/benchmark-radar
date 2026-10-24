@@ -23,7 +23,7 @@ const c={document:{getElementById:node,addEventListener:(t,f)=>{if(t==='click')c
  localStorage:storage,location:{get hash(){return HASH},pathname:'/trends/',search:'',origin:'https://x'},
  history:{replaceState:(a,b,u)=>{HASH=String(u).startsWith('#')?u:''}},navigator:{clipboard:{writeText(){}}},
  fetch:()=>new Promise(()=>{}),benchmarkNameHtml:s=>s,console};
-vm.createContext(c);
+c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);
 vm.runInContext(fs.readFileSync('web/trends/directions.js','utf8'),c);
 vm.runInContext(fs.readFileSync('web/trends/trends.js','utf8'),c);
 c.payload=JSON.parse(fs.readFileSync('data/trends_topics.json','utf8'));
@@ -136,7 +136,11 @@ class SearchCatalogTests(unittest.TestCase):
             self.assertEqual(n, w['count'], t['id'])
 
     def test_catalog_stays_small(self):
-        self.assertLess((ROOT / 'data/trends_search.json').stat().st_size, 2_000_000)
+        # Member-level evidence prevents cross-version false matches. Budget both transfer and raw data.
+        import gzip
+        raw=(ROOT / 'data/trends_search.json').read_bytes()
+        self.assertLess(len(raw), 3_000_000)
+        self.assertLess(len(gzip.compress(raw)), 700_000)
 
 
 class LibraryKeywordLinkTests(unittest.TestCase):
@@ -146,7 +150,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const nodes={};const el=()=>({value:'',innerHTML:'',textContent:'',hidden:false,classList:{toggle(){}},setAttribute(){},removeAttribute(){},replaceChildren(){},append(){}});
 const node=id=>nodes[id]??(nodes[id]=el());
 const c={console,window:{},URLSearchParams,location:{hash:'#library?q=Robot'},history:{replaceState(){}},localStorage:{getItem:()=>null},fetch:()=>new Promise(()=>{}),document:{getElementById:node,querySelectorAll:()=>[],addEventListener(){},createElement:el}};
-vm.createContext(c);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),c);vm.runInContext(fs.readFileSync('web/app.js','utf8'),c);
+c.BenchmarkSearch=require('./web/search.js');vm.createContext(c);vm.runInContext(fs.readFileSync('web/benchmark-name.js','utf8'),c);vm.runInContext(fs.readFileSync('web/app.js','utf8'),c);
 c.payload=JSON.parse(fs.readFileSync('data/library_index.json','utf8'));
 vm.runInContext('state.library=payload.records;state.libraryManifest=payload.manifest;renderLibrary=()=>{};route()',c);
 assert.equal(vm.runInContext('state.librarySearch',c),'robot');
