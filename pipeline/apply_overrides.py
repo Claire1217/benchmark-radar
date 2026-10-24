@@ -2,6 +2,7 @@
 """Reapply reviewed source overrides and generated editorial copy."""
 
 from pathlib import Path
+from source_identity import editorial_decision
 from forecast_attention import OUTPUT_PATH as FORECAST_PATH, apply_forecasts
 import re
 
@@ -38,10 +39,10 @@ def restore_official_heading_name(record: dict) -> None:
 
 
 def apply_editorial_copy(records: list[dict]) -> list[dict]:
-    copies = read_json(EDITORIAL_COPY_PATH).get("bySourceId", {}) if EDITORIAL_COPY_PATH.exists() else {}
+    copies = read_json(EDITORIAL_COPY_PATH) if EDITORIAL_COPY_PATH.exists() else {}
     for record in records:
         source_id = str(record.get("source", {}).get("id", ""))
-        copy = copies.get(source_id)
+        copy = editorial_decision(copies, record)
         if not copy or not publishable(copy):
             continue
         if copy.get("canonicalName"):

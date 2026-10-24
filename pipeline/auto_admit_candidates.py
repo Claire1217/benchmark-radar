@@ -58,7 +58,8 @@ def automatically_publishable(record: dict[str, Any], threshold: float) -> bool:
     """Use source-grounded deterministic evidence for automatic admission."""
     reasons = set((record.get("evidence") or {}).get("reasonCodes") or [])
     return (
-        record.get("relation") == "introduces"
+        record.get("reviewReason") != "source-changed"
+        and record.get("relation") == "introduces"
         and float(record.get("recognitionConfidence") or 0) >= threshold
         and bool(reasons & IDENTITY_EVIDENCE)
         and "evaluation protocol evidence" in reasons

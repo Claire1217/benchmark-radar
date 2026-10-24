@@ -28,6 +28,8 @@ import xml.etree.ElementTree as ET
 from zoneinfo import ZoneInfo
 
 
+from source_identity import source_key, merge_observation
+
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "pipeline" / "config.json"
 DATA_PATH = ROOT / "data" / "benchmarks.json"
@@ -1030,15 +1032,18 @@ def to_record(paper: Paper, indexed_at: str, score: float, relation: str, reason
 
 def upsert(existing: list[dict[str, Any]], incoming: list[dict[str, Any]]) -> list[dict[str, Any]]:
     by_source = {
-        str(record.get("source", {}).get("id")): record
+        source_key(record): record
         for record in existing
         if record.get("source", {}).get("id")
     }
     for record in incoming:
-        source_id = str(record["source"]["id"])
+        source_id = source_key(record)
         previous = by_source.get(source_id)
         if previous:
-            record["firstSeenAt"] = previous.get("firstSeenAt", record["firstSeenAt"])
+            record = {**record}
+            for field in ("id", "releasedAt", "firstSeenAt"):
+                if field in previous:
+                    record[field] = previous[field]
             # Discovery refreshes must not erase the last valid enrichment
             # snapshot before the non-blocking metrics stage succeeds.
             for key in ("attention", "ranking", "watch"):
@@ -1088,15 +1093,16 @@ def persistent_review_candidates(
     # one category/adapter replay must not remove another source's pending work.
     retained = list(existing)
     by_source = {
-        str((candidate.get("source") or {}).get("id") or ""): candidate
+        source_key(candidate): candidate
         for candidate in retained
-        if str((candidate.get("source") or {}).get("id") or "") not in excluded_source_ids
+        if source_key(candidate) not in excluded_source_ids and str((candidate.get("source") or {}).get("id") or "") not in excluded_source_ids
     }
     for candidate in incoming:
-        source_id = str((candidate.get("source") or {}).get("id") or "")
-        if not source_id or source_id in excluded_source_ids:
+        source_id = source_key(candidate)
+        if not source_id or source_id in excluded_source_ids or str((candidate.get("source") or {}).get("id") or "") in excluded_source_ids:
             continue
-        by_source[source_id] = candidate
+        previous = by_source.get(source_id)
+        by_source[source_id] = merge_observation(previous, candidate) if previous else candidate
     for candidate in by_source.values():
         candidate["capabilities"] = [
             value for value in candidate.get("capabilities", []) if value != "Evaluation"
@@ -1170,7 +1176,7 @@ def index_papers(
     )
     existing_review_payload = read_json(REVIEW_PATH) if REVIEW_PATH.exists() else {"candidates": []}
     excluded_review_sources = {
-        str((record.get("source") or {}).get("id") or "")
+        source_key(record)
         for record in [*accepted, *curated_records()]
     }
     persistent_review = persistent_review_candidates(

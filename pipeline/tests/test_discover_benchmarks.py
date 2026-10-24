@@ -121,7 +121,7 @@ class AdapterTests(unittest.TestCase):
 
 
 class DeduplicationTests(unittest.TestCase):
-    def test_same_name_merges_paper_repo_and_dataset_links(self) -> None:
+    def test_same_name_does_not_merge_paper_repo_and_dataset(self) -> None:
         paper = {
             "name": "AgentBench", "source": {"id": "1234", "url": "https://arxiv.org/abs/1234"},
             "links": {"report": "https://arxiv.org/abs/1234"}, "discoverySources": [],
@@ -131,10 +131,10 @@ class DeduplicationTests(unittest.TestCase):
             "links": {"code": "https://github.com/lab/AgentBench"},
             "discoverySources": [{"type": "github", "id": "github:lab/agentbench", "url": "https://github.com/lab/AgentBench"}],
         }
-        self.assertTrue(discover_benchmarks.same_identity(paper, repo))
-        discover_benchmarks.merge_candidate(paper, repo)
-        self.assertEqual(paper["links"]["code"], "https://github.com/lab/AgentBench")
-        self.assertEqual(len(paper["discoverySources"]), 1)
+        self.assertFalse(discover_benchmarks.same_identity(paper, repo))
+        with self.assertRaises(ValueError):
+            discover_benchmarks.merge_candidate(paper, repo)
+
 
 
 if __name__ == "__main__":

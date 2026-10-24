@@ -27,11 +27,11 @@ class CatalogRefreshTests(unittest.TestCase):
         self.assertEqual(previous,before)
         self.assertEqual(merge_payloads(fresh,result,supplement),result)
 
-    def test_merge_provenance_without_merging_versions(self):
+    def test_same_name_across_sources_requires_explicit_identity_binding(self):
         fresh={'retrievedAt':'2026-09-15','records':[row('Bench 1.0'),row('Bench 2.0')],'sources':{}}
         result=merge_payloads(fresh,{}, {'records':[row('Bench 1.0','harbor')],'sources':{}})
-        self.assertEqual(len(result['records']),2)
-        self.assertEqual(len(result['records'][0]['sourceRecords']),2)
+        self.assertEqual(len(result['records']),3)
+        self.assertTrue(all(len(r['sourceRecords']) == 1 for r in result['records']))
 
     def test_plus_is_part_of_benchmark_identity(self):
         self.assertNotEqual(normalized_name('RefCOCO'),normalized_name('RefCOCO+'))

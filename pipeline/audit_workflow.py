@@ -18,6 +18,7 @@ import tempfile
 from urllib.parse import urlparse
 
 from site_views import presentation
+from source_identity import source_key as observation_key
 from generate_editorial_copy import publishable, public_release_ready
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,7 +40,7 @@ def reference(row):
             "releasedAt": row.get("releasedAt")}
 
 
-def audit_queue(candidates, decisions, canonical, as_of):
+def audit_queue(candidates, decisions, canonical, as_of, namespaced=None):
     """Join exact, namespaced sources; legacy decisions are keyed only by id."""
     known = {source_key(r) for r in canonical if source_key(r)}
     namespaces = defaultdict(set)
@@ -50,10 +51,11 @@ def audit_queue(candidates, decisions, canonical, as_of):
     counts, details = Counter(), []
     for row in candidates:
         key = source_key(row)
-        stored = decisions.get(key[1]) if key else None
+        scoped = (namespaced or {}).get(observation_key(row))
+        stored = scoped if scoped is not None else decisions.get(key[1]) if key else None
         if not key:
             state = "missing_source_identity"
-        elif len(namespaces[key[1]]) > 1 and stored is not None:
+        elif scoped is None and len(namespaces[key[1]]) > 1 and stored is not None:
             state = "ambiguous_legacy_decision_key"
         elif key in known:
             state = "canonical_source_present"
@@ -191,7 +193,8 @@ def build_report(root, as_of=None):
     queue_payload = loaded["data/review_queue.json"]
     queue = audit_queue(queue_payload["candidates"], loaded["data/editorial_copy.json"]["bySourceId"],
                         loaded["data/benchmarks.json"]["records"] + loaded["data/curated_records.json"]["records"],
-                        queue_payload.get("sourceDate") or as_of)
+                        queue_payload.get("sourceDate") or as_of,
+                        namespaced=loaded["data/editorial_copy.json"].get("bySourceKey", {}))
     queue["windowBasis"] = "queue.sourceDate minus three days; not the attention snapshot date or proof of the last successful review"
     probe = run_browser_probe(root, library, cases["searchCases"])
     return {"schemaVersion": "1.0", "asOf": as_of, "inputSha256": fingerprints,
