@@ -66,7 +66,7 @@ def fetch_observation(record: dict) -> dict:
     return merge_observation(record, observation)
 
 
-def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit: int = 60, max_seconds: int = 180) -> dict:
+def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit: int = 60, max_seconds: int = 180, observe=None) -> dict:
     started = time.monotonic()
     by_source = state.setdefault('bySource', {})
     eligible = [r for r in records if (r.get('source') or {}).get('type') in SUPPORTED
@@ -81,6 +81,8 @@ def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit
         old = by_source.get(key, {})
         try:
             observation = fetch(record)
+            if observe is not None:
+                observe(observation)
             digest = evidence_hash(observation)
             changed = digest != old['evidenceHash'] if old.get('evidenceHash') else newer_than_public(observation, record)
             if changed:
@@ -120,7 +122,9 @@ def main() -> None:
         payload['candidateCount'] = len(payload['candidates'])
         payload.setdefault('sourceDate', target)
         save(discovery.REVIEW_PATH, payload)
-    stats = refresh(records, state, fetch_observation, persist, now=now, limit=args.limit, max_seconds=args.max_seconds)
+    from evidence_facets import retain_sources
+    stats = refresh(records, state, fetch_observation, persist, now=now, limit=args.limit, max_seconds=args.max_seconds,
+                    observe=lambda row: retain_sources([row], discovery.REVIEW_PATH.parent / "source_evidence.json"))
     save(STATE_PATH, state)
     print(json.dumps(stats))
 

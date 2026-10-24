@@ -398,6 +398,8 @@ def merge_review_queue(
     incoming: list[dict[str, Any]], target: str, range_start: str,
     failures: dict[str, str],
 ) -> tuple[int, int]:
+    from evidence_facets import retain_sources
+    retain_sources(incoming, REVIEW_PATH.parent / "source_evidence.json")
     queue = read_json(REVIEW_PATH, {"candidates": []})
     candidates = list(queue.get("candidates", []))
     known = read_json(arxiv.DATA_PATH, {"records": []}).get("records", [])

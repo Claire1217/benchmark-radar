@@ -44,7 +44,7 @@ class RunTests(unittest.TestCase):
         cc.ASSIGNMENTS_PATH = root / 'assignments.json'
         cc.LIBRARY_PATH = root / 'library.json'
         cc.ASSIGNMENTS_PATH.write_text(json.dumps({'version': 'taxonomy-v5', 'records': {'old': {'primary': 'math', 'secondary': [], 'confidence': 'high', 'basis': 'model-review'}}}))
-        rows = [{'id': f'new{i}', 'name': f'N{i}', 'description': 'Agents operate desktop apps.',
+        rows = [{'id': f'new{i}', 'name': f'N{i}', 'description': 'Agents operate desktop apps.', 'links':{'report':'https://example.org/source'},
                  'categoryAssignment': {'basis': 'keyword-provisional'}} for i in range(30)]
         rows += [{'id': 'old', 'name': 'Old', 'categoryAssignment': {'basis': 'model-review'}},
                  {'id': 'hidden', 'name': 'H', 'displayEligible': False, 'categoryAssignment': {'basis': 'keyword-provisional'}}]
@@ -61,20 +61,20 @@ class RunTests(unittest.TestCase):
             calls.append(len(batch))
             if len(calls) == 2:
                 raise TimeoutError('provider down')
-            return [{'id': r['id'], 'primary': 'computer-use', 'secondary': [], 'confidence': 'medium'} for r in batch]
+            return [{'id': r['id'], 'primary': 'computer-use', 'secondary': [], 'confidence': 'medium', 'evidenceQuote':'Agents operate desktop apps.', 'sourceUrl':'https://example.org/source'} for r in batch]
 
         stats = cc.run(post, today='2026-10-05', model='m')
-        self.assertEqual(calls, [25, 5])
-        self.assertEqual(stats, {'pending': 30, 'accepted': 25, 'rejected': 5})
+        self.assertEqual(calls, [8, 8, 8, 6])
+        self.assertEqual(stats, {'pending': 30, 'accepted': 22, 'rejected': 8})
         records = json.loads(cc.ASSIGNMENTS_PATH.read_text())['records']
         self.assertEqual(records['old']['basis'], 'model-review')  # reviewed rows are never re-asked
-        self.assertEqual(records['new0'], {'primary': 'computer-use', 'secondary': [], 'confidence': 'medium',
+        self.assertEqual({k:v for k,v in records['new0'].items() if k not in {'inputHash','policyVersion','evidenceQuote','sourceUrl','facets'}}, {'primary': 'computer-use', 'secondary': [], 'confidence': 'medium',
                                            'basis': 'model-review-daily', 'reviewedAt': '2026-10-05', 'model': 'm'})
-        self.assertNotIn('new29', records)
+        self.assertNotIn('new8', records)
         self.assertNotIn('hidden', records)
 
     def test_daily_review_replaces_keyword_placement(self):
-        cc.run(lambda s, b: [{'id': r['id'], 'primary': 'speech-audio'} for r in b], today='2026-10-05')
+        cc.run(lambda s, b: [{'id': r['id'], 'primary': 'speech-audio', 'evidenceQuote':'Agents operate desktop apps.', 'sourceUrl':'https://example.org/source'} for r in b], today='2026-10-05')
         original = lc.assignments
         lc.assignments = lambda: json.loads(cc.ASSIGNMENTS_PATH.read_text())['records']
         try:

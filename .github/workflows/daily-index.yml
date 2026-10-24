@@ -225,7 +225,7 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_COPY_MODEL: deepseek-v4-flash
         run: |
-          python pipeline/classify_categories.py
+          python pipeline/classify_categories.py --limit 80
           # New reviewed placements change counts in every view.
           if ! git diff --quiet -- data/taxonomy_v5_assignments.json; then make generate; fi
 
@@ -245,7 +245,7 @@ jobs:
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/review_queue.json data/runs data/metrics data/publication data/trends_topics.json data/research_topic_audit.json
-          for output in data/review_state.json data/attention_forecasts.json data/source_coverage.json data/source_refresh_state.json; do
+          for output in data/review_state.json data/attention_forecasts.json data/source_coverage.json data/source_refresh_state.json data/source_evidence.json; do
             if [ -f "$output" ]; then git add "$output"; fi
           done
           # Include every tracked data output produced by generation, including new views.
