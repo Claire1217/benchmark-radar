@@ -21,11 +21,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Sync latest main after waiting in the queue
+        run: |
+          git fetch origin main
+          git switch --detach origin/main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Review a small 90-day candidate batch
+      - name: Review a bounded batch of recent and historical candidates
         id: candidate_review
         continue-on-error: true
         env:
@@ -35,8 +39,7 @@ jobs:
         run: |
           test -n "$DEEPSEEK_API_KEY"
           review_end=$(python pipeline/scheduled_source_date.py)
-          review_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=89)).isoformat())' "$review_end")
-          python pipeline/generate_editorial_copy.py --review-queue --released-from "$review_start" --released-through "$review_end" --limit 16 --batch-size 4
+          python pipeline/generate_editorial_copy.py --review-queue --released-through "$review_end" --limit 16 --batch-size 4
 
       - name: Audit a small 90-day public batch
         id: public_audit
@@ -66,28 +69,48 @@ jobs:
         continue-on-error: true
         run: python pipeline/sync_catalogs.py
 
-      - name: Reconcile with latest data and commit completed batches
+      # Keep collection/review checkpoints even if later generation or push fails.
+      # Recovery is reviewed against current main; never blindly restore over newer data.
+      - name: Preserve collected and reviewed progress before generation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-backfill-progress-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            data/editorial_copy.json
+            data/review_queue.json
+            data/curated_records.json
+            data/catalog_records.json
+            data/catalog_identity_bindings.json
+            data/review_state.json
+            data/source_coverage.json
+            data/source_refresh_state.json
+            data/source_evidence.json
+            data/attention_forecasts.json
+            data/runs/
+
+      - name: Generate and commit completed batches
         run: |
-          cp data/editorial_copy.json "$RUNNER_TEMP/editorial_copy.json"
-          cp data/review_queue.json "$RUNNER_TEMP/review_queue.json"
-          cp data/curated_records.json "$RUNNER_TEMP/curated_records.json"
-          git fetch origin main
-          git switch --detach origin/main
-          cp "$RUNNER_TEMP/editorial_copy.json" data/editorial_copy.json
-          cp "$RUNNER_TEMP/review_queue.json" data/review_queue.json
-          cp "$RUNNER_TEMP/curated_records.json" data/curated_records.json
           python pipeline/apply_overrides.py
           make generate
           make build
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/editorial_copy.json data/library_index.json data/review_queue.json data/curated_overrides.json data/curated_records.json data/trends_topics.json data/research_topic_audit.json
+          # Review progress may be new on the first run; -u alone misses it.
+          if [ -f data/review_state.json ]; then git add data/review_state.json; fi
           # Include every tracked data output produced by generation, including new views.
           git add -u -- data README.md AWESOME_BENCHMARKS.md
           if git diff --cached --quiet; then
             echo "No editorial changes"
           else
             git commit -m "data: backfill benchmark descriptions and publishers"
+            # A concurrent human/data push must not be overwritten. Conflicts fail
+            # with the pre-build checkpoint available for recovery.
+            git fetch origin main
+            git rebase origin/main
             git push origin HEAD:main
           fi
 
