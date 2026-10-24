@@ -288,6 +288,11 @@ def main() -> None:
     annotate_records(records)
     annotate_topics(records)
     annotate_categories(records)
+    from evidence_facets import annotate as annotate_evidence
+    evidence_path = ROOT / "data" / "source_evidence.json"
+    source_evidence = json.loads(evidence_path.read_text()) if evidence_path.exists() else {}
+    from library_categories import assignments as category_assignments
+    annotate_evidence(records, source_evidence, category_assignments())
     # Growth by stage reads stored signal history; pipeline/signal_history.py writes it.
     from signal_history import apply_growth
     apply_growth(records, recent.get("manifest", {}).get("dataAsOf") or date.today().isoformat())
@@ -299,7 +304,7 @@ def main() -> None:
         for row in public["records"]:
             current = canonical.get(row["id"])
             if current:
-                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth", "paperLinkBasis", "codeLinkBasis"):
+                for key in ("researchDirections", "researchDirectionEvidence", "researchClassification", "researchFacets", "benchmarkTaxonomy", "researchTopics", "researchTopicEvidence", "topicClassification", "evaluationRole", "sourceAudit", "repositoryScopeReview", "libraryCategories", "categoryAssignment", "growth", "paperLinkBasis", "codeLinkBasis", "evidenceFacets", "classificationEvidence", "searchDocument"):
                     if key in current: row[key] = current[key]
                 if current.get("repositoryScopeReview"):
                     row.setdefault("attention",{})["githubScope"] = current["repositoryScopeReview"]["scope"]

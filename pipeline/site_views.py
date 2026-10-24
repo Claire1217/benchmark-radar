@@ -18,8 +18,9 @@ FIELDS = set('id name oneLine description releasedAt releaseDatePrecision readin
              'displayEligible evaluationMode evaluationRole applicationDomains capabilityGroups '
              'topics aliases domainScope researchDirections researchTopics libraryCategories '
              'benchmarkTaxonomy publishers growth detail modelReportReferences catalogModelCount '
-             'releaseEvidence firstRelease identityReviewNote descriptionProvenance'.split())
+             'releaseEvidence firstRelease identityReviewNote descriptionProvenance searchDocument'.split())
 NESTED = {
+    'searchDocument': 'version sourceText concepts',
     'attention': 'hfPaperUpvotes githubStars hfDatasetDownloads githubScope githubRepo',
     'links': 'report paper project code data hfPaper',
     'publication': 'status venue', 'source': 'type', 'watch': 'status horizon',

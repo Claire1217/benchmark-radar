@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "evidence-facets-1",
+  "policy": "Term-grounded facets retain quotations and scope; they are not a quality score or a verified claim about every task. Evidence scope is never inherited from model reports or family labels.",
+  "concepts": [
+    {
+      "id": "engineering",
+      "axis": "domain",
+      "label": "Engineering",
+      "aliases": [],
+      "evidencePatterns": [
+        "\\bengineering\\b"
+      ]
+    },
+    {
+      "id": "electronics",
+      "axis": "domain",
+      "label": "Electronics",
+      "aliases": [
+        "electronic engineering"
+      ],
+      "parent": "engineering"
+    },
+    {
+      "id": "chip-design",
+      "axis": "domain",
+      "label": "Chip design",
+      "aliases": [
+        "chip design",
+        "circuit design",
+        "hardware design",
+        "electronic design automation",
+        "EDA",
+        "IC design"
+      ],
+      "evidencePatterns": [
+        "\\b(?:chip|integrated circuit|analog circuit|digital circuit|hardware|RTL)\\s+(?:design|generation|synthesis|verification)\\b",
+        "\\belectronic design automation\\b",
+        "\\b(?:Verilog|VHDL|SystemVerilog)\\s+(?:design\\s+)?(?:generation|code generation|hardware|design)\\b",
+        "\\b(?:mixed[ -]signal|transistor[ -]level|IC)\\s+(?:circuit\\s+)?design(?:s)?\\b",
+        "\\b(?:pre|post)[ -]layout parasitic (?:parameter )?(?:prediction|extraction)\\b"
+      ],
+      "parent": "electronics"
+    },
+    {
+      "id": "cybersecurity",
+      "axis": "domain",
+      "label": "Cybersecurity",
+      "aliases": [
+        "cyber security",
+        "security",
+        "网络安全"
+      ]
+    },
+    {
+      "id": "information-retrieval",
+      "axis": "domain",
+      "label": "Information retrieval",
+      "aliases": [
+        "retrieval",
+        "search",
+        "信息检索"
+      ]
+    },
+    {
+      "id": "speech-audio",
+      "axis": "domain",
+      "label": "Speech and audio",
+      "aliases": [
+        "speech",
+        "audio",
+        "语音"
+      ]
+    },
+    {
+      "id": "robotics",
+      "axis": "domain",
+      "label": "Robotics",
+      "aliases": [
+        "robot",
+        "robotic",
+        "机器人"
+      ]
+    },
+    {
+      "id": "biology",
+      "axis": "domain",
+      "label": "Biology",
+      "aliases": [
+        "biological",
+        "bioinformatics",
+        "生物"
+      ]
+    },
+    {
+      "id": "chemistry",
+      "axis": "domain",
+      "label": "Chemistry",
+      "aliases": [
+        "chemical",
+        "化学"
+      ]
+    },
+    {
+      "id": "medicine",
+      "axis": "domain",
+      "label": "Medicine",
+      "aliases": [
+        "medical",
+        "clinical",
+        "healthcare",
+        "医学"
+      ]
+    },
+    {
+      "id": "finance",
+      "axis": "domain",
+      "label": "Finance",
+      "aliases": [
+        "financial",
+        "金融"
+      ]
+    },
+    {
+      "id": "law",
+      "axis": "domain",
+      "label": "Law",
+      "aliases": [
+        "legal",
+        "法律"
+      ]
+    },
+    {
+      "id": "education",
+      "axis": "domain",
+      "label": "Education",
+      "aliases": [
+        "educational",
+        "教学"
+      ]
+    },
+    {
+      "id": "mathematics",
+      "axis": "domain",
+      "label": "Mathematics",
+      "aliases": [
+        "math",
+        "mathematical",
+        "数学"
+      ]
+    },
+    {
+      "id": "physics",
+      "axis": "domain",
+      "label": "Physics",
+      "aliases": [
+        "physical science",
+        "物理"
+      ]
+    },
+    {
+      "id": "materials",
+      "axis": "domain",
+      "label": "Materials science",
+      "aliases": [
+        "materials discovery"
+      ]
+    },
+    {
+      "id": "astronomy",
+      "axis": "domain",
+      "label": "Astronomy",
+      "aliases": [
+        "astrophysics",
+        "astronomical"
+      ]
+    },
+    {
+      "id": "geoscience",
+      "axis": "domain",
+      "label": "Geoscience",
+      "aliases": [
+        "geospatial",
+        "earth science"
+      ]
+    },
+    {
+      "id": "software",
+      "axis": "domain",
+      "label": "Software engineering",
+      "aliases": [
+        "software development",
+        "software",
+        "软件"
+      ]
+    },
+    {
+      "id": "science",
+      "axis": "domain",
+      "label": "Science",
+      "aliases": [
+        "scientific",
+        "科学"
+      ]
+    },
+    {
+      "id": "molecular",
+      "axis": "domain",
+      "label": "Molecular science",
+      "aliases": [
+        "molecular",
+        "molecule",
+        "分子"
+      ]
+    },
+    {
+      "id": "protein",
+      "axis": "domain",
+      "label": "Protein science",
+      "aliases": [
+        "protein",
+        "proteins",
+        "蛋白质"
+      ]
+    },
+    {
+      "id": "rtl-generation",
+      "axis": "task",
+      "label": "RTL generation",
+      "aliases": [
+        "HDL generation"
+      ],
+      "evidencePatterns": [
+        "\\b(?:RTL|Verilog|VHDL|SystemVerilog|HDL)\\s+(?:code\\s+|design\\s+)?generation\\b"
+      ]
+    },
+    {
+      "id": "rtl-debugging",
+      "axis": "task",
+      "label": "RTL debugging",
+      "aliases": [
+        "hardware debugging"
+      ],
+      "evidencePatterns": [
+        "\\b(?:RTL|hardware|Verilog|VHDL)\\s+(?:debugging|bug fixing|repair)\\b"
+      ]
+    },
+    {
+      "id": "hardware-verification",
+      "axis": "task",
+      "label": "Hardware verification",
+      "aliases": [
+        "formal hardware verification"
+      ],
+      "evidencePatterns": [
+        "\\b(?:hardware|RTL|circuit)\\s+verification\\b"
+      ]
+    },
+    {
+      "id": "analog-design",
+      "axis": "task",
+      "label": "Analog circuit design",
+      "aliases": [
+        "analog design"
+      ],
+      "evidencePatterns": [
+        "\\banalog\\s+(?:circuit\\s+)?design\\b"
+      ]
+    },
+    {
+      "id": "physical-design",
+      "axis": "task",
+      "label": "Chip physical design",
+      "aliases": [
+        "placement and routing"
+      ],
+      "evidencePatterns": [
+        "\\b(?:chip|VLSI)\\s+physical design\\b",
+        "\\bplacement and routing\\b"
+      ]
+    },
+    {
+      "id": "code-generation",
+      "axis": "task",
+      "label": "Code generation",
+      "aliases": [
+        "coding",
+        "programming",
+        "code",
+        "编程",
+        "代码"
+      ],
+      "evidencePatterns": [
+        "\\bcode generation\\b",
+        "\\b(?:programming|coding)\\s+(?:tasks|problems|challenges|benchmark)\\b",
+        "\\bsoftware development\\b"
+      ]
+    },
+    {
+      "id": "theorem-proving",
+      "axis": "task",
+      "label": "Theorem proving",
+      "aliases": [
+        "formal proof"
+      ]
+    },
+    {
+      "id": "jailbreak",
+      "axis": "task",
+      "label": "Jailbreak evaluation",
+      "aliases": [
+        "jailbreak",
+        "jailbreaking"
+      ]
+    },
+    {
+      "id": "information-seeking",
+      "axis": "task",
+      "label": "Information seeking",
+      "aliases": [
+        "information retrieval",
+        "web search"
+      ]
+    },
+    {
+      "id": "reproduction",
+      "axis": "task",
+      "label": "Scientific reproduction",
+      "aliases": [
+        "reproduction",
+        "reproduce",
+        "replication",
+        "复现"
+      ]
+    },
+    {
+      "id": "optimization",
+      "axis": "task",
+      "label": "Optimization",
+      "aliases": [
+        "optimisation",
+        "black-box optimization"
+      ]
+    },
+    {
+      "id": "question-answering",
+      "axis": "task",
+      "label": "Question answering",
+      "aliases": [
+        "QA"
+      ],
+      "evidencePatterns": [
+        "\\bquestion answering\\b"
+      ]
+    },
+    {
+      "id": "data-analysis",
+      "axis": "task",
+      "label": "Data analysis",
+      "aliases": [
+        "exploratory data analysis"
+      ]
+    },
+    {
+      "id": "planning",
+      "axis": "task",
+      "label": "Planning",
+      "aliases": [
+        "plan generation"
+      ]
+    },
+    {
+      "id": "image-generation",
+      "axis": "task",
+      "label": "Image generation",
+      "aliases": [
+        "text-to-image"
+      ]
+    },
+    {
+      "id": "image-understanding",
+      "axis": "task",
+      "label": "Image understanding",
+      "aliases": [
+        "image recognition",
+        "computer vision"
+      ]
+    },
+    {
+      "id": "document-understanding",
+      "axis": "task",
+      "label": "Document understanding",
+      "aliases": [
+        "document analysis",
+        "OCR"
+      ]
+    },
+    {
+      "id": "translation",
+      "axis": "task",
+      "label": "Translation",
+      "aliases": [
+        "machine translation"
+      ]
+    },
+    {
+      "id": "tool-use",
+      "axis": "task",
+      "label": "Tool use",
+      "aliases": [
+        "tool calling",
+        "tool invocation",
+        "工具调用"
+      ]
+    },
+    {
+      "id": "gui-operation",
+      "axis": "task",
+      "label": "GUI operation",
+      "aliases": [
+        "computer use",
+        "GUI agents"
+      ]
+    },
+    {
+      "id": "reasoning",
+      "axis": "capability",
+      "label": "Reasoning",
+      "aliases": [
+        "推理"
+      ]
+    },
+    {
+      "id": "long-context",
+      "axis": "capability",
+      "label": "Long context",
+      "aliases": [
+        "长上下文"
+      ]
+    },
+    {
+      "id": "multimodal",
+      "axis": "capability",
+      "label": "Multimodal",
+      "aliases": [
+        "多模态"
+      ]
+    },
+    {
+      "id": "multi-agent",
+      "axis": "capability",
+      "label": "Multi-agent coordination",
+      "aliases": [
+        "multi-agent"
+      ]
+    },
+    {
+      "id": "long-horizon",
+      "axis": "capability",
+      "label": "Long-horizon execution",
+      "aliases": [
+        "long-horizon"
+      ]
+    },
+    {
+      "id": "verilog",
+      "axis": "environment",
+      "label": "Verilog",
+      "aliases": []
+    },
+    {
+      "id": "vhdl",
+      "axis": "environment",
+      "label": "VHDL",
+      "aliases": []
+    },
+    {
+      "id": "systemverilog",
+      "axis": "environment",
+      "label": "SystemVerilog",
+      "aliases": []
+    },
+    {
+      "id": "spice",
+      "axis": "environment",
+      "label": "SPICE",
+      "aliases": [
+        "SPICE simulation"
+      ]
+    },
+    {
+      "id": "browser",
+      "axis": "environment",
+      "label": "Web browser",
+      "aliases": [
+        "browser"
+      ]
+    },
+    {
+      "id": "terminal",
+      "axis": "environment",
+      "label": "Terminal",
+      "aliases": [
+        "command line"
+      ]
+    },
+    {
+      "id": "spreadsheet",
+      "axis": "environment",
+      "label": "Spreadsheet",
+      "aliases": [
+        "spreadsheets"
+      ]
+    },
+    {
+      "id": "sql",
+      "axis": "environment",
+      "label": "SQL",
+      "aliases": []
+    },
+    {
+      "id": "python",
+      "axis": "environment",
+      "label": "Python",
+      "aliases": []
+    }
+  ]
+}

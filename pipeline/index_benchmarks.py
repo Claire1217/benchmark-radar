@@ -1163,6 +1163,9 @@ def index_papers(
             record["candidatePriority"] = "high" if score >= publish_threshold else "normal"
             review.append(record)
 
+    if not dry_run:
+        from evidence_facets import retain_sources
+        retain_sources(review, REVIEW_PATH.parent / "source_evidence.json")
     current = read_json(DATA_PATH)
     previous_latest = str(
         (current.get("manifest") or {}).get("latestReportDate")
