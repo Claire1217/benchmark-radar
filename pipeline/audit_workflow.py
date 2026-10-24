@@ -19,7 +19,7 @@ from urllib.parse import urlparse
 
 from site_views import presentation
 from source_identity import source_key as observation_key
-from generate_editorial_copy import publishable, public_release_ready
+from generate_editorial_copy import publishable, public_release_ready, selection_fingerprint, ADMISSION_POLICY_VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 DECISIONS = {"publish", "defer", "exclude"}
@@ -43,6 +43,7 @@ def reference(row):
 def audit_queue(candidates, decisions, canonical, as_of, namespaced=None):
     """Join exact, namespaced sources; legacy decisions are keyed only by id."""
     known = {source_key(r) for r in canonical if source_key(r)}
+    known_visible = {source_key(r) for r in canonical if source_key(r) and visible(r)}
     namespaces = defaultdict(set)
     for row in [*candidates, *canonical]:
         if key := source_key(row):
@@ -57,8 +58,10 @@ def audit_queue(candidates, decisions, canonical, as_of, namespaced=None):
             state = "missing_source_identity"
         elif scoped is None and len(namespaces[key[1]]) > 1 and stored is not None:
             state = "ambiguous_legacy_decision_key"
+        elif row.get('reviewReason') in {'historical-reassessment','source-changed'} and (stored or {}).get('selectionFingerprint') != selection_fingerprint(row, ADMISSION_POLICY_VERSION):
+            state = 'historical_reassessment_pending' if row['reviewReason']=='historical-reassessment' else 'source_update_review_pending'
         elif key in known:
-            state = "canonical_source_present"
+            state = "canonical_source_present" if key in known_visible else "canonical_source_hidden"
         elif stored is None:
             state = "no_editorial_or_canonical_source"
         elif stored.get("decision") not in DECISIONS:
@@ -174,6 +177,28 @@ def run_browser_probe(root, payload, cases):
         return json.loads(output.stdout)
 
 
+def audit_operations(root):
+    """Read operational ledgers separately from public visibility and editorial truth."""
+    def load(name,default):
+        p=root/'data'/name
+        return json.loads(p.read_text()) if p.exists() else default
+    ledger=load('source_coverage.json',{'windows':{}})
+    windows=list(ledger.get('windows',{}).values())
+    from source_coverage import CONTRACT_VERSION
+    counts=Counter(w.get('status','unknown') if w.get('contractVersion')==CONTRACT_VERSION else 'legacy-unverified' for w in windows)
+    incomplete=[w for w in windows if w.get('status')!='complete' or w.get('contractVersion')!=CONTRACT_VERSION]
+    review=load('review_state.json',{'bySource':{}}).get('bySource',{})
+    migration=load('historical_reconciliation.json',{})
+    return {'discovery':{'windowCount':len(windows),'states':dict(sorted(counts.items())),
+                'oldestUnfinishedFrom':min((w['from'] for w in incomplete),default=None),
+                'scope':'Configured source queries only; completion is not exhaustive domain recall.'},
+            'review':{'attemptedSources':len(review),'states':dict(sorted(Counter(r.get('status','unknown') for r in review.values()).items()))},
+            'reconciliation':{'version':migration.get('migrationVersion'),'cases':migration.get('cases',{}),
+                'hiddenOutcomes':dict(sorted(Counter(r['outcome'] for r in migration.get('hidden',[])).items())),
+                'unresolvedIdentityBindings':len(migration.get('identityReview',[]))},
+            'sourceEvidenceRecords':len(load('source_evidence.json',{'bySource':{}}).get('bySource',{}))}
+
+
 def build_report(root, as_of=None):
     paths = ["data/library_index.json", "data/benchmarks.json", "data/curated_records.json",
              "data/review_queue.json", "data/editorial_copy.json", "data/taxonomy_v5.json", "pipeline/config.json"]
@@ -189,6 +214,12 @@ def build_report(root, as_of=None):
     for p in (policy_path, cases_path, ROOT / "pipeline/site_views.py", ROOT / "pipeline/probe_library_search.cjs", ROOT / "pipeline/generate_editorial_copy.py", Path(__file__)):
         fingerprints["audit:" + str(p.relative_to(ROOT))] = hashlib.sha256(p.read_bytes()).hexdigest()
     fingerprints["receipts"] = hashlib.sha256(json.dumps(receipts, sort_keys=True).encode()).hexdigest()
+    for name in ('source_coverage.json','review_state.json','historical_reconciliation.json','source_evidence.json'):
+        p=root/'data'/name
+        if p.exists():fingerprints['data/'+name]=hashlib.sha256(p.read_bytes()).hexdigest()
+    for name in ('web/search.js','web/search-policy.js'):
+        p=ROOT/name
+        if p.exists():fingerprints['audit:'+name]=hashlib.sha256(p.read_bytes()).hexdigest()
     records = library["records"]
     queue_payload = loaded["data/review_queue.json"]
     queue = audit_queue(queue_payload["candidates"], loaded["data/editorial_copy.json"]["bySourceId"],
@@ -203,7 +234,7 @@ def build_report(root, as_of=None):
                         "searchCasesPassing": sum(x["passes"] for x in probe)},
             "queue": queue, "hidden": audit_hidden(records),
             "coverage": audit_coverage(loaded["data/taxonomy_v5.json"], loaded["pipeline/config.json"], policy),
-            "sourceReceipts": audit_receipts(receipts), "search": probe,
+            "sourceReceipts": audit_receipts(receipts), "operations": audit_operations(root), "search": probe,
             "discoveryCases": audit_discovery_cases(cases["discoveryCases"], records, queue_payload["candidates"], loaded["pipeline/config.json"]),
             "limitations": cases["limitations"]}
 

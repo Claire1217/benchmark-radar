@@ -30,7 +30,7 @@ function prepare(record){
  const fields=Object.fromEntries(Object.entries(raw).map(([k,v])=>[k,{text:normalize(v),tokens:new Set(normalize(v).split(' ').map(stem))}]));
  const result={raw,fields,ids,facts};prepared.set(record,result);return result;
 }
-const conceptForms=new Map(policy.concepts.map(c=>[c.id,[c.label,...(c.aliases||[])].map(normalize).filter(a=>a.length>=2&&a!=='code').map(text=>({text,tokens:text.split(' ').map(stem)}))]));
+const conceptForms=new Map(policy.concepts.map(c=>[c.id,[c.label,...(c.aliases||[])].map(normalize).filter(a=>a.length>3&&a!=='code').map(text=>({text,tokens:text.split(' ').map(stem)}))]));
 function conceptInField(id,field){return (conceptForms.get(id)||[]).some(a=>a.tokens.length>1?(' '+field.text+' ').includes(' '+a.text+' '):a.tokens.every(t=>field.tokens.has(t)));}
 
 function match(record,query){

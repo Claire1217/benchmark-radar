@@ -381,6 +381,8 @@ def selection_fingerprint(record: dict[str, Any], policy_version: str = COPY_POL
         "abstract": (record.get("reviewContext") or {}).get("abstract"),
         "comments": (record.get("reviewContext") or {}).get("comments"),
     }
+    if record.get("reassessmentVersion"):
+        local["reassessmentVersion"] = record["reassessmentVersion"]
     return hashlib.sha256(json.dumps(local, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 

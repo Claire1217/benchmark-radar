@@ -23,6 +23,14 @@ class WorkflowAuditTests(unittest.TestCase):
         self.assertEqual(report['states']['canonical_source_present'], 1)
         self.assertEqual(report['states']['invalid_editorial_decision'], 1)
 
+    def test_existing_hidden_source_does_not_mask_reassessment_debt(self):
+        hidden=row('hidden',displayEligible=False)
+        pending={**hidden,'reviewReason':'historical-reassessment','reassessmentVersion':'v1'}
+        report=audit_queue([pending],{},[hidden],'2026-10-24')
+        self.assertEqual(report['states'],{'historical_reassessment_pending':1})
+        report=audit_queue([hidden],{},[hidden],'2026-10-24')
+        self.assertEqual(report['states'],{'canonical_source_hidden':1})
+
     def test_legacy_decisions_cannot_cross_source_namespaces(self):
         report = audit_queue([row('same', 'github'), row('same', 'openreview')],
                              {'same': {'decision': 'publish'}}, [], '2026-10-24')

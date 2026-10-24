@@ -55,6 +55,18 @@ class SourceIdentityTests(unittest.TestCase):
             self.assertEqual(candidate['reviewReason'],'source-changed')
             self.assertFalse(automatically_publishable(candidate,.85))
 
+    def test_public_update_already_in_queue_still_requires_review(self):
+        public=self.record();incoming=self.record(updated='2026-10-23')
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);canonical=root/'canonical.json';queue=root/'queue.json'
+            canonical.write_text(json.dumps({'records':[public]}));queue.write_text(json.dumps({'candidates':[public]}))
+            with patch.object(index,'DATA_PATH',canonical),patch.object(index,'curated_records',return_value=[]), patch.object(discovery,'REVIEW_PATH',queue):
+                discovery.merge_review_queue([incoming],'2026-10-24','2026-10-22',{})
+            [candidate]=json.loads(queue.read_text())['candidates']
+            self.assertEqual(candidate['reviewReason'],'source-changed')
+            self.assertFalse(automatically_publishable(candidate,.85))
+            self.assertEqual(candidate['releasedAt'],public['releasedAt'])
+
     def test_known_source_refresh_rotates_past_failure_and_preserves_last_evidence(self):
         rows=[self.record(identifier='1'),self.record(identifier='2')]
         state={};queued=[]

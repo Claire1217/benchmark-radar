@@ -66,7 +66,7 @@ def fetch_observation(record: dict) -> dict:
     return merge_observation(record, observation)
 
 
-def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit: int = 60, max_seconds: int = 180, observe=None) -> dict:
+def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit: int = 60, max_seconds: int = 180, observe=None, request_delay: float = 0) -> dict:
     started = time.monotonic()
     by_source = state.setdefault('bySource', {})
     eligible = [r for r in records if (r.get('source') or {}).get('type') in SUPPORTED
@@ -96,6 +96,8 @@ def refresh(records: list[dict], state: dict, fetch, persist, *, now: str, limit
             by_source[key] = {**old, 'checkedAt': now, 'status': 'source-unavailable', 'error': type(error).__name__}
             stats['failed'] += 1
         stats['checked'] += 1
+        if request_delay and (record.get('source') or {}).get('type') == 'arxiv':
+            time.sleep(request_delay)
     return stats
 
 
@@ -123,7 +125,7 @@ def main() -> None:
         payload.setdefault('sourceDate', target)
         save(discovery.REVIEW_PATH, payload)
     from evidence_facets import retain_sources
-    stats = refresh(records, state, fetch_observation, persist, now=now, limit=args.limit, max_seconds=args.max_seconds,
+    stats = refresh(records, state, fetch_observation, persist, now=now, limit=args.limit, max_seconds=args.max_seconds, request_delay=3,
                     observe=lambda row: retain_sources([row], discovery.REVIEW_PATH.parent / "source_evidence.json"))
     save(STATE_PATH, state)
     print(json.dumps(stats))

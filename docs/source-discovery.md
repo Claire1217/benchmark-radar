@@ -62,3 +62,18 @@ never delete valid records merely to roll back collection configuration.
 
 These probes exercise live source collection and the production recognizer. They
 do not publish records, establish exhaustive recall, or verify artifact quality.
+
+## Correct date semantics and fair recovery
+
+Issue #24 supersedes the initial OAI-backed probes above. OAI `from`/`until`
+filter metadata modification dates, not submission dates; a later administrative
+update can move an old submission outside that query. The authoritative
+first-release path now uses Atom `submittedDate`, with no OAI fallback presented
+as equivalent coverage. [arXiv documents this distinction](https://info.arxiv.org/help/oa/index.html#datestamps).
+
+Coverage contract v2 and backfill checkpoint v3 invalidate older completion marks.
+Malformed XML and transport failures remain retryable scope failures. Recent and
+historical work alternate so a large backfill cannot consume every daily slot.
+Requests are paced at three seconds. SGAnalog was subsequently retrieved by its
+primary source ID; its initial negative OAI probe was not an exclusion decision.
+See `docs/historical-reconciliation.md` for the applied migration and remaining debt.

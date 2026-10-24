@@ -27,10 +27,10 @@ def oai(count, token=""):
                          + '</ListRecords></OAI-PMH>')
 
 
-def atom(count, total=None):
+def atom(count, total=None, start=0):
     total_xml = '' if total is None else f'<os:totalResults>{total}</os:totalResults>'
     return ('<feed xmlns="http://www.w3.org/2005/Atom" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">'
-            + total_xml + '<entry/>' * count + '</feed>').encode()
+            + total_xml + ''.join(f'<entry><id>paper-{i}</id></entry>' for i in range(start,start+count)) + '</feed>').encode()
 
 
 class HarvestCompletenessTests(unittest.TestCase):
@@ -38,19 +38,19 @@ class HarvestCompletenessTests(unittest.TestCase):
         with patch.object(index, 'request_oai', return_value=oai(2)), \
              patch.object(index, 'parse_paper', side_effect=[paper('1'), paper('2')]):
             with self.assertRaises(index.IncompleteHarvestError):
-                index.fetch_for_range('2026-07-01', '2026-07-01', config())
+                index.fetch_for_range_oai('2026-07-01', '2026-07-01', config())
 
     def test_exact_limit_still_checks_next_category_and_deduplicates_crosslists(self):
         with patch.object(index, 'request_oai', side_effect=[oai(1), oai(1)]) as request, \
              patch.object(index, 'parse_paper', return_value=paper('1')):
-            rows = index.fetch_for_range('2026-07-01', '2026-07-01', config(categories=['cs.AI', 'cs.CL']))
+            rows = index.fetch_for_range_oai('2026-07-01', '2026-07-01', config(categories=['cs.AI', 'cs.CL']))
         self.assertEqual(len(rows), 1)
         self.assertEqual(request.call_count, 2)
 
     def test_oai_repeated_token_cannot_hang_or_certify_completion(self):
         with patch.object(index, 'request_oai', side_effect=[oai(0, 'again'), oai(0, 'again')]):
             with self.assertRaisesRegex(index.IncompleteHarvestError, 'token'):
-                index.fetch_for_range('2026-07-01', '2026-07-01', config())
+                index.fetch_for_range_oai('2026-07-01', '2026-07-01', config())
 
     def atom_fetch(self, pages, papers, limit=1):
         with patch.object(index, 'urlopen', side_effect=[BytesIO(p) for p in pages]), \
@@ -72,6 +72,16 @@ class HarvestCompletenessTests(unittest.TestCase):
     def test_atom_missing_total_does_not_imply_last_page(self):
         with self.assertRaisesRegex(index.IncompleteHarvestError, 'totalResults'):
             self.atom_fetch([atom(0)], [])
+
+    def test_atom_repeated_entries_are_not_complete_pagination(self):
+        with self.assertRaisesRegex(index.IncompleteHarvestError, 'repeated'):
+            self.atom_fetch([atom(1, 2), atom(1, 2)], [paper('1'), paper('1')], limit=10)
+
+    def test_atom_changed_total_or_unusable_metadata_is_retryable(self):
+        with self.assertRaisesRegex(index.IncompleteHarvestError, 'total changed'):
+            self.atom_fetch([atom(1, 2), atom(1, 3, start=1)], [paper('1'), paper('2')], limit=10)
+        with self.assertRaisesRegex(index.IncompleteHarvestError, 'publication metadata'):
+            self.atom_fetch([atom(1, 1)], [None])
 
     def test_old_checkpoint_hash_is_not_a_completion_certificate(self):
         with tempfile.TemporaryDirectory() as temporary:
