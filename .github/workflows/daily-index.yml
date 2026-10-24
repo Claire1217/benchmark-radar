@@ -82,7 +82,7 @@ jobs:
         if: ${{ inputs.metrics_only != true }}
         run: python pipeline/auto_admit_candidates.py
 
-      - name: Review the latest four release days
+      - name: Review new candidates and the oldest pending backlog
         if: ${{ inputs.metrics_only != true }}
         id: editorial-review
         continue-on-error: true
@@ -101,7 +101,7 @@ jobs:
             echo "DEEPSEEK_API_KEY is not configured; deterministic admission already completed."
           else
             target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
-            python pipeline/generate_editorial_copy.py --review-queue --released-from "$RECENT_START" --released-through "$target" --limit 0 --batch-size 8
+            python pipeline/generate_editorial_copy.py --review-queue --released-through "$target" --limit 48 --batch-size 8
           fi
 
       - name: Review requested source IDs immediately
@@ -135,7 +135,7 @@ jobs:
         run: |
           if [ -n "$DEEPSEEK_API_KEY" ]; then
             target="${REQUESTED_DATE:-${INDEXED_DATE:-$SCHEDULED_DATE}}"
-            python pipeline/generate_editorial_copy.py --review-public --released-from "$RECENT_START" --released-through "$target" --limit 0 --batch-size 8
+            python pipeline/forecast_attention.py --released-from "$RECENT_START" --released-through "$target" --limit 24
           fi
 
       - name: Audit published canonical names
@@ -237,6 +237,9 @@ jobs:
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/review_queue.json data/runs data/metrics data/publication data/trends_topics.json data/research_topic_audit.json
+          for output in data/review_state.json data/attention_forecasts.json; do
+            if [ -f "$output" ]; then git add "$output"; fi
+          done
           # Include every tracked data output produced by generation, including new views.
           git add -u -- data README.md AWESOME_BENCHMARKS.md
           if git diff --cached --quiet; then

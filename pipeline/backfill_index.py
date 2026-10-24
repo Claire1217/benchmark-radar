@@ -63,6 +63,7 @@ def checkpoint_payload(
     serialized = [asdict(paper) for paper in papers]
     return {
         "manifest": {
+            "harvestContractVersion": 2,
             "category": category,
             "sourceWindow": {"from": start_date, "to": end_date},
             "paperCount": len(serialized),
@@ -80,6 +81,10 @@ def load_checkpoint(
         payload = json.loads(path.read_text(encoding="utf-8"))
         manifest = payload["manifest"]
         serialized = payload["papers"]
+        # Older collectors could silently truncate at max_papers. A valid hash
+        # certifies the cached bytes, not that the source window was complete.
+        if manifest.get("harvestContractVersion") != 2:
+            return None
         if manifest.get("category") != category:
             return None
         if manifest.get("sourceWindow") != {"from": start_date, "to": end_date}:

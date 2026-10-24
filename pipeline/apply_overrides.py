@@ -2,9 +2,10 @@
 """Reapply reviewed source overrides and generated editorial copy."""
 
 from pathlib import Path
+from forecast_attention import OUTPUT_PATH as FORECAST_PATH, apply_forecasts
 import re
 
-from generate_editorial_copy import publisher_identity_is_distinct
+from generate_editorial_copy import publisher_identity_is_distinct, publishable
 from index_benchmarks import DATA_PATH, apply_curated_overrides, curated_records, read_json, upsert, write_json
 
 
@@ -41,7 +42,7 @@ def apply_editorial_copy(records: list[dict]) -> list[dict]:
     for record in records:
         source_id = str(record.get("source", {}).get("id", ""))
         copy = copies.get(source_id)
-        if not copy:
+        if not copy or not publishable(copy):
             continue
         if copy.get("canonicalName"):
             record["name"] = copy["canonicalName"]
@@ -74,6 +75,8 @@ def main() -> None:
             upsert(payload.get("records", []), curated_records_without_derived_attention())
         )
     )
+    if FORECAST_PATH.exists():
+        apply_forecasts(records, read_json(FORECAST_PATH))
     for record in records:
         restore_official_heading_name(record)
         record["capabilities"] = [
