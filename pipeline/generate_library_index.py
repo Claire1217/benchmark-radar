@@ -231,18 +231,18 @@ def main() -> None:
     classic_records = [public_classic(record, classics) for record in classics.get("records", [])]
     by_id = {record["id"]: record for record in recent_records}
     by_id.update({record["id"]: record for record in classic_records})
-    identities: dict[str, dict] = {}
-    for item in by_id.values():
-        for name in [item.get("name", ""), *(item.get("aliases") or [])]:
-            if normalized := normalized_name(name):
-                identities.setdefault(normalized, item)
+    binding_path = ROOT / "data" / "catalog_identity_bindings.json"
+    bindings = json.loads(binding_path.read_text()).get("bindings", {}) if binding_path.exists() else {}
     catalog_only = 0
     catalog_merged = 0
-    # Catalog rows absorbed by a same-named record keep a pointer, so reviewed
-    # evidence keyed to the catalog id still reaches the surviving record.
+    # Preserve explicit legacy bindings and reviewed decisions. New same-name
+    # catalog rows do not automatically inherit another benchmark's identity.
     catalog_redirects: dict[str, str] = {}
     for source in catalogs.get("records", []):
-        existing = next((identities[key] for name in [source["name"], *source.get("aliases", [])] if (key := normalized_name(name)) in identities), None)
+        binding = bindings.get(source["id"], {})
+        existing = by_id.get(binding.get("targetId"))
+        if binding and existing is None:
+            raise ValueError(f"Catalog identity binding target missing: {source['id']}")
         if existing:
             existing["catalogSources"] = list({(ref["catalog"], ref.get("sourceId") or ref["url"]): ref for ref in [*existing.get("catalogSources", []), *source.get("sourceRecords", [])]}.values())
             existing["catalogCategories"] = source.get("categories", [])
@@ -254,7 +254,6 @@ def main() -> None:
             continue
         item = public_catalog(source, catalogs.get("retrievedAt", date.today().isoformat()))
         by_id[item["id"]] = item
-        identities[source["normalizedName"]] = item
         catalog_only += 1
     records = sorted(by_id.values(), key=lambda item: (item.get("name", "").casefold(), item["id"]))
     identity_path = ROOT / "data" / "library_identity_merges.json"

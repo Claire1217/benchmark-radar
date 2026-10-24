@@ -19,6 +19,7 @@ from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
 import review_scheduler
+from source_identity import merge_observation, source_key, editorial_decision
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -428,7 +429,10 @@ def review_batch(
 
 
 def repeatedly_invalid(existing: dict[str, Any], source_id: str, fingerprint: str) -> bool:
-    attempt = existing.get("invalidOutput", {}).get(source_id) or {}
+    attempt = existing.get("invalidOutput", {}).get(source_id)
+    if attempt is None and source_id.startswith(("arxiv:", "unknown:")):
+        attempt = existing.get("invalidOutput", {}).get(source_id.split(":", 1)[1])
+    attempt = attempt or {}
     return attempt.get("selectionFingerprint") == fingerprint and attempt.get("attempts", 0) >= MAX_INVALID_ATTEMPTS
 
 
@@ -478,12 +482,18 @@ def upsert_curated(
     *, audit_existing: bool = False, allow_unpublish: bool = False,
 ) -> int:
     payload = read_json(CURATED_PATH) if CURATED_PATH.exists() else {"schemaVersion": "1.0", "records": []}
-    by_source = {str((record.get("source") or {}).get("id") or ""): record for record in payload.get("records", [])}
-    candidate_by_source = {str((record.get("source") or {}).get("id") or ""): record for record in candidates}
+    by_source = {source_key(record): record for record in payload.get("records", [])}
+    candidate_by_source = {source_key(record): record for record in candidates}
     published = 0
     for decision in decisions:
+        source_id = decision["sourceId"]
+        if source_id not in candidate_by_source:
+            matches = [key for key, record in candidate_by_source.items()
+                       if str((record.get("source") or {}).get("id") or "") == source_id]
+            if len(matches) != 1:
+                raise ValueError("Ambiguous or missing candidate source identity")
+            source_id = matches[0]
         if not publishable(decision):
-            source_id = decision["sourceId"]
             if (audit_existing and allow_unpublish and decision.get("decision") == "exclude"
                     and decision.get("exclusionEvidenceVerified") is True and source_id in candidate_by_source):
                 record = by_source.get(source_id) or candidate_record(candidate_by_source[source_id])
@@ -498,11 +508,11 @@ def upsert_curated(
                 }
                 by_source[source_id] = record
             continue
-        source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
         if not public_release_ready(source, decision):
             continue
-        record = {**candidate_record(source), **by_source.get(source_id, {})}
+        previous = by_source.get(source_id)
+        record = merge_observation(previous, candidate_record(source)) if previous else candidate_record(source)
         old_name = str(record.get("name") or "").strip()
         record["name"] = decision["canonicalName"]
         if old_name and old_name.casefold() != record["name"].casefold():
@@ -566,7 +576,7 @@ def main() -> None:
     requested = {item.strip() for item in (args.ids or "").split(",") if item.strip()}
     records = [
         record for record in payload.get("candidates" if args.review_queue else "records", [])
-        if (not requested or str(record["source"]["id"]) in requested)
+        if (not requested or source_key(record) in requested or str(record["source"]["id"]) in requested)
         and (not args.released_on or record.get("releasedAt") == args.released_on)
         and (not args.released_from or record.get("releasedAt", "") >= args.released_from)
         and (not args.released_through or record.get("releasedAt", "") <= args.released_through)
@@ -575,8 +585,8 @@ def main() -> None:
     ]
     policy_version = ADMISSION_POLICY_VERSION if args.review_queue or args.review_curated or args.review_public else COPY_POLICY_VERSION
     def needs_review(record: dict[str, Any]) -> bool:
-        source_id = str(record["source"]["id"])
-        stored = existing.get("bySourceId", {}).get(source_id, {})
+        source_id = source_key(record)
+        stored = editorial_decision(existing, record)
         fingerprint = selection_fingerprint(record, policy_version)
         if repeatedly_invalid(existing, source_id, fingerprint) and not requested:
             return False
@@ -590,7 +600,7 @@ def main() -> None:
         return changed or due
 
     held_back = sum(
-        repeatedly_invalid(existing, str(record["source"]["id"]), selection_fingerprint(record, policy_version))
+        repeatedly_invalid(existing, source_key(record), selection_fingerprint(record, policy_version))
         for record in records
     ) if not requested else 0
     if held_back:
@@ -600,10 +610,10 @@ def main() -> None:
     if not records:
         print("editorial_copy_candidates=0")
         return
-    source_ids = [str(record["source"]["id"]) for record in records]
-    source_records = {str(record["source"]["id"]): record for record in records}
+    source_ids = [source_key(record) for record in records]
+    source_records = {source_key(record): record for record in records}
     abstracts = {
-        str((record.get("source") or {}).get("id")): str((record.get("reviewContext") or {}).get("abstract") or "")
+        source_key(record): str((record.get("reviewContext") or {}).get("abstract") or "")
         for record in records
     }
     missing = [
@@ -612,11 +622,11 @@ def main() -> None:
         and source_records[source_id].get("source", {}).get("type") == "arxiv"
     ]
     if missing:
-        abstracts.update(fetch_abstracts(missing))
+        abstracts.update({"arxiv:" + key: value for key, value in fetch_abstracts([key.removeprefix("arxiv:") for key in missing]).items()})
     source_rows = []
     missing_source_ids: list[str] = []
     for record in records:
-        source_id = str(record["source"]["id"])
+        source_id = source_key(record)
         abstract = abstracts.get(source_id)
         if not abstract:
             fallback = str(((record.get("evidence") or {}).get("snippet")) or "").strip()
@@ -660,7 +670,7 @@ def main() -> None:
     generated: list[dict[str, Any]] = []
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     source_by_id = {item["sourceId"]: item for item in source_rows}
-    record_by_id = {str(record["source"]["id"]): record for record in records}
+    record_by_id = {source_key(record): record for record in records}
     published = 0
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
@@ -690,7 +700,7 @@ def main() -> None:
                                             selection_fingerprint(record, policy_version), row["decisionReason"])
             existing.get("invalidOutput", {}).pop(row["sourceId"], None)
             source = source_by_id[row["sourceId"]]
-            existing["bySourceId"][row["sourceId"]] = {
+            existing.setdefault("bySourceKey", {})[row["sourceId"]] = {
                 "evaluationEvidence": row.get("evaluationEvidence", {}),
                 "evaluationEvidenceVerified": row.get("evaluationEvidenceVerified", False),
                 "decision": row["decision"],

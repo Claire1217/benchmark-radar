@@ -81,13 +81,15 @@ def build_payload(benchlm_body: bytes, llm_stats_body: bytes, retrieved_at: str)
         raise ValueError(f"llm-stats catalog is unexpectedly small: {len(llm_stats_rows)} rows")
     grouped: dict[str, dict] = {}
 
-    def group(name: str) -> dict:
-        key = normalized_name(name)
+    def group(name: str, catalog: str, source_id: str) -> dict:
+        if not source_id:
+            raise ValueError(f"Missing source identity in {catalog}")
+        key = catalog + ":" + source_id
         if not key:
             key = "unnamed-" + hashlib.sha256(name.encode()).hexdigest()[:12]
         return grouped.setdefault(key, {
             "id": "catalog_" + hashlib.sha256(key.encode()).hexdigest()[:16],
-            "normalizedName": key,
+            "normalizedName": normalized_name(name),
             "name": name.strip() or "Unnamed benchmark",
             "description": "",
             "categories": [],
@@ -98,7 +100,7 @@ def build_payload(benchlm_body: bytes, llm_stats_body: bytes, retrieved_at: str)
         })
 
     for row in benchlm_rows:
-        item = group(str(row.get("name") or row.get("fullName") or row.get("benchmarkKey") or ""))
+        item = group(str(row.get("name") or row.get("fullName") or row.get("benchmarkKey") or ""), "benchlm", str(row.get("benchmarkKey") or ""))
         if not item["description"] and row.get("description"):
             item["description"] = row["description"]
         item["categories"] = list(dict.fromkeys(item["categories"] + [str(row.get("category") or "").replace("_", " ")]))
@@ -115,7 +117,7 @@ def build_payload(benchlm_body: bytes, llm_stats_body: bytes, retrieved_at: str)
         })
 
     for row in llm_stats_rows:
-        item = group(str(row.get("name") or row.get("benchmark_id") or ""))
+        item = group(str(row.get("name") or row.get("benchmark_id") or ""), "llm-stats", str(row.get("benchmark_id") or ""))
         if row.get("description"):
             item["description"] = row["description"]
         item["categories"] = list(dict.fromkeys(item["categories"] + [str(value).replace("_", " ") for value in row.get("categories", []) if value]))
@@ -171,22 +173,31 @@ def merge_payloads(fresh: dict, previous: dict, supplemental: dict) -> dict:
         row = copy.deepcopy(row)
         row["normalizedName"] = normalized_name(row["name"])
         row.setdefault("firstSeenAt", previous.get("retrievedAt", "")[:10])
-        grouped[row["normalizedName"]] = row
+        grouped[row["id"]] = row
         for ref in refs(row):
             by_source[ref] = row
     for batch in (fresh, supplemental):
         for incoming in batch.get("records", []):
             incoming = copy.deepcopy(incoming)
             key = normalized_name(incoming["name"])
-            existing = grouped.get(key)
-            if existing is None:
-                existing = next((by_source[ref] for ref in refs(incoming) if ref in by_source), None)
+            matches = {by_source[ref]["id"] for ref in refs(incoming) if ref in by_source}
+            if len(matches) > 1:
+                raise ValueError("Catalog source references map to multiple existing identities")
+            existing = grouped[next(iter(matches))] if matches else None
             if existing is None:
                 existing = incoming
                 existing["normalizedName"] = key
                 existing.setdefault("firstSeenAt", batch.get("retrievedAt", fresh["retrievedAt"])[:10])
-                grouped[key] = existing
+                if existing["id"] in grouped:
+                    # Legacy name-derived IDs may collide across distinct sources.
+                    namespace = json.dumps(refs(incoming), sort_keys=True)
+                    existing["id"] = "catalog_" + hashlib.sha256(namespace.encode()).hexdigest()[:16]
+                grouped[existing["id"]] = existing
             else:
+                incoming_stamp = max((str(r.get("updatedAt") or "") for r in incoming.get("sourceRecords", [])), default="") or batch.get("retrievedAt", "")
+                previous_stamp = max((str(r.get("updatedAt") or "") for r in existing.get("sourceRecords", [])), default="") or existing.get("sourceObservedAt", "")
+                if incoming_stamp and previous_stamp and incoming_stamp < previous_stamp:
+                    continue
                 old_name = existing["name"]
                 all_refs = {(r["catalog"], r.get("sourceId") or r["url"]): r for r in existing.get("sourceRecords", [])}
                 all_refs.update({(r["catalog"], r.get("sourceId") or r["url"]): r for r in incoming.get("sourceRecords", [])})
@@ -194,10 +205,13 @@ def merge_payloads(fresh: dict, previous: dict, supplemental: dict) -> dict:
                 existing["aliases"] = sorted(set(existing.get("aliases", []) + incoming.get("aliases", []) + ([incoming["name"]] if incoming["name"] != old_name else [])))
                 existing["categories"] = sorted(set(existing.get("categories", []) + incoming.get("categories", [])))
                 for field in ("description", "modality", "releasedAt", "releaseEvidenceUrl", "links"):
+                    if field == "releasedAt" and existing.get("releasedAt"):
+                        continue
                     if incoming.get(field) and not (field == "description" and "task scope requires original-source review" in incoming[field] and existing.get(field)):
                         existing[field] = incoming[field]
                 for field in ("modelCount", "starCount"):
                     existing[field] = max(existing.get(field, 0), incoming.get(field, 0))
+            existing["sourceObservedAt"] = max(existing.get("sourceObservedAt", ""), batch.get("retrievedAt", fresh["retrievedAt"]))
             for ref in refs(existing):
                 by_source[ref] = existing
     for row in grouped.values():

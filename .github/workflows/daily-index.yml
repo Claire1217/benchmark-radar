@@ -78,6 +78,14 @@ jobs:
         if: ${{ inputs.metrics_only != true && steps.discovery.outcome == 'failure' }}
         run: echo "::warning::Unified discovery failed; continuing with the last validated index so publication and attention data still refresh."
 
+      - name: Refresh source evidence independently of publication date
+        if: ${{ inputs.metrics_only != true }}
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENREVIEW_TOKEN: ${{ secrets.OPENREVIEW_TOKEN }}
+        run: python pipeline/refresh_source_observations.py --limit 60 --max-seconds 180
+
       - name: Automatically admit high-confidence benchmark releases
         if: ${{ inputs.metrics_only != true }}
         run: python pipeline/auto_admit_candidates.py
@@ -237,7 +245,7 @@ jobs:
           git config user.name "benchmark-radar-bot"
           git config user.email "benchmark-radar-bot@users.noreply.github.com"
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/review_queue.json data/runs data/metrics data/publication data/trends_topics.json data/research_topic_audit.json
-          for output in data/review_state.json data/attention_forecasts.json data/source_coverage.json; do
+          for output in data/review_state.json data/attention_forecasts.json data/source_coverage.json data/source_refresh_state.json; do
             if [ -f "$output" ]; then git add "$output"; fi
           done
           # Include every tracked data output produced by generation, including new views.

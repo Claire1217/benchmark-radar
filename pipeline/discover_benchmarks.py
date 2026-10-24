@@ -18,6 +18,7 @@ from urllib.request import Request, urlopen
 
 import index_benchmarks as arxiv
 import source_coverage
+from source_identity import source_key, merge_observation, newer_than_public
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -382,21 +383,15 @@ def name_key(record: dict[str, Any]) -> str:
 
 
 def same_identity(left: dict[str, Any], right: dict[str, Any]) -> bool:
-    if str((left.get("source") or {}).get("id")) == str((right.get("source") or {}).get("id")):
-        return True
-    if identity_urls(left) & identity_urls(right):
-        return True
-    return bool(name_key(left) and name_key(left) == name_key(right))
+    # A shared name/report/repository may describe different benchmark entities.
+    # Cross-source merges require an explicit reviewed binding downstream.
+    return bool(source_key(left) and source_key(left) == source_key(right))
 
 
 def merge_candidate(target: dict[str, Any], source: dict[str, Any]) -> None:
-    for key, value in (source.get("links") or {}).items():
-        if value and not (target.get("links") or {}).get(key):
-            target.setdefault("links", {})[key] = value
-    seen = {(item.get("type"), item.get("id")) for item in target.get("discoverySources", [])}
-    for item in source.get("discoverySources", []):
-        if (item.get("type"), item.get("id")) not in seen:
-            target.setdefault("discoverySources", []).append(item)
+    merged = merge_observation(target, source)
+    target.clear()
+    target.update(merged)
 
 
 def merge_review_queue(
@@ -414,9 +409,13 @@ def merge_review_queue(
             merge_candidate(match, record)
             duplicates += 1
             continue
-        if any(same_identity(item, record) for item in known):
-            duplicates += 1
-            continue
+        published = next((item for item in known if same_identity(item, record)), None)
+        if published:
+            if not newer_than_public(record, published):
+                duplicates += 1
+                continue
+            record = merge_observation(published, record)
+            record['reviewReason'] = 'source-changed'
         candidates.append(record)
         added += 1
     candidates.sort(key=lambda item: (item.get("releasedAt", ""), item.get("id", "")), reverse=True)
