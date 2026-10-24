@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "1.0",
+  "limitations": "Developer-authored diagnostic pilot across six research areas. Desired results are not publication approvals. This does not measure exhaustive recall, ranking, global source coverage or held-out generalization. Known failures remain visible; no runtime search special cases are added.",
+  "searchCases": [
+    {
+      "id": "chip-domain",
+      "query": "chip design",
+      "expectedIds": [
+        "bm_analog-design-bench_8213864b",
+        "bm_parasgb_cd57a968",
+        "bm_vhdl-repobench_0a758628",
+        "bm_agenticbbo-bench_7edbb260"
+      ],
+      "forbiddenIds": [],
+      "basis": "Domain intent; the last item contains a chip-design subset. Known diagnostic examples, not exhaustive relevance judgments.",
+      "sourceUrls": [
+        "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench",
+        "https://arxiv.org/abs/2607.23225",
+        "https://arxiv.org/abs/2610.05380",
+        "https://arxiv.org/abs/2610.12183"
+      ]
+    },
+    {
+      "id": "chip-typo",
+      "query": "chip deisgn",
+      "expectedIds": [
+        "bm_analog-design-bench_8213864b"
+      ],
+      "forbiddenIds": [],
+      "basis": "Same domain intent with an adjacent-letter typo.",
+      "sourceUrls": [
+        "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench"
+      ]
+    },
+    {
+      "id": "chip-circuit",
+      "query": "circuit design",
+      "expectedIds": [
+        "bm_analog-design-bench_8213864b",
+        "bm_parasgb_cd57a968"
+      ],
+      "forbiddenIds": [],
+      "basis": "Both task descriptions concern circuit designs.",
+      "sourceUrls": [
+        "https://huggingface.co/datasets/Arcadia-2026/analog-design-bench",
+        "https://arxiv.org/abs/2607.23225"
+      ]
+    },
+    {
+      "id": "eda-substring-negative",
+      "query": "EDA",
+      "expectedIds": [],
+      "forbiddenIds": [
+        "bm_redact_293a3dff",
+        "catalog_f2cd2cd1dba2707b"
+      ],
+      "basis": "An acronym must not match arbitrary character substrings.",
+      "sourceUrls": []
+    },
+    {
+      "id": "verilog-identity",
+      "query": "VerilogEval",
+      "expectedIds": [
+        "catalog_32f0e71e1e88bf69"
+      ],
+      "forbiddenIds": [],
+      "basis": "Exact identity control.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2309.07544"
+      ]
+    },
+    {
+      "id": "vhdl-identity",
+      "query": "VHDL-REPOBENCH",
+      "expectedIds": [
+        "bm_vhdl-repobench_0a758628"
+      ],
+      "forbiddenIds": [],
+      "basis": "Exact identity control.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2610.05380"
+      ]
+    },
+    {
+      "id": "audio-intent",
+      "query": "audio reasoning",
+      "expectedIds": [
+        "catalog_58bca2a148fba12e"
+      ],
+      "forbiddenIds": [],
+      "basis": "Stored description explicitly identifies audio understanding and reasoning.",
+      "sourceUrls": [
+        "https://llm-stats.com/benchmarks/mmau",
+        "https://arxiv.org/abs/2410.19168"
+      ]
+    },
+    {
+      "id": "speech-intent",
+      "query": "speech recognition",
+      "expectedIds": [
+        "catalog_a23faa7dfe648a78"
+      ],
+      "forbiddenIds": [],
+      "basis": "Stored description identifies speech recognition tasks.",
+      "sourceUrls": [
+        "https://llm-stats.com/benchmarks/fleurs",
+        "https://arxiv.org/abs/2205.12446"
+      ]
+    },
+    {
+      "id": "security-intent",
+      "query": "vulnerability discovery",
+      "expectedIds": [
+        "catalog_d269420d62ea46a3"
+      ],
+      "forbiddenIds": [],
+      "basis": "Stored task description identifies vulnerability discovery and exploitation.",
+      "sourceUrls": [
+        "https://www.cybergym.io/",
+        "https://arxiv.org/abs/2506.02548"
+      ]
+    },
+    {
+      "id": "research-intent",
+      "query": "web research",
+      "expectedIds": [
+        "lib_browsecomp"
+      ],
+      "forbiddenIds": [],
+      "basis": "Reviewed task description identifies persistent web research.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2504.12516",
+        "https://openai.com/index/browsecomp/"
+      ]
+    },
+    {
+      "id": "math-intent",
+      "query": "mathematics",
+      "expectedIds": [
+        "catalog_2f5bfab07dfbb484"
+      ],
+      "forbiddenIds": [],
+      "basis": "Stored task description identifies unpublished mathematics problems.",
+      "sourceUrls": [
+        "https://llm-stats.com/benchmarks/frontiermath",
+        "https://arxiv.org/abs/2411.04872"
+      ]
+    },
+    {
+      "id": "game-intent",
+      "query": "multiplayer games",
+      "expectedIds": [
+        "lib_textarena"
+      ],
+      "forbiddenIds": [],
+      "basis": "Reviewed task description identifies multiplayer games.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2504.11442",
+        "https://github.com/LeonGuertler/TextArena",
+        "https://github.com/LeonGuertler/TextArena/tree/main/textarena"
+      ]
+    },
+    {
+      "id": "privacy-intent",
+      "query": "PII detection",
+      "expectedIds": [
+        "bm_redact_293a3dff"
+      ],
+      "forbiddenIds": [],
+      "basis": "Stored task description identifies PII detection.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2606.19881"
+      ]
+    },
+    {
+      "id": "hidden-veribug",
+      "query": "VeriBugBench",
+      "expectedIds": [
+        "bm_veribugbench-an-empirically-grounded-frame_9ddf8887"
+      ],
+      "forbiddenIds": [],
+      "basis": "Diagnostic desired discoverability for a known hidden item; NOT an instruction to publish without resolving its review.",
+      "sourceUrls": [
+        "https://arxiv.org/abs/2609.18022"
+      ]
+    }
+  ],
+  "discoveryCases": [
+    {
+      "id": "MobileJailBench",
+      "sourceId": "2610.23303",
+      "subjects": [
+        "cs.CR"
+      ],
+      "sourceUrl": "https://arxiv.org/abs/2610.23303"
+    },
+    {
+      "id": "MUSES",
+      "sourceId": "2609.00313",
+      "subjects": [
+        "cs.IR"
+      ],
+      "sourceUrl": "https://arxiv.org/abs/2609.00313"
+    },
+    {
+      "id": "GateTruth",
+      "sourceId": "2608.12635",
+      "subjects": [
+        "cs.AR"
+      ],
+      "sourceUrl": "https://arxiv.org/abs/2608.12635"
+    },
+    {
+      "id": "ChipVerilog",
+      "sourceId": "2607.13079",
+      "subjects": [
+        "cs.AR",
+        "cs.PL"
+      ],
+      "sourceUrl": "https://arxiv.org/abs/2607.13079"
+    },
+    {
+      "id": "SGAnalog",
+      "sourceId": "2610.03934",
+      "subjects": [
+        "cs.AI",
+        "cs.AR"
+      ],
+      "sourceUrl": "https://arxiv.org/abs/2610.03934"
+    }
+  ]
+}

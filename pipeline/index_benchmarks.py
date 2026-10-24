@@ -225,6 +225,10 @@ def request_oai(params: dict[str, str]) -> ET.Element:
     return root
 
 
+class IncompleteHarvestError(RuntimeError):
+    """A bounded fetch cannot certify completion; never publish it as complete."""
+
+
 def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
     settings = config["arxiv"]
     start = date.fromisoformat(start_date)
@@ -235,6 +239,7 @@ def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> l
     seen: set[str] = set()
     papers: list[Paper] = []
     for category in settings["categories"]:
+        seen_tokens: set[str] = set()
         params = {
             "verb": "ListRecords",
             "metadataPrefix": "arXivRaw",
@@ -250,11 +255,14 @@ def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> l
                     continue
                 seen.add(paper.arxiv_id)
                 papers.append(paper)
-                if len(papers) >= int(settings["max_papers"]):
-                    return sorted(papers, key=lambda item: item.arxiv_id)
+                if len(papers) > int(settings["max_papers"]):
+                    raise IncompleteHarvestError("arXiv OAI paper limit exceeded; split the source window")
             token = oai_text(root, ".//oai:resumptionToken")
             if not token:
                 break
+            if token in seen_tokens:
+                raise IncompleteHarvestError("arXiv OAI repeated a pagination token")
+            seen_tokens.add(token)
             params = {"verb": "ListRecords", "resumptionToken": token}
             time.sleep(float(settings["request_delay_seconds"]))
     return sorted(papers, key=lambda item: item.arxiv_id)
@@ -317,13 +325,19 @@ def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any])
             paper = parse_atom_paper(entry)
             if paper is not None and start_date <= paper.released_at <= end_date:
                 papers[paper.arxiv_id] = paper
+                if len(papers) > int(settings["max_papers"]):
+                    raise IncompleteHarvestError("arXiv Atom paper limit exceeded; split the source window")
         total_text = atom_text(root, "opensearch:totalResults")
-        total = int(total_text or len(entries))
+        if not total_text:
+            raise IncompleteHarvestError("arXiv Atom response has no totalResults")
+        total = int(total_text)
         start += len(entries)
-        if not entries or start >= total or len(papers) >= int(settings["max_papers"]):
+        if not entries and start < total:
+            raise IncompleteHarvestError("arXiv Atom pagination stopped before totalResults")
+        if start >= total:
             break
         time.sleep(float(settings["request_delay_seconds"]))
-    return sorted(papers.values(), key=lambda item: item.arxiv_id)[: int(settings["max_papers"])]
+    return sorted(papers.values(), key=lambda item: item.arxiv_id)
 
 
 def first_sentence(text: str, limit: int = 240) -> str:

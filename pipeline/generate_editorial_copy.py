@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 import html
 import json
@@ -18,12 +18,15 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
+import review_scheduler
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data/benchmarks.json"
 REVIEW_PATH = ROOT / "data/review_queue.json"
 CURATED_PATH = ROOT / "data/curated_records.json"
 OUTPUT_PATH = ROOT / "data/editorial_copy.json"
+STATE_PATH = ROOT / "data/review_state.json"
 API_URL = "https://api.deepseek.com/chat/completions"
 DEFAULT_MODEL = "deepseek-v4-flash"
 COPY_POLICY_VERSION = "2026-08-26.2"
@@ -140,6 +143,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
                         },
                         "canonicalNameEvidence": {"type": "string", "maxLength": 240},
                         "decision": {"type": "string", "enum": list(DECISIONS)},
+                        "exclusionEvidence": {"type": "string", "maxLength": 500},
                         "benchmarkMode": {
                             "type": "string",
                             "enum": list(BENCHMARK_MODES),
@@ -209,6 +213,7 @@ def call_deepseek(records: list[dict[str, Any]], model: str, api_key: str) -> li
         "Return canonicalNameSource and a short verbatim canonicalNameEvidence quote proving that exact name. The quote must come from the selected source. "
         "Never turn a paper title, repository slug, dataset slug, task description, or method name into a benchmark name. If no formally declared benchmark name is present, defer rather than inventing one. "
         "For GitHub and Hugging Face discoveries, a slug-shaped discoveredName is only a candidate label; use it only when the README explicitly declares it as the benchmark's name. "
+        "For exclude decisions, exclusionEvidence must quote source text supporting the exclusion; absence of text is never proof of exclusion. "
         "For defer or exclude decisions, canonicalName and canonicalNameEvidence may be empty because no supported formal benchmark name may exist. "
         "For every record, estimate its likely public attention during the first 7 days after release as attentionForecast.score from 0 to 100. "
         "Base this experimental forecast only on the supplied title, abstract, benchmark scope, artifact readiness, topical breadth, and supported publisher evidence. "
@@ -317,6 +322,15 @@ def validate_copy(sources: dict[str, dict[str, Any]], rows: list[dict[str, Any]]
                 if len(quote) < 12 or normalize_evidence(quote) not in normalize_evidence(available):
                     raise ReviewValidationError(f"Unsupported evaluation evidence for {row.get('sourceId')}:{key}")
             row["evaluationEvidenceVerified"] = True
+        exclusion_quote = str(row.get("exclusionEvidence") or "").strip()
+        all_evidence = " ".join([str(source.get("title") or ""), str(source.get("abstract") or ""),
+                                  str(source.get("comments") or ""),
+                                  *(str(item.get("excerpt") or "") for item in source.get("artifactEvidence", [])
+                                    if item.get("status") == "available")])
+        row["exclusionEvidenceVerified"] = bool(
+            row.get("decision") == "exclude" and len(exclusion_quote) >= 20
+            and normalize_evidence(exclusion_quote) in normalize_evidence(all_evidence)
+        )
         row["canonicalName"] = canonical_name
         row["canonicalNameEvidence"] = name_evidence
         forecast = row["attentionForecast"]
@@ -358,6 +372,8 @@ def selection_fingerprint(record: dict[str, Any], policy_version: str = COPY_POL
     local = {
         "policyVersion": policy_version,
         "sourceId": source.get("id"),
+        "sourceType": source.get("type"),
+        "snippet": (record.get("evidence") or {}).get("snippet"),
         "sourceUpdatedAt": source.get("updatedAt") or record.get("sourceUpdatedAt"),
         "title": record.get("paperTitle") or record.get("name"),
         "links": record.get("links") or {},
@@ -367,8 +383,14 @@ def selection_fingerprint(record: dict[str, Any], policy_version: str = COPY_POL
     return hashlib.sha256(json.dumps(local, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
 
+def atomic_write(path: Path, payload: dict[str, Any]) -> None:
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(path)
+
+
 def write_editorial_copy(payload: dict[str, Any]) -> None:
-    OUTPUT_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    atomic_write(OUTPUT_PATH, payload)
 
 
 def review_batch(
@@ -453,7 +475,7 @@ def candidate_record(candidate: dict[str, Any]) -> dict[str, Any]:
 
 def upsert_curated(
     candidates: list[dict[str, Any]], decisions: list[dict[str, Any]], now: str, model: str,
-    *, audit_existing: bool = False,
+    *, audit_existing: bool = False, allow_unpublish: bool = False,
 ) -> int:
     payload = read_json(CURATED_PATH) if CURATED_PATH.exists() else {"schemaVersion": "1.0", "records": []}
     by_source = {str((record.get("source") or {}).get("id") or ""): record for record in payload.get("records", [])}
@@ -462,37 +484,25 @@ def upsert_curated(
     for decision in decisions:
         if not publishable(decision):
             source_id = decision["sourceId"]
-            if audit_existing and source_id in candidate_by_source:
+            if (audit_existing and allow_unpublish and decision.get("decision") == "exclude"
+                    and decision.get("exclusionEvidenceVerified") is True and source_id in candidate_by_source):
                 record = by_source.get(source_id) or candidate_record(candidate_by_source[source_id])
                 record["displayEligible"] = False
                 record["curation"] = {
                     **(record.get("curation") or {}),
-                    "state": "ai-name-audit-deferred",
+                    "state": "ai-admission-excluded",
                     "reviewedAt": now,
                     "model": model,
                     "decisionReason": decision["decisionReason"],
+                    "exclusionEvidence": decision["exclusionEvidence"],
                 }
                 by_source[source_id] = record
             continue
         source_id = decision["sourceId"]
         source = candidate_by_source[source_id]
         if not public_release_ready(source, decision):
-            if audit_existing:
-                record = by_source.get(source_id) or candidate_record(source)
-                record["displayEligible"] = False
-                record["curation"] = {
-                    **(record.get("curation") or {}),
-                    "state": "ai-name-audit-deferred",
-                    "reviewedAt": now,
-                    "model": model,
-                    "decisionReason": (
-                        "The formal benchmark name is source-grounded, but the public release "
-                        "does not yet have verified task, scoring and public reuse evidence."
-                    ),
-                }
-                by_source[source_id] = record
             continue
-        record = candidate_record(source)
+        record = {**candidate_record(source), **by_source.get(source_id, {})}
         old_name = str(record.get("name") or "").strip()
         record["name"] = decision["canonicalName"]
         if old_name and old_name.casefold() != record["name"].casefold():
@@ -519,7 +529,7 @@ def upsert_curated(
         by_source[source_id] = record
         published += 1
     payload["records"] = sorted(by_source.values(), key=lambda item: (item.get("releasedAt", ""), item.get("id", "")), reverse=True)
-    CURATED_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    atomic_write(CURATED_PATH, payload)
     return published
 
 
@@ -534,6 +544,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--review-queue", action="store_true", help="Review queued candidates and publish eligible records")
     parser.add_argument("--review-curated", action="store_true", help="Re-review published records and audit their canonical names")
     parser.add_argument("--review-public", action="store_true", help="Audit public index records and persist reviewed decisions")
+    parser.add_argument("--allow-unpublish", action="store_true", help="Explicit admission audit: allow source-verified exclusion of public records")
     parser.add_argument("--limit", type=int, default=24)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--model", default=os.environ.get("DEEPSEEK_COPY_MODEL", DEFAULT_MODEL))
@@ -545,9 +556,13 @@ def main() -> None:
     args = parse_args()
     if sum((args.review_queue, args.review_curated, args.review_public)) > 1:
         raise RuntimeError("--review-queue, --review-curated, and --review-public are mutually exclusive")
+    if args.allow_unpublish and not (args.review_public or args.review_curated):
+        raise RuntimeError("--allow-unpublish requires an explicit public or curated admission audit")
     payload_path = REVIEW_PATH if args.review_queue else CURATED_PATH if args.review_curated else DATA_PATH
     payload = read_json(payload_path)
     existing = read_json(OUTPUT_PATH) if OUTPUT_PATH.exists() else {"schemaVersion": "1.0", "bySourceId": {}}
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    state = read_json(STATE_PATH) if STATE_PATH.exists() else {"schemaVersion": 1, "bySource": {}}
     requested = {item.strip() for item in (args.ids or "").split(",") if item.strip()}
     records = [
         record for record in payload.get("candidates" if args.review_queue else "records", [])
@@ -566,7 +581,13 @@ def main() -> None:
         if repeatedly_invalid(existing, source_id, fingerprint) and not requested:
             return False
         # Entries stored before decisions were validated can hold an out-of-enum value.
-        return stored.get("selectionFingerprint") != fingerprint or stored.get("decision") not in DECISIONS
+        if requested:
+            return True
+        changed = stored.get("selectionFingerprint") != fingerprint or stored.get("decision") not in DECISIONS
+        # An unchanged defer is revisited periodically; exclude/publish wait for new evidence.
+        due = stored.get("decision") == "defer" and stored.get("generatedAt", "")[:10] < (
+            datetime.now(timezone.utc).date() - timedelta(days=14)).isoformat()
+        return changed or due
 
     held_back = sum(
         repeatedly_invalid(existing, str(record["source"]["id"]), selection_fingerprint(record, policy_version))
@@ -575,8 +596,7 @@ def main() -> None:
     if held_back:
         print(f"editorial_copy_repeatedly_invalid={held_back} skipped_until_source_changes=true")
     records = [record for record in records if needs_review(record)]
-    if args.limit > 0:
-        records = records[:args.limit]
+    records = review_scheduler.select(records, state, limit=args.limit, now=now, force=bool(requested))
     if not records:
         print("editorial_copy_candidates=0")
         return
@@ -619,31 +639,15 @@ def main() -> None:
             ],
         })
     if missing_source_ids:
-        print(f"editorial_copy_missing_source={len(missing_source_ids)} deferred=true")
-        if (args.review_curated or args.review_public) and not args.dry_run:
-            now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-            upsert_curated(
-                records,
-                [
-                    {
-                        "sourceId": source_id,
-                        "decision": "defer",
-                        "decisionReason": (
-                            "The source text needed to prove the formal benchmark name was unavailable "
-                            "during this audit."
-                        ),
-                    }
-                    for source_id in missing_source_ids
-                ],
-                now,
-                args.model,
-                audit_existing=True,
-            )
-    source_rows = [
-        row for row in source_rows
-        if (existing.get("bySourceId", {}).get(row["sourceId"], {}).get("inputHash") != input_hash(row, policy_version))
-        or existing.get("bySourceId", {}).get(row["sourceId"], {}).get("decision") not in DECISIONS
-    ]
+        print(f"editorial_copy_missing_source={len(missing_source_ids)} retryable=true")
+        if not args.dry_run:
+            for source_id in missing_source_ids:
+                record = source_records[source_id]
+                review_scheduler.record_attempt(state, record, "source-unavailable", now,
+                    selection_fingerprint(record, policy_version), "No source text available; publication preserved")
+            atomic_write(STATE_PATH, state)
+    # Selection fingerprints already filter unchanged successful decisions. Do not
+    # filter by inputHash here: due deferred reviews and explicit retries need to run.
     if not source_rows:
         print("deepseek_review_candidates=0 unchanged=true")
         return
@@ -661,20 +665,37 @@ def main() -> None:
     for start in range(0, len(source_rows), max(1, args.batch_size)):
         batch = source_rows[start:start + max(1, args.batch_size)]
         failures: dict[str, str] = {}
-        rows = review_batch(batch, args.model, api_key, failures)
+        try:
+            rows = review_batch(batch, args.model, api_key, failures)
+        except (ProviderError, HTTPError, URLError, TimeoutError):
+            for item in batch:
+                record = record_by_id[item["sourceId"]]
+                review_scheduler.record_attempt(state, record, "provider-unavailable", now,
+                                                selection_fingerprint(record, policy_version))
+            atomic_write(STATE_PATH, state)
+            raise
         generated.extend(rows)
         for source_id, reason in failures.items():
             record_invalid_output(
                 existing, source_id, reason,
                 selection_fingerprint(record_by_id[source_id], policy_version), now,
             )
+        for source_id in failures:
+            record = record_by_id[source_id]
+            review_scheduler.record_attempt(state, record, "invalid-output", now,
+                                            selection_fingerprint(record, policy_version), failures[source_id])
         for row in rows:
+            record = record_by_id[row["sourceId"]]
+            review_scheduler.record_attempt(state, record, row["decision"], now,
+                                            selection_fingerprint(record, policy_version), row["decisionReason"])
             existing.get("invalidOutput", {}).pop(row["sourceId"], None)
             source = source_by_id[row["sourceId"]]
             existing["bySourceId"][row["sourceId"]] = {
                 "evaluationEvidence": row.get("evaluationEvidence", {}),
                 "evaluationEvidenceVerified": row.get("evaluationEvidenceVerified", False),
                 "decision": row["decision"],
+                "exclusionEvidence": row.get("exclusionEvidence", ""),
+                "exclusionEvidenceVerified": row.get("exclusionEvidenceVerified", False),
                 "canonicalName": row["canonicalName"],
                 "canonicalNameSource": row["canonicalNameSource"],
                 "canonicalNameEvidence": row["canonicalNameEvidence"],
@@ -692,11 +713,15 @@ def main() -> None:
                 "inputHash": input_hash(source, policy_version),
                 "selectionFingerprint": selection_fingerprint(record_by_id[row["sourceId"]], policy_version),
             }
-        write_editorial_copy(existing)
+        # Persist the publication before marking its review complete. A crash
+        # between these writes replays admission safely instead of losing it.
         if args.review_queue or args.review_curated or args.review_public:
             published += upsert_curated(
-                records, rows, now, args.model, audit_existing=args.review_curated or args.review_public
+                records, rows, now, args.model, audit_existing=args.review_curated or args.review_public,
+                allow_unpublish=args.allow_unpublish
             )
+        write_editorial_copy(existing)
+        atomic_write(STATE_PATH, state)
     print(f"deepseek_reviewed={len(generated)} published={published} model={args.model}")
 
 
