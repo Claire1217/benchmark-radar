@@ -22,9 +22,31 @@ class ModelEvalUpdatesTest(unittest.TestCase):
         twice = apply_updates(copy.deepcopy(once), self.updates)
         self.assertEqual(once, twice)
         self.assertEqual(legacy, [r for r in once['observations'] if not r.get('reviewOverlay')])
-        for org in ('OpenAI', 'Anthropic', 'DeepSeek'):
+        for org in ('OpenAI', 'Anthropic', 'DeepSeek', 'Moonshot AI'):
             dates = [once['models'][mid]['date'] for mid in once['flagship_models'][org]]
             self.assertEqual(dates, sorted(dates, reverse=True))
+
+    def test_kimi_launch_preserves_metrics_and_raw_scale(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:kimi-k3.1-pro'
+        rows = [r for r in data['observations'] if r['model_id'] == mid]
+        scores = {r['benchmark_id']: r['display_value'] for r in rows}
+        self.assertEqual(len(scores), 48)
+        prefix = 'reviewed-20261024:'
+        self.assertEqual(scores[prefix + 'zero-avg5'], 29.8)
+        self.assertEqual(scores[prefix + 'zero-pass5'], 39.0)
+        self.assertEqual(scores[prefix + 'zero-python-pass5'], 63.0)
+        self.assertEqual(scores[prefix + 'pdf-python'], 85.7)
+        self.assertEqual(scores[prefix + 'pdf-strict'], 34.6)
+        self.assertEqual(scores[prefix + 'ale-v11-all'], 43.2)
+        self.assertEqual(scores[prefix + 'ale-v11-cli'], 44.2)
+        self.assertNotIn('reviewed-202610:program', scores)
+        self.assertNotIn('reviewed-202610:os21-partial', scores)
+        self.assertIsNone(data['charts'][prefix + 'business-internal']['scale_max'])
+        self.assertEqual(data['charts'][prefix + 'hallu-hard']['direction'], 'lower_is_better')
+        self.assertEqual(data['flagship_models']['Moonshot AI'][0], mid)
+        source_rows = [r for r in data['observations'] if r.get('sourceId') == 'moonshot-k31-pro-20261024']
+        self.assertEqual(source_rows, rows)
 
     def test_newer_elo_snapshot_is_selected_even_when_lower(self):
         data = apply_updates(self.data, self.updates)

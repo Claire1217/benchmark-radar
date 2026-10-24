@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-18",
+  "reviewedAt": "2026-10-24",
   "policy": "Provider-owned release posts and system cards only. Preserve benchmark versions, subsets, tools, effort, fallbacks and report dates. Reported means coverage is verified but an absolute score has not been transcribed; it is never zero. Imported historical scores retain their original snapshot date.",
   "sources": {
     "openai-sol-luna-20260922": {
@@ -58,6 +58,13 @@
       "retrievedAt": "2026-10-18",
       "title": "DeepSeek-V4.1-Flash-1017 release",
       "provider": "DeepSeek"
+    },
+    "moonshot-k31-pro-20261024": {
+      "url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "publishedAt": "2026-10-24",
+      "retrievedAt": "2026-10-24",
+      "title": "Kimi K3.1 Pro Tech Blog: Advancing Open Intelligence",
+      "provider": "Moonshot AI"
     }
   },
   "models": [
@@ -130,6 +137,16 @@
       "model_card_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
       "releaseSourceId": "deepseek-flash-20261017",
       "notes": "Pinned release identity. deepseek-flash is a moving API alias; the September model remains a separate column."
+    },
+    {
+      "id": "official-reviewed:kimi-k3.1-pro",
+      "name": "Kimi K3.1 Pro",
+      "organization": "Moonshot AI",
+      "date": "2026-10-24",
+      "source": "catalog",
+      "model_card_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "releaseSourceId": "moonshot-k31-pro-20261024",
+      "notes": "Launch report: Max reasoning effort, temperature 1.0 and top-p 0.95 unless stated. API available at launch; full weights announced for November 4. Scores apply to Pro; no separate Highspeed evaluation is reported."
     }
   ],
   "benchmarks": {
@@ -799,6 +816,903 @@
       "dataset_url": "https://www.tbench.ai/",
       "dataset_link_label": "Primary benchmark resource",
       "libraryId": "catalog_f7bd3cbea6ce8294"
+    },
+    "reviewed-20261024:swe-marathon-v11": {
+      "id": "reviewed-20261024:swe-marathon-v11",
+      "name": "SWE-Marathon v1.1",
+      "summary": "Claude Code harness.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Claude Code harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "bm_swe-marathon_2e8e782b"
+    },
+    "reviewed-20261024:benchcad-no": {
+      "id": "reviewed-20261024:benchcad-no",
+      "name": "BenchCAD (1,000-case subset, no tools)",
+      "summary": "Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Single-shot generation, official prompts and scoring.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Single-shot generation, official prompts and scoring."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_55ded723d335f2cd"
+    },
+    "reviewed-20261024:benchcad-tools": {
+      "id": "reviewed-20261024:benchcad-tools",
+      "name": "BenchCAD (1,000-case subset, with tools)",
+      "summary": "Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Claude Code harness.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Claude Code harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_998a56f50d639641"
+    },
+    "reviewed-20261024:program-binary": {
+      "id": "reviewed-20261024:program-binary",
+      "name": "ProgramBench (binary, threshold ≥95%)",
+      "summary": "Claude Code. A task passes only when its raw ProgramBench score reaches 95%; binary task pass rate.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Claude Code. A task passes only when its raw ProgramBench score reaches 95%; binary task pass rate."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "lib_programbench"
+    },
+    "reviewed-20261024:posttrain-v12": {
+      "id": "reviewed-20261024:posttrain-v12",
+      "name": "PostTrainBench v1.2 (H20, DeepSeek judge)",
+      "summary": "Claude Code with H20 GPUs; DeepSeek-V4.1-Flash-1017 Max judge replaces the official GPT-5.6-Terra Xhigh judge.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Claude Code with H20 GPUs; DeepSeek-V4.1-Flash-1017 Max judge replaces the official GPT-5.6-Terra Xhigh judge."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_7a593ca454f1246a"
+    },
+    "reviewed-20261024:kimi-code-v2": {
+      "id": "reviewed-20261024:kimi-code-v2",
+      "name": "Kimi Code Bench 2.0 (Internal)",
+      "summary": "Internal coding evaluation; Claude Code harness.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Internal coding evaluation; Claude Code harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:kimi-code-v3": {
+      "id": "reviewed-20261024:kimi-code-v3",
+      "name": "Kimi Code Bench 3.0 Long-horizon (Internal)",
+      "summary": "Internal long-horizon coding evaluation; Claude Code harness.",
+      "categories": [
+        "Coding"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Internal long-horizon coding evaluation; Claude Code harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:browsecomp": {
+      "id": "reviewed-20261024:browsecomp",
+      "name": "BrowseComp (200K compaction, 500 steps)",
+      "summary": "Context compacted at 200K tokens; maximum 500 steps, then forced answer. Temperature 1.0; top-p 1.0.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Context compacted at 200K tokens; maximum 500 steps, then forced answer. Temperature 1.0; top-p 1.0."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "lib_browsecomp"
+    },
+    "reviewed-20261024:biomystery-v11": {
+      "id": "reviewed-20261024:biomystery-v11",
+      "name": "BioMysteryBench v11",
+      "summary": "Kimi Code harness; Kimi K3 judge; official v11 dataset.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Kimi Code harness; Kimi K3 judge; official v11 dataset."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_9c973121d43bf296"
+    },
+    "reviewed-20261024:charxiv-python": {
+      "id": "reviewed-20261024:charxiv-python",
+      "name": "CharXiv RQ (with Python)",
+      "summary": "Reasoning questions with Python; mean over four runs.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Reasoning questions with Python; mean over four runs."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_65ac5d8988d5755d"
+    },
+    "reviewed-20261024:mmmu-python": {
+      "id": "reviewed-20261024:mmmu-python",
+      "name": "MMMU-Pro (with Python)",
+      "summary": "With Python; mean over four runs; official input order with images before text.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "With Python; mean over four runs; official input order with images before text."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_e58dcf8ca58f20d6"
+    },
+    "reviewed-20261024:pdf-python": {
+      "id": "reviewed-20261024:pdf-python",
+      "name": "GDP.pdf (Python, macro rubric pass rate)",
+      "summary": "Original PDFs in IPython sandbox; Gemini-3.5-Flash Medium judge. Mean rubric pass rate per task over five runs, then equal-weight mean across tasks.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Original PDFs in IPython sandbox; Gemini-3.5-Flash Medium judge. Mean rubric pass rate per task over five runs, then equal-weight mean across tasks."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_0c2e78c798a06faa"
+    },
+    "reviewed-20261024:zero-python-pass5": {
+      "id": "reviewed-20261024:zero-python-pass5",
+      "name": "ZeroBench-main (Python, pass@5)",
+      "summary": "With Python; pass@5 over five runs.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "With Python; pass@5 over five runs."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_f5593566c5676379"
+    },
+    "reviewed-20261024:ale-v11-all": {
+      "id": "reviewed-20261024:ale-v11-all",
+      "name": "Agents' Last Exam v1.1 (ALL)",
+      "summary": "Kimi Code; 122 tasks including 86 CLI tasks. Runs that bypass task requirements receive zero.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Kimi Code; 122 tasks including 86 CLI tasks. Runs that bypass task requirements receive zero."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_d0b03ebbcb611ba0"
+    },
+    "reviewed-20261024:ale-v11-cli": {
+      "id": "reviewed-20261024:ale-v11-cli",
+      "name": "Agents' Last Exam v1.1 (CLI)",
+      "summary": "Kimi Code; 86 CLI tasks from v1.1. Runs that bypass task requirements receive zero.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Kimi Code; 86 CLI tasks from v1.1. Runs that bypass task requirements receive zero."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_d0b03ebbcb611ba0"
+    },
+    "reviewed-20261024:automation-aa": {
+      "id": "reviewed-20261024:automation-aa",
+      "name": "AutomationBench-AA",
+      "summary": "Provider republishes Artificial Analysis results; October 24 report snapshot.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Provider republishes Artificial Analysis results; October 24 report snapshot."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_530d0ae739bef10b"
+    },
+    "reviewed-20261024:apex-agents": {
+      "id": "reviewed-20261024:apex-agents",
+      "name": "APEX-Agents",
+      "summary": "Provider cites Mercor leaderboard; report does not specify a version.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Provider cites Mercor leaderboard; report does not specify a version."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_0c16e811aeab795e"
+    },
+    "reviewed-20261024:officeqa-v2": {
+      "id": "reviewed-20261024:officeqa-v2",
+      "name": "OfficeQA Pro v2",
+      "summary": "Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero. Version 2.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero. Version 2."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_1b5ee4336ea31196"
+    },
+    "reviewed-20261024:officeqa": {
+      "id": "reviewed-20261024:officeqa",
+      "name": "OfficeQA Pro",
+      "summary": "Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_1b5ee4336ea31196"
+    },
+    "reviewed-20261024:frontier-finance": {
+      "id": "reviewed-20261024:frontier-finance",
+      "name": "Frontier Finance (finance agent v2)",
+      "summary": "Official finance agent v2 harness.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Official finance agent v2 harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "bm_frontierfinance_f2f44751"
+    },
+    "reviewed-20261024:harvey": {
+      "id": "reviewed-20261024:harvey",
+      "name": "Harvey Legal Agent (public, all-pass)",
+      "summary": "1,251 public tasks; Artificial Analysis Stirrup harness; fraction passing every rubric criterion.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "1,251 public tasks; Artificial Analysis Stirrup harness; fraction passing every rubric criterion."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_fe85ad67f7029338"
+    },
+    "reviewed-20261024:handbook": {
+      "id": "reviewed-20261024:handbook",
+      "name": "HANDBOOK.md v1",
+      "summary": "Early open-source v1 tasks; official OpenHands harness.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Early open-source v1 tasks; official OpenHands harness."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:osworld-v21": {
+      "id": "reviewed-20261024:osworld-v21",
+      "name": "OSWorld v2.1 (Kimi Agent)",
+      "summary": "Official OSWorld v2 repository with Kimi Agent harness. Table does not identify partial/offline scoring; kept separate from those rows.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Official OSWorld v2 repository with Kimi Agent harness. Table does not identify partial/offline scoring; kept separate from those rows."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_a79ab5090f1c3c86"
+    },
+    "reviewed-20261024:business-internal": {
+      "id": "reviewed-20261024:business-internal",
+      "name": "Business Operation (Internal)",
+      "summary": "Full benchmark table value 37.8. Narrative graphic labels this 37; retain the table value without inferring a percentage scale.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Full benchmark table value 37.8. Narrative graphic labels this 37; retain the table value without inferring a percentage scale."
+        ]
+      ],
+      "scale_label": "Reported score · scale unspecified",
+      "direction": "higher_is_better",
+      "unit": "raw",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:deck": {
+      "id": "reviewed-20261024:deck",
+      "name": "DECK-Arena (Internal, Elo)",
+      "summary": "Presentation generation; python-pptx, pptxjs and Kimi DSL with search/image generation; automated judge calibrated on 10,000+ human judgments.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Presentation generation; python-pptx, pptxjs and Kimi DSL with search/image generation; automated judge calibrated on 10,000+ human judgments."
+        ]
+      ],
+      "scale_label": "Elo · report snapshot",
+      "direction": "higher_is_better",
+      "unit": "elo",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:design": {
+      "id": "reviewed-20261024:design",
+      "name": "Design Bench (Internal, Elo)",
+      "summary": "Graphic design with direct/reference-image prompts; same tool suite and calibrated grader as DECK-Arena.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Graphic design with direct/reference-image prompts; same tool suite and calibrated grader as DECK-Arena."
+        ]
+      ],
+      "scale_label": "Elo · report snapshot",
+      "direction": "higher_is_better",
+      "unit": "elo",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:hallu-hard": {
+      "id": "reviewed-20261024:hallu-hard",
+      "name": "Kimi Hallu Bench Hard (with tools, claim error rate)",
+      "summary": "Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate.",
+      "categories": [
+        "Agents"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "lower_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:pdf-strict": {
+      "id": "reviewed-20261024:pdf-strict",
+      "name": "GDP.pdf (no tools, strict pass rate)",
+      "summary": "Page images resized to 1,152 pixels on the long edge, interleaved with Docling text. Gemini-3.5-Flash Medium judge; strict pass rate among fully scored responses; five-run mean.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Page images resized to 1,152 pixels on the long edge, interleaved with Docling text. Gemini-3.5-Flash Medium judge; strict pass rate among fully scored responses; five-run mean."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_5dec9212b4d600b7"
+    },
+    "reviewed-20261024:hle-diamond": {
+      "id": "reviewed-20261024:hle-diamond",
+      "name": "HLE-Diamond (full, no tools)",
+      "summary": "Full 1,000-question HLE-Diamond set; not text-only.",
+      "categories": [
+        "Reasoning"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Full 1,000-question HLE-Diamond set; not text-only."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_13e9271262aa3db8"
+    },
+    "reviewed-20261024:gpqa-diamond": {
+      "id": "reviewed-20261024:gpqa-diamond",
+      "name": "GPQA Diamond (Kimi launch protocol)",
+      "summary": "No-tools launch table result; sampling aggregation not further specified.",
+      "categories": [
+        "Reasoning"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "No-tools launch table result; sampling aggregation not further specified."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "lib_gpqa_diamond"
+    },
+    "reviewed-20261024:charxiv": {
+      "id": "reviewed-20261024:charxiv",
+      "name": "CharXiv RQ (no tools)",
+      "summary": "Reasoning questions without tools; mean over four runs.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Reasoning questions without tools; mean over four runs."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_65ac5d8988d5755d"
+    },
+    "reviewed-20261024:mmmu": {
+      "id": "reviewed-20261024:mmmu",
+      "name": "MMMU-Pro (no tools, Kimi launch protocol)",
+      "summary": "Official input order; images prepended to text; mean over four runs.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Official input order; images prepended to text; mean over four runs."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "lib_mmmu_pro"
+    },
+    "reviewed-20261024:zero-avg5": {
+      "id": "reviewed-20261024:zero-avg5",
+      "name": "ZeroBench-main (no tools) (avg@5)",
+      "summary": "Without tools; five runs. avg@5 and pass@5 are distinct metrics.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Without tools; five runs. avg@5 and pass@5 are distinct metrics."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_702c994cae574a63"
+    },
+    "reviewed-20261024:zero-pass5": {
+      "id": "reviewed-20261024:zero-pass5",
+      "name": "ZeroBench-main (no tools) (pass@5)",
+      "summary": "Without tools; five runs. avg@5 and pass@5 are distinct metrics.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Without tools; five runs. avg@5 and pass@5 are distinct metrics."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_702c994cae574a63"
+    },
+    "reviewed-20261024:perception": {
+      "id": "reviewed-20261024:perception",
+      "name": "PerceptionBench",
+      "summary": "No-tools multimodal result; mean over four runs.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "No-tools multimodal result; mean over four runs."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "bm_perceptionbench_27ae03ae"
+    },
+    "reviewed-20261024:hallu-no": {
+      "id": "reviewed-20261024:hallu-no",
+      "name": "Kimi Hallu Bench (no tools, claim error rate)",
+      "summary": "Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate.",
+      "categories": [
+        "Multimodal"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "lower_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
+    },
+    "reviewed-20261024:exploitbench": {
+      "id": "reviewed-20261024:exploitbench",
+      "name": "ExploitBench (pass@5 max capability)",
+      "summary": "Official harness; 300 turns. Best of five seeds by capability flags reached out of 16; arbitrary code execution counts as all flags.",
+      "categories": [
+        "Safety"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Official harness; 300 turns. Best of five seeds by capability flags reached out of 16; arbitrary code execution counts as all flags."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_19fc6e81d91e8949"
+    },
+    "reviewed-20261024:exploitgym": {
+      "id": "reviewed-20261024:exploitgym",
+      "name": "ExploitGym (6-hour budget)",
+      "summary": "Kimi Code harness; six-hour wall-clock budget per task.",
+      "categories": [
+        "Safety"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Kimi Code harness; six-hour wall-clock budget per task."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": "catalog_f0c046f65c15f6b8"
+    },
+    "reviewed-20261024:xdev": {
+      "id": "reviewed-20261024:xdev",
+      "name": "xdev-bench-hard (Internal, pass@3)",
+      "summary": "Kimi Code; pass@3 on sampled runs; no hard timeout or output-token limit. Final release checkpoint after cyber data filtering.",
+      "categories": [
+        "Safety"
+      ],
+      "capabilities": [],
+      "domains": [],
+      "topics": [],
+      "facts": [
+        [
+          "Evaluation setting",
+          "Kimi Code; pass@3 on sampled runs; no hard timeout or output-token limit. Final release checkpoint after cyber data filtering."
+        ]
+      ],
+      "scale_label": "Percentage · 0–100%",
+      "direction": "higher_is_better",
+      "unit": "%",
+      "dataset_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "dataset_link_label": "Official evaluation protocol",
+      "libraryId": null
     }
   },
   "observations": [
@@ -1866,6 +2780,630 @@
       "reported_at": "2026-10-17",
       "kind": "official_model_card",
       "setting": "September model, comparison column in October 17 card. Claude Code for Terminal-Bench 4.0; Mini-SWE-V2 for DeepSWE. Not a claim about the current moving API alias.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "family:terminal-bench-4",
+      "display_value": 65.7,
+      "display_text": "65.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:science",
+      "display_value": 38.1,
+      "display_text": "38.1",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:swe-marathon-v11",
+      "display_value": 51.7,
+      "display_text": "51.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:benchcad-no",
+      "display_value": 72.8,
+      "display_text": "72.8",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Single-shot generation, official prompts and scoring.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:benchcad-tools",
+      "display_value": 92.7,
+      "display_text": "92.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Voxel IoU; 1,000 sampled Vision2Code cases out of 17,900. Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:program-binary",
+      "display_value": 31.5,
+      "display_text": "31.5",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code. A task passes only when its raw ProgramBench score reaches 95%; binary task pass rate.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:deepswe",
+      "display_value": 75.5,
+      "display_text": "75.5",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:posttrain-v12",
+      "display_value": 36.5,
+      "display_text": "36.5",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code with H20 GPUs; DeepSeek-V4.1-Flash-1017 Max judge replaces the official GPT-5.6-Terra Xhigh judge.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:kimi-code-v2",
+      "display_value": 77.1,
+      "display_text": "77.1",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Internal coding evaluation; Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:kimi-code-v3",
+      "display_value": 61.2,
+      "display_text": "61.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Internal long-horizon coding evaluation; Claude Code harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:hle-tools",
+      "display_value": 70.0,
+      "display_text": "70.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Full 2,500-question HLE set, with tools.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:browsecomp",
+      "display_value": 92.1,
+      "display_text": "92.1",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 1.0. Context compacted at 200K tokens; maximum 500 steps, then forced answer. Temperature 1.0; top-p 1.0.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:biomystery-v11",
+      "display_value": 80.6,
+      "display_text": "80.6",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Kimi Code harness; Kimi K3 judge; official v11 dataset.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:charxiv-python",
+      "display_value": 93.4,
+      "display_text": "93.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Reasoning questions with Python; mean over four runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:mmmu-python",
+      "display_value": 90.0,
+      "display_text": "90.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. With Python; mean over four runs; official input order with images before text.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:pdf-python",
+      "display_value": 85.7,
+      "display_text": "85.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Original PDFs in IPython sandbox; Gemini-3.5-Flash Medium judge. Mean rubric pass rate per task over five runs, then equal-weight mean across tasks.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:chart-tools",
+      "display_value": 90.2,
+      "display_text": "90.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. With Python; mean over five runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:baby",
+      "display_value": 95.4,
+      "display_text": "95.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. With Python; mean over four runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:zero-python-pass5",
+      "display_value": 63.0,
+      "display_text": "63.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. With Python; pass@5 over five runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:ale-v11-all",
+      "display_value": 43.2,
+      "display_text": "43.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Kimi Code; 122 tasks including 86 CLI tasks. Runs that bypass task requirements receive zero.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:ale-v11-cli",
+      "display_value": 44.2,
+      "display_text": "44.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Kimi Code; 86 CLI tasks from v1.1. Runs that bypass task requirements receive zero.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:automation-aa",
+      "display_value": 73.3,
+      "display_text": "73.3",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Provider republishes Artificial Analysis results; October 24 report snapshot.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:gdp-aa",
+      "display_value": 1846.0,
+      "display_text": "1846",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Elo snapshot cited from Artificial Analysis in the October 24 report.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:briefcase",
+      "display_value": 1678.0,
+      "display_text": "1678",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Elo snapshot cited from Artificial Analysis in the October 24 report.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:apex-agents",
+      "display_value": 67.2,
+      "display_text": "67.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Provider cites Mercor leaderboard; report does not specify a version.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:officeqa-v2",
+      "display_value": 64.4,
+      "display_text": "64.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero. Version 2.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:officeqa",
+      "display_value": 67.4,
+      "display_text": "67.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Claude Code; whole PDF corpus rendered as images, no extracted text. Online answer retrieval is scored zero.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:frontier-finance",
+      "display_value": 58.6,
+      "display_text": "58.6",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Official finance agent v2 harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:harvey",
+      "display_value": 23.7,
+      "display_text": "23.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. 1,251 public tasks; Artificial Analysis Stirrup harness; fraction passing every rubric criterion.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:handbook",
+      "display_value": 44.6,
+      "display_text": "44.6",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Early open-source v1 tasks; official OpenHands harness.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:osworld-v21",
+      "display_value": 79.6,
+      "display_text": "79.6",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Official OSWorld v2 repository with Kimi Agent harness. Table does not identify partial/offline scoring; kept separate from those rows.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:business-internal",
+      "display_value": 37.8,
+      "display_text": "37.8",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Full benchmark table value 37.8. Narrative graphic labels this 37; retain the table value without inferring a percentage scale.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:deck",
+      "display_value": 1456.0,
+      "display_text": "1456",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Presentation generation; python-pptx, pptxjs and Kimi DSL with search/image generation; automated judge calibrated on 10,000+ human judgments.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:design",
+      "display_value": 957.0,
+      "display_text": "957",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Graphic design with direct/reference-image prompts; same tool suite and calibrated grader as DECK-Arena.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:hallu-hard",
+      "display_value": 8.3,
+      "display_text": "8.3",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:pdf-strict",
+      "display_value": 34.6,
+      "display_text": "34.6",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Page images resized to 1,152 pixels on the long edge, interleaved with Docling text. Gemini-3.5-Flash Medium judge; strict pass rate among fully scored responses; five-run mean.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-202610:hle-no-tools",
+      "display_value": 51.1,
+      "display_text": "51.1",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Full 2,500-question HLE set, without tools.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:hle-diamond",
+      "display_value": 39.4,
+      "display_text": "39.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Full 1,000-question HLE-Diamond set; not text-only.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:gpqa-diamond",
+      "display_value": 94.2,
+      "display_text": "94.2",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. No-tools launch table result; sampling aggregation not further specified.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:charxiv",
+      "display_value": 89.0,
+      "display_text": "89.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Reasoning questions without tools; mean over four runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:mmmu",
+      "display_value": 84.1,
+      "display_text": "84.1",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Official input order; images prepended to text; mean over four runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:zero-avg5",
+      "display_value": 29.8,
+      "display_text": "29.8",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Without tools; five runs. avg@5 and pass@5 are distinct metrics.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:zero-pass5",
+      "display_value": 39.0,
+      "display_text": "39.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Without tools; five runs. avg@5 and pass@5 are distinct metrics.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:perception",
+      "display_value": 68.3,
+      "display_text": "68.3",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. No-tools multimodal result; mean over four runs.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:hallu-no",
+      "display_value": 5.4,
+      "display_text": "5.4",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Internal factuality stress test; claim-level hallucination rate judged by fact-checking agents. Lower is better; not a typical daily-use error rate.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:exploitbench",
+      "display_value": 74.7,
+      "display_text": "74.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Official harness; 300 turns. Best of five seeds by capability flags reached out of 16; arbitrary code execution counts as all flags.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:exploitgym",
+      "display_value": 20.7,
+      "display_text": "20.7",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Kimi Code harness; six-hour wall-clock budget per task.",
+      "coverage_only": false
+    },
+    {
+      "model_id": "official-reviewed:kimi-k3.1-pro",
+      "benchmark_id": "reviewed-20261024:xdev",
+      "display_value": 81.0,
+      "display_text": "81.0",
+      "scale_verified": true,
+      "sourceId": "moonshot-k31-pro-20261024",
+      "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
+      "reported_at": "2026-10-24",
+      "kind": "official_model_card",
+      "setting": "Max reasoning effort; temperature 1.0; top-p 0.95. Kimi Code; pass@3 on sampled runs; no hard timeout or output-token limit. Final release checkpoint after cyber data filtering.",
       "coverage_only": false
     }
   ]

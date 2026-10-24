@@ -86,7 +86,7 @@ def apply_updates(data, updates):
         data['charts'][bid] = dict(
             scale_label=benchmark['scale_label'], unit='%' if benchmark['unit'] == '%' else '',
             direction=benchmark['direction'], rows=rows, eligible=len(rows),
-            scale_max=None if benchmark['unit'] == 'elo' else 100,
+            scale_max=100 if benchmark['unit'] in {'%', 'score'} else None,
         )
     data['reviewed_sources'] = sources
     data['observations'].sort(key=lambda row: row.get('reported_at', ''), reverse=True)
