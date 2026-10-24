@@ -22,14 +22,14 @@ class SharedEvidenceSearchTests(unittest.TestCase):
         self.node(r'''
 const S=require('./web/search.js'),a=require('assert');
 const rows=[{id:'subset',name:'MixedSuite',description:'Broad numerical tasks',searchDocument:{concepts:[{id:'chip-design',scope:'task-subset',quote:'Tasks span chip design and chemistry',sourceUrl:'https://example.org/paper'}]}},
-{id:'noise1',name:'REDACT'},{id:'pcb',name:'Board Routing',description:'printed circuit board routing under design constraints'},{id:'noise2',name:'MedAgentBench'},
+{id:'noise1',name:'REDACT'},{id:'pcb',name:'Board Routing',description:'printed circuit board routing under design constraints'},{id:'noise2',name:'MedAgentBench'},{id:'analysis',name:'TabularAnalysis',description:'exploratory data analysis (EDA)'},
 {id:'hidden',name:'Chip design hidden',displayEligible:false},
 {id:'h',name:'HumanEval'},{id:'hp',name:'HumanEval+'},
-{id:'eda',name:'EDATasks',description:'Evaluating EDA workflows'}];
+{id:'eda',name:'EDATasks',description:'Evaluating electronic design automation (EDA) workflows'}];
 const ids=q=>Object.keys(S.search(rows,q).hits);
 a.deepEqual(ids('chip design'),ids('chip deisgn'));
 a(ids('EDA').includes('subset'));a(ids('EDA').includes('eda'));
-a(!ids('chip design').includes('pcb'));a(!ids('EDA').includes('noise1'));a(!ids('EDA').includes('noise2'));a(!ids('chip design').includes('hidden'));
+a(!ids('chip design').includes('pcb'));a(!ids('EDA').includes('noise1'));a(!ids('EDA').includes('noise2'));a(!ids('chip design').includes('analysis'));a(!ids('chip design').includes('hidden'));
 const hit=S.search(rows,'chip design').hits.subset;a.equal(hit.matchedConcepts[0].scope,'task-subset');a(hit.snippet.includes('chip design'));
 a.equal(S.search(rows,'HumanEval+').hits.hp.exactMatch,'name');a.notEqual(S.search(rows,'HumanEval+').hits.h?.exactMatch,'name');
 a.deepEqual(ids('zznonexistentzz'),[]);console.log('{}');
@@ -45,7 +45,7 @@ a.equal(D.matches([row],['robot planning']).length,1);console.log('{}');
 
     def test_real_browser_cli_and_trends_membership(self):
         library=json.loads((ROOT/'data/library_index.json').read_text())
-        queries=['chip design','chip deisgn','EDA','analog circuit design','cybersecurity','VerilogEval','zznonexistentzz']
+        queries=['chip design','chip deisgn','EDA','analog circuit design','cybersecurity','VerilogEval','code generation','robotics','speech recognition','information retrieval','protein','chemistry','zznonexistentzz']
         expected=self.node('''
 const S=require('./web/search.js'),D=require('./web/trends/directions.js'),L=require('./data/library_index.json'),T=require('./data/trends_search.json');
 const queries='''+json.dumps(queries)+''';
@@ -53,6 +53,8 @@ console.log(JSON.stringify(queries.map(q=>({q,ids:Object.keys(S.search(L.records
 ''')
         index=SearchIndex(library['records'],lambda r:[])
         try:
+            human=next(r for r in library['records'] if r['name']=='HumanEval')
+            self.assertIn(human['id'],index.search('code generation')[0])
             for case in expected:
                 self.assertEqual(sorted(index.search(case['q'])[0]),case['ids'])
                 # Trends deliberately excludes aggregate indices and future-dated families.

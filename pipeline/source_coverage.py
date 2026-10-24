@@ -8,11 +8,14 @@ from pathlib import Path
 
 from backfill_index import atomic_write_json
 
-CONTRACT_VERSION = 1
+CONTRACT_VERSION = 2
 
 
 def load(path: Path) -> dict:
-    return json.loads(path.read_text()) if path.exists() else {'schemaVersion': 1, 'windows': {}}
+    payload=json.loads(path.read_text()) if path.exists() else {'schemaVersion': 1, 'windows': {}}
+    for row in list(payload.get('windows',{}).values()):
+        enqueue(payload,row['source'],row['scope'],row['from'],row['to'])
+    return payload
 
 
 def key(source: str, scope: str, start: str, end: str) -> str:
@@ -25,6 +28,10 @@ def enqueue(payload: dict, source: str, scope: str, start: str, end: str) -> str
         'source': source, 'scope': scope, 'from': start, 'to': end,
         'contractVersion': CONTRACT_VERSION, 'status': 'pending', 'attempts': [],
     })
+    row=payload['windows'][identifier]
+    if row.get('contractVersion') != CONTRACT_VERSION:
+        row.update(status='pending', contractVersion=CONTRACT_VERSION, invalidationReason='submission-date-contract-v2')
+        row.pop('retryAfter', None)
     return identifier
 
 
@@ -32,6 +39,18 @@ def pending(payload: dict, now: str) -> list[tuple[str, dict]]:
     return sorted(((k, v) for k, v in payload.get('windows', {}).items()
                    if v.get('status') != 'complete' and v.get('retryAfter', '') <= now),
                   key=lambda pair: (pair[1].get('lastAttemptAt', ''), pair[1]['from'], pair[0]))
+
+
+def scheduled(payload: dict, now: str, recent_from: str) -> list[tuple[str, dict]]:
+    """Alternate recent and old debt, so either survives a short time budget."""
+    work=pending(payload,now)
+    recent=[x for x in work if x[1]['to'] >= recent_from]
+    old=[x for x in work if x[1]['to'] < recent_from]
+    result=[]
+    for i in range(max(len(recent),len(old))):
+        if i<len(recent):result.append(recent[i])
+        if i<len(old):result.append(old[i])
+    return result
 
 
 def attempt(payload: dict, identifier: str, *, now: str, status: str, count: int = 0,

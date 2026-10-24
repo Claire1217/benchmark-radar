@@ -236,7 +236,7 @@ class IncompleteHarvestError(RuntimeError):
     """A bounded fetch cannot certify completion; never publish it as complete."""
 
 
-def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
+def fetch_for_range_oai(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
     settings = config["arxiv"]
     start = date.fromisoformat(start_date)
     end = date.fromisoformat(end_date)
@@ -275,6 +275,17 @@ def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> l
     return sorted(papers, key=lambda item: item.arxiv_id)
 
 
+def fetch_for_range(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
+    """First-submission windows require Atom submittedDate, not OAI datestamps.
+
+    OAI metadata may be modified long after v1; an empty OAI response cannot
+    certify publication-window coverage. Do not silently use it as a fallback.
+    """
+    if date.fromisoformat(end_date) < date.fromisoformat(start_date):
+        raise ValueError("end date must be on or after start date")
+    return fetch_for_range_atom(start_date, end_date, config)
+
+
 def fetch_for_date(target_date: str, config: dict[str, Any]) -> list[Paper]:
     return fetch_for_range(target_date, target_date, config)
 
@@ -311,7 +322,7 @@ def parse_atom_paper(entry: ET.Element) -> Paper | None:
 
 
 def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any]) -> list[Paper]:
-    """Fallback to arXiv's official Atom API when OAI-PMH is unavailable."""
+    """Harvest an explicit first-submission range through the official Atom API."""
     settings = config["arxiv"]
     categories = " OR ".join(f"cat:{category}" for category in settings["categories"])
     start_stamp = start_date.replace("-", "") + "0000"
@@ -320,6 +331,8 @@ def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any])
     page_size = 500
     start = 0
     papers: dict[str, Paper] = {}
+    seen_entries: set[str] = set()
+    expected_total: int | None = None
     while True:
         request = Request(
             f"{ATOM_API_URL}?{urlencode({'search_query': search, 'start': start, 'max_results': page_size, 'sortBy': 'submittedDate', 'sortOrder': 'ascending'})}",
@@ -329,7 +342,13 @@ def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any])
             root = ET.fromstring(response.read())
         entries = root.findall("atom:entry", ATOM_NS)
         for entry in entries:
+            entry_id = atom_text(entry, "atom:id")
+            if not entry_id or entry_id in seen_entries:
+                raise IncompleteHarvestError("arXiv Atom repeated or missing entry ID")
+            seen_entries.add(entry_id)
             paper = parse_atom_paper(entry)
+            if paper is None:
+                raise IncompleteHarvestError("arXiv Atom entry has no usable publication metadata")
             if paper is not None and start_date <= paper.released_at <= end_date:
                 papers[paper.arxiv_id] = paper
                 if len(papers) > int(settings["max_papers"]):
@@ -338,6 +357,9 @@ def fetch_for_range_atom(start_date: str, end_date: str, config: dict[str, Any])
         if not total_text:
             raise IncompleteHarvestError("arXiv Atom response has no totalResults")
         total = int(total_text)
+        if total < 0 or (expected_total is not None and total != expected_total):
+            raise IncompleteHarvestError("arXiv Atom total changed during pagination")
+        expected_total = total
         start += len(entries)
         if not entries and start < total:
             raise IncompleteHarvestError("arXiv Atom pagination stopped before totalResults")

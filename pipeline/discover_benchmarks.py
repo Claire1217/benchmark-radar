@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import re
 import time as time_module
+import xml.etree.ElementTree as ET
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlparse
@@ -409,6 +410,9 @@ def merge_review_queue(
         match = next((item for item in candidates if same_identity(item, record)), None)
         if match:
             merge_candidate(match, record)
+            published = next((item for item in known if same_identity(item, record)), None)
+            if published and newer_than_public(match, published) and match.get('reviewReason') != 'historical-reassessment':
+                match['reviewReason'] = 'source-changed'
             duplicates += 1
             continue
         published = next((item for item in known if same_identity(item, record)), None)
@@ -490,7 +494,7 @@ def discover(target: str, config: dict, *, dry_run: bool = False, max_seconds: i
     adapters = {"github": github_candidates, "huggingface": huggingface_candidates, "openreview": openreview_candidates}
     stats = {"attempted": 0, "complete": 0, "failed": 0, "fetched": 0, "candidates": 0,
              "dryRun": dry_run, "sourceDate": target, "windows": []}
-    for identifier, window in source_coverage.pending(ledger, now):
+    for identifier, window in source_coverage.scheduled(ledger, now, (date.fromisoformat(target)-timedelta(days=7)).isoformat()):
         if window['source'] not in sources:
             continue
         if stats['attempted'] >= max_windows or time_module.monotonic() - started >= max_seconds:
@@ -501,10 +505,7 @@ def discover(target: str, config: dict, *, dry_run: bool = False, max_seconds: i
             if name == 'arxiv':
                 scoped = copy.deepcopy(config)
                 scoped['arxiv']['categories'] = [window['scope']]
-                try:
-                    papers = arxiv.fetch_for_range(window['from'], window['to'], scoped)
-                except (HTTPError, URLError, TimeoutError, RuntimeError):
-                    papers = arxiv.fetch_for_range_atom(window['from'], window['to'], scoped)
+                papers = arxiv.fetch_for_range(window['from'], window['to'], scoped)
                 fetched = len(papers)
                 records = [r for paper in papers if (r := paper_candidate(paper, config, now)) is not None]
             else:
@@ -519,13 +520,15 @@ def discover(target: str, config: dict, *, dry_run: bool = False, max_seconds: i
                                         candidate_hash=source_coverage.receipt(REVIEW_PATH))
             stats['complete'] += 1
             stats['windows'].append({'key': identifier, 'status': 'complete', 'fetched': fetched, 'candidates': len(records)})
-        except (HTTPError, URLError, TimeoutError, RuntimeError, json.JSONDecodeError) as error:
+        except (HTTPError, URLError, TimeoutError, RuntimeError, ET.ParseError, ValueError) as error:
             stats['failed'] += 1
             stats['windows'].append({'key': identifier, 'status': 'failed', 'error': type(error).__name__})
             if not dry_run:
                 source_coverage.attempt(ledger, identifier, now=now, status='failed', error=str(error))
         if not dry_run:
             source_coverage.save(COVERAGE_PATH, ledger)
+        if name == 'arxiv' and config['arxiv'].get('request_delay_seconds'):
+            time_module.sleep(float(config['arxiv']['request_delay_seconds']))
     stats['outstandingWindows'] = sum(w['status'] != 'complete' for w in ledger['windows'].values())
     if not dry_run:
         # Expose the current processing date even when all adapters fail; this is

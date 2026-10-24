@@ -28,3 +28,16 @@ jobs:
         run: make test
       - name: Build and test Pages artifact
         run: make build
+      - name: Audit workflow coverage and actual Library retrieval
+        run: |
+          python3 pipeline/audit_workflow.py --output outputs/workflow-audit.json
+          python3 pipeline/evaluate_search.py > outputs/shared-search-evaluation.json
+      - name: Preserve workflow diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-audit
+          path: |
+            outputs/workflow-audit.json
+            outputs/shared-search-evaluation.json
+          if-no-files-found: ignore

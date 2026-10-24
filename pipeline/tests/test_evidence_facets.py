@@ -56,6 +56,10 @@ class EvidenceFacetTests(unittest.TestCase):
         record=self.record('ExampleBench evaluates speech. We release code and data for reproducibility.')
         self.assertNotIn('code-generation',{f['id'] for f in facets.extract(record)['facts']})
 
+    def test_generated_programs_are_code_generation_without_literal_keyword(self):
+        record=self.record('Evaluates functional correctness of generated Python programs from docstrings using executable tests.')
+        self.assertIn('code-generation',{f['id'] for f in facets.extract(record)['facts']})
+
     def test_source_changes_invalidate_but_attention_changes_do_not(self):
         record=self.record('ExampleBench evaluates Verilog generation.')
         first=facets.input_fingerprint(record)

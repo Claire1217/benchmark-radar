@@ -8,7 +8,8 @@ text as code or a shell command.
 
 Exact IDs, names and aliases rank first, preserving plus/version distinctions.
 Controlled concepts include parent relationships; short acronyms use token
-boundaries. Multiword queries require all concepts (70% for four or more groups).
+boundaries. A short concept alias can resolve a query but does not infer a domain
+from source text by itself (for example EDA can mean exploratory data analysis). Multiword queries require all concepts (70% for four or more groups).
 A unique one-edit/transposition correction is allowed only within the controlled
 vocabulary, for alphabetic terms of at least five letters. Arbitrary benchmark
 names are not rewritten. Expansion changes retrieval, never entity identity or
