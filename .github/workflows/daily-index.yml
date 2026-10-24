@@ -195,6 +195,28 @@ jobs:
         if: ${{ steps.catalog-sync.outcome == 'failure' }}
         run: echo "::warning::Catalog sync failed; retaining the previous complete catalog snapshot."
 
+      # Keep collection/review checkpoints even if later generation or push fails.
+      # Recovery is reviewed against current main; never blindly restore over newer data.
+      - name: Preserve collected and reviewed progress before generation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-index-progress-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            data/editorial_copy.json
+            data/review_queue.json
+            data/curated_records.json
+            data/catalog_records.json
+            data/catalog_identity_bindings.json
+            data/review_state.json
+            data/source_coverage.json
+            data/source_refresh_state.json
+            data/source_evidence.json
+            data/attention_forecasts.json
+            data/runs/
+
       - name: Refresh opted-in Library attention
         continue-on-error: true
         env:

@@ -70,3 +70,29 @@ Full tests include source pagination failures, crash ordering, duplicate replay,
 old-date invalidation, recent/backlog fairness, publication retention and shared
 search membership. The search pilot deliberately retains a hidden VeriBug miss;
 a search patch is not permission to publish it.
+
+## Daily continuation and recovery
+
+Historical collection is incremental: the daily collector uses the configured
+600-second launch budget and 80-window cap, alternating recent and historical
+windows. Pending work is persisted and resumed; those limits are not a promise
+to finish 80 windows or a hard timeout on an in-flight source request. There is
+no need to finish the historical ledger before shipping the code.
+
+Both daily candidate review (48 records) and the separate editorial batch (16)
+use the same oldest/newest scheduler and durable cooldown state, without a
+90-day lower release-date cutoff. The editorial workflow syncs main before doing
+work and commits all tracked data changes and newly created review state. It
+never resets the checkout after reviewing a batch. Both publishing workflows
+share the existing concurrency group; a conflicting external push fails rather
+than overwriting newer main data.
+
+Before expensive generation, both workflows upload a 14-day recovery artifact
+containing collection/review state and canonical inputs. This is a recovery
+snapshot, not a successful publication receipt or automatic restore. If later
+validation or push fails, inspect the failed run and reconcile source keys and
+review timestamps against current main before retrying. A runner loss before
+this upload can still require replay from the last committed checkpoint.
+
+Legacy identity bindings are a separate evidence-review backlog. Daily source
+collection does not automatically adjudicate or merge the 70 ambiguous bindings.
