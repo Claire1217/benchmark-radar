@@ -45,7 +45,7 @@ class AdapterTests(unittest.TestCase):
     @patch("discover_benchmarks.fetch_text", return_value="100 agent tasks scored by task success rate")
     @patch("discover_benchmarks.fetch_json")
     def test_github_keeps_new_ai_benchmark_repositories(self, fetch_json, _fetch_text) -> None:
-        fetch_json.return_value = {"items": [{
+        fetch_json.return_value = {"total_count": 1, "incomplete_results": False, "items": [{
             "name": "AgentBench", "full_name": "lab/AgentBench", "description": "LLM agent benchmark",
             "created_at": "2026-08-22T04:00:00Z", "updated_at": "2026-08-22T05:00:00Z",
             "html_url": "https://github.com/lab/AgentBench", "homepage": "", "topics": ["llm"],
@@ -67,7 +67,7 @@ class AdapterTests(unittest.TestCase):
         ]
         for homepage, expected in cases:
             with self.subTest(homepage=homepage):
-                fetch_json.return_value = {"items": [{
+                fetch_json.return_value = {"total_count": 1, "incomplete_results": False, "items": [{
                     "name": "AgentBench", "full_name": "lab/AgentBench", "description": "LLM agent benchmark",
                     "created_at": "2026-08-22T04:00:00Z", "updated_at": "2026-08-22T05:00:00Z",
                     "html_url": "https://github.com/lab/AgentBench", "homepage": homepage, "topics": ["llm"],
@@ -76,13 +76,13 @@ class AdapterTests(unittest.TestCase):
                 [row] = discover_benchmarks.github_candidates("2026-08-22")
                 self.assertEqual(row["links"]["project"], expected)
 
-    @patch("discover_benchmarks.fetch_json")
+    @patch("discover_benchmarks.fetch_json_page")
     def test_huggingface_uses_dataset_creation_date(self, fetch_json) -> None:
-        fetch_json.return_value = [{
+        fetch_json.return_value = ([{
             "id": "lab/AgentBench", "author": "lab", "description": "AI agent benchmark with 100 tasks and success-rate scoring",
             "createdAt": "2026-08-22T07:00:00.000Z", "lastModified": "2026-08-22T08:00:00.000Z",
             "tags": ["task_categories:question-answering"],
-        }]
+        }], None)
         rows = discover_benchmarks.huggingface_candidates("2026-08-22")
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["type"], "huggingface")

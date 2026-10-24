@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from datetime import date, datetime, time, timedelta, timezone
 import json
 import os
@@ -16,11 +17,13 @@ from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 import index_benchmarks as arxiv
+import source_coverage
 
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW_PATH = ROOT / "data" / "review_queue.json"
 RUNS_PATH = ROOT / "data" / "runs"
+COVERAGE_PATH = ROOT / "data" / "source_coverage.json"
 USER_AGENT = "BenchmarkRadar/1.0 (https://github.com/Claire1217/benchmark-radar)"
 BENCHMARK_WORD = re.compile(r"\b(?:benchmark|bench|evaluation suite|testbed|challenge set)\b", re.I)
 AI_CONTEXT = re.compile(
@@ -140,10 +143,22 @@ def github_candidates(target: str) -> list[dict[str, Any]]:
     ]
     by_id: dict[str, dict[str, Any]] = {}
     for query in queries:
-        url = "https://api.github.com/search/repositories?" + urlencode(
-            {"q": query, "sort": "updated", "order": "desc", "per_page": 100}
-        )
-        for item in (fetch_json(url, headers).get("items") or []):
+        items = []
+        for page in range(1, 11):
+            url = "https://api.github.com/search/repositories?" + urlencode(
+                {"q": query, "sort": "updated", "order": "desc", "per_page": 100, "page": page}
+            )
+            result = fetch_json(url, headers)
+            total = result.get("total_count")
+            if result.get("incomplete_results") or not isinstance(total, int) or total > 1000:
+                raise arxiv.IncompleteHarvestError("GitHub search incomplete, missing total, or exceeds 1000 results")
+            rows = result.get("items") or []
+            items.extend(rows)
+            if len(items) >= total:
+                break
+            if not rows:
+                raise arxiv.IncompleteHarvestError("GitHub pagination ended before total_count")
+        for item in items:
             source_id = str(item.get("full_name") or "")
             text = " ".join([
                 str(item.get("name") or ""), str(item.get("description") or ""),
@@ -161,8 +176,8 @@ def github_candidates(target: str) -> list[dict[str, Any]]:
                     f"https://api.github.com/repos/{source_id}/readme",
                     {**headers, "Accept": "application/vnd.github.raw+json"},
                 ))
-            except (HTTPError, URLError, TimeoutError):
-                continue
+            except (HTTPError, URLError, TimeoutError) as error:
+                raise arxiv.IncompleteHarvestError(f"GitHub README unavailable: {source_id}") from error
             evidence = clean(f"{text} {readme}")
             if not has_reviewable_evidence(evidence):
                 continue
@@ -184,13 +199,47 @@ def github_candidates(target: str) -> list[dict[str, Any]]:
     return list(by_id.values())
 
 
+def fetch_json_page(url: str) -> tuple[Any, str | None]:
+    request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+    with urlopen(request, timeout=45) as response:
+        payload = json.loads(response.read())
+        link = response.headers.get("Link", "")
+    match = re.search(r'<([^>]+)>;\s*rel="?next"?', link)
+    return payload, match.group(1) if match else None
+
+
+def huggingface_pages(url: str, target: str):
+    seen = set()
+    for _ in range(40):
+        if url in seen or urlparse(url).netloc != "huggingface.co":
+            raise arxiv.IncompleteHarvestError("Invalid or repeated Hugging Face pagination URL")
+        seen.add(url)
+        rows, next_url = fetch_json_page(url)
+        if not isinstance(rows, list):
+            raise arxiv.IncompleteHarvestError("Hugging Face response is not a dataset list")
+        yield from rows
+        # The API sorts by creation descending. Once strictly older than this
+        # day, all results on the target day have been traversed.
+        dates = [iso_day(row.get("createdAt")) for row in rows]
+        if dates and all(dates) and min(dates) < target:
+            return
+        if not next_url:
+            if len(rows) >= 500:
+                raise arxiv.IncompleteHarvestError("Hugging Face limit reached without next-page link")
+            return
+        if not rows:
+            raise arxiv.IncompleteHarvestError("Empty Hugging Face page with continuation")
+        url = next_url
+    raise arxiv.IncompleteHarvestError("Hugging Face pagination budget exhausted")
+
+
 def huggingface_candidates(target: str) -> list[dict[str, Any]]:
     by_id: dict[str, dict[str, Any]] = {}
     for search in ("benchmark", "bench"):
         url = "https://huggingface.co/api/datasets?" + urlencode(
             {"search": search, "sort": "createdAt", "direction": "-1", "limit": 500, "full": "true"}
         )
-        for item in fetch_json(url):
+        for item in huggingface_pages(url, target):
             dataset_id = str(item.get("id") or "")
             description = clean(item.get("description"))
             text = " ".join([dataset_id, description, " ".join(item.get("tags") or [])])
@@ -227,17 +276,31 @@ def openreview_value(content: dict[str, Any], key: str) -> Any:
 def openreview_candidates(target: str) -> list[dict[str, Any]]:
     start = datetime.combine(date.fromisoformat(target), time.min, timezone.utc)
     end = datetime.combine(date.fromisoformat(target), time.max, timezone.utc)
-    url = "https://api2.openreview.net/notes?" + urlencode({
+    params = {
         "mintcdate": int(start.timestamp() * 1000),
-        "maxcdate": int(end.timestamp() * 1000),
-        "limit": 1000,
-        "sort": "cdate:desc",
-    })
+        "maxcdate": int(end.timestamp() * 1000), "limit": 1000, "sort": "cdate:desc",
+    }
     headers: dict[str, str] = {}
     if os.environ.get("OPENREVIEW_TOKEN"):
         headers["Authorization"] = f"Bearer {os.environ['OPENREVIEW_TOKEN']}"
+    notes, seen = [], set()
+    for offset in range(0, 20000, 1000):
+        result = fetch_json("https://api2.openreview.net/notes?" + urlencode({**params, "offset": offset}), headers)
+        page = result.get("notes", [])
+        for note in page:
+            if not note.get("id") or note["id"] in seen:
+                raise arxiv.IncompleteHarvestError("OpenReview pagination repeated or missing note ID")
+            seen.add(note["id"])
+        notes.extend(page)
+        total = result.get("count")
+        if (isinstance(total, int) and len(notes) >= total) or (total is None and len(page) < 1000):
+            break
+        if not page:
+            raise arxiv.IncompleteHarvestError("OpenReview page ended before advertised count")
+    else:
+        raise arxiv.IncompleteHarvestError("OpenReview pagination budget exhausted")
     output: list[dict[str, Any]] = []
-    for note in fetch_json(url, headers).get("notes", []):
+    for note in notes:
         content = note.get("content") or {}
         title = clean(openreview_value(content, "title"), 500)
         abstract = clean(openreview_value(content, "abstract"))
@@ -367,103 +430,132 @@ def merge_review_queue(
         "sourceFailures": failures,
         "candidates": candidates,
     })
-    arxiv.write_json(REVIEW_PATH, queue)
+    source_coverage.save(REVIEW_PATH, queue)
     return added, duplicates
 
 
+def paper_candidate(paper: arxiv.Paper, config: dict[str, Any], now: str) -> dict | None:
+    score, relation, reasons = arxiv.recognition(paper)
+    if score < float(config["thresholds"]["review"]):
+        return None
+    record = arxiv.to_record(paper, now, score, relation, reasons)
+    record["reviewContext"] = {"abstract": paper.abstract, "comments": paper.comments}
+    record["candidatePriority"] = "high" if score >= float(config["thresholds"]["publish"]) else "normal"
+    return record
+
+
+def discover(target: str, config: dict, *, dry_run: bool = False, max_seconds: int = 600,
+             max_windows: int = 80, start_date: str | None = None,
+             sources: set[str] | None = None) -> dict:
+    """Run scoped work units; a failed adapter never publishes an empty replacement.
+
+    Coverage certifies only these queries and the first-release window, not all
+    benchmarks on the platform or historical source updates.
+    """
+    started = time_module.monotonic()
+    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    ledger = source_coverage.load(COVERAGE_PATH)
+    sources = sources or {"arxiv", "github", "huggingface", "openreview"}
+    if sources - {"arxiv", "github", "huggingface", "openreview"}:
+        raise ValueError("Unsupported discovery source")
+    first = start_date or arxiv_query_dates(target)[0]
+    start, end = date.fromisoformat(first), date.fromisoformat(target)
+    if end < start:
+        raise ValueError("start date must precede target date")
+    if "arxiv" in sources:
+        day = start
+        while day <= end:
+            last = min(day + timedelta(days=6), end)
+            for category in config["arxiv"]["categories"]:
+                source_coverage.enqueue(ledger, "arxiv", category, day.isoformat(), last.isoformat())
+            day = last + timedelta(days=1)
+    external_days = ([ (start + timedelta(days=i)).isoformat() for i in range((end-start).days + 1)]
+                     if start_date else publication_batch_dates(target))
+    for name in sources - {"arxiv"}:
+        for day in external_days:
+            source_coverage.enqueue(ledger, name, "created-benchmark-v2", day, day)
+    if not start_date:
+        # A completed early morning query can precede a late source announcement.
+        # Revisit recent windows on the scheduled later retry without reopening
+        # historical backfills or discarding their completion receipts.
+        refresh_before = (datetime.fromisoformat(now.replace('Z', '+00:00')) - timedelta(hours=2)).isoformat().replace('+00:00', 'Z')
+        for window in ledger['windows'].values():
+            if (window['source'] in sources and window['status'] == 'complete'
+                    and first <= window['to'] <= target and window.get('lastAttemptAt', '') <= refresh_before):
+                window['status'] = 'pending'
+    if not dry_run:
+        # Persist debt before the first request so process death is recoverable.
+        source_coverage.save(COVERAGE_PATH, ledger)
+    adapters = {"github": github_candidates, "huggingface": huggingface_candidates, "openreview": openreview_candidates}
+    stats = {"attempted": 0, "complete": 0, "failed": 0, "fetched": 0, "candidates": 0,
+             "dryRun": dry_run, "sourceDate": target, "windows": []}
+    for identifier, window in source_coverage.pending(ledger, now):
+        if window['source'] not in sources:
+            continue
+        if stats['attempted'] >= max_windows or time_module.monotonic() - started >= max_seconds:
+            break
+        stats['attempted'] += 1
+        name = window['source']
+        try:
+            if name == 'arxiv':
+                scoped = copy.deepcopy(config)
+                scoped['arxiv']['categories'] = [window['scope']]
+                try:
+                    papers = arxiv.fetch_for_range(window['from'], window['to'], scoped)
+                except (HTTPError, URLError, TimeoutError, RuntimeError):
+                    papers = arxiv.fetch_for_range_atom(window['from'], window['to'], scoped)
+                fetched = len(papers)
+                records = [r for paper in papers if (r := paper_candidate(paper, config, now)) is not None]
+            else:
+                rows = adapters[name](window['from'])
+                fetched = len(rows)
+                records = [candidate_record(item, now, config) for item in rows]
+            stats['fetched'] += fetched
+            stats['candidates'] += len(records)
+            if not dry_run:
+                merge_review_queue(records, target, first, {})
+                source_coverage.attempt(ledger, identifier, now=now, status='complete', count=fetched,
+                                        candidate_hash=source_coverage.receipt(REVIEW_PATH))
+            stats['complete'] += 1
+            stats['windows'].append({'key': identifier, 'status': 'complete', 'fetched': fetched, 'candidates': len(records)})
+        except (HTTPError, URLError, TimeoutError, RuntimeError, json.JSONDecodeError) as error:
+            stats['failed'] += 1
+            stats['windows'].append({'key': identifier, 'status': 'failed', 'error': type(error).__name__})
+            if not dry_run:
+                source_coverage.attempt(ledger, identifier, now=now, status='failed', error=str(error))
+        if not dry_run:
+            source_coverage.save(COVERAGE_PATH, ledger)
+    stats['outstandingWindows'] = sum(w['status'] != 'complete' for w in ledger['windows'].values())
+    if not dry_run:
+        # Expose the current processing date even when all adapters fail; this is
+        # not a source completion certificate. The ledger retains those failures.
+        failures = {w['key']: w['error'] for w in stats['windows'] if w['status'] == 'failed'}
+        merge_review_queue([], target, first, failures)
+        source_coverage.save(RUNS_PATH / f"{target}.json", {'sourceDate': target, 'generatedAt': now,
+            'externalDiscovery': stats, 'coverageLedger': 'data/source_coverage.json'})
+    return stats
+
+
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Discover one dated multi-source benchmark candidate pool.")
-    parser.add_argument("--date", required=True, help="Source first-public date in YYYY-MM-DD")
+    parser = argparse.ArgumentParser(description="Discover candidates with durable scoped gap recovery.")
+    parser.add_argument("--date", required=True, help="Inclusive first-public date / end date")
+    parser.add_argument("--start-date", help="Explicit historical backfill start; enqueues bounded windows")
+    parser.add_argument("--sources", help="Comma-separated source names (default all)")
+    parser.add_argument("--max-seconds", type=int)
+    parser.add_argument("--max-windows", type=int)
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    target = date.fromisoformat(args.date).isoformat()
     config = arxiv.read_json(arxiv.CONFIG_PATH)
-    failures: dict[str, str] = {}
-    arxiv_count = 0
-    arxiv_mode = "oai"
-    query_dates = arxiv_query_dates(target)
-    batch_dates = publication_batch_dates(target)
-    batch_start = batch_dates[0]
-    if query_dates:
-        try:
-            # One range request per arXiv category is materially faster and
-            # less failure-prone than repeating every category for each day.
-            papers = arxiv.fetch_for_range(query_dates[0], query_dates[-1], config)
-            arxiv_count = len(papers)
-            if not args.dry_run:
-                arxiv.index_papers(
-                    papers, batch_start, target, target, config,
-                    started_from="unified discovery",
-                )
-        except (HTTPError, URLError, TimeoutError, RuntimeError):
-            try:
-                papers = arxiv.fetch_for_range_atom(query_dates[0], query_dates[-1], config)
-                arxiv_count = len(papers)
-                arxiv_mode = "atom-fallback"
-                if not args.dry_run:
-                    arxiv.index_papers(
-                        papers, batch_start, target, target, config,
-                        started_from="arXiv Atom API fallback",
-                    )
-            except (HTTPError, URLError, TimeoutError, RuntimeError) as fallback_error:
-                failures["arxiv"] = type(fallback_error).__name__
-                if not args.dry_run:
-                    # External sources can still publish a valid dated batch. Keep
-                    # the failed arXiv source explicit instead of leaving an old
-                    # source window in the canonical manifest.
-                    arxiv.index_papers(
-                        [], batch_start, target, target, config,
-                        started_from="arXiv unavailable; external sources only",
-                    )
-    elif not args.dry_run:
-        arxiv.index_papers(
-            [], batch_start, target, target, config,
-            started_from="external-only source day",
-        )
-
-    indexed_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    adapters: list[tuple[str, Callable[[str], list[dict[str, Any]]]]] = [
-        ("github", github_candidates), ("huggingface", huggingface_candidates),
-        ("openreview", openreview_candidates),
-    ]
-    raw: list[dict[str, Any]] = []
-    counts: dict[str, Any] = {
-        "arxiv": arxiv_count,
-        "arxivMode": arxiv_mode,
-        "arxivQueryDates": query_dates,
-        "publicationBatchDates": batch_dates,
-    }
-    for name, adapter in adapters:
-        try:
-            rows = [record for source_day in batch_dates for record in adapter(source_day)]
-            counts[name] = len(rows)
-            raw.extend(rows)
-        except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as error:
-            failures[name] = type(error).__name__
-            counts[name] = 0
-    records = [candidate_record(item, indexed_at, config) for item in raw]
-    if args.dry_run:
-        print(json.dumps({
-            "sourceDate": target,
-            "counts": counts,
-            "failures": failures,
-            "candidateCount": len(records),
-            "candidates": [
-                {"name": record["name"], "source": record["source"]["type"], "url": record["source"]["url"]}
-                for record in records[:25]
-            ],
-        }, ensure_ascii=False, indent=2))
-        return
-    added, duplicates = merge_review_queue(records, target, batch_start, failures)
-    run_path = RUNS_PATH / f"{target}.json"
-    run = read_json(run_path, {"sourceDate": target, "generatedAt": indexed_at, "counts": {}})
-    run["externalDiscovery"] = {"counts": counts, "failures": failures, "added": added, "duplicates": duplicates}
-    arxiv.write_json(run_path, run)
-    print(f"source_date={target} counts={counts} added={added} duplicates={duplicates} failures={failures}")
+    settings = config.get('discovery', {})
+    result = discover(date.fromisoformat(args.date).isoformat(), config, dry_run=args.dry_run,
+        max_seconds=args.max_seconds if args.max_seconds is not None else settings.get('max_runtime_seconds', 600),
+        max_windows=args.max_windows if args.max_windows is not None else settings.get('max_windows_per_run', 80),
+        start_date=args.start_date, sources=set(args.sources.split(',')) if args.sources else None)
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":

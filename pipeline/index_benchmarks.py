@@ -120,8 +120,13 @@ def normalize_space(value: str | None) -> str:
 
 
 def category_to_set_spec(category: str) -> str:
-    group, leaf = category.split(".", 1)
-    return f"{group}:{group}:{leaf}"
+    physics_archives = {"astro-ph", "cond-mat", "gr-qc", "hep-ex", "hep-lat", "hep-ph", "hep-th",
+                        "math-ph", "nlin", "nucl-ex", "nucl-th", "physics", "quant-ph"}
+    archive, _, leaf = category.partition(".")
+    group = "physics" if archive in physics_archives else archive
+    if group not in {"physics", "cs", "eess", "math", "stat", "q-bio", "q-fin", "econ"}:
+        raise ValueError(f"Unsupported arXiv archive: {category}")
+    return f"{group}:{archive}" + (f":{leaf}" if leaf else "")
 
 
 def oai_text(element: ET.Element, path: str) -> str:
@@ -1079,15 +1084,9 @@ def persistent_review_candidates(
     excluded_source_ids: set[str],
 ) -> list[dict[str, Any]]:
     """Upsert one source window without deleting deferred candidates elsewhere."""
-    previous_by_source = {
-        str((candidate.get("source") or {}).get("id") or ""): candidate
-        for candidate in existing
-    }
-    retained = [
-        candidate
-        for candidate in existing
-        if not (range_start <= str(candidate.get("releasedAt", "")) <= range_end)
-    ]
+    # Absence from a source response is not an exclusion decision. In particular,
+    # one category/adapter replay must not remove another source's pending work.
+    retained = list(existing)
     by_source = {
         str((candidate.get("source") or {}).get("id") or ""): candidate
         for candidate in retained
