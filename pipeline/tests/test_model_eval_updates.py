@@ -1528,5 +1528,59 @@ for(const b of ['reviewed-20261025d:political-even-api',p+'child-multiturn-api',
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 
+    def test_sonnet_agent_safety_keeps_configurations_and_denominators_separate(self):
+        mid='official-reviewed:claude-sonnet-5-5';pc='reviewed-20261025c:';pb='reviewed-20261025b:';cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(cs[pc+'code-malicious']['rows'][2]['name'],'Claude Mythos 5.1')
+        self.assertIn('Mean of thinking on/off',cs[pc+'computer-malicious']['rows'][0]['setting'])
+        self.assertIn('Thinking only',cs[pc+'computer-malicious']['rows'][1]['setting'])
+        shade=cs[pc+'shade-coding-no-probes-attempts']
+        self.assertEqual(len(shade['rows']),5)
+        self.assertEqual(shade['rows'][-1]['source_column'],'Claude Sonnet 5 · Without thinking')
+        self.assertEqual(shade['rows'][0]['display_value'],3.01)
+        self.assertEqual(shade['supplementaryComparisons'][0]['rows'][-1]['display_value'],0.07)
+        self.assertTrue(all(not r['plot_eligible'] for r in shade['supplementaryComparisons'][0]['rows']))
+        self.assertEqual(cs[pc+'shade-coding-no-probes-scenarios']['rows'][0]['display_text'],'16/40')
+        self.assertEqual(cs[pc+'shade-coding-no-probes-scenarios']['rows'][0]['source_denominator'],40)
+        raw=cs['reviewed-20261026:cowork-ipi-no-probes-attempts']['rows'][-1]
+        self.assertEqual(raw['display_value'],0.37)
+        self.assertEqual(raw['source_discrepancy']['publishedSuccessCount'],4)
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025c:',b='reviewed-20261025b:';
+let s=rank(d,p+'shade-coding-no-probes-attempts',mid);
+assert.equal(s.reports.length,5);assert.equal(s.reports[0].display_value,3.01);
+assert.equal(s.reports.filter(r=>r.name.startsWith('Claude Sonnet 5')&&r.model_id!==mid).length,2);
+assert.equal(s.official.length,0);
+s=rank(d,b+'grayswan-ipi-k15',mid);assert.equal(s.reports.length,11);assert.equal(s.exceptions.length,2);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,3.4);
+assert.ok(s.exceptions.every(r=>['Qwen 3.8','GLM-5.3'].includes(r.name)));
+assert.ok(!s.reports.some(r=>r.name==='Gemini 4 Argon'||r.name==='DeepSeek-V4-Pro'));
+s=rank(d,p+'cowork-ipi-attempts',mid);assert.equal(s.reports.length,4);
+assert.ok(s.reports.every(r=>r.display_value===0&&r.rank===1));assert.equal(s.official.length,0);
+s=rank(d,'reviewed-20261026:cowork-ipi-no-probes-attempts',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[0,0.09,0.37,2.55]);
+assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch21_receipt_retains_source_cells_and_flags_source_discrepancy(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-21.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),21);self.assertEqual(sum(len(x['columns']) for x in e['metrics']),113)
+        self.assertEqual(len(e['tableCellChecks']),68)
+        self.assertEqual(len(e['figureLabels']['modelOrder']),13)
+        self.assertEqual(len(e['supplements']),2);self.assertEqual(sum(len(x['columns']) for x in e['supplements']),6)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        self.assertEqual(e['discrepancies'][0]['publishedRate'],'0.37%')
+        self.assertEqual(e['discrepancies'][0]['nominalAttemptCount'],1100)
+        self.assertFalse(e['officialSourceChecks']['admitted'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+
 if __name__ == '__main__':
     unittest.main()

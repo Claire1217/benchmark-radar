@@ -1013,3 +1013,53 @@ Validation: **66 tests**, **2,505 drawer renders**, 120 table-cell cross-checks,
 104 printed figure labels, independent source/protocol checks, historical
 semantic preservation, and clean-checkout static build/site validation.
 No browser visual QA is claimed.
+
+
+## Batch 21 — Sonnet agentic safety and prompt injection (2026-10-26)
+
+Reviewed Sonnet 5.5 system-card section 5, PDF pp.47–54. Added **21**
+primary comparisons containing **113** same-source cells, plus **2** supplemental
+fallback-diagnostic groups containing **6** exact values. All five source tables
+were checked cell by cell against independent PDF extraction (**68 cells**), with
+visual decimal/denominator checks; all **39** labels in the 13-model IPI figure
+were visually checked. Six domain breakdown values come from the same-page prose.
+
+- Claude Code malicious-request refusal and dual-use/benign success both rank
+  higher-is-better. The comparison names Mythos 5.1, not Fable 5.1.
+- Malicious computer-use results retain Sonnet's mean over thinking on/off and
+  Opus/Mythos thinking-only settings. Neither condition is silently standardized.
+- Gray Swan IPI retains the report's full 13-model figure at success@1/@10/@15.
+  Qwen 3.8 and GLM-5.3 lack GUI coverage and remain evidence outside the plot.
+  Later Haiku-report models are not backfilled into this earlier report.
+- Shade coding and GUI keep probes on/off, attempt ASR and compromised scenarios
+  separate. Both Sonnet 5 thinking rows remain distinct. Attempt ASR counts valid
+  responses; scenario counts retain their /40 and /14 denominators.
+- Cowork retains auto-mode and test-only probes-off results separately. All-attempt
+  ASR differs from Shade's valid-response denominator. Exact zero results and
+  /110 scenario counts remain numeric, including four-way zero ties.
+- The Cowork report prints Sonnet 5 as 0.37% and four successful attempts out of
+  a nominal 1,100. Four/1,100 rounds to 0.36%; the discrepancy is retained in the
+  evidence and displayed as a concise caveat, without silently changing 0.37%.
+- Conditional fallback ASR and fallback-use percentages are supplementary evidence;
+  neither replaces combined attempt ASR nor success@k. GUI fallback use is reported
+  only as <1%; no exact percentage is invented.
+
+Rechecked the original Gray Swan paper, author repository and Shade product page.
+They do not establish an independently published matching Q1+Q2 success@k or
+scenario-specific Shade leaderboard. **No new official snapshot** is admitted;
+the **39** existing snapshots remain unchanged. All earlier comparisons,
+observations and benchmark metadata pass historical preservation assertions.
+
+Inventory: **600 reviewed / 2,526 collected pairs**, 124 models with records,
+3 source-complete models, 1,135 catalog-only models. Sonnet has **143** primary
+comparisons/coverage records; sections 6–7 (alignment and welfare) remain pending.
+This is an intermediate checkpoint, not a full-catalog completion claim.
+
+Validation: model-eval regression suite, full **2,526**-drawer VM rendering,
+static-site build/validation and whitespace checks. Browser visual QA remains
+unperformed. Receipts: `data/model_eval_evidence/2026-10-26-batch-21.json`.
+
+Batch 20 deployment was independently confirmed: commit
+`88235b1b5456898511f14c38d8e35a2541a79771`, CI `40217342182` and Pages
+`40217342169` succeeded; the live page returned 579 reviewed / 2,505 pairs and
+122 Sonnet comparisons before batch 21 publication.
