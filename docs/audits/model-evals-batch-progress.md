@@ -1217,3 +1217,45 @@ unperformed. Evidence: `data/model_eval_evidence/2026-10-26-batch-24.json`.
 Batch 23 was confirmed live: commit `aee64f38ff08d15731ecc34390d1b3e563846a1e`,
 CI `40219111249` and Pages `40219111285` succeeded; live counts were 686 reviewed /
 2,612 pairs and 229 Sonnet comparisons. The full-catalog goal remains active.
+
+## Batch 25 — Sonnet source reconciliation and reference-only results (2026-10-26)
+
+Completed the release and **148-page** system-card reconciliation. Sonnet now has
+**260 / 260** reviewed primary comparisons/coverage records and **55** supplemental
+records. All **88** indexed figures/tables have a disposition: 87 score-bearing
+items map to primary or supplementary evidence; Table 2.2.1.A is a methodology
+portfolio without scores. All **44** capability-summary cells match existing
+primary comparisons or the separate HealthBench summary supplement. Figure IDs
+are matched exactly, not by suffix (e.g. 2.2.1.A versus 5.2.2.1.A).
+
+- Added the full system-card CursorBench curve: six models and 28 effort points,
+  including Grok's three configurations. Only four Sonnet scores are printed
+  exactly in the accompanying prose. The other 24 values and costs remain
+  unlabeled. This does not replace the four-model release CSV or official table.
+- Reconciled Sonnet's 83.9% OSWorld offline-subset reference: it comes from the
+  later Haiku release, while Sonnet's own release/system card reports the full
+  set (80.1% partial credit and 43.5% strict pass). The original 83.9 observation
+  remains in history, and the complete four-column Haiku comparison is retained
+  as explicitly dated supplementary evidence. Sonnet's own offline result is
+  marked **Not reported**, with no protocol inferred from the later peer column.
+- Fixed headline selection so an audited absence cannot fall back to a later
+  numerical reference in history. The matrix reads the selected report's own
+  row, including explicit absence; chart rows suppress that historical fallback.
+  The review queue distinguishes report absence from an unlabeled figure.
+
+All earlier observations and official snapshots remain unchanged. The only prior
+comparison modification appends the missing Cursor curve. The full-catalog goal
+remains active: **717 reviewed / 2,642 collected pairs**, 124 models with records,
+**4** source-complete models and 1,135 catalog-only identities. Source-complete
+means coverage and provenance review, not independent experimental reproduction
+or availability of exact numbers and matching official boards for every metric.
+
+Validation: **76** model-eval regressions, all **2,642** drawers in the VM, matrix
+and drawer checks for the reference-only result, static build/validation and
+whitespace checks. Browser visual QA remains unperformed. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-25.json` and
+`data/model_eval_evidence/2026-10-26-sonnet-source-coverage.json`.
+
+Batch 24 was confirmed live: commit `1990ee83852fb5da404a04b642f6dca02a5890c6`,
+successful CI `40219718139` and Pages `40219718135`; live counts were 716 reviewed /
+2,642 pairs and 259 Sonnet comparisons, including the flagged 7.7/7.8 source conflict.

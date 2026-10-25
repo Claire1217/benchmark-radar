@@ -1087,8 +1087,8 @@ for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
                 self.assertEqual(r['display_value'], float(source['y']))
                 self.assertEqual(r['cost_per_task_usd'], float(source['x']))
                 self.assertFalse(r['plot_eligible'])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
-        self.assertTrue(self.updates['modelAudits'][mid]['discoveredMetrics'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'complete')
+        self.assertFalse(self.updates['modelAudits'][mid]['discoveredMetrics'])
 
     def test_sonnet_maintainer_snapshots_keep_scope_effort_and_missing_values(self):
         mid = 'official-reviewed:claude-sonnet-5-5'
@@ -1112,7 +1112,7 @@ for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
         for bid, c in data['report_comparisons'][mid].items():
             own = next(r for r in c['rows'] if r.get('model_id') == mid)
             if own['display_value'] is None:
-                expected = 'no_single_score' if bid == 'reviewed-20261025f:welfare-consultation-positions' else 'unlabeled_figure'
+                expected = {'reviewed-20261025f:welfare-consultation-positions': 'no_single_score', 'reviewed-202610:os21-offline': 'not_reported'}.get(bid, 'unlabeled_figure')
                 self.assertEqual(c['valueStatus'], expected)
                 self.assertTrue(c['displayEmpty'])
                 self.assertFalse(any(r['model_id'] == mid for r in data['charts'][bid]['rows']))
@@ -1191,7 +1191,7 @@ assert.equal(s.reports.find(r=>r.model_id===mid).rank,2);
         self.assertEqual(self.updates['benchmarks'][p+'toolathlon-verified-turns']['direction'], 'descriptive')
         self.assertEqual(len(cs['reviewed-202610:deepswe']['rows']), 1)
         self.assertEqual([r['display_value'] for r in cs['reviewed-202610:chart-tools']['rows']], [90.2,89.0,88.4,73.2])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'complete')
 
     def test_multimodal_revision_ambiguity_retracts_the_previous_board_mapping(self):
         bid = 'reviewed-20261025:swe-multimodal'
@@ -1350,7 +1350,7 @@ for(const b of ['health-raw','health-adjusted','physician-opus5','gmmlu-excluded
         s['rows'][-1]['value_status']='assumed_zero'
         with self.assertRaisesRegex(ValueError,'Invalid supplementary'):
             apply_updates(copy.deepcopy(self.data),bad)
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'complete')
 
 
     def test_sonnet_research_and_cad_keep_source_settings_separate(self):
@@ -1406,7 +1406,7 @@ assert.equal(s.reports[0].model_id,mid);
         self.assertTrue(all(not t['admitted'] for t in e['officialSourceTables']))
         lab=next(t for t in e['officialSourceTables'] if t['benchmark']=='aa-lab')
         self.assertEqual(len(lab['rows']),29)
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'complete')
 
 
     def test_sonnet_september_aeci_is_not_the_october_fit_or_public_eci(self):
@@ -1527,7 +1527,7 @@ for(const b of ['reviewed-20261025d:political-even-api',p+'child-multiturn-api',
             self.assertEqual(item['sha256'],c['source_table_sha256'])
             self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
         self.assertEqual(e['officialSourceChecks']['bbqResultsDirectories'],['RoBERTa_and_DeBERTaV3','UnifiedQA'])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'complete')
 
 
     def test_sonnet_agent_safety_keeps_configurations_and_denominators_separate(self):
@@ -1581,7 +1581,7 @@ assert.equal(s.official.length,0);
         self.assertEqual(e['discrepancies'][0]['publishedRate'],'0.37%')
         self.assertEqual(e['discrepancies'][0]['nominalAttemptCount'],1100)
         self.assertFalse(e['officialSourceChecks']['admitted'])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'complete')
 
 
     def test_sonnet_behavioral_ratings_keep_source_cohort_scale_and_direction(self):
@@ -1624,7 +1624,7 @@ assert.equal(s.reports.length,6);assert.equal(s.official.length,0);
             self.assertEqual(self.updates['benchmarks'][item['benchmarkId']]['unit'],'rating')
             self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
         self.assertFalse(e['officialSourceChecks']['admitted'])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'complete')
 
 
     def test_sonnet_alignment_separates_protocols_conversions_and_unknown_values(self):
@@ -1727,6 +1727,70 @@ s=rank(d,'reviewed-20261026:welfare-intervention-helpfulness',mid);assert.equal(
             self.assertEqual(item['sha256'],c['source_table_sha256'])
             self.assertEqual(self.updates['benchmarks'][item['benchmarkId']]['direction'],'descriptive')
             self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+
+
+    def test_reviewed_absence_never_promotes_a_later_peer_reference_to_headline(self):
+        from build_model_eval_review import build_review
+        data=apply_updates(self.data,self.updates);mid='official-reviewed:claude-sonnet-5-5';bid='reviewed-202610:os21-offline'
+        history=[r for r in data['observations'] if r['model_id']==mid and r['benchmark_id']==bid and r['display_value'] is not None]
+        self.assertEqual(len(history),1);self.assertEqual(history[0]['display_value'],83.9)
+        self.assertEqual(history[0]['sourceId'],'anthropic-haiku-20261007')
+        self.assertFalse(any(r['model_id']==mid for r in data['charts'][bid]['rows']))
+        c=data['report_comparisons'][mid][bid];self.assertEqual(c['valueStatus'],'not_reported')
+        self.assertIsNone(c['rows'][0]['display_value']);self.assertEqual(c['sourceId'],'anthropic-sonnet-system-card-20260928')
+        ref=c['supplementaryComparisons'][0]
+        self.assertEqual(ref['sourceId'],'anthropic-haiku-20261007')
+        self.assertEqual([r['display_value'] for r in ref['rows']],[72.4,15.7,48.9,83.9])
+        self.assertTrue(all(not r['plot_eligible'] for r in ref['rows']))
+        queue,_=build_review(data,self.updates);m=next(m for m in queue['models'] if m['modelId']==mid)
+        pair=next(p for p in m['pairs'] if p['benchmarkId']==bid)
+        self.assertEqual(pair['reportStatus'],'source_not_reported');self.assertEqual(pair['status'],'reviewed')
+        script=r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const data=JSON.parse(fs.readFileSync(0,'utf8')),html=fs.readFileSync('web/model-evals/index.html','utf8');
+const elements={},ctx={data,ModelEvalRanking:require('./web/model-evals/ranking.js'),$:id=>elements[id]??(elements[id]={})};vm.createContext(ctx);
+vm.runInContext(html.slice(html.indexOf('const esc='),html.indexOf("$('companies').addEventListener")),ctx);
+vm.runInContext("company='Anthropic';render()",ctx);
+const mid='official-reviewed:claude-sonnet-5-5',bid='reviewed-202610:os21-offline';
+const button=[...elements.comparison.innerHTML.matchAll(/<button class="score-cell .*?<\/button>/g)].map(m=>m[0]).find(s=>s.includes('data-model="'+mid+'"')&&s.includes('data-benchmark="'+bid+'"'));
+assert.ok(button);assert.ok(button.includes('<span>Not reported</span>'));assert.equal(button.includes('83.9'),false);
+const selected=ctx.ModelEvalRanking.selectRanking(data,bid,mid);assert.equal(selected.own,null);assert.equal(selected.reports.length,0);assert.equal(selected.official.length,0);
+vm.runInContext("focusModel='"+mid+"';selected='"+bid+"';drawPanel()",ctx);
+assert.ok(elements.scores.innerHTML.includes('Not reported in Sonnet'));assert.equal(elements.scores.innerHTML.includes('>83.9%<'),false);
+const full=ctx.ModelEvalRanking.selectRanking(data,'reviewed-202610:os21-partial',mid);assert.equal(full.own.display_value,80.1);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(data),text=True,cwd=ROOT,check=True)
+
+    def test_sonnet_final_source_coverage_and_cursor_series_are_complete(self):
+        import re
+        from build_model_eval_review import build_review
+        mid='official-reviewed:claude-sonnet-5-5';cs=self.updates['reportComparisons'][mid]
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-25.json').read_text())
+        coverage=json.loads((ROOT/e['sourceCoverageReceipt']).read_text())
+        self.assertEqual(coverage['pages'],148);self.assertEqual(len(coverage['figures']),88)
+        self.assertEqual(sum(bool(f['exclusion']) for f in coverage['figures']),1)
+        self.assertEqual(len(coverage['capabilitySummaryCellChecks']),44)
+        for f in coverage['figures']:
+            self.assertTrue(f['evidence'] or f['exclusion'])
+            for ref in f['evidence']:
+                c=cs[ref['benchmarkId']]
+                if ref['kind']=='supplement':c=next(s for s in c['supplementaryComparisons'] if s['id']==ref['supplementId'])
+                token=f['figure'].split(' ',1)[1]
+                self.assertRegex(c['source_table_label'],r'(?<![\d.])'+re.escape(token)+r'(?![\w.])')
+        curve=next(s for s in cs['reviewed-202610:cursor']['supplementaryComparisons'] if s['id']=='system-card-cursor-curve')
+        self.assertEqual(len(curve['rows']),28);self.assertEqual(len({r['name'] for r in curve['rows']}),6)
+        self.assertEqual(sum(r['display_value'] is not None for r in curve['rows']),4)
+        self.assertEqual([r['display_value'] for r in curve['rows'] if r.get('model_id')==mid],[None,39.2,47.8,53.1,55.5])
+        self.assertEqual(len([r for r in curve['rows'] if r['name']=='Grok 4.7']),3)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+        data=apply_updates(self.data,self.updates);queue,_=build_review(data,self.updates);m=next(m for m in queue['models'] if m['modelId']==mid)
+        self.assertEqual((m['status'],m['sourceCoverageStatus'],m['reviewedPairs'],m['totalPairs']),('reviewed','complete',260,260))
+        self.assertEqual(coverage['primaryComparisons'],len(cs));self.assertEqual(coverage['supplementaryComparisons'],sum(len(c.get('supplementaryComparisons',[])) for c in cs.values()))
+        self.assertFalse(m['discoveredMetrics'])
 
 
 if __name__ == '__main__':

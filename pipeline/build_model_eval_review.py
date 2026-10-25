@@ -15,7 +15,14 @@ def build_review(data, updates):
             comparison = data.get('report_comparisons', {}).get(mid, {}).get(bid)
             receipt = data.get('report_audits', {}).get(bid, {}).get(mid)
             audit = data.get('model_benchmark_audits', {}).get(mid, {}).get(bid)
-            report_status = ('source_without_exact_value' if comparison.get('valueStatus') in {'unlabeled_figure', 'no_single_score'} else 'comparison_verified') if comparison else 'value_verified' if receipt else 'pending'
+            if comparison:
+                report_status = {
+                    'not_reported': 'source_not_reported',
+                    'unlabeled_figure': 'source_without_exact_value',
+                    'no_single_score': 'source_without_exact_value',
+                }.get(comparison.get('valueStatus'), 'comparison_verified')
+            else:
+                report_status = 'value_verified' if receipt else 'pending'
             board_status = audit.get('status', 'pending') if audit else 'pending'
             reviewed = bool(comparison and audit and board_status != 'pending')
             pairs.append(dict(
@@ -46,6 +53,7 @@ def build_review(data, updates):
         return '<a href="'+escape(url, quote=True)+'">'+e(text)+'</a>' if url and url.startswith(('https://', 'http://')) else e(text)
     labels = {'pending':'Not yet reviewed', 'value_verified':'Value verified; comparison pending',
               'source_without_exact_value':'Source reviewed; no exact value',
+              'source_not_reported':'Not in this model’s report; references retained',
               'comparison_verified':'Source comparison verified', 'not_listed':'Model absent from captured board',
               'matched':'Matched official board', 'historical_board':'Historical board only',
               'protocol_mismatch':'Evaluation setup differs', 'internal':'Internal benchmark',

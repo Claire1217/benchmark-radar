@@ -44,6 +44,10 @@ def preferred(rows, comparison=None):
     if comparison:
         own = next(row for row in comparison['rows']
                    if row.get('model_id') == comparison['selected_model_id'])
+        if own['display_value'] is None:
+            # A reviewed absence must not promote a score quoted by a later
+            # release into this model's own report. Retain that row as history.
+            return None
         candidates = [row for row in rows
                       if row.get('sourceId') == comparison['sourceId']
                       and row.get('reported_at') == comparison['publishedAt']
@@ -110,8 +114,8 @@ def apply_updates(data, updates):
         for row in data['observations']:
             if row['benchmark_id'] == bid and finite(row['display_value']):
                 rows_by_model.setdefault(row['model_id'], []).append(row)
-        rows = [preferred(group, updates.get('reportComparisons', {}).get(mid, {}).get(bid))
-                for mid, group in rows_by_model.items()]
+        rows = [headline for mid, group in rows_by_model.items()
+                if (headline := preferred(group, updates.get('reportComparisons', {}).get(mid, {}).get(bid))) is not None]
         closest = benchmark['direction'] == 'closer_to_zero_is_better'
         if benchmark['direction'] in {'higher_is_better', 'lower_is_better', 'closer_to_zero_is_better'}:
             rows.sort(key=lambda row: abs(row['display_value']) if closest else row['display_value'],
