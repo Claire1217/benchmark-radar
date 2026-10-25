@@ -974,3 +974,42 @@ Validation: **64 tests**, **2,453 drawer renders**, visual source-label checks,
 prose/count reconciliation, fresh source hashes and independent evaluator
 filtering, historical semantic preservation and clean-checkout static build.
 No browser visual QA is claimed.
+
+## Batch 20 — Sonnet harmlessness, multi-turn and bias evaluations (2026-10-26)
+
+Added **52** complete same-source primary comparisons (**208** model cells)
+from section 4, plus **four** source-figure supplements (**16** rows). Every
+API/claude.ai surface, single-/multi-turn metric and context split remains
+separate. Earlier observations, comparison tables and official snapshots are
+unchanged.
+
+- All **120** numeric table cells, including printed uncertainty, were checked
+  against independent PDF table extraction. Decimal positions and negative
+  signs were checked against rendered tables and source prose. Confidence
+  levels are not inferred where the table does not state them.
+- The multi-turn overview's **80** labeled values are retained. Child-safety
+  and self-harm tables provide the primary comparison; their overview bars
+  are separate evidence, preserving the figure's joint Fable 5.1 / Mythos 5.1
+  identity instead of silently assigning it to a single model. Risk categories
+  use different rubrics and are not collapsed into a cross-category rank.
+- Political figures retain **24** labeled values and the joint identity. The
+  report's grader version is unspecified; the original benchmark article
+  identifies a Sonnet 4.5 grader and older evaluated models. Those results
+  do not supply a matched second chart for the updated report protocol.
+- BBQ's four metrics preserve signed bias and rank bias by distance from zero.
+  Sonnet's disambiguated bias is -0.75%, ahead of -0.91%, -0.93% and 1.77% by
+  that criterion. The author repository's published result directories cover
+  RoBERTa/DeBERTaV3 and UnifiedQA, not a matching Sonnet comparison.
+- Exact zero refusal rates and 100% harmless rates remain numbers. Over-refusal
+  sorts ascending; harmless/appropriate-response rates sort descending. API
+  has no system prompt; claude.ai uses the near-final production prompt.
+  Additional production probes/monitoring are excluded in these tests.
+
+Inventory: **579 reviewed / 2,505 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots**. Sonnet
+has 122 primary comparisons/coverage records; sections 5–7 remain pending.
+
+Validation: **66 tests**, **2,505 drawer renders**, 120 table-cell cross-checks,
+104 printed figure labels, independent source/protocol checks, historical
+semantic preservation, and clean-checkout static build/site validation.
+No browser visual QA is claimed.

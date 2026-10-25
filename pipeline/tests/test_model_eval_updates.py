@@ -1490,5 +1490,43 @@ assert.equal(s.reports.find(r=>r.name==='Claude Opus 5.5').display_value,300);
         self.assertEqual(len(e['officialSourceChecks']['matchedSnapshots']),3)
 
 
+    def test_sonnet_harmlessness_preserves_surface_direction_and_exact_zeros(self):
+        mid='official-reviewed:claude-sonnet-5-5';pc='reviewed-20261025c:';cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(cs[pc+'harmless-api']['rows'][0]['source_value'],'95.61% (± 0.18%)')
+        self.assertEqual(cs[pc+'harmless-claude-ai']['rows'][0]['display_value'],99.4)
+        self.assertEqual(cs[pc+'child-overrefusal-claude-ai']['rows'][0]['display_value'],0)
+        self.assertEqual(cs[pc+'selfharm-multiturn-claude-ai']['rows'][0]['display_value'],100)
+        self.assertIn('additional production probes',cs[pc+'harmless-api']['setting'])
+        self.assertEqual(cs[pc+'child-multiturn-api']['rows'][2]['name'],'Claude Fable 5.1')
+        s=cs[pc+'child-multiturn-api']['supplementaryComparisons'][0]
+        self.assertEqual(s['rows'][1]['name'],'Claude Fable 5.1 / Mythos 5.1')
+        self.assertNotIn('model_id',s['rows'][1])
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025c:';
+let s=rank(d,p+'overrefusal-api',mid);assert.deepEqual(s.reports.map(r=>r.display_value),[0,0,0.02,0.59]);
+s=rank(d,p+'election-overrefusal-api',mid);assert.equal(s.reports.length,4);assert.ok(s.reports.every(r=>r.display_value===0&&r.rank===1));
+s=rank(d,'reviewed-20261025b:bbq-disambig-bias',mid);assert.deepEqual(s.reports.map(r=>r.display_value),[-0.75,-0.91,-0.93,1.77]);
+assert.equal(s.reports[0].display_text,'-0.75%');assert.equal(s.official.length,0);
+for(const b of ['reviewed-20261025d:political-even-api',p+'child-multiturn-api',p+'harmless-api'])assert.equal(rank(d,b,mid).official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch20_receipt_retains_all_table_cells_and_source_figure_labels(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-20.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),52);self.assertEqual(sum(len(x['columns']) for x in e['metrics']),208)
+        self.assertEqual(len(e['tableCellChecks']),120);self.assertEqual(e['sourceChecks']['figureLabels'],104)
+        self.assertEqual(len(e['supplements']),4);self.assertEqual(sum(len(x['columns']) for x in e['supplements']),16)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        self.assertEqual(e['officialSourceChecks']['bbqResultsDirectories'],['RoBERTa_and_DeBERTaV3','UnifiedQA'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+
 if __name__ == '__main__':
     unittest.main()
