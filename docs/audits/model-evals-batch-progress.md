@@ -898,3 +898,41 @@ and HLE effort labels plus 11 CAD labels, exact prose checks, four archived
 maintainer tables with exclusion reasons, source hashes, historical semantic
 preservation, and clean-checkout static build/site validation. No browser
 visual QA is claimed.
+
+## Batch 18 — Sonnet RSP source figures and dated AECI fit (2026-10-26)
+
+Added **six** primary comparisons/coverage records (**27** source columns),
+plus **five** figure-condition supplements (**109** rows), from source
+sections 2.2–2.3. All earlier observations, comparisons, metadata and official
+snapshots remain unchanged.
+
+- VCT retains the five actual source columns: 0.43, 0.55, 0.58, 0.59 and 0.58.
+  The prose's qualitative “on par” does not turn Opus's 0.59 into a tie at 0.58.
+  Fractions are displayed as percentages. The report explicitly uses 350
+  questions; SecureBio's original 322-question and updated 279-question sets
+  are not assumed equivalent. Its complete original model table is archived
+  with the exclusion reason; human baseline rows are not model ranks.
+- The September AECI fit has its own benchmark identity: Sonnet 167.93 and
+  Opus 169.12. Neither the later October fit's Opus 174.56 nor Epoch's public
+  ECI replaces those values. Fourteen historical plotted model identities
+  are recorded without estimating coordinates; the 130 anchor and fitted
+  trend slopes are not treated as measured comparison scores.
+- The four Dyno figure records retain all five model identities and every
+  metric/condition: 20 base RNA, 40 base/prior RNA, 25 prediction and ten
+  research-trajectory series. The report supplies no exact point labels;
+  all remain null with source coverage evidence. The reference baseline,
+  threshold, human distributions and scatterplot reuse are kept distinct.
+  Dyno's public partner article links an earlier report and does not provide
+  a matching independent Sonnet result table.
+- Four rounded life-science references in section 2 are reconciled to the
+  same report's more precise section 8 values (89.2, 44.7, 67.3 and 66.6).
+  No duplicate observations or reduced-precision replacements are created.
+
+Inventory: **517 reviewed / 2,443 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots**. Sonnet
+has 60 primary comparisons/coverage records; sections 3–7 still await review.
+
+Validation: **62 tests**, **2,443 drawer renders**, visual review of all six
+source figures, exact prose and rounded-reference checks, source-file hashes,
+semantic preservation and clean-checkout static build/site validation.
+No browser visual QA is claimed.

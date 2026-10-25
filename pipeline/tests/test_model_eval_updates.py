@@ -1407,5 +1407,49 @@ assert.equal(s.reports[0].model_id,mid);
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 
+    def test_sonnet_september_aeci_is_not_the_october_fit_or_public_eci(self):
+        mid='official-reviewed:claude-sonnet-5-5';bid='reviewed-20261026:aeci-september-fit'
+        c=self.updates['reportComparisons'][mid][bid]
+        self.assertEqual([r['display_value'] for r in c['rows']],[167.93,169.12])
+        self.assertEqual(self.updates['benchmarks'][bid]['unit'],'index')
+        self.assertNotIn('October',self.updates['benchmarks'][bid]['name'])
+        later=self.updates['reportComparisons']['official-reviewed:claude-haiku-5-5']['reviewed-20261025b:aeci']
+        self.assertEqual(later['rows'][1]['display_value'],174.56)
+        self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5';
+let s=rank(d,'reviewed-20261026:aeci-september-fit',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[169.12,167.93]);assert.equal(s.official.length,0);
+s=rank(d,'reviewed-20261025f:vct-350',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[59,58,58,55,43]);assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_sonnet_rsp_figures_preserve_conditions_and_exact_precision(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-18.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),6);self.assertEqual(len(e['supplements']),5)
+        self.assertEqual(sum(len(x['columns']) for x in e['metrics']),27)
+        self.assertEqual(sum(len(x['columns']) for x in e['supplements']),109)
+        for key,count in [('rna-base',20),('rna-priors',40),('aav-prediction',25),('aav-research',10)]:
+            c=cs['reviewed-20261025f:'+key]
+            self.assertEqual(c['valueStatus'],'unlabeled_figure')
+            self.assertEqual(len(c['rows']),5)
+            self.assertTrue(all(r['display_value'] is None for r in c['rows']))
+            self.assertEqual(len(c['supplementaryComparisons'][0]['rows']),count)
+            self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in c['supplementaryComparisons'][0]['rows']))
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+        self.assertEqual([x['retainedPreciseSection8Value'] for x in e['crossReferences']],[89.2,44.7,67.3,66.6])
+        vct=cs['reviewed-20261025f:vct-350']
+        self.assertEqual([r['source_value'] for r in vct['rows']],['0.43','0.55','0.58','0.59','0.58'])
+        self.assertNotIn('Claude Haiku 5.5',[r['name'] for r in vct['rows']])
+        self.assertFalse(e['officialSourceTables'][0]['admitted'])
+
+
 if __name__ == '__main__':
     unittest.main()
