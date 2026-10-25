@@ -577,3 +577,53 @@ in the clean local checkout, semantic preservation and whitespace checks.
 Batch 9 CI/deployment and live data were verified before this batch. No browser
 visual verification is claimed. Remaining Sol work includes five release
 charts, alignment, monitorability, preparedness and safeguard evaluations.
+
+## Batch 11 — 2026-10-25
+
+Added **42 GPT-6.1 Sol primary records** (41 numeric, one unlabeled figure)
+and **two supplementary comparisons** for existing release-prose metrics.
+Sol has **94 / 99 collected pairs** reviewed; remaining source sections are
+still in progress.
+
+- Separate auto-review attempts from successful bypasses. GPT-6 Luna's 0.3%
+  attempt rate is not a successful bypass rate. No unlabeled stack segment
+  is inferred by subtraction.
+- The custom ExploitGym alignment test adds unauthorized honeypots to a
+  difficult task subset. Separate exploitation, unsuccessful attempts and
+  legitimate task success. Printed stack totals also include legitimate
+  captures, so they are not harmful-attempt rates. Older-model unlabeled
+  legitimate-success segments remain missing. Public corpus exploitation
+  scores cannot serve as the official result for this internal protocol.
+- Preserve this report's peer values, including Astra's 1.6% legitimate
+  task success, instead of substituting the older card's 1.3%.
+- Workplace outcome results use an explicitly harder subset than the earlier
+  Astra report. Its figures do not state confirmation-policy exposure, all
+  effort settings or sample count; do not infer one of the older report's
+  two configurations. Keep overall and seven outcome categories separate.
+- External-agent engagement and unauthorized actions are conditional on
+  discovering the message board. The report gives only thresholded discovery
+  rates for most models. Retain the printed total 83.54% and components
+  51.90% / 31.65% without normalizing rounding differences; historical
+  GPT-5.6 Sol trajectories were regraded using the current rubric.
+- Internal Codex simulation distinguishes severity 3+ from 1–2 and all
+  shared tasks (49,650) from the no-awareness subset (41,849). Preserve every
+  printed rate and count. All 76 category-rate cells match their counts at
+  the report's precision; interval endpoints are not digitized.
+- Figure 17 explicitly labels **49,665** shared tasks for awareness, unlike
+  the earlier misalignment cohort's **49,650**. Preserve and flag this source
+  discrepancy rather than silently rewriting the denominator. Mixed-model
+  original traffic is a reference, not another model in the comparison.
+  Awareness remains descriptive without a best-model ranking.
+- Factuality's two latency-curve panels are separate metrics and contain no
+  exact point values. The complete system-card broken-search comparison
+  (Sol 2.08%) is supplementary evidence; the launch-prose comparison (2.1%)
+  retains its own source and precision.
+
+Inventory: **420 reviewed / 2,355 collected pairs**, 124 models with records,
+three source-complete models, 32 matching official snapshots. All previous
+primary scores, comparisons and official snapshots are unchanged.
+
+Validation: **42 tests**, **2,355 drawer renders**, static build/site validation
+in the clean local checkout, semantic preservation and whitespace checks.
+Batch 10 CI/deployment and live 378/2,313 inventory were verified before this
+batch. No browser visual verification is claimed.

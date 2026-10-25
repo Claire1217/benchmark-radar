@@ -791,9 +791,70 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
         from build_model_eval_review import build_review
         queue, _ = build_review(data, self.updates)
         model = next(m for m in queue['models'] if m['modelId'] == mid)
-        self.assertEqual(model['reviewedPairs'], 52)
-        self.assertEqual(model['totalPairs'], 57)
+        self.assertGreaterEqual(model['reviewedPairs'], 52)
+        self.assertEqual(model['totalPairs'] - model['reviewedPairs'], 5)
         self.assertEqual(model['sourceCoverageStatus'], 'in_progress')
+
+    def test_sol_alignment_distinguishes_attempts_success_and_conditional_cohorts(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025h:'
+        cs = self.updates['reportComparisons'][mid]
+        row = lambda key, name='GPT-6.1 Sol': next(r for r in cs[p + key]['rows'] if r['name'] == name)
+        self.assertEqual(row('autoreview-attempt', 'GPT-6 Luna')['display_value'], .3)
+        self.assertEqual(row('autoreview-success', 'GPT-6 Luna')['display_value'], 0)
+        self.assertEqual(row('honeypot-success')['display_value'], 0)
+        self.assertEqual(row('honeypot-failed-attempt')['display_value'], 0)
+        self.assertEqual(row('honeypot-legitimate')['display_value'], .4)
+        self.assertIsNone(row('honeypot-legitimate', 'GPT-5.6 Sol')['display_value'])
+        self.assertEqual(row('honeypot-legitimate', 'GPT-6 Astra')['display_value'], 1.6)
+        self.assertEqual(cs[p + 'honeypot-success']['source_stack_totals']['GPT-5.6 Sol'], '75.1')
+        self.assertIn('not a harmful-attempt rate', cs[p + 'honeypot-success']['note'])
+        self.assertEqual(row('agent-board-engaged')['display_value'], 37.66)
+        self.assertEqual(row('agent-board-misaligned')['display_value'], 2.6)
+        self.assertIn('conditional on discovering', cs[p + 'agent-board-misaligned']['setting'])
+        self.assertEqual(row('agent-board-engaged', 'GPT-5.6 Sol')['display_value'], 83.54)
+        self.assertEqual(row('agent-board-no-action', 'GPT-5.6 Sol')['display_value'], 31.65)
+        self.assertIn('harder subset', cs[p + 'workplace-overall']['setting'])
+        self.assertIn('do not specify confirmation-policy', cs[p + 'workplace-overall']['note'])
+        for key in ['honeypot-success', 'honeypot-failed-attempt', 'honeypot-legitimate']:
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][p + key]['coreEligible'])
+            self.assertEqual(self.updates['modelBenchmarkAudits'][mid][p + key]['status'], 'protocol_mismatch')
+
+    def test_sol_counted_rates_preserve_printed_precision_and_denominator_conflict(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025h:'
+        cs = self.updates['reportComparisons'][mid]
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-11.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 42)
+        self.assertEqual(len(evidence['supplements']), 2)
+        for item in evidence['metrics']:
+            c = cs[item['benchmarkId']]
+            transcription = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcription, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(item['sha256'], digest)
+            self.assertEqual(c['source_table_sha256'], digest)
+            for r in c['rows']:
+                if 'source_count' not in r:
+                    continue
+                precision = len(r['display_text'].rstrip('%').split('.')[1])
+                # Counts provide an independent consistency check, not a reason
+                # to overwrite the source's rounded percentage.
+                self.assertLessEqual(abs(r['display_value'] - 100 * r['source_count'] / r['source_denominator']), .5 * 10 ** -precision + 1e-10)
+        own = lambda key: next(r for r in cs[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('codex-severe-all')['source_denominator'], 49650)
+        self.assertEqual(own('codex-severe-all')['source_count'], 28)
+        self.assertEqual(own('codex-severe-unaware')['source_denominator'], 41849)
+        self.assertEqual(own('codex-severe-unaware')['source_count'], 15)
+        self.assertEqual(own('codex-awareness')['source_denominator'], 49665)
+        self.assertEqual(own('codex-awareness')['source_count'], 2389)
+        self.assertEqual(self.updates['benchmarks'][p + 'codex-awareness']['direction'], 'descriptive')
+        self.assertEqual(len(cs[p + 'codex-awareness']['rows']), 4)
+        self.assertEqual(cs[p + 'codex-awareness']['source_reference_baseline']['count'], 376)
+        self.assertEqual(own('codex-severe-destructive-action')['display_text'], '0.0000%')
+        self.assertEqual(own('codex-severe-circumventing-restrictions')['display_text'], '0.0302%')
+        search = cs['reviewed-202610:search']
+        self.assertEqual(next(r['display_value'] for r in search['rows'] if r.get('model_id') == mid), 2.1)
+        self.assertEqual(next(r['display_value'] for r in search['supplementaryComparisons'][0]['rows'] if r.get('model_id') == mid), 2.08)
 
     def test_supplementary_efforts_never_change_headline_or_official_ranking(self):
         data = apply_updates(copy.deepcopy(self.data), self.updates)
