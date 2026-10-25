@@ -9,14 +9,17 @@
       : data.benchmark_audits?.[benchmarkId];
     const snapshot = audit?.coreEligible ? data.leaderboard_snapshots?.[audit.snapshotId || benchmarkId] : null;
     const lower = data.benchmarks[benchmarkId]?.direction === 'lower_is_better';
+    const closest = data.benchmarks[benchmarkId]?.direction === 'closer_to_zero_is_better';
+    const orderValue = row => closest ? Math.abs(row.display_value) : row.display_value;
+    const scoreDifference = (a, b) => (lower || closest) ? orderValue(a) - orderValue(b) : orderValue(b) - orderValue(a);
     const best = new Map();
     for (const run of snapshot?.rows || []) {
       if (run.provenance !== 'benchmark_evaluation' || !Number.isFinite(run.display_value)) continue;
       const previous = best.get(run.name);
-      if (!previous || (lower ? run.display_value < previous.display_value : run.display_value > previous.display_value)) best.set(run.name, run);
+      if (!previous || scoreDifference(run, previous) < 0) best.set(run.name, run);
     }
-    const byScore = (a, b) => (lower ? a.display_value - b.display_value : b.display_value - a.display_value) || a.name.localeCompare(b.name);
-    const rank = rows => rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => r.display_value === row.display_value) + 1}));
+    const byScore = (a, b) => scoreDifference(a, b) || a.name.localeCompare(b.name);
+    const rank = rows => rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => orderValue(r) === orderValue(row)) + 1}));
     const official = rank([...best.values()]);
     const selected = (data.charts[benchmarkId]?.rows || []).find(r => r.model_id === modelId);
     const receipt = data.report_audits?.[benchmarkId]?.[modelId];

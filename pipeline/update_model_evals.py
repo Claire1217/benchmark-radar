@@ -20,6 +20,16 @@ def finite(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def valid_score(value, benchmark):
+    if not finite(value):
+        return False
+    if benchmark['unit'] in {'signed_percent', 'signed_score'}:
+        return -100 <= value <= 100
+    if benchmark['unit'] in {'%', 'score'}:
+        return 0 <= value <= 100
+    return True
+
+
 def preferred(rows):
     """Latest report first; within that report retain its headline row order."""
     return sorted(rows, key=lambda row: row.get('reported_at', ''), reverse=True)[0]
@@ -48,7 +58,7 @@ def apply_updates(data, updates):
             raise ValueError('Report date mismatch')
         if not row.get('coverage_only'):
             value = row['display_value']
-            if not finite(value) or (benchmark['unit'] in {'%', 'score'} and not 0 <= value <= 100):
+            if not valid_score(value, benchmark):
                 raise ValueError('Invalid reviewed score')
         elif row['display_value'] is not None or row['scale_verified']:
             raise ValueError('Coverage must not imply a numeric result')
@@ -81,10 +91,12 @@ def apply_updates(data, updates):
             if row['benchmark_id'] == bid and finite(row['display_value']):
                 rows_by_model.setdefault(row['model_id'], []).append(row)
         rows = [preferred(group) for group in rows_by_model.values()]
-        rows.sort(key=lambda row: row['display_value'], reverse=benchmark['direction'] != 'lower_is_better')
+        closest = benchmark['direction'] == 'closer_to_zero_is_better'
+        rows.sort(key=lambda row: abs(row['display_value']) if closest else row['display_value'],
+                  reverse=not closest and benchmark['direction'] != 'lower_is_better')
         # Exact version/subset/tool rows only. No cross-version family pooling.
         data['charts'][bid] = dict(
-            scale_label=benchmark['scale_label'], unit='%' if benchmark['unit'] == '%' else '',
+            scale_label=benchmark['scale_label'], unit='%' if benchmark['unit'] in {'%', 'signed_percent'} else '',
             direction=benchmark['direction'], rows=rows, eligible=len(rows),
             scale_max=100 if benchmark['unit'] in {'%', 'score'} else None,
         )
@@ -101,8 +113,8 @@ def apply_updates(data, updates):
         for row in snapshot['rows']:
             if row.get('provenance') != 'benchmark_evaluation' or not finite(row.get('display_value')) or not row.get('setting'):
                 raise ValueError('Unverified or unspecified run cannot enter core ranking')
-            if data['benchmarks'][bid]['unit'] == '%' and not 0 <= row['display_value'] <= 100:
-                raise ValueError('Invalid official percentage')
+            if not valid_score(row['display_value'], data['benchmarks'][bid]):
+                raise ValueError('Invalid official score')
     data['leaderboard_snapshots'] = snapshots
     data['benchmark_audits'] = audits
     model_audits = updates.get('modelBenchmarkAudits', {})
@@ -131,8 +143,8 @@ def apply_updates(data, updates):
                     raise ValueError('Invalid publisher comparison value or provenance')
                 if row['plot_eligible'] and (value is None or row['exception']):
                     raise ValueError('Missing or incompatible comparison cannot enter plot')
-                if value is not None and data['benchmarks'][bid]['unit'] == '%' and not 0 <= value <= 100:
-                    raise ValueError('Invalid comparison percentage')
+                if value is not None and not valid_score(value, data['benchmarks'][bid]):
+                    raise ValueError('Invalid comparison score')
             own = [r for r in comparison['rows'] if r.get('model_id') == mid]
             if len(own) != 1 or own[0]['display_value'] != data['report_audits'][bid][mid]['value']:
                 raise ValueError('Selected comparison result must match its report receipt')

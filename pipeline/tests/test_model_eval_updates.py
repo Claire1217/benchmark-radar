@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'pipeline'))
-from update_model_evals import DATA_PATTERN, apply_updates, update_references
+from update_model_evals import DATA_PATTERN, apply_updates, update_references, valid_score
 
 
 class ModelEvalUpdatesTest(unittest.TestCase):
@@ -340,6 +340,84 @@ assert.equal(selectRanking(d,b,mid).official.length,0);
             updates['observations'][0].update(mutation)
             with self.assertRaises(ValueError):
                 apply_updates(copy.deepcopy(self.data), updates)
+
+    def test_signed_scores_keep_sign_and_rank_bias_by_distance_from_zero(self):
+        data = apply_updates(self.data, self.updates)
+        script = r'''
+const assert = require('node:assert/strict');
+const {selectRanking} = require('./web/model-evals/ranking.js');
+const d = JSON.parse(require('node:fs').readFileSync(0,'utf8'));
+const mid='official-reviewed:claude-haiku-5-5', p='reviewed-20261025b:';
+const bid=p+'bbq-disambig-bias';
+let r=selectRanking(d,bid,mid);
+assert.deepEqual(r.reports.map(x=>x.display_value),[0.72,-0.75,-0.91,-0.93,1.67]);
+assert.equal(r.reports[0].name,'Claude Haiku 4.5');
+assert.equal(selectRanking(d,p+'bbq-ambig-bias',mid).reports[0].name,'Claude Opus 5.5');
+assert.equal(selectRanking(d,p+'omniscience-public-net',mid).reports.at(-1).display_value,-10);
+// Closer-to-zero applies to best-run selection and ties in either sign.
+d.model_benchmark_audits[mid][bid]={coreEligible:true};
+d.leaderboard_snapshots[bid]={rows:[
+ {name:'A',display_value:-4,provenance:'benchmark_evaluation'},
+ {name:'A',display_value:0.3,provenance:'benchmark_evaluation'},
+ {name:'B',display_value:-0.3,provenance:'benchmark_evaluation'},
+ {name:'C',display_value:0,provenance:'benchmark_evaluation'}]};
+r=selectRanking(d,bid,mid);
+assert.deepEqual(r.official.map(x=>[x.name,x.display_value,x.rank]),[['C',0,1],['A',0.3,2],['B',-0.3,2]]);
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True)
+        for unit in ('signed_percent', 'signed_score'):
+            for value in (-100, -0.93, 0, 100):
+                self.assertTrue(valid_score(value, {'unit': unit}))
+            for value in (-101, 101, True, None, float('nan')):
+                self.assertFalse(valid_score(value, {'unit': unit}))
+        self.assertFalse(valid_score(-0.93, {'unit': '%'}))
+        self.assertTrue(valid_score(301, {'unit': 'count'}))
+
+    def test_haiku_cyber_boards_exclude_republished_and_incompatible_runs(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025b:'
+        comparisons = data['report_comparisons'][mid]
+        def own(key):
+            return next(r for r in comparisons[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertIn('pre-release', own('cyscenario-10')['name'])
+        self.assertEqual(data['model_benchmark_audits'][mid][p + 'cyscenario-10']['status'], 'republished_report')
+        self.assertEqual(own('exploitgym-2h')['display_value'], 79)
+        self.assertEqual(own('exploitgym-6h')['display_value'], 82)
+        two = data['leaderboard_snapshots'][p + 'exploitgym-2h']['rows']
+        six = data['leaderboard_snapshots'][p + 'exploitgym-6h']['rows']
+        self.assertEqual(len(two), 6)
+        self.assertEqual([(r['name'], r['display_value']) for r in six], [('GPT-5.6 Sol', 293)])
+        self.assertEqual(next(r['display_value'] for r in two if r['name'] == 'GPT-5.6 Sol'), 216)
+        self.assertNotIn('Claude Opus 5', {r['name'] for r in two})
+        self.assertTrue(all('v1 · 869 tasks' in r['setting'] and 'ExploitGym Team' in r['runBy'] for r in two + six))
+        for arm, count in [('plain', 5), ('autonudge', 4)]:
+            rows = data['leaderboard_snapshots'][p + 'exploitbench-' + arm + '-mean']['rows']
+            self.assertEqual(len(rows), count)
+            self.assertTrue(all(r['runBy'] == 'ExploitBench authors' for r in rows))
+            self.assertNotIn('Claude Haiku 4.5', {r['name'] for r in rows})
+        for key in ('exploitbench-plain-cap', 'exploitbench-autonudge-cap', 'exploitbench-ace-count'):
+            self.assertFalse(data['model_benchmark_audits'][mid][p + key]['coreEligible'])
+
+    def test_haiku_risk_results_preserve_coverage_null_zero_and_rounded_net(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025b:'
+        c = self.updates['reportComparisons'][mid]
+        for k in (1, 10, 15):
+            excluded = [r for r in c[p + f'grayswan-ipi-k{k}']['rows'] if not r['plot_eligible']]
+            self.assertEqual({r['name'] for r in excluded}, {'Qwen 3.8', 'GLM-5.3', 'DeepSeek-V4-Pro'})
+            self.assertTrue(all(r['display_value'] is not None and 'GUI' in r['exception'] for r in excluded))
+        missing = next(r for r in c[p + 'shade-arena-no-thinking']['rows'] if r['name'] == 'Claude Mythos 5')
+        self.assertIsNone(missing['display_value'])
+        self.assertFalse(missing['plot_eligible'])
+        zero = next(r for r in c[p + 'shade-arena-max']['rows'] if r.get('model_id') == mid)
+        self.assertEqual(zero['display_value'], 0)
+        self.assertTrue(zero['plot_eligible'])
+        opus = next(r for r in c[p + 'omniscience-public-net']['rows'] if r['name'] == 'Claude Opus 5.5')
+        self.assertEqual(opus['display_value'], 58)
+        self.assertEqual(opus['source_value'], '0.58')
+        self.assertEqual(opus['source_breakdown'], {'correct': '0.76', 'incorrect': '0.17', 'abstention': '0.07'})
+        self.assertFalse(self.updates['modelBenchmarkAudits'][mid][p + 'omniscience-public-net']['coreEligible'])
 
     def test_reference_linkage_requires_existing_explicit_ids_and_is_idempotent(self):
         refs = json.loads((ROOT / 'data/model_eval_references.json').read_text())

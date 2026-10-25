@@ -199,3 +199,69 @@ from completion counts. Batch evidence is in
 Batch 3 validation: 20 regression tests, all 2,048 drawer renders in the
 JavaScript VM, and static-site build/validation. Programmatic rendering does not
 constitute a browser visual check.
+
+## Batch 4 — 2026-10-25
+
+- Added 26 Haiku report comparisons (65 total): Anthropic ECI; five ExploitBench
+  metrics; CyScenarioBench; two Binary Exploitation metrics; two ExploitGym time
+  budgets; four BBQ metrics; three overall and three domain Gray Swan IPI
+  metrics; public-split AA-Omniscience net score; four SHADE-Arena conditions.
+  Numeric figures and the BBQ tables were visually checked against the PDF.
+- BBQ bias now retains its sign and ranks by absolute distance from zero. This
+  applies to best-run selection and tied ranks as well. Negative scores have a
+  visible zero baseline. Signed net scores still rank higher-is-better.
+- Added four official views: ExploitBench mean flags for plain/AutoNudge, and
+  ExploitGym v1 intended-vulnerability counts for 2h/6h. ExploitBench provider-run
+  tags are filtered out, even where the team says it audited those submissions.
+  ExploitGym retains explicit team/joint-team runs and excludes vendor-only
+  submissions, v0, hidden rows, selected subsets, and different time budgets.
+- ExploitGym's original paper has 898 tasks, but its current v1 repository/site
+  has 869, matching the Haiku card. The current JSON confirms 502/181/186 domain
+  counts. The earlier suspicion of a task-count mismatch was resolved; harness
+  and safety-setting differences remain explicit.
+- ExploitBench Cap% samples three out of five trials in the report; the public
+  all-runs coverage is not equivalent. Do not borrow the mean-flags snapshot for
+  Cap% or the combined 410-trial full-ACE count. Report cyber safeguards are off
+  while target sandbox/ASLR/canaries remain on: these are separate controls.
+- CyScenarioBench's own model checkpoint is marked pre-release. Irregular's
+  article attributes the scores/harness to Anthropic, so it is a republication,
+  not a new independent evaluation. Binary Exploitation is Anthropic's updated
+  August harness over OSS-Fuzz entrypoints, not an OSS-Fuzz model leaderboard.
+- Gray Swan's three models lacking GUI coverage stay in source receipts but
+  outside the full-coverage comparison. Its original competition paper has a
+  different task/model set and metric; it does not supply matching success@k.
+- AA-Omniscience uses a report public split described as 41 topics. The official
+  public release describes 600 questions/42 topics and the main board uses the
+  full dataset. Grader/revision equivalence is unverified. Original net fractions
+  and response breakdowns are retained; rounded components are not recomputed
+  into a replacement net score (e.g. Opus 0.58 stays 0.58).
+- SHADE-Arena's 24-task Opus 4.8-monitor setup differs from the original paper.
+  Unsupported no-thinking Mythos 5 remains missing; real zero stealth rates
+  remain zero. Haiku's API safety interventions and best-prompt selection are
+  documented. Lower stealth is the safer outcome.
+
+Inventory after this batch: **139 reviewed pairs / 2,074 collected pairs**, 124
+models with observations, two models with complete source coverage, and 32
+captured maintainer views. Evidence:
+`data/model_eval_evidence/2026-10-25-batch-04.json`.
+
+Validation: 23 regression tests; all 2,074 drawer renders in the JavaScript VM,
+including negative-bar geometry and closer-to-zero labels; static-site build
+and validation. No browser visual verification is claimed.
+
+### Next continuation after Batch 4
+
+Haiku remains in progress. The source scan identified more formal evaluations
+than the earlier nine-group backlog. `modelAudits.discoveredMetrics` now records
+17 remaining groups: request/refusal and child/mental-health safety, political
+and election integrity, malicious agent use, adaptive IPI by surface, behavioral
+audit families, sandbox escape, self-preference, MASK, leaked-answer copying,
+disclosure, evaluation awareness, LinuxArena, secrets/CoT, and welfare figures
+whose numeric comparability/direction still needs assessment. Avoid inventing
+rankings where an axis describes behavior without a defined better direction.
+
+Next prioritize Haiku's MASK and LinuxArena named benchmarks, then the remaining
+formal source groups. Continue GPT-6.1 Sol's five launch charts and broader source
+coverage, then Sonnet 5.5 and the remaining model queue. Preserve the prior
+Sonnet preferred-source correction task. Finishing this batch does not complete
+the long-running task.

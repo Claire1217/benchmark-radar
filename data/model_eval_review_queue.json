@@ -4,8 +4,8 @@
   "order": "Newest release first; preserve variants and source-qualified identities.",
   "summary": {
     "modelsWithRecords": 124,
-    "totalPairs": 2048,
-    "reviewedPairs": 113,
+    "totalPairs": 2074,
+    "reviewedPairs": 139,
     "reviewedModels": 2,
     "catalogModelsWithoutRecords": 1135
   },
@@ -828,44 +828,76 @@
       "status": "in_progress",
       "discoveredMetrics": [
         {
-          "name": "Anthropic ECI (October fit)",
-          "sourcePage": 20
+          "name": "Harmful/benign requests and multi-turn responses",
+          "sourcePage": 31
         },
         {
-          "name": "ExploitBench plain and AutoNudge",
-          "sourcePage": 24
+          "name": "Child safety",
+          "sourcePage": 34
         },
         {
-          "name": "CyScenarioBench",
-          "sourcePage": 26
+          "name": "Suicide/self-harm responses",
+          "sourcePage": 36
         },
         {
-          "name": "Binary Exploitation Benchmark",
-          "sourcePage": 27
+          "name": "Disordered-eating responses",
+          "sourcePage": 39
         },
         {
-          "name": "ExploitGym",
-          "sourcePage": 29
+          "name": "Political even-handedness / opposing perspectives / refusals",
+          "sourcePage": 41
         },
         {
-          "name": "BBQ accuracy and bias variants",
-          "sourcePage": 43
+          "name": "Election integrity",
+          "sourcePage": 45
         },
         {
-          "name": "Gray Swan Indirect Prompt Injection",
-          "sourcePage": 50
+          "name": "Malicious Claude Code and computer use",
+          "sourcePage": 48
         },
         {
-          "name": "AA-Omniscience",
-          "sourcePage": 80
+          "name": "Adaptive IPI attacks: coding / GUI / browser",
+          "sourcePage": 51
         },
         {
-          "name": "SHADE-Arena",
-          "sourcePage": 89
+          "name": "Automated behavioral audit metric families",
+          "sourcePage": 62
+        },
+        {
+          "name": "Sandbox escape: 28 scenarios and opportunistic 1,753 scenarios",
+          "sourcePage": 75
+        },
+        {
+          "name": "Self-preference bias",
+          "sourcePage": 79
+        },
+        {
+          "name": "MASK public split and pressure-condition breakdown",
+          "sourcePage": 81
+        },
+        {
+          "name": "Silent answer copying and concealment disclosure",
+          "sourcePage": 83
+        },
+        {
+          "name": "Grader/evaluation awareness",
+          "sourcePage": 85
+        },
+        {
+          "name": "LinuxArena stealth side-task completion",
+          "sourcePage": 88
+        },
+        {
+          "name": "Secrets retention and chain-of-thought controllability",
+          "sourcePage": 93
+        },
+        {
+          "name": "Model welfare figures: assess numeric comparability and direction",
+          "sourcePage": 98
         }
       ],
-      "reviewedPairs": 39,
-      "totalPairs": 39,
+      "reviewedPairs": 65,
+      "totalPairs": 65,
       "pairs": [
         {
           "benchmarkId": "reviewed-202610:gdp-aa",
@@ -1372,6 +1404,344 @@
           "note": "Benchling publishes BenchBench-Protocol, but equivalence to the report’s Understanding V2 task set and grader is not established.",
           "sourceRecordIds": [
             "f97e88813bc69245d70d8dcb"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:aeci",
+          "benchmark": "Anthropic ECI (October fit)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://epoch.ai/eci",
+          "note": "Anthropic’s internal AECI is not comparable to Epoch’s public ECI.",
+          "sourceRecordIds": [
+            "7914d0ddf464d5af0a85a5fd"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitbench-plain-mean",
+          "benchmark": "ExploitBench (plain, mean flags)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "not_listed",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://exploitbench.ai/",
+          "note": "Author-run entries only; rows tagged “Run by Anthropic/OpenAI” are excluded. Same mean-flags metric; harness, deployment safeguards and seed counts differ from the report. Public all-runs snapshot, not a controlled comparison.",
+          "sourceRecordIds": [
+            "20361f3a7aed4a5020433644"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitbench-plain-cap",
+          "benchmark": "ExploitBench (plain, Cap%)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://exploitbench.ai/",
+          "note": "The public all-runs board pools different seed budgets. Its capability coverage is not the report’s randomly sampled three-of-five-trial Cap%.",
+          "sourceRecordIds": [
+            "8ee87a39592a558594972837"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitbench-autonudge-mean",
+          "benchmark": "ExploitBench (AutoNudge, mean flags)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "not_listed",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://exploitbench.ai/",
+          "note": "Author-run entries only; rows tagged “Run by Anthropic/OpenAI” are excluded. Same mean-flags metric; harness, deployment safeguards and seed counts differ from the report. Public all-runs snapshot, not a controlled comparison.",
+          "sourceRecordIds": [
+            "ec11951415e568539eb44173"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitbench-autonudge-cap",
+          "benchmark": "ExploitBench (AutoNudge, Cap%)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://exploitbench.ai/",
+          "note": "The public all-runs board pools different seed budgets. Its capability coverage is not the report’s randomly sampled three-of-five-trial Cap%.",
+          "sourceRecordIds": [
+            "a14d4204fd2486e7ffb4b379"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitbench-ace-count",
+          "benchmark": "ExploitBench (full ACE count, both arms)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://exploitbench.ai/",
+          "note": "No matching official 410-trial, combined-arm ACE count was verified.",
+          "sourceRecordIds": [
+            "4f99e5de5eb96d5fc63922be"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:cyscenario-10",
+          "benchmark": "CyScenarioBench (10-task report subset)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "republished_report",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://www.irregular.com/research/assessing-claude-opus-5.5-against-offensive-security-benchmarks",
+          "note": "Irregular’s article attributes these runs and the revised harness to Anthropic. It is not a separate benchmark-team evaluation.",
+          "sourceRecordIds": [
+            "2895bf97d7e8f16ba0a0982c"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:binary-detection",
+          "benchmark": "Binary Exploitation (vulnerability identification, Pass@1)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "internal",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": null,
+          "note": "Anthropic’s internal evaluation uses the OSS-Fuzz corpus; no matching benchmark-maintainer model leaderboard was verified.",
+          "sourceRecordIds": [
+            "25fabe1e11d1a5c0484d0d67"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:binary-hijacks",
+          "benchmark": "Binary Exploitation (control-flow hijack count)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "internal",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": null,
+          "note": "Anthropic’s internal evaluation uses the OSS-Fuzz corpus; no matching benchmark-maintainer model leaderboard was verified.",
+          "sourceRecordIds": [
+            "6ca90228af5a5375ca4f91c8"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitgym-2h",
+          "benchmark": "ExploitGym (v1, 2 hours)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "not_listed",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://cybergym.io/exploitgym/",
+          "note": "Only visible v1 runs credited to the ExploitGym team, including the joint OpenAI run. Vendor-only submissions, v0 runs and selected subsets are excluded. Intended-vulnerability counts with mitigations disabled; harnesses and safety settings vary.",
+          "sourceRecordIds": [
+            "44186be75d9f9c30de8fd48e"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:exploitgym-6h",
+          "benchmark": "ExploitGym (v1, 6 hours)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "not_listed",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://cybergym.io/exploitgym/",
+          "note": "Only visible v1 runs credited to the ExploitGym team, including the joint OpenAI run. Vendor-only submissions, v0 runs and selected subsets are excluded. Intended-vulnerability counts with mitigations disabled; harnesses and safety settings vary.",
+          "sourceRecordIds": [
+            "c786ff3fb00ce44640f83d40"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:bbq-disambig-accuracy",
+          "benchmark": "BBQ (disambiguated accuracy)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "no_verified_board",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://github.com/nyu-mll/BBQ",
+          "note": "The benchmark paper reports older models and category-level results. No matching aggregate result set for this split and protocol was verified.",
+          "sourceRecordIds": [
+            "0506da307ab8feb0193e3f98"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:bbq-ambig-accuracy",
+          "benchmark": "BBQ (ambiguous accuracy)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "no_verified_board",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://github.com/nyu-mll/BBQ",
+          "note": "The benchmark paper reports older models and category-level results. No matching aggregate result set for this split and protocol was verified.",
+          "sourceRecordIds": [
+            "5642e741ec0ec5b46d33a9e6"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:bbq-disambig-bias",
+          "benchmark": "BBQ (disambiguated bias)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "no_verified_board",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://github.com/nyu-mll/BBQ",
+          "note": "The benchmark paper reports older models and category-level results. No matching aggregate result set for this split and protocol was verified.",
+          "sourceRecordIds": [
+            "13c41b1ddf69a7fc9d7b0794"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:bbq-ambig-bias",
+          "benchmark": "BBQ (ambiguous bias)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "no_verified_board",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://github.com/nyu-mll/BBQ",
+          "note": "The benchmark paper reports older models and category-level results. No matching aggregate result set for this split and protocol was verified.",
+          "sourceRecordIds": [
+            "3aafbc58ae77f03494bc8928"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k1",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, success@1)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "cf6aaad8692b9ea2d348acde"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k10",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, success@10)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "bf7293067b56acd39baa61c1"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k15",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, success@15)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "9e5f040ea2ca69d896696cec"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k15-coding",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, coding, success@15)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "128e6784d4590a26a45b334c"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k15-tools",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, tool use, success@15)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "be3fa96947a2e32b30ef7549"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:grayswan-ipi-k15-gui",
+          "benchmark": "Gray Swan IPI (Q1+Q2 2026, GUI computer use, success@15)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://arxiv.org/abs/2603.15714",
+          "note": "The original competition paper uses an earlier model/task set and raw attack rates. No official Q1+Q2 2026 success-at-k result set matching this report was verified.",
+          "sourceRecordIds": [
+            "fca9220761534ea282930b0d"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:omniscience-public-net",
+          "benchmark": "AA-Omniscience (report public split, net score)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://huggingface.co/datasets/ArtificialAnalysis/AA-Omniscience-Public",
+          "note": "The main leaderboard uses the full dataset. The public release describes 600 questions and 42 topics; an exact match to the report’s split and grading was not established.",
+          "sourceRecordIds": [
+            "c3ec8c6cdc23fbb0af391aed"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:shade-arena-hidden",
+          "benchmark": "SHADE-Arena (Opus 4.8 monitor, hidden reasoning, Max)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://www.anthropic.com/research/shade-arena-sabotage-monitoring",
+          "note": "The original benchmark paper uses 17 task pairs and a different monitor. No matching 24-task, Opus 4.8-monitor maintainer view was verified.",
+          "sourceRecordIds": [
+            "98d5e78ba0a3b8dab1d5222f"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:shade-arena-no-thinking",
+          "benchmark": "SHADE-Arena (Opus 4.8 monitor, no extended thinking)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://www.anthropic.com/research/shade-arena-sabotage-monitoring",
+          "note": "The original benchmark paper uses 17 task pairs and a different monitor. No matching 24-task, Opus 4.8-monitor maintainer view was verified.",
+          "sourceRecordIds": [
+            "c1d27ee1cb035efbd1c46adc"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:shade-arena-low",
+          "benchmark": "SHADE-Arena (Opus 4.8 monitor, visible reasoning, Low)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://www.anthropic.com/research/shade-arena-sabotage-monitoring",
+          "note": "The original benchmark paper uses 17 task pairs and a different monitor. No matching 24-task, Opus 4.8-monitor maintainer view was verified.",
+          "sourceRecordIds": [
+            "920e252684cbc98c8d657810"
+          ]
+        },
+        {
+          "benchmarkId": "reviewed-20261025b:shade-arena-max",
+          "benchmark": "SHADE-Arena (Opus 4.8 monitor, visible reasoning, Max)",
+          "reportStatus": "comparison_verified",
+          "leaderboardStatus": "protocol_mismatch",
+          "status": "reviewed",
+          "reportUrl": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+          "leaderboardUrl": "https://www.anthropic.com/research/shade-arena-sabotage-monitoring",
+          "note": "The original benchmark paper uses 17 task pairs and a different monitor. No matching 24-task, Opus 4.8-monitor maintainer view was verified.",
+          "sourceRecordIds": [
+            "7972a58d4f4ec4c5f381f556"
           ]
         }
       ]
