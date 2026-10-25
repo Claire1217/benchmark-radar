@@ -321,7 +321,12 @@ browser visual check is claimed.
 
 ### Next continuation after Batch 5
 
-Haiku still has nine source groups to audit: multi-turn risk-area figure p.33;
+A scan of the earlier preparedness chapter also identified four remaining groups:
+VCT p.13; Dyno RNA design/prediction pp.15–16; AAV prediction p.17; AAV
+autoresearch p.18. Distributions or curves without exact labels must remain
+non-numeric disclosures unless an exact authoritative table is found.
+
+Haiku now has 13 source groups in the discovery backlog. The other nine are: multi-turn risk-area figure p.33;
 political bias pp.41–42; behavioral audit families pp.62–73; sandbox escape
 pp.75–78; self-preference p.79; silent copying/disclosure pp.83–84; evaluation
 awareness pp.85–87; secrets/CoT pp.91–94; welfare figures pp.98–110. Review
