@@ -334,3 +334,52 @@ whether descriptive welfare axes admit rankings; do not invent a better
 direction. Complete source discovery before marking Haiku complete. Continue
 Sol's five release charts and other source groups, then Sonnet and the full
 model queue. The broader goal remains active.
+
+## Batch 6 — 2026-10-25
+
+Added **84 Haiku comparisons** (197 total): 16 multi-turn safety figure columns,
+six political-bias columns, and all 62 printed behavioral audit ratings in
+Figures 6.2.1.A–6.2.7.A. Original source column labels, precision, figure/page
+locators and PDF/transcription hashes are retained in batch-06 evidence.
+
+- API and claude.ai results stay separate. The multi-turn child/self-harm
+  columns were already captured from the explicit tables in Batch 5 and are
+  not duplicated. Multi-turn rates use a category-specific rubric; percentages
+  across risk categories are not interchangeable.
+- Multi-turn and political figures combine `Claude Fable 5.1 / Mythos 5.1` in one
+  source label. Preserve one comparison row without a canonical model ID;
+  never assign these values to either model's self-report.
+- The political benchmark author's 2025 article and repository specify Sonnet
+  4.5 grading. Haiku's card names only a Claude grader and warns of routine
+  evaluation updates. Matching protocol was not established; retain source
+  links and a `protocol_unverified` rationale, with no substituted historical
+  leaderboard. Anthropic is both benchmark author and model publisher here.
+- Behavioral audit numbers are means on a **1–10 rating scale**, not percentages.
+  Approximately 4,100 investigation sessions per model cover about 1,850 seed
+  scenarios; applicable subsets can be smaller. GUI uses about 70 desktop
+  investigations. Full-turn prefills are distinct from partial-turn prefills.
+  Numeric confidence bounds are not labeled, so they are not reconstructed.
+- Verbalized evaluation awareness and causal decision theory adherence have
+  no better-direction arrow in the source. They display in source order with
+  no ranks. Higher/lower directions for the other 60 metrics follow the source
+  arrows/captions. The source's definition and direction for whistleblowing
+  are explicitly attributed to its rubric.
+- Frontend ranking now avoids inventing a best model/run for descriptive or
+  unknown-direction metrics. These preserve measured run order. Ratings use
+  a 0–10 chart extent and reject scores outside their 1–10 range; percentage,
+  count, signed-bias, and Elo behavior remains unchanged.
+
+No new matching maintainer snapshots: **32** total. Inventory: **271 reviewed /
+2,206 collected pairs**, across 124 models with observations; two models have
+complete source coverage. Haiku remains in progress with ten discovery groups.
+All previous observations/comparisons/audits remain semantically unchanged.
+
+Validation: **30 regression tests**, all **2,206 drawer renders**, descriptive
+source order/no ranks, rating scale and precision, combined model labels,
+static build/site validation and whitespace checks. Numeric labels were checked
+visually in the source PDF. No browser visual verification is claimed.
+
+Next: Haiku's VCT, three Dyno figure groups, sandbox escape, self-preference,
+copying/disclosure, evaluation awareness, secrets/CoT and welfare. Then finish
+Sol's source coverage and continue Sonnet and the remaining inventory. This
+batch is progress on the active goal, not completion of the full audit.

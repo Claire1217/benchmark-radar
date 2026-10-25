@@ -10,6 +10,7 @@
     const snapshot = audit?.coreEligible ? data.leaderboard_snapshots?.[audit.snapshotId || benchmarkId] : null;
     const lower = data.benchmarks[benchmarkId]?.direction === 'lower_is_better';
     const closest = data.benchmarks[benchmarkId]?.direction === 'closer_to_zero_is_better';
+    const rankable = lower || closest || data.benchmarks[benchmarkId]?.direction === 'higher_is_better';
     const orderValue = row => closest ? Math.abs(row.display_value) : row.display_value;
     const scoreDifference = (a, b) => (lower || closest) ? orderValue(a) - orderValue(b) : orderValue(b) - orderValue(a);
     const best = new Map();
@@ -19,8 +20,10 @@
       if (!previous || scoreDifference(run, previous) < 0) best.set(run.name, run);
     }
     const byScore = (a, b) => scoreDifference(a, b) || a.name.localeCompare(b.name);
-    const rank = rows => rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => orderValue(r) === orderValue(row)) + 1}));
-    const official = rank([...best.values()]);
+    // Descriptive axes have no best run or best model. Preserve source order
+    // and every measured run instead of inventing a direction or a winner.
+    const rank = rows => rankable ? rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => orderValue(r) === orderValue(row)) + 1})) : rows.map(row => ({...row, rank: null}));
+    const official = rank(rankable ? [...best.values()] : (snapshot?.rows || []).filter(r => r.provenance === 'benchmark_evaluation' && Number.isFinite(r.display_value)));
     const selected = (data.charts[benchmarkId]?.rows || []).find(r => r.model_id === modelId);
     const receipt = data.report_audits?.[benchmarkId]?.[modelId];
     const matched = receipt?.status === 'matched_report' && receipt.value === selected?.display_value;
@@ -29,7 +32,7 @@
     // Rank within this one report; never fill a gap from another release.
     const reports = rank(comparison ? comparison.rows.filter(r => r.plot_eligible && Number.isFinite(r.display_value)) : (own && Number.isFinite(own.display_value) ? [own] : []));
     const exceptions = comparison ? comparison.rows.filter(r => !r.plot_eligible || !Number.isFinite(r.display_value)) : [];
-    return {audit, snapshot, official, reports, own, comparison, exceptions};
+    return {audit, snapshot, official, reports, own, comparison, exceptions, rankable};
   }
   if (typeof module !== 'undefined') module.exports = {selectRanking};
   else root.ModelEvalRanking = {selectRanking};

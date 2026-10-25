@@ -27,6 +27,8 @@ def valid_score(value, benchmark):
         return -100 <= value <= 100
     if benchmark['unit'] in {'%', 'score'}:
         return 0 <= value <= 100
+    if benchmark['unit'] == 'rating':
+        return 1 <= value <= 10
     return True
 
 
@@ -92,13 +94,14 @@ def apply_updates(data, updates):
                 rows_by_model.setdefault(row['model_id'], []).append(row)
         rows = [preferred(group) for group in rows_by_model.values()]
         closest = benchmark['direction'] == 'closer_to_zero_is_better'
-        rows.sort(key=lambda row: abs(row['display_value']) if closest else row['display_value'],
-                  reverse=not closest and benchmark['direction'] != 'lower_is_better')
+        if benchmark['direction'] in {'higher_is_better', 'lower_is_better', 'closer_to_zero_is_better'}:
+            rows.sort(key=lambda row: abs(row['display_value']) if closest else row['display_value'],
+                      reverse=not closest and benchmark['direction'] != 'lower_is_better')
         # Exact version/subset/tool rows only. No cross-version family pooling.
         data['charts'][bid] = dict(
             scale_label=benchmark['scale_label'], unit='%' if benchmark['unit'] in {'%', 'signed_percent'} else '',
             direction=benchmark['direction'], rows=rows, eligible=len(rows),
-            scale_max=100 if benchmark['unit'] in {'%', 'score'} else None,
+            scale_max=100 if benchmark['unit'] in {'%', 'score'} else 10 if benchmark['unit'] == 'rating' else None,
         )
     data['reviewed_sources'] = sources
     # Core rankings require explicit benchmark-level eligibility and row provenance.

@@ -48,6 +48,7 @@ def build_review(data, updates):
               'comparison_verified':'Source comparison verified', 'not_listed':'Model absent from captured board',
               'matched':'Matched official board', 'historical_board':'Historical board only',
               'protocol_mismatch':'Evaluation setup differs', 'internal':'Internal benchmark',
+              'protocol_unverified':'Matching evaluation setup not verified',
               'no_verified_board':'No matching official board verified', 'republished_report':'Publisher result republished',
               'ambiguous_metric':'Metric unresolved', 'source_unavailable':'Source unavailable',
               'not_found':'No matching board found', 'unresolved_identity':'Benchmark identity unresolved'}

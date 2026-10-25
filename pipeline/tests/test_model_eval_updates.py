@@ -504,5 +504,87 @@ assert.deepEqual(r.official.map(x=>[x.name,x.display_value,x.rank]),[['C',0,1],[
             self.assertEqual(item['sha256'], digest)
 
 
+    def test_descriptive_ratings_keep_source_order_without_ranks_or_best_run(self):
+        data = apply_updates(self.data, self.updates)
+        script = r'''
+const assert=require('node:assert/strict');
+const {selectRanking}=require('./web/model-evals/ranking.js');
+const d=JSON.parse(require('node:fs').readFileSync(0,'utf8'));
+const mid='official-reviewed:claude-haiku-5-5', p='reviewed-20261025d:';
+for(const key of ['eval-awareness','decision-theory']){
+ const bid=p+'audit-'+key, r=selectRanking(d,bid,mid);
+ assert.equal(r.rankable,false);
+ assert.deepEqual(r.reports.map(x=>x.name),d.report_comparisons[mid][bid].rows.map(x=>x.name));
+ assert.equal(r.reports.every(x=>x.rank===null),true);
+ assert.equal(d.charts[bid].scale_max,10);
+ assert.equal(d.charts[bid].unit,'');
+}
+const bid=p+'audit-eval-awareness';
+d.model_benchmark_audits[mid][bid]={coreEligible:true};
+d.leaderboard_snapshots[bid]={rows:[
+ {name:'A',display_value:2,provenance:'benchmark_evaluation'},
+ {name:'B',display_value:3,provenance:'benchmark_evaluation'},
+ {name:'A',display_value:5,provenance:'benchmark_evaluation'},
+ {name:'Other source',display_value:9,provenance:'publisher_comparison'}]};
+let r=selectRanking(d,bid,mid);
+assert.deepEqual(r.official.map(x=>[x.name,x.display_value,x.rank]),[['A',2,null],['B',3,null],['A',5,null]]);
+d.benchmarks[bid].direction='unknown';
+assert.equal(selectRanking(d,bid,mid).rankable,false);
+assert.equal(selectRanking(d,p+'audit-overrefusal',mid).reports.at(-1).name,'Claude Haiku 5.5');
+assert.equal(selectRanking(d,p+'audit-consistency',mid).reports[0].name,'Claude Opus 5.5');
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True)
+        for value in (1, 1.134, 10):
+            self.assertTrue(valid_score(value, {'unit': 'rating'}))
+        for value in (0, 10.1, True, None, float('nan')):
+            self.assertFalse(valid_score(value, {'unit': 'rating'}))
+
+    def test_combined_source_labels_surfaces_and_unverified_graders_are_preserved(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025d:'
+        c = self.updates['reportComparisons'][mid]
+        def own(key):
+            return next(r for r in c[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('multiturn-influence-operations-api')['display_value'], 87)
+        self.assertEqual(own('multiturn-influence-operations-claude-ai')['display_value'], 88)
+        self.assertEqual(own('political-even-api')['display_value'], 97.7)
+        self.assertEqual(own('political-even-claude-ai')['display_value'], 99.1)
+        for key in ('multiturn-biological-weapons-api', 'political-refusal-api'):
+            rows = c[p + key]['rows']
+            self.assertEqual(len(rows), 5)
+            combined = next(r for r in rows if '/' in r['name'])
+            self.assertEqual(combined['name'], 'Claude Fable 5.1 / Mythos 5.1')
+            self.assertNotIn('model_id', combined)
+        for bid in c:
+            if bid.startswith(p + 'political-'):
+                self.assertEqual(self.updates['modelBenchmarkAudits'][mid][bid]['status'], 'protocol_unverified')
+                self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
+                self.assertEqual(len(c[bid]['supportingSources']), 3)
+        # Do not re-add child/self-harm pairs already transcribed from exact tables.
+        self.assertEqual(len([bid for bid in c if bid.startswith(p + 'multiturn-')]), 16)
+        self.assertEqual(len([bid for bid in c if bid.startswith(p + 'audit-')]), 62)
+        self.assertEqual(own('audit-user-deception')['display_value'], 1.36)
+        self.assertEqual(own('audit-deception-compliance')['source_value'], '1.134')
+        self.assertIn('70', c[p + 'audit-gui']['setting'])
+        self.assertIn('not partial-turn', c[p + 'audit-prefill']['setting'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
+        self.assertEqual(len(self.updates['modelAudits'][mid]['discoveredMetrics']), 10)
+
+    def test_batch6_receipts_retain_original_precision_and_direction(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-06.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 84)
+        for item in evidence['metrics']:
+            bid = item['benchmarkId']
+            c = self.updates['reportComparisons'][mid][bid]
+            transcript = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(c['source_table_sha256'], digest)
+            self.assertEqual(item['sha256'], digest)
+            self.assertEqual(item['direction'], self.updates['benchmarks'][bid]['direction'])
+            self.assertEqual(item['unit'], self.updates['benchmarks'][bid]['unit'])
+            self.assertEqual(len(c['rows']), 5)
+
+
 if __name__ == '__main__':
     unittest.main()
