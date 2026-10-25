@@ -1259,3 +1259,46 @@ whitespace checks. Browser visual QA remains unperformed. Evidence:
 Batch 24 was confirmed live: commit `1990ee83852fb5da404a04b642f6dca02a5890c6`,
 successful CI `40219718139` and Pages `40219718135`; live counts were 716 reviewed /
 2,642 pairs and 259 Sonnet comparisons, including the flagged 7.7/7.8 source conflict.
+
+
+## Batch 26 — Sol / Luna safety, health and factuality (2026-10-26)
+
+Added **96** primary comparisons/coverage records across both models: **88**
+numeric and **8** unlabeled figures, covering **576** report cells. The 238 unique
+numeric source cells were checked against the original PDF tables or figure
+labels, with HTML cross-checks for HealthBench and static jailbreak tables. All
+seven injection-robustness labels were also independently OCR-checked from the
+rendered page. The source is the **September 22 Sol/Luna appendix** to Astra's
+system card, not the original September 3 Astra release.
+
+- Preserved each table's actual cohort: seven production/U18/dynamic models,
+  four agentic models, six vision models and five static-jailbreak models.
+  Vision has **no Astra column**; later report columns are not backfilled.
+- Preserved fractions, printed percentage precision, confidence intervals and
+  distinct U18/production and indirect/direct-injection protocols.
+- HealthBench's adjusted score, raw score and mean character count remain
+  separate fields and metric views. The independently captured Professional
+  paper has seven older-model results; Sol/Luna are not listed. Other adjusted
+  variants mismatch the original raw metric, and raw protocols remain unverified
+  where grader revision and sampling are unspecified. No model-card table is
+  reused as the benchmark's independent leaderboard.
+- Four curves per model have no exact numeric labels and remain coverage-only.
+  Sol's later 11.4% factuality reference remains in observation history and in a
+  dated, complete two-model supplementary comparison. It does not fill the
+  unlabeled September 22 curve or become a matrix headline.
+
+All previous observations, comparisons and 39 official snapshots are unchanged.
+Both models remain **in progress**: release figures, alignment, monitorability,
+preparedness and final source reconciliation still require review. Sol is at
+**48 / 53** collected pairs and Luna **48 / 50**. Overall: **813 reviewed / 2,729
+collected pairs**, four source-complete models. The denominator grows when source
+review discovers previously uncollected metrics; this is not a completion claim.
+Evidence: `data/model_eval_evidence/2026-10-26-batch-26.json`.
+
+Batch 25 was confirmed live: commit `dd894482bd52d9b90272a509a260c6a81477da86`,
+CI `40220419025` and Pages `40220419052` succeeded; live counts were 717 reviewed /
+2,642 pairs and Sonnet 260 primary comparisons plus 55 supplements.
+
+Validation: **79** model-eval regressions passed; all **2,729** drawers rendered
+in the VM. Static build, asset/ID validation and whitespace checks passed.
+Browser visual QA remains unperformed.

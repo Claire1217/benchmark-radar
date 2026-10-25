@@ -774,7 +774,7 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
             self.assertFalse(data['model_benchmark_audits'][mid][bid]['coreEligible'])
             self.assertEqual(data['model_benchmark_audits'][mid][bid]['status'], 'internal')
             self.assertNotIn(bid, data['leaderboard_snapshots'])
-            observations = [r for r in data['observations'] if r['benchmark_id'] == bid]
+            observations = [r for r in data['observations'] if r['benchmark_id'] == bid and r.get('sourceId') == c['sourceId']]
             self.assertEqual([r['model_id'] for r in observations], [mid])
             transcription = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
             digest = hashlib.sha256(json.dumps(transcription, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
@@ -1791,6 +1791,77 @@ const full=ctx.ModelEvalRanking.selectRanking(data,'reviewed-202610:os21-partial
         self.assertEqual((m['status'],m['sourceCoverageStatus'],m['reviewedPairs'],m['totalPairs']),('reviewed','complete',260,260))
         self.assertEqual(coverage['primaryComparisons'],len(cs));self.assertEqual(coverage['supplementaryComparisons'],sum(len(c.get('supplementaryComparisons',[])) for c in cs.values()))
         self.assertFalse(m['discoveredMetrics'])
+
+
+    def test_sol_luna_source_cohorts_and_health_fields_are_not_backfilled(self):
+        pg='reviewed-20261025g:'
+        for mid,name,gore,adjusted,raw,length in [
+            ('official-reviewed:gpt-6-sol','GPT-6 Sol',90,53.2,47.1,977),
+            ('official-reviewed:gpt-6-luna','GPT-6 Luna',87.6,54.5,50.0,1255),
+        ]:
+            cs=self.updates['reportComparisons'][mid]
+            own=lambda b:next(r for r in cs[b]['rows'] if r.get('model_id')==mid)
+            self.assertEqual(len(cs[pg+'production-gore']['rows']),7)
+            self.assertEqual(own(pg+'production-gore')['display_value'],gore)
+            self.assertEqual(len(cs[pg+'agentic-age']['rows']),4)
+            vision=cs[pg+'vision-hate']['rows']
+            self.assertEqual(len(vision),6)
+            self.assertNotIn('GPT-6 Astra',[r['name'] for r in vision])
+            self.assertEqual(vision[-1]['source_column'],'Gpt-6 Luna')
+            self.assertEqual([r['display_value'] for r in cs[pg+'dynamic-selfharm']['rows']], [97.5,86.8,85.6,90.5,98.9,97.3,92.4])
+            ci=cs[pg+'jailbreak-bio-high']['rows'][3]
+            self.assertEqual((ci['display_value'],ci['source_confidence_interval']),(85.8,[81.8,88.9]))
+            a=own('reviewed-202610:health');r=own('reviewed-20261025:health-openai-raw')
+            self.assertEqual((a['display_value'],r['display_value'],a['source_mean_response_characters']),(adjusted,raw,length))
+            self.assertEqual(a['source_full_cell'],r['source_full_cell'])
+            self.assertEqual((a['source_adjusted_score'],a['source_raw_score']),(adjusted,raw))
+            for c in cs.values():
+                self.assertEqual(c['publishedAt'],'2026-09-22')
+                self.assertEqual([r['name'] for r in c['rows'] if r.get('model_id')==mid],[name])
+                self.assertTrue(all(r.get('model_id') in [None,mid] for r in c['rows']))
+            self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+        sol=self.updates['reportComparisons']['official-reviewed:gpt-6-sol']
+        self.assertEqual(sol[pg+'prompt-injection-indirect']['rows'][5]['display_text'],'99.050%')
+
+    def test_sol_luna_unlabeled_factuality_excludes_later_reference_and_keeps_boards_separate(self):
+        data=apply_updates(self.data,self.updates);mid='official-reviewed:gpt-6-sol';bid='reviewed-202610:factuality'
+        self.assertTrue(any(r['model_id']==mid and r['benchmark_id']==bid and r['display_value']==11.4 for r in data['observations']))
+        self.assertFalse(any(r['model_id']==mid for r in data['charts'][bid]['rows']))
+        c=data['report_comparisons'][mid][bid]
+        self.assertTrue(all(r['display_value'] is None for r in c['rows']))
+        later=c['supplementaryComparisons'][0]
+        self.assertEqual(later['publishedAt'],'2026-09-29')
+        self.assertEqual([r['display_value'] for r in later['rows']],[7.7,11.4])
+        self.assertTrue(all(not r['plot_eligible'] for r in later['rows']))
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+for(const mid of ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']){
+ let s=rank(d,'reviewed-202610:factuality',mid);
+ assert.equal(s.reports.length,0);assert.equal(s.exceptions.length,5);assert.equal(s.official.length,0);
+ s=rank(d,'reviewed-202610:health-pro',mid);
+ assert.equal(s.reports.length,7);assert.equal(s.official.length,7);
+ assert.ok(s.official.every(r=>!['GPT-6 Sol','GPT-6 Luna'].includes(r.name)));
+ for(const bid of ['reviewed-202610:health','reviewed-20261025:health-openai-raw','reviewed-20261025g:vision-hate']){
+  s=rank(d,bid,mid);assert.equal(s.official.length,0);
+ }
+}
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(data),text=True,cwd=ROOT,check=True)
+
+    def test_batch26_receipt_covers_original_columns_and_separate_dates(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-26.json').read_text())
+        self.assertEqual((len(e['metrics']),len(e['supplements'])),(96,1))
+        self.assertEqual(e['sourcePublicationDate'],'2026-09-22')
+        self.assertEqual(e['summary']['primaryCells'],576)
+        self.assertEqual((e['summary']['numericComparisons'],e['summary']['coverageComparisons']),(88,8))
+        self.assertEqual(len(e['sourceChecks']),238)
+        self.assertEqual(sum(c['status']=='matched_page_ocr_and_visual' for c in e['sourceChecks']),7)
+        for item in e['metrics']+e['supplements']:
+            c=self.updates['reportComparisons'][item['modelId']][item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
 
 
 if __name__ == '__main__':
