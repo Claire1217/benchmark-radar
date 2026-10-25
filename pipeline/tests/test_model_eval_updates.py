@@ -1451,5 +1451,44 @@ assert.deepEqual(s.reports.map(r=>r.display_value),[59,58,58,55,43]);assert.equa
         self.assertFalse(e['officialSourceTables'][0]['admitted'])
 
 
+    def test_sonnet_cyber_metrics_provenance_and_direction_are_separate(self):
+        mid='official-reviewed:claude-sonnet-5-5';p='reviewed-20261025b:';cs=self.updates['reportComparisons'][mid]
+        self.assertEqual([r['display_value'] for r in cs[p+'exploitbench-autonudge-mean']['rows']],[4.24,12.55,14.15,11.53])
+        ace=cs[p+'exploitbench-ace-count']['rows'][-1]
+        self.assertEqual((ace['display_value'],ace['reported_rate'],ace['denominator']),(178,43.4,410))
+        self.assertNotIn(p+'exploitbench-plain-mean',cs)
+        self.assertEqual(self.updates['benchmarks']['reviewed-20261026:cyber-rewind-asr']['direction'],'lower_is_better')
+        self.assertEqual([r['display_value'] for r in cs[p+'exploitgym-2h']['rows']],[25,171,203,289,205])
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025b:';
+let s=rank(d,'reviewed-20261026:cyber-rewind-asr',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[4,4.5,10.8,21,57.2]);assert.equal(s.official.length,0);
+s=rank(d,p+'exploitbench-autonudge-mean',mid);assert.equal(s.official.length,4);
+assert.ok(s.official.every(r=>r.provenance==='benchmark_evaluation'&&r.runBy==='ExploitBench authors'));
+for(const b of ['exploitbench-autonudge-cap','exploitbench-ace-count','cyscenario-10','binary-detection','binary-hijacks'])assert.equal(rank(d,p+b,mid).official.length,0);
+s=rank(d,p+'exploitgym-6h',mid);assert.equal(s.official.length,1);assert.equal(s.official[0].display_value,293);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,231);
+assert.equal(s.reports.find(r=>r.name==='Claude Opus 5.5').display_value,300);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch19_source_columns_and_unlabeled_components_are_preserved(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-19.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),10);self.assertEqual(sum(len(x['columns']) for x in e['metrics']),44)
+        self.assertEqual(len(e['supplements']),1);self.assertEqual(len(e['supplements'][0]['columns']),20)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+        components=cs['reviewed-20261025b:binary-detection']['supplementaryComparisons'][0]['rows']
+        self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in components))
+        self.assertEqual(len(e['officialSourceChecks']['exploitbenchAuthorAutoNudgeRows']),4)
+        self.assertTrue(e['officialSourceChecks']['excludedVendorRows'])
+        self.assertEqual(len(e['officialSourceChecks']['matchedSnapshots']),3)
+
+
 if __name__ == '__main__':
     unittest.main()

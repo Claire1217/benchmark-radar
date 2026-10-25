@@ -936,3 +936,41 @@ Validation: **62 tests**, **2,443 drawer renders**, visual review of all six
 source figures, exact prose and rounded-reference checks, source-file hashes,
 semantic preservation and clean-checkout static build/site validation.
 No browser visual QA is claimed.
+
+## Batch 19 — Sonnet cyber metrics and evaluator provenance (2026-10-26)
+
+Added **ten** primary comparisons (**44** source columns), plus **one**
+20-row supplement, covering every quantitative figure in section 3.
+
+- ExploitBench preserves AutoNudge mean flags, three-of-five-trial Cap% and
+  combined plain/AutoNudge ACE count separately. Sonnet is 11.53, 80% and
+  178/410 respectively; the prose's 43.4% is recorded as a rate attached to
+  the count. No plain-arm score is borrowed from another model's report.
+- CyScenarioBench retains exactly the four model columns in the Sonnet figure.
+  Irregular's article credits Anthropic's runs; republication by the benchmark
+  author does not turn them into independent evaluations.
+- Binary Exploitation separates identification Pass@1 from hijack counts.
+  The August harness revision is explicit. Twenty stacked outcome components
+  are retained as unlabeled evidence; scoring weights are not measured rates.
+- ExploitGym preserves the two-hour and six-hour counts on the 869-task v1
+  set. Fresh official JSON matches the earlier captured author-run snapshots
+  exactly. Vendor-only submissions, hidden rows, other versions and subsets
+  remain excluded from the official chart.
+- Production cyber recall (higher is better) and adversarial attack success
+  (lower is better) are separate safety metrics. The latter uses 133 tasks,
+  five seeds per task and a 400-call attacker limit. These safeguarded tests
+  are distinct from the safeguards-off capability comparisons.
+
+Fresh source checks reconfirmed the four author-run AutoNudge entries and the
+six/two-hour and one/six-hour ExploitGym entries. The three existing snapshots
+retain their original retrieval dates; no score or evaluator attribution was
+silently replaced. All earlier observations and comparison tables are intact.
+
+Inventory: **527 reviewed / 2,453 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots**. Sonnet
+has 70 primary comparisons/coverage records; sections 4–7 remain pending.
+
+Validation: **64 tests**, **2,453 drawer renders**, visual source-label checks,
+prose/count reconciliation, fresh source hashes and independent evaluator
+filtering, historical semantic preservation and clean-checkout static build.
+No browser visual QA is claimed.
