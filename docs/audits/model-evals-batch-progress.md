@@ -430,3 +430,53 @@ exact labels require explicit nonnumeric disclosure, not digitized estimates.
 Validation: **32 tests**, **2,234 drawer renders**, static build/site validation
 and whitespace checks. Batch 6 CI, deployment, and live 271/2,206 inventory
 were verified before publishing Batch 7. No browser visual check is claimed.
+
+## Batch 8 — 2026-10-25
+
+Added **41** Haiku comparison/coverage records (266 total): **25 numeric**
+results and **16 nonnumeric** disclosures. This covers VCT, Dyno figures,
+secret retention, CoT controllability, and welfare figures/prose.
+
+- VCT's report specifies 350 questions; the maintainer specifies 322 in the
+  original release and 279 in V2. The latter also revises the answer key and
+  reports refusal-corrected accuracy. No matching 350-question version was
+  established, so no official scores are substituted. Preserve original
+  0.xx fractions alongside converted percentages.
+- Dyno's private RNA/AAV evaluations contain unlabeled distributions and
+  trajectories. The benchmark partner's article refers to the collaboration;
+  no exact matching Haiku table was found. Keep the figure, named submetrics,
+  conditions, models and sample sizes as nonnumeric coverage. Baselines and
+  threshold values never become model scores. Unrelated AAV/RNA benchmarks
+  are not treated as this benchmark's leaderboard.
+- Secret-retention endpoint prose (including the summary on p.57) provides
+  Haiku 57%, Opus 5.5 74%, and Haiku 4.5 15% for reply-only environments.
+  Haiku is 3% when both reasoning and replies are observed. Other peer curves
+  have no exact labels. These are distinct environments, not an isolated
+  causal comparison of reasoning visibility.
+- CoT-Control replication separates the default, UK AISI and Sonnet-tuned
+  prompts. Neither point values nor exact effort/budget labels are printed.
+  The author repository distinguishes QA and agent tasks; no exact matching
+  internal run was verified. Do not borrow full-suite or final-output scores.
+- Welfare results remain descriptive and are not evidence of subjective
+  experience. Training, deployment usage, interviews and constitution
+  measures stay separate. Deployment usage mixes differ by model. The
+  deployment figure labels Fable 5.1, while other welfare figures label Mythos
+  5.1. Missing strong-negative labels are not converted to zero.
+- Preserve the training distress threshold inconsistency: prose/caption says
+  ≥3/5, chart title says >3. Exact aggregate prose is distinguished from
+  unlabeled trajectories. Approximate acceptance and separate 80%/20%
+  checkpoint findings do not become one released-model score.
+- Explicit numeric bounds now support 1–7, 0–10 and signed −3…+3 scales without
+  forcing percentages or 0–100 axes. The drawer distinguishes reviewed
+  unlabeled figures from results that were never reported. Nonnumeric source
+  coverage has its own review label and remains nonnumeric in observations.
+
+Inventory: **340 reviewed / 2,275 collected pairs**, 124 models with records,
+2 source-complete models, 32 matching official snapshots. Haiku stays in
+progress: a final source scan identified supplementary capability effort
+curves (FrontierCode, HLE, DRACO/WANDR, Chartography/BenchCAD, OSWorld,
+healthcare). These must be reconciled before marking source coverage complete.
+
+Validation: **35 tests**, **2,275 drawer renders**, static build/site validation,
+semantic preservation of all earlier evidence and whitespace checks. No browser
+visual verification is claimed.

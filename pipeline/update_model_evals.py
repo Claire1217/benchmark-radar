@@ -23,6 +23,13 @@ def finite(value):
 def valid_score(value, benchmark):
     if not finite(value):
         return False
+    lower, upper = benchmark.get('value_min'), benchmark.get('value_max')
+    if lower is not None and (not finite(lower) or value < lower):
+        return False
+    if upper is not None and (not finite(upper) or value > upper):
+        return False
+    if lower is not None and upper is not None and lower > upper:
+        return False
     if benchmark['unit'] in {'signed_percent', 'signed_score'}:
         return -100 <= value <= 100
     if benchmark['unit'] in {'%', 'score'}:
@@ -101,7 +108,8 @@ def apply_updates(data, updates):
         data['charts'][bid] = dict(
             scale_label=benchmark['scale_label'], unit='%' if benchmark['unit'] in {'%', 'signed_percent'} else '',
             direction=benchmark['direction'], rows=rows, eligible=len(rows),
-            scale_max=100 if benchmark['unit'] in {'%', 'score'} else 10 if benchmark['unit'] == 'rating' else None,
+            scale_min=benchmark.get('value_min'),
+            scale_max=benchmark.get('value_max', 100 if benchmark['unit'] in {'%', 'score'} else 10 if benchmark['unit'] == 'rating' else None),
         )
     data['reviewed_sources'] = sources
     # Core rankings require explicit benchmark-level eligibility and row provenance.

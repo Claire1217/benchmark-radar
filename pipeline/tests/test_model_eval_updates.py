@@ -639,5 +639,86 @@ assert.equal(selectRanking(d,p+'audit-consistency',mid).reports[0].name,'Claude 
             self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
 
 
+    def test_unlabeled_figures_are_disclosures_not_zero_scores_or_missing_reports(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025f:'
+        for key in ('rna-base', 'aav-prediction', 'cot-default', 'welfare-task-preference'):
+            bid = p + key
+            own = next(r for r in data['observations'] if r['model_id'] == mid and r['benchmark_id'] == bid)
+            self.assertIsNone(own['display_value'])
+            self.assertTrue(own['coverage_only'])
+            self.assertFalse(own['scale_verified'])
+            self.assertEqual(data['report_audits'][bid][mid]['status'], 'coverage_verified')
+            rows = data['report_comparisons'][mid][bid]['rows']
+            self.assertTrue(all(not r['plot_eligible'] and r['display_value'] is None for r in rows))
+            self.assertTrue(all(r['value_status'] == 'unlabeled_figure' and r['exception'] for r in rows))
+        secret = data['report_comparisons'][mid][p + 'secrets-reply']['rows']
+        self.assertEqual([(r['name'], r['display_value']) for r in secret],
+                         [('Claude Haiku 4.5', 15), ('Claude Mythos 5.1', None), ('Claude Opus 5.5', 74), ('Claude Sonnet 5.5', None), ('Claude Haiku 5.5', 57)])
+        self.assertFalse(data['model_benchmark_audits'][mid][p + 'vct-350']['coreEligible'])
+        self.assertIn('350', data['model_benchmark_audits'][mid][p + 'vct-350']['note'])
+        self.assertIn('279', data['model_benchmark_audits'][mid][p + 'vct-350']['note'])
+        own = next(r for r in data['report_comparisons'][mid][p + 'vct-350']['rows'] if r.get('model_id') == mid)
+        self.assertEqual((own['source_value'], own['display_value']), ('0.48', 48))
+
+    def test_rating_bounds_and_source_only_drawers_keep_original_meaning(self):
+        data = apply_updates(self.data, self.updates)
+        script = r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),elements={};
+const ctx={data:d,ModelEvalRanking:require('./web/model-evals/ranking.js'),$:id=>elements[id]??(elements[id]={})};
+const html=fs.readFileSync('web/model-evals/index.html','utf8');vm.createContext(ctx);
+vm.runInContext(html.match(/const esc=.*?\n/)[0]+html.match(/const link=.*?\n/)[0]+html.match(/const format=.*?\n/)[0]+html.slice(html.indexOf('function scorePlot('),html.indexOf("$('companies').addEventListener")),ctx);
+ctx.focusModel='official-reviewed:claude-haiku-5-5';const p='reviewed-20261025f:';
+ctx.selected=p+'welfare-training-valence';vm.runInContext('drawPanel()',ctx);
+assert.equal(d.charts[ctx.selected].scale_max,7);
+assert.equal(elements.scores.innerHTML.includes('>7</text>'),true);
+assert.equal(elements.scores.innerHTML.includes('4.22%'),false);
+assert.equal(elements['score-count'].textContent.includes('no ranking'),true);
+ctx.selected=p+'welfare-interview-attitude';vm.runInContext('drawPanel()',ctx);
+assert.equal(d.charts[ctx.selected].scale_min,-3);assert.equal(d.charts[ctx.selected].scale_max,3);
+assert.equal(elements.scores.innerHTML.includes('>-3</text>'),true);
+assert.equal(elements.scores.innerHTML.includes('score-zero'),true);
+assert.equal(/width="-/.test(elements.scores.innerHTML),false);
+ctx.selected=p+'rna-base';vm.runInContext('drawPanel()',ctx);
+assert.equal(elements.scores.innerHTML.includes('without exact numeric labels'),true);
+assert.equal(elements.scores.innerHTML.includes('Not reported:'),false);
+assert.equal(elements.scores.innerHTML.includes('<svg'),false);
+assert.equal(elements.scores.innerHTML.includes('comparison-note">.</p>'),false);
+ctx.selected=p+'welfare-consultation-positions';vm.runInContext('drawPanel()',ctx);
+assert.equal(elements.scores.innerHTML.includes('distinct checkpoint results'),true);
+assert.equal(elements.scores.innerHTML.includes('Not reported:'),false);
+assert.equal(elements.scores.innerHTML.includes('<svg'),false);
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True)
+        b = {'unit': 'rating_points', 'value_min': 1, 'value_max': 7}
+        self.assertTrue(valid_score(4.22, b))
+        for value in (0, 7.1, float('nan'), True):
+            self.assertFalse(valid_score(value, b))
+        self.assertFalse(valid_score(3, dict(b, value_min=8)))
+        self.assertTrue(valid_score(-0.51, dict(b, value_min=-3, value_max=3)))
+
+    def test_batch8_evidence_preserves_absence_precision_and_training_conditions(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025f:'
+        c = self.updates['reportComparisons'][mid]
+        self.assertEqual(c[p + 'welfare-distress']['rows'][0]['name'], 'Claude Opus 5')
+        self.assertEqual(c[p + 'welfare-claudeai-neutral']['rows'][2]['name'], 'Claude Fable 5.1')
+        own = next(r for r in c[p + 'welfare-claudeai-strongnegative']['rows'] if r.get('model_id') == mid)
+        self.assertIsNone(own['display_value'])
+        self.assertEqual(c[p + 'welfare-consultation-positions']['valueStatus'], 'no_single_score')
+        self.assertIsNone(c[p + 'welfare-consultation-positions']['rows'][0]['display_value'])
+        self.assertIn('80%', c[p + 'welfare-consultation-positions']['rows'][0]['source_value'])
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-08.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 41)
+        for item in evidence['metrics']:
+            comp = c[item['benchmarkId']]
+            transcript = dict(locator=comp['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in comp['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(comp['source_table_sha256'], digest)
+            self.assertEqual(item['sha256'], digest)
+
+
 if __name__ == '__main__':
     unittest.main()
