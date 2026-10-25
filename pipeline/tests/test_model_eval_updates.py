@@ -2267,5 +2267,49 @@ s=rank(d,'reviewed-202610:hle-no-tools',mid);assert.equal(s.official.length,9);a
 '''
         subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
+    def test_opus_multiagent_conditions_and_source_receipts(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-33.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual((len(e['metrics']),len(e['supplements']),e['summary']['primaryCells'],e['summary']['supplementaryCells']),(10,5,26,48))
+        self.assertEqual(len(e['labelChecks']),48);self.assertTrue(all(x['status'].startswith('matched_') for x in e['labelChecks']))
+        unknown=[]
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:
+                c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+                self.assertTrue(c['evidenceOnly']);self.assertTrue(all(not r['plot_eligible'] for r in c['rows']))
+                unknown.extend(r for r in c['rows'] if r['display_value'] is None)
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']]);self.assertEqual(item['sha256'],c['source_table_sha256'])
+            for r in c['rows']:
+                if r['display_value'] is not None:self.assertAlmostEqual(r['display_value'],float(r['source_value'])*100)
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        self.assertEqual(len(unknown),24);self.assertTrue(all(r['value_status']=='unlabeled_figure' for r in unknown))
+        draco=cs['reviewed-20261026-opus:draco-multiagent-latency']['supplementaryComparisons'][0]
+        self.assertEqual(len(draco['rows']),18);self.assertEqual(sum('0.5×' in r['setting'] for r in draco['rows']),3)
+
+    def test_opus_team_scale_ties_and_figure_disagreement_are_preserved(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-20261026-opus:'
+        expected={'knowledge-base':[[45,53,53],[64,66,70],[65,69,71],[68,68,74]],'lean':[[19,16,39],[44,33,66],[55,45,66],[58,53,68]]}
+        for task,cohorts in expected.items():
+            for n,values in zip([1,10,30,100],cohorts):
+                c=cs[p+f'{task}-{n}-agents-24h'];self.assertEqual([r['display_value'] for r in c['rows']],values)
+                self.assertIn('Experimental Opus snapshot',c['displaySetup']);self.assertIn('three attempts',c['displaySetup'])
+        c=cs[p+'knowledge-base-100-agents-24h']['supplementaryComparisons'][0]
+        row=next(r for r in c['rows'] if r['setting'].startswith('10 agents · within 24 hours'))
+        self.assertEqual((row['source_value'],row['display_value']),('0.71',71))
+        primary=cs[p+'knowledge-base-10-agents-24h'];self.assertEqual(primary['rows'][-1]['source_value'],'0.70');self.assertIn('Cause unspecified',primary['displayCaveat'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+    def test_opus_experimental_rankings_never_pool_scales_or_official_runs(self):
+        script=r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-opus-5-5',p='reviewed-20261026-opus:';
+for(const task of ['knowledge-base','lean'])for(const n of [1,10,30,100]){const s=rank(d,p+task+'-'+n+'-agents-24h',mid);assert.equal(s.reports.length,3);assert.equal(s.official.length,0);}
+let s=rank(d,p+'knowledge-base-1-agents-24h',mid);assert.equal(s.reports.filter(r=>r.rank===1).length,2);
+s=rank(d,p+'knowledge-base-10-agents-24h',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,70);
+for(const k of ['program-multiagent-snapshot','draco-multiagent-latency']){s=rank(d,p+k,mid);assert.equal(s.reports.length,0);assert.equal(s.official.length,0);}
+assert.equal(rank(d,'reviewed-20261025:program-166-mean',mid).reports.find(r=>r.model_id===mid).display_value,91.2);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
 if __name__ == '__main__':
     unittest.main()

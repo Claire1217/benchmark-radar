@@ -1630,3 +1630,60 @@ Validation: **101** model-eval regressions passed; all **2,848** drawers rendere
 in the VM. The full audit renders all **19** Opus supplementary records, including
 the two WANDR values and unknown-coordinate notices. Static build, asset validation
 and whitespace checks passed. Browser visual QA remains unperformed.
+
+## Batch 33 — Opus multi-agent experiments (2026-10-26)
+
+Reviewed all figures and methods in section 8.12, PDF pp.189–199. Added **10**
+primary comparisons/coverage records (**26** cells) and **5** supplements (**48**
+cells). All **48** printed score labels in the four large-team charts were checked
+visually and against OCR; two crowded labels were confirmed with enlarged crops.
+
+- Knowledge-base construction and Lean theorem proving each retain four separate
+  three-model comparisons: **1, 10, 30 and 100 agents**, 24 hours, three attempts.
+  These are experimental model versions, not unqualified released-model results.
+  Source 0–1 fractions remain in receipts and are explicitly converted to percent.
+  No team scale is chosen as an overall model score.
+- The knowledge-base single-agent figure prints **0.53 for both Opus and Fable**;
+  the chart preserves that tie despite the source narrative claiming outperformance.
+  At 10 agents and 24 hours, Figure 8.12.3.A prints **0.70** while Figure 8.12.3.C
+  prints **0.71**. Both axes say best score within 24 hours; the cause is unknown.
+  Both printed values are preserved, and the first figure's cohort is not overwritten.
+- The 2-, 6- and 24-hour curves retain all **24** labeled points as supplementary
+  evidence, with team size and time attached to every row. Knowledge-base scoring
+  measures a reader's answers using team notes; Lean uses weighted proofs across
+  49 theorem statements, not an unweighted theorem count.
+- ProgramBench has an alternate Opus checkpoint and a 166-task list differing in
+  four tasks from the earlier single-agent section. Its changed harness, compaction
+  and per-agent token budgets are explicit. Both three-harness curves are retained
+  without estimating coordinates. Conditional **2.7×** speedup at score **0.6** is
+  explanatory evidence, not a model score.
+- DRACO retains all **18** combinations of three harnesses and six timing
+  conditions: standard, latency pressure and four task-specific budget ratios.
+  Exact score and latency coordinates are unlabeled. The approximate **2.8×**
+  speedup is not treated as a score. Derived latency is distinguished from serving
+  wall time; run-ending and filesystem/checkout differences are documented.
+- The communication graph (12 emergent Lean sub-leads versus none on knowledge
+  base) is retained as qualitative source evidence, not a capability ranking.
+
+Fresh ProgramBench and DRACO maintainer captures are byte-identical to batch 32.
+The former's 200-task Resolved/Almost results and the latter's judge/harness do not
+match these experiments. No separately published matching board was verified for
+the internal large-team tasks; no official score or snapshot is manufactured.
+Earlier comparisons, observations and official values are unchanged.
+
+Opus is **31 / 31 collected pairs reviewed**, with the full source **in progress**.
+Remaining capabilities, safety, alignment, welfare and whole-source reconciliation
+are pending. Overall: **951 / 2,858** collected pairs reviewed, **4** source-complete
+models and **40** official snapshots. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-33.json`.
+
+Batch 32 commit `d57cb808a2d4bc4d0004013de7a1709f00930c7a` passed CI
+`40228293099` and Pages `40228293133`. Live verification confirmed all 21 primary
+comparisons, 86 source cells, 19 supplementary records, independent eligibility
+notes, the WANDR source discrepancy and content-versioned script bytes.
+
+Validation: **104** model-eval regressions passed against the final copied files;
+all **2,858** drawers rendered in the VM. New checks cover displayed ties,
+team-size isolation, fraction conversion, both source values and absence of
+fabricated numeric/official results. Static build, asset validation and whitespace
+checks passed. Browser visual QA remains unperformed.
