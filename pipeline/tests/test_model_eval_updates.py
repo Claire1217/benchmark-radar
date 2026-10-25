@@ -2092,5 +2092,72 @@ assert.ok(!s.reports.some(r=>r.name==='GPT-6 Astra'));
         for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']:
             self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
+    def test_partial_release_comparisons_have_no_rank_and_do_not_count_as_reviewed(self):
+        from build_model_eval_review import build_review
+        data=apply_updates(self.data,self.updates);queue,_=build_review(data,self.updates)
+        mids=['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']
+        partial=0
+        for model in queue['models']:
+            if model['modelId'] not in mids:continue
+            for pair in model['pairs']:
+                c=data['report_comparisons'][model['modelId']].get(pair['benchmarkId'])
+                if c and c.get('comparisonStatus')=='partial':
+                    partial+=1;self.assertEqual(pair['reportStatus'],'comparison_partial');self.assertEqual(pair['status'],'in_progress')
+        self.assertEqual(partial,7)
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),sol='official-reviewed:gpt-6-sol',luna='official-reviewed:gpt-6-luna',p='reviewed-202610:';
+let s=rank(d,p+'deepswe',sol);assert.equal(s.reportRankable,false);assert.ok(s.reports.every(r=>r.rank===null));
+assert.deepEqual(s.reports.map(r=>r.display_value),[68.8,69.9,66.6]);
+s=rank(d,p+'os20-offline',luna);assert.equal(s.reports.length,2);assert.ok(s.reports.every(r=>r.rank===null));
+assert.equal(s.official.length,2);assert.equal(s.official[0].name,'Claude Opus 5');assert.equal(s.official[0].display_value,70.19);assert.equal(s.official[0].rank,1);
+s=rank(d,p+'automation',luna);assert.equal(s.reports.length,0);assert.ok(s.official.some(r=>r.model_id===luna&&r.display_value===20.7));
+s=rank(d,p+'automation',sol);assert.equal(s.reportRankable,true);assert.equal(s.reports[0].display_value,33.2);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(data),text=True,cwd=ROOT,check=True)
+
+    def test_release_table_retains_fallback_identity_and_never_backfills_missing_scores(self):
+        p='reviewed-202610:';sol='official-reviewed:gpt-6-sol';luna='official-reviewed:gpt-6-luna';cs=self.updates['reportComparisons']
+        rows=cs[sol][p+'automation']['rows']
+        self.assertEqual([r['display_value'] for r in rows],[33.2,30.3,26.9,31.4])
+        self.assertEqual([r['setting'] for r in rows],['xhigh effort','low effort','max effort','max effort'])
+        self.assertEqual(rows[-1]['name'],'Claude Fable 5.1 w/ Opus 5 Fallback');self.assertIn('fallback cost not reported',rows[-1]['source_cost'])
+        self.assertTrue(all(r['display_value'] is None for r in cs[luna][p+'automation']['rows']))
+        self.assertTrue(all(r['display_value'] is None for r in cs[sol][p+'frontier']['rows']))
+        os=cs[luna][p+'os20-offline']['rows']
+        self.assertEqual([r['display_value'] for r in os],[60.5,60.3,None,None])
+        self.assertEqual(os[2]['value_status'],'source_unavailable');self.assertNotEqual(os[2]['value_status'],'not_reported')
+        self.assertNotIn(p+'frontier',cs[luna])
+
+    def test_osworld_legacy_snapshot_and_ale_version_are_isolated(self):
+        b='reviewed-202610:os20-offline';s=self.updates['leaderboardSnapshots'][b]
+        self.assertEqual(len(s['rows']),11)
+        self.assertEqual({r['source_release'] for r in s['rows']},{'v2026.08.08'})
+        self.assertEqual({r['source_subset'] for r in s['rows']},{'offline'})
+        self.assertEqual({r['source_metric'] for r in s['rows']},{'partialScore'})
+        medium=next(r for r in s['rows'] if r['name']=='Claude Opus 5' and r['effort']=='medium')
+        self.assertEqual(medium['display_value'],60.26);self.assertNotEqual(medium['display_value'],27.13)
+        self.assertFalse(any(r['name'] in ['GPT-6 Sol','GPT-6 Luna'] for r in s['rows']))
+        sol='official-reviewed:gpt-6-sol';new='reviewed-20261026:ale-v1-reported-score'
+        self.assertFalse(any(r['model_id']==sol and r['benchmark_id']=='reviewed-202610:agents-last' for r in self.updates['observations']))
+        r=next(r for r in self.updates['observations'] if r['model_id']==sol and r['benchmark_id']==new)
+        self.assertEqual(r['display_value'],56.4);self.assertIn('V1',self.updates['benchmarks'][new]['name'])
+        self.assertFalse(self.updates['modelBenchmarkAudits'][sol][new]['coreEligible'])
+        self.assertIn('version',self.updates['benchmarks']['reviewed-202610:agents-last']['name'])
+
+    def test_batch30_source_receipt_and_partial_status_validation(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-30.json').read_text())
+        self.assertEqual((len(e['metrics']),e['summary']['partialComparisons'],e['summary']['primaryCells']),(8,7,25))
+        self.assertEqual(len(e['observationCorrections']),1)
+        self.assertEqual(e['observationCorrections'][0]['before']['display_value'],e['observationCorrections'][0]['after']['display_value'])
+        for item in e['metrics']:
+            c=self.updates['reportComparisons'][item['modelId']][item['benchmarkId']]
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']]);self.assertEqual(item['sha256'],c['source_table_sha256'])
+        bad=copy.deepcopy(self.updates)
+        c=bad['reportComparisons']['official-reviewed:gpt-6-luna']['reviewed-202610:automation'];c.pop('displayCoverage')
+        with self.assertRaisesRegex(ValueError,'visible coverage note'):apply_updates(copy.deepcopy(self.data),bad)
+        c['comparisonStatus']='unverified_complete'
+        with self.assertRaisesRegex(ValueError,'Unknown source comparison'):apply_updates(copy.deepcopy(self.data),bad)
+
 if __name__ == '__main__':
     unittest.main()

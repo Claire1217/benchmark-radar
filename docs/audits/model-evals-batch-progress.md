@@ -1452,3 +1452,63 @@ curve values and explicit Luna omission.
 Validation: **89** model-eval regressions passed and all **2,833** drawers rendered
 in the VM. Static build, asset validation and whitespace checks passed.
 Browser visual QA remains unperformed.
+
+
+## Batch 30 — Release-text coverage and version-specific official results (2026-10-26)
+
+Added **8** Sol/Luna release-source comparisons with **25** cells. The complete
+four-row AutomationBench table is verified; the other **7** comparisons retain
+only accessible prose and remain **partial**. They receive no report rank and
+are excluded from reviewed-pair counts, even when an official leaderboard has
+been verified. Unavailable chart values are distinguished from source omissions.
+
+- AutomationBench preserves Sol 33.2 (xhigh), Astra 30.3 (low), Opus 5 26.9
+  (max), and **Fable 5.1 with Opus 5 fallback** 31.4 (max). The combined system
+  is not renamed to plain Fable. The exact four-row table is separate from the
+  still-pending cost/effort charts. Luna's 5.4-point improvement is not treated
+  as an absolute score or reconstructed from the current public board.
+- Sol's **56.4** Agents' Last Exam result moves from the shared, unspecified
+  version bucket to an explicit **V1 reported-score** identity. DeepSeek's
+  unresolved version is unchanged. The archived V1 page and its 1,048 API rows
+  were captured; multiple splits, pass rate and average score remain distinct.
+  The release does not identify enough details to choose an official column.
+- DeepSWE preserves the exact prose values 68.8 (Sol max), 69.9 (Fable 5 xhigh),
+  and 66.6 (Luna max). Its full model/effort chart remains pending. All **70**
+  official v1.1 configurations were checked, not only the 21 default visible
+  models; none identifies Sol or Luna, and the report harness is unspecified.
+- FrontierCode Main v1.1 is added to Sol's inventory as qualitative evidence.
+  No maintainer score is copied into the unread release chart. Luna chart
+  participation is not inferred from the shared release title.
+- Captured **11** official OSWorld rows for **v2026.08.08 / offline /
+  partialScore** only. The snapshot contains Opus 5 and GPT-5.6 Sol, with neither
+  GPT-6 model listed. The report's 60.5 versus 60.3 prose comparison stays apart
+  from official scores, binary accuracy, the full set and v2.1. Luna's prose
+  supplies no exact absolute score, so its report value remains unknown.
+
+AutomationBench and FrontierCode data bytes match their previously verified
+snapshots. **22** exact-name Sol/Luna rows received canonical model IDs without
+changing any official value. Five explicit report values agree with their
+maintainer counterparts at the report's precision; this is a cross-check, not
+permission to backfill missing values. All prior model-report comparisons remain
+unchanged. There are now **40** independent official snapshots.
+
+Overall: **920 / 2,836** collected pairs reviewed, with **4** source-complete
+models. Sol is **124 / 128**, Luna **79 / 82**. Three new coverage pairs and the
+seven explicit partial comparisons keep missing release-chart work visible.
+Full charts and final source reconciliation remain pending. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-30.json`.
+
+Batch 29 was confirmed live: commit `22c47684a53f978433c53d6bf5ce85ff5d49c0ac`,
+CI `40224460300` and Pages `40224460330` succeeded. All 44 primary comparisons,
+eight supplements, exact source columns, helpful-only identity, count conversion
+and missing values matched the deployed page.
+
+Validation: **93** model-eval regressions passed and all **2,836** drawers rendered
+in the VM, including partial-report labels, suppressed report ranks and separate
+maintainer ranks. Static build, asset validation and whitespace checks passed.
+Browser visual QA remains unperformed.
+
+The generated Library reference index also carries 11 verified source links: eight
+previously reviewed safety-card references and three newly inventoried release
+mentions. Each maps to a source observation and the exact Library ID; these links
+do not imply complete comparison coverage.

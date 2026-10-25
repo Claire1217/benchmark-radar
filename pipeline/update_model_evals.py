@@ -159,6 +159,10 @@ def apply_updates(data, updates):
     for mid, metrics in comparisons.items():
         for bid, comparison in metrics.items():
             source = sources[comparison['sourceId']]
+            if comparison.get('comparisonStatus', 'complete') not in {'complete', 'partial'}:
+                raise ValueError('Unknown source comparison coverage status')
+            if comparison.get('comparisonStatus') == 'partial' and not comparison.get('displayCoverage'):
+                raise ValueError('Partial source comparison requires a visible coverage note')
             if (comparison['selected_model_id'] != mid or source['url'] != comparison['source_url']
                     or source['provider'] != comparison['publisher']
                     or data['models'][mid]['organization'] != comparison['publisher']

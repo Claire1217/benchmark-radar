@@ -22,17 +22,18 @@
     const byScore = (a, b) => scoreDifference(a, b) || a.name.localeCompare(b.name);
     // Descriptive axes have no best run or best model. Preserve source order
     // and every measured run instead of inventing a direction or a winner.
-    const rank = rows => rankable ? rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => orderValue(r) === orderValue(row)) + 1})) : rows.map(row => ({...row, rank: null}));
+    const rank = (rows, eligible = rankable) => eligible ? rows.sort(byScore).map((row, i, sorted) => ({...row, rank: sorted.findIndex(r => orderValue(r) === orderValue(row)) + 1})) : rows.map(row => ({...row, rank: null}));
     const official = rank(rankable ? [...best.values()] : (snapshot?.rows || []).filter(r => r.provenance === 'benchmark_evaluation' && Number.isFinite(r.display_value)));
     const selected = (data.charts[benchmarkId]?.rows || []).find(r => r.model_id === modelId);
     const receipt = data.report_audits?.[benchmarkId]?.[modelId];
     const matched = receipt?.status === 'matched_report' && receipt.value === selected?.display_value;
     const own = selected ? {...selected, name: data.models[modelId].name, ...(matched ? receipt : {}), verifiedReport: matched} : null;
     const comparison = data.report_comparisons?.[modelId]?.[benchmarkId];
+    const reportRankable = rankable && comparison?.comparisonStatus !== 'partial';
     // Rank within this one report; never fill a gap from another release.
-    const reports = rank(comparison ? comparison.rows.filter(r => r.plot_eligible && Number.isFinite(r.display_value)) : (own && Number.isFinite(own.display_value) ? [own] : []));
+    const reports = rank(comparison ? comparison.rows.filter(r => r.plot_eligible && Number.isFinite(r.display_value)) : (own && Number.isFinite(own.display_value) ? [own] : []), reportRankable);
     const exceptions = comparison ? comparison.rows.filter(r => !r.plot_eligible || !Number.isFinite(r.display_value)) : [];
-    return {audit, snapshot, official, reports, own, comparison, exceptions, rankable};
+    return {audit, snapshot, official, reports, own, comparison, exceptions, rankable, reportRankable};
   }
   if (typeof module !== 'undefined') module.exports = {selectRanking};
   else root.ModelEvalRanking = {selectRanking};

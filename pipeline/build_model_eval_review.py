@@ -21,10 +21,12 @@ def build_review(data, updates):
                     'unlabeled_figure': 'source_without_exact_value',
                     'no_single_score': 'source_without_exact_value',
                 }.get(comparison.get('valueStatus'), 'comparison_verified')
+                if comparison.get('comparisonStatus') == 'partial':
+                    report_status = 'comparison_partial'
             else:
                 report_status = 'value_verified' if receipt else 'pending'
             board_status = audit.get('status', 'pending') if audit else 'pending'
-            reviewed = bool(comparison and audit and board_status != 'pending')
+            reviewed = bool(comparison and report_status != 'comparison_partial' and audit and board_status != 'pending')
             pairs.append(dict(
                 benchmarkId=bid, benchmark=data['benchmarks'][bid]['name'],
                 reportStatus=report_status, leaderboardStatus=board_status,
@@ -52,6 +54,7 @@ def build_review(data, updates):
     def link(url, text):
         return '<a href="'+escape(url, quote=True)+'">'+e(text)+'</a>' if url and url.startswith(('https://', 'http://')) else e(text)
     labels = {'pending':'Not yet reviewed', 'value_verified':'Value verified; comparison pending',
+              'comparison_partial':'Partial source comparison; review pending',
               'source_without_exact_value':'Source reviewed; no exact value',
               'source_not_reported':'Not in this model’s report; references retained',
               'comparison_verified':'Source comparison verified', 'not_listed':'Model absent from captured board',
@@ -64,7 +67,7 @@ def build_review(data, updates):
     html = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Model Evals · Review progress</title><style>body{max-width:1100px;margin:32px auto;padding:0 20px;font:14px/1.6 system-ui;color:#17211c;background:#fafaf8}a{color:#285b90}details{margin:16px 0;border:1px solid #d7ded8;border-radius:5px;padding:12px}summary{cursor:pointer;font-weight:600}.table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;vertical-align:top;padding:10px;border-bottom:1px solid #d7ded8}th{background:#eaf0eb}small,.muted{color:#68736c}h1{font-size:28px}h3{margin-bottom:4px}.evidence{margin:20px 0}code{overflow-wrap:anywhere}</style></head><body><a href="./">← Model Evals</a><h1>Review progress</h1>'''
     html += '<p>'+str(summary['reviewedPairs'])+' / '+str(summary['totalPairs'])+' model–benchmark pairs reviewed across '+str(summary['modelsWithRecords'])+' models.</p>'
     html += '<p>Each comparison belongs to one publisher report. Benchmark-maintainer evaluations are reviewed separately for the exact version, subset and metric. “Not yet reviewed” does not mean a result is unavailable. Source verification checks transcription and evaluation scope; it does not reproduce the experiment.</p>'
-    html += '<p>Reviewed includes documented unresolved sources and incompatible setups; these never enter the official ranking. Models are complete only after source coverage and every collected metric have been reviewed. '+str(summary['catalogModelsWithoutRecords'])+' catalog-only identities have no collected results and are not counted as reviewed.</p><p><a href="audit-2026-10-24.html">October 24 Kimi audit and complete official snapshots ↗</a></p>'
+    html += '<p>Reviewed includes documented unresolved sources and incompatible setups; these never enter the official ranking. Partial source comparisons stay in progress even when the leaderboard review is done. Models are complete only after source coverage and every collected metric have been reviewed. '+str(summary['catalogModelsWithoutRecords'])+' catalog-only identities have no collected results and are not counted as reviewed.</p><p><a href="audit-2026-10-24.html">October 24 Kimi audit and complete official snapshots ↗</a></p>'
     for model in models:
         mid=model['modelId']
         html += '<details id="'+e(mid)+'"><summary>'+e(model['name'])+' · '+str(model['reviewedPairs'])+' / '+str(model['totalPairs'])+' metrics reviewed</summary>'
