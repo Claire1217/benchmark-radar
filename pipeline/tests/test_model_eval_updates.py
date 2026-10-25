@@ -2163,5 +2163,56 @@ s=rank(d,p+'automation',sol);assert.equal(s.reportRankable,true);assert.equal(s.
         expected=hashlib.sha256((ROOT/'web/model-evals/ranking.js').read_bytes()).hexdigest()[:12]
         self.assertIn(f'<script src="ranking.js?v={expected}">',(ROOT/'web/model-evals/index.html').read_text())
 
+    def test_opus_release_preserves_source_cohorts_and_effort_choices(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-202610:'
+        self.assertEqual(len(cs),10)
+        expected={
+            'family:terminal-bench-4':[66.4,55.8,52.3,57.9,37.3],
+            p+'frontier':[54.4,50.3,48.0,53.3,47.5],p+'cursor':[57.8,51.8,46.6,None,41.7],
+            p+'gdp-aa':[1846,1735,1708,1542,1588],p+'automation':[40,31.4,26.9,41.4,28.8],
+            p+'hle-tools':[67.7,65.6,63.6,57.2,None],p+'science':[58.7,52.6,29,64.6,22.4],
+            p+'os21-partial':[81.8,80.7,74,None,None],p+'chart-tools':[89,88.4,83.4,None,None]}
+        for bid,values in expected.items():
+            c=cs[bid];self.assertEqual([r['display_value'] for r in c['rows']],values)
+            self.assertEqual([r['source_column'] for r in c['rows']],['Opus 5.5','Fable 5.1','Opus 5','GPT-6 Astra','GPT-5.6 Sol'])
+            self.assertEqual(sum(r.get('model_id')==mid for r in c['rows']),1)
+        self.assertIn('xhigh',cs['family:terminal-bench-4']['rows'][0]['setting'])
+        self.assertIn('High effort',cs['family:terminal-bench-4']['rows'][3]['setting'])
+        self.assertEqual(cs[p+'automation']['rows'][1]['name'],'Claude Fable 5.1 w/ Opus 5 Fallback')
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+    def test_opus_release_curves_keep_exact_values_costs_and_no_fallback(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-202610:'
+        supplements=[s for c in cs.values() for s in c.get('supplementaryComparisons',[])]
+        self.assertEqual(len(supplements),6);self.assertEqual(sum(len(s['rows']) for s in supplements),130)
+        self.assertTrue(all(s['evidenceOnly'] and all(not r['plot_eligible'] for r in s['rows']) for s in supplements))
+        rows=cs[p+'frontier']['supplementaryComparisons'][0]['rows']
+        self.assertEqual(next(r['display_value'] for r in rows if r.get('model_id')==mid and r['source_effort']=='Med'),54.64)
+        peer=next(r for r in rows if r['name']=='Claude Opus 5' and r['source_effort']=='Xhigh')
+        self.assertEqual((peer['source_value'],peer['display_value']),('43.65',43.65))
+        self.assertTrue(all('without fallback' in r['setting'] for r in cs[p+'automation']['supplementaryComparisons'][0]['rows'] if r.get('model_id')==mid))
+        w=cs['reviewed-20261025:wandr-frozen-opus46'];self.assertEqual([r['display_value'] for r in w['rows']],[72.3,68.7,67.2])
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-31.json').read_text())
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+
+    def test_opus_report_and_official_ranks_remain_independent(self):
+        script=r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-opus-5-5',p='reviewed-202610:';
+let s=rank(d,'family:terminal-bench-4',mid);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,66.4);
+assert.equal(s.official.find(r=>r.model_id===mid).display_value,64.85);
+s=rank(d,p+'frontier',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,54.4);assert.equal(s.official.find(r=>r.model_id===mid).display_value,54.64);
+s=rank(d,p+'automation',mid);assert.equal(s.reports[0].name,'GPT-6 Astra');assert.equal(s.reports.find(r=>r.model_id===mid).rank,2);assert.equal(s.official.find(r=>r.model_id===mid).display_value,42.47);
+s=rank(d,p+'gdp-aa',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,1846);assert.equal(s.official.find(r=>r.model_id===mid).display_value,1866.27);
+for(const bid of [p+'hle-tools',p+'chart-tools','reviewed-20261025:wandr-frozen-opus46'])assert.equal(rank(d,bid,mid).official.length,0);
+s=rank(d,p+'os21-partial',mid);assert.ok(s.official.length>0);assert.ok(!s.official.some(r=>r.model_id===mid));
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
 if __name__ == '__main__':
     unittest.main()

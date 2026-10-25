@@ -1516,3 +1516,55 @@ do not imply complete comparison coverage.
 Delivery follow-up: the ranking-script URL now includes its content hash, so
 new report coverage data loads the corresponding ranking rules instead of a
 previously cached script. The generated URL is checked against the current file.
+
+## Batch 31 — Opus 5.5 release comparisons and independent boards (2026-10-26)
+
+Added **10** primary comparisons with **48** cells: the nine complete release-table
+rows and the WANDR max-effort cohort. Six supplementary records preserve all
+**130** release-chart points, exact CSV precision, reasoning effort and release-date
+costs. Every point was checked against the page's separate SVG accessibility label
+using its number formatting. Opus 5's FrontierCode xhigh CSV value **43.65** renders
+as **43.6** under JavaScript `toFixed(1)`; the stored exact value is unchanged.
+
+- Terminal-Bench keeps report **66.4 at xhigh** and official **64.85 at max** apart.
+  FrontierCode keeps the max-effort headline **54.4** and medium-effort **54.64**
+  distinct. The official view selects each model's best listed effort.
+- AutomationBench keeps report **40.0 without fallback** and official **42.47 with
+  default fallback** separate. Zapier's own release evaluation confirms 263/657
+  tasks, the settings distinction and its no-cache costs. The report's **31.4**
+  Fable comparison is explicitly labeled as **Fable + Opus 5 fallback**; standalone
+  Fable scores 22.4 in Zapier's release comparison.
+- GDPval-AA retains release **1846** and dated official **1866.27** separately.
+  The fresh AA page contains a 27-model subset: 25 values match the retained
+  October 24 snapshot, including Opus Max; GLM Flash and MiniMax drift by 0.02 and
+  0.12 Elo. No partial current-page data is mixed into the complete dated snapshot.
+- Science uses distinct 700-trial report and 210-trial official runs. Full-set HLE
+  with tools is not replaced with 1,000-question HLE-Diamond. Chartography tools
+  and WANDR frozen-web/Opus-4.6 judging have no verified matching official view.
+- OSWorld preserves the source naming difference: the release says **2.1**, while
+  the card says **2.0 with September 10 task/assets updates**. Only official-marked
+  v2.1/full/partialScore records appear below; Opus 5.5 is absent. Grader and
+  harness equivalence remain unverified.
+
+Fresh maintainer checks cover all **35** Terminal-Bench runs and **17** Science
+rows; FrontierCode, Cursor, Zapier and OSWorld source bytes match the existing
+verified captures. Fifteen exact-name Opus configurations received canonical model
+IDs without changing any official score or setting. All previous report comparisons
+and observations remain unchanged. No new official snapshot is introduced.
+
+The 230-page system card remains **in progress**: capability summary p.174 was
+visually checked and relevant method sections read, but the remaining evaluations,
+figures and release narrative still need full reconciliation. Opus is **10 / 10
+collected pairs reviewed**, not source-complete. Overall: **930 / 2,837** collected
+pairs reviewed, with **4** source-complete models and **40** official snapshots.
+Evidence: `data/model_eval_evidence/2026-10-26-batch-31.json`.
+
+Batch 30 data commit `f580fa3b6af448d47ec0921561baf7bfbdd3ffd2` passed CI
+`40225720632` and Pages `40225720578`. Its cache-version follow-up
+`2d8fd7a00a7823a3aee0e4697f6f9db9acdeb338` passed CI `40226220650` and Pages
+`40226220551`; the deployed data and content-versioned ranking script were verified.
+
+Validation: **97** model-eval regressions passed and all **2,837** drawers rendered
+in the VM, including Opus source-only ranking, separate official values, missing
+cells and excluded incompatible views. Static build, asset validation and whitespace
+checks passed. Browser visual QA remains unperformed.
