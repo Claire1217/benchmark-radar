@@ -139,3 +139,63 @@ Primary source leads for the next life-sciences pass:
 - https://www.benchling.com/blog/can-llms-work-in-the-wet-lab
   (BenchBench-Protocol; establish whether it is the card's Understanding V2).
 - Ignore the unrelated spatialbench.com visual-spatial reasoning suite.
+
+## Batch 3 — 2026-10-25
+
+- Added Haiku's nine life-science comparisons (39 total). Figure 8.13.A and
+  pp.137–139 prose are retained together: rounded chart labels do not erase more
+  precise prose values. In Morphology, Sonnet and Haiku both have 0.25 figure
+  labels, but the text gives 25.0 and 25.4 respectively. Missing Gemini protocol
+  troubleshooting remains missing. Haiku biology safeguards off, peer blocked
+  attempt exclusion, and one/three/five-attempt differences are documented.
+- Checked SpatialBench Verified, LatchBio's current scBench/clean-v1 board, the
+  scBench paper, and Benchling's protocol announcement. Task-set/revision aliases
+  are not sufficiently established to substitute these boards for the report.
+  LatchBio confirms 115 Verified SpatialBench tasks; that alone does not establish
+  equivalence to its current cleaned evaluation revision.
+- Added 14 GPT-6.1 Sol comparisons: four length-adjusted and four raw HealthBench
+  metrics from Table 7; four MentalHealthBench acuity/overall rows from Table 9;
+  and the complete explicitly numbered factuality/broken-search release prose.
+  Table 7's adjusted/raw/response-character fields and Table 9's standard errors
+  are preserved. Relative statements are not turned into invented absolute values.
+- Added eight benchmark-author paper snapshots: MentalHealthBench overall and
+  three acuities; HealthBench Professional adjusted; original HealthBench raw,
+  Hard and Consensus. Paper figures were visually checked. MentalHealthBench's
+  default API settings differ from the card's Max. August/2025 model identities
+  remain explicit. These are OpenAI benchmark-author results, not third-party
+  validation; the source link says benchmark paper. GPT-6.1 Sol is absent.
+- HealthBench Consensus paper error rates are converted using 100 × (1 − error)
+  with original values retained. Rounded figures stay at whole-point precision.
+  Real zero scores in HealthBench Hard remain plotted. Professional raw-score
+  effort/verbosity curves lack exact point labels and are not estimated.
+- Broader source discovery keeps Haiku and Sol in progress. Haiku still needs
+  Anthropic ECI, ExploitBench, CyScenarioBench, Binary Exploitation, ExploitGym,
+  BBQ, Gray Swan IPI, AA-Omniscience and SHADE-Arena. Sol still needs five launch
+  charts and the other safety/alignment/preparedness evaluations. A completed
+  subset of transcriptions is not a completed model-card audit.
+
+Current inventory: 113 reviewed model×benchmark pairs out of 2,048 collected;
+124 models have results, only two have source-coverage reviews complete. There
+are 28 captured maintainer result views. Catalog-only identities remain excluded
+from completion counts. Batch evidence is in
+`data/model_eval_evidence/2026-10-25-batch-03.json`.
+
+### Next continuation after Batch 3
+
+1. Finish Haiku's earlier formal benchmark sections (cached `haiku.pdf`). Source
+   pages: ECI 20; ExploitBench 24–25; CyScenarioBench 26; Binary Exploitation
+   27–28; ExploitGym 29; BBQ 43; Gray Swan IPI 50; AA-Omniscience 80;
+   SHADE-Arena 89–90. Signed bias scores need a correct direction policy; do not
+   label negative BBQ bias as simply lower-is-better.
+2. Continue GPT-6.1 Sol's five release charts (DeepSWE, GDP.pdf, AutomationBench,
+   OSWorld 2.0 offline v2026.08.08 partial reward, Terminal-Bench Science).
+   Absolute numbers must come from its own report, not Anthropic comparison
+   columns. Release HTML download returned 403; web reading worked. Do not
+   estimate unlabelled chart points. Cached `sol61.pdf` has 48 pages; `sol61-card.html`
+   has eight HTML tables. Other card sections are recorded in discoveredMetrics.
+3. Continue Sonnet 5.5, GPT-6 Sol/Luna, Opus 5.5 and the remaining inventory.
+   Preserve same-report peers and model-scoped leaderboard compatibility.
+
+Batch 3 validation: 20 regression tests, all 2,048 drawer renders in the
+JavaScript VM, and static-site build/validation. Programmatic rendering does not
+constitute a browser visual check.

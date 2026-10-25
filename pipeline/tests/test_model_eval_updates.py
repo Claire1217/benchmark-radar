@@ -281,6 +281,59 @@ assert.equal(selectRanking(d,b,mid).official.length,0);
         self.assertEqual(data['model_benchmark_audits'][mid]['reviewed-202610:apex']['status'],
                          'unresolved_identity')
 
+    def test_life_science_precision_and_missing_peers_survive_transcription(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        comparisons = self.updates['reportComparisons'][mid]
+        p = 'reviewed-20261025:life-'
+        rows = comparisons[p + 'morphology']['rows']
+        sonnet = next(r for r in rows if r['name'] == 'Claude Sonnet 5.5')
+        haiku = next(r for r in rows if r.get('model_id') == mid)
+        self.assertEqual(sonnet['source_figure_value'], haiku['source_figure_value'])
+        self.assertEqual(sonnet['display_value'], 25.0)
+        self.assertEqual(haiku['display_value'], 25.4)
+        missing = comparisons[p + 'protocol-troubleshooting']['rows'][0]
+        self.assertIsNone(missing['display_value'])
+        self.assertFalse(missing['plot_eligible'])
+        self.assertIn('safeguards off', comparisons[p + 'spatial']['setting'])
+        self.assertIn('blocked attempts are excluded', comparisons[p + 'spatial']['note'])
+        self.assertIn('1 attempt(s)', comparisons[p + 'protein-sequence']['setting'])
+        self.assertIn('3 attempt(s)', comparisons[p + 'protein-ranking']['setting'])
+
+    def test_sol_health_report_and_benchmark_paper_stay_distinct(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:gpt-6.1-sol'
+        comparisons = data['report_comparisons'][mid]
+        adj = comparisons['reviewed-202610:health-pro']['rows'][-1]
+        raw = comparisons['reviewed-20261025:health-pro-openai-raw']['rows'][-1]
+        self.assertEqual(adj['display_value'], 64.2)
+        self.assertEqual(raw['display_value'], 67.2)
+        self.assertEqual(adj['source_value'], '64.2 (67.2, 3038)')
+        self.assertEqual(raw['source_mean_response_characters'], 3038)
+        bid = 'reviewed-20261025:mentalhealth-overall'
+        own = comparisons[bid]['rows'][-1]
+        self.assertEqual(own['display_value'], 57.9)
+        self.assertEqual(own['source_standard_error'], 1.0)
+        self.assertIn('Max reasoning effort', own['setting'])
+        board = data['leaderboard_snapshots'][bid]['rows']
+        self.assertEqual(len(board), 17)
+        self.assertEqual(board[0]['display_value'], 57.3)
+        self.assertTrue(all(r['effort'] == 'API default' for r in board))
+        self.assertNotIn('GPT-6.1 Sol', {r['name'] for r in board})
+        self.assertIn('GPT-5.6 Sol (Aug 2026)', {r['name'] for r in board})
+        self.assertEqual(data['model_benchmark_audits'][mid][bid]['status'], 'not_listed')
+        consensus = data['leaderboard_snapshots']['reviewed-20261025:health-consensus-openai-raw']['rows']
+        self.assertEqual(consensus[0]['source_value'], '0.06 error rate')
+        self.assertEqual(consensus[0]['display_value'], 94)
+        hard = data['leaderboard_snapshots']['reviewed-20261025:health-hard-openai-raw']['rows']
+        self.assertEqual(sum(r['display_value'] == 0 for r in hard), 3)
+        # A release's relative Astra factuality difference is not an absolute score.
+        self.assertEqual(len(comparisons['reviewed-202610:factuality']['rows']), 2)
+        from build_model_eval_review import build_review
+        queue, _ = build_review(data, self.updates)
+        model = next(m for m in queue['models'] if m['modelId'] == mid)
+        self.assertNotEqual(model['status'], 'reviewed')
+        self.assertTrue(model['discoveredMetrics'])
+
     def test_sources_and_finite_percentage_bounds_are_validated(self):
         for mutation in ({'source_url': 'https://example.com/'}, {'display_value': float('nan')}, {'display_value': 101}):
             updates = copy.deepcopy(self.updates)
