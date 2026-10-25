@@ -713,3 +713,43 @@ Validation: **47 tests**, **2,392 drawer renders**, independent extraction of
 **74 table cells** (including one missing cell), source coverage reconciliation,
 clean-checkout static build/site validation, semantic and whitespace checks.
 No browser visual verification is claimed.
+
+## Batch 14 — 2026-10-25
+
+Reviewed **nine Claude Sonnet 5.5 launch/capability comparisons**, plus **80
+exact points** from the four charts embedded in the release page. Added two
+independent official views: all **77 CursorBench configurations across 18
+models**, and the five author-marked OSWorld v2.1 full-set partial-credit runs.
+Sonnet remains **9 / 10 collected pairs reviewed**, with substantial discoveries
+from its 148-page system card explicitly queued; source coverage is in progress.
+
+- Every headline comparison retains the four columns from its own source.
+  Terminal-Bench has Sonnet 70.6, Sonnet 5 10.3, Opus 66.4 and a missing GPT-6
+  Sol cell. Astra's separate report is not added to this comparison.
+- An audited comparison now selects the matching source observation in both
+  the model matrix and drawer. Sonnet launch GDPval 1844 and Briefcase 1811
+  are preserved; the later Haiku reference values 1840/1824 remain history.
+  HLE no-tools now cites Sonnet's own system card rather than a peer column.
+  Unaudited pairs retain their existing latest-report selection behavior.
+- FrontierCode's primary table retains Max 46.2; Xhigh 52.1 remains explicit
+  in the supplemental curve. The independent maintainer view selects the
+  best listed effort, 52.09. Opus's table Max 54.4 and curve Medium 54.6 are
+  also retained separately, rather than silently substituting a maximum.
+- Curves are exact source CSV, not image estimates. All effort settings and
+  release-date costs are preserved as supplementary evidence. Cursor's later
+  pricing update changes Sonnet Max cost from $9.67 to $7.05; its 55.5 score
+  is unchanged. “Extra High” is one effort label, not part of a model name.
+- OSWorld full-set partial credit is separate from offline and strict pass
+  rates. Only author-marked runs enter the new board view; third-party agent
+  submissions are excluded, and grader-equivalence uncertainty is explicit.
+  HLE-Diamond tools results cannot substitute for original full-set HLE tools.
+  Unrelated recommendation panels on the Chartography page are excluded.
+
+Inventory: **466 reviewed / 2,392 collected pairs**, 124 models with records,
+three source-complete models and **34** matching official snapshots. All prior
+comparisons, official snapshots and source identities are preserved.
+
+Validation: **50 tests**, **2,392 drawer renders**, model-matrix/drawer/source
+consistency checks, independent extraction of **36 source-table cells**, all
+80 release-curve points, clean-checkout static build/site validation, semantic
+preservation and whitespace checks. No browser visual verification is claimed.

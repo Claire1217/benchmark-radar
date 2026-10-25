@@ -39,8 +39,19 @@ def valid_score(value, benchmark):
     return True
 
 
-def preferred(rows):
-    """Latest report first; within that report retain its headline row order."""
+def preferred(rows, comparison=None):
+    """Use the audited report's headline; retain other snapshots as history."""
+    if comparison:
+        own = next(row for row in comparison['rows']
+                   if row.get('model_id') == comparison['selected_model_id'])
+        candidates = [row for row in rows
+                      if row.get('sourceId') == comparison['sourceId']
+                      and row.get('reported_at') == comparison['publishedAt']
+                      and row['display_value'] == own['display_value']]
+        if not candidates:
+            raise ValueError('Audited headline requires a matching source observation')
+        return candidates[0]
+    # Unaudited reports keep the historical latest-first behavior.
     return sorted(rows, key=lambda row: row.get('reported_at', ''), reverse=True)[0]
 
 
@@ -99,7 +110,8 @@ def apply_updates(data, updates):
         for row in data['observations']:
             if row['benchmark_id'] == bid and finite(row['display_value']):
                 rows_by_model.setdefault(row['model_id'], []).append(row)
-        rows = [preferred(group) for group in rows_by_model.values()]
+        rows = [preferred(group, updates.get('reportComparisons', {}).get(mid, {}).get(bid))
+                for mid, group in rows_by_model.items()]
         closest = benchmark['direction'] == 'closer_to_zero_is_better'
         if benchmark['direction'] in {'higher_is_better', 'lower_is_better', 'closer_to_zero_is_better'}:
             rows.sort(key=lambda row: abs(row['display_value']) if closest else row['display_value'],

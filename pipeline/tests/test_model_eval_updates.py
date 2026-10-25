@@ -50,15 +50,21 @@ class ModelEvalUpdatesTest(unittest.TestCase):
         source_rows = [r for r in data['observations'] if r.get('sourceId') == 'moonshot-k31-pro-20261024']
         self.assertEqual(source_rows, rows)
 
-    def test_newer_elo_snapshot_is_selected_even_when_lower(self):
+    def test_audited_launch_elo_is_not_replaced_by_later_peer_citation(self):
         data = apply_updates(self.data, self.updates)
         bid = 'reviewed-202610:gdp-aa'
         mid = 'official-reviewed:claude-sonnet-5-5'
         rows = [r for r in data['observations'] if r['model_id'] == mid and r['benchmark_id'] == bid]
         self.assertEqual({r['display_value'] for r in rows}, {1840, 1844})
         chart_row = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
-        self.assertEqual(chart_row['display_value'], 1840)
-        self.assertEqual(chart_row['reported_at'], '2026-10-07')
+        self.assertEqual(chart_row['display_value'], 1844)
+        self.assertEqual(chart_row['reported_at'], '2026-09-28')
+        self.assertEqual(chart_row['sourceId'], 'anthropic-sonnet-20260928')
+        # Without a selected report, preserve the historical latest-first rule.
+        self.updates['reportComparisons'][mid].pop(bid)
+        unaudited = apply_updates(self.data, self.updates)
+        row = next(r for r in unaudited['charts'][bid]['rows'] if r['model_id'] == mid)
+        self.assertEqual(row['display_value'], 1840)
 
     def test_leaderboard_runs_do_not_replace_provider_report_scores(self):
         data = apply_updates(self.data, self.updates)
@@ -1051,6 +1057,95 @@ for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
         self.assertIn('supplementary report evidence', html)
         self.assertIn('65.5%', html)
         self.assertIn('No exact numeric labels', html)
+
+
+    def test_sonnet_release_tables_and_curves_remain_source_isolated(self):
+        mid = 'official-reviewed:claude-sonnet-5-5'
+        cs = self.updates['reportComparisons'][mid]
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-14.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 9)
+        self.assertEqual(len(evidence['supplements']), 4)
+        for item in evidence['metrics']:
+            c = cs[item['benchmarkId']]
+            self.assertEqual(item['columns'], [[r['source_column'], r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'], c['source_table_sha256'])
+            self.assertEqual(len(c['rows']), 4)
+        tb = cs['family:terminal-bench-4']
+        self.assertEqual([r['display_value'] for r in tb['rows']], [70.6, 10.3, 66.4, None])
+        self.assertFalse(tb['rows'][-1]['plot_eligible'])
+        self.assertNotIn('GPT-6 Astra', [r['name'] for r in tb['rows']])
+        import csv, io
+        for item in evidence['supplements']:
+            c = cs[item['benchmarkId']]['supplementaryComparisons'][0]
+            raw = list(csv.DictReader(io.StringIO(item['rawChartData'])))
+            self.assertEqual(len(raw), 20)
+            self.assertEqual(len(c['rows']), 20)
+            self.assertEqual(item['sha256'], c['source_table_sha256'])
+            for r, source in zip(c['rows'], raw):
+                self.assertEqual(r['source_value'], source['y'])
+                self.assertEqual(r['source_cost_usd'], source['x'])
+                self.assertEqual(r['display_value'], float(source['y']))
+                self.assertEqual(r['cost_per_task_usd'], float(source['x']))
+                self.assertFalse(r['plot_eligible'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
+        self.assertTrue(self.updates['modelAudits'][mid]['discoveredMetrics'])
+
+    def test_sonnet_maintainer_snapshots_keep_scope_effort_and_missing_values(self):
+        mid = 'official-reviewed:claude-sonnet-5-5'
+        data = apply_updates(self.data, self.updates)
+        cursor = data['leaderboard_snapshots']['reviewed-202610:cursor']['rows']
+        self.assertEqual(len(cursor), 77)
+        own = {r['effort']: r for r in cursor if r['name'] == 'Claude Sonnet 5.5'}
+        self.assertEqual({k: r['display_value'] for k, r in own.items()},
+                         {'low': 35.8, 'medium': 39.2, 'high': 47.8, 'xhigh': 53.1, 'max': 55.5})
+        self.assertEqual(own['max']['cost_per_task_usd'], 7.05)
+        curve = data['report_comparisons'][mid]['reviewed-202610:cursor']['supplementaryComparisons'][0]
+        own_max = next(r for r in curve['rows'] if r.get('model_id') == mid and r['setting'].startswith('Max'))
+        self.assertEqual(own_max['cost_per_task_usd'], 9.67)
+        os = data['leaderboard_snapshots']['reviewed-202610:os21-partial']['rows']
+        self.assertEqual(len(os), 5)
+        self.assertEqual({r['name'] for r in os}, {'Claude Opus 5'})
+        self.assertEqual(max(r['display_value'] for r in os), 77.67)
+        self.assertTrue(all('full set · partialScore' in r['setting'] for r in os))
+        self.assertFalse(data['model_benchmark_audits'][mid]['reviewed-202610:hle-tools']['coreEligible'])
+        self.assertEqual(data['model_benchmark_audits'][mid]['reviewed-202610:chart-no']['status'], 'not_listed')
+        for bid, c in data['report_comparisons'][mid].items():
+            headline = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
+            own = next(r for r in c['rows'] if r.get('model_id') == mid)
+            self.assertEqual(headline['display_value'], own['display_value'])
+            self.assertEqual(headline['sourceId'], c['sourceId'])
+        self.updates['reportComparisons'][mid]['reviewed-202610:gdp-aa']['rows'][0]['display_value'] = 1900
+        with self.assertRaisesRegex(ValueError, 'matching source observation'):
+            apply_updates(self.data, self.updates)
+
+    def test_sonnet_matrix_and_drawer_use_the_same_audited_report(self):
+        data = apply_updates(self.data, self.updates)
+        script = r'''
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const data=JSON.parse(fs.readFileSync(0,'utf8'));
+const html=fs.readFileSync('web/model-evals/index.html','utf8');
+const elements={},ctx={data,ModelEvalRanking:require('./web/model-evals/ranking.js'),$:id=>elements[id]??(elements[id]={})};
+vm.createContext(ctx);
+vm.runInContext(html.slice(html.indexOf('const esc='),html.indexOf("$('companies').addEventListener")),ctx);
+vm.runInContext("company='Anthropic';render()",ctx);
+const mid='official-reviewed:claude-sonnet-5-5';
+for(const [key,value,source] of [['gdp-aa',1844,'anthropic-sonnet-20260928'],['briefcase',1811,'anthropic-sonnet-20260928'],['frontier',46.2,'anthropic-sonnet-20260928'],['hle-no-tools',56.9,'anthropic-sonnet-system-card-20260928']]){
+ const bid='reviewed-202610:'+key;
+ const button=[...elements.comparison.innerHTML.matchAll(/<button class="score-cell .*?<\/button>/g)].map(m=>m[0]).find(s=>s.includes('data-model="'+mid+'"')&&s.includes('data-benchmark="'+bid+'"'));
+ assert.ok(button, key);assert.ok(button.includes('<span>'+value+(key.includes('aa')||key==='briefcase'?' Elo':'%')+'</span>'), button);
+ const s=ctx.ModelEvalRanking.selectRanking(data,bid,mid);
+ assert.equal(s.own.display_value,value);assert.equal(s.own.sourceId,source);assert.equal(s.own.verifiedReport,true);
+ assert.equal(s.reports.find(r=>r.model_id===mid).display_value,value);
+}
+let s=ctx.ModelEvalRanking.selectRanking(data,'reviewed-202610:frontier',mid);
+assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5.5').display_value,52.09);
+s=ctx.ModelEvalRanking.selectRanking(data,'family:terminal-bench-4',mid);
+assert.equal(s.reports[0].name,'Claude Sonnet 5.5');assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5.5').display_value,61.82);
+s=ctx.ModelEvalRanking.selectRanking(data,'reviewed-202610:cursor',mid);
+assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5.5').rank,2);
+assert.equal(s.reports.find(r=>r.model_id===mid).rank,2);
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True)
 
 
 if __name__ == '__main__':
