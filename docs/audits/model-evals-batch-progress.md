@@ -383,3 +383,50 @@ Next: Haiku's VCT, three Dyno figure groups, sandbox escape, self-preference,
 copying/disclosure, evaluation awareness, secrets/CoT and welfare. Then finish
 Sol's source coverage and continue Sonnet and the remaining inventory. This
 batch is progress on the active goal, not completion of the full audit.
+
+## Batch 7 — 2026-10-25
+
+Added **28 Haiku comparisons** (225 total): three severity columns from the
+28-scenario sandbox audit; two columns from the 1,753-scenario opportunistic
+test and its separate Haiku prompt condition; two self-preference conditions;
+silent copying and concealment disclosure; five grader-awareness/action
+columns; and 13 Haiku-only evaluation-awareness rates.
+
+- Sandbox protocols are separate. The earlier audit has 28 × 14 = 392 runs per
+  model, and peers were re-run on its current version. Haiku's printed total is
+  8.7%, while its rounded severity components are 6.6% and 2.0%; retain the
+  printed total rather than replacing it with the sum. The opportunistic test
+  has 1,753 scenarios, one run each. Its 30% reaching-outside rate (524/1,753)
+  is descriptive; the report says this behavior is context-dependent. Using
+  the placed credentials/files is explicitly undesirable and ranks lower.
+  The 1.8% prompt-reminder result is Haiku-only, with no invented peer values.
+- Self-preference is a signed **point difference**, not a percentage, in ratings
+  on a 0–9 scale. Preserve positive/negative signs and rank distance from zero.
+  The no-prompt condition has 127/2,000 missing Haiku ratings with nonuniform
+  author distribution; this limitation is retained.
+- Silent copying labels its third peer Mythos 5.1; concealment disclosure labels
+  it Fable 5.1. Keep each source's label. The former is lower-is-better, the
+  latter higher-is-better; they are different tasks and denominators.
+- Grader-awareness disclosure bands keep each model's printed counts and
+  denominators. The updated task mix differs from earlier cards. Definitions
+  are referenced to Opus pp.136–139, but current values are Haiku pp.85–86.
+  These figures use **90% Wilson** intervals. Awareness alone is descriptive;
+  acting on a presumed grader and digging for clues are lower-is-better per
+  the figure.
+- The 13 evaluation-awareness totals on p.87 are **Haiku-only**, not task
+  success rates. They use **95% Wilson** intervals. Preserve the rounded 5%
+  alongside 16/300 for CoT, and the measured zero 0/100 for self-preference.
+  Unlabeled stacked subcategories are not estimated. Reply-only classification,
+  randomly sampled conversations and prompt-optimization conditions stay in
+  notes rather than being silently generalized.
+
+Inventory: **299 reviewed / 2,234 collected pairs** across 124 models with
+observations; two source-complete models, **32** matching maintainer snapshots.
+Haiku source coverage is still in progress. Six groups remain: VCT (p.13),
+Dyno RNA (pp.15–16), AAV prediction (p.17), AAV research (p.18), secrets/CoT
+(pp.91–94), and welfare (pp.98–110). Preparedness and welfare curves with no
+exact labels require explicit nonnumeric disclosure, not digitized estimates.
+
+Validation: **32 tests**, **2,234 drawer renders**, static build/site validation
+and whitespace checks. Batch 6 CI, deployment, and live 271/2,206 inventory
+were verified before publishing Batch 7. No browser visual check is claimed.

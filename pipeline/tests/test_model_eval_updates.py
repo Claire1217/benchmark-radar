@@ -567,8 +567,8 @@ assert.equal(selectRanking(d,p+'audit-consistency',mid).reports[0].name,'Claude 
         self.assertEqual(own('audit-deception-compliance')['source_value'], '1.134')
         self.assertIn('70', c[p + 'audit-gui']['setting'])
         self.assertIn('not partial-turn', c[p + 'audit-prefill']['setting'])
-        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
-        self.assertEqual(len(self.updates['modelAudits'][mid]['discoveredMetrics']), 10)
+        pending_pages = {x['sourcePage'] for x in self.updates['modelAudits'][mid]['discoveredMetrics']}
+        self.assertFalse(pending_pages & {33, 41, 62})
 
     def test_batch6_receipts_retain_original_precision_and_direction(self):
         mid = 'official-reviewed:claude-haiku-5-5'
@@ -584,6 +584,59 @@ assert.equal(selectRanking(d,p+'audit-consistency',mid).reports[0].name,'Claude 
             self.assertEqual(item['direction'], self.updates['benchmarks'][bid]['direction'])
             self.assertEqual(item['unit'], self.updates['benchmarks'][bid]['unit'])
             self.assertEqual(len(c['rows']), 5)
+
+
+    def test_sandbox_and_awareness_rates_preserve_denominators_and_conditions(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025e:'
+        c = data['report_comparisons'][mid]
+        def own(key):
+            return next(r for r in c[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual([own('sandbox-audit-' + key)['display_value'] for key in ('total', 'low', 'moderate')], [8.7, 6.6, 2.0])
+        self.assertEqual(own('sandbox-audit-total')['source_denominator'], 392)
+        self.assertEqual(own('sandbox-opportunistic-reach')['source_denominator'], 1753)
+        self.assertEqual(own('sandbox-opportunistic-reach')['source_count'], 524)
+        self.assertEqual(data['benchmarks'][p + 'sandbox-opportunistic-reach']['direction'], 'descriptive')
+        self.assertEqual(data['benchmarks'][p + 'sandbox-opportunistic-use']['direction'], 'lower_is_better')
+        self.assertEqual(len(c[p + 'sandbox-opportunistic-reminder']['rows']), 1)
+        self.assertEqual(own('sandbox-opportunistic-reminder')['display_value'], 1.8)
+        self.assertEqual(own('grader-awareness-clear')['source_denominator'], 188)
+        self.assertEqual(own('grader-acting')['source_denominator'], 597)
+        self.assertEqual(own('grader-awareness-clear')['source_value'], '88.3% (166/188)')
+        self.assertIn('90% Wilson', c[p + 'grader-awareness-clear']['note'])
+        self.assertEqual(own('eval-awareness-cot')['display_value'], 5)
+        self.assertEqual(own('eval-awareness-cot')['source_value'], '5% (16/300)')
+        self.assertIn('95% Wilson', c[p + 'eval-awareness-cot']['note'])
+        self.assertEqual(own('eval-awareness-self-preference')['display_value'], 0)
+        self.assertTrue(own('eval-awareness-self-preference')['plot_eligible'])
+        self.assertIn('only replies', c[p + 'eval-awareness-self-preference']['note'])
+        self.assertIn('Mythos', c[p + 'silent-copy']['rows'][2]['name'])
+        self.assertIn('Fable', c[p + 'concealment-disclosure']['rows'][2]['name'])
+        self.assertEqual(own('self-preference-no-prompt')['source_value'], '+0.15')
+        self.assertEqual(own('self-preference-identity-prompt')['source_value'], '+0.23')
+        self.assertEqual(data['charts'][p + 'self-preference-no-prompt']['unit'], '')
+        self.assertEqual(data['benchmarks'][p + 'self-preference-no-prompt']['direction'], 'closer_to_zero_is_better')
+        self.assertIn('127/2,000', c[p + 'self-preference-no-prompt']['note'])
+
+    def test_batch7_evidence_covers_original_counts_and_printed_rounding(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-07.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 28)
+        for item in evidence['metrics']:
+            bid = item['benchmarkId']
+            c = self.updates['reportComparisons'][mid][bid]
+            transcript = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(c['source_table_sha256'], digest)
+            self.assertEqual(item['sha256'], digest)
+            self.assertEqual(item['direction'], self.updates['benchmarks'][bid]['direction'])
+            for row in c['rows']:
+                if 'source_count' in row:
+                    self.assertTrue(0 <= row['source_count'] <= row['source_denominator'])
+                    # Do not overwrite the reported precision with a recomputed rate.
+                    self.assertAlmostEqual(row['display_value'], 100 * row['source_count'] / row['source_denominator'], delta=0.5)
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
 
 
 if __name__ == '__main__':
