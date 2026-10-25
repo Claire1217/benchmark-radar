@@ -532,3 +532,48 @@ iCloud had evicted unrelated local tracked files and a Git stash reference;
 no user stash or unrelated source file was replaced. Batch 8 CI/deployment and
 live 340/2,275 inventory were verified before this batch. No browser visual
 verification is claimed.
+
+## Batch 10 — 2026-10-25
+
+Added **38 GPT-6.1 Sol comparisons/coverage records**: 36 numeric evaluations
+and two figures without exact point values. Sol now has 52 reviewed records
+out of 57 collected pairs; its overall source coverage remains in progress.
+
+- Tables 1–4: eight production-safety categories, six U18 categories, eight
+  agentic categories and four image-input categories. Preserve original 0–1
+  fractions and convert to percentages. Teen criteria, action safety and
+  image-input safety are distinct from the general text-only evaluation.
+- Table 5: five static-jailbreak categories, retaining every mean and 95%
+  confidence interval. Do not rank interval endpoints or imply significance
+  from mean order. Prompt selection targets older models and is adversarial.
+- Figure 3 and Table 6: indirect prompt injection is separate from direct
+  instruction-hierarchy attacks. Retain the exact three-decimal figure labels,
+  including Sol 98.983%, and original historical axis annotations. Do not
+  rename GPT-5.6 to GPT-5.6 Sol or equate this internal GPT-Red evaluation with
+  Gray Swan IPI Arena or deprecated evaluations.
+- Table 8: dynamic mental-health, emotional-reliance and self-harm simulations
+  measure policy-compliant assistant messages. They are not the public
+  MentalHealthBench rubric benchmark or an entire-conversation success rate.
+- Figures 1–2: the two-axis safety Pareto plot and multiturn attacker-budget
+  curves have no exact numeric point labels. Preserve their named model
+  series and settings as nonnumeric disclosures. No inferred aggregate rank,
+  endpoint score or attacker budget is supplied.
+- Read the Astra methodology explicitly referenced by the addendum. It
+  documents internal evaluations; it is a supporting method source, not a
+  substitute for Sol's comparison values or a second leaderboard. Its methods
+  warn that graders, datasets, policies and evaluated model versions evolve.
+- Human visual review of PDF tables was cross-checked against independent
+  table extraction: **242 exact numeric source cells across 35 table rows**.
+  The separately labeled prompt-injection figure contributes eight more
+  numeric cells. Original headers were checked visually, not inferred from
+  the table extractor (which mistakes data rows for headers in two tables).
+
+Inventory: **378 reviewed / 2,313 collected pairs**, 124 models with records,
+three source-complete models, 32 matching official snapshots. No previous
+numeric observation, primary comparison or official snapshot changed.
+
+Validation: **40 tests**, **2,313 drawer renders**, static build/site validation
+in the clean local checkout, semantic preservation and whitespace checks.
+Batch 9 CI/deployment and live data were verified before this batch. No browser
+visual verification is claimed. Remaining Sol work includes five release
+charts, alignment, monitorability, preparedness and safeguard evaluations.

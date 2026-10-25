@@ -723,6 +723,78 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
             self.assertEqual(item['sha256'], digest)
 
 
+    def test_sol_safety_tables_keep_scales_conditions_and_original_peer_columns(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025g:'
+        comparisons = self.updates['reportComparisons'][mid]
+        own = lambda key: next(r for r in comparisons[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('production-nonviolent')['display_value'], 100)
+        self.assertEqual(own('production-nonviolent')['source_value'], '1.000')
+        self.assertEqual(own('agentic-personal')['display_value'], 74.4)
+        self.assertEqual(own('dynamic-reliance')['display_value'], 99.5)
+        self.assertIn('share of assistant messages', comparisons[p + 'dynamic-mental']['setting'])
+        self.assertIn('separate from the public MentalHealthBench', comparisons[p + 'dynamic-mental']['note'])
+        # Similar names must not join teen and general-production criteria.
+        luna = lambda key: next(r for r in comparisons[p + key]['rows'] if r['name'] == 'GPT-5.6 Luna')
+        self.assertEqual(luna('production-gore')['source_value'], '0.585')
+        self.assertEqual(luna('u18-gore')['source_value'], '0.819')
+        self.assertIn('U18 protections in place', comparisons[p + 'u18-gore']['setting'])
+        self.assertIn('without system-level safeguards', comparisons[p + 'production-gore']['setting'])
+        self.assertEqual(own('prompt-injection-indirect')['display_text'], '98.983%')
+        self.assertEqual(own('prompt-injection-hierarchy')['display_value'], 99.99)
+        self.assertEqual(comparisons[p + 'prompt-injection-indirect']['rows'][4]['source_axis_date'], 'Sep 2, 2026')
+        self.assertEqual(comparisons[p + 'prompt-injection-indirect']['rows'][3]['name'], 'GPT-5.6')
+        self.assertNotIn('Sol', comparisons[p + 'prompt-injection-indirect']['rows'][3]['name'])
+        for key in ['safety-pareto', 'jailbreak-multiturn']:
+            self.assertIsNone(own(key)['display_value'])
+            self.assertEqual(comparisons[p + key]['valueStatus'], 'unlabeled_figure')
+        self.assertEqual(self.updates['benchmarks'][p + 'safety-pareto']['direction'], 'descriptive')
+
+    def test_sol_safety_receipts_preserve_fractions_intervals_and_source_isolation(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:gpt-6.1-sol'
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-10.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 38)
+        extraction = evidence['independentTableExtractionCheck']
+        self.assertEqual(extraction['numericCells'], 242)
+        self.assertEqual(len(extraction['rows']), 35)
+        for item in extraction['rows']:
+            c = data['report_comparisons'][mid][item['benchmarkId']]
+            self.assertEqual(item['sourceValues'], [r['source_value'] for r in c['rows']])
+        for item in evidence['metrics']:
+            bid = item['benchmarkId']
+            c = data['report_comparisons'][mid][bid]
+            self.assertEqual(c['sourceId'], 'openai-sol-system-card-20260929')
+            self.assertFalse(data['model_benchmark_audits'][mid][bid]['coreEligible'])
+            self.assertEqual(data['model_benchmark_audits'][mid][bid]['status'], 'internal')
+            self.assertNotIn(bid, data['leaderboard_snapshots'])
+            observations = [r for r in data['observations'] if r['benchmark_id'] == bid]
+            self.assertEqual([r['model_id'] for r in observations], [mid])
+            transcription = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcription, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(digest, item['sha256'])
+            self.assertEqual(digest, c['source_table_sha256'])
+            self.assertEqual(item['columns'], transcription['columns'])
+            for row in c['rows']:
+                value = row['display_value']
+                if value is None:
+                    self.assertFalse(row['plot_eligible'])
+                    continue
+                if 'source_confidence_interval' in row:
+                    self.assertEqual(row['source_confidence_level'], .95)
+                    lo, hi = row['source_confidence_interval']
+                    self.assertLessEqual(lo, value)
+                    self.assertGreaterEqual(hi, value)
+                    self.assertEqual(float(row['source_value'].split()[0]), value)
+                else:
+                    self.assertAlmostEqual(float(row['source_value'].rstrip('%')) * item['valueMultiplier'], value)
+        from build_model_eval_review import build_review
+        queue, _ = build_review(data, self.updates)
+        model = next(m for m in queue['models'] if m['modelId'] == mid)
+        self.assertEqual(model['reviewedPairs'], 52)
+        self.assertEqual(model['totalPairs'], 57)
+        self.assertEqual(model['sourceCoverageStatus'], 'in_progress')
+
     def test_supplementary_efforts_never_change_headline_or_official_ranking(self):
         data = apply_updates(copy.deepcopy(self.data), self.updates)
         mid = 'official-reviewed:claude-haiku-5-5'
