@@ -856,6 +856,73 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
         self.assertEqual(next(r['display_value'] for r in search['rows'] if r.get('model_id') == mid), 2.1)
         self.assertEqual(next(r['display_value'] for r in search['supplementaryComparisons'][0]['rows'] if r.get('model_id') == mid), 2.08)
 
+    def test_sol_monitorability_keeps_length_bins_and_unlabeled_curves_separate(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025i:'
+        cs = self.updates['reportComparisons'][mid]
+        control = cs[p + 'cot-control']
+        self.assertEqual([r['display_value'] for r in control['rows']], [1.7, 16.1, 60.9, 23.2, 44.8])
+        self.assertIn('750–1,250', control['setting'])
+        self.assertEqual(self.updates['benchmarks'][p + 'cot-control']['direction'], 'lower_is_better')
+        curves = control['supplementaryComparisons'][0]['rows']
+        self.assertEqual(len(curves), 60)
+        self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in curves))
+        self.assertEqual(len({r['setting'] for r in curves}), 12)
+        for name in ('side-task', 'action', 'cot', 'full', 'p0', 'p0-p1'):
+            c = cs[p + 'sabotage-' + name]
+            self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in c['rows']))
+            self.assertIn('“nearly zero” is not 0%', c['note'])
+            supplement = c['supplementaryComparisons'][0]
+            self.assertEqual(len(supplement['rows']), 10)
+            self.assertEqual(len({r['setting'] for r in supplement['rows']}), 2)
+        self.assertEqual(len(cs[p + 'honeypot-cot-baseline']['rows']), 1)
+        self.assertEqual([r['display_value'] for r in cs[p + 'honeypot-full']['rows']], [100, 100, 100])
+        self.assertEqual(self.updates['benchmarks'][p + 'honeypot-tokens']['unit'], 'tokens')
+        self.assertEqual(self.updates['benchmarks'][p + 'honeypot-tokens']['direction'], 'descriptive')
+
+    def test_sol_math_monitoring_preserves_denominators_and_unmatched_endpoint_labels(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025i:'
+        cs = self.updates['reportComparisons'][mid]
+        for name in ('cot', 'full', 'joint'):
+            c = cs[p + 'math-' + name]
+            self.assertEqual([r['display_text'] for r in c['rows']], ['0.0%'] * 4)
+        self.assertIn('conditional on side-task success', cs[p + 'math-cot']['setting'])
+        self.assertIn('ALL samples', cs[p + 'math-joint']['setting'])
+        completion = cs[p + 'math-completion']
+        self.assertTrue(all(r['display_value'] is None for r in completion['rows']))
+        self.assertEqual(len(completion['supplementaryComparisons'][0]['rows']), 64)
+        action = cs[p + 'math-action']
+        self.assertEqual(action['valueStatus'], 'no_single_score')
+        self.assertTrue(all(r['display_value'] is None for r in action['rows']))
+        endpoints = action['supplementaryComparisons'][0]
+        self.assertEqual([r['display_value'] for r in endpoints['rows']], [1.7, .2, 0, .2])
+        self.assertTrue(all(not r['plot_eligible'] for r in endpoints['rows']))
+        self.assertIn('not curve maxima', endpoints['note'])
+        self.assertIn('token positions prevent', endpoints['note'])
+        data = apply_updates(copy.deepcopy(self.data), self.updates)
+        chart = data['charts'].get(p + 'math-action', {})
+        self.assertFalse(chart.get('rows'))
+        for bid in (b for b in cs if b.startswith(p)):
+            self.assertFalse(data['model_benchmark_audits'][mid][bid]['coreEligible'])
+            self.assertNotIn(bid, data['leaderboard_snapshots'])
+
+    def test_sol_monitorability_receipt_covers_figures_without_qualitative_example_scores(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-12.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 17)
+        self.assertEqual(len(evidence['supplements']), 12)
+        self.assertIn('Tables 10–11', evidence['nonMetricMaterial'][0]['locator'])
+        for item in evidence['metrics']:
+            c = self.updates['reportComparisons'][mid][item['benchmarkId']]
+            transcript = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(item['sha256'], digest)
+            self.assertEqual(c['source_table_sha256'], digest)
+        model = self.updates['modelAudits'][mid]
+        self.assertEqual(model['sourceCoverageStatus'], 'in_progress')
+        self.assertNotIn('Monitorability evaluations', [x['name'] for x in model['discoveredMetrics']])
+
     def test_supplementary_efforts_never_change_headline_or_official_ranking(self):
         data = apply_updates(copy.deepcopy(self.data), self.updates)
         mid = 'official-reviewed:claude-haiku-5-5'

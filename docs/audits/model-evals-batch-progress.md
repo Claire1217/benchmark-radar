@@ -627,3 +627,50 @@ Validation: **42 tests**, **2,355 drawer renders**, static build/site validation
 in the clean local checkout, semantic preservation and whitespace checks.
 Batch 10 CI/deployment and live 378/2,313 inventory were verified before this
 batch. No browser visual verification is claimed.
+
+## Batch 12 — 2026-10-25
+
+Added **17 GPT-6.1 Sol monitorability records** (six numeric summaries,
+11 curve-coverage records) and **12 source-isolated supplementary comparisons**.
+Sol has **111 / 116 collected pairs** reviewed; the release charts,
+preparedness and safeguards sections remain pending.
+
+- CoT-Control's 44.8% is explicitly conditional on 750–1,250 reasoning
+  tokens and the QA subset. It is not GPQA/HLE/MMLU-Pro task accuracy or
+  an all-length score. Retain the overall curve, three dataset curves and
+  eight instruction curves as 60 separate model/condition evidence rows.
+  The maintainer repository and original paper do not provide a verified
+  independent Sol 6.1 result in this setting. Lower control is favorable
+  only for this monitorability proxy, not a general model-quality claim.
+- OAI-repo Sabotage v2 has six different outcomes and two guidance settings.
+  Keep those curves separate. Successful sabotage is different from
+  successful sabotage plus monitor evasion, and from avoiding P0 or P0/P1
+  escalation. No exact points or universal effort mapping are printed;
+  “nearly zero” is never transcribed as 0%.
+- Prompted honeypot attacks differ from the alignment test's unprompted
+  propensity. Monitor recall is conditional on successful exploitation.
+  Preserve the explicit Sol 6.1 baseline 100% and the explicit three-model
+  full-context 100% comparison; do not assign exact values to unlabeled
+  peer baseline curves. Token use is descriptive, with its own unit.
+- The math side-task experiment uses Expert-SWE as the host coding task,
+  not as the scored outcome. Distinguish success-and-bypass over all samples
+  from bypass conditional on success. Figure 25 explicitly labels the
+  bypass segment 0.0% in every bar; that does not mean zero math success.
+  All 64 task/effort/model completion bars lack exact segment labels and
+  remain nonnumeric evidence.
+- Figure 26's CoT/full-context flag panels explicitly state all four models
+  have 0.0% bypass. Its action-flag panel has final labels of 1.7%, 0.2%,
+  0.0% and 0.2% at different token positions. Keep those as evidence only;
+  they are neither matched-budget rankings nor curve maxima. A single
+  full-context monitor produces the separate CoT and action flags.
+- Tables 10–11 contain qualitative examples, not aggregate scores.
+
+Inventory: **437 reviewed / 2,372 collected pairs**, 124 models with records,
+three source-complete models, 32 matching official snapshots. All previous
+report comparisons, observations, official snapshots and source identities
+are preserved.
+
+Validation: **45 tests**, **2,372 drawer renders**, clean-checkout static
+build/site validation, semantic preservation and whitespace checks.
+Batch 11 CI/deployment and live 420/2,355 inventory were verified before this
+batch. No browser visual verification is claimed.

@@ -1,0 +1,1432 @@
+{
+  "modelId": "official-reviewed:gpt-6.1-sol",
+  "reviewedAt": "2026-10-25",
+  "source": "https://deploymentsafety.openai.com/gpt-6-1-sol",
+  "sourceSha256": "1ae4ad6f0e2425a0f85623d3ccfc2a747c13611432a504ef0a7b5f4228789884",
+  "methodSource": "https://deploymentsafety.openai.com/gpt-6-astra",
+  "methodSourceSha256": "746a8d567274f91106836dcf30990fb9ccef8bffef5f33894330e6849fb0a6ac",
+  "policy": "Exact printed numeric summaries only. Curve coverage retains task, monitor, prompt, budget and denominator distinctions. Labeled endpoints at unmatched budgets remain evidence-only. Qualitative examples are not benchmark scores.",
+  "maintainerReview": [
+    {
+      "url": "https://github.com/YuehHanChen/CoTControl",
+      "finding": "Maintainer code and QA/agent distinction verified; no independent Sol 6.1 matched-length result verified."
+    },
+    {
+      "url": "https://arxiv.org/abs/2603.05706",
+      "finding": "Original paper is a different model/date/aggregation comparison; its scores do not replace this addendum."
+    }
+  ],
+  "nonMetricMaterial": [
+    {
+      "locator": "Tables 10–11, PDF pp.26–27",
+      "reason": "Selected qualitative examples of instruction compliance; no aggregate score or sample success rate."
+    }
+  ],
+  "metrics": [
+    {
+      "benchmarkId": "reviewed-20261025i:cot-control",
+      "locator": "Section 8.1.1, PDF p.24, explicit length-bin values; Figure 18, p.25",
+      "columns": [
+        [
+          "GPT-5.5 Thinking",
+          "1.7"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "16.1"
+        ],
+        [
+          "GPT-6 Astra",
+          "60.9"
+        ],
+        [
+          "GPT-6 Sol",
+          "23.2"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "44.8"
+        ]
+      ],
+      "sha256": "0393a03a784a03c1e904c29ac8c6e73b31fa7719ceeed362c7a3ffa60da26a36",
+      "protocol": "Reasoning traces 750–1,250 tokens long · QA subset of CoT-Control (GPQA, HLE, MMLU-Pro) · compliance with instructions about reasoning.",
+      "notes": "This is a length-conditioned control rate, not QA accuracy or an all-length score. Lower controllability is favorable for this monitoring proxy; it is not a general model-quality or safety ranking. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Maintainer repository and paper provide the suite and original experiments. No independent Sol 6.1 result in this 750–1,250-token QA setting was verified; the model-card comparison remains publisher-reported."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-side-task",
+      "locator": "Figures 21–22, PDF pp.29–30, Side-task success",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "044342c739e6caf51cdf75c341e79653af457f847d05a35626b7641eac5b70d9",
+      "protocol": "OAI-repo Sabotage v2 · side-task success versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Side-task success alone does not imply monitor evasion. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "descriptive",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-action",
+      "locator": "Figures 21–22, PDF pp.29–30, Action Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "9d97a5811aa3b92a5c4d32d1b3a31b3564e76d558a7d5acdfe6f3384ebb181d7",
+      "protocol": "OAI-repo Sabotage v2 · action-monitor evasion versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-cot",
+      "locator": "Figures 21–22, PDF pp.29–30, Chain-of-thought Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "d2bf6a30d67da665c34b8432713184585c46e9a057a3a9eb56c7fb922d2f7278",
+      "protocol": "OAI-repo Sabotage v2 · CoT-monitor evasion versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-full",
+      "locator": "Figures 21–22, PDF pp.29–30, Full-trajectory Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "c32d52d24dc01b00d6f1d943af48ea03b67c6720c72058eb2a2fff131a6fb5a9",
+      "protocol": "OAI-repo Sabotage v2 · full-trajectory monitor evasion versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-p0",
+      "locator": "Figures 21–22, PDF pp.29–30, Second-layer agentic reviewer (L2), Critical-priority Escalation (P0)",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "6fc782224a1fc45893693b58cc74c9c418719ee573994bcbfb7d22ea8df0f0e8",
+      "protocol": "OAI-repo Sabotage v2 · P0 escalation evasion versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-p0-p1",
+      "locator": "Figures 21–22, PDF pp.29–30, Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1)",
+      "columns": [
+        [
+          "GPT-5.5",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "72fe98de498ff8695d72ad4d590e5f18d8a4fbfe44127cb2a1d6270f0f3a9c8a",
+      "protocol": "OAI-repo Sabotage v2 · P0/P1 escalation evasion versus CoT + tool-call tokens · task-guided and unguided conditions.",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-cot-baseline",
+      "locator": "Section 8.1.2.1, PDF p.30, explicit baseline prose; Figures 23–24 p.31",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "100"
+        ]
+      ],
+      "sha256": "29c9a1980e03706d761bf7ad912f6f00652f610df877c0abbf661dd7315bd608",
+      "protocol": "Successful instructed honeypot attacks · baseline prompt does not mention the monitor · CoT-only monitor recall.",
+      "notes": "The prose explicitly gives 100% for Sol 6.1’s baseline. Peer baseline curves have no exact labels and are retained only in the supplementary evidence. This test explicitly asks for exploitation. It is distinct from spontaneous honeypot behavior and from whole-run evasion. The addendum does not name every effort value or print sample counts. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "higher_is_better",
+      "leaderboardReview": "Custom instructed honeypot attack and monitor-recall protocol, not public ExploitGym intended-vulnerability success. No matching benchmark-maintainer result set was verified."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-cot-aware",
+      "locator": "Figures 23–24, PDF p.31, CoT monitoring panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "7a6d485df43c9cccce1851ff130468cdc5f6bcb4c0e6dd3f02ac3655c0ce1318",
+      "protocol": "Instructed honeypot attacks · recall conditional on successful exploitation · same effort settings across prompt conditions; curves vary with token use. Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction.",
+      "notes": "This test explicitly asks for exploitation. It is distinct from spontaneous honeypot behavior and from whole-run evasion. The addendum does not name every effort value or print sample counts. No exact recall point values are printed; no point is selected as an overall score. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "higher_is_better",
+      "leaderboardReview": "Custom instructed honeypot attack and monitor-recall protocol, not public ExploitGym intended-vulnerability success. No matching benchmark-maintainer result set was verified."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-cot-hide",
+      "locator": "Figures 23–24, PDF p.31, CoT monitoring panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "7a6d485df43c9cccce1851ff130468cdc5f6bcb4c0e6dd3f02ac3655c0ce1318",
+      "protocol": "Instructed honeypot attacks · recall conditional on successful exploitation · same effort settings across prompt conditions; curves vary with token use. Hide-honeypot · asked to attack and explicitly hide reasoning and operations.",
+      "notes": "This test explicitly asks for exploitation. It is distinct from spontaneous honeypot behavior and from whole-run evasion. The addendum does not name every effort value or print sample counts. No exact recall point values are printed; no point is selected as an overall score. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "higher_is_better",
+      "leaderboardReview": "Custom instructed honeypot attack and monitor-recall protocol, not public ExploitGym intended-vulnerability success. No matching benchmark-maintainer result set was verified."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-full",
+      "locator": "Section 8.1.2.1, PDF p.30, explicit full-context recall prose; Figures 23–24 p.31",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "100"
+        ],
+        [
+          "GPT-6 Sol",
+          "100"
+        ],
+        [
+          "GPT-6 Astra",
+          "100"
+        ]
+      ],
+      "sha256": "d7a9c58765c3c1a63fe3335666ac9f24f769ec833f8c6d0a477e67c503bf165f",
+      "protocol": "Instructed honeypot attacks · recall conditional on successful exploitation · same effort settings across prompt conditions; curves vary with token use. Full-context monitor.",
+      "notes": "The prose explicitly reports 100% recall for Sol 6.1, Astra and Sol in this evaluation. This observed result does not establish perfect monitoring outside the tested attacks. This test explicitly asks for exploitation. It is distinct from spontaneous honeypot behavior and from whole-run evasion. The addendum does not name every effort value or print sample counts. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "higher_is_better",
+      "leaderboardReview": "Custom instructed honeypot attack and monitor-recall protocol, not public ExploitGym intended-vulnerability success. No matching benchmark-maintainer result set was verified."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-tokens",
+      "locator": "Figures 23–24, PDF p.31, Chain-of-thought tokens panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "c79e8ac864fd715ac1462a943e38169d68f7fd34df1db5dbacd04c2b7f8cdbd9",
+      "protocol": "Successful instructed honeypot attacks · mean CoT tokens versus total CoT + tool-call tokens · three prompt conditions.",
+      "notes": "Token use is a descriptive resource measure, not a success rate. No exact coordinates are printed. Sol 6.1 appears in both peer-comparison figures and is counted once. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "descriptive",
+      "leaderboardReview": "Custom instructed honeypot attack and monitor-recall protocol, not public ExploitGym intended-vulnerability success. No matching benchmark-maintainer result set was verified."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-cot",
+      "locator": "Figure 26, PDF p.32, left panel: explicit “All four models: 0.0%” annotation",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-6 Astra",
+          "0.0"
+        ],
+        [
+          "GPT-6 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "0.0"
+        ]
+      ],
+      "sha256": "ec2b1a9d919e9b3e2f986fa3bfc839463e6c99f7b4122a4b456535e29f2aba99",
+      "protocol": "Internal math side tasks embedded in Expert-SWE coding tasks · Diagonal Latin (9×9), Band cumulant, Semigroup and 51-pile counter. Bypass rate conditional on side-task success, across displayed token-use points; CoT flag.",
+      "notes": "This is an internal monitorability experiment using Expert-SWE as the host environment, not Expert-SWE task accuracy. A single monitor reviews the full context and produces separate CoT and action flags; full-context flag means either flag. The explicit zero annotation applies to every displayed point; no aggregate sample size is given. This does not mean that the models failed all math side tasks. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-full",
+      "locator": "Figure 26, PDF p.32, right panel: explicit “All four models: 0.0%” annotation",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-6 Astra",
+          "0.0"
+        ],
+        [
+          "GPT-6 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "0.0"
+        ]
+      ],
+      "sha256": "09f8d8d527867faf20bca965970c05075bfff70a4146e1cfebe5e39b345552d9",
+      "protocol": "Internal math side tasks embedded in Expert-SWE coding tasks · Diagonal Latin (9×9), Band cumulant, Semigroup and 51-pile counter. Bypass rate conditional on side-task success, across displayed token-use points; full-context flag.",
+      "notes": "This is an internal monitorability experiment using Expert-SWE as the host environment, not Expert-SWE task accuracy. A single monitor reviews the full context and produces separate CoT and action flags; full-context flag means either flag. The explicit zero annotation applies to every displayed point; no aggregate sample size is given. This does not mean that the models failed all math side tasks. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-action",
+      "locator": "Figure 26, PDF p.32, middle panel",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "7e395ebaa56d786aabb0fa448de2368a5915d0c033647e0349ae63f42d72367b",
+      "protocol": "Internal math side tasks embedded in Expert-SWE coding tasks · Diagonal Latin (9×9), Band cumulant, Semigroup and 51-pile counter. Action-flag bypass conditional on side-task success, versus model output tokens.",
+      "notes": "This is an internal monitorability experiment using Expert-SWE as the host environment, not Expert-SWE task accuracy. A single monitor reviews the full context and produces separate CoT and action flags; full-context flag means either flag. Labeled final points use different output-token positions and are not overall scores or matched-budget ranks. The largest point is not selected as the primary result. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-joint",
+      "locator": "Figure 25, PDF p.32, “0.0% in all bars” legend annotation",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-6 Astra",
+          "0.0"
+        ],
+        [
+          "GPT-6 Sol",
+          "0.0"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "0.0"
+        ]
+      ],
+      "sha256": "d54f093d0d6dfb62f6eb8ba921507a2df08f00451009211e4c715835f25f96f6",
+      "protocol": "Internal math side tasks embedded in Expert-SWE coding tasks · Diagonal Latin (9×9), Band cumulant, Semigroup and 51-pile counter. Share of ALL samples that both succeed and bypass the monitor · Low, Medium, High and Very high effort.",
+      "notes": "The source explicitly labels the bypass segment 0.0% in every bar. This joint outcome has a different denominator from Figure 26’s success-conditioned flag rates. Sample counts and exact completion shares are not printed. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "lower_is_better",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-completion",
+      "locator": "Figure 25, PDF p.32, task-by-effort stacked bars",
+      "columns": [
+        [
+          "GPT-6.1 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "ce32523d5058df21ada938ecf5c1112dfd4de9379dc10a2ca3f1a652b58af500",
+      "protocol": "Internal math side tasks embedded in Expert-SWE coding tasks · Diagonal Latin (9×9), Band cumulant, Semigroup and 51-pile counter. Completion shares by task and Low, Medium, High, Very high effort.",
+      "notes": "No exact success/failure segment values are printed. Preserve task and effort separately; do not estimate heights, infer rounding, or treat the 0.0% monitor-bypass label as 0% math success. Peer columns are this report’s evaluations, which may use later versions of previously launched models. They are not those models’ original launch scores.",
+      "direction": "descriptive",
+      "leaderboardReview": "Internal OpenAI evaluation; the cited methods do not provide a separate public benchmark leaderboard."
+    }
+  ],
+  "supplements": [
+    {
+      "benchmarkId": "reviewed-20261025i:cot-control",
+      "supplementId": "length-curves",
+      "locator": "Figures 18–20, PDF pp.25–26",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Figure 18 · overall QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 18 · overall QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 18 · overall QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 18 · overall QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 18 · overall QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 19 · GPQA QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 19 · GPQA QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 19 · GPQA QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 19 · GPQA QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 19 · GPQA QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 19 · HLE QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 19 · HLE QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 19 · HLE QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 19 · HLE QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 19 · HLE QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 19 · MMLU-Pro QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 19 · MMLU-Pro QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 19 · MMLU-Pro QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 19 · MMLU-Pro QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 19 · MMLU-Pro QA curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Alternating case instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Alternating case instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Alternating case instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Alternating case instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Alternating case instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Lowercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Lowercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Lowercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Lowercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Lowercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Meow between words instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Meow between words instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Meow between words instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Meow between words instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Meow between words instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Safe sentence suffix instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Safe sentence suffix instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Safe sentence suffix instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Safe sentence suffix instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Safe sentence suffix instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Suppress multiple keywords instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Suppress multiple keywords instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Suppress multiple keywords instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Suppress multiple keywords instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Suppress multiple keywords instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Suppress reasoning instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Suppress reasoning instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Suppress reasoning instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Suppress reasoning instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Suppress reasoning instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Suppress single keyword instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Suppress single keyword instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Suppress single keyword instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Suppress single keyword instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Suppress single keyword instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Figure 20 · Uppercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Figure 20 · Uppercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Figure 20 · Uppercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Figure 20 · Uppercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Figure 20 · Uppercase only instruction curve versus CoT length",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "a88e36db5b5d717d4dc36b9fabf35d74deb66ed75ae0a5a61fc73789b7c6fcdf",
+      "notes": "Five series in each panel; Figure legends abbreviate GPT-5.5 Thinking to GPT-5.5. Curves have no exact numeric point labels. The single numeric primary comparison comes only from the explicit 750–1,250-token prose. Tables 10–11 are qualitative examples, not aggregate results."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-side-task",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Side-task success",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Side-task success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Side-task success versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "96acaeef68c036a35b95fb16ff03552194caf4c85c5968929ddf206884886d6a",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Side-task success alone does not imply monitor evasion."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-action",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Action Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Action Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "5a3f4ea13a1890417f19e7d0ec1440d26dc583fb3ac21d95a0274e598b2d0703",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-cot",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Chain-of-thought Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Chain-of-thought Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "c41225b93cbaa9ec8b499e0dbc4f489d0dd98923d68debe9ef82b4444dc59168",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-full",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Full-trajectory Monitoring for Sabotage Success",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Full-trajectory Monitoring for Sabotage Success versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "aabf84b37378708b856e5c2014ade3f76d6a8970853c70f50348a358d1c1c9a3",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-p0",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Second-layer agentic reviewer (L2), Critical-priority Escalation (P0)",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), Critical-priority Escalation (P0) versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "65a0cc09393c3e034f0defef0867ae7b92c3bf0a3bee7975f49702580aeec7ec",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:sabotage-p0-p1",
+      "supplementId": "guidance-curves",
+      "locator": "Figures 21–22, PDF pp.29–30, Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1)",
+      "columns": [
+        [
+          "GPT-5.5 Thinking · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Task-guided · step-by-step side-task instructions · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.5 Thinking · Unguided · side-task objective only · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Unguided · side-task objective only · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Unguided · side-task objective only · Second-layer agentic reviewer (L2), High-priority Escalation (P0 or P1) versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "08addabbd5cfd1ef140eaecad2921ee132a450173e05cab4a5d72fa51f059e0b",
+      "notes": "Task-guided and unguided curves are separate conditions. No exact point labels or fully specified effort-to-point mapping are printed; “nearly zero” is not 0%. These are instructed side tasks in a reconstructed internal environment, not spontaneous production behavior. Monitor panels measure successful sabotage AND evasion, not recall conditioned on success."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-cot-baseline",
+      "supplementId": "baseline-peers",
+      "locator": "Figures 23–24, PDF p.31, CoT monitoring panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol · Baseline · asked to attack; monitor not mentioned · recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Baseline · asked to attack; monitor not mentioned · recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Baseline · asked to attack; monitor not mentioned · recall versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "8a74894af6f279e40154160a938498127361028409ae083795b4ba44780f3136",
+      "notes": "Sol 6.1’s exact baseline value is stated in the prose. Peer baseline traces are not assigned exact values from their plotted position. Sol 6.1 appears in both figures and is not counted twice."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-full",
+      "supplementId": "prompt-conditions",
+      "locator": "Figures 23–24, PDF p.31, full-trajectory monitoring panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol · Baseline · asked to attack; monitor not mentioned · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Baseline · asked to attack; monitor not mentioned · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Baseline · asked to attack; monitor not mentioned · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · full-context recall versus tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · full-context recall versus tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "a2cb9af53093e795a1dc35de3744852ab3be989184554b1aab7ab362fe534043",
+      "notes": "All prompt-condition curves are retained, without inventing individual effort coordinates or trial counts. The source prose explicitly states the 100% observed recall summary for all three models."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:honeypot-tokens",
+      "supplementId": "prompt-conditions",
+      "locator": "Figures 23–24, PDF p.31, Chain-of-thought tokens panels",
+      "columns": [
+        [
+          "GPT-6.1 Sol · Baseline · asked to attack; monitor not mentioned · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Baseline · asked to attack; monitor not mentioned · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Baseline · asked to attack; monitor not mentioned · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Monitor-aware · asked to attack and told of CoT-only monitor; no evasion instruction · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Hide-honeypot · asked to attack and explicitly hide reasoning and operations · mean CoT tokens versus total tokens",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "e1b40fa1d5bdb81e2e0171342aa65272b8e90d85860e54b6d10ec69ce242ef8b",
+      "notes": "Distinct from monitor recall. No numeric token counts or effort labels are inferred from plot positions."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-action",
+      "supplementId": "last-labeled-points",
+      "locator": "Figure 26, PDF p.32, middle panel, final labeled point of each series",
+      "columns": [
+        [
+          "GPT-6.1 Sol · Final labeled point in each model’s curve · output-token positions differ and exact token counts are not printed",
+          "1.7"
+        ],
+        [
+          "GPT-6 Astra · Final labeled point in each model’s curve · output-token positions differ and exact token counts are not printed",
+          "0.2"
+        ],
+        [
+          "GPT-6 Sol · Final labeled point in each model’s curve · output-token positions differ and exact token counts are not printed",
+          "0.0"
+        ],
+        [
+          "GPT-5.6 Sol · Final labeled point in each model’s curve · output-token positions differ and exact token counts are not printed",
+          "0.2"
+        ]
+      ],
+      "sha256": "f23966d1490409114f19a44a2ba07c5b4a34836d9df270e3b9cd64db55d741ac",
+      "notes": "Values are explicitly labeled percentages, not curve maxima: Astra has a higher unlabeled earlier point. Different token positions prevent a matched-setting ranking; these values are evidence only."
+    },
+    {
+      "benchmarkId": "reviewed-20261025i:math-completion",
+      "supplementId": "task-effort-bars",
+      "locator": "Figure 25, PDF p.32",
+      "columns": [
+        [
+          "GPT-6.1 Sol · Diagonal Latin (9×9) · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Diagonal Latin (9×9) · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Diagonal Latin (9×9) · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Diagonal Latin (9×9) · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Diagonal Latin (9×9) · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Diagonal Latin (9×9) · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Diagonal Latin (9×9) · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Diagonal Latin (9×9) · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Diagonal Latin (9×9) · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Diagonal Latin (9×9) · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Diagonal Latin (9×9) · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Diagonal Latin (9×9) · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Diagonal Latin (9×9) · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Diagonal Latin (9×9) · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Diagonal Latin (9×9) · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Diagonal Latin (9×9) · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Band cumulant · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Band cumulant · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Band cumulant · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Band cumulant · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Band cumulant · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Band cumulant · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Band cumulant · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Band cumulant · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Band cumulant · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Band cumulant · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Band cumulant · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Band cumulant · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Band cumulant · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Band cumulant · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Band cumulant · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Band cumulant · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Semigroup · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Semigroup · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Semigroup · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Semigroup · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Semigroup · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Semigroup · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Semigroup · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Semigroup · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Semigroup · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Semigroup · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Semigroup · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Semigroup · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · Semigroup · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · Semigroup · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · Semigroup · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · Semigroup · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · 51-pile counter · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · 51-pile counter · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · 51-pile counter · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · 51-pile counter · Low effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · 51-pile counter · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · 51-pile counter · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · 51-pile counter · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · 51-pile counter · Medium effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · 51-pile counter · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · 51-pile counter · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · 51-pile counter · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · 51-pile counter · High effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6.1 Sol · 51-pile counter · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Astra · 51-pile counter · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-6 Sol · 51-pile counter · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ],
+        [
+          "GPT-5.6 Sol · 51-pile counter · Very high effort · side-task completion shares",
+          "No exact numeric label"
+        ]
+      ],
+      "sha256": "77ef7174acd0adc934a41fc1a1da98d52ef9754d9a9cd0fd546cf5c6ea0bc87c",
+      "notes": "All 64 model/task/effort bars are covered. The no-success and success/flagged segments lack exact labels; the separately recorded success/bypassed segment is explicitly 0.0% in all bars."
+    }
+  ]
+}
