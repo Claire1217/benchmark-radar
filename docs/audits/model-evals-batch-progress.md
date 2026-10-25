@@ -278,9 +278,11 @@ the long-running task.
   main metric does likewise, and its belief-normalized appendix does not prove
   equivalence to the report's exclusion rule. No scores were substituted. The
   Haiku disinformation prose gives 88.5 while the figure gives 88; retain both.
-- LinuxArena's referenced Opus card (pp.144–145) establishes 1,000 task pairings
-  across 14 environments. The Haiku card says the setup is largely unchanged,
-  except for expanded prompt search and one attempt per pair versus peers' five.
+- LinuxArena's referenced Opus card (pp.144–145) used 1,000 task pairings across
+  14 environments, but Haiku's self-review and author response (pp.58–59) say its
+  task set is smaller and the size claim was removed. Haiku's exact subset size
+  is undisclosed: do not inherit the earlier 1,000-pair count. Haiku also expands
+  prompt search and uses one attempt per pair versus peers' five.
   The exact numeric comparison stays from Haiku p.88. Its Opus 4.8 monitor and
   internal prompt differ from the maintainer's published GPT-5 Nano/FPR setup.
   Preserve Sonnet 5's exact 0.05% and Sonnet 5.5's actual 0.0% visible-reasoning

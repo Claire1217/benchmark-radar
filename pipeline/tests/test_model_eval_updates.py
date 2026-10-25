@@ -466,7 +466,9 @@ assert.deepEqual(r.official.map(x=>[x.name,x.display_value,x.rank]),[['C',0,1],[
         self.assertEqual(sonnet['display_value'], 0.05)
         self.assertEqual(sonnet['display_text'], '0.05%')
         self.assertIn('one attempt', c[p + 'linuxarena-hidden']['note'])
-        self.assertEqual(len(c[p + 'linuxarena-hidden']['supportingSources']), 2)
+        self.assertEqual(len(c[p + 'linuxarena-hidden']['supportingSources']), 3)
+        self.assertIn('exact size not disclosed', c[p + 'linuxarena-hidden']['setting'])
+        self.assertIn('smaller than the prior card', c[p + 'linuxarena-hidden']['note'])
         for key in ('mask-overall', 'mask-disinformation', 'linuxarena-visible'):
             self.assertEqual(self.updates['modelBenchmarkAudits'][mid][p + key]['status'], 'protocol_mismatch')
             self.assertNotIn(p + key, self.updates['leaderboardSnapshots'])
