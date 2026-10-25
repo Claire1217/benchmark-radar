@@ -1110,8 +1110,12 @@ for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
         self.assertFalse(data['model_benchmark_audits'][mid]['reviewed-202610:hle-tools']['coreEligible'])
         self.assertEqual(data['model_benchmark_audits'][mid]['reviewed-202610:chart-no']['status'], 'not_listed')
         for bid, c in data['report_comparisons'][mid].items():
-            headline = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
             own = next(r for r in c['rows'] if r.get('model_id') == mid)
+            if own['display_value'] is None:
+                self.assertEqual(c['valueStatus'], 'unlabeled_figure')
+                self.assertFalse(any(r['model_id'] == mid for r in data['charts'][bid]['rows']))
+                continue
+            headline = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
             self.assertEqual(headline['display_value'], own['display_value'])
             self.assertEqual(headline['sourceId'], c['sourceId'])
         self.updates['reportComparisons'][mid]['reviewed-202610:gdp-aa']['rows'][0]['display_value'] = 1900
@@ -1344,6 +1348,62 @@ for(const b of ['health-raw','health-adjusted','physician-opus5','gmmlu-excluded
         s['rows'][-1]['value_status']='assumed_zero'
         with self.assertRaisesRegex(ValueError,'Invalid supplementary'):
             apply_updates(copy.deepcopy(self.data),bad)
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+
+    def test_sonnet_research_and_cad_keep_source_settings_separate(self):
+        mid='official-reviewed:claude-sonnet-5-5';p='reviewed-20261025:';cs=self.updates['reportComparisons'][mid]
+        for key,expected in [('draco-opus46',[80.8,87.4,87.0]),('wandr-frozen-opus46',[48.3,72.3,70.0])]:
+            c=cs[p+key]
+            self.assertEqual([r['display_value'] for r in c['rows']],expected)
+            self.assertEqual(len(c['supplementaryComparisons'][0]['rows']),15)
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][p+key]['coreEligible'])
+        cad=cs[p+'benchcad-anthropic-tools']
+        self.assertEqual([r['source_value'] for r in cad['rows']],['0.834','0.959','0.519','0.926','0.962','0.963'])
+        self.assertEqual([r['display_value'] for r in cad['rows']],[83.4,95.9,51.9,92.6,96.2,96.3])
+        self.assertTrue(all(not r['plot_eligible'] for r in cad['rows'][:2]))
+        self.assertIsNone(cs[p+'benchcad-anthropic-no']['rows'][1]['display_value'])
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025:';
+for(const b of ['draco-opus46','wandr-frozen-opus46','benchcad-anthropic-no','benchcad-anthropic-tools'])assert.equal(rank(d,p+b,mid).official.length,0);
+const s=rank(d,p+'benchcad-anthropic-tools',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[96.3,96.2,92.6,51.9]);
+assert.equal(s.reports[0].model_id,mid);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_sonnet_legal_metrics_and_unlabeled_multiagent_are_not_pooled(self):
+        mid='official-reviewed:claude-sonnet-5-5';p='reviewed-20261026:';cs=self.updates['reportComparisons'][mid]
+        for key,values in [('lab-aa-report-all-pass',[11.7,10.0]),('lab-aa-report-criterion',[92.1,93.1])]:
+            c=cs[p+key]
+            self.assertEqual(c['rows'][0]['display_value'],values[1])
+            self.assertEqual([r['display_value'] for r in c['supplementaryComparisons'][0]['rows']],values)
+            self.assertIn('v1.1',self.updates['modelBenchmarkAudits'][mid][p+key]['note'])
+        multi=cs[p+'program-166-multiagent']
+        self.assertEqual(multi['valueStatus'],'unlabeled_figure')
+        self.assertIsNone(multi['rows'][0]['display_value'])
+        self.assertEqual([len(s['rows']) for s in multi['supplementaryComparisons']],[9,9])
+        for s in multi['supplementaryComparisons']:
+            self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in s['rows']))
+        for key in ['gdp-aa','briefcase']:
+            self.assertIn('structured-output bug',cs['reviewed-202610:'+key]['displayCaveat'])
+
+    def test_batch17_receipt_preserves_complete_columns_and_excludes_changed_boards(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-17.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),7);self.assertEqual(len(e['supplements']),14)
+        self.assertEqual(sum(len(x['columns']) for x in e['metrics']),21)
+        self.assertEqual(sum(len(x['columns']) for x in e['supplements']),108)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+        self.assertEqual(len(e['officialSourceTables']),4)
+        self.assertTrue(all(not t['admitted'] for t in e['officialSourceTables']))
+        lab=next(t for t in e['officialSourceTables'] if t['benchmark']=='aa-lab')
+        self.assertEqual(len(lab['rows']),29)
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 

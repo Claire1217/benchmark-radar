@@ -855,3 +855,46 @@ visual checks of the source figures, prose-precision checks, source-file hashes,
 and semantic comparison against the previously published commit. All earlier
 numeric history and official snapshots are preserved. No browser visual QA is
 claimed.
+
+## Batch 17 — Sonnet research, CAD, legal and multi-agent evidence (2026-10-26)
+
+Added **seven** primary comparisons/coverage records (**21** source columns),
+plus **14** source-isolated supplements (**108** rows). All earlier numeric
+observations, source identities, comparison rows and official snapshots remain
+unchanged.
+
+- DRACO and WANDR preserve every labeled effort score from the Sonnet card.
+  Their Opus 4.6 judges, own harnesses and WANDR frozen web index differ from
+  the original benchmark evaluations. The original full author comparisons
+  are archived separately, with explicit exclusion reasons.
+- HLE retains both tools/no-tools effort series. Reported scores are exact
+  labels; unlabeled costs are not estimated. The final source appendix is
+  an HLE blocklist, with no additional quantitative model comparison.
+- BenchCAD retains all six figure columns and the original voxel IoU scale.
+  Sonnet's 1,000-file subset results are 74.7% without tools and 96.3% with
+  tools. Quoted OpenAI values remain evidence but are not ranked as runs on
+  the same subset. Sol's original 83.4 is not replaced by a later 83.3 quote.
+  The current independent v2 Core leaderboard measures a different task suite.
+- LAB's report-date all-pass and mean criterion-pass metrics remain separate,
+  with High and Max settings retained. Current LAB-AA v1.1 adds revised tasks,
+  three judges and hallucination gating; its own page says versions are not
+  comparable. The complete 28-row current board is archived, not substituted.
+- The 166-task ProgramBench multi-agent experiment retains all three team
+  setups at three budgets on both axes. Exact scores, latency and token
+  coordinates are unlabeled and stay null. The original 200-task benchmark
+  cannot fill them. Chartography/CAD unlabeled cost curves are likewise
+  coverage evidence, never inferred numeric observations.
+- GDPval-AA and Briefcase keep the exact same-card Max/Xhigh comparisons and
+  the footnote about a subsequently fixed pre-release structured-output bug.
+  This caveat does not overwrite the independently captured official scores.
+
+Inventory: **511 reviewed / 2,437 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots**. Sonnet
+has 54 primary comparisons/coverage records; source coverage remains in
+progress for earlier safety, alignment and welfare sections.
+
+Validation: **60 tests**, **2,437 drawer renders**, visual checks of 60 research
+and HLE effort labels plus 11 CAD labels, exact prose checks, four archived
+maintainer tables with exclusion reasons, source hashes, historical semantic
+preservation, and clean-checkout static build/site validation. No browser
+visual QA is claimed.
