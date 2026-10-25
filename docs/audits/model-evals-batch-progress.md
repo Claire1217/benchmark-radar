@@ -1302,3 +1302,53 @@ CI `40220419025` and Pages `40220419052` succeeded; live counts were 717 reviewe
 Validation: **79** model-eval regressions passed; all **2,729** drawers rendered
 in the VM. Static build, asset/ID validation and whitespace checks passed.
 Browser visual QA remains unperformed.
+
+
+## Batch 27 — Sol / Luna alignment and Sol deployment simulation (2026-10-26)
+
+Added **45** report comparisons (**34** for Sol, **11** for Luna), preserving
+**173** source cells. Reviewed Figures 61–70 and their accompanying methods and
+prose from the September 22 appendix: auto-review, environmental warnings,
+custom ExploitGym honeypot, coding deception, broken search, external-agent
+interaction, and Sol's internal Codex deployment simulation.
+
+- The appendix explicitly revised five evaluation protocols on September 22,
+  including new Astra results. Their original Astra-card or later 6.1 scores
+  are not substituted. Every source cohort is retained in full.
+- Honeypot success, failed attempts and legitimate completion stay separate.
+  GPT-5.6 Sol's 59.9% stack includes 0.3% legitimate completion; attempted
+  unauthorized exploitation is 59.6%. GPT-5.6 Luna has no exact legitimate
+  component label and remains unavailable, rather than inferring zero from
+  rounded totals. For Sol/Luna, the figure's explicit 0.0% total and the prose's
+  absence of any honeypot attempt establish 0.0% legitimate completion at the
+  printed precision; the basis is recorded with each row.
+- Agent engagement is conditional on discovering the board. Luna's discovery
+  rate is 76%, versus at least 96% for the others. The printed 83.54% engagement
+  total is preserved even though its rounded components sum to 83.55%.
+- Deployment results contain **no Luna column**. Exact counts and denominators
+  remain attached to their source: 50,319 all shared tasks, 43,481 without
+  detected awareness, and the awareness figure's separately printed 50,336.
+  Original mixed-model traffic remains a descriptive reference without a rank.
+  Wilson interval endpoints are unlabeled and are not inferred.
+- Removed the later report's fixed sample counts from **23 shared metric
+  descriptions**. Those counts remain unchanged in the later report's own
+  comparison. Comparisons continue to rank within one source only; no results
+  become independent benchmark-leaderboard rows.
+
+The source receipt contains **121** unique component checks; **89** labels also
+match rendered-page OCR, and **67** rate/count pairs match the printed denominator
+at source precision. All previous observations, report comparisons and **39**
+official snapshots are unchanged. Sol is **82 / 86** and Luna **59 / 60** collected
+pairs reviewed; both remain in progress pending release comparisons,
+monitorability/preparedness and final source reconciliation. Overall: **858 /
+2,772** collected pairs reviewed; **4** source-complete models. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-27.json`.
+
+Batch 26 was confirmed live: commit `524afdaddf7d3e86753a6c10eade1de9f7e489fd`,
+CI `40221624015` and Pages `40221624002` succeeded. Live source-isolation checks
+confirmed 813 reviewed / 2,729 pairs, 48 comparisons each for Sol/Luna, the
+six-column vision source, exact 99.050% precision and the separate later reference.
+
+Validation: **82** model-eval regressions passed, all **2,772** drawers rendered
+in the VM, and static build/asset validation and whitespace checks passed.
+Browser visual QA remains unperformed.

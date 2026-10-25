@@ -1864,5 +1864,82 @@ for(const mid of ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna'])
             self.assertEqual(item['sha256'],c['source_table_sha256'])
 
 
+    def test_sol_luna_alignment_uses_revised_source_and_separate_outcomes(self):
+        p='reviewed-20261025h:'
+        for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']:
+            cs=self.updates['reportComparisons'][mid]
+            self.assertEqual([r['display_value'] for r in cs[p+'warnings']['rows']],[17.4,64.4,68.2,42.4,76.5])
+            self.assertEqual([r['name'] for r in cs[p+'warnings']['rows']],['GPT-6 Astra','GPT-6 Sol','GPT-5.6 Sol','GPT-6 Luna','GPT-5.6 Luna'])
+            self.assertIn('September 22 revised',cs[p+'warnings']['setting'])
+            self.assertEqual([r['display_value'] for r in cs[p+'autoreview-attempt']['rows']],[0,0,7.3,0.3,4.3])
+            self.assertEqual([r['display_value'] for r in cs[p+'autoreview-success']['rows']],[0,0,0.3,0,0.3])
+            h=cs[p+'honeypot-legitimate']
+            self.assertEqual([r['display_value'] for r in h['rows']],[1.3,0,0.3,0,None])
+            self.assertFalse(h['rows'][-1]['plot_eligible'])
+            self.assertIn('displayed precision',h['rows'][1]['source_numeric_basis'])
+            self.assertEqual(cs[p+'honeypot-failed-attempt']['rows'][2]['display_value'],6.6)
+            self.assertEqual(cs[p+'honeypot-success']['rows'][2]['display_value'],53.0)
+            self.assertEqual([r['display_value'] for r in cs['reviewed-202610:search']['rows']],[1.50,4.92,77.46,28.67,78.25])
+            self.assertEqual(cs[p+'agent-board-engaged']['rows'][0]['display_value'],83.54)
+            self.assertEqual(cs[p+'agent-board-misaligned']['rows'][0]['display_value'],51.90)
+            self.assertEqual(cs[p+'agent-board-no-action']['rows'][0]['display_value'],31.65)
+            self.assertEqual(cs[p+'agent-board-engaged']['rows'][-1]['source_discovery_rate'],'76%')
+        # Later report results remain a different experiment, not replacements.
+        later=self.updates['reportComparisons']['official-reviewed:gpt-6.1-sol'][p+'honeypot-legitimate']
+        self.assertEqual(next(r for r in later['rows'] if r['name']=='GPT-6 Sol')['display_value'],0.1)
+        self.assertEqual(later['publishedAt'],'2026-09-29')
+
+    def test_sol_codex_cohorts_keep_counts_and_original_traffic_reference(self):
+        p='reviewed-20261025h:';mid='official-reviewed:gpt-6-sol';cs=self.updates['reportComparisons'][mid]
+        for key,n,values,counts in [
+            ('codex-severe-all',50319,[0.131,0.083,0.058],[66,42,29]),
+            ('codex-severe-unaware',43481,[0.113,0.071,0.046],[49,31,20]),
+            ('codex-awareness',50336,[2.56,4.76,8.83,0.75],[1287,2394,4446,379]),
+        ]:
+            rows=cs[p+key]['rows']
+            self.assertEqual([r['display_value'] for r in rows],values)
+            self.assertEqual([r['source_count'] for r in rows],counts)
+            self.assertTrue(all(r['source_denominator']==n for r in rows))
+            self.assertTrue(all('endpoints not printed' in r['source_confidence_method'] for r in rows))
+            self.assertNotIn('GPT-6 Luna',[r['name'] for r in rows])
+        reference=cs[p+'codex-awareness']['rows'][-1]
+        self.assertEqual(reference['name'],'Original traffic')
+        self.assertEqual(reference['source_role'],'mixed-model original-traffic reference')
+        self.assertNotIn('model_id',reference)
+        self.assertEqual([r['display_value'] for r in cs[p+'codex-mild-all']['rows']],[19.67,14.80])
+        self.assertEqual(cs[p+'codex-mild-exfiltration']['rows'][1]['display_text'],'0.433%')
+        self.assertEqual(cs[p+'codex-severe-outbound-prompt-injection']['rows'][1]['source_count'],0)
+        self.assertFalse(any(b.startswith(p+'codex-') for b in self.updates['reportComparisons']['official-reviewed:gpt-6-luna']))
+        self.assertNotIn('49,650',self.updates['benchmarks'][p+'codex-severe-all']['summary'])
+        self.assertIn('49,650',self.updates['reportComparisons']['official-reviewed:gpt-6.1-sol'][p+'codex-severe-all']['setting'])
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:gpt-6-sol',p='reviewed-20261025h:';
+let s=rank(d,p+'codex-severe-all',mid);assert.equal(s.reports.length,3);assert.equal(s.official.length,0);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,0.083);
+s=rank(d,p+'codex-awareness',mid);assert.equal(s.reports.length,4);assert.ok(s.reports.every(r=>r.rank===null));
+assert.equal(s.reports.at(-1).name,'Original traffic');assert.equal(s.official.length,0);
+s=rank(d,p+'honeypot-legitimate',mid);assert.equal(s.reports.length,4);assert.equal(s.exceptions.length,1);
+assert.equal(s.exceptions[0].name,'GPT-5.6 Luna');assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch27_receipts_preserve_source_columns_versions_and_counts(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-27.json').read_text())
+        self.assertEqual(len(e['metrics']),45);self.assertEqual(e['summary']['primaryCells'],173)
+        self.assertEqual(len(e['labelChecks']),121)
+        self.assertEqual(sum(c['countRoundedPercentageMatches'] is True for c in e['labelChecks']),67)
+        self.assertEqual(len(e['benchmarkMetadataChanges']),23)
+        self.assertIn('revised auto-review',e['sourceVersionNotice'])
+        for item in e['metrics']:
+            mid,b=item['modelId'],item['benchmarkId'];c=self.updates['reportComparisons'][mid][b]
+            self.assertEqual(c['publishedAt'],'2026-09-22')
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertEqual(sum(r.get('model_id')==mid for r in c['rows']),1)
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][b]['coreEligible'])
+
+
 if __name__ == '__main__':
     unittest.main()
