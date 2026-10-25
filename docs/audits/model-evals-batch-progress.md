@@ -1687,3 +1687,75 @@ all **2,858** drawers rendered in the VM. New checks cover displayed ties,
 team-size isolation, fraction conversion, both source values and absence of
 fabricated numeric/official results. Static build, asset validation and whitespace
 checks passed. Browser visual QA remains unperformed.
+
+## Batch 34 — Opus multimodal and professional evaluations (2026-10-26)
+
+Added **14** primary comparisons with **59** cells and **12** supplementary
+records with **63** cells. Verified **51** printed table/figure values visually,
+with page OCR, a crop for crowded BenchCAD 0.497, and explicit source prose for
+OSWorld 81.8. An additional **30** prose-cell checks cover report-date Elo,
+OfficeQA, LAB and current/earlier BenchCAD resolution figures.
+
+- Chartography preserves all six no-tools source models, including quoted Surge
+  Gemini **42.5** and Sol **45.0**. Opus internal **64.4** remains separate from
+  maintainer **66.3**; the current Gemini **40.9** does not overwrite the report
+  quotation. The card's full tools figure is supplementary to the existing release
+  cohort, with two absent tool results explicit. The source specifies Gemini 3.5
+  Flash grading, replacing the older Claude-only Sonnet 4.6 judge.
+- BenchCAD preserves all six columns in each mode. OpenAI's quoted values remain
+  visible, including Sol **0.834**, but are excluded from the Anthropic 1,000-file
+  subset ranking because split/attempt equivalence is unverified. Current Claude
+  results use four **256×256** views; earlier **128×128** Fable/Opus figures remain
+  separate evidence. The benchmark explicitly republishes these developer scores
+  without regrading; neither its full-split metric nor 2.0 Core replaces them.
+- The card's OSWorld **September 10** task/assets/webapp revision gets distinct
+  partial and strict records. The official repository announces v2.1 on
+  **September 16**; no exact tag/commit mapping establishes equivalence. The card
+  uses Opus 4.8 grading and retains screenshots with compaction above 100k tokens.
+  The earlier launch table explicitly naming v2.1 is unchanged, including its
+  independent v2.1 board. All 55 raw official records were checked; none is Opus 5.5.
+- OfficeQA **78.9** and Pro **67.7** preserve complete three-model prose cohorts.
+  The source gives extracted text and code tools but does not specify document
+  selection. These are not silently labeled oracle or full-corpus retrieval merely
+  because another card quotes the same score. Official PDF-agent, oracle-PDF and
+  90-question Pro v2 settings are separate.
+- LAB's report-date **8.3 all-pass** and **91.2 criterion-pass** remain distinct.
+  The current v1.1 board adds a judging panel and hallucination gate and explicitly
+  disclaims comparability with v1.0; it cannot fill this report's missing board.
+- AA-Briefcase retains the max cohort **1822 / 1678 / 1673**, with Opus xhigh
+  **1780** and high **1705** separate. Official Opus is **1801.02** in the dated
+  138-row snapshot. The current 27-model subset confirms Opus and 24 peers; two
+  peer values drift. The full dated board is retained, without a partial refresh.
+  GDPval's additional effort prose and AutomationBench's narrower card cohort are
+  also preserved without replacing earlier primary comparisons.
+- Toolathlon retains all six models and all four metrics. Opus/Fable tie at
+  **77.8 Pass@1**, below three source models. Mean turns remain descriptive and
+  source-ordered. The 25/23/23/23 author-run metric rows all match fresh data;
+  official missing trajectories stay failures. Opus's one classifier and six
+  sandbox-monitor stops also remain failures in its report.
+- The five multimodal cost figures retain **18** unlabeled model series; the
+  AutomationBench figure retains **20** explicitly named model/effort conditions.
+  No score or cost coordinates are estimated or copied from a different source.
+
+No new official snapshot was added. Chartography's existing Opus row received its
+canonical model ID, with no score change. Earlier primary comparisons and all
+previous observations/official values remain unchanged. Three existing comparisons
+receive appended evidence only.
+
+Opus is **45 / 45 collected pairs reviewed**; its source remains **in progress**.
+Healthcare, multilingual, other remaining capabilities, safety, alignment, welfare
+and whole-source reconciliation remain pending. Overall: **965 / 2,872** pairs
+reviewed, **4** source-complete models and **40** official snapshots. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-34.json`.
+
+Batch 33 commit `e65c589efae0a4d7cae9da5c8f91910d5318bb73` passed CI
+`40229147887` and Pages `40229147916`. Live verification confirmed all 31 primary
+comparisons, 112 source cells, 24 supplementary records, source discrepancies,
+experimental caveats, official eligibility notes and versioned script bytes.
+
+Validation: **107** model-eval regressions passed on the final copied files;
+all **2,872** drawers rendered in the VM. Checks cover exact fraction conversion,
+full source cohorts, excluded cross-subset quotations, separate revision/input
+scope, dated Elo, descriptive turns and official failure handling. Static build,
+asset validation, full evidence-page checks and whitespace checks passed. Browser
+visual QA remains unperformed.

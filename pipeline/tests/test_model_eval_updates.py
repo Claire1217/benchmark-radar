@@ -2311,5 +2311,48 @@ assert.equal(rank(d,'reviewed-20261025:program-166-mean',mid).reports.find(r=>r.
 '''
         subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
+    def test_opus_multimodal_complete_cohorts_and_unverified_quotes(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid]
+        chart=cs['reviewed-202610:chart-no'];self.assertEqual([r['display_value'] for r in chart['rows']],[42.5,45,15.6,29.8,44.8,64.4])
+        self.assertEqual([r['source_column'] for r in chart['rows']],['Gemini 3.8 Flash','GPT-5.6 Sol','Claude Sonnet 5','Claude Opus 5','Claude Fable 5.1','Claude Opus 5.5'])
+        for key,values in [('benchcad-anthropic-no',[70.6,None,32.2,49.7,60.6,73]),('benchcad-anthropic-tools',[83.4,95.9,51.9,89.9,92.6,96.2])]:
+            c=cs['reviewed-20261025:'+key];self.assertEqual([r['display_value'] for r in c['rows']],values)
+            self.assertTrue(all(not r['plot_eligible'] for r in c['rows'][:2]));self.assertTrue(all(r['plot_eligible'] for r in c['rows'][2:]))
+            self.assertIn('256×256',c['setting'])
+            for row in c['rows']:
+                if row['display_value'] is not None:self.assertAlmostEqual(float(row['source_value'])*100,row['display_value'])
+            s=next(s for s in c['supplementaryComparisons'] if s['id']=='image-resolution-correction')
+            self.assertEqual(sum('128×128' in r['setting'] for r in s['rows']),2)
+        self.assertEqual(cs['reviewed-20261025:benchcad-anthropic-tools']['rows'][0]['source_value'],'0.834')
+
+    def test_batch34_receipts_cover_every_source_value_and_missing_cell(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-34.json').read_text());cs=self.updates['reportComparisons'][e['modelId']]
+        self.assertEqual((len(e['metrics']),len(e['supplements']),e['summary']['primaryCells'],e['summary']['supplementaryCells']),(14,12,59,63))
+        self.assertEqual(len(e['labelChecks']),51);self.assertTrue(all(x['status'].startswith('matched_') for x in e['labelChecks']))
+        self.assertEqual(len(e['sourceProseChecks']),30)
+        statuses=[]
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:
+                c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId']);self.assertTrue(c['evidenceOnly'])
+                self.assertTrue(all(not r['plot_eligible'] for r in c['rows']));statuses += [r['value_status'] for r in c['rows'] if r['display_value'] is None]
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']]);self.assertEqual(item['sha256'],c['source_table_sha256'])
+        self.assertEqual(statuses.count('unlabeled_figure'),38);self.assertEqual(statuses.count('not_reported'),2)
+        self.assertEqual(self.updates['modelAudits'][e['modelId']]['sourceCoverageStatus'],'in_progress')
+
+    def test_opus_protocols_elo_and_descriptive_turns_stay_separate(self):
+        script=r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-opus-5-5',p='reviewed-202610:',x='reviewed-20261026-opus:';
+let s=rank(d,p+'chart-no',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,64.4);assert.equal(s.official.find(r=>r.model_id===mid).display_value,66.3);
+s=rank(d,'reviewed-20261025:benchcad-anthropic-tools',mid);assert.equal(s.reports.length,4);assert.ok(!s.reports.some(r=>r.name==='GPT-6 Astra'));assert.equal(s.official.length,0);
+for(const key of ['osworld-sep10-partial','osworld-sep10-strict','officeqa-text-report','officeqa-pro-text-report']){s=rank(d,x+key,mid);assert.equal(s.official.length,0);assert.equal(s.reports.length,3);}
+assert.equal(d.leaderboard_snapshots[p+'os21-partial'].rows.length,5);assert.equal(rank(d,p+'os21-partial',mid).official.length,1);
+s=rank(d,p+'briefcase',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,1822);assert.equal(s.official.find(r=>r.model_id===mid).display_value,1801.02);assert.ok(!s.reports.some(r=>r.display_text.includes('%')));
+s=rank(d,'reviewed-20261026:toolathlon-verified-pass1',mid);assert.equal(s.reports.find(r=>r.model_id===mid).rank,4);assert.equal(d.leaderboard_snapshots['reviewed-20261026:toolathlon-verified-pass1'].rows.length,25);assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5').display_value,71.6);assert.ok(!s.official.some(r=>r.model_id===mid));
+s=rank(d,'reviewed-20261026:toolathlon-verified-turns',mid);assert.deepEqual(s.reports.map(r=>r.display_value),[26.9,23.7,23.5,19.8,20.4,24.5]);assert.ok(s.reports.every(r=>r.rank==null&&!r.display_text.includes('%')));
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
 if __name__ == '__main__':
     unittest.main()
