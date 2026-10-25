@@ -1568,3 +1568,65 @@ Validation: **97** model-eval regressions passed and all **2,837** drawers rende
 in the VM, including Opus source-only ranking, separate official values, missing
 cells and excluded incompatible views. Static build, asset validation and whitespace
 checks passed. Browser visual QA remains unperformed.
+
+## Batch 32 — Opus coding, mathematics and research protocols (2026-10-26)
+
+Added **11** card comparisons with **38** cells and **13** supplementary records
+with **123** cells. All **90** printed score labels in six capability curves were
+checked visually and against independent OCR, with targeted crops for crowded
+labels. An additional **25** primary table/prose numeric cells were cross-checked;
+the other nine primary values also appear in the verified figures. Seventeen
+series in the Main/Extended FrontierCode and Cursor figures have no exact labels
+and remain explicitly unknown. Costs are not estimated from chart coordinates.
+
+- SWE-bench Pro, Multilingual, Multimodal and no-tools HLE preserve the card's
+  entire four-model summary cohort, including absent Astra cells. Pro's release
+  and split and Multimodal's original/v2 identity are unspecified; no arbitrary
+  official version is substituted. Multilingual's 300-task, nine-language suite
+  has a separately captured maintainer-only view.
+- DeepSWE retains the single reported Opus **74.2** value. All **70** raw official
+  configurations across **28** models were checked; no Opus 5.5 is listed and
+  the card's harness remains unspecified.
+- FrontierCode Extended reproduces the complete best-effort prose cohort:
+  Opus **65.3 at medium**, with **63.6 at max** separately retained. Its official
+  medium run is **65.27**. The wider card figure and Main best-effort comparison
+  do not overwrite the release table's different cohort/effort choices.
+- FrontierSWE's later report results stay separate from the September 2 public
+  snapshot. The cited **Fable 56.3** result is labeled with its **Opus 5 fallback**,
+  documented in Proximal's 56.29 result footnote; the source column is preserved.
+- ArXivMath uses August's 57 problems and four attempts, with tools and no-tools
+  separate. Fable with-tools **93.0 at xhigh** does not replace its max-effort
+  **92.1** headline. MathArena's two-attempt native-agent setup, best-guess prompt
+  and judge differ; its Opus high **85.96** is not inserted into the report chart.
+- ProgramBench **91.2** is a mean hidden-test pass fraction over 166 retained
+  tasks, without the original six-hour limit. It is neither official **18.5
+  Resolved** nor **70.5 Almost** over 200 tasks. The later multi-agent experiment's
+  alternate checkpoint, different four tasks and 20M-token budget remain pending.
+- DRACO's complete max-effort cohort ranks **Opus 5.5 third**: 87.4 versus Fable
+  87.7 and Opus 5 88.3. The Opus-4.6 judge and final-file-only own harness differ
+  from the maintainer paper. WANDR retains the source difference: Opus 5 max is
+  **67.2 in the release CSV** and **67.1 in the card figure**, without overwriting
+  either source or inferring a correction.
+
+Fresh SWE, FrontierCode and FrontierSWE data bytes match their retained snapshots;
+all nine historical full-set HLE cells match as well. Five Extended Opus rows
+received canonical IDs, with no official score changes. No new official snapshot
+was added. All earlier primary comparisons, supplements and observations are
+unchanged; new supplements are appended to four existing Opus comparisons.
+Two exact Library source links were added by the generated reference index.
+
+Opus is **21 / 21 collected pairs reviewed**, with its 230-page source still
+**in progress**. Multi-agent experiments, remaining capabilities, safety,
+alignment, welfare and whole-source reconciliation remain pending. Overall:
+**941 / 2,848** collected pairs reviewed, **4** source-complete models and **40**
+official snapshots. Evidence: `data/model_eval_evidence/2026-10-26-batch-32.json`.
+
+Batch 31 commit `d974bb4d830f140e708da258c1ccc5c41ed4af8b` passed CI
+`40227256294` and Pages `40227256350`. Live verification confirmed its ten
+comparisons, 48 source cells, 130 curve points, independent eligibility notes and
+content-versioned ranking script.
+
+Validation: **101** model-eval regressions passed; all **2,848** drawers rendered
+in the VM. The full audit renders all **19** Opus supplementary records, including
+the two WANDR values and unknown-coordinate notices. Static build, asset validation
+and whitespace checks passed. Browser visual QA remains unperformed.

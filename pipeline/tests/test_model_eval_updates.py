@@ -2165,7 +2165,7 @@ s=rank(d,p+'automation',sol);assert.equal(s.reportRankable,true);assert.equal(s.
 
     def test_opus_release_preserves_source_cohorts_and_effort_choices(self):
         mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-202610:'
-        self.assertEqual(len(cs),10)
+        self.assertTrue(set(json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-31.json').read_text())['metrics'][i]['benchmarkId'] for i in range(10)).issubset(cs))
         expected={
             'family:terminal-bench-4':[66.4,55.8,52.3,57.9,37.3],
             p+'frontier':[54.4,50.3,48.0,53.3,47.5],p+'cursor':[57.8,51.8,46.6,None,41.7],
@@ -2183,7 +2183,7 @@ s=rank(d,p+'automation',sol);assert.equal(s.reportRankable,true);assert.equal(s.
 
     def test_opus_release_curves_keep_exact_values_costs_and_no_fallback(self):
         mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-202610:'
-        supplements=[s for c in cs.values() for s in c.get('supplementaryComparisons',[])]
+        supplements=[s for c in cs.values() for s in c.get('supplementaryComparisons',[]) if s['sourceId']=='anthropic-opus-20260922']
         self.assertEqual(len(supplements),6);self.assertEqual(sum(len(s['rows']) for s in supplements),130)
         self.assertTrue(all(s['evidenceOnly'] and all(not r['plot_eligible'] for r in s['rows']) for s in supplements))
         rows=cs[p+'frontier']['supplementaryComparisons'][0]['rows']
@@ -2211,6 +2211,59 @@ s=rank(d,p+'automation',mid);assert.equal(s.reports[0].name,'GPT-6 Astra');asser
 s=rank(d,p+'gdp-aa',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,1846);assert.equal(s.official.find(r=>r.model_id===mid).display_value,1866.27);
 for(const bid of [p+'hle-tools',p+'chart-tools','reviewed-20261025:wandr-frozen-opus46'])assert.equal(rank(d,bid,mid).official.length,0);
 s=rank(d,p+'os21-partial',mid);assert.ok(s.official.length>0);assert.ok(!s.official.some(r=>r.model_id===mid));
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_opus_card_preserves_full_summary_cohort_and_version_uncertainty(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];q='reviewed-20261025:'
+        for bid,values in [(q+'swe-pro',[89.9,79.2,81.2,None]),(q+'swe-multilingual',[93.9,89.5,89.1,None]),(q+'swe-multimodal',[61.4,59.4,54.7,None]),('reviewed-202610:hle-no-tools',[64.4,56.6,60.9,None])]:
+            rows=cs[bid]['rows'];self.assertEqual([r['display_value'] for r in rows],values)
+            self.assertEqual([r['source_column'] for r in rows],['Claude Opus 5.5','Claude Opus 5','Claude Fable 5.1','GPT-6 Astra'])
+            self.assertFalse(rows[-1]['plot_eligible']);self.assertNotIn('model_id',rows[-1])
+        for bid in [q+'swe-pro',q+'swe-multimodal','reviewed-202610:deepswe']:
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
+        self.assertEqual(cs[q+'frontierswe-v2']['rows'][2]['name'],'Claude Fable 5.1 w/ Opus 5 Fallback')
+        self.assertEqual(cs[q+'frontierswe-v2']['rows'][2]['source_column'],'Claude Fable 5.1')
+
+    def test_opus_card_does_not_replace_max_cohorts_with_peaks_or_other_sources(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];q='reviewed-20261025:'
+        ext=cs[q+'frontier-extended'];self.assertEqual([r['display_value'] for r in ext['rows']],[65.3,63.6,64.9,64.5,63.6])
+        self.assertIn('medium',ext['rows'][0]['setting'])
+        self.assertEqual(next(s for s in ext['supplementaryComparisons'] if s['id']=='system-card-max-effort')['rows'][0]['display_value'],63.6)
+        math=cs['reviewed-20261026:arxivmath-0826-tools'];self.assertEqual([r['display_value'] for r in math['rows']],[96.9,92.1,90.4])
+        curve=next(s for s in math['supplementaryComparisons'] if s['id']=='system-card-effort-curve')
+        self.assertTrue(any(r['name']=='Claude Fable 5.1' and r['display_value']==93.0 and 'Xhigh' in r['setting'] for r in curve['rows']))
+        w=cs[q+'wandr-frozen-opus46'];self.assertEqual(w['rows'][2]['display_value'],67.2)
+        release=next(s for s in w['supplementaryComparisons'] if s['id']=='release-effort-curve')
+        card=next(s for s in w['supplementaryComparisons'] if s['id']=='system-card-effort-curve')
+        self.assertEqual(next(r['display_value'] for r in release['rows'] if r['name']=='Claude Opus 5' and r['source_effort']=='Max'),67.2)
+        self.assertEqual(next(r['display_value'] for r in card['rows'] if r['name']=='Claude Opus 5' and r['setting'].startswith('Max')),67.1)
+        self.assertNotEqual(release['sourceId'],card['sourceId'])
+
+    def test_batch32_receipt_exact_values_and_unknown_coordinates(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-32.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual((len(e['metrics']),len(e['supplements']),e['summary']['primaryCells'],e['summary']['supplementaryCells']),(11,13,38,123))
+        self.assertEqual(len(e['labelChecks']),90);self.assertTrue(all(r['status'].startswith('matched') for r in e['labelChecks']))
+        unknown=[]
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:
+                c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+                self.assertTrue(c['evidenceOnly']);self.assertTrue(all(not r['plot_eligible'] for r in c['rows']))
+                unknown.extend(r for r in c['rows'] if r['display_value'] is None)
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']]);self.assertEqual(item['sha256'],c['source_table_sha256'])
+        self.assertEqual(len(unknown),17);self.assertTrue(all(r['value_status']=='unlabeled_figure' for r in unknown))
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+    def test_opus_draco_rank_and_incompatible_official_protocols(self):
+        script=r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-opus-5-5',q='reviewed-20261025:';
+let s=rank(d,q+'draco-opus46',mid);assert.deepEqual(s.reports.map(r=>r.display_value),[88.3,87.7,87.4]);assert.equal(s.reports.find(r=>r.model_id===mid).rank,3);assert.equal(s.official.length,0);
+s=rank(d,q+'frontier-extended',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,65.3);assert.equal(s.official.find(r=>r.model_id===mid).display_value,65.27);
+s=rank(d,q+'program-166-mean',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,91.2);assert.equal(s.official.length,0);
+for(const b of ['reviewed-20261026:arxivmath-0826-no-tools','reviewed-20261026:arxivmath-0826-tools',q+'swe-pro',q+'swe-multimodal'])assert.equal(rank(d,b,mid).official.length,0);
+s=rank(d,'reviewed-202610:hle-no-tools',mid);assert.equal(s.official.length,9);assert.ok(!s.official.some(r=>r.model_id===mid));
 '''
         subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
