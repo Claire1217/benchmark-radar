@@ -1503,7 +1503,7 @@ CI `40224460300` and Pages `40224460330` succeeded. All 44 primary comparisons,
 eight supplements, exact source columns, helpful-only identity, count conversion
 and missing values matched the deployed page.
 
-Validation: **93** model-eval regressions passed and all **2,836** drawers rendered
+Validation: **94** model-eval regressions passed and all **2,836** drawers rendered
 in the VM, including partial-report labels, suppressed report ranks and separate
 maintainer ranks. Static build, asset validation and whitespace checks passed.
 Browser visual QA remains unperformed.
@@ -1512,3 +1512,7 @@ The generated Library reference index also carries 11 verified source links: eig
 previously reviewed safety-card references and three newly inventoried release
 mentions. Each maps to a source observation and the exact Library ID; these links
 do not imply complete comparison coverage.
+
+Delivery follow-up: the ranking-script URL now includes its content hash, so
+new report coverage data loads the corresponding ranking rules instead of a
+previously cached script. The generated URL is checked against the current file.

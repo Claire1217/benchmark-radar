@@ -2159,5 +2159,9 @@ s=rank(d,p+'automation',sol);assert.equal(s.reportRankable,true);assert.equal(s.
         c['comparisonStatus']='unverified_complete'
         with self.assertRaisesRegex(ValueError,'Unknown source comparison'):apply_updates(copy.deepcopy(self.data),bad)
 
+    def test_ranking_script_url_matches_current_code(self):
+        expected=hashlib.sha256((ROOT/'web/model-evals/ranking.js').read_bytes()).hexdigest()[:12]
+        self.assertIn(f'<script src="ranking.js?v={expected}">',(ROOT/'web/model-evals/index.html').read_text())
+
 if __name__ == '__main__':
     unittest.main()

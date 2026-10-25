@@ -282,7 +282,11 @@ def main():
     path = ROOT / 'data/model_eval_references.json'
     refs = update_references(json.loads(path.read_text()), updates, data,
                              json.loads((ROOT / 'data/library_index.json').read_text()))
-    page.write_text(html[:match.start(2)] + encoded + html[match.end(2):])
+    updated_html = html[:match.start(2)] + encoded + html[match.end(2):]
+    ranking_version = hashlib.sha256((page.parent / 'ranking.js').read_bytes()).hexdigest()[:12]
+    updated_html = re.sub(r'(<script src="ranking\.js)(?:\?v=[^"]+)?(")',
+                          rf'\1?v={ranking_version}\2', updated_html)
+    page.write_text(updated_html)
     path.write_text(json.dumps(refs, ensure_ascii=False, indent=2) + '\n')
     from build_model_eval_review import build_review
     queue, report_html = build_review(data, updates)
