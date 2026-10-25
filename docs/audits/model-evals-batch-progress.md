@@ -1103,3 +1103,61 @@ Batch 21 was independently confirmed live: commit
 `86b4aec9f225b5cfb989802c1f3cb3b641b6b071`; CI `40217850323` and Pages
 `40217850321` succeeded. Live data contained 600 reviewed / 2,526 pairs, 143
 Sonnet comparisons and the preserved Cowork source discrepancy before batch 22.
+
+## Batch 23 — Sonnet targeted alignment and monitor evasion (2026-10-26)
+
+Reviewed the remaining section 6 evaluations on PDF pp.77–91. Added **24**
+primary comparisons (**153** source cells: 127 numeric, 26 missing/unsupported),
+including **21** numeric headline results and **3** coverage-only CoT curves.
+Three AA-Omniscience supplements retain all **18** response-component fractions.
+
+- Sandbox evaluation uses 28 scenarios × 7 repeats (196 runs), distinct from the
+  later 392-run Haiku-card version. All severity components remain available;
+  peer totals without exact source labels stay missing. Sonnet's printed 4.6%
+  and 9/196 are retained independently of the rounded severity components.
+- Self-preference preserves ten model columns, two system-prompt conditions and
+  signed rating differences. The ranking direction is distance from zero.
+- AA-Omniscience retains the report's printed net fractions, scaled ×100; net is
+  not reconstructed from rounded components. The report describes 41 topics;
+  the public release exposes 600 questions and 42 topic values, while the main
+  AA suite has 6,000 questions. Dataset revision and grader are unspecified.
+- MASK public-split conditional honesty excludes evasive/inconsistent-belief
+  responses. The private official board includes evasive responses as non-lies;
+  neither its dataset nor its score denominator matches this report.
+- Silent copying and spontaneous disclosure are different tasks and directions.
+  The disclosure chart explicitly names Mythos 5.1; the later Haiku card's Fable
+  5.1 column is not substituted.
+- All **20** grader-awareness/acting/digging fractions retain exact numerators and
+  denominators. Percentages are explicitly calculated, rounded to eight decimals
+  internally and two for display. Awareness is descriptive; acting/digging use
+  the figure's lower-is-better direction. Graphical 90% Wilson bounds are not guessed.
+- SHADE-Arena retains all eight model columns and four thinking conditions, with
+  Mythos 5's unsupported no-thinking cell distinct from exact zero. This source's
+  Sonnet hidden score is 22.3%, not the later report's 23.8%. The Opus 4.8 hidden
+  run uses 50 attempts; other bars use 25. Standard-prompt exceptions are retained.
+- LinuxArena's explicit 1,000-pair, five-attempt protocol gets three new identities
+  separate from the later report's smaller undisclosed subset. Its Opus 4.8 monitor
+  also differs from the benchmark author's GPT-5 Nano monitor and threshold.
+- CoT controllability has three prompt conditions and seven model series, but no
+  exact coordinate or point-configuration labels. All remain coverage-only; neither
+  chart coordinates nor a single headline result is estimated.
+
+All **145** printed numeric labels/fractions were visually checked. An independent
+page-level OCR presence check matched **136**; **9** unmatched labels were checked
+again against the rendered original pages. Model assignment follows the original
+legends, not OCR text order. Seven benchmark-author source receipts are saved.
+No new independent official snapshot was admitted; **39** existing snapshots and
+all earlier observations, comparisons and benchmark metadata are unchanged.
+
+Inventory: **686 reviewed / 2,612 collected pairs**, 124 models with records,
+3 source-complete models and 1,135 catalog-only models. Sonnet now has **229**
+primary comparisons/coverage records; section 7 (model welfare) remains pending.
+
+Validation: model-eval regression suite, all **2,612** drawers rendered in the VM,
+static build/validation and whitespace checks. Browser visual QA is unperformed.
+Evidence: `data/model_eval_evidence/2026-10-26-batch-23.json`.
+
+Batch 22 was confirmed live before this batch: commit
+`e7642842f1b346fd1cb02c32ff83e5de9c6c474a`, successful CI `40218339022` and
+Pages `40218339016`; live counts were 662 reviewed / 2,588 pairs and 205 Sonnet
+comparisons. This remains an intermediate checkpoint for the full-catalog goal.

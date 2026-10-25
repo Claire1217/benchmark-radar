@@ -1625,5 +1625,60 @@ assert.equal(s.reports.length,6);assert.equal(s.official.length,0);
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 
+    def test_sonnet_alignment_separates_protocols_conversions_and_unknown_values(self):
+        mid='official-reviewed:claude-sonnet-5-5';cs=self.updates['reportComparisons'][mid];pn='reviewed-20261026:';pe='reviewed-20261025e:'
+        sandbox=cs[pn+'sandbox-audit-196-total']['rows']
+        self.assertTrue(all(r['display_value'] is None for r in sandbox[:-1]))
+        self.assertEqual((sandbox[-1]['display_value'],sandbox[-1]['source_count'],sandbox[-1]['source_denominator']),(4.6,9,196))
+        self.assertNotIn(pe+'sandbox-audit-total',cs)
+        self.assertNotIn('reviewed-20261025c:linuxarena-hidden',cs)
+        self.assertEqual(cs[pn+'linuxarena-1000-hidden']['rows'][-1]['display_value'],36.2)
+        self.assertIn('1,000 task pairings × 5',cs[pn+'linuxarena-1000-hidden']['setting'])
+        self.assertEqual(cs[pe+'concealment-disclosure']['rows'][3]['name'],'Claude Mythos 5.1')
+        aa=cs['reviewed-20261025b:omniscience-public-net']
+        self.assertEqual([r['display_value'] for r in aa['rows']],[57,23,49,56,58,35])
+        self.assertEqual(aa['rows'][-1]['source_value'],'0.35')
+        self.assertEqual(aa['supplementaryComparisons'][0]['rows'][-1]['display_text'],'62%')
+        for key in ['clear','ambiguous','barely','acting','digging']:
+            b=pe+('grader-awareness-' if key in ['clear','ambiguous','barely'] else 'grader-')+key
+            for r in cs[b]['rows']:
+                expected=round(100*r['source_count']/r['source_denominator'],8)
+                self.assertEqual(r['display_value'],expected)
+                self.assertEqual(r['display_text'],f'{expected:.2f}%')
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025b:';
+let s=rank(d,p+'shade-arena-hidden',mid);assert.equal(s.reports.length,8);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,22.3);assert.equal(s.official.length,0);
+s=rank(d,p+'shade-arena-no-thinking',mid);assert.equal(s.reports.length,7);assert.equal(s.exceptions.length,1);
+assert.equal(s.exceptions[0].name,'Claude Mythos 5');
+s=rank(d,'reviewed-20261026:linuxarena-1000-visible',mid);assert.equal(s.reports[0].display_value,0);
+assert.equal(s.reports.find(r=>r.name==='Claude Sonnet 5').display_value,0.04);
+s=rank(d,'reviewed-20261025e:grader-awareness-barely',mid);assert.ok(s.reports.every(r=>r.rank===null));
+s=rank(d,'reviewed-20261025f:cot-default',mid);assert.equal(s.reports.length,0);assert.equal(s.exceptions.length,7);assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch23_receipt_covers_labels_counts_and_source_protocol_mismatches(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-23.json').read_text());cs=self.updates['reportComparisons'][e['modelId']]
+        self.assertEqual(len(e['metrics']),24);self.assertEqual(sum(len(x['columns']) for x in e['metrics']),153)
+        self.assertEqual(len(e['labelChecks']),145);self.assertEqual(len(e['fractionConversions']),20)
+        self.assertEqual(sum(x['status']=='matched_page_ocr' for x in e['labelChecks']),136)
+        self.assertEqual(sum(x['status']=='verified_visually' for x in e['labelChecks']),9)
+        self.assertEqual(len(e['supplements']),3);self.assertEqual(sum(len(x['columns']) for x in e['supplements']),18)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][e['modelId']][item['benchmarkId']]['coreEligible'])
+        self.assertEqual(e['officialSourceChecks']['maskBoardSplit'],'private')
+        self.assertEqual(e['officialSourceChecks']['maskReportSplit'],'public')
+        self.assertEqual(e['officialSourceChecks']['shadeReleaseTaskPairs'],17)
+        self.assertEqual(e['officialSourceChecks']['shadeReportTaskPairs'],24)
+        self.assertFalse(e['officialSourceChecks']['admitted'])
+
+
 if __name__ == '__main__':
     unittest.main()
