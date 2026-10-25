@@ -76,7 +76,15 @@ def build_review(data, updates):
             html += '<div class="table"><table><thead><tr><th>Original model column</th><th>Original value</th><th>Displayed value</th><th>Setting / exception</th></tr></thead><tbody>'
             for row in c['rows']:
                 html += '<tr><td>'+e(row['source_column'])+'</td><td>'+e(row.get('source_value') if row.get('source_value') is not None else '—')+'</td><td>'+e(row['display_text'])+'</td><td>'+e(row.get('exception') or row.get('setting'))+'</td></tr>'
-            html += '</tbody></table></div></details>'
+            html += '</tbody></table></div>'
+            for supplement in c.get('supplementaryComparisons', []):
+                html += '<details><summary>'+e(supplement['title'])+' · supplementary report evidence</summary><p>'+link(supplement['source_url'],supplement['source_table_label'])+' · published '+e(supplement['publishedAt'])+' · checked '+e(supplement['checkedAt'])+'</p><p>'+e(supplement['setting'])+'</p><p>'+e(supplement.get('note'))+'</p>'
+                html += '<p class="muted">These settings are kept separately from the headline comparison and official ranking. Transcription SHA-256: <code>'+e(supplement['source_table_sha256'])+'</code></p>'
+                html += '<div class="table"><table><thead><tr><th>Model</th><th>Condition</th><th>Original value</th><th>Displayed value / limitation</th></tr></thead><tbody>'
+                for row in supplement['rows']:
+                    html += '<tr><td>'+e(row['name'])+'</td><td>'+e(row['setting'])+'</td><td>'+e(row['source_value'])+'</td><td>'+e(row['display_text'])+(('<br><small>'+e(row['exception'])+'</small>') if row.get('exception') else '')+'</td></tr>'
+                html += '</tbody></table></div></details>'
+            html += '</details>'
         html += '</details>'
     html += '<h2 id="official-snapshots">Captured official runs</h2>'
     for bid,s in data.get('leaderboard_snapshots',{}).items():

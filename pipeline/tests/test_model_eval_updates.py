@@ -207,6 +207,9 @@ assert.equal(selectRanking(d,b,mid).official.length,0);
 
     def test_review_queue_does_not_complete_unreviewed_source_coverage(self):
         from build_model_eval_review import build_review
+        # A future discovery must reopen an otherwise fully reviewed model.
+        self.updates['modelAudits']['official-reviewed:claude-haiku-5-5'].update(
+            sourceCoverageStatus='in_progress', discoveredMetrics=[dict(name='New source figure', sourcePage=20)])
         data = apply_updates(self.data, self.updates)
         queue, html = build_review(data, self.updates)
         models = {m['modelId']: m for m in queue['models']}
@@ -718,6 +721,77 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
             digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
             self.assertEqual(comp['source_table_sha256'], digest)
             self.assertEqual(item['sha256'], digest)
+
+
+    def test_supplementary_efforts_never_change_headline_or_official_ranking(self):
+        data = apply_updates(copy.deepcopy(self.data), self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        script = r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const {selectRanking}=require('./web/model-evals/ranking.js');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-haiku-5-5';
+for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
+ if(!c.supplementaryComparisons)continue;
+ const before=selectRanking(d,bid,mid);
+ c.supplementaryComparisons.forEach(s=>s.rows.forEach(r=>{r.display_value=100000;r.plot_eligible=true;}));
+ const after=selectRanking(d,bid,mid);
+ assert.deepEqual(before.reports,after.reports);assert.deepEqual(before.official,after.official);
+ assert.deepEqual(before.own,after.own);
+}
+'''
+        subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True, capture_output=True)
+        c = data['report_comparisons'][mid]
+        summary = next(s for s in c['reviewed-202610:frontier']['supplementaryComparisons'] if s['id'] == 'frontier-summary')
+        self.assertEqual(next(r['display_value'] for r in summary['rows'] if r.get('model_id') == mid and r['setting'] == 'XHigh'), 45.8)
+        history = next(s for s in c['reviewed-20261025:health-pro-adjusted']['supplementaryComparisons'] if s['id'] == 'health-history')
+        self.assertEqual(next(r['display_value'] for r in history['rows'] if r['name'] == 'GPT-6 Luna'), 65.5)
+        self.assertEqual(c['reviewed-20261025:health-pro-adjusted']['rows'][0]['display_value'], 64.8)
+
+    def test_supplementary_receipts_reject_source_scale_and_condition_corruption(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        bid = 'reviewed-202610:hle-tools'
+        for mutation in [dict(source_url='https://example.com'), dict(publisher='Other lab'), dict(evidenceOnly=False), dict(source_table_sha256='bad')]:
+            updates = copy.deepcopy(self.updates)
+            updates['reportComparisons'][mid][bid]['supplementaryComparisons'][0].update(mutation)
+            with self.assertRaises(ValueError):
+                apply_updates(copy.deepcopy(self.data), updates)
+        for mutation in [dict(display_value=99), dict(plot_eligible=True), dict(setting=''), dict(display_value=None), dict(model_id='other-model')]:
+            updates = copy.deepcopy(self.updates)
+            updates['reportComparisons'][mid][bid]['supplementaryComparisons'][0]['rows'][0].update(mutation)
+            with self.assertRaises(ValueError):
+                apply_updates(copy.deepcopy(self.data), updates)
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-09.json').read_text())
+        self.assertEqual(len(evidence['supplements']), 32)
+        for item in evidence['supplements']:
+            c = next(s for s in self.updates['reportComparisons'][mid][item['benchmarkId']]['supplementaryComparisons'] if s['id'] == item['supplementId'])
+            self.assertEqual(item['columns'], [[r['source_column'], r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'], c['source_table_sha256'])
+            for row in c['rows']:
+                if row['display_value'] is None:
+                    self.assertEqual(row['value_status'], 'unlabeled_figure')
+                    self.assertFalse(row['plot_eligible'])
+
+    def test_haiku_source_coverage_includes_all_report_figures_and_supplements(self):
+        from build_model_eval_review import build_review
+        data = apply_updates(self.data, self.updates)
+        queue, html = build_review(data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        model = next(m for m in queue['models'] if m['modelId'] == mid)
+        self.assertEqual(model['status'], 'reviewed')
+        self.assertEqual(model['reviewedPairs'], 266)
+        self.assertFalse(model['discoveredMetrics'])
+        receipt = json.loads((ROOT / self.updates['modelAudits'][mid]['coverageReceipt']).read_text())
+        self.assertEqual(len(receipt['figures']), 84)
+        for figure in receipt['figures']:
+            self.assertTrue(figure['evidence'] or figure['exclusion'])
+            for ref in figure['evidence']:
+                c = self.updates['reportComparisons'][mid][ref['benchmarkId']]
+                if ref['kind'] == 'supplement':
+                    c = next(s for s in c['supplementaryComparisons'] if s['id'] == ref['supplementId'])
+                self.assertIn(figure['figure'], c['source_table_label'])
+        self.assertIn('supplementary report evidence', html)
+        self.assertIn('65.5%', html)
+        self.assertIn('No exact numeric labels', html)
 
 
 if __name__ == '__main__':

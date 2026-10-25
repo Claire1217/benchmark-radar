@@ -159,6 +159,54 @@ def apply_updates(data, updates):
             own = [r for r in comparison['rows'] if r.get('model_id') == mid]
             if len(own) != 1 or own[0]['display_value'] != data['report_audits'][bid][mid]['value']:
                 raise ValueError('Selected comparison result must match its report receipt')
+            supplement_ids = set()
+            for supplement in comparison.get('supplementaryComparisons', []):
+                # Effort curves are source evidence, not extra candidates for the
+                # headline result or the independently collected official rank.
+                source = sources.get(supplement.get('sourceId'), {})
+                if (not supplement.get('id') or supplement['id'] in supplement_ids
+                        or supplement.get('evidenceOnly') is not True
+                        or supplement.get('selected_model_id') != mid
+                        or source.get('url') != supplement.get('source_url')
+                        or source.get('provider') != comparison['publisher']
+                        or supplement.get('publisher') != comparison['publisher']
+                        or source.get('publishedAt') != supplement.get('publishedAt')
+                        or not supplement.get('checkedAt') or not supplement.get('setting')
+                        or not supplement.get('source_table_label')):
+                    raise ValueError('Supplement must be dated, source-isolated report evidence')
+                supplement_ids.add(supplement['id'])
+                conditions = set()
+                multiplier = supplement.get('value_multiplier', 1)
+                if not finite(multiplier) or multiplier <= 0:
+                    raise ValueError('Invalid supplementary scale conversion')
+                for row in supplement.get('rows', []):
+                    key = (row.get('name'), row.get('setting'))
+                    value = row.get('display_value')
+                    if (key in conditions or not row.get('setting')
+                            or row.get('provenance') != 'publisher_comparison'
+                            or row.get('plot_eligible') is not False
+                            or row.get('model_id', mid) != mid
+                            or (row.get('model_id') == mid and row.get('name') != data['models'][mid]['name'])
+                            or row.get('source_column') != row.get('name', '') + ' · ' + row.get('setting', '')
+                            or (value is not None and not valid_score(value, data['benchmarks'][bid]))
+                            or (value is None and (row.get('value_status') != 'unlabeled_figure'
+                                                  or not row.get('exception')))):
+                        raise ValueError('Invalid supplementary result or ambiguous condition')
+                    if value is not None:
+                        try:
+                            converted = float(row['source_value']) * multiplier
+                        except (TypeError, ValueError):
+                            raise ValueError('Supplement requires an exact numeric source value') from None
+                        if not math.isclose(value, converted, rel_tol=0, abs_tol=1e-8):
+                            raise ValueError('Supplementary displayed value differs from its source')
+                    conditions.add(key)
+                if not any(r.get('model_id') == mid for r in supplement.get('rows', [])):
+                    raise ValueError('Supplement must include the selected model')
+                transcription = dict(locator=supplement['source_table_label'],
+                                     columns=[[r['source_column'], r['source_value']] for r in supplement['rows']])
+                digest = hashlib.sha256(json.dumps(transcription, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+                if digest != supplement.get('source_table_sha256'):
+                    raise ValueError('Supplement transcription does not match its receipt')
     data['report_comparisons'] = comparisons
     from build_model_eval_review import build_review
     queue, report_html = build_review(data, updates)

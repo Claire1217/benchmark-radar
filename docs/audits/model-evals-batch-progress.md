@@ -480,3 +480,55 @@ healthcare). These must be reconciled before marking source coverage complete.
 Validation: **35 tests**, **2,275 drawer renders**, static build/site validation,
 semantic preservation of all earlier evidence and whitespace checks. No browser
 visual verification is claimed.
+
+## Batch 9 — 2026-10-25
+
+Completed Haiku source coverage: **266 primary comparisons/coverage records**
+and **32 supplementary report records**, containing **166 explicitly printed
+numeric cells** plus nonnumeric curve disclosures. Supplementary cells include
+repeated headline values for context; they do not add 166 new model–benchmark
+pairs. The 144-page source reconciliation indexes all **84 numbered figures and
+tables**, including the evaluation-portfolio table explicitly excluded because
+it contains no results.
+
+- Keep supplementary records in the full source audit. The two main charts and
+  their selected headline scores remain unchanged. Each supplement has its own
+  source, locator, conditions, raw-value transcription and hash. Validation
+  rejects source mixing, ambiguous conditions, changed display values and entry
+  into either ranking.
+- Preserve exact HLE, DRACO and WANDR effort values. Budget differences and
+  modified graders/harnesses remain explicit. Unlabeled cost/token coordinates
+  are not estimated.
+- FrontierCode's summary additionally reports Haiku XHigh 45.8 versus Max 46.4;
+  Sonnet XHigh and Max are also different. FrontierCode labels GPT-6 Sol while
+  OSWorld labels GPT-6.1 Sol; the identities are not merged.
+- Chartography and BenchCAD effort curves have no exact point labels. Preserve
+  tool conditions, named peers and run counts without digitizing values.
+  Chartography's complete no-tools figure is retained separately from the
+  smaller launch comparison; quoted Surge AI results remain publisher evidence.
+- Healthcare separates raw, length-adjusted and pass@1 results. Preserve the
+  separate October 4 thirteen-run repeat, dates/run counts by effort, and the
+  historical frontier's unspecified model identities. The original figure
+  explicitly labels GPT-6 Luna HealthBench Professional at 65.5%; this is
+  Anthropic's evaluation, not an OpenAI self-report.
+- Terminal-Bench prose distinguishes Astra's quoted High 57.9 from the quoted
+  leaderboard's Max 58.2. Terminal-Bench-Science also distinguishes older-model
+  internal and public results. Neither quote is treated as a newly captured
+  maintainer run. Additional AA knowledge-work prose and Omniscience outcome
+  fractions are retained with exact settings and raw precision.
+- AECI historical points and fitted trends have no exact per-model labels;
+  the 130 scale anchor is not a measured model result. Existing exact prose
+  results remain intact.
+
+Inventory remains **340 reviewed / 2,275 collected pairs** across 124 models;
+source-complete models increase to **3** (Kimi, DeepSeek and Haiku). There are
+still **32 matching official snapshots**. This does not complete the overall
+review queue.
+
+Validation: **38 tests**, **2,275 drawer renders**, unchanged prior numeric
+observations, primary comparisons, compatibility audits and official snapshots.
+A clean snapshot plus this batch's edits was used for the static build because
+iCloud had evicted unrelated local tracked files and a Git stash reference;
+no user stash or unrelated source file was replaced. Batch 8 CI/deployment and
+live 340/2,275 inventory were verified before this batch. No browser visual
+verification is claimed.
