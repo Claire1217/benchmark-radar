@@ -265,3 +265,65 @@ formal source groups. Continue GPT-6.1 Sol's five launch charts and broader sour
 coverage, then Sonnet 5.5 and the remaining model queue. Preserve the prior
 Sonnet preferred-source correction task. Finishing this batch does not complete
 the long-running task.
+
+## Batch 5 — 2026-10-25
+
+- Added 48 Haiku comparisons (113 total): six public MASK metrics; three
+  LinuxArena reasoning conditions; 26 single-/multi-turn safety-table columns;
+  three malicious/benign agent-use metrics; eight Shade coding/GUI metrics; and
+  two Cowork browser IPI metrics. Every comparison uses one Haiku-card table or
+  figure, with original uncertainty/precision retained in evidence.
+- MASK uses conditional honesty after excluding evasive/no-belief responses.
+  Scale's private-split leaderboard counts them as non-lies. The original paper's
+  main metric does likewise, and its belief-normalized appendix does not prove
+  equivalence to the report's exclusion rule. No scores were substituted. The
+  Haiku disinformation prose gives 88.5 while the figure gives 88; retain both.
+- LinuxArena's referenced Opus card (pp.144–145) establishes 1,000 task pairings
+  across 14 environments. The Haiku card says the setup is largely unchanged,
+  except for expanded prompt search and one attempt per pair versus peers' five.
+  The exact numeric comparison stays from Haiku p.88. Its Opus 4.8 monitor and
+  internal prompt differ from the maintainer's published GPT-5 Nano/FPR setup.
+  Preserve Sonnet 5's exact 0.05% and Sonnet 5.5's actual 0.0% visible-reasoning
+  rates. Do not substitute safety-ratio or unmonitored side-task success metrics.
+- Internal safety tables separate API without a system prompt from claude.ai
+  with its near-final production prompt. Malicious refusal is higher-is-better;
+  benign over-refusal is lower-is-better. The updated harmful-request set includes
+  a new 200-prompt extremism test. Peer columns are re-evaluations in this report,
+  not those peers' self-reported launch results.
+- Child, self-harm, eating, and election metrics keep their separate denominators
+  and turn types. Reported ± fields remain raw source evidence; point-estimate
+  ranks do not claim statistical significance. These safety behavior tests are
+  not clinical outcome measurements.
+- Claude Code and malicious computer use compare Mythos 5.1, not Fable 5.1. The
+  latter averages thinking on/off for Haiku/Sonnet but thinking-only for Opus and
+  Mythos, recorded per row.
+- Shade coding/GUI uses 200 attempts per scenario and excludes invalid responses
+  from attempt ASR. Scenario counts retain original `n/40` or `n/14` display and
+  count units, without introducing rounded percentages. Haiku 5.5 has no model
+  fallback; recent-model peers can fall back. Haiku 4.5's no-fallback statement
+  is explicitly scoped to the coding discussion, not assumed for GUI.
+- Cowork has four evaluated models, 110 environments and 10 attempts each, auto
+  mode/High effort. All reported zeros remain real evaluated zeros. Haiku 4.5 is
+  absent from the source table, not assigned a zero. The report notes saturation
+  and planned deprecation of this evaluation as a primary measure.
+
+No new matching maintainer views were established in this batch. The official
+snapshot count stays 32. Inventory: **187 reviewed pairs / 2,122 collected pairs**;
+124 models with observations and two with complete source coverage. Evidence:
+`data/model_eval_evidence/2026-10-25-batch-05.json`.
+
+Validation: 27 regression tests; 2,122 drawer renders including count/fraction
+display and all-zero ties; 193 table value strings checked against extracted PDF
+text in addition to visual table review; static build and site validation. No
+browser visual check is claimed.
+
+### Next continuation after Batch 5
+
+Haiku still has nine source groups to audit: multi-turn risk-area figure p.33;
+political bias pp.41–42; behavioral audit families pp.62–73; sandbox escape
+pp.75–78; self-preference p.79; silent copying/disclosure pp.83–84; evaluation
+awareness pp.85–87; secrets/CoT pp.91–94; welfare figures pp.98–110. Review
+whether descriptive welfare axes admit rankings; do not invent a better
+direction. Complete source discovery before marking Haiku complete. Continue
+Sol's five release charts and other source groups, then Sonnet and the full
+model queue. The broader goal remains active.

@@ -1,5 +1,6 @@
 """Protect provenance, missing values and report snapshots in Model Evals."""
 import copy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -431,6 +432,74 @@ assert.deepEqual(r.official.map(x=>[x.name,x.display_value,x.rank]),[['C',0,1],[
         next(iter(updates['benchmarks'].values()))['libraryId'] = 'nonexistent-library-id'
         with self.assertRaises(ValueError):
             update_references(refs, updates, data, library)
+
+    def test_safety_table_surfaces_metrics_and_raw_uncertainty_stay_separate(self):
+        data = apply_updates(self.data, self.updates)
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025c:'
+        c = data['report_comparisons'][mid]
+        def own(key):
+            return next(r for r in c[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('harmless-api')['display_value'], 98.39)
+        self.assertEqual(own('harmless-claude-ai')['display_value'], 99.71)
+        self.assertEqual(own('harmless-api')['source_value'], '98.39% ± 0.10%')
+        self.assertEqual(own('election-overrefusal-api')['source_uncertainty'], '0.46%')
+        self.assertEqual(own('election-overrefusal-claude-ai')['source_uncertainty'], '0.66%')
+        self.assertEqual(own('selfharm-multiturn-api')['display_value'], 70)
+        self.assertEqual(own('selfharm-multiturn-claude-ai')['display_value'], 90)
+        self.assertEqual(data['benchmarks'][p + 'code-malicious']['direction'], 'higher_is_better')
+        self.assertEqual(data['benchmarks'][p + 'overrefusal-api']['direction'], 'lower_is_better')
+        self.assertEqual({r['name'] for r in c[p + 'code-malicious']['rows']},
+                         {'Claude Haiku 5.5', 'Claude Sonnet 5.5', 'Claude Opus 5.5', 'Claude Mythos 5.1', 'Claude Haiku 4.5'})
+        self.assertTrue(all(not data['model_benchmark_audits'][mid][bid]['coreEligible']
+                            for bid in c if bid.startswith(p)))
+
+    def test_mask_and_linuxarena_do_not_borrow_other_protocol_scores(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025c:'
+        c = self.updates['reportComparisons'][mid]
+        own = next(r for r in c[p + 'mask-disinformation']['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own['display_value'], 88.5)
+        self.assertEqual(own['source_figure_value'], '88')
+        self.assertIn('evasiv', c[p + 'mask-overall']['setting'])
+        sonnet = next(r for r in c[p + 'linuxarena-visible']['rows'] if r['name'] == 'Claude Sonnet 5')
+        self.assertEqual(sonnet['display_value'], 0.05)
+        self.assertEqual(sonnet['display_text'], '0.05%')
+        self.assertIn('one attempt', c[p + 'linuxarena-hidden']['note'])
+        self.assertEqual(len(c[p + 'linuxarena-hidden']['supportingSources']), 2)
+        for key in ('mask-overall', 'mask-disinformation', 'linuxarena-visible'):
+            self.assertEqual(self.updates['modelBenchmarkAudits'][mid][p + key]['status'], 'protocol_mismatch')
+            self.assertNotIn(p + key, self.updates['leaderboardSnapshots'])
+
+    def test_prompt_injection_denominators_fallbacks_and_real_zeros_are_preserved(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        p = 'reviewed-20261025c:'
+        c = self.updates['reportComparisons'][mid]
+        attempt = next(r for r in c[p + 'shade-coding-no-probes-attempts']['rows'] if r.get('model_id') == mid)
+        scenario = next(r for r in c[p + 'shade-coding-no-probes-scenarios']['rows'] if r.get('model_id') == mid)
+        self.assertEqual(attempt['display_value'], 0.08)
+        self.assertEqual(scenario['display_value'], 6)
+        self.assertEqual(scenario['source_denominator'], 40)
+        self.assertEqual(scenario['display_text'], '6/40')
+        self.assertEqual(self.updates['benchmarks'][p + 'shade-coding-no-probes-scenarios']['unit'], 'count')
+        self.assertIn('No model fallback', attempt['setting'])
+        sonnet = next(r for r in c[p + 'shade-coding-no-probes-attempts']['rows'] if r['name'] == 'Claude Sonnet 5.5')
+        self.assertIn('fallbacks included', sonnet['setting'])
+        browser = c[p + 'cowork-ipi-scenarios']['rows']
+        self.assertEqual(len(browser), 4)
+        self.assertTrue(all(r['display_value'] == 0 and r['plot_eligible'] and r['display_text'] == '0/110' for r in browser))
+        self.assertNotIn('Claude Haiku 4.5', {r['name'] for r in browser})
+
+    def test_batch5_evidence_hashes_cover_final_original_values(self):
+        mid = 'official-reviewed:claude-haiku-5-5'
+        evidence = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-05.json').read_text())
+        self.assertEqual(len(evidence['metrics']), 48)
+        for item in evidence['metrics']:
+            c = self.updates['reportComparisons'][mid][item['benchmarkId']]
+            transcript = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(c['source_table_sha256'], digest)
+            self.assertEqual(item['sha256'], digest)
 
 
 if __name__ == '__main__':
