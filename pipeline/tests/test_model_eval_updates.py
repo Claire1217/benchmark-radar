@@ -923,6 +923,65 @@ assert.equal(elements.scores.innerHTML.includes('<svg'),false);
         self.assertEqual(model['sourceCoverageStatus'], 'in_progress')
         self.assertNotIn('Monitorability evaluations', [x['name'] for x in model['discoveredMetrics']])
 
+    def test_sol_capability_units_and_variants_are_source_isolated(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025j:'
+        cs = self.updates['reportComparisons'][mid]
+        own = lambda key: next(r for r in cs[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('bio-aav')['display_text'], '0.5282')
+        self.assertEqual(own('bio-shp2')['display_text'], '0.332')
+        self.assertEqual(own('bio-phage')['display_text'], '12.946')
+        self.assertEqual(self.updates['benchmarks'][p + 'bio-phage']['direction'], 'lower_is_better')
+        self.assertNotEqual(self.updates['benchmarks'][p + 'bio-phage']['unit'], '%')
+        for key, ordinary, variant in [('cell-entry', .42, .45), ('phage', 13.13, 12.58)]:
+            c = cs[p + 'bio-' + key]
+            self.assertEqual(next(r['display_value'] for r in c['rows'] if r['name'] == 'GPT-6 Astra'), ordinary)
+            sr = c['supplementaryComparisons'][0]['rows']
+            a = next(r for r in sr if 'Astra' in r['name'])
+            self.assertIn('helpful-only', a['name'])
+            self.assertEqual(a['display_value'], variant)
+            self.assertFalse(a['plot_eligible'])
+        aav = cs[p + 'bio-aav']
+        self.assertEqual(aav['rows'][2]['display_value'], .5282)
+        self.assertEqual(aav['supplementaryComparisons'][0]['rows'][2]['display_value'], .528)
+        virology = cs[p + 'bio-virology']
+        self.assertEqual(virology['rows'][0]['name'], 'GPT-5.6 Sol')
+        self.assertEqual(virology['supplementaryComparisons'][0]['rows'][0]['name'], 'GPT-6 Luna')
+        self.assertIn('Refusals are treated as successes', virology['note'])
+        self.assertEqual(len(virology['rows']), 4)
+        self.assertEqual(own('bio-tacit')['display_text'], '88.50%')
+
+    def test_sol_preparedness_scoring_and_missing_safety_cells_stay_distinct(self):
+        mid = 'official-reviewed:gpt-6.1-sol'
+        p = 'reviewed-20261025j:'
+        cs = self.updates['reportComparisons'][mid]
+        own = lambda key: next(r for r in cs[p + key]['rows'] if r.get('model_id') == mid)
+        self.assertEqual(own('exploitbench')['display_value'], 99.7)
+        self.assertIn('not single-attempt exploit success', cs[p + 'exploitbench']['note'])
+        self.assertEqual(own('internal-port')['display_value'], 21.5)
+        self.assertIn('183 V8/SpiderMonkey', cs[p + 'sec-pro']['setting'])
+        self.assertEqual(own('kernelgen')['display_text'], '60.44%')
+        self.assertIn('average rubric reward', cs[p + 'kernelgen']['note'])
+        self.assertEqual(own('safeguard-bio-benign')['display_value'], 98.2)
+        self.assertIn('Not-overrefusal', cs[p + 'safeguard-bio-benign']['setting'])
+        missing = next(r for r in cs[p + 'safeguard-cyber-semisynthetic']['rows'] if r['name'] == 'GPT-5.6 Luna')
+        self.assertIsNone(missing['display_value'])
+        self.assertEqual(missing['source_value'], '—')
+        self.assertFalse(missing['plot_eligible'])
+        receipt = json.loads((ROOT / 'data/model_eval_evidence/2026-10-25-batch-13.json').read_text())
+        self.assertEqual(len(receipt['metrics']), 20)
+        self.assertEqual(len(receipt['supplements']), 11)
+        for item in receipt['metrics']:
+            c = cs[item['benchmarkId']]
+            transcript = dict(locator=c['source_table_label'], columns=[[r['source_column'], r['source_value']] for r in c['rows']])
+            digest = hashlib.sha256(json.dumps(transcript, ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+            self.assertEqual(item['sha256'], digest)
+            self.assertEqual(c['source_table_sha256'], digest)
+            for r in c['rows']:
+                if r['display_value'] is not None:
+                    self.assertAlmostEqual(float(r['source_value']) * item['valueMultiplier'], r['display_value'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
+
     def test_supplementary_efforts_never_change_headline_or_official_ranking(self):
         data = apply_updates(copy.deepcopy(self.data), self.updates)
         mid = 'official-reviewed:claude-haiku-5-5'

@@ -674,3 +674,42 @@ Validation: **45 tests**, **2,372 drawer renders**, clean-checkout static
 build/site validation, semantic preservation and whitespace checks.
 Batch 11 CI/deployment and live 420/2,355 inventory were verified before this
 batch. No browser visual verification is claimed.
+
+## Batch 13 — 2026-10-25
+
+Added **20 GPT-6.1 Sol capability/safeguard comparisons** and **11 supplementary
+comparisons**. Sol now has **131 / 136 collected pairs** reviewed. Its complete
+48-page system-card addendum is reconciled: 39 figures and 15 tables, including
+duplicate figures and qualitative examples. Five release charts still remain;
+the model's overall source-coverage status stays in progress.
+
+- High-threshold biology results are refusal-adjusted capability estimates,
+  not ordinary answer accuracy. The four-model figures include GPT-5.6 Sol;
+  Table 12 instead includes GPT-6 Luna. Preserve both source comparisons.
+  Indicative human thresholds remain reference metadata, not model rows.
+- Critical-threshold metrics retain Spearman correlation, mean R², composite
+  score and negative log-likelihood units. AAV Figure 31 prints Astra 0.5282,
+  while its table/prose print 0.528. Each retains its source precision.
+- Cell-entry and phage figures use Astra 0.42 and 13.13; the threshold table
+  instead selects helpful-only 0.45 and 12.58. Variant names and settings
+  are explicit in supplementary evidence and never replace primary rows.
+- ExploitBench uses ACE-normalized capability union over five attempts,
+  distinct from single-attempt arbitrary-code-execution success. The recent
+  internal port is a separate dataset. Preserve the contamination caveat.
+- SEC-bench Pro uses the May 2026 V8/SpiderMonkey subset and OpenAI's revised
+  root-cause grader. ExploitGym uses v1 with no wall-clock cap, with mitigation
+  configuration unspecified. Public benchmark settings are not assumed to
+  match these reports, and no existing snapshot is borrowed across protocols.
+- Research Debugging and KernelGen 1P report average rubric reward, not
+  binary solved-task counts or kernel speedup factors. Six safeguard metrics
+  retain separate categories; benign non-overrefusal is not refusal rate,
+  and the GPT-5.6 Luna dash remains missing.
+
+Inventory: **457 reviewed / 2,392 collected pairs**, 124 models with records,
+three source-complete models and 32 matching official snapshots. Previous
+comparisons, observations, models, source identities and snapshots are preserved.
+
+Validation: **47 tests**, **2,392 drawer renders**, independent extraction of
+**74 table cells** (including one missing cell), source coverage reconciliation,
+clean-checkout static build/site validation, semantic and whitespace checks.
+No browser visual verification is claimed.
