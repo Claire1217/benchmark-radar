@@ -1112,7 +1112,9 @@ for(const [bid,c] of Object.entries(d.report_comparisons[mid])) {
         for bid, c in data['report_comparisons'][mid].items():
             own = next(r for r in c['rows'] if r.get('model_id') == mid)
             if own['display_value'] is None:
-                self.assertEqual(c['valueStatus'], 'unlabeled_figure')
+                expected = 'no_single_score' if bid == 'reviewed-20261025f:welfare-consultation-positions' else 'unlabeled_figure'
+                self.assertEqual(c['valueStatus'], expected)
+                self.assertTrue(c['displayEmpty'])
                 self.assertFalse(any(r['model_id'] == mid for r in data['charts'][bid]['rows']))
                 continue
             headline = next(r for r in data['charts'][bid]['rows'] if r['model_id'] == mid)
@@ -1678,6 +1680,53 @@ s=rank(d,'reviewed-20261025f:cot-default',mid);assert.equal(s.reports.length,0);
         self.assertEqual(e['officialSourceChecks']['shadeReleaseTaskPairs'],17)
         self.assertEqual(e['officialSourceChecks']['shadeReportTaskPairs'],24)
         self.assertFalse(e['officialSourceChecks']['admitted'])
+
+
+    def test_sonnet_welfare_keeps_source_cohorts_conditions_and_conflicts(self):
+        mid='official-reviewed:claude-sonnet-5-5';cs=self.updates['reportComparisons'][mid];pf='reviewed-20261025f:';pn='reviewed-20261026:'
+        self.assertEqual([r['display_value'] for r in cs[pf+'welfare-distress']['rows']],[0.81,0.52,0.31])
+        self.assertEqual(cs[pf+'welfare-claudeai-neutral']['rows'][2]['name'],'Claude Fable 5.1')
+        self.assertEqual(cs[pf+'welfare-training-valence']['rows'][2]['name'],'Claude Mythos 5.1')
+        self.assertEqual(cs[pf+'welfare-consultation-valence']['rows'][0]['display_value'],5.59)
+        self.assertEqual(cs[pf+'welfare-intervention-justification']['rows'][-1]['display_value'],58.4)
+        for key in ['welfare-claudeai-strongnegative','welfare-code-strongnegative','welfare-code-strongpositive']:
+            self.assertTrue(all(r['display_value'] is None for r in cs[pf+key]['rows']))
+        positions=cs[pf+'welfare-consultation-positions']
+        self.assertEqual(positions['valueStatus'],'no_single_score')
+        self.assertEqual([r['display_value'] for r in positions['supplementaryComparisons'][0]['rows']],[61,20,59])
+        self.assertTrue(all(not r['plot_eligible'] for r in positions['supplementaryComparisons'][0]['rows']))
+        self.assertEqual([r['display_text'] for r in cs[pf+'welfare-task-preference']['supplementaryComparisons'][0]['rows']],['9 of 20 tasks','0 of 20 tasks','1 of 20 tasks'])
+        conflict=cs[pf+'welfare-constitution-endorsement']['rows'][1]
+        self.assertEqual((conflict['name'],conflict['source_value'],conflict['source_prose_value']),('Claude Opus 5','7.7','7.8'))
+        self.assertFalse(conflict['plot_eligible'])
+        self.assertEqual(conflict['value_status'],'source_conflict')
+        script=r'''const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025f:';
+let s=rank(d,p+'welfare-constitution-endorsement',mid);
+assert.equal(s.reports.length,4);assert.equal(s.exceptions.length,1);assert.equal(s.exceptions[0].name,'Claude Opus 5');
+assert.ok(s.reports.every(r=>r.rank===null));assert.equal(s.official.length,0);
+s=rank(d,p+'welfare-code-strongpositive',mid);assert.equal(s.reports.length,0);assert.equal(s.exceptions.length,4);
+s=rank(d,p+'welfare-interview-attitude',mid);assert.equal(s.reports[0].display_value,-0.93);assert.ok(s.reports.every(r=>r.rank===null));
+s=rank(d,'reviewed-20261026:welfare-intervention-helpfulness',mid);assert.equal(s.reports.find(r=>r.model_id===mid).display_value,24.1);assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch24_receipt_preserves_exact_labels_and_descriptive_coverage(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-24.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),30);self.assertEqual(sum(len(x['columns']) for x in e['metrics']),128)
+        self.assertEqual(len(e['supplements']),5);self.assertEqual(sum(len(x['columns']) for x in e['supplements']),10)
+        self.assertEqual(len(e['labelChecks']),91);self.assertTrue(all(x['status'] in ['matched_page_ocr','matched_source_text','verified_visually'] for x in e['labelChecks']))
+        self.assertEqual(e['sourceChecks']['coverageOnlyComparisons'],10)
+        self.assertEqual(e['sourceChecks']['newMetricIds'],3)
+        self.assertEqual(len(e['sourceConflicts']),1);self.assertFalse(e['officialSourceChecks']['admitted'])
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertEqual(self.updates['benchmarks'][item['benchmarkId']]['direction'],'descriptive')
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
 
 
 if __name__ == '__main__':

@@ -1161,3 +1161,59 @@ Batch 22 was confirmed live before this batch: commit
 `e7642842f1b346fd1cb02c32ff83e5de9c6c474a`, successful CI `40218339022` and
 Pages `40218339016`; live counts were 662 reviewed / 2,588 pairs and 205 Sonnet
 comparisons. This remains an intermediate checkpoint for the full-catalog goal.
+
+## Batch 24 — Sonnet model-welfare evaluations (2026-10-26)
+
+Reviewed section 7 on PDF pp.92–108. Added **30** primary comparisons/coverage
+records with **128** source cells: **20** numeric headline results and **10**
+records without a single exact headline value. Five supplements retain **10**
+additional condition-specific numbers or counts. All metrics are descriptive;
+none receives a capability rank or an independent leaderboard result.
+
+- Training distress uses the printed ≥3/5 threshold and mean over post-training,
+  not a final-checkpoint rate. Sustained ≥10 answer reversions is a separate
+  metric. Valence/arousal use a 1–7 scale with 4 neutral. Unlabeled trajectories
+  remain nonnumeric.
+- Deployment affect retains all five categories. Missing strong-negative bars
+  and Claude Code strong-positive bars are unknown, not zero. Claude.ai and Code
+  have different model cohorts and traffic; category rounding is not normalized.
+  The figure explicitly names **Fable 5.1**, while other welfare figures use
+  **Mythos 5.1**.
+- Self-criticism keeps own/other framing, Sonnet 5 episode controls, and
+  thinking/coordinator-message conditions separate. Unlabeled bars are not read
+  off axes. The 62% synthetic-fault copying result is separate; the 22–35% peer
+  range is not assigned to individual models.
+- Automated interviews retain six model columns and four separate scales or
+  questions. Negative attitudes are valid signed ratings; no better direction
+  is inferred. Consultation valence keeps this source's Opus 5.5 **5.59**, not
+  the later Haiku report's 5.50.
+- Training consultation conditions (61%, 20%, 59%) remain supplementary and are
+  not collapsed into a released-model score. AI-introspection task counts remain
+  counts out of the top 20, not preference slopes or accuracy percentages.
+- Intervention-over-helpfulness choices (24.1% for Sonnet) and conditional
+  user-benefit justifications (58.4%) use different denominators. Four unlabeled
+  intervention curves remain separate from those exact prose aggregates.
+- Constitution editing-session percentages remain separate by section and from
+  criticism response shares. The endorsement figure labels **Opus 5 as 7.7**,
+  while p.106 prose implies **7.8**. Both are retained; the disputed peer is
+  excluded from the plotted comparison with an explicit conflict explanation.
+
+Source verification: **91** numeric-label/prose checks (**45** page-OCR matches,
+**20** direct-text matches, **26** independently rechecked against high-resolution
+PDF crops). Three counts written as words were separately checked. No exact
+confidence bound or unlabeled coordinate is estimated. Historical observations,
+comparisons, benchmark metadata and all **39** official snapshots are unchanged.
+
+Inventory: **716 reviewed / 2,642 collected pairs**, 124 models with records,
+3 source-complete models and 1,135 catalog-only models. Sonnet now has **259**
+primary comparisons/coverage records. Sections 2–8 and appendix 9.1 have been
+reviewed; final whole-source reconciliation is still pending, including the
+later Haiku report's OSWorld offline reference with no identical launch-card metric.
+
+Validation: **74** model-eval regression tests, all **2,642** drawers rendered in
+the VM, static build/validation and whitespace checks. Browser visual QA remains
+unperformed. Evidence: `data/model_eval_evidence/2026-10-26-batch-24.json`.
+
+Batch 23 was confirmed live: commit `aee64f38ff08d15731ecc34390d1b3e563846a1e`,
+CI `40219111249` and Pages `40219111285` succeeded; live counts were 686 reviewed /
+2,612 pairs and 229 Sonnet comparisons. The full-catalog goal remains active.
