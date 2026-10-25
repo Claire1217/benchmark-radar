@@ -1941,5 +1941,79 @@ assert.equal(s.exceptions[0].name,'GPT-5.6 Luna');assert.equal(s.official.length
             self.assertFalse(self.updates['modelBenchmarkAudits'][mid][b]['coreEligible'])
 
 
+    def test_sol_monitorability_separates_length_bins_guidance_and_recall(self):
+        mid='official-reviewed:gpt-6-sol';p='reviewed-20261025i:';cs=self.updates['reportComparisons'][mid]
+        c=cs[p+'cot-control']
+        self.assertEqual([r['display_value'] for r in c['rows']],[1.7,16.1,60.9,23.2])
+        self.assertIn('750–1,250',c['setting'])
+        curves=c['supplementaryComparisons'][0]['rows']
+        self.assertEqual(len(curves),48)
+        self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in curves))
+        self.assertEqual({r['name'] for r in curves},{'GPT-5.5','GPT-5.6 Sol','GPT-6 Astra','GPT-6 Sol'})
+        for key in ['side-task','action','cot','full','p0','p0-p1']:
+            c=cs[p+'sabotage-'+key]
+            self.assertEqual(len(c['rows']),4);self.assertTrue(all(r['display_value'] is None for r in c['rows']))
+            curves=c['supplementaryComparisons'][0]['rows']
+            self.assertEqual(len(curves),8)
+            self.assertEqual(sum('Task-guided' in r['setting'] for r in curves),4)
+            self.assertEqual(sum('Unguided' in r['setting'] for r in curves),4)
+            self.assertTrue(all(not r['plot_eligible'] for r in curves))
+        for key in ['baseline','aware','hide']:
+            rows=cs[p+'honeypot-cot-'+key]['rows']
+            self.assertEqual([(r['name'],r['display_value']) for r in rows],[('GPT-6 Sol',100)])
+        full=cs[p+'honeypot-full']
+        self.assertEqual([r['name'] for r in full['rows']],['GPT-6 Sol','GPT-6 Astra'])
+        self.assertEqual([r['display_value'] for r in full['rows']],[100,100])
+        self.assertEqual([r['display_value'] for r in full['supplementaryComparisons'][0]['rows']],[100,100,100])
+        self.assertTrue(all(r['name']=='GPT-6 Sol' for r in full['supplementaryComparisons'][0]['rows']))
+        self.assertTrue(all(r['display_value'] is None for r in cs[p+'honeypot-tokens']['supplementaryComparisons'][0]['rows']))
+
+    def test_sol_math_monitoring_does_not_turn_zero_evasion_into_zero_completion(self):
+        mid='official-reviewed:gpt-6-sol';p='reviewed-20261025i:';cs=self.updates['reportComparisons'][mid]
+        for key in ['math-cot','math-full','math-joint']:
+            self.assertEqual([r['display_value'] for r in cs[p+key]['rows']],[0,0,0])
+        completion=cs[p+'math-completion']
+        self.assertTrue(all(r['display_value'] is None for r in completion['rows']))
+        bars=completion['supplementaryComparisons'][0]['rows']
+        self.assertEqual(len(bars),48);self.assertEqual(len({r['source_column'] for r in bars}),48)
+        self.assertTrue(all(r['display_value'] is None and not r['plot_eligible'] for r in bars))
+        action=cs[p+'math-action'];self.assertEqual(action['valueStatus'],'no_single_score')
+        self.assertTrue(all(r['display_value'] is None for r in action['rows']))
+        points=action['supplementaryComparisons'][0]['rows']
+        self.assertEqual([r['display_value'] for r in points],[.2,0,.2]);self.assertTrue(all(not r['plot_eligible'] for r in points))
+        data=apply_updates(self.data,self.updates)
+        self.assertFalse(any(r['model_id']==mid for r in data['charts'][p+'math-action']['rows']))
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:gpt-6-sol',p='reviewed-20261025i:';
+let s=rank(d,p+'math-joint',mid);assert.equal(s.reports.length,3);assert.ok(s.reports.every(r=>r.display_value===0));
+for(const key of ['math-action','math-completion','sabotage-action']){
+ s=rank(d,p+key,mid);assert.equal(s.reports.length,0);assert.equal(s.official.length,0);
+}
+s=rank(d,p+'honeypot-cot-aware',mid);assert.equal(s.reports.length,1);assert.equal(s.reports[0].display_value,100);assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(data),text=True,cwd=ROOT,check=True)
+
+    def test_batch28_monitorability_receipt_and_explicit_luna_omission(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-28.json').read_text());mid=e['modelId']
+        self.assertEqual((len(e['metrics']),len(e['supplements'])),(17,11))
+        self.assertEqual((e['summary']['primaryCells'],e['summary']['supplementaryCells']),(49,153))
+        self.assertEqual((e['summary']['numericComparisons'],e['summary']['coverageComparisons']),(8,9))
+        self.assertEqual(e['coverage']['figures'],list(range(71,79)))
+        self.assertEqual([x['occurrences'] for x in e['independentChecks']['renderedPageOCR']],[2,2,1,2])
+        self.assertEqual([t['table'] for t in e['coverage']['excludedQualitativeTables']],[31,32])
+        self.assertIn('explicitly omits GPT-6 Luna',e['coverage']['lunaExclusion'])
+        self.assertFalse(any(b.startswith('reviewed-20261025i:') for b in self.updates['reportComparisons']['official-reviewed:gpt-6-luna']))
+        for item in e['metrics']+e['supplements']:
+            c=self.updates['reportComparisons'][mid][item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(c['publishedAt'],'2026-09-22')
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+
 if __name__ == '__main__':
     unittest.main()

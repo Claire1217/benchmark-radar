@@ -1352,3 +1352,48 @@ six-column vision source, exact 99.050% precision and the separate later referen
 Validation: **82** model-eval regressions passed, all **2,772** drawers rendered
 in the VM, and static build/asset validation and whitespace checks passed.
 Browser visual QA remains unperformed.
+
+
+## Batch 28 — Sol monitorability and explicit Luna omission (2026-10-26)
+
+Added **17** Sol primary comparisons/coverage records: **8** numerical results
+and **9** source-only figures, with **49** primary cells and **153** supplemental
+cells across **11** records. Figures 71–78 are accounted for; Tables 31–32 are
+qualitative excerpts and do not supply aggregate benchmark scores. The report
+explicitly omits Luna from this monitorability suite, so no Luna column is added.
+
+- CoT-Control retains the exact four-model comparison for the **750–1,250 token
+  bin**, plus all 48 source series across the overall curve, three QA datasets
+  and eight instruction types. These are constraint-compliance rates, not QA
+  accuracy, and the length-bin result is not an all-length average.
+- Six sabotage metrics preserve both guidance conditions and their four-model
+  cohorts. The curves lack exact point labels; “close to zero” is not converted
+  to 0%. Successful sabotage plus evasion is distinct from conditional recall.
+- Figure 76 is **Sol-only**, with an explicit **100.0% in all conditions** label
+  for both CoT-only and full-trajectory recall. The separate same-section prose
+  supplies the two-model Sol/Astra full-context result. No Astra CoT-only value
+  is backfilled from the earlier main-card section.
+- Math monitoring's all-model zero annotations apply to joint task success and
+  evasion or to conditional flag bypass, depending on the panel. The **48** task /
+  effort / model completion bars remain numerically unknown. Three labeled final
+  action-flag points are retained as supplemental evidence, not as maxima or a
+  ranking at matching token budgets.
+
+The exact prose values were checked against PDF text. Independent OCR of rendered
+figure excerpts confirms both 100% annotations, both all-model zero annotations,
+the all-bar joint-zero annotation and both 0.2% endpoint labels; model and panel
+mapping was checked visually in the source. All previous observations,
+comparisons, metric definitions and **39** official snapshots are unchanged.
+Sol remains in progress at **99 / 103** collected pairs, pending release figures,
+preparedness and final source reconciliation. Overall: **875 / 2,789** collected
+pairs reviewed, with **4** source-complete models. Evidence:
+`data/model_eval_evidence/2026-10-26-batch-28.json`.
+
+Batch 27 was confirmed live: commit `bbac269ea443d2ac4d712a0414cdc6ea8b90f53f`,
+CI `40222396892` and Pages `40222396853` succeeded. Live checks confirmed 858 /
+2,772 reviewed pairs, separate report denominators, original-traffic reference,
+unlabeled legitimate-success component and no Luna deployment-simulation column.
+
+Validation: **85** model-eval regressions passed, all **2,789** drawers rendered
+in the VM, and static build/asset validation and whitespace checks passed.
+Browser visual QA remains unperformed.
