@@ -277,8 +277,8 @@ assert.equal(selectRanking(d,b,mid).official.length,0);
         extended = data['leaderboard_snapshots'][p + 'frontier-extended']['rows']
         self.assertEqual(next(r['display_value'] for r in extended
                               if r['name'] == 'Claude Opus 5.5' and r['effort'] == 'medium'), 65.27)
-        self.assertTrue(all(r['agent'].startswith('SWE-agent') for r in
-                            data['leaderboard_snapshots'][p + 'swe-multimodal']['rows']))
+        self.assertNotIn(p + 'swe-multimodal', data['leaderboard_snapshots'])
+        self.assertFalse(data['model_benchmark_audits'][mid][p + 'swe-multimodal']['coreEligible'])
 
     def test_deepseek_changelog_resolves_pass5_without_inventing_tool_access(self):
         data = apply_updates(self.data, self.updates)
@@ -1146,6 +1146,130 @@ assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5.5').rank,2);
 assert.equal(s.reports.find(r=>r.model_id===mid).rank,2);
 '''
         subprocess.run(['node', '-e', script], input=json.dumps(data), text=True, cwd=ROOT, check=True)
+
+
+    def test_sonnet_capability_metrics_preserve_original_scopes_and_units(self):
+        mid = 'official-reviewed:claude-sonnet-5-5'
+        cs = self.updates['reportComparisons'][mid]
+        p = 'reviewed-20261026:'
+        expected = {
+            'reviewed-20261025:swe-pro': 81.3,
+            'reviewed-20261025:swe-multilingual': 90.3,
+            'reviewed-20261025:swe-multimodal': 54.3,
+            'reviewed-202610:deepswe': 71.0,
+            'reviewed-20261025:frontier-extended': 59.1,
+            'reviewed-202610:science': 59.9,
+            'reviewed-20261025:frontierswe-v2': 61.9,
+            p + 'arxivmath-0826-no-tools': 86.8,
+            p + 'arxivmath-0826-tools': 95.2,
+            'reviewed-20261025:program-166-mean': 79.7,
+            'reviewed-202610:automation': 44.7,
+            p + 'toolathlon-verified-pass1': 77.8,
+            p + 'toolathlon-verified-pass3': 85.2,
+            p + 'toolathlon-verified-all3': 68.5,
+            p + 'toolathlon-verified-turns': 31.6,
+            'reviewed-20261025:officeqa-oracle': 76.9,
+            'reviewed-20261025:officeqa-pro-oracle': 65.6,
+            'reviewed-202610:chart-tools': 90.2,
+            p + 'os21-full-strict': 43.5,
+        }
+        for bid, value in expected.items():
+            own = next(r for r in cs[bid]['rows'] if r.get('model_id') == mid)
+            self.assertEqual(own['display_value'], value)
+            self.assertEqual(cs[bid]['sourceId'], 'anthropic-sonnet-system-card-20260928')
+        for bid in [p+'arxivmath-0826-no-tools',p+'arxivmath-0826-tools',
+                    'reviewed-20261025:program-166-mean','reviewed-202610:chart-tools',
+                    'reviewed-20261025:officeqa-oracle','reviewed-20261025:officeqa-pro-oracle']:
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][bid]['coreEligible'])
+        self.assertEqual(self.updates['benchmarks'][p+'toolathlon-verified-turns']['unit'], 'turns')
+        self.assertEqual(self.updates['benchmarks'][p+'toolathlon-verified-turns']['direction'], 'descriptive')
+        self.assertEqual(len(cs['reviewed-202610:deepswe']['rows']), 1)
+        self.assertEqual([r['display_value'] for r in cs['reviewed-202610:chart-tools']['rows']], [90.2,89.0,88.4,73.2])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'], 'in_progress')
+
+    def test_multimodal_revision_ambiguity_retracts_the_previous_board_mapping(self):
+        bid = 'reviewed-20261025:swe-multimodal'
+        data = apply_updates(self.data, self.updates)
+        self.assertNotIn(bid, data['leaderboard_snapshots'])
+        self.assertFalse(data['benchmark_audits'][bid]['coreEligible'])
+        for mid, value in [('official-reviewed:claude-haiku-5-5',30.7),('official-reviewed:claude-sonnet-5-5',54.3)]:
+            a = data['model_benchmark_audits'][mid][bid]
+            self.assertEqual(a['status'], 'protocol_unverified')
+            self.assertFalse(a['coreEligible'])
+            self.assertIn('517',a['note']); self.assertIn('480',a['note'])
+            own = next(r for r in data['report_comparisons'][mid][bid]['rows'] if r.get('model_id') == mid)
+            self.assertEqual(own['display_value'], value)
+        e = json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-15.json').read_text())
+        correction = e['corrections'][0]
+        self.assertEqual(correction['benchmarkId'], bid)
+        self.assertTrue(correction['removedSnapshot']['rows'])
+        self.assertEqual(correction['source'], 'https://www.swebench.com/multimodal.html')
+
+    def test_batch15_official_snapshots_match_complete_primary_source_tables(self):
+        e = json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-15.json').read_text())
+        sources = e['officialSourceTables']
+        self.assertEqual([len(s['rows']) for s in sources], [126,26,5])
+        snapshots = self.updates['leaderboardSnapshots']
+        zapier = snapshots['reviewed-202610:automation']['rows']
+        self.assertEqual(len(zapier),126)
+        for raw, row in zip(sources[0]['rows'], zapier):
+            self.assertEqual(row['source_name'],raw[1])
+            self.assertEqual(row['display_value'],float(raw[2]))
+            self.assertEqual(row['source_cost'],raw[3])
+        self.assertEqual(next(r['display_value'] for r in zapier if r['source_name']=='Claude Sonnet 5.5 (default fallbacks, Max)'),44.75)
+        self.assertEqual(next(r['display_value'] for r in zapier if r['source_name']=='Claude Opus 5.5 (default fallbacks, Max)'),42.47)
+        combo = next(r for r in zapier if 'with Opus 5 Fallback' in r['source_name'])
+        self.assertEqual(combo['name'],'Claude Fable 5.1 + Opus 5 fallback')
+        self.assertIn('260/657',combo['setting'])
+        self.assertTrue(all('initial Haiku 5.5 launch' in r['setting'] for r in zapier if '§' in r['source_name']))
+        for col,key in [(4,'pass1'),(5,'pass3'),(6,'all3'),(7,'turns')]:
+            rows=snapshots['reviewed-20261026:toolathlon-verified-'+key]['rows']
+            expected=[r for r in sources[1]['rows'][1:] if '✓' in r[0] and r[col]!='—']
+            self.assertEqual(len(rows),25 if col==4 else 23)
+            for raw,row in zip(expected,rows):
+                self.assertEqual(row['source_name'],raw[0])
+                self.assertEqual(row['display_value'],float(raw[col].split('±')[0]))
+                self.assertEqual(row['provenance'],'benchmark_evaluation')
+            self.assertFalse(any('Sonnet 5.5' in r['name'] for r in rows))
+        strict=snapshots['reviewed-20261026:os21-full-strict']['rows']
+        self.assertEqual([r['display_value'] for r in strict],[r['binaryAccuracy'] for r in sources[2]['rows']])
+        self.assertEqual(max(r['display_value'] for r in strict),44.33)
+        self.assertTrue(all(r['official'] is True and r['datasetScope']=='full' and r['releaseVersion']=='v2.1' for r in sources[2]['rows']))
+
+    def test_batch15_full_source_comparisons_and_unlabeled_curves_are_retained(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-15.json').read_text())
+        mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),19);self.assertEqual(len(e['supplements']),9)
+        self.assertEqual(sum(len(x['columns']) for x in e['metrics']),80)
+        self.assertEqual(sum(len(x['columns']) for x in e['supplements']),106)
+        for item in e['metrics']:
+            c=cs[item['benchmarkId']]
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+        for item in e['supplements']:
+            c=next(s for s in cs[item['benchmarkId']]['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertTrue(all(not r['plot_eligible'] for r in c['rows']))
+            for row in c['rows']:
+                if row['display_value'] is None:self.assertEqual(row['value_status'],'unlabeled_figure')
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261026:';
+let s=rank(d,'reviewed-202610:automation',mid);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,44.7);
+assert.equal(s.official.find(r=>r.name==='Claude Sonnet 5.5').display_value,44.75);
+assert.equal(s.reports.find(r=>r.name==='Claude Opus 5.5').display_value,42.5);
+assert.equal(s.official.find(r=>r.name==='Claude Opus 5.5').display_value,42.47);
+s=rank(d,p+'toolathlon-verified-pass1',mid);
+assert.equal(s.reports.find(r=>r.name==='Claude Opus 4.8').display_value,79.9);
+assert.equal(s.official.find(r=>r.name==='Claude Opus 4.8').display_value,76.2);
+s=rank(d,p+'toolathlon-verified-turns',mid);
+assert.equal(s.rankable,false);assert.ok(s.reports.every(r=>r.rank===null));assert.ok(s.official.every(r=>r.rank===null));
+for(const b of ['reviewed-20261025:swe-multimodal',p+'arxivmath-0826-tools',p+'arxivmath-0826-no-tools','reviewed-202610:chart-tools'])assert.equal(rank(d,b,mid).official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
 
 if __name__ == '__main__':

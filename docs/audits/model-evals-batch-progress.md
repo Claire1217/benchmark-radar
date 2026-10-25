@@ -753,3 +753,54 @@ Validation: **50 tests**, **2,392 drawer renders**, model-matrix/drawer/source
 consistency checks, independent extraction of **36 source-table cells**, all
 80 release-curve points, clean-checkout static build/site validation, semantic
 preservation and whitespace checks. No browser visual verification is claimed.
+
+## Batch 15 — 2026-10-26
+
+Added **19 Sonnet 5.5 capability comparisons**, **nine source-isolated
+supplements** (106 rows) and **six independent official views**. Sonnet now
+has **28 / 29 collected pairs reviewed**; the remaining system-card sections
+are explicitly queued and the model is not source-complete.
+
+- SWE-bench Pro has no stated revision or split. A new source check also
+  exposed an unsupported older mapping for SWE-bench Multimodal: its official
+  page distinguishes the original 517 tasks from September 2026 v2's 480.
+  Neither Sonnet nor Haiku identifies its revision/count. Both now explicitly
+  exclude the unverified official comparison. The removed snapshot and
+  rationale are archived in the batch receipt; report values are preserved.
+- DeepSWE's source section gives only Sonnet 71.0; peers are not borrowed.
+  FrontierCode Extended retains Max 59.1 and Xhigh 64.4 separately. Full Main
+  and Extended system-card curves retain every model/effort, with exact
+  numeric prose distinguished from unlabelled coordinates. Terminal-Bench
+  and Science quoted reference runs remain separate from current boards.
+- ArXivMath uses the August 57-question release with/without tools and four
+  attempts. MathArena uses different harnesses, a best-guess prompt and two
+  attempts; its 16-row capture is evidence, not a substitute for those runs.
+  ProgramBench is the 166-task filtered mean-test-pass metric with no six-hour
+  cap, not the official thresholded task-resolution metric.
+- AutomationBench's first chart reproduces the four-column report, including
+  Sonnet 44.7 and Opus 42.5 after fallback reruns. The second uses all **126**
+  configurations in Zapier's linked page module (44.75 / 42.47 at Max).
+  The earlier no-fallback Opus 40.0, Fable + Opus combo, initial Haiku launch
+  snapshot and cost caveats remain explicit; public/AA variants are excluded.
+- All four columns of Toolathlon-Verified's seven-model report are retained:
+  Pass@1, Pass@3, Pass³ and mean turns. The independent current-series table
+  supplies 25 author-badged Pass@1 runs and 23 for each other metric. Missing
+  trajectories remain failures; no denominator renormalization is performed.
+  Turns are descriptive, with no invented quality ranking.
+- OfficeQA uses preselected extracted text, distinct from corpus retrieval
+  and oracle PDF pages. Chartography tools excludes the figure's no-tools
+  GPT bars. The full six-model no-tools figure is supplemental to the launch
+  table. OSWorld full-set strict pass (43.5) remains distinct from partial
+  credit (80.1) and offline subsets; only author-marked full-set binary runs
+  enter the new strict official view.
+
+Inventory: **485 reviewed / 2,411 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots** after
+withdrawing the unsupported Multimodal mapping. All previous numeric report
+observations, source identities and other official snapshots are preserved.
+
+Validation: **54 tests**, **2,411 drawer renders**, independent extraction of
+**44 PDF table cells**, visual checks of explicit ArXivMath/Chartography labels,
+complete source-table checks for official configurations, semantic preservation,
+clean-checkout static build/site validation and whitespace checks. No browser
+visual verification is claimed.
