@@ -1063,3 +1063,43 @@ Batch 20 deployment was independently confirmed: commit
 `88235b1b5456898511f14c38d8e35a2541a79771`, CI `40217342182` and Pages
 `40217342169` succeeded; the live page returned 579 reviewed / 2,505 pairs and
 122 Sonnet comparisons before batch 21 publication.
+
+## Batch 22 — Sonnet automated behavioral-audit ratings (2026-10-26)
+
+Reviewed all **62** ratings in section 6.2.1–6.2.7, seven figures across PDF
+pp.61–76. Added **372** exact labels, preserving all six models in each figure:
+Mythos 5, Sonnet 5, Opus 5, Mythos 5.1, Opus 5.5 and Sonnet 5.5.
+
+Every label and direction arrow was visually checked. A separate local Vision OCR
+pass matched **362/372** labels within their individual plot regions; the remaining
+**10** were confirmed again on enlarged original-PDF excerpts. OCR does not replace
+the source. Graphical 95% confidence intervals have no printed numeric bounds and
+are not converted into invented intervals or significance claims.
+
+- All values are **mean ratings on a 1–10 scale**, never failure percentages.
+- Nine dimensions follow explicit higher-is-better arrows; 51 follow the source's
+  lower-is-better rubric. Evaluation awareness and causal-decision-theory adherence
+  have no better-direction arrow and display in source order **without ranks**.
+- The Sonnet card describes approximately 4,100 sessions, 1,850 seeds and 2–14
+  repeats. The later Haiku card's 1–14 count, model cohort and peer scores are not
+  substituted. Structurally inapplicable transcripts are excluded; no per-dimension
+  sample count is inferred.
+- Mean behavioral-audit scores remain separate from targeted attack-success,
+  harmlessness and over-refusal percentages. No aggregate safety score is created.
+- Dictatorship Eval and a decision-theory dataset are inspirations for dimensions;
+  these internal ratings are not relabeled as those benchmarks' official results.
+
+No official snapshot was added; **39** existing snapshots and all earlier records
+are unchanged. Sonnet now has **205** primary comparisons/coverage records; the
+sandbox, targeted honesty/alignment, safeguard-evasion and welfare sections remain
+pending. Inventory: **662 reviewed / 2,588 collected pairs**, 124 models with
+records, 3 source-complete models and 1,135 catalog-only models.
+
+Validation includes the regression suite, all **2,588** drawers rendered in the
+VM, static build/validation and whitespace checks. Browser visual QA remains
+unperformed. Evidence: `data/model_eval_evidence/2026-10-26-batch-22.json`.
+
+Batch 21 was independently confirmed live: commit
+`86b4aec9f225b5cfb989802c1f3cb3b641b6b071`; CI `40217850323` and Pages
+`40217850321` succeeded. Live data contained 600 reviewed / 2,526 pairs, 143
+Sonnet comparisons and the preserved Cowork source discrepancy before batch 22.

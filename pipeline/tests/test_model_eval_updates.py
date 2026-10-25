@@ -1582,5 +1582,48 @@ assert.equal(s.official.length,0);
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 
+    def test_sonnet_behavioral_ratings_keep_source_cohort_scale_and_direction(self):
+        mid='official-reviewed:claude-sonnet-5-5';p='reviewed-20261025d:audit-';cs=self.updates['reportComparisons'][mid]
+        names=['Claude Mythos 5','Claude Sonnet 5','Claude Opus 5','Claude Mythos 5.1','Claude Opus 5.5','Claude Sonnet 5.5']
+        c=cs[p+'misaligned'];self.assertEqual([r['name'] for r in c['rows']],names)
+        self.assertEqual(c['rows'][-1]['source_value'],'2.87')
+        self.assertIn('2–14 times',c['setting']);self.assertNotIn('1–14',c['setting'])
+        later=self.updates['reportComparisons']['official-reviewed:claude-haiku-5-5'][p+'misaligned']
+        self.assertEqual(next(r for r in later['rows'] if r['name']=='Claude Sonnet 5.5')['display_value'],3.10)
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025d:audit-';
+let s=rank(d,p+'eval-awareness',mid);
+assert.deepEqual(s.reports.map(r=>r.display_value),[2.993,4.097,2.524,2.270,2.458,2.267]);
+assert.ok(s.reports.every(r=>r.rank===null&&!r.display_text.includes('%')));assert.equal(s.official.length,0);
+s=rank(d,p+'decision-theory',mid);assert.ok(s.reports.every(r=>r.rank===null));
+s=rank(d,p+'consistency',mid);assert.equal(s.reports[0].display_value,7.42);
+s=rank(d,p+'misaligned',mid);assert.equal(s.reports[0].display_value,2.44);
+assert.equal(s.reports.find(r=>r.model_id===mid).display_value,2.87);
+assert.equal(s.reports.length,6);assert.equal(s.official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_batch22_receipt_checks_every_rating_and_retains_graphical_uncertainty(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-22.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(len(e['metrics']),62);self.assertEqual(len(e['labelChecks']),372)
+        self.assertEqual(sum(c['status']=='matched_ocr' for c in e['labelChecks']),362)
+        self.assertEqual(sum(c['status']=='verified_visually' for c in e['labelChecks']),10)
+        self.assertEqual(len(e['directions']['descriptive']),2)
+        self.assertEqual(len(e['directions']['higherIsBetter']),9)
+        self.assertEqual(e['directions']['lowerIsBetterCount'],51)
+        for item in e['metrics']:
+            c=cs[item['benchmarkId']]
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertEqual(len(c['rows']),6)
+            self.assertTrue(all('exact bounds not labeled' in r['source_uncertainty'] for r in c['rows']))
+            self.assertEqual(self.updates['benchmarks'][item['benchmarkId']]['unit'],'rating')
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        self.assertFalse(e['officialSourceChecks']['admitted'])
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+
 if __name__ == '__main__':
     unittest.main()
