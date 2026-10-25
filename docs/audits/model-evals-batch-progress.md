@@ -1397,3 +1397,58 @@ unlabeled legitimate-success component and no Luna deployment-simulation column.
 Validation: **85** model-eval regressions passed, all **2,789** drawers rendered
 in the VM, and static build/asset validation and whitespace checks passed.
 Browser visual QA remains unperformed.
+
+
+## Batch 29 — Sol / Luna preparedness and safeguard results (2026-10-26)
+
+Added **44** numerical source comparisons: **24** for Sol and **20** for Luna,
+with **184** primary cells and **32** supplemental source-series records across
+**8** curve supplements. Tables 33–36 and Figures 79–85 are accounted for.
+
+- Table 33 contains only Sol and Luna. Its High capability estimates count
+  refusals as successes; thresholds remain references, not model rows or raw
+  accuracy. The Critical table contains no Luna column, consistent with its
+  explicit omission from Critical testing. Four Critical metrics keep their
+  original correlation, R², composite or negative-log-likelihood units.
+- The two starred Astra Critical results retain the **helpful-only** variant
+  in their displayed model names. Unstarred variants are not assumed to be
+  production checkpoints. Later four-model figures do not replace this report's
+  three-model threshold table.
+- Four cybersecurity comparisons retain all four models and the exact printed
+  labels. Token budgets differ; intermediate curve values remain unestimated.
+  In the internal-port chart, GPT-5.6 Sol's **3.5%** is a labeled peak rather
+  than the final point. Internal debugging and KernelGen use mean rubric reward,
+  not binary task-success rates or public KernelBench results.
+- Added four distinct internal **Sandbox Bench** definitions. Exact counts and
+  denominators are retained: 22 overall, 5 runtime, 14 parser and 3 egress
+  targets. The three **1/22** overall results display **4.5%**, explicitly marked
+  as a count-derived conversion; all other percentages are printed by the source.
+- Six safeguard rows preserve the original six-model cohort, with fractions
+  converted to percentages. GPT-5.6 Luna's semi-synthetic cyber cell stays
+  missing. No later GPT-6.1 column is inserted.
+
+Cross-checks cover **56** table cells against independent HTML and PDF extraction,
+**26** figure labels confirmed by rendered-page OCR and visual model/label mapping,
+and **16** Sandbox count/percentage combinations. Five public benchmark sources
+were recaptured. ExploitBench's maintainer explicitly confirms ACE full credit,
+so the earlier 6.1 audit's normalization uncertainty was corrected to
+`protocol_unverified`; equivalence of the report's five-attempt protocol remains
+unverified. VCT raw accuracy, LAB-Bench multiple choice, SEC's public grading and
+ExploitGym's mitigation/time settings are not silently substituted for these
+report protocols.
+
+Five shared metric descriptions were generalized to remove source-specific
+figure/cohort references. Existing report comparisons, observations and all
+**39** official snapshots remain unchanged. Sol is **123 / 127** and Luna
+**79 / 80** collected pairs reviewed; release figures and final source inventory
+remain pending. Overall: **919 / 2,833** collected pairs reviewed, with **4**
+source-complete models. Evidence: `data/model_eval_evidence/2026-10-26-batch-29.json`.
+
+Batch 28 was confirmed live: commit `a9b5a5243e577edf556ff198b262ca43167e99ea`,
+CI `40223213966` and Pages `40223213968` succeeded. Live checks confirmed
+875 reviewed / 2,789 pairs and Sol's exact monitorability annotations, missing
+curve values and explicit Luna omission.
+
+Validation: **89** model-eval regressions passed and all **2,833** drawers rendered
+in the VM. Static build, asset validation and whitespace checks passed.
+Browser visual QA remains unperformed.

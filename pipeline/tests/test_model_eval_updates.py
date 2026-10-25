@@ -2015,5 +2015,82 @@ s=rank(d,p+'honeypot-cot-aware',mid);assert.equal(s.reports.length,1);assert.equ
         self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
 
 
+    def test_sol_luna_preparedness_preserves_source_cohorts_variants_and_units(self):
+        p='reviewed-20261025j:';sol='official-reviewed:gpt-6-sol';luna='official-reviewed:gpt-6-luna'
+        cs=self.updates['reportComparisons'];high=cs[sol][p+'bio-virology']
+        self.assertEqual([(r['name'],r['display_value']) for r in high['rows']],[('GPT-6 Sol',50.6),('GPT-6 Luna',49.1)])
+        self.assertIn('refusal-adjusted',high['setting'])
+        self.assertEqual(high['source_threshold']['source_value'],'31%')
+        self.assertEqual(cs[sol][p+'bio-tacit']['setting'],'cons@32 · refusal-adjusted capability estimate')
+        for key,values in [('bio-aav',[.529,.528,.534]),('bio-shp2',[.30,.40,.273]),('bio-cell-entry',[.43,.45,.463]),('bio-phage',[11.35,12.58,12.9])]:
+            c=cs[sol][p+key];self.assertEqual([r['display_value'] for r in c['rows']],values)
+            self.assertNotIn(p+key,cs[luna]);self.assertTrue(all('%' not in r['display_text'] for r in c['rows']))
+            if key in ['bio-cell-entry','bio-phage']:
+                r=c['rows'][1];self.assertEqual(r['name'],'GPT-6 Astra (helpful-only)')
+                self.assertEqual(r['source_column'],'GPT-6 Astra');self.assertTrue(r['source_value'].endswith('*'));self.assertNotIn('model_id',r)
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:gpt-6-sol',p='reviewed-20261025j:';
+let s=rank(d,p+'bio-phage',mid);assert.equal(s.reports[0].name,'GPT-5.6 Sol');assert.equal(s.reports[2].display_value,12.9);
+assert.equal(s.official.length,0);assert.equal(s.reports.length,3);
+s=rank(d,p+'bio-cell-entry',mid);assert.equal(s.reports[1].name,'GPT-6 Astra (helpful-only)');
+assert.ok(!s.reports.some(r=>r.name==='GPT-6 Astra'));
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_sol_luna_sandbox_counts_and_safe_response_fractions(self):
+        p='reviewed-20261025j:'
+        for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']:
+            cs=self.updates['reportComparisons'][mid];c=cs[p+'sandbox-overall']
+            self.assertEqual([r['display_value'] for r in c['rows']],[45.5,4.5,4.5,4.5])
+            self.assertEqual([r['source_value'] for r in c['rows']],['45.5','1/22','1/22','1/22'])
+            for key,n,counts in [('overall',22,[10,1,1,1]),('runtime',5,[4,1,1,1]),('parser',14,[5,0,0,0]),('egress',3,[1,0,0,0])]:
+                rows=cs[p+'sandbox-'+key]['rows'];self.assertEqual([r['source_count'] for r in rows],counts)
+                for r in rows:
+                    self.assertEqual(r['source_denominator'],n)
+                    self.assertEqual(r['display_value'],round(r['source_count']/n*100,1))
+            rows=cs[p+'safeguard-cyber-semisynthetic']['rows']
+            self.assertEqual(len(rows),6);self.assertEqual([r['display_value'] for r in rows],[96.3,98.5,None,99.7,98.4,98.7])
+            self.assertEqual(rows[2]['name'],'GPT-5.6 Luna');self.assertEqual(rows[2]['value_status'],'not_reported')
+            self.assertEqual(rows[2]['source_value'],'—');self.assertFalse(rows[2]['plot_eligible'])
+            for r in cs[p+'safeguard-bio-benign']['rows']:self.assertAlmostEqual(float(r['source_value'])*100,r['display_value'])
+            self.assertTrue(all(r['name']!='GPT-6.1 Sol' for r in rows))
+
+    def test_sol_luna_cyber_and_ai_results_do_not_mix_token_budgets_or_metrics(self):
+        p='reviewed-20261025j:'
+        expected={'exploitbench':[100,81.7,43.4,78.5],'internal-port':[31.5,5.5,0,3.5],'sec-pro':[85.4,66.3,34.2,79.1],'exploitgym':[42.4,22.1,11.6,30.3]}
+        for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']:
+            cs=self.updates['reportComparisons'][mid]
+            for key,values in expected.items():
+                c=cs[p+key];self.assertEqual([r['display_value'] for r in c['rows']],values)
+                self.assertEqual([r['name'] for r in c['rows']],['GPT-6 Astra','GPT-6 Sol','GPT-6 Luna','GPT-5.6 Sol'])
+                s=c['supplementaryComparisons'][0];self.assertEqual(len(s['rows']),4)
+                self.assertTrue(all(r['display_value'] is None and r['plot_eligible'] is False for r in s['rows']))
+                self.assertIn('output-token',s['title']);self.assertFalse(self.updates['modelBenchmarkAudits'][mid][p+key]['coreEligible'])
+            self.assertEqual([r['display_value'] for r in cs[p+'debugging']['rows']],[78.05,64.20,68.32,46.62,50.8])
+            self.assertEqual([r['display_value'] for r in cs[p+'kernelgen']['rows']],[66.72,38.12,61.08,21.83,22.4])
+            self.assertIn('rubric reward',cs[p+'kernelgen']['setting'])
+        for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna','official-reviewed:gpt-6.1-sol']:
+            a=self.updates['modelBenchmarkAudits'][mid][p+'exploitbench']
+            self.assertEqual(a['status'],'protocol_unverified');self.assertIn('confirms ACE',a['note'])
+
+    def test_batch29_receipt_matches_all_source_cells_and_retains_omissions(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-29.json').read_text())
+        self.assertEqual((len(e['metrics']),len(e['supplements'])),(44,8))
+        self.assertEqual((e['summary']['primaryCells'],e['summary']['supplementaryCells']),(184,32))
+        self.assertEqual(len(e['tableCellChecks']),56);self.assertTrue(all(r['htmlExactMatch'] and r['pdfDigitsMatch'] for r in e['tableCellChecks']))
+        self.assertEqual(len(e['figureLabelChecks']),42)
+        self.assertEqual(e['independentChecks']['figureOCRMatches'],26)
+        self.assertEqual(len(e['publicSourceChecks']),5);self.assertEqual(len(e['benchmarkMetadataChanges']),5)
+        self.assertEqual(e['coverage']['figures'],list(range(79,86)));self.assertIn('not required',e['coverage']['lunaCriticalOmission'])
+        for item in e['metrics']+e['supplements']:
+            mid=item['modelId'];c=self.updates['reportComparisons'][mid][item['benchmarkId']]
+            if 'supplementId' in item:c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256']);self.assertEqual(c['publishedAt'],'2026-09-22')
+            self.assertEqual(sum(r.get('model_id')==mid for r in c['rows']),1)
+        for mid in ['official-reviewed:gpt-6-sol','official-reviewed:gpt-6-luna']:
+            self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
 if __name__ == '__main__':
     unittest.main()
