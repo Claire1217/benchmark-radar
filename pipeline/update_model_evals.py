@@ -201,7 +201,7 @@ def apply_updates(data, updates):
                             or (row.get('model_id') == mid and row.get('name') != data['models'][mid]['name'])
                             or row.get('source_column') != row.get('name', '') + ' · ' + row.get('setting', '')
                             or (value is not None and not valid_score(value, data['benchmarks'][bid]))
-                            or (value is None and (row.get('value_status') != 'unlabeled_figure'
+                            or (value is None and (row.get('value_status') not in {'unlabeled_figure', 'not_reported'}
                                                   or not row.get('exception')))):
                         raise ValueError('Invalid supplementary result or ambiguous condition')
                     if value is not None:

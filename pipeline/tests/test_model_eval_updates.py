@@ -1271,6 +1271,81 @@ for(const b of ['reviewed-20261025:swe-multimodal',p+'arxivmath-0826-tools',p+'a
 '''
         subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
+    def test_sonnet_healthcare_raw_adjusted_and_judge_scopes_are_separate(self):
+        mid='official-reviewed:claude-sonnet-5-5';p='reviewed-20261025:'
+        cs=self.updates['reportComparisons'][mid]
+        self.assertEqual(cs[p+'health-pro-adjusted']['lengthAdjustment']['ratePer500Characters'],1.47)
+        self.assertEqual(cs[p+'health-adjusted']['lengthAdjustment']['ratePer500Characters'],2.99)
+        self.assertEqual(cs[p+'health-pro-adjusted']['lengthAdjustment']['definedBy'],'OpenAI')
+        for k in ['health-adjusted','health-pro-adjusted']:
+            self.assertIn('OpenAI-defined',self.updates['benchmarks'][p+k]['summary'])
+        summary=next(s for s in cs[p+'health-pro-adjusted']['supplementaryComparisons'] if s['id']=='capability-summary-table')
+        self.assertEqual([r['display_value'] for r in summary['rows']],[69.2,57.8,65.6,None])
+        missing=summary['rows'][-1]
+        self.assertEqual(missing['source_value'],'—');self.assertEqual(missing['value_status'],'not_reported')
+        curve=next(s for s in cs[p+'physician-opus5']['supplementaryComparisons'] if s['id']=='healthcare-effort-curve')
+        self.assertEqual([r['display_value'] for r in curve['rows'] if r.get('model_id')==mid],[27.2,30.0,47.6,56.4,63.2])
+        self.assertTrue(all(r['plot_eligible'] is False for r in curve['rows']))
+        script=r'''
+const fs=require('node:fs'),assert=require('node:assert/strict');
+const d=JSON.parse(fs.readFileSync(0,'utf8')),rank=require('./web/model-evals/ranking.js').selectRanking;
+const mid='official-reviewed:claude-sonnet-5-5',p='reviewed-20261025:';
+let s=rank(d,p+'health-pro-adjusted',mid);
+assert.deepEqual(s.reports.map(r=>[r.name,r.display_value,r.rank]),[['GPT-6 Astra',70.3,1],['Claude Sonnet 5.5',69.2,2],['Claude Opus 5.5',65.6,3],['Claude Fable 5.1',62.1,4]]);
+assert.equal(s.official.length,0);
+s=rank(d,p+'health-pro-raw',mid);
+assert.equal(s.reports.find(r=>r.name==='Claude Opus 5.5').rank,1);
+assert.equal(s.reports.find(r=>r.name==='Claude Sonnet 5.5').rank,1);
+assert.equal(s.reports.find(r=>r.name==='GPT-6 Astra').display_value,74);
+for(const b of ['health-raw','health-adjusted','physician-opus5','gmmlu-excluded','milu-excluded'])assert.equal(rank(d,p+b,mid).official.length,0);
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
+    def test_sonnet_life_sciences_preserve_precision_models_and_exclusions(self):
+        mid='official-reviewed:claude-sonnet-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-20261025:'
+        med=cs[p+'life-medchem'];opus=next(r for r in med['rows'] if r['name']=='Claude Opus 5.5')
+        self.assertEqual(opus['source_figure_value'],'0.63');self.assertEqual(opus['source_prose_value'],63.5);self.assertEqual(opus['display_value'],63.5)
+        self.assertEqual([r['name'] for r in med['rows']],['Gemini 3.1 Pro','GPT-6 Astra','Claude Sonnet 5','Claude Fable 5.1','Claude Opus 5.5','Claude Sonnet 5.5'])
+        image=cs[p+'life-biomedical-image'];gemini=image['rows'][0]
+        self.assertEqual(gemini['display_value'],37.8);self.assertIn('89/91',gemini['setting'])
+        self.assertIn('safeguards off',med['setting']);self.assertIn('excluded',med['note'])
+        binder=cs['reviewed-20261026:life-binder-24h']
+        self.assertEqual([r['display_value'] for r in binder['rows']],[73,79,82.6,82.3])
+        self.assertIn('Cas9 excluded',binder['setting']);self.assertIn('does not define',binder['note'])
+        for k in ['life-biomystery-solvable','life-biomystery-difficult']:
+            self.assertIn('ambiguous',cs['reviewed-20261026:'+k]['protocolUncertainty'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid]['reviewed-20261026:'+k]['coreEligible'])
+        for k in ['gmmlu-excluded','milu-excluded']:
+            c=cs[p+k]
+            self.assertEqual(len(c['rows']),4)
+            self.assertEqual(c['sourceId'],'anthropic-sonnet-system-card-20260928')
+            self.assertIn('Haiku',c['supportingSources'][1]['locator'])
+            self.assertIn('unspecified',c['rows'][0]['setting'])
+
+    def test_batch16_receipt_contains_every_source_series_and_rejects_invented_missing_values(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-16.json').read_text());mid=e['modelId']
+        self.assertEqual(len(e['metrics']),19);self.assertEqual(len(e['supplements']),6)
+        self.assertEqual(sum(len(x['columns']) for x in e['metrics']),86)
+        self.assertEqual(sum(len(x['columns']) for x in e['supplements']),89)
+        cs=self.updates['reportComparisons'][mid]
+        for item in e['metrics']:
+            c=cs[item['benchmarkId']]
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']])
+            self.assertEqual(item['sha256'],c['source_table_sha256'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        for item in e['supplements']:
+            s=next(s for s in cs[item['benchmarkId']]['supplementaryComparisons'] if s['id']==item['supplementId'])
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in s['rows']])
+            self.assertEqual(item['sha256'],s['source_table_sha256'])
+        self.assertEqual(len(e['officialSourceTables'][0]['rows']),14)
+        self.assertFalse(e['officialSourceTables'][0]['admitted'])
+        bad=copy.deepcopy(self.updates)
+        s=next(s for s in bad['reportComparisons'][mid]['reviewed-20261025:health-pro-adjusted']['supplementaryComparisons'] if s['id']=='capability-summary-table')
+        s['rows'][-1]['value_status']='assumed_zero'
+        with self.assertRaisesRegex(ValueError,'Invalid supplementary'):
+            apply_updates(copy.deepcopy(self.data),bad)
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -804,3 +804,54 @@ Validation: **54 tests**, **2,411 drawer renders**, independent extraction of
 complete source-table checks for official configurations, semantic preservation,
 clean-checkout static build/site validation and whitespace checks. No browser
 visual verification is claimed.
+
+
+## Batch 16 — Sonnet healthcare, multilingual and life sciences (2026-10-26)
+
+Added **19** primary comparisons from the Sonnet 5.5 card, containing **86**
+original model columns, plus **six** source-isolated supplements (**89** rows).
+The model-report chart remains first. No benchmark-maintainer scores have been
+admitted where the version, grader or scoring denominator cannot be matched.
+
+- HealthBench and HealthBench Professional retain raw and length-adjusted scores
+  separately. Professional raw scores tie Sonnet/Opus at 77.1; the adjusted order
+  is Astra 70.3, Sonnet 69.2, Opus 65.6 and Fable 62.1. All are Anthropic runs
+  with an Opus 4.8 grader, including the resampled Astra responses. The four-column
+  capability summary is retained separately, including its unreported Sol cell.
+- The length-adjustment formula is defined by OpenAI. Corrected two earlier
+  Haiku metadata notes that incorrectly described it as Anthropic's adjustment;
+  no scores changed. Maintainer graders differ: HealthBench's GPT-4.1 and
+  Professional's GPT-5.4 low are not interchangeable with Opus 4.8.
+- PhysicianBench retains the five-model numeric comparison, the report's
+  resolution caveat, and all healthcare effort series. The maintainer's full
+  13-model/three-run table is archived in the evidence receipt but not plotted
+  under an unverified Opus 5 grader. Unlabeled coordinates stay null; approximate
+  timings and unidentified historical highest-Claude points are not invented.
+- Both multilingual figures preserve all four original model columns. The later
+  Haiku card explicitly clarifies exclusions for the reused Sonnet/Fable/Opus
+  scores; it is linked as protocol evidence only. Sonnet 5's denominator remains
+  unspecified. Maintainer evaluation documentation does not establish a matching
+  filtered-denominator result set.
+- All **12** life-science metric series and **62** figure labels are retained.
+  More precise prose from the same card is used when available, with the original
+  figure label recorded alongside it. Sonnet biology safeguards are off;
+  GPT/Gemini safety-blocked attempts are excluded, and Gemini's biomedical image
+  result excludes two unfinished cases (89/91 completed).
+- BioMysteryBench's report revision/network policies cannot be matched to public
+  v11; SpatialBench/SingleCellBench cannot be assumed identical to the current
+  clean-v1 sets. Benchling's BenchBench-Protocol is not silently equated with
+  Understanding V2. The binder score is not labeled a wet-lab hit rate: the card
+  does not establish that scoring definition, and its linked earlier campaign
+  evaluates different models. Public metadata reads and raw-download failures
+  are distinguished in the receipt.
+
+Inventory: **504 reviewed / 2,430 collected pairs**, 124 models with records,
+three source-complete models and **39 matching official snapshots**. Sonnet has
+47 reviewed comparisons, but source coverage remains in progress; earlier
+capability, safety, alignment and welfare sections still need review.
+
+Validation: **57 tests**, **2,430 drawer renders**, source-table extraction,
+visual checks of the source figures, prose-precision checks, source-file hashes,
+and semantic comparison against the previously published commit. All earlier
+numeric history and official snapshots are preserved. No browser visual QA is
+claimed.
