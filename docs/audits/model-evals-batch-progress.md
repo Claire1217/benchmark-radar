@@ -1759,3 +1759,79 @@ full source cohorts, excluded cross-subset quotations, separate revision/input
 scope, dated Elo, descriptive turns and official failure handling. Static build,
 asset validation, full evidence-page checks and whitespace checks passed. Browser
 visual QA remains unperformed.
+
+## Batch 35 — Opus healthcare, multilingual and life science capabilities (2026-10-26)
+
+Added **18** primary comparisons with **79** figure cells and **13** supplementary
+records with **57** cells. All 79 printed labels matched visual transcription and
+page OCR. An additional **53** exact life-science prose percentages were checked
+in their model/metric context; the four-column healthcare summary is separate.
+
+- HealthBench and Professional retain raw and length-adjusted scores separately,
+  with complete four-model figure cohorts. Opus uses safety classifiers and
+  **refusal fallback to Opus 5**. All use max, five trials and an Opus 4.8 judge.
+  Maintainer HealthBench uses GPT-4.1; Professional uses GPT-5.4 low and eight
+  main-comparison samples. OpenAI defines the length adjustment. No matching
+  independent grader view was verified. The summary's externally quoted Astra
+  **63.4** stays supplementary rather than entering the internal four-model plot.
+- GMMLU retains **one** trial over 42 languages; MILU retains **five** over 11.
+  The later Haiku card explicitly reuses Opus/Fable values and clarifies excluded
+  blocked/unanswered questions: GMMLU **0.5% / 1.3%**, MILU **under 0.2%** each.
+  That evidence is attached without inferring the older Opus 5/Sonnet 5 denominator.
+  No matching maintainer filtered-result view was verified.
+- All 12 life-science figures preserve the literal **Claude Mythos 5.1** comparator,
+  complete cohorts and printed 0–1 precision, converted exactly to percentages.
+  Finer prose stays supplementary: e.g. Opus BioMystery Solvable **89.3%** versus
+  plotted **0.89**, medicinal chemistry **63.5%** versus **0.63**. Astra has no
+  more precise BioMystery prose values, so none are fabricated. Displayed ties
+  are figure-precision ties; they do not establish equality at finer precision.
+- Claude uses five attempts by default; sequence generation and imaging use one,
+  library ranking three, and binders five independent runs per target. Astra uses
+  max via API, excludes safety-declined attempts and has the same or more permissive
+  **network access**. Its attempt count is unspecified. This card does not explicitly
+  say Opus biology safeguards were disabled, so that later-card claim is not copied.
+- BioMystery has **73 + 17** tasks but no pinned revision. The current raw dataset
+  card returned **401**; earlier captured v11 metadata remains historical evidence.
+  Equal total task counts do not prove dataset identity. LatchBio's current
+  **115 / 195** counts also match the report, but the official board explicitly
+  uses updated clean-v1 task sets and model-plus-harness configurations; exact
+  revision, grader and harness equivalence remain unverified.
+- Protein library ranking explicitly revises its **83-task** set and grader and
+  reruns all models; earlier Mythos-card scores are not comparable. Binder scoring
+  uses **15 targets / 24 hours / 30 designs**, structure predictors and a diversity
+  penalty; linked earlier wet-lab hit rates are a different metric. Biomedical
+  imaging aggregates **91 cases / 31 tasks** after normalization; individual
+  competition leaderboards cannot fill that aggregate.
+- Protocol troubleshooting uses **206** problems and reruns older models after
+  removing external environment network access, while retaining a web-search tool.
+  Understanding V2 uses **119** held-out problems; its tasks/grader are not mapped
+  to Benchling's public BenchBench-Protocol. No matching public independent result
+  set was verified for the remaining internal/partner evaluations.
+
+Fresh checks cover maintainer HealthBench text, Professional PDF, Global-MMLU
+README, MILU's actual **master** README, LatchBio, SpatialBench, Benchling and the
+linked binder study. The obsolete MILU main path returned 404; HealthBench direct
+HTTP returned 403 after the web reader had succeeded. Retrieval limitations are
+recorded, not silently treated as successful checks.
+
+No new official snapshot was added. Every previous primary comparison, observation
+and official value remains unchanged. Opus is **63 / 63 collected pairs reviewed**,
+with **250** primary cells and **49** supplementary records (**421** cells). Its
+full source is still **in progress**: RSP, safety, alignment, welfare, summary-table
+and whole-source reconciliation remain pending. Appendices with interview questions
+and HLE blocklist are inventoried without inventing performance metrics.
+
+Overall: **983 / 2,890** collected pairs reviewed, **4** source-complete models and
+**40** official snapshots. Evidence: `data/model_eval_evidence/2026-10-26-batch-35.json`.
+Batch 34 commit `94d4e2986fcbefe960f7442866f88e5c0a33ce5e` passed CI
+`40230382623` and Pages `40230382616`; exact live verification confirmed all 45
+primary comparisons, eligibility notes and content-versioned ranking script.
+
+Validation: **110** model-eval regressions passed; all **2,890** drawers rendered
+in the VM. Checks cover fallback, denominator clarification, exact model identity,
+figure/prose precision, source-cohort ties and absent incompatible official ranks.
+Browser visual QA remains unperformed.
+
+Batch 35 static artifact build and validation passed (9 assets, 39 IDs), together
+with whitespace checks. The three new regressions were rerun after adding the
+four explicit summary-table checks and passed.

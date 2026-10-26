@@ -2354,5 +2354,53 @@ s=rank(d,'reviewed-20261026:toolathlon-verified-turns',mid);assert.deepEqual(s.r
 '''
         subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
 
+    def test_opus_health_fallback_and_language_denominators_are_explicit(self):
+        mid='official-reviewed:claude-opus-5-5';cs=self.updates['reportComparisons'][mid];p='reviewed-20261025:'
+        for key,values in [('health-raw',[59.2,67.1,66.7,68.1]),('health-adjusted',[58.7,57.8,60,60.6]),('health-pro-raw',[62.4,73.4,74.2,77.1]),('health-pro-adjusted',[57.8,59.8,62.1,65.6])]:
+            c=cs[p+key];self.assertEqual([r['display_value'] for r in c['rows']],values)
+            self.assertIn('refusal fallback to Opus 5',c['rows'][-1]['setting']);self.assertIn('Opus 4.8 judge',c['setting'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][p+key]['coreEligible'])
+        for key,trial in [('gmmlu-excluded','one trial'),('milu-excluded','five trials')]:
+            c=cs[p+key];self.assertIn(trial,c['setting']);self.assertEqual(len(c['supportingSources']),2)
+            self.assertTrue(all('denominator not specified' in row['setting'] for row in c['rows'][:2]))
+            self.assertTrue(all('blocked/unanswered excluded' in row['setting'] for row in c['rows'][2:]))
+        quoted=cs[p+'health-pro-adjusted']['supplementaryComparisons'][0]
+        self.assertEqual(quoted['rows'][-1]['display_value'],63.4);self.assertFalse(quoted['rows'][-1]['plot_eligible'])
+        self.assertNotIn('GPT-6 Astra',[r['name'] for r in cs[p+'health-pro-adjusted']['rows']])
+
+    def test_batch35_preserves_figure_precision_prose_and_actual_model_identity(self):
+        e=json.loads((ROOT/'data/model_eval_evidence/2026-10-26-batch-35.json').read_text());mid=e['modelId'];cs=self.updates['reportComparisons'][mid]
+        self.assertEqual((len(e['metrics']),len(e['supplements']),e['summary']['primaryCells'],e['summary']['supplementaryCells']),(18,13,79,57))
+        self.assertEqual(len(e['labelChecks']),79);self.assertEqual(len(e['sourceProseChecks']),53);self.assertEqual(len(e['sourceSummaryChecks']),4)
+        for item in e['metrics']+e['supplements']:
+            c=cs[item['benchmarkId']]
+            if 'supplementId' in item:
+                c=next(s for s in c['supplementaryComparisons'] if s['id']==item['supplementId']);self.assertTrue(c['evidenceOnly']);self.assertTrue(all(not r['plot_eligible'] for r in c['rows']))
+            self.assertEqual(item['columns'],[[r['source_column'],r['source_value']] for r in c['rows']]);self.assertEqual(item['sha256'],c['source_table_sha256'])
+            if ':life-' in item['benchmarkId']:
+                self.assertIn('Claude Mythos 5.1',[r['name'] for r in c['rows']]);self.assertNotIn('Claude Fable 5.1',[r['name'] for r in c['rows']])
+                self.assertNotIn('safeguards off',c['setting'])
+                for row in c['rows']:
+                    self.assertAlmostEqual(float(row['source_value'])*c.get('value_multiplier',1),row['display_value'])
+                    if row['name']=='GPT-6 Astra':self.assertIn('attempt count unspecified',row['setting']);self.assertIn('safety-declined',row['setting'])
+            self.assertFalse(self.updates['modelBenchmarkAudits'][mid][item['benchmarkId']]['coreEligible'])
+        c=cs['reviewed-20261026:life-biomystery-solvable'];self.assertEqual([r['display_value'] for r in c['rows']],[89,85,91,90,89]);self.assertEqual(len(c['supplementaryComparisons'][0]['rows']),4)
+        self.assertEqual(c['supplementaryComparisons'][0]['rows'][-1]['display_value'],89.3)
+        self.assertEqual(cs['reviewed-20261025:life-medchem']['rows'][-1]['display_value'],63)
+        self.assertEqual(cs['reviewed-20261025:life-medchem']['supplementaryComparisons'][0]['rows'][-1]['display_value'],63.5)
+        self.assertEqual(self.updates['modelAudits'][mid]['sourceCoverageStatus'],'in_progress')
+
+    def test_opus_life_rankings_do_not_mix_prose_or_unmatched_official_runs(self):
+        script=r'''
+const assert=require('node:assert/strict'),fs=require('node:fs'),rank=require('./web/model-evals/ranking.js').selectRanking;
+const d=JSON.parse(fs.readFileSync(0,'utf8')),mid='official-reviewed:claude-opus-5-5',q='reviewed-20261025:';
+let s=rank(d,'reviewed-20261026:life-biomystery-solvable',mid);assert.equal(s.reports.length,5);assert.equal(s.reports.filter(r=>r.rank===3).length,2);assert.equal(s.official.length,0);
+s=rank(d,q+'life-spatial',mid);assert.equal(s.reports.filter(r=>r.rank===2).length,2);assert.equal(s.official.length,0);
+s=rank(d,q+'life-biomedical-image',mid);assert.equal(s.reports[0].name,'GPT-6 Astra');assert.equal(s.reports.find(r=>r.model_id===mid).rank,2);
+s=rank(d,q+'life-protocol-understanding-v2',mid);assert.equal(s.reports[0].name,'Claude Opus 5');assert.equal(s.reports.find(r=>r.model_id===mid).rank,3);
+for(const key of ['health-pro-adjusted','gmmlu-excluded','milu-excluded']){s=rank(d,q+key,mid);assert.equal(s.reports.length,4);assert.equal(s.official.length,0);}
+'''
+        subprocess.run(['node','-e',script],input=json.dumps(apply_updates(self.data,self.updates)),text=True,cwd=ROOT,check=True)
+
 if __name__ == '__main__':
     unittest.main()
