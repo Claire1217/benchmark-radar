@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-26 · **Benchmark releases:** 2621
+**Snapshot:** 2026-10-27 · **Benchmark releases:** 2621
 
 ## Contents
 
@@ -1567,7 +1567,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **LIVIN** (2026-10-08) — To this end, we introduce LIVIN, a benchmark for spatial and embodied intelligence built on digital twins of 30 diverse lived-in homes. [Paper](https://arxiv.org/abs/2610.12069)
 - **RobotWorld** (2026-10-07) — To investigate this, we introduce RobotWorld, a challenging simulation testbed for robot use: turning instructions and observations into physical task execution through robot interfaces. [Paper](https://arxiv.org/abs/2610.10409) · [HF](https://huggingface.co/papers/2610.10409) · [Code](https://github.com/robotworldai/robotworld)
 - **RoboQuest** (2026-10-07) — We thus introduce RoboQuest, a benchmark for goal-directed embodied exploration, where agents must actively acquire task-relevant information through physical interaction, use the resulting evidence to adapt subsequent… [Paper](https://arxiv.org/abs/2610.10388) · [HF](https://huggingface.co/papers/2610.10388) · [Code](https://github.com/declare-lab/RoboQuest)
-- **AirGroundVLN** (2026-10-07) — To address these limitations, we introduce AirGroundVLN, a benchmark containing 10,281 navigation episodes and 955 target instances across 19 Unreal Engine environments, with seen/unseen splits and an aerial-visibility… [Paper](https://arxiv.org/abs/2610.10421)
+- **AirGroundVLN** (2026-10-07) — To address these limitations, we introduce AirGroundVLN, a benchmark containing 10,281 navigation episodes and 955 target instances across 19 Unreal Engine environments, with seen/unseen splits and an aerial-visibility… [Paper](https://arxiv.org/abs/2610.10421) · [HF](https://huggingface.co/papers/2610.10421)
 - **ACG-Bench** (2026-10-05) — We introduce \textbf{ACG-Bench}, a benchmark for \emph{Arm-wise Compositional Generalization} that provides a common testbed for studying skill recomposition in dual-arm policies. [Paper](https://arxiv.org/abs/2610.06184) · [HF](https://huggingface.co/papers/2610.06184)
 - **RMMBench** (2026-10-04) — To address this issue, we propose RMMBench, an evaluation benchmark that requires robots to understand language instructions and perform long-horizon tasks in continuous spaces. [Paper](https://arxiv.org/abs/2610.05414)
 - **EMBER-Bench** (2026-10-04) — We introduce EMBER-Bench, an egocentric benchmark for cross-event causal reasoning in long-horizon embodied tasks, for which we newly created the task design, video recording, and data annotation. [Paper](https://arxiv.org/abs/2610.05013) · [HF](https://huggingface.co/papers/2610.05013)
