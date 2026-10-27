@@ -26,16 +26,16 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-10-27 · benchmarks first released in October 2026</sub>
+<sub>Updated 2026-10-28 · benchmarks first released in October 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **LongLongTextBench**<br><sub>[Paper](https://arxiv.org/abs/2610.23374) · [Code](https://github.com/OpenMOSS/MOSS-Image)</sub> | Image & Video Generation | 104 HF votes · 1,938 GitHub stars |
 | 2 | **Graduate Admissions Agent Benchmark**<br><sub>[Code](https://github.com/yeyuxin777/baoyan-agent-benchmark)</sub> | Professional & Enterprise Work · Abstract Reasoning & Planning | 699 GitHub stars · 768 dataset downloads |
-| 3 | **StreamEval**<br><sub>[Paper](https://arxiv.org/abs/2610.28402)</sub> | Image & Video Generation · World Models & Physical Understanding | 577 HF votes · 322 GitHub stars |
+| 3 | **StreamEval**<br><sub>[Paper](https://arxiv.org/abs/2610.28402)</sub> | Image & Video Generation · World Models & Physical Understanding | 655 HF votes · 441 GitHub stars |
 | 4 | **OmniCompass**<br><sub>[Paper](https://arxiv.org/abs/2610.18829)</sub> | Video Understanding | 748 HF votes · 118 GitHub stars |
 | 5 | **FDE-Gym**<br><sub>[Paper](https://arxiv.org/abs/2610.22350) · [Code](https://github.com/deeplethe/fde-gym)</sub> | Professional & Enterprise Work | 78 HF votes · 111 GitHub stars · 420 dataset downloads |
-| 6 | **DecisionPivot**<br><sub>[Paper](https://arxiv.org/abs/2610.28522)</sub> | Health & Medicine | 74 HF votes · 146 GitHub stars |
+| 6 | **DecisionPivot**<br><sub>[Paper](https://arxiv.org/abs/2610.28522)</sub> | Health & Medicine | 74 HF votes · 150 GitHub stars |
 | 7 | **Doc2Harness**<br><sub>[Paper](https://arxiv.org/abs/2610.20344)</sub> | Agent Skills & Self-Improvement · Agentic Coding & SWE | 62 HF votes · 115 GitHub stars |
 | 8 | **DFM-Bench**<br><sub>[Paper](https://arxiv.org/abs/2610.23839) · [Code](https://github.com/Gen-Verse/DiscoveryRSI)</sub> | Science · AI R&D & ML Engineering | 20 HF votes · 137 GitHub stars |
 | 9 | **EgoExo-Next**<br><sub>[Paper](https://arxiv.org/abs/2610.04506)</sub> | Video Understanding · Spatial & 3D Reasoning | 1,717 dataset downloads |
