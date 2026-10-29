@@ -29,7 +29,8 @@ claim that every upstream source or every candidate review succeeded.
 ## Failure evidence and alerts
 
 Daily and editorial jobs upload a 14-day recovery artifact before generating public
-views. If validation fails, use its data and run logs to inspect completed work;
+views. Snapshot upload failures warn but do not block an otherwise valid publication;
+validation failures still block publication. If validation fails, use its data and run logs to inspect completed work;
 these artifacts are **unpublished snapshots**, not certified site data. Never copy
 an artifact's receipt ledger into main without validating and publishing its data.
 Same-day retries preserve collected candidates even when an upstream response is empty; only explicit promotion removes a queued source.

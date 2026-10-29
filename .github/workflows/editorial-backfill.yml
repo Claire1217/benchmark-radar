@@ -71,12 +71,19 @@ jobs:
         run: python pipeline/sync_catalogs.py
 
       - name: Preserve reviewed data before publication
+        id: recovery-snapshot
+        continue-on-error: true
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: editorial-recovery-${{ github.run_id }}-${{ github.run_attempt }}
           path: data/
           retention-days: 14
+          compression-level: 9
+
+      - name: Report unavailable recovery snapshot
+        if: ${{ always() && steps.recovery-snapshot.outcome == 'failure' }}
+        run: echo "::warning::Recovery snapshot upload failed. Data validation remains mandatory; a valid publication can still proceed. Inspect this run's logs if publication also fails."
 
       - name: Validate and commit completed batches
         run: |
