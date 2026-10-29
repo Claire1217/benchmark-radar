@@ -21,6 +21,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Sync latest main before reviewing
+        run: |
+          git fetch origin main
+          git switch --detach origin/main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -66,16 +70,16 @@ jobs:
         continue-on-error: true
         run: python pipeline/sync_catalogs.py
 
-      - name: Reconcile with latest data and commit completed batches
+      - name: Preserve reviewed data before publication
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/
+          retention-days: 14
+
+      - name: Validate and commit completed batches
         run: |
-          cp data/editorial_copy.json "$RUNNER_TEMP/editorial_copy.json"
-          cp data/review_queue.json "$RUNNER_TEMP/review_queue.json"
-          cp data/curated_records.json "$RUNNER_TEMP/curated_records.json"
-          git fetch origin main
-          git switch --detach origin/main
-          cp "$RUNNER_TEMP/editorial_copy.json" data/editorial_copy.json
-          cp "$RUNNER_TEMP/review_queue.json" data/review_queue.json
-          cp "$RUNNER_TEMP/curated_records.json" data/curated_records.json
           python pipeline/apply_overrides.py
           make generate
           make build

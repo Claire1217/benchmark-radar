@@ -66,7 +66,7 @@ def bootstrap(radar, library):
     first_day = records[min(9, len(records) - 1)]['releasedAt'] if records else latest
     initial = [r for r in records if r['releasedAt'] >= first_day]
     earlier = [r['releasedAt'] for r in records if r['releasedAt'] < first_day]
-    return {'records': initial, 'manifest': pick(manifest, 'dataAsOf latestSourceDate latestBatch'),
+    return {'records': initial, 'manifest': pick(manifest, 'dataAsOf latestSourceDate latestBatch updateStatus'),
             'libraryManifest': pick(library['manifest'], 'libraryTaxonomy identityRedirects'),
             'previousDate': max(earlier, default=None)}
 
