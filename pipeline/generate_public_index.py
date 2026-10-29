@@ -101,6 +101,8 @@ def main() -> None:
     from research_topics import annotate_topics, topic_manifest
     annotate_topics(records)
     manifest = dict(payload["manifest"])
+    from update_status import public_status, load, STATUS
+    manifest["updateStatus"] = public_status(manifest, load(STATUS, {}))
     manifest["researchTaxonomy"] = direction_manifest(records)
     manifest["topicTaxonomy"] = topic_manifest(records)
     latest_batch = effective_latest_batch(

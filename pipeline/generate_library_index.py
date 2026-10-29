@@ -222,15 +222,14 @@ def public_classic(record: dict, classics: dict) -> dict:
     return result
 
 
-def main() -> None:
-    recent = json.loads(RECENT.read_text(encoding="utf-8"))
-    classics = json.loads(CLASSICS.read_text(encoding="utf-8"))
-    catalogs = json.loads(CATALOGS.read_text(encoding="utf-8")) if CATALOGS.exists() else {"records": []}
-    # A reviewed Library record wins on collision. Radar remains untouched.
-    recent_records = [project_record(record) for record in recent.get("records", [])]
-    classic_records = [public_classic(record, classics) for record in classics.get("records", [])]
+def assemble_catalog_records(recent_records, classic_records, catalogs, reviews):
+    """Seed reviewed identities before importing live catalog names and aliases."""
     by_id = {record["id"]: record for record in recent_records}
     by_id.update({record["id"]: record for record in classic_records})
+    seeded = list(by_id.values())
+    # Reviewed additions must participate in catalog identity matching, too.
+    apply_source_reviews(seeded, {"additions": reviews.get("additions", [])})
+    by_id = {record["id"]: record for record in seeded}
     identities: dict[str, dict] = {}
     for item in by_id.values():
         for name in [item.get("name", ""), *(item.get("aliases") or [])]:
@@ -257,6 +256,20 @@ def main() -> None:
         identities[source["normalizedName"]] = item
         catalog_only += 1
     records = sorted(by_id.values(), key=lambda item: (item.get("name", "").casefold(), item["id"]))
+    return records, catalog_redirects, catalog_merged, catalog_only
+
+
+def main() -> None:
+    recent = json.loads(RECENT.read_text(encoding="utf-8"))
+    classics = json.loads(CLASSICS.read_text(encoding="utf-8"))
+    catalogs = json.loads(CATALOGS.read_text(encoding="utf-8")) if CATALOGS.exists() else {"records": []}
+    # A reviewed Library record wins on collision. Radar remains untouched.
+    recent_records = [project_record(record) for record in recent.get("records", [])]
+    classic_records = [public_classic(record, classics) for record in classics.get("records", [])]
+    review_path = ROOT / "data" / "library_source_reviews.json"
+    reviews = json.loads(review_path.read_text()) if review_path.exists() else {}
+    records, catalog_redirects, catalog_merged, catalog_only = assemble_catalog_records(
+        recent_records, classic_records, catalogs, reviews)
     identity_path = ROOT / "data" / "library_identity_merges.json"
     decisions = json.loads(identity_path.read_text()) if identity_path.exists() else {}
     records, identity_redirects = merge_library_identities(records, decisions)
@@ -266,7 +279,7 @@ def main() -> None:
     if review_path.exists():
         reviews = json.loads(review_path.read_text())
         reviewed_additions = len(reviews.get("additions", []))
-        orphaned = apply_source_reviews(records, reviews, {**catalog_redirects, **identity_redirects})
+        orphaned = apply_source_reviews(records, {**reviews, "additions": []}, {**catalog_redirects, **identity_redirects})
         if orphaned:
             print("warning: source reviews for missing Library records: " + ", ".join(orphaned), file=sys.stderr)
     # After reviewed additions, so labels can target them too.

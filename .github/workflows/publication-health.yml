@@ -1,0 +1,23 @@
+name: Check discovery publication freshness
+
+on:
+  schedule:
+    - cron: "30 4,16 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check committed discovery coverage independently of attention
+        run: python pipeline/update_status.py check

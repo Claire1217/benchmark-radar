@@ -15,6 +15,12 @@ on:
         description: "Optional first-release date in YYYY-MM-DD"
         required: false
         type: string
+      catchup_days:
+        description: "Maximum consecutive unpublished days to recover (oldest first)"
+        required: false
+        default: "1"
+        type: choice
+        options: ["1", "3", "7"]
       metrics_only:
         description: "Refresh public attention without discovery or AI review"
         required: false
@@ -39,7 +45,7 @@ concurrency:
 jobs:
   index:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
         with:
@@ -51,16 +57,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Resolve previous Brisbane calendar day
+      - name: Resolve oldest unpublished source window
         if: ${{ inputs.metrics_only != true }}
         id: source-date
         env:
           REQUESTED_DATE: ${{ inputs.date }}
+          CATCHUP_DAYS: ${{ inputs.catchup_days || '1' }}
         run: |
-          target="${REQUESTED_DATE:-$(python pipeline/scheduled_source_date.py)}"
+          python pipeline/update_status.py init
+          start="${REQUESTED_DATE:-$(python pipeline/update_status.py next-date)}"
+          target=$(python pipeline/update_status.py catchup-end --date "$start" --days "$CATCHUP_DAYS" --target "${REQUESTED_DATE:-$(python pipeline/scheduled_source_date.py)}")
           echo "date=$target" >> "$GITHUB_OUTPUT"
-          echo "start=$(python pipeline/scheduled_source_date.py --target "$target" --batch-start)" >> "$GITHUB_OUTPUT"
-          echo "recent_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=3)).isoformat())' "$target")" >> "$GITHUB_OUTPUT"
+          echo "recovery_start=$start" >> "$GITHUB_OUTPUT"
+          echo "start=$(python pipeline/scheduled_source_date.py --target "$start" --batch-start)" >> "$GITHUB_OUTPUT"
+          echo "recent_start=$(python -c 'from datetime import date,timedelta; import sys; print((date.fromisoformat(sys.argv[1])-timedelta(days=3)).isoformat())' "$start")" >> "$GITHUB_OUTPUT"
+
       - name: Discover one unified public-source batch
         if: ${{ inputs.metrics_only != true }}
         id: discovery
@@ -68,10 +79,14 @@ jobs:
         env:
           REQUESTED_DATE: ${{ inputs.date }}
           SCHEDULED_DATE: ${{ steps.source-date.outputs.date }}
+          RECOVERY_START: ${{ steps.source-date.outputs.recovery_start }}
           GITHUB_TOKEN: ${{ github.token }}
           OPENREVIEW_TOKEN: ${{ secrets.OPENREVIEW_TOKEN }}
         run: |
-          python pipeline/discover_benchmarks.py --date "${REQUESTED_DATE:-$SCHEDULED_DATE}"
+          python -c 'from datetime import date,timedelta; import sys; a,b=map(date.fromisoformat,sys.argv[1:]); print("\n".join((a+timedelta(days=i)).isoformat() for i in range((b-a).days+1)))' "$RECOVERY_START" "$SCHEDULED_DATE" > "$RUNNER_TEMP/source-dates.txt"
+          while IFS= read -r day; do
+            python pipeline/discover_benchmarks.py --date "$day"
+          done < "$RUNNER_TEMP/source-dates.txt"
           python -c 'import json; print("indexed_date=" + json.load(open("data/review_queue.json"))["sourceDate"])' >> "$GITHUB_OUTPUT"
 
       - name: Report discovery status
@@ -82,7 +97,7 @@ jobs:
         if: ${{ inputs.metrics_only != true }}
         run: python pipeline/auto_admit_candidates.py
 
-      - name: Review the latest four release days
+      - name: Review the recovered source window and recent candidates
         if: ${{ inputs.metrics_only != true }}
         id: editorial-review
         continue-on-error: true
@@ -174,7 +189,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         # The Library refresh steps below still run in this mode (~19 min), inside
-        # the 45-minute job timeout.
+        # the job timeout.
         run: python pipeline/enrich_metrics.py --max-minutes 15
 
       - name: Refresh public benchmark catalogs
@@ -208,6 +223,24 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: python pipeline/enrich_library_metrics.py --all-visible --max 500
 
+      - name: Stage publication receipts for the completed discovery batch
+        if: ${{ inputs.metrics_only != true && steps.discovery.outcome == 'success' }}
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EDITORIAL_STATUS: ${{ steps.editorial-review.outcome }}
+        run: |
+          while IFS= read -r day; do
+            python pipeline/update_status.py record --date "$day" --run-url "$RUN_URL" --editorial-status "$EDITORIAL_STATUS"
+          done < "$RUNNER_TEMP/source-dates.txt"
+
+      - name: Preserve collected and reviewed data before publication
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: data/
+          retention-days: 14
+
       - name: Generate public views once
         run: make generate
 
@@ -239,6 +272,7 @@ jobs:
           git add README.md AWESOME_BENCHMARKS.md data/benchmarks.json data/benchmarks_index.json data/catalog_records.json data/editorial_copy.json data/library_records.json data/library_index.json data/curated_overrides.json data/curated_records.json data/review_queue.json data/runs data/metrics data/publication data/trends_topics.json data/research_topic_audit.json
           # Include every tracked data output produced by generation, including new views.
           git add -u -- data README.md AWESOME_BENCHMARKS.md
+          git add data/update_status.json
           if git diff --cached --quiet; then
             echo "No index changes"
           else
@@ -247,3 +281,15 @@ jobs:
             git rebase origin/main
             git push origin HEAD:main
           fi
+
+      - name: Fail explicitly when discovery did not complete
+        if: ${{ inputs.metrics_only != true && steps.discovery.outcome == 'failure' }}
+        run: |
+          echo "::error::Discovery did not complete; published coverage is unchanged. The next run will retry."
+          exit 1
+
+      - name: Report publication failure
+        if: ${{ failure() }}
+        run: |
+          echo "::error::Daily publication failed. Published coverage has not advanced; the next scheduled run retries the oldest missing day. Download the daily-recovery artifact to retain completed discovery/review work."
+          echo "Daily publication failed; inspect the failed step and recovery artifact. Attention-only updates do not indicate discovery health." >> "$GITHUB_STEP_SUMMARY"

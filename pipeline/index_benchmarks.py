@@ -1064,16 +1064,10 @@ def persistent_review_candidates(
     range_end: str,
     excluded_source_ids: set[str],
 ) -> list[dict[str, Any]]:
-    """Upsert one source window without deleting deferred candidates elsewhere."""
-    previous_by_source = {
-        str((candidate.get("source") or {}).get("id") or ""): candidate
-        for candidate in existing
-    }
-    retained = [
-        candidate
-        for candidate in existing
-        if not (range_start <= str(candidate.get("releasedAt", "")) <= range_end)
-    ]
+    """Upsert observations; absence on a retry is not evidence of deletion."""
+    # A partial response (or another source's collection pass) must not erase
+    # already collected candidates in the same window. Promotion is explicit.
+    retained = list(existing)
     by_source = {
         str((candidate.get("source") or {}).get("id") or ""): candidate
         for candidate in retained
