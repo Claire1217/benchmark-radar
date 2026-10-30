@@ -10,46 +10,46 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-29 · **Benchmark releases:** 2734
+**Snapshot:** 2026-10-29 · **Benchmark releases:** 2759
 
 ## Contents
 
 - [AI R&D & ML Engineering](#ai-rd--ml-engineering) (48)
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (24)
-- [Abstract Reasoning & Planning](#abstract-reasoning--planning) (52)
+- [Abstract Reasoning & Planning](#abstract-reasoning--planning) (53)
 - [Agent Memory & Personalization](#agent-memory--personalization) (54)
-- [Agent Security & Prompt Injection](#agent-security--prompt-injection) (70)
+- [Agent Security & Prompt Injection](#agent-security--prompt-injection) (72)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (24)
-- [Agentic Coding & SWE](#agentic-coding--swe) (102)
+- [Agentic Coding & SWE](#agentic-coding--swe) (103)
 - [Chat, Writing & Preference](#chat,-writing--preference) (29)
-- [Code Generation](#code-generation) (90)
-- [Composite Indexes](#composite-indexes) (3)
+- [Code Generation](#code-generation) (91)
+- [Composite Indexes](#composite-indexes) (2)
 - [Computer Use & GUI Agents](#computer-use--gui-agents) (53)
-- [Cybersecurity & CTF](#cybersecurity--ctf) (31)
-- [Deep Research & Search](#deep-research--search) (50)
-- [Document Understanding & OCR](#document-understanding--ocr) (32)
+- [Cybersecurity & CTF](#cybersecurity--ctf) (32)
+- [Deep Research & Search](#deep-research--search) (51)
+- [Document Understanding & OCR](#document-understanding--ocr) (34)
 - [Engineering & Hardware Design](#engineering--hardware-design) (32)
 - [Factuality & Hallucination](#factuality--hallucination) (32)
 - [Finance & Law](#finance--law) (60)
 - [Forecasting & Time Series](#forecasting--time-series) (21)
-- [Health & Medicine](#health--medicine) (114)
-- [Image & Video Generation](#image--video-generation) (107)
-- [Image & Visual Reasoning](#image--visual-reasoning) (121)
+- [Health & Medicine](#health--medicine) (113)
+- [Image & Video Generation](#image--video-generation) (109)
+- [Image & Visual Reasoning](#image--visual-reasoning) (122)
 - [Instruction Following](#instruction-following) (17)
 - [Knowledge & Expert QA](#knowledge--expert-qa) (16)
 - [Long Context](#long-context) (7)
-- [Math Reasoning](#math-reasoning) (27)
+- [Math Reasoning](#math-reasoning) (28)
 - [Multi-Agent & Games](#multi-agent--games) (36)
 - [Multilingual & Translation](#multilingual--translation) (34)
 - [Other benchmark tasks](#other-benchmark-tasks) (88)
 - [Professional & Enterprise Work](#professional--enterprise-work) (78)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (139)
 - [Safety & Alignment](#safety--alignment) (107)
-- [Science](#science) (125)
-- [Spatial & 3D Reasoning](#spatial--3d-reasoning) (59)
+- [Science](#science) (127)
+- [Spatial & 3D Reasoning](#spatial--3d-reasoning) (61)
 - [Speech & Audio](#speech--audio) (46)
 - [Tool Use & Function Calling](#tool-use--function-calling) (75)
-- [Video Understanding](#video-understanding) (101)
+- [Video Understanding](#video-understanding) (103)
 - [World Models & Physical Understanding](#world-models--physical-understanding) (40)
 
 ## AI R&D & ML Engineering
@@ -132,6 +132,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Abstract Reasoning & Planning
 
+- **Bongard-Forge100k** (2026-10-28) — Evaluates multimodal models on visual rule inference and rule-conditioned executable program generation across 108,797 problems. [Paper](https://arxiv.org/abs/2610.38737)
 - **P2NPCBench** (2026-10-21) — A benchmark of 12 computational problem families pairing NP-complete and polynomial-time variants to test LLM reasoning about complexity. [Paper](https://arxiv.org/abs/2610.30103) · [Code](https://github.com/Labib1610/complexity-benchmark)
 - **ARCANA** (2026-10-21) — Evaluates abstraction and analogical reasoning on 200 grid-based tasks inspired by ARC, with baselines and a multi-stage pipeline for solving. [Paper](https://arxiv.org/abs/2610.29271) · [Code](https://github.com/density-11/arcana-test)
 - **Epistemic Debugging Benchmark** (2026-10-16) — Evaluates model reasoning on diagnosing failed experiments and engineering faults by selecting the correct cause, ruling out near-miss hypotheses, and choosing discriminating follow-up checks. [Data](https://huggingface.co/datasets/punyajain/epistemic-debugging-benchmark)
@@ -244,7 +245,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Security & Prompt Injection
 
-- **SkillLifeBench** (2026-10-26) — SkillLifeBench assesses agent security across skill lifecycle changes, with paired scenarios and joint success scoring. [Paper](http://arxiv.org/abs/2610.35215v1) · [Code](https://github.com/Tasselszcx/SkillLifeBench)
+- **AI Agent Building Kit** (2026-10-28) — Evaluates AI agents on 43 release-gate cases from three worked agents, including 25 security attacks, across multiple models using a standard harness with triplicate trials and unsafe-outcome counts. [Code](https://github.com/ji-hun-git/ai-agent-building-kit)
+- **V³AST-Bench** (2026-10-26) — Evaluates coding agents on 212 adversarial safety tasks and paired capability controls across 18 risk categories, with runtime verification of harm and task outcomes. [Paper](http://arxiv.org/abs/2610.35188v1) · [Code](https://github.com/Alibaba-AAIG/VAST-Bench)
+- **SkillLifeBench** (2026-10-26) — Evaluates agent security across skill changes with 388 paired scenarios and two tracks: 89 runtime tasks and 60 lifecycle tasks, measuring joint success on authorized task completion without attack goal. [Paper](http://arxiv.org/abs/2610.35215v1) · [Code](https://github.com/Tasselszcx/SkillLifeBench)
 - **Reversible Pseudonymisation of Documents Sent to External LLMs: an Open Bilingual Benchmark and an Engine** (2026-10-25) — Evaluates reversible pseudonymisation tools on Russian and UK English synthetic documents, measuring detection recall, masking leaks, and restoration of placeholders against fixed thresholds. [Paper](http://arxiv.org/abs/2610.34012v1) · [Code](https://github.com/beskvladimir-create/pii-roundtrip)
 - **AuthorizationBench** (2026-10-20) — Evaluates whether LLM agents act within their assigned authorization scope across 286 executable tasks grounded in real-world cases, using a deterministic sandbox with mock services and adapters for OpenHands, OpenAI Ag… [Paper](https://arxiv.org/abs/2610.27548) · [Code](https://github.com/PEACH-Research-Lab/AuthorizationBench)
 - **benchmark-exploit-resistance** (2026-10-16) — Evaluates coding agents on 46 synthetic mini-repositories where visible tests can be gamed; scoring uses hidden cases and verifier integrity checks to distinguish honest fixes, refusals, and tampering. [Code](https://github.com/pooriaarab/benchmark-exploit-resistance) · [Data](https://huggingface.co/datasets/pooria/benchmark-exploit-resistance)
@@ -344,10 +347,11 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
-- **LLM Webdev Gauntlet** (2026-10-28) — Evaluates LLM agents on 106 web development exercises across JavaScript, TypeScript, React, Angular, Vue, and Svelte, with local automated checks and a benchmark of reference solutions. [Code](https://github.com/DanDekker/webdev-gauntlet)
+- **LLM Webdev Gauntlet** (2026-10-28) — A local curriculum and evaluation workspace with 112 web development exercises across 29 categories, providing prompts, starter code, acceptance criteria, and reference solutions. The evaluator returns pass/fail results… [Code](https://github.com/DanDekker/webdev-gauntlet)
 - **Req2Test-Bench** (2026-10-27) — Evaluates LLM agents on generating behaviorally adequate tests from natural-language software requirements. [Paper](http://arxiv.org/abs/2610.36584v1)
 - **RegBench-Py** (2026-10-26) — First Python PR regression benchmark with 154 verified real-world PRs for detecting unintended behavioral changes. [Paper](http://arxiv.org/abs/2610.35223v1)
 - **Co-Design Bench** (2026-10-26) — Evaluates coding agents on 273 real-user multimodal application revision tasks across two tracks, scored by hidden expert-authored acceptance criteria and a judge-then-refute protocol. [Paper](http://arxiv.org/abs/2610.35138v1)
+- **Agentic Coding Language Benchmark** (2026-10-26) — Evaluates software authored by Codex across nine programming languages through 63 authoring turns and 42 frozen synthetic fixtures, measuring correctness, CPU time, and resident memory on one host. [Code](https://github.com/Kian-hdr/agentic-coding-language-benchmark)
 - **wasm2llvm benchmark 2.0** (2026-10-25) — Benchmarks AI coding agents on implementing a WebAssembly-to-LLVM translator, with hidden tests scoring correctness and secondary metrics. [Code](https://github.com/ruihe774/wasm2llvm-benchmark)
 - **TraceTrial-Bench** (2026-10-23) — TraceTrial-Bench evaluates AI agent harness reliability across seven components through 95 mechanism-oriented tasks with executable or state-based ground truth, using a two-layer evaluation framework that separates agen… [Paper](https://arxiv.org/abs/2610.32285) · [Data](https://huggingface.co/datasets/TraceLite-AI/TraceTrial-Bench)
 - **SWE-Shift** (2026-10-23) — SWE-Shift evaluates coding agents under mid-execution workspace changes using 120 paired scenarios across 12 change families and nine intervention positions, measuring clean and shifted success, paired success, and rete… [Paper](https://arxiv.org/abs/2610.32196) · [Code](https://github.com/JeixHuang/SWE-Shift)
@@ -481,7 +485,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Code Generation
 
-- **LLM cost per successful task** (2026-10-28) — Evaluates LLM cost per successful task across 16 fixed tasks with code-based validators and a bring-your-own-key runner for OpenAI, Anthropic, Gemini, and DeepSeek. [Code](https://github.com/aicostbudget/llm-cost-per-task-benchmark)
+- **LLM cost per successful task** (2026-10-28) — Evaluates LLM cost per successful task across 16 code-validated tasks with fixed inputs and pass/fail checks. [Code](https://github.com/aicostbudget/llm-cost-per-task-benchmark)
+- **3DCodeEdit** (2026-10-28) — Evaluates instruction-guided editing of 3D Blender programs across 2,592 tasks, with renders checked against human-reviewed checklists. [Paper](https://arxiv.org/abs/2610.38231)
 - **OneCodeReviewBench** (2026-10-24) — OneCodeReviewBench evaluates code review decisions across 1,968 synthetic cases in 12 programming languages and YAML, with Boolean, categorical, and ordered answers. [Paper](https://arxiv.org/abs/2610.33389)
 - **CodeSense Eval** (2026-10-20) — Paired code regions from real bug fixes with ground-truth bug lines; models must find bugs in buggy variants and avoid false alarms on fixed variants, scored by recall, false-positive rate, precision, F1, and pair accur… [Code](https://github.com/mah3shbishnoi/codesense)
 - **VerifierBench** (2026-10-19) — Benchmark for generating executable verifiers for LLM agents, with 222 tasks and 4,993 hidden test cases measuring ability to accept valid and reject invalid solutions. [Paper](https://arxiv.org/abs/2610.28679)
@@ -574,7 +579,6 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Composite Indexes
 
-- **LLM Probe** (2026-10-26) — Evaluates LLM endpoints on speed (TTFT, throughput, GPU usage), accuracy (text, image/OCR, tool calls), and capabilities via a web UI or CLI. [Code](https://github.com/viebvo/llm-probe)
 - **EGI-BENCH** (2026-10-19) — Unified bench suite for enterprise LLM agents that runs eight benchmarks through one CLI and aggregates results into an EGI Score across six readiness dimensions. [Paper](https://arxiv.org/abs/2610.27234) · [Code](https://github.com/SalesforceAIResearch/egi-bench)
 - **EcoWestern Short and Cheap Benchmark** (2026-09-22) — Compact benchmark program with ESAC-GI released (42 items, 75 points) measuring general intelligence across logic, math, factual recall, reading comprehension, abstraction, instruction-following, writing quality, and re… [Code](https://github.com/EcoWestern/ESAC)
 
@@ -636,6 +640,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Cybersecurity & CTF
 
+- **ICALL-BENCH** (2026-10-27) — Evaluates LLMs and agents on indirect-call target recovery in 50 real-world C/C++ binary programs, measuring program-level verifiable success. [Paper](https://arxiv.org/abs/2610.37871)
 - **BAC-Bench** (2026-10-25) — Evaluates LLMs on repairing broken access control vulnerabilities in web applications, using real-world cases with runtime environments and validation programs. [Paper](http://arxiv.org/abs/2610.34290v1)
 - **SecPRBench** (2026-10-24) — SecPRBench evaluates agentic security review on validated real-world bug-introducing commits across nine critical software systems, requiring identification and explanation of vulnerabilities. [Paper](https://arxiv.org/abs/2610.33509) · [Code](https://github.com/secprbench/secprbench)
 - **SecLog-Bench** (2026-10-22) — A 216-sample cybersecurity log reasoning benchmark with scaffolded evidence and four attack-stage labels, evaluated alongside reasoning quality. [Paper](https://arxiv.org/abs/2610.31000) · [Code](https://github.com/SecLog-Open/SecLog)
@@ -670,6 +675,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Deep Research & Search
 
+- **CoverageBench-Negate** (2026-10-27) — Evaluates information coverage of retrieval systems over nugget-document pairs where evidence may contradict parametric knowledge, covering six datasets and ~63,000 original-edited pair variants. [Paper](https://arxiv.org/abs/2610.37162)
 - **serpapi-india-search-benchmark** (2026-10-22) — Evaluates search API providers on 50 India-focused queries across news, local places, and shopping intents, measuring success rate, latency, structured-field completeness, India relevance, and cost. [Code](https://github.com/jayydees/serpapi-india-search-benchmark)
 - **OmniDR-Bench** (2026-10-22) — Evaluates video-centered deep research report generation across 50 bilingual tasks and 6,414 rubric criteria, measuring audiovisual grounding, evidence use, and interactive presentation. [Paper](https://arxiv.org/abs/2610.31158) · [Code](https://github.com/marinero4972/OmniDR-Bench)
 - **GraphRAG Entity Resolution Benchmark** (2026-10-22) — Evaluates entity resolution in GraphRAG systems using synthetic financial and biomedical news datasets; scores deduplication quality, trap avoidance, alias merging, and graph integrity. [Code](https://github.com/Naseem77/graphrag-entity-resolution-benchmark)
@@ -723,6 +729,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Document Understanding & OCR
 
+- **inkGround** (2026-10-28) — inkGround evaluates vision-language models on stroke trajectory recovery from full-page, camera-captured handwriting, using text-conditioned point grounding to output ordered stroke points for a target word. [Paper](https://arxiv.org/abs/2610.38720)
+- **uTHCD-C** (2026-10-27) — Evaluates isolated Tamil handwritten character recognition on uTHCD across ten corruption types at five severity levels, with writer-independent testing and five-fold stratified cross-validation; robustness is reported… [Paper](https://arxiv.org/abs/2610.36850)
 - **BrailleBench** (2026-10-26) — Evaluates vision-language models on transcribing Grade-1 and Grade-2 Braille from 259 real-world photographs using exact-match scoring. [Paper](http://arxiv.org/abs/2610.36195v1) · [Code](https://github.com/kartik0806/BrailleBench)
 - **VELD-QA** (2026-10-14) — Evaluates visual evidence grounding and question answering in long documents. [Paper](https://arxiv.org/abs/2610.20964) · [Code](https://github.com/oracle-samples/veld-qa)
 - **DocumentVision** (2026-10-10) — Evaluates OCR pipelines and vision-language models on dense tables, key-value extraction, charts, and layout grounding across high-resolution enterprise document images. [Code](https://github.com/master72o/documentvision-multimodal-benchmark)
@@ -916,10 +924,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Health & Medicine
 
 - **TCM-DiagCommit** (2026-10-27) — Evaluates LLM syndrome selection and commitment over TCM clinical cases, using candidate ladders, staged evidence, and a commit/acquire/defer/abstain action contract. [Paper](http://arxiv.org/abs/2610.37243v1)
-- **PRISM** (2026-10-27) — Evaluates the reliability of tile-level pathology foundation models under label scarcity and distribution shift, measuring discrimination, calibration, and transfer. [Paper](http://arxiv.org/abs/2610.36517v1) · [Code](https://github.com/alicemkyn/prism-benchmark)
+- **PRISM** (2026-10-27) — Evaluates pathology foundation model reliability via frozen-embedding linear probes over six tile-level datasets, label fractions, and transfer settings. [Paper](http://arxiv.org/abs/2610.36517v1) · [Code](https://github.com/alicemkyn/prism-benchmark)
 - **OpenGray** (2026-10-27) — Benchmark of radiotherapy planning decisions using tasks with known correct decisions added to OpenKBP-Opt head-and-neck data. [Paper](http://arxiv.org/abs/2610.37081v1)
-- **MedConstBench** (2026-10-27) — A medical-ethics benchmark evaluating how different deployment constitutions affect LLM behavior, organized around Beauchamp's four principles and scored by human-calibrated multi-model peer review using the MedDilemma… [Paper](http://arxiv.org/abs/2610.36513v1)
-- **M4Bench** (2026-10-27) — Evaluates AI coding agents on reproducing clinical EHR derivation tasks from MIMIC-IV and eICU, measuring agreement with reference outputs. [Paper](http://arxiv.org/abs/2610.37459v1) · [Code](https://github.com/hannesill/m4/tree/m4bench-neurips2026-camera-ready/benchmark) · [Data](https://huggingface.co/datasets/hannesill/m4bench-evidence)
+- **M4Bench** (2026-10-27) — 28 clinical EHR derivation tasks on MIMIC-IV and eICU that score coding agents on agreement with reference clinical concept implementations, with and without agent skills. [Paper](http://arxiv.org/abs/2610.37459v1) · [Code](https://github.com/hannesill/m4/tree/m4bench-neurips2026-camera-ready/benchmark) · [Data](https://huggingface.co/datasets/hannesill/m4bench-evidence)
 - **IndoNutriQA** (2026-10-22) — Indonesian clinical nutrition question answering with generative and retrieval tasks, evaluated via human-comparable LLM-as-judge and statistical baselines. [Paper](https://arxiv.org/abs/2610.31256) · [Code](https://github.com/NLP-UB/IndoNutriQA)
 - **AusClinBench** (2026-10-22) — Evaluates 28 large language models on 142 questions derived from Australian clinical policy across PBS authority, MBS billing, Ahpra obligations, triage red flags, and immunisation/screening, using exact-match scoring. [Paper](https://arxiv.org/abs/2610.31993)
 - **SelfDx** (2026-10-20) — SelfDx provides 100 paired health self-diagnosis queries, each combining a caution case and an agreement case, to evaluate whether LLMs show appropriate epistemic independence and avoid misplaced agreement that could de… [Paper](https://arxiv.org/abs/2610.27518)
@@ -1032,6 +1039,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Video Generation
 
+- **LightGenBench** (2026-10-28) — Evaluates 3D emission generation, where models predict RGB emission over a 3D asset's surface given geometry, non-emissive materials, and a rendered view. [Paper](https://arxiv.org/abs/2610.39038)
+- **IntReal** (2026-10-28) — Evaluates multimodal interleaved generation on IntReal-100K samples across seven capability dimensions using expert models. [Paper](https://arxiv.org/abs/2610.38425)
 - **MDMR-Bench** (2026-10-23) — Evaluates multi-reference image generation via multiple subsets covering common entity fusion and attribute transfer, multi-element extraction from a single image, infographic manipulation, and visual reasoning-intensiv… [Paper](https://arxiv.org/abs/2610.32459)
 - **Entity-Level Benchmark** (2026-10-22) — An entity-level benchmark with 59 held-out cases and 753 entities, scored against ground-truth boxes to measure entity correspondence and temporal consistency in generative rendering. [Paper](https://arxiv.org/abs/2610.31466)
 - **ABACUS** (2026-10-20) — Measures numerical accuracy of instruction-based image editing models on add, remove, and change operations with exact count verification and scene preservation. [Paper](https://arxiv.org/abs/2610.28316) · [Code](https://github.com/CEA-LIST/ABACUS)
@@ -1142,6 +1151,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Visual Reasoning
 
+- **Bottle-SKU** (2026-10-28) — Bottle-SKU evaluates multi-SKU surface defect detection on 13,119 images with 20,419 bounding boxes, seven defect categories, and 48 bottle SKUs. [Paper](https://arxiv.org/abs/2610.38194)
 - **PRISM-BENCH** (2026-10-27) — Assesses vision-language model reasoning beyond final-answer accuracy using 1,000 curated multimodal questions with idealized traces. [Paper](http://arxiv.org/abs/2610.36554v1) · [Data](https://huggingface.co/datasets/vanshbhatia/PRISM-BENCH)
 - **CrowdCC** (2026-10-26) — CrowdCC provides corruption robustness and deployment quantization benchmarks for crowd counting with quantized models. [Paper](http://arxiv.org/abs/2610.36340v1) · [Code](https://github.com/Tulane-Computer-Architecture-Systems/CrowdCC-Release)
 - **IRON-Meme** (2026-10-22) — IRON-Meme is a human-annotated benchmark of 1,110 political memes, with labels for social identities, viewpoints, and narrative roles, used to evaluate vision-language models on structured understanding of meme narrativ… [Paper](https://arxiv.org/abs/2610.33097)
@@ -1315,6 +1325,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Math Reasoning
 
+- **OpenFrontiers** (2026-10-27) — Evaluates LLM agents on research-level mathematical problem solving via Lean 4 formal proofs across 200 problems (110 resolved, 90 open) with a quality-filtered HQ-50 subset. [Paper](https://arxiv.org/abs/2610.37739)
 - **RadonBench** (2026-10-23) — Benchmark for constructing Radon-free lattice configurations, with a shared success predicate and reproducibility via explicitly scoped search domains. [Paper](https://arxiv.org/abs/2610.33259)
 - **Optimization-Agent Benchmark** (2026-10-21) — A suite of 30 function-visible optimization tasks spanning continuous, mixed, noisy, constrained, and bilevel problems, with a centralized optimizer mapping and result trace format. [Code](https://github.com/Rahimzadeh-Ali/optimization-agent-benchmark)
 - **DynaCertBench** (2026-10-21) — Benchmarks synthesis and verification of Lyapunov functions and barrier certificates across 105 nonlinear control system problems. [Paper](https://arxiv.org/abs/2610.30524) · [Code](https://github.com/FormalCert-AI/llm2cert)
@@ -1593,9 +1604,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
+- **UMI-Loc-Bench-v1** (2026-10-27) — Measures real-world localization accuracy of handheld data-collection devices, comparing stereo camera trajectories against monocular visual-inertial odometry within the OpenJaws framework. [Paper](https://arxiv.org/abs/2610.36598)
 - **SO-101 Bench** (2026-10-27) — Simulated benchmark for language-conditioned spatial manipulation on a digital twin of the SO-101 arm, with four tasks and object generalization splits. [Paper](http://arxiv.org/abs/2610.36420v1) · [Code](https://github.com/5hadytru/so101_bench)
-- **VPR-Space** (2026-10-26) — Benchmark for visual place recognition on extraterrestrial surfaces using 16 datasets from Space Analog Domains with ground truth from relative pose estimators. [Paper](http://arxiv.org/abs/2610.35642v1) · [Code](https://github.com/rfechner/VPR-Space)
-- **PIFR** (2026-10-26) — Embodied navigation benchmark for preemptive instruction following with resumption, covering single, repeated, and nested interruptions. [Paper](http://arxiv.org/abs/2610.35576v1)
+- **VPR-Space** (2026-10-26) — A visual place recognition benchmark using sixteen database-query datasets from space analog environments, with ground truth defined as matches that yield valuable relative pose estimates for SLAM. [Paper](http://arxiv.org/abs/2610.35642v1) · [Code](https://github.com/rfechner/VPR-Space)
 - **EmbodiedLab** (2026-10-26) — EmbodiedLab evaluates embodied agents on 30 quantitative science experiments across physics-based simulated laboratories. [Paper](http://arxiv.org/abs/2610.35385v1) · [Code](https://github.com/HexaFuture/EmbodiedLab)
 - **Behavior Spatial Benchmark** (2026-10-25) — Measures spatial question answering, point-based target grounding, and robot action following on tasks derived from BEHAVIOR-1K. [Paper](http://arxiv.org/abs/2610.34051v1)
 - **AstroBench** (2026-10-22) — Evaluates robotic manipulation of free-floating objects and space hardware servicing tasks across nine definitions and 29 task-target combinations with four initial-motion tracks. [Paper](https://arxiv.org/abs/2610.31064) · [Code](https://github.com/AstroUpLab/AstroBench)
@@ -1845,7 +1856,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
-- **GeoXAI Benchmark** (2026-10-29) — Evaluates GeoXAI agents on 509 case-based questions across 26 cases, with accuracy, evidence gain, and token usage metrics against LLM-only baselines. [Code](https://github.com/JetstreamSR/GeoXAI-Benchmark)
+- **GeoXAI Benchmark** (2026-10-29) — Evaluates GeoXAI agents on 509 case-based questions across 26 cases, measuring accuracy, evidence gain, and token usage against LLM-only baselines. [Code](https://github.com/JetstreamSR/GeoXAI-Benchmark)
+- **SciGame** (2026-10-27) — SciGame evaluates LLM agents on scientific discovery tasks using structured cards that pair Original and Counterfactual environments, across Historical and Temporal collections, in Identification and Discovery settings… [Paper](https://arxiv.org/abs/2610.37919)
+- **Benchmark of Stellarator Simulations** (2026-10-27) — A large-scale dataset of 180,000 stellarator designs paired with guiding center simulation results and trajectories, intended for generative and surrogate modeling tasks. [Paper](https://arxiv.org/abs/2610.37910)
 - **SlowLab** (2026-10-26) — A benchmark where agents run a simulated year-long greenhouse experiment and recommend a policy scored on unseen weather. [Paper](http://arxiv.org/abs/2610.34644v1) · [Code](https://github.com/dingningpei/slowlab-benchmark)
 - **SciValidityBench** (2026-10-26) — Executable benchmark factory with 64 TaskSpecs covering five validity modules and six scientific domains, evaluating decision validity based on scientific state. [Paper](http://arxiv.org/abs/2610.34767v1)
 - **Same Data, Different Verdicts** (2026-10-23) — Evaluates heart disease prediction pipelines across 56 configurations of six preprocessing recipes and eight classifiers on four public cohorts, using repeated cross-validation and statistical tests. [Code](https://github.com/Gurirath/heart-disease-prediction-benchmark)
@@ -1973,7 +1986,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Spatial & 3D Reasoning
 
-- **Lower-Limb Prosthesis (LP) dataset** (2026-10-26) — Benchmark for zero-shot monocular depth estimation from knee-level prosthetic viewpoints, using 3,144 RGB-depth pairs from stair and corridor scenarios. [Paper](http://arxiv.org/abs/2610.35018v1) · [Code](https://github.com/Ishivijay/lp_dataset)
+- **OneScene-Bench** (2026-10-28) — Evaluates VLMs on five multi-view integration tasks with 1,300 examples, measuring accuracy on counting, consistency, and spatial reasoning. [Paper](https://arxiv.org/abs/2610.38926) · [Code](https://github.com/swathisuhas/OneScene-Bench)
+- **ImagiRep** (2026-10-27) — Evaluates spatial reasoning over imagined states using 922 simulator-grounded questions with oracle RGB and six alternative representations, including depth, panoramic views, and top-down geometry, across viewpoint imag… [Paper](https://arxiv.org/abs/2610.37437)
+- **Lower-Limb Prosthesis (LP) dataset** (2026-10-26) — A dataset of 3,144 paired RGB-depth frames from a knee-mounted camera for evaluating zero-shot monocular depth estimation in prosthetic navigation scenarios. [Paper](http://arxiv.org/abs/2610.35018v1) · [Code](https://github.com/Ishivijay/lp_dataset)
 - **SATE-Bench** (2026-10-25) — Evaluates MLLMs on multi-turn active exploration of 316 real-world scenes with 2,525 QA pairs, requiring models to gather visual evidence from exocentric views and answer under a step-penalized reward. [Paper](http://arxiv.org/abs/2610.34149v1)
 - **VERA-Hand** (2026-10-23) — VERA-Hand evaluates 2D hand pose estimation in third-person dynamic gesture videos using manually verified frame-level 2D annotations across detection, localization, identification, and temporal stability, with a joint… [Paper](https://arxiv.org/abs/2610.32517)
 - **SpatialScout** (2026-10-19) — Evaluates VLM agents on active 3D mapping through object localization in 80 scenes with 3,140 targets. [Paper](https://arxiv.org/abs/2610.26659) · [Code](https://github.com/JesseZZZZZ/SpatialScout)
@@ -2035,7 +2050,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
-- **SMEBench** (2026-10-27) — Evaluates neural music editing systems on paired source-target MIDI/audio edits across instrumentation, articulation, dynamics, and pitch operations. [Paper](http://arxiv.org/abs/2610.36715v1)
+- **SMEBench** (2026-10-27) — Evaluates neural music editing systems on MIDI-derived audio edit tasks using 3600 paired source-target examples with instruction and metadata. [Paper](http://arxiv.org/abs/2610.36715v1)
 - **Vesper Indic Bench** (2026-10-25) — Evaluates Indic speech recognition using per-clip transcripts and scores from identical held-out clips across 12 languages and 90 evaluation sets. [Data](https://huggingface.co/datasets/rahulsharmavishwakarma/vesper-indic-bench)
 - **Nepali-English Code-Switched Podcast Evaluation Benchmark** (2026-10-22) — A 15.45-hour dataset of verified Nepali-English code-switched podcast speech with transcripts for ASR evaluation using MER, SPER, and SCR metrics. [Paper](https://arxiv.org/abs/2610.30860) · [Code](https://github.com/Firoj-Wise/nepali-english-codeswitch-asr) · [Data](https://huggingface.co/datasets/SamaFiroz/nepali-english-codeswitch-podcasts)
 - **Omnilingual-MsASR** (2026-10-21) — Evaluates omni large language models on long-form, multilingual, multi-speaker automatic speech recognition with audio and audiovisual tracks across six languages. [Paper](https://arxiv.org/abs/2610.29455) · [Code](https://github.com/QwenLM/Omnilingua-Bench/tree/main/Omnilingua-MSpeaker)
@@ -2162,6 +2177,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
+- **AskStream** (2026-10-28) — Evaluates proactive asking in streaming video understanding across 438 videos, eight subtasks, and temporal wait/ask/answer windows. [Paper](https://arxiv.org/abs/2610.38678) · [Code](https://github.com/wanglu-cs/AskStream) · [Data](https://huggingface.co/datasets/wanglucs/AskStream)
+- **CourtSide RallyArb event benchmark** (2026-10-27) — A frame-exact tennis event detection benchmark with 345 bounce and hit annotations across 8 clips, released with evaluator and frozen predictions. [Paper](https://arxiv.org/abs/2610.38042) · [Code](https://github.com/David-dsv/tennis-bounce-hit-benchmark)
 - **SOMA** (2026-10-26) — A benchmark of 1,632 human-verified questions over egocentric videos evaluating body configuration, motion dynamics, and temporal reasoning. [Paper](http://arxiv.org/abs/2610.36384v1)
 - **RVG-Bench** (2026-10-23) — Evaluates reasoning-driven audio-visual temporal grounding using videos with queries that require intent inference. [Paper](https://arxiv.org/abs/2610.32268)
 - **SENRI-Bench** (2026-10-18) — SENRI-Bench evaluates video-language models on 500 multiple-choice questions across 10 long, uninterrupted self-recorded videos totaling 25.3 hours. [Paper](https://arxiv.org/abs/2610.25309)
