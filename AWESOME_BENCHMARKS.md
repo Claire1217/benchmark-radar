@@ -10,20 +10,20 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-31 · **Benchmark releases:** 2790
+**Snapshot:** 2026-10-30 · **Benchmark releases:** 2791
 
 ## Contents
 
-- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (49)
+- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (48)
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (24)
-- [Abstract Reasoning & Planning](#abstract-reasoning--planning) (54)
+- [Abstract Reasoning & Planning](#abstract-reasoning--planning) (53)
 - [Agent Memory & Personalization](#agent-memory--personalization) (54)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (74)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (24)
 - [Agentic Coding & SWE](#agentic-coding--swe) (102)
 - [Chat, Writing & Preference](#chat,-writing--preference) (29)
 - [Code Generation](#code-generation) (91)
-- [Composite Indexes](#composite-indexes) (3)
+- [Composite Indexes](#composite-indexes) (2)
 - [Computer Use & GUI Agents](#computer-use--gui-agents) (56)
 - [Cybersecurity & CTF](#cybersecurity--ctf) (32)
 - [Deep Research & Search](#deep-research--search) (55)
@@ -40,7 +40,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Long Context](#long-context) (7)
 - [Math Reasoning](#math-reasoning) (28)
 - [Multi-Agent & Games](#multi-agent--games) (36)
-- [Multilingual & Translation](#multilingual--translation) (35)
+- [Multilingual & Translation](#multilingual--translation) (34)
 - [Other benchmark tasks](#other-benchmark-tasks) (88)
 - [Professional & Enterprise Work](#professional--enterprise-work) (78)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (141)
@@ -49,12 +49,11 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (63)
 - [Speech & Audio](#speech--audio) (46)
 - [Tool Use & Function Calling](#tool-use--function-calling) (74)
-- [Video Understanding](#video-understanding) (104)
+- [Video Understanding](#video-understanding) (103)
 - [World Models & Physical Understanding](#world-models--physical-understanding) (41)
 
 ## AI R&D & ML Engineering
 
-- **Controlled Attribution Benchmark (CATT)** (2026-10-29) — Controlled Attribution Benchmark (CATT) evaluates data attribution algorithms by fine-tuning LLMs on synthetic knowledge, enabling controlled experiments on attribution failures. [Paper](http://arxiv.org/abs/2610.40655v1)
 - **k8s-inference-routing-benchmark** (2026-10-26) — Evaluates Kubernetes request routing strategies for LLM inference by replaying identical chat and RAG traces against simulated vLLM pods and measuring time to first token, prefix-cache hits, load balance, and latency ob… [Code](https://github.com/sunilmehta-si/k8s-inference-routing-benchmark)
 - **Auto-Research Arena** (2026-10-26) — Benchmarks automated research methods on improving language model training and inference efficiency across nine tasks with defined constraints and a shared engine. [Paper](http://arxiv.org/abs/2610.35866v2) · [Code](https://github.com/Auto-Research-Arena/auto-research-arena)
 - **FrontierCS 2** (2026-10-21) — Evaluates LLM agents on 48 open-ended computer science R&D tasks that require modifying a real research artifact to beat a hidden reference across held-out workloads. [Paper](https://arxiv.org/abs/2610.29932) · [HF](https://huggingface.co/papers/2610.29932) · [Code](https://github.com/FrontierCS/FrontierCS-2)
@@ -134,7 +133,6 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Abstract Reasoning & Planning
 
 - **RetroChessBench** (2026-10-29) — Evaluates language models on retrograde chess reasoning through 12 tasks with references, rubrics, and terminal rewards. [Paper](https://arxiv.org/abs/2610.39341)
-- **MIOE** (2026-10-28) — Mechanistic interpretability benchmark using causal abstraction to evaluate interventions for entity typing and subsumption prediction in LLMs. [Paper](http://arxiv.org/abs/2610.38326v1)
 - **P2NPCBench** (2026-10-21) — A benchmark of 12 computational problem families pairing NP-complete and polynomial-time variants to test LLM reasoning about complexity. [Paper](https://arxiv.org/abs/2610.30103) · [Code](https://github.com/Labib1610/complexity-benchmark)
 - **ARCANA** (2026-10-21) — Evaluates abstraction and analogical reasoning on 200 grid-based tasks inspired by ARC, with baselines and a multi-stage pipeline for solving. [Paper](https://arxiv.org/abs/2610.29271) · [Code](https://github.com/density-11/arcana-test)
 - **Epistemic Debugging Benchmark** (2026-10-16) — Evaluates model reasoning on diagnosing failed experiments and engineering faults by selecting the correct cause, ruling out near-miss hypotheses, and choosing discriminating follow-up checks. [Data](https://huggingface.co/datasets/punyajain/epistemic-debugging-benchmark)
@@ -582,7 +580,6 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Composite Indexes
 
-- **Zeta (ζ)** (2026-10-30) — Evaluates AI models and agent harnesses on terminal, software engineering, coding, data, reasoning, science, and security tasks from a registry of 61 benchmarks. [Data](https://huggingface.co/datasets/zontalabs/zeta-benchmarks)
 - **EGI-BENCH** (2026-10-19) — Unified bench suite for enterprise LLM agents that runs eight benchmarks through one CLI and aggregates results into an EGI Score across six readiness dimensions. [Paper](https://arxiv.org/abs/2610.27234) · [Code](https://github.com/SalesforceAIResearch/egi-bench)
 - **EcoWestern Short and Cheap Benchmark** (2026-09-22) — Compact benchmark program with ESAC-GI released (42 items, 75 points) measuring general intelligence across logic, math, factual recall, reading comprehension, abstraction, instruction-following, writing quality, and re… [Code](https://github.com/EcoWestern/ESAC)
 
@@ -685,7 +682,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **HuDS-Bench** (2026-10-29) — HuDS-Bench evaluates dataset search retrieval with 200 queries and 24,908 graded judgments, scored by NDCG and MAP. [Paper](https://arxiv.org/abs/2610.39608) · [Code](https://github.com/nju-websoft/AgenticDS)
 - **ATLAS-Bench** (2026-10-29) — Evaluates LLM agents on local area search tasks, requiring them to recommend places meeting mandatory requirements and preferences, grounded in place attributes and reviews. [Paper](https://arxiv.org/abs/2610.39438)
 - **POISE-Bench** (2026-10-28) — Evaluates LLM agents on information-seeking under partial observability and a budget, where agents open hidden records and answer or abstain. [Data](https://huggingface.co/datasets/Shahriar10/POISE-Bench)
-- **GEO Citation Benchmark** (2026-10-28) — GEO Citation Benchmark evaluates scorers for predicting citation shares in answer engines using 229 GEO-Bench queries and ten engines. [Paper](http://arxiv.org/abs/2610.38090v1) · [Data](https://huggingface.co/datasets/citead/geo-citation-benchmark)
+- **GEO Citation Benchmark** (2026-10-28) — A benchmark for scoring candidate pages by citation likelihood in answer engines across 10 engines. [Paper](http://arxiv.org/abs/2610.38090v1) · [Data](https://huggingface.co/datasets/citead/geo-citation-benchmark)
 - **CoverageBench-Negate** (2026-10-27) — Benchmark for negation-aware retrieval, testing whether retrievers find evidence that contradicts model priors. [Paper](https://arxiv.org/abs/2610.37162)
 - **serpapi-india-search-benchmark** (2026-10-22) — Evaluates search API providers on 50 India-focused queries across news, local places, and shopping intents, measuring success rate, latency, structured-field completeness, India relevance, and cost. [Code](https://github.com/jayydees/serpapi-india-search-benchmark)
 - **OmniDR-Bench** (2026-10-22) — Evaluates video-centered deep research report generation across 50 bilingual tasks and 6,414 rubric criteria, measuring audiovisual grounding, evidence use, and interactive presentation. [Paper](https://arxiv.org/abs/2610.31158) · [Code](https://github.com/marinero4972/OmniDR-Bench)
@@ -1051,7 +1048,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Video Generation
 
-- **PhysInsert-Bench** (2026-10-29) — PhysInsert-Bench evaluates reference-based object insertion across different environments and viewpoints, focusing on illumination and pose adaptation rather than appearance copying. [Paper](http://arxiv.org/abs/2610.40453v1)
+- **AI Design Benchmark** (2026-10-30) — Evaluates AI models on text-driven graphic design tasks (logos, posters, signs, invitations, thumbnails, packaging) using client briefs and human judge scoring. [Code](https://github.com/Funovate-Technology/ai-design-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.23803802.svg)
 - **LightGenBench** (2026-10-28) — Evaluates 3D emission generation on 37k artist-authored emissive assets in UV, voxel, and multi-view form. [Paper](https://arxiv.org/abs/2610.39038)
 - **IntReal Evaluation Suite** (2026-10-28) — Evaluates multimodal interleaved generation across seven capability dimensions using expert models. [Paper](https://arxiv.org/abs/2610.38425)
 - **MDMR-Bench** (2026-10-23) — Evaluates multi-reference image generation via multiple subsets covering common entity fusion and attribute transfer, multi-element extraction from a single image, infographic manipulation, and visual reasoning-intensiv… [Paper](https://arxiv.org/abs/2610.32459)
@@ -1408,7 +1405,6 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Multilingual & Translation
 
-- **CulturalBind** (2026-10-29) — CulturalBind evaluates cultural knowledge in vision-language models across six domains, including both cross-modal recognition and knowledge editing. [Paper](http://arxiv.org/abs/2610.39602v1)
 - **CulturalRiddles** (2026-10-21) — Evaluates language models on culturally grounded riddles requiring lived experience, local associations, traditions, and wordplay across 62 communities. [Paper](https://arxiv.org/abs/2610.29968) · [Code](https://github.com/Cohere-Labs-Community/CulturalRiddles) · [Data](https://huggingface.co/datasets/CohereLabsCommunity/CulturalRiddles)
 - **KoAGE** (2026-10-14) — Evaluates Korean neologism knowledge acquisition, learning, and generation across five tasks using 4,271 entries. [Paper](https://arxiv.org/abs/2610.19399)
 - **CSWBench** (2026-10-14) — Evaluates model-generated Chinese-English code-switched narratives on 807 prompts across focused and extended settings, scored by CSWEval on switch licensing, appropriateness, functional gain, and whole-text quality. [Paper](https://arxiv.org/abs/2610.20272) · [Code](https://github.com/TPSJASPER/CSWBench)
@@ -2194,7 +2190,6 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
-- **VideoMemBench** (2026-10-29) — A video question answering benchmark of 326 videos paired with long multi-turn dialogues (2,476 turns) testing whether MLLMs retrieve and reuse information from earlier turns, with turns linked by verified Episodic and… [Paper](https://arxiv.org/abs/2610.40131)
 - **AskStream** (2026-10-28) — Evaluates proactive asking in streaming video understanding across 438 videos, eight subtasks, and temporal wait/ask/answer windows. [Paper](https://arxiv.org/abs/2610.38678) · [Code](https://github.com/wanglu-cs/AskStream) · [Data](https://huggingface.co/datasets/wanglucs/AskStream)
 - **CourtSide RallyArb event benchmark** (2026-10-27) — Evaluates frame-level bounce and hit detection on tennis video across eight clips with mixed viewpoints, using a confusion-aware matcher and frozen dev/test split. [Paper](https://arxiv.org/abs/2610.38042) · [Code](https://github.com/David-dsv/tennis-bounce-hit-benchmark)
 - **SOMA** (2026-10-26) — A benchmark of 1,632 human-verified questions over egocentric videos evaluating body configuration, motion dynamics, and temporal reasoning. [Paper](http://arxiv.org/abs/2610.36384v1)

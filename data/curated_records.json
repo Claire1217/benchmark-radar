@@ -95,20 +95,133 @@
         "horizon": "7d",
         "reason": "Breadth of integrated benchmarks and practical utility for agent evaluation should attract moderate attention from the AI engineering community in the first week."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "ζ runs benchmark tasks across a matrix of models and agent harnesses, and then reports scores and estimated model costs for each combination.",
           "scoring": "Accuracy is the mean task reward. A task counts as solved when its reward meets its pass threshold, which defaults to 1. Cost per attempt is total model cost divided by attempted tasks; cost per solve uses the number of solved tasks.",
           "reuse": "To compare models, put their names in `models` and keep one entry in `harnesses`. ζ runs each model–harness combination against the selected tasks from each benchmark."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "A released command-line tool with a stable scoring contract, public dataset page, and CLI commands allowing any user to run models against the benchmark registry; task inputs and verifiers are available.",
+        "decisionReason": "The project is a benchmarking tool/harness that aggregates existing benchmarks rather than defining a new evaluation object or scoring contract as a benchmark.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "Zeta (ζ) is a command-line tool for comparing AI models and agents on various tasks."
+      }
+    },
+    {
+      "id": "bm_ai-design-benchmark_33d9eb26",
+      "familyId": "bmf_0340938d9af5",
+      "name": "AI Design Benchmark",
+      "paperTitle": "ai-design-benchmark",
+      "aliases": [
+        "ai-design-benchmark"
+      ],
+      "oneLine": "Evaluates AI models on text-driven graphic design tasks (logos, posters, signs, invitations, thumbnails, packaging) using client briefs and human judge scoring.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Funovate-Technology/ai-design-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-10-31T02:06:03.400514Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-30",
+      "firstSeenAt": "2026-10-31",
+      "indexedAt": "2026-10-31T02:06:03.400514Z",
+      "sourceUpdatedAt": "2026-10-30T16:28:23Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://fontvibe.ai/blog/gpt-6-1-terra-vs-claude-gemini-design-test",
+        "code": "https://github.com/Funovate-Technology/ai-design-benchmark",
+        "data": "https://zenodo.org/badge/DOI/10.5281/zenodo.23803802.svg"
+      },
+      "motivation": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:funovate-technology/ai-design-benchmark",
+        "url": "https://github.com/Funovate-Technology/ai-design-benchmark",
+        "title": "ai-design-benchmark",
+        "authors": [
+          "Funovate-Technology"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:funovate-technology/ai-design-benchmark",
+          "url": "https://github.com/Funovate-Technology/ai-design-benchmark"
+        }
+      ],
+      "description": "Evaluates AI models on text-driven graphic design tasks (logos, posters, signs, invitations, thumbnails, packaging) using client briefs and human judge scoring.",
+      "whyItMatters": "Provides open data, scoring standard, and analysis scripts for reproducible comparison of LLMs and image models on practical design briefs.",
+      "evaluationMode": "public_reusable",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Open data and reproducible scripts for design evaluation may attract moderate attention from researchers and practitioners interested in practical multimodal benchmarks."
+      },
+      "displayEligible": true,
+      "curation": {
+        "state": "ai-reviewed",
+        "evaluationEvidence": {
+          "task": "Every brief, every output, every image, every score and the written reason behind each score. Each benchmark asks one question: a client hands over a brief; can they use what the model delivers, and are they happy with it?",
+          "scoring": "overall = 0.20 × legibility + 0.35 × lettering and finish + 0.25 × information and layout + 0.20 × appeal",
+          "reuse": "python3 scripts/analyze.py benchmarks/2026-10-llm-designer"
+        },
+        "admissionPolicyVersion": "2026-09-09.1",
+        "reviewedAt": "2026-10-31T07:23:41.576998Z",
+        "model": "deepseek-v4-pro",
+        "decisionReason": "The repository explicitly releases benchmark data, scoring rubric, and verification scripts under open licenses, with a clear evaluation protocol.",
+        "canonicalNameSource": "official_readme",
+        "canonicalNameEvidence": "Data: [FontVibe AI Design Benchmark](https://font"
       }
     },
     {
@@ -808,18 +921,18 @@
         "horizon": "7d",
         "reason": "The benchmark addresses a timely gap in video MLLM evaluation with a sizable dataset and human-verified dependencies, likely to attract attention."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "VideoMemBench comprises 326 videos with 2,476 turns, of which 1,387 depend on earlier turns, including multi-parent dependencies and long-range call-back.",
           "scoring": "Among over 20 evaluated open- and closed-source MLLMs, Claude Opus 5 performs the best with an overall score of only 45.7%, highlighting the challenge of in-context video memory.",
           "reuse": "Our dataset and evaluation are released."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-30T07:28:48.111720Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark has a clear task definition, scoring (overall score reported), and the authors state dataset and evaluation are released.",
+        "decisionReason": "The abstract claims release of dataset and evaluation, but no public artifacts or links are provided in the supplied evidence, so the benchmark's availability and scoring path cannot be verified.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce VideoMemBench, in which each sample pairs a single video with a long multi-turn dialogue, whose turns are connected by typed cross-turn dependencies"
       }
@@ -1596,18 +1709,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Evaluates physically plausible object insertion with cross-environment and cross-view cases requiring illumination and pose adaptation.",
           "scoring": "Experiments compare methods using image fidelity metrics and user study ratings on placement accuracy, lighting integration, perspective, and pose plausibility.",
           "reuse": "Project page https://arthuring.github.io/PhysInsert/ provides access to the benchmark and dataset for external evaluation."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark defines a clear task, provides a scoring mechanism through image fidelity and user studies, and the project page indicates public accessibility for external teams.",
+        "decisionReason": "No artifact evidence is provided for the benchmark (project page exists but no dataset or evaluation code is indicated), so its reusability cannot be confirmed.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce PhysInsert-Bench with dedicated cross-environment and cross-view cases requiring illumination and pose adaptation beyond appearance copying."
       }
@@ -3177,18 +3290,18 @@
         "horizon": "7d",
         "reason": "Cultural AI evaluation is a growing area, and the benchmark's novel focus on cross-modal knowledge editing may attract researchers."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Evaluates culture-aware cross-modal knowledge and knowledge editing in VLMs using 3.2K images of 1K concepts from 6 domains.",
           "scoring": "Reports accuracy in text and image recognition and knowledge editing performance; metrics likely include accuracy and portability.",
           "reuse": "No specific link is provided, but the benchmark is introduced for evaluating models and methods; the dataset appears intended for reuse."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark provides a concrete dataset and evaluation protocol for cultural knowledge in VLMs, meeting the criteria for a reusable benchmark.",
+        "decisionReason": "The abstract does not mention a public release of the benchmark or evaluation code, and no artifact links are provided, so the benchmark cannot be confirmed as reusable.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we investigate knowledge editing as a targeted alternative by introducing CulturalBind, a benchmark comprising 3.2K images of 1K concepts from 6 domains, designed to evaluate culture-aware cross-modal knowledge as well as concept-level knowledge editing in VLMs."
       }
@@ -3294,18 +3407,18 @@
           "role": "benchmark-publisher"
         }
       ],
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "Evaluates data attribution methods for language models using fine-tuning on fictitious knowledge for unambiguous fact tracing.",
           "scoring": "Measures ground truth recall and counterfactual retraining performance; allows systematic variation of dataset properties.",
           "reuse": "Project page https://catt.baulab.info/ presumably hosts the benchmark and code for external use."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark offers a controlled environment with explicit ground truth, a project page for access, and a clear evaluation protocol.",
+        "decisionReason": "Although a project page exists, no dataset, code, or public evaluation protocol is evidenced, so the benchmark's usability for other teams is unclear.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce the Controlled Attribution Benchmark (CATT) for fact tracing, in which we fine-tune LLMs on entirely fictitious knowledge, providing unambiguous ground truth for attribution."
       }
@@ -5895,7 +6008,7 @@
       "aliases": [
         "Predicting What Answer Engines Cite: Open Decision Models, Rerankers and a Distilled 4B Student on Ten Engines under Controlled Retrieval"
       ],
-      "oneLine": "GEO Citation Benchmark evaluates scorers for predicting citation shares in answer engines using 229 GEO-Bench queries and ten engines.",
+      "oneLine": "A benchmark for scoring candidate pages by citation likelihood in answer engines across 10 engines.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -5968,19 +6081,19 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "GEO Citation Benchmark evaluates scorers for predicting citation shares in answer engines using 229 GEO-Bench queries and ten engines.",
-      "whyItMatters": "It provides a standardized way to develop and compare citation rankers for generative engine optimization.",
+      "description": "A benchmark for scoring candidate pages by citation likelihood in answer engines across 10 engines.",
+      "whyItMatters": "It offers reusable citation likelihood labels and predictions for generative engine optimization research.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 70,
-        "confidence": "Medium",
+        "score": 40,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark addresses generative engine optimization with released artifacts, likely to draw attention from SEO and GENO research."
+        "reason": "The citation prediction task is timely for SEO and answer-engine optimization, with open artifacts supporting initial adoption."
       },
       "publishers": [
         {
           "name": "citead",
-          "organizationType": "community",
+          "organizationType": "academic-lab",
           "sourceUrl": "https://huggingface.co/datasets/citead/geo-citation-benchmark",
           "role": "benchmark-publisher"
         }
@@ -5989,16 +6102,172 @@
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "Rank candidate pages by citation share for GEO-Bench queries across ten engines.",
-          "scoring": "Position-adjusted word count share of citation (label_pawc) and label_top; evaluated via Spearman correlation with engine citation counts.",
-          "reuse": "Dataset, code, and model released: https://huggingface.co/datasets/citead/geo-citation-benchmark; predictions and code provided."
+          "task": "The benchmark includes 1,145 evaluation passages from 229 queries and citation labels across engine-query-source rows.",
+          "scoring": "Predictions are evaluated against engine-derived citation share labels; the repository provides analysis scripts and tables.",
+          "reuse": "The dataset is publicly available on Hugging Face with code, and the paper reports open models and released predictions, allowing external teams to reproduce and evaluate scorers."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The benchmark is fully released with data, labels, predictions, and code on Hugging Face, enabling external use and scoring.",
+        "decisionReason": "The benchmark dataset, predictions, and code are publicly released, enabling reproducible evaluation of citation scoring models.",
         "canonicalNameSource": "official_readme",
-        "canonicalNameEvidence": "pretty_name: GEO Citation Benchmark"
+        "canonicalNameEvidence": "GEO Citation Benchmark"
+      },
+      "attention": {
+        "asOf": "2026-10-31",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": 36,
+        "hfDatasetLikes": 0,
+        "hfDataset": "citead/geo-citation-benchmark",
+        "observedAt": "2026-10-31T02:54:47.425914Z",
+        "attemptedAt": "2026-10-31T02:54:47.425914Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "unavailable",
+            "checkedAt": "2026-10-31T02:54:47.425914Z"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "fresh",
+            "observedAt": "2026-10-31T02:54:47.425914Z"
+          },
+          "hfDatasetLikes": {
+            "state": "fresh",
+            "observedAt": "2026-10-31T02:54:47.425914Z"
+          }
+        }
+      },
+      "ranking": {
+        "30d": {
+          "score": 50,
+          "rank": 29,
+          "coverage": 0.17,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": 50,
+            "rank": 29,
+            "coverage": 0.17,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 36,
+                "normalized": 0.47401311059121626,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-10-01",
+            "windowDays": 30,
+            "elapsedDays": 30
+          },
+          "datasetDownloadRank": 41,
+          "datasetRankPopulation": 42
+        },
+        "90d": {
+          "score": 45,
+          "rank": 131,
+          "coverage": 0.34,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": 45,
+            "rank": 131,
+            "coverage": 0.34,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 36,
+                "normalized": 0.3609257995436584,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 111,
+          "datasetRankPopulation": 117
+        }
       }
     },
     {
@@ -7593,18 +7862,18 @@
         "horizon": "7d",
         "reason": "The focus on mechanistic interpretability for ontology engineering targets a specialized intersection likely to attract moderate attention from researchers in interpretability and knowledge representation."
       },
-      "displayEligible": true,
+      "displayEligible": false,
       "curation": {
-        "state": "ai-reviewed",
+        "state": "ai-name-audit-deferred",
         "evaluationEvidence": {
           "task": "MIOE evaluates interchange interventions for two ontology engineering tasks: entity typing and subsumption prediction.",
           "scoring": "Tests whether learned internal intervention targets can change an ontology-level target answer while preserving class-specific auxiliary information.",
           "reuse": "The abstract states MIOE is introduced as a causal-abstraction benchmark and evaluates multiple methods across two model sizes, implying a public protocol for comparison."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T02:06:22.158923Z",
+        "reviewedAt": "2026-10-31T07:24:50.590774Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "MIOE is explicitly named as a causal-abstraction benchmark with defined tasks, evaluation metrics, and comparative analyses across intervention methods.",
+        "decisionReason": "No public dataset, code, or evaluation protocol is provided, making it impossible to verify the benchmark's stability or reusability.",
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "we introduce MIOE, a causal-abstraction benchmark"
       }
