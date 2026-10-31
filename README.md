@@ -26,20 +26,10 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-10-31 · benchmarks first released in October 2026</sub>
+<sub>Updated 2026-11-01 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **LongLongTextBench**<br><sub>[Paper](https://arxiv.org/abs/2610.23374) · [Code](https://github.com/OpenMOSS/MOSS-Image)</sub> | Image & Video Generation | 107 HF votes · 2,311 GitHub stars |
-| 2 | **Graduate Admissions Agent Benchmark**<br><sub>[Code](https://github.com/yeyuxin777/baoyan-agent-benchmark)</sub> | Professional & Enterprise Work · Abstract Reasoning & Planning | 699 GitHub stars · 836 dataset downloads |
-| 3 | **OmniCompass**<br><sub>[Paper](https://arxiv.org/abs/2610.18829)</sub> | Video Understanding | 751 HF votes · 122 GitHub stars |
-| 4 | **FDE-Gym**<br><sub>[Paper](https://arxiv.org/abs/2610.22350) · [Code](https://github.com/deeplethe/fde-gym)</sub> | Professional & Enterprise Work | 78 HF votes · 107 GitHub stars · 445 dataset downloads |
-| 5 | **DecisionPivot**<br><sub>[Paper](https://arxiv.org/abs/2610.28522)</sub> | Health & Medicine | 74 HF votes · 151 GitHub stars |
-| 6 | **Doc2Harness**<br><sub>[Paper](https://arxiv.org/abs/2610.20344)</sub> | Agent Skills & Self-Improvement · Agentic Coding & SWE | 61 HF votes · 116 GitHub stars |
-| 7 | **EgoExo-Next**<br><sub>[Paper](https://arxiv.org/abs/2610.04506)</sub> | Video Understanding · Spatial & 3D Reasoning | 2,033 dataset downloads |
-| 8 | **DFM-Bench**<br><sub>[Paper](https://arxiv.org/abs/2610.23839) · [Code](https://github.com/Gen-Verse/DiscoveryRSI)</sub> | Science · AI R&D & ML Engineering | 20 HF votes · 141 GitHub stars |
-| 9 | **ORBIA**<br><sub>[Paper](https://arxiv.org/abs/2610.20693) · [Code](https://github.com/worldbench/Orbia)</sub> | World Models & Physical Understanding · Video Understanding | 50 HF votes · 60 GitHub stars · 149 dataset downloads |
-| 10 | **TraceTrial-Bench**<br><sub>[Paper](https://arxiv.org/abs/2610.32285)</sub> | Agentic Coding & SWE · Tool Use & Function Calling | 299 HF votes · 23 GitHub stars · 237 dataset downloads |
 
 ### Explore the library
 

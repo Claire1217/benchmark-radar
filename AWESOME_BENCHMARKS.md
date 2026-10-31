@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-10-31 · **Benchmark releases:** 2793
+**Snapshot:** 2026-11-01 · **Benchmark releases:** 2793
 
 ## Contents
 
