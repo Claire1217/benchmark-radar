@@ -122,7 +122,7 @@
       "aliases": [
         "fluente-oral-reading-benchmark"
       ],
-      "oneLine": "Fluente Oral Reading Benchmark evaluates systems that score oral reading fluency by comparing transcripts and word error detections to scripted readings.",
+      "oneLine": "A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -199,29 +199,259 @@
           "url": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark"
         }
       ],
-      "description": "Fluente Oral Reading Benchmark evaluates systems that score oral reading fluency by comparing transcripts and word error detections to scripted readings.",
-      "whyItMatters": "It provides a deterministic protocol for assessing speech recognition pipelines on oral reading fluency tasks, separating scoring quality from acoustic variability.",
+      "description": "A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
+      "whyItMatters": "This benchmark targets oral reading fluency scoring, an important task for literacy assessment, especially in Portuguese-speaking classrooms. It allows systematic comparison of ASR-based scoring pipelines against human rater conventions without requiring child speech data, which is sensitive and scarce.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
         "score": 35,
-        "confidence": "Medium",
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark targets a specialized Portuguese oral reading fluency scoring task with limited broad appeal, but its published dataset and reproducible protocol may attract education and ASR researchers."
+        "reason": "The benchmark is narrowly scoped to ASR-based oral reading fluency scoring, with synthetic audio and limited initial publicity, likely attracting modest attention mostly from researchers in speech and education."
       },
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
         "evaluationEvidence": {
-          "task": "125 scripted readings, five per passage. Each reading has the exact spoken script, an answer key (words correct, and the indices of the error words) and the events it contains.",
+          "task": "Given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
           "scoring": "The scoring follows human-rater conventions: self-corrections are correct, repetitions are not errors, a skipped line is a skip and not a run of wrong words, and timing starts at the first word of the passage.",
           "reuse": "The audio is not included. The readings were synthesized from the scripts with the Windows System.Speech voices (Maria pt-BR, Zira en-US), and the script in the GitHub repository (`npm run benchmark`) regenerates them exactly."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-11-01T01:56:56.335434Z",
+        "reviewedAt": "2026-11-01T11:27:24.908519Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The dataset is released with explicit benchmark config, task definitions, scoring rules, and a regeneration script, enabling other teams to reproduce the evaluation.",
+        "decisionReason": "The benchmark is released with a dataset (passages, scripted readings, answer keys, results), a deterministic alignment scoring script, and a public regeneration path via GitHub. It defines a clear evaluation object and scoring contract, and provides reusable data and code for other teams.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "pretty_name: Fluente Oral Reading Benchmark"
+      },
+      "attention": {
+        "asOf": "2026-11-01",
+        "hfPaperUpvotes": null,
+        "hfDailySubmittedAt": null,
+        "hfPaperUrl": null,
+        "githubStars": null,
+        "githubRepo": null,
+        "githubScope": null,
+        "hfDatasetDownloads": 0,
+        "hfDatasetLikes": 0,
+        "hfDataset": "NicoDeVargas/fluente-oral-reading-benchmark",
+        "observedAt": "2026-11-01T02:48:17.052757Z",
+        "attemptedAt": "2026-11-01T02:48:17.052757Z",
+        "status": "fresh",
+        "signalStatus": {
+          "hfPaperUpvotes": {
+            "state": "not_applicable"
+          },
+          "githubStars": {
+            "state": "not_applicable"
+          },
+          "hfDatasetDownloads": {
+            "state": "fresh",
+            "observedAt": "2026-11-01T02:48:17.052757Z"
+          },
+          "hfDatasetLikes": {
+            "state": "fresh",
+            "observedAt": "2026-11-01T02:48:17.052757Z"
+          }
+        }
+      },
+      "ranking": {
+        "today": {
+          "score": 46,
+          "rank": 1,
+          "coverage": 0.05,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": 46,
+            "rank": 1,
+            "coverage": 0.05,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.5,
+                "normalization": "percentile",
+                "percentile": 0.5
+              },
+              "llmAttentionForecast": {
+                "value": 35,
+                "percentile": 0.35,
+                "role": "bonus",
+                "maxContribution": 0.25
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-10-31",
+            "windowDays": 1,
+            "elapsedDays": 1
+          },
+          "datasetDownloadRank": 1,
+          "datasetRankPopulation": 1
+        },
+        "30d": {
+          "score": 41,
+          "rank": 52,
+          "coverage": 0.17,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": 41,
+            "rank": 52,
+            "coverage": 0.17,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": "2026-10-01",
+            "windowDays": 30,
+            "elapsedDays": 30
+          },
+          "datasetDownloadRank": 44,
+          "datasetRankPopulation": 44
+        },
+        "90d": {
+          "score": 33,
+          "rank": 236,
+          "coverage": 0.34,
+          "confidence": "Low",
+          "method": "attention-ranking-v14",
+          "level": {
+            "score": 33,
+            "rank": 236,
+            "coverage": 0.34,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "log-max"
+              },
+              "hfDatasetDownloads": {
+                "value": 0,
+                "normalized": 0.0,
+                "normalization": "log-max"
+              }
+            }
+          },
+          "growth": {
+            "score": null,
+            "rank": null,
+            "coverage": 0.0,
+            "confidence": "Low",
+            "components": {
+              "hfPaperUpvotes": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "githubStars": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              },
+              "hfDatasetDownloads": {
+                "value": null,
+                "normalized": null,
+                "normalization": "percentile",
+                "percentile": null
+              }
+            },
+            "historyDate": null,
+            "windowDays": 90,
+            "elapsedDays": null
+          },
+          "datasetDownloadRank": 112,
+          "datasetRankPopulation": 115
+        }
+      },
+      "copyGeneration": {
+        "model": "deepseek-v4-pro",
+        "generatedAt": "2026-11-01T01:56:56.335434Z",
+        "inputHash": "1d559196c1a9d828e77a56b7be1df9e5712e2935164ff07a9c93e0de1728c88c"
       }
     },
     {
@@ -443,9 +673,9 @@
           "reuse": "To compare models, put their names in `models` and keep one entry in `harnesses`. ζ runs each model–harness combination against the selected tasks from each benchmark."
         },
         "admissionPolicyVersion": "2026-09-09.1",
-        "reviewedAt": "2026-10-31T07:24:50.590774Z",
+        "reviewedAt": "2026-11-01T11:27:24.908519Z",
         "model": "deepseek-v4-pro",
-        "decisionReason": "The project is a benchmarking tool/harness that aggregates existing benchmarks rather than defining a new evaluation object or scoring contract as a benchmark.",
+        "decisionReason": "Zeta orchestrates existing benchmarks rather than defining its own evaluation objects and scoring contracts.",
         "canonicalNameSource": "official_readme",
         "canonicalNameEvidence": "Zeta (ζ) is a command-line tool for comparing AI models and agents on various tasks."
       }

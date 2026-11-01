@@ -105,7 +105,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI-Content Detection & Forensics
 
-- **AI Humanizer Benchmark 2026** (2026-10-31) — Evaluates AI text humanizers on two short AI-generated texts across three detector checks, scoring pass rates and AI probability. [Code](https://github.com/Mohabak/ai-humanizer-benchmark-2026) · [Data](https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026)
+- **AI Humanizer Benchmark 2026** (2026-10-31) — Evaluates AI humanizer tools by running two short AI-generated texts through each tool and scoring outputs with independent AI detectors, plus a key-point retention check. [Code](https://github.com/Mohabak/ai-humanizer-benchmark-2026) · [Data](https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026)
 - **AV-FABLE** (2026-10-24) — A dual-timeline benchmark with 16,650 pristine–manipulated twin pairs (998 hours) for detecting and temporally localizing sparse audio-visual manipulations in long-form videos, using separate audio and visual timelines. [Paper](https://arxiv.org/abs/2610.33413)
 - **WildAIGC-Bench** (2026-10-20) — Evaluates AI image detectors on generated and edited images collected from news websites, fact-checking sources, and social media, with human-verified labels. [Paper](https://arxiv.org/abs/2610.28087) · [Code](https://github.com/YuZijian/WildAIGC-Bench)
 - **OLMo-Detect** (2026-10-02) — To address these limitations, we propose OLMo-Detect, a multi-stage, confounder-controlled benchmark built upon the fully open OLMo 2 pipeline. [Paper](https://arxiv.org/abs/2610.02986) · [HF](https://huggingface.co/papers/2610.02986)
@@ -1161,7 +1161,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Visual Reasoning
 
-- **MicroStructAI reproducible benchmark** (2026-10-31) — Synthetic segmentation benchmark comparing global Otsu and local Gaussian thresholding across 480 images with known geometric ground truth, evaluated with IoU and F1. [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
+- **MicroStructAI reproducible benchmark** (2026-10-31) — Compares global Otsu and local Gaussian thresholding for synthetic image segmentation across 24 contrast, noise, illumination, and object-radius conditions with 20 seeded images per condition, scored by mean image IoU a… [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
 - **CASE** (2026-10-29) — Few-shot segmentation benchmark requiring models to interpret positive and negative visual exemplars across six task types. [Paper](https://arxiv.org/abs/2610.39396) · [Code](https://github.com/WongKinYiu/FSS-CASE)
 - **PRISM-BENCH** (2026-10-27) — Assesses vision-language model reasoning beyond final-answer accuracy using 1,000 curated multimodal questions with idealized traces. [Paper](http://arxiv.org/abs/2610.36554v1) · [Data](https://huggingface.co/datasets/vanshbhatia/PRISM-BENCH)
 - **CrowdCC** (2026-10-26) — Benchmarks crowd counting models on corruption robustness across 23 corruptions and deployment quantization on four datasets, with aligned annotations. [Paper](http://arxiv.org/abs/2610.36340v1) · [Code](https://github.com/Tulane-Computer-Architecture-Systems/CrowdCC-Release)
@@ -1616,7 +1616,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
-- **Quadruped UED Benchmark** (2026-10-29) — Compares 14 environment-design curricula for quadruped locomotion across five MuJoCo MJX simulated robots using terrain-parameter levels and success metrics. [Paper](https://arxiv.org/abs/2610.40364) · [Code](https://github.com/Solvro/ml-wojtek-ued)
+- **Quadruped UED Benchmark** (2026-10-29) — The Quadruped UED Benchmark runs fourteen UED, domain-randomisation, and robotics curricula under one protocol on five 3D quadrupeds in MuJoCo MJX, evaluating policy success on random and held-out structured terrains wi… [Paper](https://arxiv.org/abs/2610.40364) · [Code](https://github.com/Solvro/ml-wojtek-ued)
 - **BURGER** (2026-10-29) — BURGER is a language-conditioned robotic drawing benchmark with 282 tasks, providing simulated and real-world environments for evaluating vision-language-action models on open-ended drawing commands. [Paper](https://arxiv.org/abs/2610.40532)
 - **UMI-Loc-Bench-v1** (2026-10-27) — Benchmark for real-world localization accuracy of handheld UMI data-collection devices using stereo vision. [Paper](https://arxiv.org/abs/2610.36598)
 - **SO-101 Bench** (2026-10-27) — Simulated benchmark for language-conditioned spatial manipulation on a digital twin of the SO-101 arm, with four tasks and object generalization splits. [Paper](http://arxiv.org/abs/2610.36420v1) · [Code](https://github.com/5hadytru/so101_bench)
@@ -2065,7 +2065,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
-- **Fluente Oral Reading Benchmark** (2026-10-31) — Fluente Oral Reading Benchmark evaluates systems that score oral reading fluency by comparing transcripts and word error detections to scripted readings. [Data](https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark)
+- **Fluente Oral Reading Benchmark** (2026-10-31) — Evaluates oral reading fluency scoring systems on 125 scripted readings over 25 passages, comparing predicted words correct per minute and error-word flagging against an answer key using deterministic alignment and huma… [Data](https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark)
 - **SMEBench** (2026-10-27) — Evaluates neural music editing systems on MIDI-derived audio edit tasks using 3600 paired source-target examples with instruction and metadata. [Paper](http://arxiv.org/abs/2610.36715v1)
 - **Vesper Indic Bench** (2026-10-25) — Evaluates Indic speech recognition using per-clip transcripts and scores from identical held-out clips across 12 languages and 90 evaluation sets. [Data](https://huggingface.co/datasets/rahulsharmavishwakarma/vesper-indic-bench)
 - **Nepali-English Code-Switched Podcast Evaluation Benchmark** (2026-10-22) — A 15.45-hour dataset of verified Nepali-English code-switched podcast speech with transcripts for ASR evaluation using MER, SPER, and SCR metrics. [Paper](https://arxiv.org/abs/2610.30860) · [Code](https://github.com/Firoj-Wise/nepali-english-codeswitch-asr) · [Data](https://huggingface.co/datasets/SamaFiroz/nepali-english-codeswitch-podcasts)
@@ -2192,7 +2192,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
-- **VideoMemBench** (2026-10-29) — A dataset of video dialogues with cross-turn dependencies, measuring in-context memory of seen and said information. [Paper](https://arxiv.org/abs/2610.40131)
+- **VideoMemBench** (2026-10-29) — Evaluates multimodal LLM in-context video memory over long multi-turn dialogues, scoring answers that depend on earlier visual episodes and earlier model responses. [Paper](https://arxiv.org/abs/2610.40131)
 - **AskStream** (2026-10-28) — Evaluates proactive asking in streaming video understanding across 438 videos, eight subtasks, and temporal wait/ask/answer windows. [Paper](https://arxiv.org/abs/2610.38678) · [Code](https://github.com/wanglu-cs/AskStream) · [Data](https://huggingface.co/datasets/wanglucs/AskStream)
 - **CourtSide RallyArb event benchmark** (2026-10-27) — Evaluates frame-level bounce and hit detection on tennis video across eight clips with mixed viewpoints, using a confusion-aware matcher and frozen dev/test split. [Paper](https://arxiv.org/abs/2610.38042) · [Code](https://github.com/David-dsv/tennis-bounce-hit-benchmark)
 - **SOMA** (2026-10-26) — A benchmark of 1,632 human-verified questions over egocentric videos evaluating body configuration, motion dynamics, and temporal reasoning. [Paper](http://arxiv.org/abs/2610.36384v1)
