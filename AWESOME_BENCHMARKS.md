@@ -10,12 +10,12 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-01 · **Benchmark releases:** 2795
+**Snapshot:** 2026-10-31 · **Benchmark releases:** 2796
 
 ## Contents
 
 - [AI R&D & ML Engineering](#ai-rd--ml-engineering) (48)
-- [AI-Content Detection & Forensics](#ai-content-detection--forensics) (24)
+- [AI-Content Detection & Forensics](#ai-content-detection--forensics) (25)
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (52)
 - [Agent Memory & Personalization](#agent-memory--personalization) (54)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (73)
@@ -105,6 +105,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI-Content Detection & Forensics
 
+- **AI Humanizer Benchmark 2026** (2026-10-31) — Evaluates AI text humanizers on two short AI-generated texts across three detector checks, scoring pass rates and AI probability. [Code](https://github.com/Mohabak/ai-humanizer-benchmark-2026) · [Data](https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026)
 - **AV-FABLE** (2026-10-24) — A dual-timeline benchmark with 16,650 pristine–manipulated twin pairs (998 hours) for detecting and temporally localizing sparse audio-visual manipulations in long-form videos, using separate audio and visual timelines. [Paper](https://arxiv.org/abs/2610.33413)
 - **WildAIGC-Bench** (2026-10-20) — Evaluates AI image detectors on generated and edited images collected from news websites, fact-checking sources, and social media, with human-verified labels. [Paper](https://arxiv.org/abs/2610.28087) · [Code](https://github.com/YuZijian/WildAIGC-Bench)
 - **OLMo-Detect** (2026-10-02) — To address these limitations, we propose OLMo-Detect, a multi-stage, confounder-controlled benchmark built upon the fully open OLMo 2 pipeline. [Paper](https://arxiv.org/abs/2610.02986) · [HF](https://huggingface.co/papers/2610.02986)
