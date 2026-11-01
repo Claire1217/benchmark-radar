@@ -1,13 +1,833 @@
 {
-  "generatedAt": "2026-10-31T07:23:36.609363Z",
-  "sourceDate": "2026-10-30",
+  "generatedAt": "2026-11-01T01:56:51.596178Z",
+  "sourceDate": "2026-10-31",
   "sourceWindow": {
-    "from": "2026-10-30",
-    "to": "2026-10-30"
+    "from": "2026-10-31",
+    "to": "2026-10-31"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 3310,
+  "candidateCount": 3316,
   "candidates": [
+    {
+      "id": "bm_tune-my-llm_741e785a",
+      "familyId": "bmf_bf0b3829b8ec",
+      "name": "tune-my-llm",
+      "paperTitle": "tune-my-llm",
+      "aliases": [],
+      "oneLine": "tune-my-llm Agent skill that benchmarks and tunes your local LLMs (llama.cpp) for your own hardware, measured the way coding agents like OpenCode really use them.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Logistics & Operations"
+      ],
+      "primaryDomain": "Logistics & Operations",
+      "industrySectors": [
+        "Logistics"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/cliffkoome/tune-my-llm",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T21:51:40Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://opencode.ai",
+        "code": "https://github.com/cliffkoome/tune-my-llm"
+      },
+      "motivation": "tune-my-llm Agent skill that benchmarks and tunes your local LLMs (llama.cpp) for your own hardware, measured the way coding agents like OpenCode really use them.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:cliffkoome/tune-my-llm",
+        "url": "https://github.com/cliffkoome/tune-my-llm",
+        "title": "tune-my-llm",
+        "authors": [
+          "cliffkoome"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "agent-skills benchmark claude-code cuda llama-cpp llm local-llm opencode rocm vulkan # tune-my-llm An agent skill that has your coding agent (Claude Code, OpenCode, Codex, …) **benchmark and tune your local LLMs on your own hardware**, measured the way an agent actually uses them.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "tune-my-llm Agent skill that benchmarks and tunes your local LLMs (llama.cpp) for your own hardware, measured the way coding agents like OpenCode really use them. agent-skills benchmark claude-code cuda llama-cpp llm local-llm opencode rocm vulkan # tune-my-llm An agent skill that has your coding agent (Claude Code, OpenCode, Codex, …) **benchmark and tune your local LLMs on your own hardware**, measured the way an agent actually uses them. Most tuning advice is measured on an empty context with one short prompt. Coding agents don't work like that: every turn resends 12K+ tokens of system prompt and tools plus the whole conversation, and they compact near the end of the context. A config that wins at depth 0 can lose badly at 48K. This skill measures at your agent's real context depths, confirms that configs fit in a real server, and checks the result on real agent tasks before anything gets applied. ## Quick start: one prompt Paste this into your coding agent (Claude Code, OpenCode, Codex, …). It installs the skill and runs everything itself: ```text Install the agent skill from https://github.com/cliffkoome/tune-my-llm (clone it into your skills folder, or into ~/tune-my-llm and read its SKILL.md if you don't support skills). Then use it to tune my local models. Start with the hardware inventory, then tell me what you found, the quick and comprehensive options, and how long each would take on my machine. After I pick one, run it autonomously to the end. Only stop to ask before using sudo, building software, or changing my live server or agent config. ``` You can name a mode up front (\"do a quick tune\" / \"do a comprehensive tune\") and the agent will still confirm the time estimate before starting. ## How long it takes: two modes | | **Quick tune** (default) | **Comprehensive tune** | |---|---|---| | For | A big, safe win in about an hour | The best config your hardware can do, with evidence | | Does | Uses your existing llama.cpp build; sweeps batch size and cache type at your agent's max context; finds the MoE offload that fits; confirms in a real server; 2 short agent tasks per model to catch models that can't use tools | Everything: builds and compares every backend, all sweeps at 3–4 depths, speculative decoding, recorded-session replay, all 6 agent tasks before vs after | | Time | **20–40 min per model** (45–90 min for 2–3 models) | **1.5–3 h per model** (5–10 h for 3–4 models: run it overnight) | **Before anything runs, the agent tells you the estimate for your machine and waits for your OK.** Your GPU (and any model server you run) is busy for the whole run. A quick tune can be upgraded to comprehensive later without redoing its work. ## What your agent will do 1. **Inventory:** GPU, VRAM, CPU cores, RAM size/speed/channels, PCIe link, llama.cpp builds, GGUF models (and whether they fit), Ollama. Flags hardware limits such as a single RAM stick or a narrow PCIe slot before tuning. 2. **Agent profile:** your agent's real context range, e.g. OpenCode at 64K lives between ~12K and ~49.5K tokens. 3. **Backend check:** CUDA / HIP / Vulkan / Metal built from the same commit, compared per model. 4. **Sweeps:** batch sizes, KV cache type, MoE expert offload, threads, at those depths. 5. **Real-server check:** the winners at full context, to confirm they fit. 6. **Speculative decoding:** MTP/assistant drafts and n-gram speculation, kept only if they help on real tasks. 7. **End-to-end:** 6 coding tasks run headless through your agent (fix a failing test, add a feature with tests, multi-file rename, stack-trace fix, read-then-edit, a long audit that pushes toward compaction), baseline vs tuned. 8. **Apply and document:** router presets (one server, many models, each on its best backend), plus a results report. It asks before touching services or using sudo. ## Example result (RX 6600 XT 8 GB, Ryzen 7 5700X, 32 GB) Qwen3.6-35B-A3B (MoE) for OpenCode at 64K context, measured at 49K tokens (the compaction point): | | Backend | Key flags | Prompt | Generation | |---|---|---|---|---| | Before | Vulkan | `--n-cpu-moe 33`, `-ub 512`, q8_0 cache | 172 t/s | 19.2 t/s | | After | HIP (ROCm) | `--n-cpu-moe 34`, `-ub 2048`, f16 cache, `-t 8` | **526 t/s** | **25.3 t/s** | That's 3× faster prompt reading (a 49K compaction drops from ~4.8 to ~1.6 minutes) and 32% faster generation. The tuned config passed 6/6 agent tasks. On the same machine, Gemma-4 12B only fit on **Vulkan** and dense 7B models generated faster on Vulkan, so one router serves each model on its best backend. Full write-up: [`references/example-rx6600xt.md`](references/example-rx6600xt.md). ## Install As a skill (Claude Code, OpenCode and other agents that read `SKILL.md`): ```bash npx skills add cliffkoome/tune-my-llm # or manually git clone https://github.com/cliffkoome/tune-my-llm ~/.agents/skills/tune-my-llm ln -s ~/.agents/skills/tune-my-llm ~/.claude/skills/tune-my-llm # Claude Code ``` Then ask your agent: *\"Tune my local models for OpenCode\"*, or use a ready-made prompt from [`PROMPTS.md`](PROMPTS.md) (full tune, re-check after an update, add one model, diagnose a slow model, measure only). Without skill support: clone the repo, open your agent in it, and say *\"Read SKILL.md and follow it.\"* ## Tested on The full workflow has been run end to end on **Linux with an AMD GPU** (RX 6600 XT 8 GB, ROCm/HIP and Vulkan) with OpenCode as the agent. The NVIDIA (CUDA), Apple (Metal) and Intel paths follow llama.cpp's documentation but **haven't been run yet**. Expect rough edges there, and please open an issue with what you hit. Other agents need an adapter in `scripts/bench_agentic.py` for the end-to-end tasks; everything else is agent-independent. ## Requirements - Linux or macOS, Python 3.10+, bash, git. - llama.cpp (`llama-server`, `llama-bench`). The skill can build backends for you (with your approval). - For the agentic tests: [OpenCode](https://opencode.ai) and a Python venv with `pytest`. Other agents can be added through the adap",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:cliffkoome/tune-my-llm",
+          "url": "https://github.com/cliffkoome/tune-my-llm"
+        }
+      ]
+    },
+    {
+      "id": "bm_securecode-arena_b5e3d235",
+      "familyId": "bmf_07aec2d232e0",
+      "name": "securecode-arena",
+      "paperTitle": "securecode-arena",
+      "aliases": [],
+      "oneLine": "securecode-arena A defensive benchmark of AI-generated code security across small and cloud language models.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Cybersecurity"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Cybersecurity"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/plur1bu5/securecode-arena",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T12:01:24Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://plur1bu5.github.io/securecode-arena/",
+        "code": "https://github.com/plur1bu5/securecode-arena"
+      },
+      "motivation": "securecode-arena A defensive benchmark of AI-generated code security across small and cloud language models.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:plur1bu5/securecode-arena",
+        "url": "https://github.com/plur1bu5/securecode-arena",
+        "title": "securecode-arena",
+        "authors": [
+          "plur1bu5"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "securecode-arena A defensive benchmark of AI-generated code security across small and cloud language models.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "securecode-arena A defensive benchmark of AI-generated code security across small and cloud language models. benchmark llm llm-evaluation llm-security secure-coding slm # SecureCode Arena Which AI models write secure code? SecureCode Arena is a defensive benchmark of security in AI-generated code. It measures how often models introduce targeted HIGH or MEDIUM severity vulnerabilities when asked to implement ordinary functional requirements with no security guidance in the prompt. 🌐 plur1bu5.github.io/securecode-arena ## At a glance - 9 models: 3 locally hosted small language models (SLMs) and 6 cloud LLMs - 16 neutral coding prompts across Python, Go, and JavaScript - 3 independent generations per prompt, for 432 generated files - Parse/compile gate followed by Bandit, Gosec, and Semgrep analysis - Findings deduplicated by CWE and line, then grouped by severity The headline result: the local SLMs averaged a 31.2% vulnerable-prompt rate, compared with 15.6% for cloud LLMs. Four cloud models reached 14 secure prompts out of 16. ## What the site includes - An interactive leaderboard and model profiles - Results by language, vulnerability class, and severity - The study methodology and project prompts - Research figures and the underlying site data The site is static and built with [Astro](https://astro.build/). ## Scope and limitations This is a defensive static-analysis benchmark, not a proof that a model's output is safe or unsafe in every context. Results are descriptive: the sample is limited to nine models, cloud sampling settings are not fully controlled, and static analyzers can produce false positives and false negatives. Generated code is not executed. ## Related work These papers directly motivated the study and are cited in the research paper: - Hasan, M. M., et al. (2026). *Evaluation of small language models on code generation benchmarks (HumanEval, MBPP, Mercury, HumanEvalPack, CodeXGLUE).* Cited for the explicit statement that those metrics do not account for the security of generated code. - Wu, T., et al. (2026). *Last Secure Code Benchmark: Is the Code You Vibe Secure?* arXiv:[2610.14766](https://arxiv.org/abs/2610.14766). Agent-scale secure code generation across function, file, and repository tasks — complementary scope to this study. - MITRE. *Common Weakness Enumeration.* [https://cwe.mitre.org/](https://cwe.mitre.org/) ## Run locally ```bash npm install npm run dev ``` To create a production build: ```bash npm run build ``` The generated static site is written to `dist/`. ## Credits & License Built by [Blessed (@plur1bu5)](https://github.com/plur1bu5) and [Maryam (@iblihimaryam306-dotcom)](https://github.com/iblihimaryam306-dotcom). MIT © plur1bu5, iblihimaryam306-dotcom If this benchmark helps your research or tooling, a ⭐ is appreciated.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:plur1bu5/securecode-arena",
+          "url": "https://github.com/plur1bu5/securecode-arena"
+        }
+      ]
+    },
+    {
+      "id": "bm_nvidia-tesla-t4-gpu-inference-performance-_40f22ba8",
+      "familyId": "bmf_517cd09b067e",
+      "name": "nvidia-tesla-t4-gpu-inference-performance-benchmark",
+      "paperTitle": "nvidia-tesla-t4-gpu-inference-performance-benchmark",
+      "aliases": [],
+      "oneLine": "nvidia-tesla-t4-gpu-inference-performance-benchmark Benchmarking LLM inference performance on NVIDIA Tesla T4 GPU # NVIDIA Tesla T4: LLM Inference Performance Benchmark An experimental investigation of large language model (LLM) inference…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/DeanJayMathew/nvidia-tesla-t4-gpu-inference-performance-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T22:26:46Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/DeanJayMathew/nvidia-tesla-t4-gpu-inference-performance-benchmark"
+      },
+      "motivation": "nvidia-tesla-t4-gpu-inference-performance-benchmark Benchmarking LLM inference performance on NVIDIA Tesla T4 GPU # NVIDIA Tesla T4: LLM Inference Performance Benchmark An experimental investigation of large language model (LLM) inference performance on an NVIDIA Tesla T4 GPU, using [vLLM](https://github.com/vllm-project/vllm).",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:deanjaymathew/nvidia-tesla-t4-gpu-inference-performance-benchmark",
+        "url": "https://github.com/DeanJayMathew/nvidia-tesla-t4-gpu-inference-performance-benchmark",
+        "title": "nvidia-tesla-t4-gpu-inference-performance-benchmark",
+        "authors": [
+          "DeanJayMathew"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "nvidia-tesla-t4-gpu-inference-performance-benchmark Benchmarking LLM inference performance on NVIDIA Tesla T4 GPU # NVIDIA Tesla T4: LLM Inference Performance Benchmark An experimental investigation of large language model (LLM) inference performance on an NVIDIA Tesla T4 GPU, using [vLLM](https://github.com/vllm-project/vllm).",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "nvidia-tesla-t4-gpu-inference-performance-benchmark Benchmarking LLM inference performance on NVIDIA Tesla T4 GPU # NVIDIA Tesla T4: LLM Inference Performance Benchmark An experimental investigation of large language model (LLM) inference performance on an NVIDIA Tesla T4 GPU, using [vLLM](https://github.com/vllm-project/vllm). ## Research question **How does concurrency affect LLM inference performance on an NVIDIA Tesla T4, and at what point do additional concurrent requests produce diminishing throughput returns?** The experiment deployed an open-source instruction-tuned model behind a vLLM API, then measured response latency and token throughput as the number of simultaneous requests increased. ## Preliminary findings The initial experiment used Qwen2.5-0.5B-Instruct with vLLM on a Tesla T4. | Concurrent requests | Aggregate throughput (tokens/sec) | Average request latency | |---:|---:|---:| | 1 | 160.38 | 1.60 s | | 2 | 333.44 | 1.53 s | | 4 | 663.20 | 1.54 s | | 8 | 1,147.22 | 1.77 s | | 16 | 1,960.64 | 2.07 s | | 32 | 3,007.24 | 2.68 s | | 64 | 4,296.89 | 3.70 s | | 96 | 5,593.91 | 4.24 s | | 128 | 6,063.05 | 5.05 s | Throughput increased with concurrency, while the incremental gains diminished at higher request counts: - 32 to 64 concurrent requests: approximately 43% more aggregate throughput. - 64 to 96: approximately 30% more. - 96 to 128: approximately 8.4% more, despite a 33% increase in concurrency. This suggests diminishing throughput returns for this specific model, GPU and test configuration. It does **not** establish the Tesla T4's maximum capacity or prove that the GPU was fully saturated at 128 requests. ### Other captured observations - Streaming time to first non-empty content chunk: 25 ms average across three runs. - Streaming generation throughput: approximately 175 tokens/sec across three runs. - During a separate 64-request monitoring run, GPU utilisation averaged 89% and peaked at 100%; reported VRAM use averaged and peaked at 12,699 MiB. - During a separate 128-request monitoring run, the peak number of running requests was 128, with no waiting requests observed in the monitoring samples. These were separate test runs and should not be treated as simultaneous measurements from one identical workload. ## Test environment | Component | Configuration | |---|---| | Cloud environment | Google Colab | | GPU | NVIDIA Tesla T4 | | GPU memory | 16 GB nominal | | Model | `Qwen/Qwen2.5-0.5B-Instruct` | | Model parameters | 0.5 billion | | Inference engine | vLLM 0.32.0 | | Precision | FP16 | | Maximum model length | 2,048 tokens | | GPU memory utilisation setting | 0.85 | | Python | 3.13.16 | | PyTorch | 2.13.0+cu132 | ## Methodology The recorded experiment included: 1. API smoke test to confirm successful model responses through the OpenAI-compatible vLLM endpoint. 2. Single-request generation test. 3. Streaming test measuring time to first non-empty content chunk and generation throughput. 4. Burst concurrency tests at 1, 2, 4, 8, 16, 32, 64, 96 and 128 simultaneous requests. 5. Separate GPU monitoring and vLLM metrics collection. The concurrency tests used a common prompt and requested up to 256 output tokens per request. ## Repository contents - `benchmarks/`: reconstructed Python tools for API checks, single-request, streaming, concurrency and metrics monitoring. - `results/`: captured aggregate results and notes about data provenance. - `docs/`: explanations of inference performance concepts and measurement interpretation. ## Reproducing the experiment The original Google Colab notebook and raw per-request records were not retained. The scripts in this repository are reconstructed utilities based on the recorded setup and methodology; they have not been verified as byte-for-byte reproductions of the original notebook. See [Benchmark usage](benchmarks/README.md) for setup and commands. Use a running vLLM server and ensure the model, GPU, software versions and workload settings match before comparing results. ## Limitations - The model is small (0.5B parameters); larger models can behave very differently. - The GPU was provided through a shared cloud environment, not dedicated production hardware. - The concurrency workload is a burst test, not a comprehensive production load test. - Raw per-request records were not retained; only aggregate observations were captured. - GPU utilisation measurements were collected in a separate run from the 128-request throughput test. - A throughput plateau alone does not identify the bottleneck. GPU compute, memory bandwidth, KV-cache capacity, scheduler behaviour and client-side overhead would require further controlled experiments. ## Next steps - Validate the reconstructed scripts in a fresh Colab T4 runtime. - Preserve raw per-request output and machine-readable results for future runs. - Compare different model sizes and output lengths. - Investigate KV-cache usage and continuous batching behaviour. - Compare configurations and, where available, GPU types. ## Technologies NVIDIA Tesla T4 · CUDA · Python · PyTorch · vLLM · Hugging Face · OpenAI-compatible API · Prometheus metrics · Git",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:deanjaymathew/nvidia-tesla-t4-gpu-inference-performance-benchmark",
+          "url": "https://github.com/DeanJayMathew/nvidia-tesla-t4-gpu-inference-performance-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_nexttransformer_de206535",
+      "familyId": "bmf_23de89568f9f",
+      "name": "NextTransformer",
+      "paperTitle": "NextTransformer",
+      "aliases": [],
+      "oneLine": "NextTransformer A comprehensive, cutting-edge open-source framework for next-generation Transformers, with compute-matched benchmarking and a platform for autonomous architecture research.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Interactive-Active-AI/NextTransformer",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T18:36:34Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://interactive-active-ai.github.io/NextTransformer/",
+        "code": "https://github.com/Interactive-Active-AI/NextTransformer"
+      },
+      "motivation": "NextTransformer A comprehensive, cutting-edge open-source framework for next-generation Transformers, with compute-matched benchmarking and a platform for autonomous architecture research.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:interactive-active-ai/nexttransformer",
+        "url": "https://github.com/Interactive-Active-AI/NextTransformer",
+        "title": "NextTransformer",
+        "authors": [
+          "Interactive-Active-AI"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 17
+        }
+      },
+      "evidence": {
+        "snippet": "auto-research benchmark deep-learning language-models linear-attention llm looped-transformer pytorch sparse-attention transformer The comprehensive, cutting-edge open-source framework, benchmark and auto-research platform for next-generation Transformers English · 简体中文 **When the training budget is fixed, how should a language model spend its computation?** NextTransformer trains recurrent depth, sparse and linear attention, residual-stream variants and hybrids on the same data, for the same 49",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "NextTransformer A comprehensive, cutting-edge open-source framework for next-generation Transformers, with compute-matched benchmarking and a platform for autonomous architecture research. auto-research benchmark deep-learning language-models linear-attention llm looped-transformer pytorch sparse-attention transformer The comprehensive, cutting-edge open-source framework, benchmark and auto-research platform for next-generation Transformers English · 简体中文 **When the training budget is fixed, how should a language model spend its computation?** NextTransformer trains recurrent depth, sparse and linear attention, residual-stream variants and hybrids on the same data, for the same 49.152B tokens, at the same theoretical training FLOPs per token, and evaluates them at the same checkpoints. Every result is an audited, file-backed record, and AI agents can research new architectures under the very same rules. ## News - **2026-10-31** · NextTransformer is now open source: 31 finished runs, 36 model cards, the full protocol, the documentation and the observatory. - **By 2026-11-14** · **Arena v2**, with full support for autonomous agent research. - **November 2026** · Training recipes for **400B tokens and larger models**. ## Highlights ## The observatory Learning curves of every run, a replayable leaderboard, all 22 CORE tasks, architecture diagrams and model cards, in your browser. ## Results [Full leaderboard](https://interactive-active-ai.github.io/NextTransformer/docs/results/leaderboard/) · [Training replay](https://interactive-active-ai.github.io/NextTransformer/#leaderboard) ## Quick start **1. Install** (Linux, NVIDIA GPUs, [uv](https://docs.astral.sh/uv/)): ```bash git clone https://github.com/Interactive-Active-AI/NextTransformer.git && cd NextTransformer uv sync --frozen --extra gpu --extra upstream && source .venv/bin/activate uv pip install --no-deps --require-hashes -r requirements/linear.txt # linear-attention kernels ``` **2. Prepare the data** (ClimbMix at a pinned revision, about 600 GB, plus the tokenizer and CORE bundle): ```bash cp site.native.example.json site.local.json # set data_dir and resources hf download karpathy/climbmix-400b-shuffle --repo-type dataset \\ --revision 915333b4f8b8684f39aeaafea600fea6f43fb703 --local-dir /path/to/climbmix-400b-shuffle source launch/env.sh --site-config site.local.json python -m nexttransformer.prepare --site-config site.local.json ``` **3. Train on one node with 8 GPUs:** ```bash launch/train.sh --config configs/baseline/dense_full.json --site-config site.local.json \\ --output runs/dense_full --micro-batch 8 --formal --resume auto ``` **4. Multi-node training (2 nodes × 8 GPUs)** Install `uv pip install accelerate==1.15.0` in the training environment. Submit one distributed job with the following per-node entry point. Map the platform's node rank, main node address and port to the three variables shown: ```bash accelerate launch --config_file launch/accelerate.yaml \\ --machine_rank \"$NODE_RANK\" --main_process_ip \"$MASTER_ADDR\" --main_process_port \"$MASTER_PORT\" \\ -m nexttransformer.train --config configs/linear/gdn.json --site-config site.local.json \\ --output runs/gdn --micro-batch 16 --formal ``` On Slurm, submit `sbatch launch/slurm.sbatch` for the same example. The batch script gets the launch parameters from the allocation. [Cluster setup and other node counts](https://interactive-active-ai.github.io/NextTransformer/docs/getting-started/quick-start/#multi-node) Evaluation runs on schedule during training. The [quick start guide](https://interactive-active-ai.github.io/NextTransformer/docs/getting-started/quick-start/) covers smoke tests, evaluation, auditing and exporting a result. ## Model zoo Browse architectures by family | Family | Models | |---|---| | | Dense Baseline | | | Standard Residual · AttnRes · HC\\* · mHC | | | UT-ACT · Fixed Recursive · Huginn · Ouro · DeepLoop · MoR · LoopFormer · Circle Loop | | | DSA · QSA · NSA · SeerAttention-style · MoBA | | | DeltaNet · GSA + QK-norm · GLA · KDA · RetNet · ELU-Norm · GDN | | | GDN–MHA · GDN–SWA · DeltaNet–MHA\\* · KDA–MLA-NoPE\\* · GDN–QSA\\* · MoBA–MHA\\* | | | SSSL · MQA · GQA · MLA-QK · MLA-NoPE-QK | \\* Results coming soon. Papers, adaptations and configurations are in the [model zoo](https://interactive-active-ai.github.io/NextTransformer/docs/methods/zoo/). ## The protocol at a glance | | | |---|---| | **Data** | ClimbMix at a pinned revision · one 32,768-token tokenizer · 2,048-token context · one global sample order | | **Budget** | 49.152B input tokens · 46,875 updates of 1,048,576 tokens · seed 42 | | **Compute** | 4.672 GFLOPs per input token (forward, backward, auxiliary and optimizer work); ±1% at admission, ±2% over the run | | **Evaluation** | Validation BPB at 189 points · full CORE-22 at six checkpoints · an independent final BPB | | **Baseline** | Dense: full causal attention in every layer, trained under the same budget | Parameters, memory and speed are outcomes, not controls. The [protocol](https://interactive-active-ai.github.io/NextTransformer/docs/protocol/overview/) explains every rule and the [compute accounting](https://interactive-active-ai.github.io/NextTransformer/docs/protocol/compute/) what is counted. ## Add your method 1. **Write a plugin**: a folder `nexttransformer/methods/ /` with a `method.json` and a few hooks. No shared file changes. 2. **Calibrate** it to the shared budget: `python -m nexttransformer.protocol.calibrate --methods ...` 3. **Open a pull request.** Once admitted, train it with `--formal` and submit the result in a second pull request. Start with the [plugin guide](https://interactive-active-ai.github.io/NextTransformer/docs/guides/plugins/) and [CONTRIBUTING.md](CONTRIBUTING.md). ## Auto-research arena > [!NOTE] > **The arena is in active development.** Arena v2, with full support for autonomous agent research (a research gym > with MCP tools, metered compute, research traces and self-improving research loops), ships by **Nove",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:interactive-active-ai/nexttransformer",
+          "url": "https://github.com/Interactive-Active-AI/NextTransformer"
+        }
+      ]
+    },
+    {
+      "id": "bm_microstructai-reproducible-benchmark_9d17eda1",
+      "familyId": "bmf_cd33ca292c16",
+      "name": "microstructai-reproducible-benchmark",
+      "paperTitle": "microstructai-reproducible-benchmark",
+      "aliases": [],
+      "oneLine": "microstructai-reproducible-benchmark Reproducible synthetic segmentation benchmark with audited code, data, tests, and an AI-assisted article awaiting author review.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T10:42:23Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark"
+      },
+      "motivation": "microstructai-reproducible-benchmark Reproducible synthetic segmentation benchmark with audited code, data, tests, and an AI-assisted article awaiting author review.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:dimitrispasias57-eng/microstructai-reproducible-benchmark",
+        "url": "https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark",
+        "title": "microstructai-reproducible-benchmark",
+        "authors": [
+          "dimitrispasias57-eng"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "microstructai-reproducible-benchmark Reproducible synthetic segmentation benchmark with audited code, data, tests, and an AI-assisted article awaiting author review.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "microstructai-reproducible-benchmark Reproducible synthetic segmentation benchmark with audited code, data, tests, and an AI-assisted article awaiting author review. # MicroStructAI reproducible benchmark A self-contained Python experiment comparing **global Otsu** and **local Gaussian thresholding** on synthetic images with known geometric ground truth. The project demonstrates experimental design, numerical verification, failure analysis, and technical communication. **Review status:** the owner explicitly approved publication of this separate audited benchmark. The technical article remains an AI-assisted draft awaiting substantive author review and editing; publication does not establish independent authorship or completed scientific review. No real biological images, private algorithms, or source-repository history are included. All images and results in this directory are synthetic demonstrations. Read the [technical article](docs/ARTICLE.md), [experiment plan](docs/EXPERIMENT_PLAN.md), [validation record](docs/VALIDATION.md), [release review](docs/RELEASE_REVIEW.md), and [final audit](docs/FINAL_AUDIT.md). ## The problem A global intensity threshold can be affected by uneven illumination. A local threshold can adapt to illumination but depend strongly on scale and offset. This benchmark compares fixed implementations across 24 combinations of contrast, noise, illumination gradient and object radius range, with 20 independently seeded images per condition. Both methods process exactly the same 480 images, with the same initial smoothing and evaluation procedure. The test is intentionally modest. It does not establish performance on microscopy, clinical validity, or a universal ranking of segmentation methods. The parameters were not optimized on the evaluation data. Larger shapes also change foreground occupancy and overlap, so the size factor is not an isolated causal comparison. ## Observed reference result | Method | Mean image IoU | Mean image F1 | IoU below 0.5 | |---|---:|---:|---:| | Global Otsu | 0.581701 | 0.639368 | 212 / 480 | | Local Gaussian | 0.642703 | 0.747756 | 124 / 480 | These are actual results from the fixed 480-image grid. The ranking reverses in several conditions; see the [full condition table](results/reference/tables.md). Fifty-two tests passed, and all 960 result rows plus 4,800 timing observations passed the pixel-level verification and regeneration checks. [![Tests](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark/actions/workflows/tests.yml/badge.svg)](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark/actions/workflows/tests.yml) ## Installation Clone this repository and enter its root before running the commands below: ```bash git clone https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark.git cd microstructai-reproducible-benchmark ``` Use CPython 3.12 (the reference run records its exact patch version). `requirements.in` lists direct dependencies and installer tooling; `requirements.txt` pins the full tested environment. No API keys, account, GPU, private repository, or downloaded image datasets are required. Installation needs access to PyPI unless you already have matching wheels. Linux/macOS: ```bash python3.12 -m venv .venv source .venv/bin/activate python -m pip install --upgrade pip==26.2.2 python -m pip install -r requirements.txt python -m pip check ``` Windows PowerShell, with Python 3.12 available as `python`: ```powershell python -m venv .venv & .\\.venv\\Scripts\\python.exe -m pip install --upgrade pip==26.2.2 & .\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt & .\\.venv\\Scripts\\python.exe -m pip check ``` Use `.\\.venv\\Scripts\\python.exe` in place of `python` in the commands below on Windows. Run commands from this project root. ## Reproduce the experiment For comparable timing, set the listed thread limits before starting Python. On Linux/macOS: ```bash export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 python -m pytest -q python -m segbench.run --config configs/default.json --output runs/reproduce python -m segbench.report runs/reproduce python -m segbench.verify runs/reproduce --regenerate ``` On Windows PowerShell: ```powershell $env:OMP_NUM_THREADS = '1' $env:OPENBLAS_NUM_THREADS = '1' $env:MKL_NUM_THREADS = '1' & .\\.venv\\Scripts\\python.exe -m pytest -q & .\\.venv\\Scripts\\python.exe -m segbench.run --config configs/default.json --output runs/reproduce & .\\.venv\\Scripts\\python.exe -m segbench.report runs/reproduce & .\\.venv\\Scripts\\python.exe -m segbench.verify runs/reproduce --regenerate ``` The runner refuses to overwrite an existing output directory. Use a new path for another run. It saves completion metadata only after all evaluations finish; the report command rejects incomplete runs. Accuracy should reproduce with the recorded software stack. Exact floating point array equality is checked by `--regenerate` in the tested environment; bitwise equality across different numerical libraries or operating systems is not promised. Timing is machine- and load-dependent and will change. The [GitHub Actions workflow](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark/actions/workflows/tests.yml) runs the automated tests, including a small end-to-end benchmark, on Linux and Windows. The badge shows the current CI outcome; the archived full 480-image experiment was executed on Windows as recorded in its metadata. ## Verify the supplied evidence ```bash python -m segbench.verify results/reference --regenerate python -m segbench.report results/reference python tools/release_audit.py ``` The verifier independently reconstructs each confusion table from the archived masks using a four-bin encoding, checks the metric formulas and the Dice/IoU identity, recalculates summary means and sample SDs, checks timing medians and array hashes, and regenerates every image and prediction when requested. It checks code hashes agains",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:dimitrispasias57-eng/microstructai-reproducible-benchmark",
+          "url": "https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_kya-bench-vectors_420a9e4d",
+      "familyId": "bmf_163dd472667d",
+      "name": "kya-bench-vectors",
+      "paperTitle": "kya-bench-vectors",
+      "aliases": [],
+      "oneLine": "KYA Bench conformance vectors 141 deterministic conformance vectors for agent payment protocols, each with the verdict a spec-faithful verifier should reach.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/NagaYu/kya-bench-vectors",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T15:06:21.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "data": "https://huggingface.co/datasets/NagaYu/kya-bench-vectors"
+      },
+      "motivation": "KYA Bench conformance vectors 141 deterministic conformance vectors for agent payment protocols, each with the verdict a spec-faithful verifier should reach.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:nagayu/kya-bench-vectors",
+        "url": "https://huggingface.co/datasets/NagaYu/kya-bench-vectors",
+        "title": "kya-bench-vectors",
+        "authors": [
+          "NagaYu"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "KYA Bench conformance vectors 141 deterministic conformance vectors for agent payment protocols, each with the verdict a spec-faithful verifier should reach.",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "KYA Bench conformance vectors 141 deterministic conformance vectors for agent payment protocols, each with the verdict a spec-faithful verifier should reach. Produced by KYA Bench, a neutral conformance verifier. Protocol Vectors What is tested vi 58 Mastercard Verifiable Intent v0.1-draft: L1 issuer SD-JWT, L2 user KB-SD-JWT (Immediate / Autonomous), L3a/L3b agent KB-SD-JWTs, and the eight registered constraint types. tap 29 Visa Trusted Agent Protocol: RFC 9421… See the full description on the dataset page: https://huggingface.co/datasets/NagaYu/kya-bench-vectors.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:nagayu/kya-bench-vectors",
+          "url": "https://huggingface.co/datasets/NagaYu/kya-bench-vectors"
+        }
+      ]
+    },
+    {
+      "id": "bm_geospatial-flash-benchmark_5e3e4a98",
+      "familyId": "bmf_7666899c53ea",
+      "name": "geospatial-flash-benchmark",
+      "paperTitle": "geospatial-flash-benchmark",
+      "aliases": [],
+      "oneLine": "geospatial-flash-benchmark An independent comparison of three AI-generated implementations of Quito Cadastre Quality Lab: a browser-based quality checker for synthetic cadastral parcels near Quito, Ecuador.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/faustoaguanor/geospatial-flash-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-11-01T00:26:44Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://faustoaguanor.github.io/geospatial-flash-benchmark/",
+        "code": "https://github.com/faustoaguanor/geospatial-flash-benchmark"
+      },
+      "motivation": "geospatial-flash-benchmark An independent comparison of three AI-generated implementations of Quito Cadastre Quality Lab: a browser-based quality checker for synthetic cadastral parcels near Quito, Ecuador.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:faustoaguanor/geospatial-flash-benchmark",
+        "url": "https://github.com/faustoaguanor/geospatial-flash-benchmark",
+        "title": "geospatial-flash-benchmark",
+        "authors": [
+          "faustoaguanor"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "geospatial-flash-benchmark An independent comparison of three AI-generated implementations of Quito Cadastre Quality Lab: a browser-based quality checker for synthetic cadastral parcels near Quito, Ecuador.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "geospatial-flash-benchmark An independent comparison of three AI-generated implementations of Quito Cadastre Quality Lab: a browser-based quality checker for synthetic cadastral parcels near Quito, Ecuador. # Geospatial Flash Benchmark An independent comparison of three AI-generated implementations of **Quito Cadastre Quality Lab**: a browser-based quality checker for synthetic cadastral parcels near Quito, Ecuador. The research question: how well do three coding models translate one GIS specification into spatial validation, maintainable software and a usable application? This is a community experiment curated by **faustoaguanor**, not an official provider evaluation. | Submission | Model attribution (reported) | Original directory | |---|---|---| | DeepSeek | DeepSeek V4.1 Flash | [`implementations/deepseek`](implementations/deepseek) | | GLM | GLM-5.3 Flash | [`implementations/glm`](implementations/glm) | | MiMo | MiMo V2.6 Flash | [`implementations/mimo`](implementations/mimo) | **Synthetic data only.** These parcels are generated demonstrations, not official information from the Municipio del Distrito Metropolitano de Quito. The six named sectors are approximate demonstration locations, not verified administrative boundaries. No cadastral certification, municipal validation, positional accuracy or provider endorsement is claimed. ## Audit status and demos The public repository is published. **GitHub Actions verified all 171 original tests, built all three applications and successfully deployed the Pages artifact on 2026-10-31.** [Verified deployment run](https://github.com/faustoaguanor/geospatial-flash-benchmark/actions/runs/41252590779). A subsequent owner-run Brave/Playwright session produced 12 genuine screenshots, reviewed with its execution manifest. Initial rendering, popups and applied filter controls are evidenced; the full eight-test browser protocol remains incomplete. Published deployment targets: - [Comparison website](https://faustoaguanor.github.io/geospatial-flash-benchmark/) - [DeepSeek application](https://faustoaguanor.github.io/geospatial-flash-benchmark/deepseek/) - [GLM application](https://faustoaguanor.github.io/geospatial-flash-benchmark/glm/) - [MiMo application](https://faustoaguanor.github.io/geospatial-flash-benchmark/mimo/) See [publication status and remaining steps](results/reports/publication.md). ## Verified results Audit date: 2026-10-31; Node 24.16.0, npm 12.2.0. All original files are frozen. The SHA-256 manifest covers **107 files**; dependencies and generated artifacts are excluded. | Evidence | DeepSeek | GLM | MiMo | |---|---:|---:|---:| | Parsed synthetic features | 72 | 72 | 68 | | Existing tests independently executed | 64/64 passed | 56/56 passed on GitHub; 55/56 locally | 51/51 passed | | Production build | Passed | Passed | Passed | | Provisional technical subtotal /80 | 61 | 50 | 58 | | Reviewed browser screenshots | 4 | 4 | 4 | | Visual design: aesthetics + composition /8 | 7 | 6 | 4.5 | | Evaluated-scope total /88 | 68 | 56 | 62.5 | GLM's generator test initially hit `spawnSync EPERM` in the local sandbox; its assertion did not execute there. All 56 tests subsequently passed unchanged on GitHub Actions. Two direct generator runs in an isolated copy preserved both original output hashes. The local failure was an environment limitation; it was not a demonstrated generator defect. The hosted 56/56 result is separately verified. Independent diagnostic cases confirmed overlap/boundary discrimination in all three. They also exposed GLM's one-sided overlap indicators and missing-ID normalization, MiMo's malformed-MultiPolygon crash, and shared shortcomings in exterior-hole validity and orientation-independent duplicate detection. [Technical comparison](results/reports/technical-comparison.md) documents evidence and qualifications. **Provisional categories:** DeepSeek leads the observed GIS review; MiMo has the strongest module/map-loading separation. DeepSeek also leads the reviewed aesthetics/composition and observed mobile arrangement, provisionally. DeepSeek has the highest evaluated-scope score, 68/88. Full UX and cartographic winners are not established. GLM was fastest according to reported timing. A complete-cost winner cannot be determined. ## Conclusions of the exercise All three submissions achieved a deployable demonstration, but passing model-authored tests did not establish cadastral correctness or production readiness. Independent geometry cases found shared validity/duplicate limitations and model-specific indicator/input defects. The browser captures added UX evidence that compilation and unit tests cannot supply. DeepSeek offers the strongest observed balance for continuing a separately identified demo derivative; MiMo provides the clearest module separation, and GLM the shortest reported delivery time. These are findings about three particular submissions, not universal model rankings. Different generated datasets, partial costs and a single run per model prevent stronger generalization. At the owner’s request, scoring now includes only the evaluated visual components: aesthetics and composition, worth 8 points. Added to the unchanged technical subtotals out of 80, the totals are DeepSeek 68/88, MiMo 62.5/88 and GLM 56/88. The uncompleted visual criteria are excluded rather than left pending or scored as zero. These totals are not normalized to 100. Rules, tolerance changes, exports, restoration and accessibility need further browser testing. No operational cadastral use is endorsed. Read the [full professional conclusions](results/reports/conclusions.md) and the [qualified browser matrix](results/reports/browser-functional-audit.md). ## Reported development telemetry These values were supplied by the original experiment owner/agents and were **not independently timed or reconciled against billing**. | Metric | DeepSeek | GLM | MiMo | |---|---:|---:|---:| | Development time | 16m 50s | 5m 51s | 25m 52s | | Dashboard reques",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:faustoaguanor/geospatial-flash-benchmark",
+          "url": "https://github.com/faustoaguanor/geospatial-flash-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_fluente-oral-reading-benchmark_8e0f29d9",
+      "familyId": "bmf_c68bd1b108cd",
+      "name": "fluente-oral-reading-benchmark",
+      "paperTitle": "fluente-oral-reading-benchmark",
+      "aliases": [],
+      "oneLine": "Fluente Oral Reading Benchmark A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag t…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Inspectable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T14:20:44.000Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "data": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark"
+      },
+      "motivation": "Fluente Oral Reading Benchmark A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "huggingface",
+        "id": "huggingface:nicodevargas/fluente-oral-reading-benchmark",
+        "url": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark",
+        "title": "fluente-oral-reading-benchmark",
+        "authors": [
+          "NicoDeVargas"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "hfDatasetDownloads": 0,
+          "hfDatasetLikes": 0
+        }
+      },
+      "evidence": {
+        "snippet": "Fluente Oral Reading Benchmark A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
+        "reasonCodes": [
+          "discovered via huggingface",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Fluente Oral Reading Benchmark A benchmark for oral reading fluency scoring: given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors? It was built for Fluente. Fluente is a one-minute reading check for Portuguese-speaking classrooms, and its score is words correct per minute, the metric used by Brazil's national literacy commitment.… See the full description on the dataset page: https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "huggingface",
+          "id": "huggingface:nicodevargas/fluente-oral-reading-benchmark",
+          "url": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-humanizer-benchmark-2026_469be47b",
+      "familyId": "bmf_e8b0485ce8be",
+      "name": "ai-humanizer-benchmark-2026",
+      "paperTitle": "ai-humanizer-benchmark-2026",
+      "aliases": [],
+      "oneLine": "ai-humanizer-benchmark-2026 Open AI humanizer benchmark 2026: ranked and tested with Proofademic, ZeroGPT and Sapling.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Mohabak/ai-humanizer-benchmark-2026",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-01T01:56:37.225483Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:37.225483Z",
+      "sourceUpdatedAt": "2026-10-31T17:26:29Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/Mohabak/ai-humanizer-benchmark-2026",
+        "data": "https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026"
+      },
+      "motivation": "ai-humanizer-benchmark-2026 Open AI humanizer benchmark 2026: ranked and tested with Proofademic, ZeroGPT and Sapling.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:mohabak/ai-humanizer-benchmark-2026",
+        "url": "https://github.com/Mohabak/ai-humanizer-benchmark-2026",
+        "title": "ai-humanizer-benchmark-2026",
+        "authors": [
+          "Mohabak"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-humanizer-benchmark-2026 Open AI humanizer benchmark 2026: ranked and tested with Proofademic, ZeroGPT and Sapling.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-humanizer-benchmark-2026 Open AI humanizer benchmark 2026: ranked and tested with Proofademic, ZeroGPT and Sapling. Raw scores and outputs included. # AI Humanizer Benchmark 2026 An open, reproducible benchmark of popular AI humanizers. Each tool rewrote the same two AI-generated texts, and every output was scored by independent AI detectors. All inputs, outputs and raw scores are in this repo so anyone can check the numbers or rerun the test. **Tested:** October 31, 2026 **Humanizers:** Walter Writes AI, Humanize AI (humanizeai.pro), Undetectable AI, QuillBot AI Humanizer, WriteHuman (partial) **Detectors:** Proofademic, ZeroGPT, Sapling (all texts); Copyleaks and GPTZero (partial, usage limits) ## Results ![AI humanizer benchmark ranking](charts/ranking.png) Ranked by how many detector checks each tool passed across the three core detectors (2 samples x 3 detectors = 6 checks). A check passes when the detector's AI score is below 50%. | Rank | Humanizer | Checks passed | Avg AI score | Key points kept | |---|---|---|---|---| | 1 | Walter Writes AI | **6 / 6** | **14.2%** | 13 / 13 | | 2 | Humanize AI (humanizeai.pro) | 4 / 6 | 41.9% | 11 / 13 | | 3 | Undetectable AI | 1 / 6 | 78.2% | 13 / 13 | | 4 | QuillBot AI Humanizer | 0 / 6 | 98.6% | 13 / 13 | | n/a | WriteHuman (1 sample only) | 2 / 3 | 51.0% | 6 / 6 | | baseline | Original AI text | 0 / 6 | 97.1% | n/a | ![Every detector score for every sample](charts/heatmap.png) Average AI score per detector (lower = reads more human to that detector): | Humanizer | Proofademic | ZeroGPT | Sapling | Copyleaks | |---|---|---|---|---| | Walter Writes AI | 19.5% | 18.1% | 4.8% | 0% (2 texts) | | Humanize AI | 48.5% | 7.8% | 69.2% | n/a | | Undetectable AI | 99.0% | 45.3% | 90.2% | n/a | | QuillBot | 99.0% | 98.8% | 97.8% | 100% (1 text) | | Original AI text | 98.5% | 100% | 93.0% | 100% | ### Per-text scores (AI probability) | Text | Proofademic | ZeroGPT | Sapling | Copyleaks | |---|---|---|---|---| | `original-s1` | 99% | 100% | 96.2% | 100% | | `original-s2` | 98% | 100% | 89.7% | 100% | | `walter-s1` | 1% | 0% | 0.7% | 0% | | `walter-s2` | 38% | 36.2% | 9% | 0% | | `humanizeai-s1` | 2% | 0% | 39.3% | n/a | | `humanizeai-s2` | 95% | 15.7% | 99.1% | n/a | | `undetectable-s1` | 99% | 64.1% | 87.6% | n/a | | `undetectable-s2` | 99% | 26.6% | 92.7% | n/a | | `quillbot-s1` | 99% | 100% | 97.3% | 100% | | `quillbot-s2` | 99% | 97.7% | 98.4% | n/a | | `writehuman-s1` | 40% | 19.6% | 93.5% | n/a | GPTZero scored `original-s1` as 100% AI before its scan limit was reached. ## What the numbers say - **Walter Writes AI** was the only tool that got both samples past every detector. It passed all 6 core checks and both Copyleaks checks, and kept every key point. Outputs were 30% to 40% longer than the input. - **Humanize AI** did very well on ZeroGPT and passed the academic sample everywhere, but Proofademic and Sapling flagged the blog sample. It also dropped the final sentence of both samples. - **Undetectable AI** kept all the content but was flagged by Proofademic and Sapling on both samples. Its only pass was the blog sample on ZeroGPT. - **QuillBot's humanizer** made light edits that kept the meaning but was flagged at 97% or higher on every check. - **WriteHuman** asked for an account after one run, so it was only tested on one sample and isn't ranked. ## Method 1. **Samples.** Two AI-generated texts of 92 and 93 words, in different registers: academic (`s1`) and blog (`s2`). They were kept under 100 words because some humanizers cap input at 100 words, and every tool had to receive identical input. See [`samples/`](samples/). 2. **Baseline.** Every original sample was scored first. All detectors rated both as AI (89.7% to 100%). 3. **Humanizing.** Each sample was run once through each humanizer's web app with its default settings, and the first output was saved unedited in [`outputs/`](outputs/). - Walter Writes AI: Readability University, Purpose General, Bypass Level Enhanced (defaults), first draft. - Humanize AI (humanizeai.pro): Writing level Default, Tone Free, Rewrite level Balanced. - Undetectable AI: Readability University, Purpose General Writing, Human level Balanced. - QuillBot AI Humanizer: Standard mode. - WriteHuman: Standard model, sample 1 only. 4. **Detection.** Every output was pasted unedited into each detector's web app. Scores were recorded as the detector's AI probability (for Proofademic, 100 minus the stated human probability when the verdict was human). Raw results are in [`data/scores.csv`](data/scores.csv). 5. **Meaning check.** Each sample has 6 or 7 key points. A reviewer checked which points survived in each output and noted errors. See [`data/meaning.csv`](data/meaning.csv). 6. **Summary.** [`scripts/summarize.py`](scripts/summarize.py) recomputes [`data/summary.csv`](data/summary.csv) from the raw files. ```bash python3 scripts/summarize.py ``` ## Limitations - **Small sample.** Two short texts per tool. Results show a direction, not a precise rate. Longer texts may score differently. - **Single run.** Humanizers and detectors are not fully deterministic. Rerunning the same text can give different outputs and scores. - **Detectors change.** Scores reflect each detector's model on the test date. - **Detector usage limits.** Copyleaks and GPTZero stopped scoring after their usage limits, so they are reported but not used for ranking. - **Meaning check is human judgment,** recorded with notes so it can be reviewed. ## Repository layout ``` samples/ original AI-generated texts (s1 academic, s2 blog) outputs/ unedited humanizer outputs, named - .txt data/ scores.csv (raw), meaning.csv, summary.csv scripts/ summarize.py charts/ ranking.png, heatmap.png ``` ## License Code is MIT licensed. Data and texts are released under CC BY 4.0. Tool names belong to their owners.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:mohabak/ai-humanizer-benchmark-2026",
+          "url": "https://github.com/Mohabak/ai-humanizer-benchmark-2026"
+        },
+        {
+          "type": "huggingface",
+          "id": "huggingface:aihumanizerbenchmarker/ai-humanizer-benchmark-2026",
+          "url": "https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026"
+        }
+      ]
+    },
     {
       "id": "bm_semantic-layer-eval_298d16aa",
       "familyId": "bmf_0a889cdabcb0",
@@ -897,98 +1717,6 @@
       ]
     },
     {
-      "id": "bm_ai-design-benchmark_33d9eb26",
-      "familyId": "bmf_0340938d9af5",
-      "name": "ai-design-benchmark",
-      "paperTitle": "ai-design-benchmark",
-      "aliases": [],
-      "oneLine": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "Software & AI Compute"
-      ],
-      "primaryDomain": "Software & AI Compute",
-      "industrySectors": [
-        "Software & Cloud"
-      ],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/Funovate-Technology/ai-design-benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T02:06:03.400514Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-10-30",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T02:06:03.400514Z",
-      "sourceUpdatedAt": "2026-10-30T16:28:23Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "project": "https://fontvibe.ai/blog/gpt-6-1-terra-vs-claude-gemini-design-test",
-        "code": "https://github.com/Funovate-Technology/ai-design-benchmark",
-        "data": "https://zenodo.org/badge/DOI/10.5281/zenodo.23803802.svg"
-      },
-      "motivation": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:funovate-technology/ai-design-benchmark",
-        "url": "https://github.com/Funovate-Technology/ai-design-benchmark",
-        "title": "ai-design-benchmark",
-        "authors": [
-          "Funovate-Technology"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 0
-        }
-      },
-      "evidence": {
-        "snippet": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "ai-design-benchmark Open data from FontVibe's tests of AI models doing design work with text: briefs, outputs, images, scores and reasons. benchmark dataset evaluation graphic-design llm text-to-image typography # AI Design Benchmark [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23803802.svg)](https://doi.org/10.5281/zenodo.23803802) **Open data from FontVibe's tests of AI models doing design work with text: logos, posters, signs, invitations, thumbnails and packaging.** Every brief, every output, every image, every score and the written reason behind each score. Each benchmark asks one question: a client hands over a brief; can they use what the model delivers, and are they happy with it? The full write-up of each test is on the [FontVibe blog](https://fontvibe.ai/blog); this repository is the raw material behind it. ``` 3 benchmarks 8 language models tested as designers (2026-10-llm-designer) 5 image models at 8 settings tested (2026-10-grok-imagine-2, 2026-10-qwen-image-3) 494 images; every scored one has four scores and a written reason ``` ## The benchmarks | Benchmark | What it tests | Article | Data | |---|---|---|---| | **2026-10-llm-designer** | 8 language models (GPT-6.1 Terra, GPT-5.6 Terra, GPT-6.1 Sol, GPT-6 Luna, Claude Opus 5.5, Claude Sonnet 5.5, Gemini 4 Argon, Gemini 3.8 Flash) acting as the designer: reading a brief, proposing directions and writing the image instructions. The image model is fixed. 12 briefs × 3 runs: 288 runs, 269 designs ranked, plus 18 side-note reruns. | [GPT-6.1 Terra vs Claude & Gemini: Design Test](https://fontvibe.ai/blog/gpt-6-1-terra-vs-claude-gemini-design-test) | [benchmarks/2026-10-llm-designer](benchmarks/2026-10-llm-designer) | | **2026-10-qwen-image-3** | 5 image models on 10 design jobs with text: Qwen Image 3.0 Pro, GPT Image 2.5 Sunburst, Nano Banana 2.1, Seedream 5.0 Pro, Grok Imagine 2.0 | [Qwen Image 3.0 vs GPT Image, Nano Banana, Seedream & Grok](https://fontvibe.ai/blog/qwen-image-3-text-test) | [benchmarks/2026-10-qwen-image-3](benchmarks/2026-10-qwen-image-3) | | **2026-10-grok-imagine-2** | 4 image models (Grok Imagine 2.0 at Low and Medium, GPT Image 2.5 Sunburst, Nano Banana 2.1, Seedream 5.0 Pro) on 10 design jobs with text | [Grok Imagine 2.0 text test](https://fontvibe.ai/blog/grok-imagine-2-text-test) | [benchmarks/2026-10-grok-imagine-2](benchmarks/2026-10-grok-imagine-2) | ## How designs are scored Every design gets four scores from 1 to 10. The overall score is calculated, not judged: ``` overall = 0.20 × legibility + 0.35 × lettering and finish + 0.25 × information and layout + 0.20 × appeal ``` The judge plays the client who wrote the brief: is it the thing I asked for; can I use every piece of text as it is; does it have the feeling I wanted; are the details well made; does it impress at first sight. Text the client never gave (founding years, slogans, figures) and placeholders printed as is count against a design. The full standard is in [SCORING.md](SCORING.md). It covers designs with text; images without text are out of scope. ## Reproduce the numbers ```bash python3 scripts/analyze.py benchmarks/2026-10-llm-designer python3 scripts/verify.py ``` Standard library only. `analyze.py` recomputes the tables of the llm-designer benchmark: the per-model table with 95% bootstrap confidence intervals (resampling briefs, fixed seed), cost, time and reliability, and all pairwise comparisons; it writes `summary.csv` and `pairs.csv`. The two image-model benchmarks publish every score but have no analysis script. `verify.py` checks counts, score arithmetic, attempts and that every image URL resolves. ## What's in a benchmark folder `2026-10-llm-designer/` | File | Contents | |---|---| | `briefs.json` | The 12 briefs, their layer, language and the text that must appear | | `models.json` | Model IDs, providers, reasoning effort and public prices on the test date | | `designs.jsonl` | One line per run (288): status and failure cause, the three proposed directions, the image instructions, time, tokens, retries and cost of each step, the image, the four scores, the judge's text checks and reasons | | `attempts.jsonl` | Every attempt (300), with the cause of each replaced attempt | | `opus-budget-2x.jsonl` | 18 reruns of Claude Opus 5.5 with the output limit doubled (a side note, not in the ranking) | | `blind-pick.json` | One person's anonymised pick per brief (a side note, not in the ranking) | | `summary.csv`, `pairs.csv` | Per-model table and all pairwise comparisons, written by `analyze.py` | The image-model folders hold `tasks.json` (prompts and required text) and `images.jsonl` (every image generated, which ones were scored, the scores and reasons). Judges' reasons are in Chinese (`reasons_zh`, `reason_zh`), as written at scoring time; the judge's instructions were in Chinese too ([SCORING.zh.md](SCORING.zh.md)). The benchmark folder's README lists how runs were handled, the statistics and the limits. In the two image-model folders, `\"scored\": false` images were extra samples used for consistency checks, and `designer-grok2-low` images went through FontVibe's designer mode (shown in the article, not scored). Four generations in `2026-10-qwen-image-3` failed (one Nano Banana 2.1, three Seedream 5.0 Pro); their causes were not recorded. Each task and setup has one scored image, so those tables have no confidence intervals. ## Images Images are hotlinked from `cos.fontvibe.ai/opensource/ai-design-benchmark/…`. Each record also links the design's page on FontVibe (`fontvibe_page`), where it can be viewed full size and remade. Images are not part of this repository and remain subject to [FontVibe's terms](https://fontvibe.ai/terms). ## Attribution The data is [CC BY 4.0](LICENSE); the scripts are [MIT](LICENSE-CODE). If you publish results, charts or examples from this data, please credit it like this, linking the article of the benchmark you used: **Markdown** ```markdown Data: [FontVibe AI Design Benchmark](https://font",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:funovate-technology/ai-design-benchmark",
-          "url": "https://github.com/Funovate-Technology/ai-design-benchmark"
-        }
-      ]
-    },
-    {
       "id": "bm_agent-provenance-flow-benchmark_070c1028",
       "familyId": "bmf_9137125730bd",
       "name": "agent-provenance-flow-benchmark",
@@ -1202,13 +1930,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.39617v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T08:47:45Z",
       "adoption30d": null,
       "heat": null,
@@ -1291,13 +2019,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.40370v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T16:20:24Z",
       "adoption30d": null,
       "heat": null,
@@ -1467,13 +2195,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.39247v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T03:00:43Z",
       "adoption30d": null,
       "heat": null,
@@ -2631,13 +3359,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.39934v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T12:36:21Z",
       "adoption30d": null,
       "heat": null,
@@ -2807,13 +3535,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.40018v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T13:30:24Z",
       "adoption30d": null,
       "heat": null,
@@ -2896,13 +3624,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.39265v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T03:18:03Z",
       "adoption30d": null,
       "heat": null,
@@ -2985,13 +3713,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.39330v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T04:26:22Z",
       "adoption30d": null,
       "heat": null,
@@ -3074,7 +3802,7 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.40192v1",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [
         {
@@ -3085,7 +3813,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "http://arxiv.org/abs/2610.40192v1",
-              "observedAt": "2026-10-31T07:23:18.948442Z",
+              "observedAt": "2026-11-01T01:56:32.591491Z",
               "rawValue": "33 pages. Accepted for publication in ACM Transactions on Knowledge Discovery from Data (TKDD)",
               "level": "author-claim"
             }
@@ -3094,8 +3822,8 @@
       ],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T14:47:45Z",
       "adoption30d": null,
       "heat": null,
@@ -3174,13 +3902,13 @@
         "evidenceUrl": "http://arxiv.org/abs/2610.40212v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-31T07:23:18.948442Z"
+        "verifiedAt": "2026-11-01T01:56:32.591491Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-10-29",
-      "firstSeenAt": "2026-10-31",
-      "indexedAt": "2026-10-31T07:23:18.948442Z",
+      "firstSeenAt": "2026-11-01",
+      "indexedAt": "2026-11-01T01:56:32.591491Z",
       "sourceUpdatedAt": "2026-10-29T14:58:08Z",
       "adoption30d": null,
       "heat": null,
@@ -12758,94 +13486,6 @@
       "candidatePriority": "normal"
     },
     {
-      "id": "bm_llmdyno_3445f71a",
-      "familyId": "bmf_eb59c4ad8c73",
-      "name": "llmdyno",
-      "paperTitle": "llmdyno",
-      "aliases": [],
-      "oneLine": "llmdyno Benchmark local and cloud LLMs as coding agents: VRAM fit checks, sandboxed harnesses, hidden tests, LLM judges and a results dashboard.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://github.com/speak2jerome/llmdyno",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-29T19:15:43.518984Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-10-25",
-      "firstSeenAt": "2026-10-29",
-      "indexedAt": "2026-10-29T19:15:43.518984Z",
-      "sourceUpdatedAt": "2026-10-26T04:43:10Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "code": "https://github.com/speak2jerome/llmdyno"
-      },
-      "motivation": "llmdyno Benchmark local and cloud LLMs as coding agents: VRAM fit checks, sandboxed harnesses, hidden tests, LLM judges and a results dashboard.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "github",
-        "id": "github:speak2jerome/llmdyno",
-        "url": "https://github.com/speak2jerome/llmdyno",
-        "title": "llmdyno",
-        "authors": [
-          "speak2jerome"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "githubStars": 1
-        }
-      },
-      "evidence": {
-        "snippet": "llmdyno Benchmark local and cloud LLMs as coding agents: VRAM fit checks, sandboxed harnesses, hidden tests, LLM judges and a results dashboard.",
-        "reasonCodes": [
-          "discovered via github",
-          "benchmark term in abstract",
-          "evaluation protocol evidence",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "llmdyno Benchmark local and cloud LLMs as coding agents: VRAM fit checks, sandboxed harnesses, hidden tests, LLM judges and a results dashboard. ai-agents aider claude codex-cli coding-agent deepseek gemma gguf llama-cpp llm llm-as-a-judge llm-benchmark llm-evaluation local-llm openai opencode qwen vram # LLMDyno **LLMDyno is an open-source benchmark for running local and cloud LLMs as coding agents.** You pick models (GGUF files through llama.cpp on your own GPU, or APIs such as OpenAI, Anthropic, Gemini, DeepSeek, Kimi and Qwen), pick an agent harness (Pi, OpenCode, Codex CLI, Qwen Code, Crush, Aider, mini-SWE-agent), and LLMDyno runs real multi-file coding tasks in offline Docker sandboxes. Hidden tests grade the result, LLM judges review the code blind, and a dashboard compares correctness, code quality, speed, VRAM and cost. It's a dyno for models: it measures what a model actually does on your machine, with your settings, rather than what a leaderboard says it does on someone else's. ## Contents - [Why LLMDyno](#why-llmdyno) - [Features](#features) - [Quick start](#quick-start) - [Round 1 results: 15 configurations on an RTX 5080](#round-1-results-15-configurations-on-an-rtx-5080) - [How it works](#how-it-works) - [Supported harnesses, providers and hardware](#supported-harnesses-providers-and-hardware) - [FAQ](#faq) - [Contributing](#contributing) · [Releases and versioning](#releases-and-versioning) · [License](#license) ## Why LLMDyno Public leaderboards answer \"which model is best on a datacenter GPU at full precision\". If you run models locally, the questions that matter are different: - **Does it fit?** A 27B model at 3 bits with a 48k context either fits in 16 GB of VRAM or it doesn't. On Windows, \"doesn't\" often means the driver quietly spills into system RAM and runs 5-20x slower without an error. - **Which quant, which context, which KV cache type?** Q2 vs Q3 vs IQ3, f16 vs q8_0 cache, experts on the CPU or not. - **Does it work as an agent?** Tool calling, multi-step edits and running tests matter more than one-shot answers. - **How does it compare with the API I'd otherwise pay for**, per task, in dollars and minutes? LLMDyno answers those with your hardware, your models and your settings, and keeps every transcript so you can see why a model failed. ## Features **Hardware-aware setup** - Detects CPU (AVX2/AVX-512), RAM, NVIDIA/AMD/Intel GPUs, driver, CUDA version, disks and Docker on x86-64 Windows and Linux. - Installs a matching prebuilt [llama.cpp](https://github.com/ggml-org/llama.cpp) build (CUDA 12/13, Vulkan, ROCm, SYCL or CPU), or uses yours. **Models and memory fit** - Search Hugging Face, check the fit before you download, then download with resume and SHA-256 verification. - A VRAM projection from the GGUF header alone: weights per layer, KV cache (sliding-window, shared-KV, hybrid recurrent and MLA layers), compute buffers and CUDA overhead. Checked against `llama-fit-params`: mean error -4 MiB, worst case 66 MiB across 84 configurations. - Warnings before you run: out of memory, **VRAM spilling into shared memory**, CPU offload, context shorter than the task needs, risky KV quantization, missing tool-calling support. Most come with a one-click fix. **LLM profiles**: a model plus its exact settings (context, KV cache, offload, MoE experts on CPU, sampling, reasoning). A quick test loads the model and measures real VRAM, decode speed and tool calling in about 20 seconds. **Cloud providers**: OpenAI, Anthropic, Google Gemini, DeepSeek, Moonshot (Kimi), Z.ai, Qwen, MiniMax, xAI, Mistral, OpenRouter, Groq, Together, Fireworks, Cerebras, or any OpenAI-compatible endpoint. Keys are encrypted at rest and never enter a sandbox. Spend caps per provider and per plan are enforced by a proxy, so a looping agent can't run up a bill. **Agent harnesses**: seven open-source harnesses in offline Docker sandboxes, each run against the same tasks, plus custom harnesses from a JSON manifest. A proxy records every request, so transcripts (thinking, tool calls, results) look the same whichever harness ran. **Benchmarks**: six built-in tasks with hidden tests (a CLI smoke test, a Flask site, a FastAPI service with a TypeScript client, a five-stage iterative build, a data pipeline with a churn model, and a bug-fix task). Write your own in the editor; a validator checks that the starter fails and the reference passes. **Plans**: profiles × harnesses × benchmarks × iterations. Preflight checks compatibility, memory and budget; local runs share the GPU one model at a time while cloud runs go in parallel. Pause, resume, retry and cancel at any point. **Judging**: blind, shuffled LLM code review with an editable rubric and as many judges as you like, local or cloud. LLMDyno reports how much the judges agree and whether a judge favours its own vendor's models. **Results dashboard**: weighted leaderboard with 95% confidence intervals, per-benchmark heatmap, radar profiles, a cost/speed/quality scatter with the Pareto front, consistency (pass@k, pass^k), token use, harness comparison, rubric heatmap, side-by-side compare, and CSV/JSON export. Vendor and model-family logos everywhere. **Panic stop**: one red button (or Ctrl+Shift+X) cancels every run and job, removes every sandbox and proxy container and kills llama-server, after a confirmation. **A mascot with a job**: the pixel dino sprints on its treadmill while a benchmark runs, sits on the podium while judges deliberate, and freezes red on a panic stop. The browser tab icon and title follow along, so you can see progress from another tab. ## Quick start **Requirements**: Windows 10/11 or Linux on x86-64, Python 3.11+, and Docker (Docker Desktop on Windows). An NVIDIA, AMD or Intel GPU is recommended for local models; cloud-only use works without one. ```bash git clone https://github.com/speak2jerome/llmdyno.git cd llmdyno ``` Windows (PowerShell): ```powershell powershell -ExecutionPolicy Bypass -File setup.ps1 ``` Linux: ```bash ./se",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "github",
-          "id": "github:speak2jerome/llmdyno",
-          "url": "https://github.com/speak2jerome/llmdyno"
-        }
-      ]
-    },
-    {
       "id": "bm_inferpriv-evaluating-inferential-privacy-l_9a834c3e",
       "familyId": "bmf_75062c28dc2c",
       "name": "InferPriv: Evaluating Inferential Privacy Leakage in LLM Assistants",
@@ -14103,94 +14743,6 @@
           "type": "huggingface",
           "id": "huggingface:marcosremar2/ucast-benchmark",
           "url": "https://huggingface.co/datasets/marcosremar2/ucast-benchmark"
-        }
-      ]
-    },
-    {
-      "id": "bm_turkish-political-position-benchmark_e386ec3f",
-      "familyId": "bmf_9c7ae3e232be",
-      "name": "turkish_political_position_benchmark",
-      "paperTitle": "turkish_political_position_benchmark",
-      "aliases": [],
-      "oneLine": "Turkish Political Position Benchmark The Turkish Political Position Benchmark measures how language models respond to normative statements about Turkish politics.",
-      "area": "Language & Knowledge",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "cs.AI"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Inspectable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://huggingface.co/datasets/samliumay/turkish_political_position_benchmark",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-10-29T19:14:57.416929Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-10-24",
-      "firstSeenAt": "2026-10-29",
-      "indexedAt": "2026-10-29T19:14:57.416929Z",
-      "sourceUpdatedAt": "2026-10-24T15:21:24.000Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.4,
-      "relation": "unclear",
-      "links": {
-        "data": "https://huggingface.co/datasets/samliumay/turkish_political_position_benchmark"
-      },
-      "motivation": "Turkish Political Position Benchmark The Turkish Political Position Benchmark measures how language models respond to normative statements about Turkish politics.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "huggingface",
-        "id": "huggingface:samliumay/turkish_political_position_benchmark",
-        "url": "https://huggingface.co/datasets/samliumay/turkish_political_position_benchmark",
-        "title": "turkish_political_position_benchmark",
-        "authors": [
-          "samliumay"
-        ],
-        "categories": [],
-        "publicSignals": {
-          "hfDatasetDownloads": 118,
-          "hfDatasetLikes": 1
-        }
-      },
-      "evidence": {
-        "snippet": "Turkish Political Position Benchmark The Turkish Political Position Benchmark measures how language models respond to normative statements about Turkish politics.",
-        "reasonCodes": [
-          "discovered via huggingface",
-          "benchmark term in abstract",
-          "public artifact URL",
-          "no explicit benchmark release evidence"
-        ]
-      },
-      "dataStatus": "primary-source-candidate",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Turkish Political Position Benchmark The Turkish Political Position Benchmark measures how language models respond to normative statements about Turkish politics. It reports ideological dimension scores and response similarity to documented political-party reference profiles. The benchmark does not claim that a model belongs to a party, has a voting intention, or possesses political beliefs. A party similarity score only means that the model produced a similar pattern of answers… See the full description on the dataset page: https://huggingface.co/datasets/samliumay/turkish_political_position_benchmark.",
-        "comments": ""
-      },
-      "candidatePriority": "normal",
-      "discoverySources": [
-        {
-          "type": "huggingface",
-          "id": "huggingface:samliumay/turkish_political_position_benchmark",
-          "url": "https://huggingface.co/datasets/samliumay/turkish_political_position_benchmark"
         }
       ]
     },
@@ -35839,6 +36391,11 @@
           "type": "github",
           "id": "github:lowaltitudeflight/llm-inference-bench",
           "url": "https://github.com/Lowaltitudeflight/llm-inference-bench"
+        },
+        {
+          "type": "github",
+          "id": "github:jaysharma2/llm-inference-bench",
+          "url": "https://github.com/Jaysharma2/llm-inference-bench"
         }
       ]
     },
@@ -165803,6 +166360,11 @@
           "type": "github",
           "id": "github:abhas20/llm-benchmark",
           "url": "https://github.com/abhas20/LLM-Benchmark"
+        },
+        {
+          "type": "github",
+          "id": "github:emersonianb/llm-benchmark",
+          "url": "https://github.com/emersonianb/llm-benchmark"
         }
       ]
     },
@@ -176360,6 +176922,11 @@
           "type": "github",
           "id": "github:rsnroxx/llm-inference-benchmark",
           "url": "https://github.com/RSNROXX/llm-inference-benchmark"
+        },
+        {
+          "type": "github",
+          "id": "github:h-sami-ullah/llm-inference-benchmark",
+          "url": "https://github.com/h-sami-ullah/llm-inference-benchmark"
         }
       ]
     },
@@ -303264,9 +303831,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-10-31T07:23:37.255085Z",
+    "evaluatedAt": "2026-11-01T01:56:52.523000Z",
     "publishThreshold": 0.85,
     "promoted": 0,
-    "remainingForAudit": 3310
+    "remainingForAudit": 3316
   }
 }
