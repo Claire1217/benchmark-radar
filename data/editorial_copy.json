@@ -104466,33 +104466,33 @@
     },
     "2610.39419": {
       "evaluationEvidence": {
-        "task": "Five paired visual reasoning tasks where scene, question and answer are fixed and only the visual reference varies.",
-        "scoring": "",
-        "reuse": ""
+        "task": "Five visual reasoning tasks with fixed scene, question, and answer; only reference varies.",
+        "scoring": "Accuracy computed per task; paired conditions allow comparison across reference types.",
+        "reuse": "The abstract states ReGap-Bench is introduced as a benchmark, but no explicit public URL or artifact link is provided in the source metadata."
       },
       "evaluationEvidenceVerified": false,
-      "decision": "exclude",
+      "decision": "publish",
       "canonicalName": "ReGap-Bench",
       "canonicalNameSource": "abstract",
-      "canonicalNameEvidence": "We introduce ReGap-Bench, a paired benchmark of five visual reasoning tasks in which the scene, question, and answer are fixed and only the reference varies.",
-      "benchmarkMode": "viewpoint_probe",
-      "stableScoringContract": false,
+      "canonicalNameEvidence": "We introduce ReGap-Bench, a paired benchmark of five visual reasoning tasks",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
       "publicReusePath": false,
-      "description": "ReGap-Bench is a paired set of five visual reasoning tasks in which scene, question and answer are fixed while the visual reference varies, used to probe binding of language to visual entities.",
-      "whyItMatters": "The paired design isolates whether external references such as numbering change multimodal reasoning accuracy, separating reference binding from visual perception.",
-      "decisionReason": "The paired suite primarily supports a single paper's finding about the reference gap and lacks a standalone public comparison or submission path.",
+      "description": "ReGap-Bench evaluates multimodal reasoning across five visual reasoning tasks with fixed scenes, questions, and answers, varying only the visual reference to assess reference binding.",
+      "whyItMatters": "It isolates the reference gap as a distinct bottleneck from visual perception, showing that task-matched references can improve accuracy without retraining, offering a practical diagnostic for multimodal models.",
+      "decisionReason": "The benchmark is formally named in the abstract and defines a repeatable evaluation with paired tasks and accuracy scoring, though a direct public artifact path is not provided in the metadata.",
       "attentionForecast": {
-        "score": 0,
+        "score": 40,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Excluded record; forecast set to zero."
+        "reason": "The paper targets multimodal reasoning diagnostics with a clear benchmark concept, but limited artifact evidence and narrow scope cap initial attention."
       },
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-01T11:28:16.382271Z",
-      "inputHash": "47411b262c7e3d426d6125fb99ec1c08503be5e8dd5f16c1217d0ed3f0af0f38",
-      "selectionFingerprint": "1b9cb031358be2820a6de1c50505ca63668a392bf82c34daf433122eaca4dbd2"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:08:17.247046Z",
+      "inputHash": "cdadd5e1dfa0f8d649026d07b9261d667103472ad7d75cccbd7ce0b07edc2fdc",
+      "selectionFingerprint": "a0d8bc7ff125efc29bfa0b410385d4b5ae875a557cda15ac12e38ecb31d14c6a"
     },
     "2610.39744": {
       "evaluationEvidence": {
@@ -105394,40 +105394,33 @@
     },
     "huggingface:nicodevargas/fluente-oral-reading-benchmark": {
       "evaluationEvidence": {
-        "task": "**`benchmark.jsonl`:** 125 scripted readings, five per passage. Each reading has the exact spoken script, an answer key (words correct, and the indices of the error words) and the events it contains.",
+        "task": "given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
         "scoring": "The scoring follows human-rater conventions: self-corrections are correct, repetitions are not errors, a skipped line is a skip and not a run of wrong words, and timing starts at the first word of the passage.",
-        "reuse": "**`results.jsonl`:** transcripts and scores from six engines: AssemblyAI Universal-3.5 Pro, whisper-large-v3-turbo, a fine-tuned turbo, whisper-small, a fine-tuned small, and wav2vec2-xlsr-53."
+        "reuse": "The audio is not included. The readings were synthesized from the scripts with the Windows System.Speech voices (Maria pt-BR, Zira en-US), and the script in the GitHub repository (`npm run benchmark`) regenerates them exactly."
       },
       "evaluationEvidenceVerified": true,
       "decision": "publish",
       "canonicalName": "Fluente Oral Reading Benchmark",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "# Fluente Oral Reading Benchmark A benchmark for **oral reading fluency scoring**",
+      "canonicalNameEvidence": "pretty_name: Fluente Oral Reading Benchmark",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates oral reading fluency scoring systems on 125 scripted readings over 25 passages, comparing predicted words correct per minute and error-word flagging against an answer key using deterministic alignment and human-rater scoring conventions.",
-      "whyItMatters": "Gives developers a fixed, publicly released benchmark with answer keys and multi-engine baseline results for validating reading-fluency scoring pipelines, though audio must be regenerated and voices are synthetic adults.",
-      "decisionReason": "Formally named released benchmark with a defined scoring contract and public data with published baseline results, but audio is regenerated from scripts and the benchmark measures the scoring pipeline rather than real children's speech.",
+      "description": "Given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
+      "whyItMatters": "Establishes a baseline for evaluating automatic oral reading fluency scoring systems against human-rater conventions.",
+      "decisionReason": "The dataset is released on Hugging Face with clear task definition, deterministic scoring protocol, and reproducible audio generation script.",
       "attentionForecast": {
-        "score": 12,
-        "confidence": "Low",
+        "score": 42,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Bilingual education-focused scope, synthetic audio disclosure, and a smaller publisher limit expected early attention."
+        "reason": "Targets a niche education domain with available data and explicit reproducible code, likely attracting moderate attention from ASR and educational technology communities."
       },
-      "publishers": [
-        {
-          "name": "Fluente",
-          "organizationType": "community",
-          "sourceUrl": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark",
-          "role": "benchmark-publisher"
-        }
-      ],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-01T11:28:16.382271Z",
-      "inputHash": "5ff33d09b1568fd827535dee31a1299159f35a6426901f96360904c5490e27e5",
-      "selectionFingerprint": "60a46a83bb25aac1d2d29ae6b7828db02e0d6b35aad32915e60e4f15ece3bedb"
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:08:17.247046Z",
+      "inputHash": "7403d7c3f3b02dcc938ce4a565cba455a329b4e49cdb46fdb289ac2cbbadd3ac",
+      "selectionFingerprint": "3e06d149ed67a6a2e1dcea3d9054f1f5cdc2c6073cb50fd239ac74e45c962f7f"
     },
     "github:mohabak/ai-humanizer-benchmark-2026": {
       "evaluationEvidence": {
@@ -105978,9 +105971,9 @@
     },
     "2610.41118": {
       "evaluationEvidence": {
-        "task": "Each base image-caption pair has an edited counterpart, or foil, that preserves the scene but differs by a single controlled edit, such as color, count, spatial relation, or object state.",
-        "scoring": "The repository contains eval/ — code to score vision-language models on CompoSET and on a suite of prior compositionality benchmarks; runs the 2×2 retrieval protocol per variation × verbosity tier.",
-        "reuse": "Dataset: https://huggingface.co/datasets/CompoSET/CompoSET | Code: https://github.com/laure-delisle/CompoSET"
+        "task": "Each base image-caption pair has an edited counterpart, or foil, that preserves the scene but differs by a single controlled edit, such as color, count, spatial relation, or object state. The dataset contains 1,776 instances across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories.",
+        "scoring": "Evaluation proceeds via image-text matching: a model ranks candidate image-caption match similarities and succeeds when the correct match comes on top. The repository provides code to score models and output i2t_score, t2i_score, and group_score.",
+        "reuse": "The dataset is publicly available on Hugging Face, and the GitHub repository includes evaluation scripts and a full reproduction pipeline for the dataset."
       },
       "evaluationEvidenceVerified": false,
       "decision": "publish",
@@ -105990,21 +105983,28 @@
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates vision-language compositionality through single-edit image-caption pairs across 80 scenes, 16 edit types, and three caption verbosity tiers.",
-      "whyItMatters": "Isolates compositional binding errors from global image confounds, enabling cleaner measurement of dual-encoder VLM progress.",
-      "decisionReason": "Released dataset with clear scoring protocol and public code for evaluation.",
+      "description": "A controlled benchmark of vision-language compositionality using single-edit image-caption foils across 16 edit types, evaluated via image-text matching.",
+      "whyItMatters": "Isolates compositional binding from global image confounds, offering a more controlled measure of model ability than prior benchmarks.",
+      "decisionReason": "The benchmark provides a fixed dataset with precise edit definitions, a deterministic retrieval scoring protocol, and public code and data for evaluation by other teams.",
       "attentionForecast": {
-        "score": 72,
+        "score": 45,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a recognized confound in VL compositionality with a reusable dataset and code, likely drawing attention from researchers evaluating dual-encoder models."
+        "reason": "The benchmark addresses a hot topic in vision-language compositionality with a large dataset and claims of exposing model failures, likely attracting attention from the multimodal AI community."
       },
-      "publishers": [],
+      "publishers": [
+        {
+          "name": "Anonymous Authors",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2610.41118",
+          "role": "benchmark-publisher"
+        }
+      ],
       "model": "deepseek-v4-pro",
       "policyVersion": "2026-09-09.1",
-      "generatedAt": "2026-11-02T02:04:44.438137Z",
-      "inputHash": "e99fb2473aa5b5e874ae456373ed0ad66910e64f7d3922169d0aa3cf884d97e5",
-      "selectionFingerprint": "dd4ebe337a0ecdde65daec84b8e47700b030f14310fd0c010fd9e3070477d5e9"
+      "generatedAt": "2026-11-02T08:08:17.247046Z",
+      "inputHash": "464122657a287a1204dc88d57e51983ba6e954712db5a2bbd80ff37af54f6dac",
+      "selectionFingerprint": "cf818869677e0ec2e0cb9f09bb274fcac218695f4b6829650ff86d681fb6ee0c"
     },
     "github:uw-codaproject/champs-cod-benchmark": {
       "evaluationEvidence": {
@@ -106192,6 +106192,126 @@
       "generatedAt": "2026-11-02T02:07:58.865574Z",
       "inputHash": "2907641c89a96f75137e0cc67add1c7547a4b2793f93539a4022b62eb9611b4a",
       "selectionFingerprint": "b0afb291ac1d070bf1c7ed06bf20ce235ec937a01a154e5e26305de5a6e5a642"
+    },
+    "github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline": {
+      "evaluationEvidence": {
+        "task": "Both servers expose the same **OpenAI-compatible API**, so the same load generator and a **LangGraph agent** can target either.",
+        "scoring": "The benchmark measures throughput (tokens/s), time to first token (TTFT) and p50/p95/p99 latency.",
+        "reuse": "The sweep skips experiments whose `results/ .json` already exists, so you can stop and resume it (spot instances, OOMs)."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "High-Throughput LLM Serving Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# High-Throughput LLM Serving Benchmark: vLLM vs. Hugging Face baseline Serve an open-weight LLM with **vLLM** on one cloud GPU and benchmark it under concurrent load against a **plain Hugging Face Transformers** server.",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Synthetic OpenAI-compatible serving benchmark that compares vLLM and Hugging Face Transformers on throughput, TTFT, and latency percentiles, with config sweeps over scheduler and memory settings.",
+      "whyItMatters": "Provides a reusable GPU-based protocol to isolate the effects of continuous batching, paged KV cache, and prefix caching, informing deployment configuration for cost-latency trade-offs.",
+      "decisionReason": "The repository implements a complete benchmark with load generator, deterministic prompts, metric definitions, sweep automation, and open-source code, allowing other teams to run it on their own infrastructure.",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche engineering benchmark targeting LLM serving performance; likely to draw modest interest from practitioners evaluating vLLM configurations."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:05:30.554333Z",
+      "inputHash": "c8f3bcc811665c56d219976758180d6efabf01e7b52c15af0e28cf52c2e93ebc",
+      "selectionFingerprint": "605af1e511b195841ecfbee184a4a77846c9f8ccf880574f70f627c8b5e287fb"
+    },
+    "github:alfat801/excalidraw-benchmark-synthesis": {
+      "evaluationEvidence": {
+        "task": "Autonomous reverse-engineering of Excalidraw using multi-agent team into tested TypeScript implementation",
+        "scoring": "252/252 tests passing, 100,000-cycle fuzzing, 1,000-element mutation >60 FPS, TypeScript build 0 errors",
+        "reuse": "Public GitHub repository with code and test suite"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "Excalidraw Reverse-Engineering Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# Excalidraw Reverse-Engineering Benchmark: Autonomous Multi-Agent Synthesis",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates autonomous multi-agent reverse-engineering of Excalidraw from production bundles into a tested TypeScript clone, using metrics such as test pass rate, fuzzing cycle counts, mutation performance, and build integrity.",
+      "whyItMatters": "Addresses the gap in measuring autonomous AI systems for complex software reverse-engineering and synthesis tasks, providing a concrete case study with explicit metrics for reproducibility.",
+      "decisionReason": "Artifacts are unclear as a formal benchmark with a stable external submission path; the repository presents a single case study rather than a reusable evaluation protocol for comparing different systems.",
+      "attentionForecast": {
+        "score": 3,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The narrow single-experiment scope and non-traditional benchmark format limit early visibility despite the public repository."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:05:30.554333Z",
+      "inputHash": "5291b9e7849309e5d632747bd21e2eac3eaf1683090a85e7923d9c2daf1433ef",
+      "selectionFingerprint": "91ad876238acb67878e70dfadbf8bba1a97cd2491e1df76b092b7ee3e6b23370"
+    },
+    "github:tonysoftwarengineer/dabstep-agent": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "DABstep",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "evaluated on [DABstep](https://huggingface.co/datasets/adyen/DABstep) from Adyen and Hugging Face.",
+      "benchmarkMode": "uses_existing",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "DABstep is a payment data analysis benchmark.",
+      "whyItMatters": "It provides a standard evaluation for code-executing AI agents handling multi-step payment queries.",
+      "decisionReason": "The repository is an agent implementation evaluated on an existing benchmark (DABstep) and does not define a new benchmark protocol or scoring contract.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Excluded record with no new benchmark artifacts or community evaluation signals."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:05:30.554333Z",
+      "inputHash": "9d684355978f2d10d7299f1ba9ad26de07c5bfdfaa09f1088bacd9a4c5f29326",
+      "selectionFingerprint": "20865afb1fd3c738c6becf69bdf1a23e4d89c08251cab37af2bfdd029d9e963f"
+    },
+    "github:gayashan-indrasankha/llm-eval-framework": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "AI Evaluation Framework — Claude vs Microsoft Copilot",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# AI Evaluation Framework — Claude vs Microsoft Copilot",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A reproducible portfolio study comparing Claude and Microsoft Copilot on 12 fictional GRC cases using three synthetic policies, assessed with a six-dimension rubric.",
+      "whyItMatters": "It provides an evidence-based, inspectable protocol for GRC-focused LLM comparisons, though its scope is limited and non-generalizable.",
+      "decisionReason": "The repository is a one-off portfolio study with fixed results and no ongoing submission path; it labels itself as not a general benchmark and lacks a clear external comparison mechanism.",
+      "attentionForecast": {
+        "score": 5,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The niche GRC focus, small synthetic dataset, and self-described non-ranking design likely limit immediate interest."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-02T08:05:30.554333Z",
+      "inputHash": "d3fa579428f171075c4034e0b545f30d28a5d0a242ad230ea595dbfd224f0e47",
+      "selectionFingerprint": "41144574e96024f532af0c496185922bcd7cd13ec344ee7bd16c2d76b7ccb146"
     }
   },
   "invalidOutput": {
@@ -106635,87 +106755,63 @@
     },
     "github:kcfindstr/rsi-bench": {
       "selectionFingerprint": "212855a67d391516c2d5767015c3b1a383b1b1383e22d42dc5991e477207aeec",
-      "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for github:kcfindstr/rsi-bench:reuse",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported evaluation evidence for github:kcfindstr/rsi-bench:scoring",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:annaofarendelle/llm-speedtest": {
       "selectionFingerprint": "1de204c71c75de75ce3bb7829ae7d671047439a746bcd0b08220605520c652e3",
-      "attempts": 1,
-      "lastError": "Unsupported canonical name for github:annaofarendelle/llm-speedtest",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported evaluation evidence for github:annaofarendelle/llm-speedtest:task",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "huggingface:artht/jailbreak-judge-bench": {
       "selectionFingerprint": "355aba4dcfb1ef56a920cc5bc3bc97aebddc998a5ab8e6b7dcc78b2d73f07f6e",
-      "attempts": 1,
+      "attempts": 2,
       "lastError": "Unsupported canonical name for huggingface:artht/jailbreak-judge-bench",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:stocktipsarena/india-analyst-accuracy-benchmark": {
       "selectionFingerprint": "2042136a02044b9dd98daf3980ba6d8aeea0f3edc46c047230ed5f0eabaea374",
-      "attempts": 1,
+      "attempts": 2,
       "lastError": "Unsupported evaluation evidence for github:stocktipsarena/india-analyst-accuracy-benchmark:task",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
-    },
-    "github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline": {
-      "selectionFingerprint": "605af1e511b195841ecfbee184a4a77846c9f8ccf880574f70f627c8b5e287fb",
-      "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline:task",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:victorgomezadapty/gym-fm-benchmark": {
       "selectionFingerprint": "3fb0258c7e4d2d4c74aae099a3f248711847936459defe6f20043ccd404de726",
-      "attempts": 1,
-      "lastError": "Invalid third-person copy for github:victorgomezadapty/gym-fm-benchmark:description",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
-    },
-    "github:alfat801/excalidraw-benchmark-synthesis": {
-      "selectionFingerprint": "91ad876238acb67878e70dfadbf8bba1a97cd2491e1df76b092b7ee3e6b23370",
-      "attempts": 1,
-      "lastError": "Invalid third-person copy for github:alfat801/excalidraw-benchmark-synthesis:whyItMatters",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported canonical name for github:victorgomezadapty/gym-fm-benchmark",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:byquexo/docrag-bench": {
       "selectionFingerprint": "c66afded9010d2e146f76f91f6a3900fd45e7bf2febdab166cadb9cbc2e67269",
-      "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for github:byquexo/docrag-bench:task",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
-    },
-    "github:tonysoftwarengineer/dabstep-agent": {
-      "selectionFingerprint": "20865afb1fd3c738c6becf69bdf1a23e4d89c08251cab37af2bfdd029d9e963f",
-      "attempts": 1,
-      "lastError": "Invalid third-person copy for github:tonysoftwarengineer/dabstep-agent:whyItMatters",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported canonical name for github:byquexo/docrag-bench",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:research-softwarelocalization/cloud-native-llm-benchmark": {
       "selectionFingerprint": "967923bc5549de08a6da21532b3a2e38337075f7c40083e3b75a93c9b50af84e",
-      "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for github:research-softwarelocalization/cloud-native-llm-benchmark:task",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported canonical name for github:research-softwarelocalization/cloud-native-llm-benchmark",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:drlxai/aig-llm-benchmark-reproduction": {
       "selectionFingerprint": "f9291dfa1e0ae5d503730e922bdaa9ceddf4cb56d3c310855bba45eee81c4c05",
-      "attempts": 1,
-      "lastError": "Unsupported canonical name for github:drlxai/aig-llm-benchmark-reproduction",
-      "lastAttemptAt": "2026-11-02T02:04:44.438137Z"
+      "attempts": 2,
+      "lastError": "Unsupported evaluation evidence for github:drlxai/aig-llm-benchmark-reproduction:task",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     },
     "github:dimitrispasias57-eng/microstructai-reproducible-benchmark": {
       "selectionFingerprint": "ed30c459b5233e33d3b45758ee5657a9c20e703fd086168f91ba22d1594499bd",
-      "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for github:dimitrispasias57-eng/microstructai-reproducible-benchmark:scoring",
-      "lastAttemptAt": "2026-11-02T02:07:58.865574Z"
+      "attempts": 2,
+      "lastError": "Unsupported evaluation evidence for github:dimitrispasias57-eng/microstructai-reproducible-benchmark:task",
+      "lastAttemptAt": "2026-11-02T08:08:17.247046Z"
     },
-    "huggingface:nicodevargas/fluente-oral-reading-benchmark": {
-      "selectionFingerprint": "3e06d149ed67a6a2e1dcea3d9054f1f5cdc2c6073cb50fd239ac74e45c962f7f",
+    "github:cxcscmu/ideataste": {
+      "selectionFingerprint": "abaf51ccbe3d1eed0002b91d818074373a6697cba662f794f05ce9f5ac180260",
       "attempts": 1,
-      "lastError": "Unsupported evaluation evidence for huggingface:nicodevargas/fluente-oral-reading-benchmark:task",
-      "lastAttemptAt": "2026-11-02T02:07:58.865574Z"
-    },
-    "2610.39419": {
-      "selectionFingerprint": "a0d8bc7ff125efc29bfa0b410385d4b5ae875a557cda15ac12e38ecb31d14c6a",
-      "attempts": 1,
-      "lastError": "Invalid third-person copy for 2610.39419:description",
-      "lastAttemptAt": "2026-11-02T02:07:58.865574Z"
+      "lastError": "Unsupported evaluation evidence for github:cxcscmu/ideataste:reuse",
+      "lastAttemptAt": "2026-11-02T08:05:30.554333Z"
     }
   }
 }

@@ -10,11 +10,11 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-02 · **Benchmark releases:** 2798
+**Snapshot:** 2026-11-01 · **Benchmark releases:** 2799
 
 ## Contents
 
-- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (49)
+- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (50)
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (25)
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (52)
 - [Agent Memory & Personalization](#agent-memory--personalization) (54)
@@ -54,6 +54,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI R&D & ML Engineering
 
+- **High-Throughput LLM Serving Benchmark** (2026-11-01) — Synthetic OpenAI-compatible serving benchmark that compares vLLM and Hugging Face Transformers on throughput, TTFT, and latency percentiles, with config sweeps over scheduler and memory settings. [Code](https://github.com/krbuti/High-Throughput-LLM-Serving-Benchmark---vLLM-vs.-baseline)
 - **PAPERBENCHX** (2026-10-29) — Benchmark of 93 paper-reproduction tasks across 12 scientific disciplines, requiring agents to reconstruct experiments, execute them, and deliver runnable workflows that produce verifiable evidence. [Paper](https://arxiv.org/abs/2610.39744)
 - **k8s-inference-routing-benchmark** (2026-10-26) — Evaluates Kubernetes request routing strategies for LLM inference by replaying identical chat and RAG traces against simulated vLLM pods and measuring time to first token, prefix-cache hits, load balance, and latency ob… [Code](https://github.com/sunilmehta-si/k8s-inference-routing-benchmark)
 - **Auto-Research Arena** (2026-10-26) — Benchmarks automated research methods on improving language model training and inference efficiency across nine tasks with defined constraints and a shared engine. [Paper](http://arxiv.org/abs/2610.35866v2) · [Code](https://github.com/Auto-Research-Arena/auto-research-arena)
@@ -1165,7 +1166,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Visual Reasoning
 
 - **MicroStructAI reproducible benchmark** (2026-10-31) — Compares global Otsu and local Gaussian thresholding for synthetic image segmentation across 24 contrast, noise, illumination, and object-radius conditions with 20 seeded images per condition, scored by mean image IoU a… [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
-- **CompoSET** (2026-10-30) — Evaluates vision-language compositionality through single-edit image-caption pairs across 80 scenes, 16 edit types, and three caption verbosity tiers. [Paper](https://arxiv.org/abs/2610.41118) · [Code](https://github.com/laure-delisle/CompoSET) · [Data](https://huggingface.co/datasets/CompoSET/CompoSET)
+- **CompoSET** (2026-10-30) — A controlled benchmark of vision-language compositionality using single-edit image-caption foils across 16 edit types, evaluated via image-text matching. [Paper](https://arxiv.org/abs/2610.41118) · [Code](https://github.com/laure-delisle/CompoSET) · [Data](https://huggingface.co/datasets/CompoSET/CompoSET)
 - **CASE** (2026-10-29) — Few-shot segmentation benchmark requiring models to interpret positive and negative visual exemplars across six task types. [Paper](https://arxiv.org/abs/2610.39396) · [Code](https://github.com/WongKinYiu/FSS-CASE)
 - **PRISM-BENCH** (2026-10-27) — Assesses vision-language model reasoning beyond final-answer accuracy using 1,000 curated multimodal questions with idealized traces. [Paper](http://arxiv.org/abs/2610.36554v1) · [Data](https://huggingface.co/datasets/vanshbhatia/PRISM-BENCH)
 - **CrowdCC** (2026-10-26) — Benchmarks crowd counting models on corruption robustness across 23 corruptions and deployment quantization on four datasets, with aligned annotations. [Paper](http://arxiv.org/abs/2610.36340v1) · [Code](https://github.com/Tulane-Computer-Architecture-Systems/CrowdCC-Release)
@@ -2070,7 +2071,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
-- **Fluente Oral Reading Benchmark** (2026-10-31) — Evaluates oral reading fluency scoring systems on 125 scripted readings over 25 passages, comparing predicted words correct per minute and error-word flagging against an answer key using deterministic alignment and huma… [Data](https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark)
+- **Fluente Oral Reading Benchmark** (2026-10-31) — Given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors? [Data](https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark)
 - **SMEBench** (2026-10-27) — Evaluates neural music editing systems on MIDI-derived audio edit tasks using 3600 paired source-target examples with instruction and metadata. [Paper](http://arxiv.org/abs/2610.36715v1)
 - **Vesper Indic Bench** (2026-10-25) — Evaluates Indic speech recognition using per-clip transcripts and scores from identical held-out clips across 12 languages and 90 evaluation sets. [Data](https://huggingface.co/datasets/rahulsharmavishwakarma/vesper-indic-bench)
 - **Nepali-English Code-Switched Podcast Evaluation Benchmark** (2026-10-22) — A 15.45-hour dataset of verified Nepali-English code-switched podcast speech with transcripts for ASR evaluation using MER, SPER, and SCR metrics. [Paper](https://arxiv.org/abs/2610.30860) · [Code](https://github.com/Firoj-Wise/nepali-english-codeswitch-asr) · [Data](https://huggingface.co/datasets/SamaFiroz/nepali-english-codeswitch-podcasts)

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-02T02:04:35.713694Z",
+  "generatedAt": "2026-11-02T08:05:22.704021Z",
   "sourceDate": "2026-11-01",
   "sourceWindow": {
     "from": "2026-10-30",
     "to": "2026-11-01"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 3343,
+  "candidateCount": 3344,
   "candidates": [
     {
       "id": "bm_umlip-magnetic-benchmark-data_82195fe7",
@@ -724,6 +724,96 @@
           "type": "github",
           "id": "github:stocktipsarena/india-analyst-accuracy-benchmark",
           "url": "https://github.com/StockTipsArena/india-analyst-accuracy-benchmark"
+        }
+      ]
+    },
+    {
+      "id": "bm_ideataste_ec3e46ed",
+      "familyId": "bmf_f202a34ed6fd",
+      "name": "IdeaTaste",
+      "paperTitle": "IdeaTaste",
+      "aliases": [],
+      "oneLine": "IdeaTaste IdeaTaste - A benchmark for research taste: let LLM agents propose research ideas, then check how many of them the research area actually went on to do.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/cxcscmu/IdeaTaste",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-02T08:04:30.848166Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-01",
+      "firstSeenAt": "2026-11-02",
+      "indexedAt": "2026-11-02T08:04:30.848166Z",
+      "sourceUpdatedAt": "2026-11-02T02:55:17Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://cxcscmu.github.io/IdeaTaste",
+        "code": "https://github.com/cxcscmu/IdeaTaste",
+        "data": "https://huggingface.co/datasets/cx-cmu/IdeaTaste"
+      },
+      "motivation": "IdeaTaste IdeaTaste - A benchmark for research taste: let LLM agents propose research ideas, then check how many of them the research area actually went on to do.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:cxcscmu/ideataste",
+        "url": "https://github.com/cxcscmu/IdeaTaste",
+        "title": "IdeaTaste",
+        "authors": [
+          "cxcscmu"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "IdeaTaste IdeaTaste - A benchmark for research taste: let LLM agents propose research ideas, then check how many of them the research area actually went on to do.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "IdeaTaste IdeaTaste - A benchmark for research taste: let LLM agents propose research ideas, then check how many of them the research area actually went on to do. ai-scientists benchmark evaluation evaluation-framework evaluation-metrics idea-generation llm llm-agents machine-learning nlp research-agents scientific-discovery scientific-discovery-agents # IdeaTaste [![Homepage](https://img.shields.io/badge/homepage-leaderboard-purple)](https://cxcscmu.github.io/IdeaTaste) [![Paper](https://img.shields.io/badge/paper-PDF-red)](https://cxcscmu.github.io/IdeaTaste/assets/paper.pdf) [![Dataset](https://img.shields.io/badge/dataset-Hugging%20Face-yellow)](https://huggingface.co/datasets/cx-cmu/IdeaTaste) [![Areas](https://img.shields.io/badge/areas-4-blue)](#data) [![Corpus](https://img.shields.io/badge/corpus-263K%20papers-blue)](#data) [![Reference](https://img.shields.io/badge/reference-11.6K%20papers-blue)](#data) [![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE) ![IdeaTaste: LLM agents and human researchers read the same literature up to 2025; their citations and their ideas (proposals vs. 2026 papers) are compared by matching, proposals are scored for diversity, and human experts review both blind.](assets/IdeaTaste.png) IdeaTaste is a benchmark for research taste. LLM agents read a literature corpus frozen at 2025 and write research proposals; those proposals are then scored against the papers the same communities published in 2026. Proposals and papers are compared both on the literature they cite and on the ideas they state, giving four metrics: citation matching, idea matching, citation diversity and idea diversity. ## Install ```bash pip install -e \".[dev]\" python -m pytest # runs on the small sample in tests/fixtures/data ``` ## Data The benchmark inputs (about 530 MB) are on [huggingface.co/datasets/cx-cmu/IdeaTaste](https://huggingface.co/datasets/cx-cmu/IdeaTaste). This downloads them into `data/areas/` (skipping areas already there) and prints what each file holds, with a few example rows: ```bash python data/download_and_preview.py ``` ## Run Copy `.env.example` to `.env` and fill in the API keys of the models you use, then: ```bash ideataste generate --method topic --model deepseek-v4-flash --area auto_research --n 300 --out runs/topic ideataste evaluate --area auto_research --proposals runs/topic/proposals.jsonl --out runs/topic/eval ``` - **`generate`** writes `proposals.jsonl`, `trajectories.jsonl` and `llm_calls.jsonl`. Re-running the same command resumes the run. - **`evaluate`** does three things: - extracts idea schemas with DeepSeek-V4-Pro; - retrieves candidate pairs and judges them slot by slot with GPT-5.6 Luna; - writes the verdicts and `scores.json`. - **Cost:** both call paid APIs. A 300-proposal population takes up to 6,000 agent calls. Evaluating it takes about 300 extraction calls, plus one judge call per candidate pair: 5 per 2026 paper, and up to 1,500 diversity pairs. The paper's settings are the defaults: 300 proposals, 20 steps, and FRONTIER in two rounds. - **method**: what the LLM agent is told about its area. - `free`: only that it is a researcher in the area. - `topic`: one research topic, allocated in proportion to the corpus with recent years upweighted. - `landscape`: the area's most common 2025 task tags, method tags and task–method pairs with their shares, plus a ` ` action to retrieve papers by tag. - `frontier`: TOPIC run in two rounds; the second round can search and read the first round's proposals and research traces. - **model**: the LLM behind the agent, one of `llama-4-scout`, `claude-haiku-4.5`, `gemini-3.5-flash-lite`, `deepseek-v4-flash`, `qwen3.8-27b` and `k2-horizon` (set in `src/ideataste/configs/models.yaml`). `qwen3.8-27b` expects a local vLLM server; `llama-4-scout` runs on AWS Bedrock. - **area**: the research community, one of `ml_systems`, `code_generation`, `world_models` and `auto_research`. It fixes the corpus the agent searches, the area definition in its prompt, and the 2026 papers its proposals are compared with. **Extending:** - **A new model:** add an entry to `src/ideataste/configs/models.yaml`. Any OpenAI-compatible endpoint works without code changes. - **A new method:** subclass `Method` (`methods/base.py`), override `population`, `system_prompt` or `tools`, and register it in `methods/__init__.py`. ## Citation ```bibtex @article{zhong2026ideataste, title = {IdeaTaste: Do LLMs Share the Research Taste of Human Researchers?}, author = {Zhong, Shanshan and Xu, Chen and Ning, Jingjie and Liu, Zhengzhong and Kumar, Aviral and Xiong, Chenyan}, year = {2026} } ```",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:cxcscmu/ideataste",
+          "url": "https://github.com/cxcscmu/IdeaTaste"
         }
       ]
     },
@@ -1899,6 +1989,97 @@
           "type": "github",
           "id": "github:interactive-active-ai/nexttransformer",
           "url": "https://github.com/Interactive-Active-AI/NextTransformer"
+        }
+      ]
+    },
+    {
+      "id": "bm_llm-eval-framework_77a69519",
+      "familyId": "bmf_86931d8052dc",
+      "name": "llm-eval-framework",
+      "paperTitle": "llm-eval-framework",
+      "aliases": [],
+      "oneLine": "llm-eval-framework Reproducible benchmark comparing Claude and Microsoft Copilot on synthetic GRC policy questions using a six-dimension rubric.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute",
+        "Finance"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud",
+        "Financial Services"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/gayashan-indrasankha/llm-eval-framework",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-02T08:04:30.848166Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-10-31",
+      "firstSeenAt": "2026-11-02",
+      "indexedAt": "2026-11-02T08:04:30.848166Z",
+      "sourceUpdatedAt": "2026-11-02T07:47:34Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/gayashan-indrasankha/llm-eval-framework"
+      },
+      "motivation": "llm-eval-framework Reproducible benchmark comparing Claude and Microsoft Copilot on synthetic GRC policy questions using a six-dimension rubric.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:gayashan-indrasankha/llm-eval-framework",
+        "url": "https://github.com/gayashan-indrasankha/llm-eval-framework",
+        "title": "llm-eval-framework",
+        "authors": [
+          "gayashan-indrasankha"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "llm-eval-framework Reproducible benchmark comparing Claude and Microsoft Copilot on synthetic GRC policy questions using a six-dimension rubric.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "llm-eval-framework Reproducible benchmark comparing Claude and Microsoft Copilot on synthetic GRC policy questions using a six-dimension rubric. ai-evaluation benchmark grc llm python # AI Evaluation Framework — Claude vs Microsoft Copilot **Status: 48/48 benchmark responses collected and scores user-approved.** **Scope: 12 fictional Governance, Risk & Compliance (GRC) cases × 2 observed AI products × 2 manual trials.** A reproducible, evidence-based *portfolio study* of how Claude and Microsoft Copilot answered questions grounded in **three synthetic GRC policies**. It includes deterministic prompts, original plaintext responses, a six-dimension assessment rubric, human-approved (AI-assisted) scores, comparative analysis, and an Excel dashboard. > **Not a general model ranking or a real compliance audit.** The results describe the specific app configurations and synthetic questions tested. The scoring process was AI-assisted and approved by the project owner; it was not independently blinded or professionally adjudicated. ## Results at a glance | Metric | Claude | Microsoft Copilot | |---|---:|---:| | Responses | 24 | 24 | | Rubric points earned / available | **545 / 576** | **575 / 576** | | Share of rubric points | **94.62%** | **99.83%** | | Mean score per response / 24 | **22.71** | **23.96** | | Total-score-stable case pairs | **11 / 12** | **11 / 12** | **What the scores mean:** 24 of the 30-point total gap came from *instruction following*, predominantly scope and concision rather than incorrect core policy conclusions. Under this recorded rubric, every response received 4/4 on accuracy, coverage, and risk awareness. All 24 model–case pairs retained their substantive policy conclusion between trials, while two pairs changed rubric scores by one point. No definite fabricated policy obligations were tagged. None of these observations establishes real-world accuracy, model superiority, or hallucination-free operation. Explore [the full comparative report](docs/Stage3_Comparative_Analysis.md) and [Excel dashboard](docs/Stage3_Benchmark_Dashboard.xlsx). ## Research design - **Synthetic documents:** P01 (procurement approvals), P02 (accounts payable), P03 (supplier and access governance). - **12 cases:** threshold boundaries, segregation of duties, split-purchase screening, duplicate invoices, three-way matching, bank-detail verification, supplier monitoring, access revocation, and unsupported ISO 27001 claims. - **Collection:** the same archived, generated prompt for each model per case; users reported fresh chats and two independent manual trials. Neither app was invoked by this repository. - **Products:** user-reported Claude paid/Opus 5.5 Medium selection and university/work-account Microsoft Copilot Auto mode. Underlying Copilot model identity, exact live configurations, and web-grounding states were not independently verified. - **Scoring:** six axes, 0–4 each (accuracy, coverage, groundedness, instruction following, clarity, risk awareness); equal-weight sum out of 24. AI-assisted assessments accepted by the project owner, not blinded independent ratings. Read [Methodology](docs/METHODOLOGY.md) for the protocol and caveats. ## Reproduce the local checks (Python 3.10+) This project uses **Python standard library only** to validate the dataset, regenerate prompts and compute metrics. No API key or external account is required to reproduce these *local* checks. From the repository root (PowerShell): ```powershell python scripts/validate_data.py python -m unittest discover -s tests -p \"test_*.py\" -v python scripts/stage3_analyze.py ``` Expected key checks: 12 source cases, **9/9 tests passing**, 48 unique runs, 48/48 raw responses available, 12/12 archived prompt-hash matches, 48 approved records, Claude 545/576 and Copilot 575/576. Four recorded execution timestamps are populated; **44 are missing**. Timestamp gaps are not filled with guesses. To intentionally regenerate prompts from the synthetic policy fixtures (this **overwrites** files in `generated/prompts/` and the manifest), run: ```powershell python scripts/build_prompts.py ``` Then check `git diff` and ensure SHA-256 hashes are unchanged before committing. Prompt hashes validate **archived files**, not what was pasted into a live chat. The workbook and the written report are reviewed Stage 3 snapshots. The script prints reproducible data metrics; it does not automatically regenerate the Excel charts or re-score the responses. ## Repository guide ```text data/ policies/ P01–P03 synthetic source documents test_cases.json 12 case definitions, expected points and prohibited claims evaluation_runs.csv 48 approved scoring records and metadata evaluation_runs_template.csv Empty template for additional experiments generated/ prompts/ 12 deterministic, archived manual prompts prompt_manifest.csv Case IDs and prompt SHA-256 hashes responses/ 48 unmodified plaintext model responses scripts/ validate_data.py Synthetic benchmark-design checks build_prompts.py Deterministic prompt generator stage3_analyze.py Data-integrity audit and score summary tests/ test_benchmark.py Starter fixture and prompt tests test_evaluation_integrity.py Final dataset, scoring and approval regression tests docs/ Stage3_Comparative_Analysis.md Comparative findings and limitations Stage3_Benchmark_Dashboard.xlsx Excel visual scorecard Stage3_Metrics.json Archived analysis metric snapshot GRC-*_pilot_review.md Trial 1 case review notes GRC-*_Trial2_Consistency_Review.md Trial 2 comparisons METHODOLOGY.md, ARCHITECTURE.md, REPRODUCIBILITY.md, ROADMAP.md ``` ## Integrity and ethical limitations - All policy documents and cases are **fictional**. Do not upload real company information or personal records to consumer AI applications. - The 48 plaintext answers are intentionally tracked in Git to make the synthetic evidence inspectable. `.gitignore` still excludes private evidence and local secrets. - **44/48 actual execution timestamps are blank**; exact live config",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:gayashan-indrasankha/llm-eval-framework",
+          "url": "https://github.com/gayashan-indrasankha/llm-eval-framework"
         }
       ]
     },
@@ -3429,91 +3610,6 @@
       "reviewContext": {
         "abstract": "Agentic LLM assistants must repeatedly decide whether to answer from memory or to call a tool such as web search. Unnecessary searches cost latency and money; missing ones yield confident but unsupported answers. Prior work mostly measures verbalised confidence or trains new adaptive-retrieval methods, and rarely audits the search decisions that deployed products actually make. We introduce a benchmark of 400 multiple-choice questions that combines widely known inside-knowledge (IK) questions, which should be answered directly, with outside-knowledge (OK) questions about facts from news published after the models' training cut-offs (to our knowledge), which should trigger search or, without tools, abstention. Each item offers an abstain option, and two action-level scores, NAS and KIS, reward searching on OK questions and restraint on IK questions. Across five commercial LLMs with and without their vendors' web search, GPT-5 mini and Grok 4 Fast search on over 90% of OK but only 1% of IK questions, whereas Mistral Small searches on just 20% of OK questions, often abstaining instead of using its tool; one product's search indicator proved unusable. Searching is partly triggered by explicit temporal cues: on uncued OK questions, the NAS of the two selective models falls from about 0.72 to 0.57--0.58. The scores thus measure the search triggering of specific products, not metacognition in a strict sense.",
         "comments": ""
-      },
-      "candidatePriority": "normal"
-    },
-    {
-      "id": "bm_composet-a-controlled-single-edit-benchmar_80cfa22a",
-      "familyId": "bmf_883ffde9552b",
-      "name": "CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality",
-      "paperTitle": "CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality",
-      "aliases": [],
-      "oneLine": "Vision-language compositionality is the ability to identify which properties, relations, quantities, and states bind to which entities in both an image and a caption, and to match those bindings across modalities.",
-      "area": "Multimodal",
-      "applicationDomains": [
-        "General AI"
-      ],
-      "primaryDomain": "General AI",
-      "industrySectors": [],
-      "domainCuration": {
-        "state": "auto",
-        "method": "rules-v1"
-      },
-      "capabilities": [],
-      "topics": [
-        "Multimodal"
-      ],
-      "construction": "Unknown",
-      "annotation": "Unknown",
-      "readiness": "Runnable",
-      "publication": {
-        "status": "unverified",
-        "venue": null,
-        "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2610.41118",
-        "source": "arxiv-metadata",
-        "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-02T02:03:51.441027Z"
-      },
-      "venueAttempts": [],
-      "publications": [],
-      "releasedAt": "2026-10-30",
-      "firstSeenAt": "2026-11-02",
-      "indexedAt": "2026-11-02T02:03:51.441027Z",
-      "sourceUpdatedAt": "2026-10-30T01:18:34Z",
-      "adoption30d": null,
-      "heat": null,
-      "confidence": "Medium",
-      "recognitionConfidence": 0.7,
-      "relation": "introduces",
-      "links": {
-        "report": "https://arxiv.org/abs/2610.41118",
-        "paper": "https://arxiv.org/abs/2610.41118",
-        "pdf": "https://arxiv.org/pdf/2610.41118",
-        "project": null,
-        "code": "https://github.com/laure-delisle/CompoSET",
-        "data": "https://huggingface.co/datasets/CompoSET/CompoSET"
-      },
-      "motivation": "Vision-language compositionality is the ability to identify which properties, relations, quantities, and states bind to which entities in both an image and a caption, and to match those bindings across modalities.",
-      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
-      "metrics": [],
-      "source": {
-        "type": "arxiv",
-        "id": "2610.41118",
-        "url": "https://arxiv.org/abs/2610.41118",
-        "title": "CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality",
-        "authors": [
-          "Laure Delisle",
-          "Pietro Perona"
-        ],
-        "categories": [
-          "cs.CV"
-        ]
-      },
-      "evidence": {
-        "snippet": "We introduce Compositional Single-EdiT (CompoSET), a benchmark dataset in which each base image-caption pair has an edited counterpart, or foil, that preserves the scene but differs by a single controlled edit, such as color, count, spatial relation, or object state.",
-        "reasonCodes": [
-          "benchmark term in abstract",
-          "benchmark release stated in one sentence",
-          "evaluation protocol evidence",
-          "public artifact URL"
-        ]
-      },
-      "dataStatus": "primary-source-indexed",
-      "demo": false,
-      "reviewContext": {
-        "abstract": "Vision-language compositionality is the ability to identify which properties, relations, quantities, and states bind to which entities in both an image and a caption, and to match those bindings across modalities. Existing benchmarks evaluate this ability through image-text matching: a model ranks candidate image-caption match similarities and succeeds when the correct match comes on top. In such datasets, paired images differ by more than a single binding: scene, layout, and content all differ, with 97% of pixels changing on average. Such pairs do not isolate compositionality: results are confounded by global image differences. We introduce Compositional Single-EdiT (CompoSET), a benchmark dataset in which each base image-caption pair has an edited counterpart, or foil, that preserves the scene but differs by a single controlled edit, such as color, count, spatial relation, or object state. Base and foil images preserve naturalistic scene complexity yet are visually near-identical: only 8% of pixels change on average. Our dataset has many foils per base scene (~22) in order to separate scene difficulty from edit difficulty, a distinction one-foil-per-base benchmarks cannot make. CompoSET contains 1,776 instances across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories, with captions at 3 verbosity levels. We test 22 dual-encoder VLMs and find that all models perform at or below chance level on CompoSET, despite scoring well on prior benchmarks. This suggests that apparent progress under prior image-text matching protocols may be an artifact arising from confounds in benchmark design, and that compositional understanding in dual-encoder VLMs is far from solved. CompoSET addresses the confounds and offers a better controlled benchmark to measure future progress.",
-        "comments": "Dataset: https://huggingface.co/datasets/CompoSET/CompoSET | Code: https://github.com/laure-delisle/CompoSET | 9 pages main text, 38 pages total"
       },
       "candidatePriority": "normal"
     },
@@ -306259,13 +306355,14 @@
     "openreview"
   ],
   "sourceFailures": {
+    "arxiv": "TimeoutError",
     "openreview": "HTTPError"
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-11-02T02:04:36.522777Z",
+    "evaluatedAt": "2026-11-02T08:05:23.566563Z",
     "publishThreshold": 0.85,
-    "promoted": 1,
-    "remainingForAudit": 3343
+    "promoted": 0,
+    "remainingForAudit": 3344
   }
 }
