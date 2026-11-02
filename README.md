@@ -26,10 +26,11 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-01 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-02 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
+| 1 | **High-Throughput LLM Serving Benchmark**<br><sub>[Code](https://github.com/krbuti/High-Throughput-LLM-Serving-Benchmark---vLLM-vs.-baseline)</sub> | AI R&D & ML Engineering | 0 GitHub stars |
 
 ### Explore the library
 
