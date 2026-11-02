@@ -44,7 +44,7 @@
       "aliases": [
         "High-Throughput-LLM-Serving-Benchmark"
       ],
-      "oneLine": "Synthetic OpenAI-compatible serving benchmark that compares vLLM and Hugging Face Transformers on throughput, TTFT, and latency percentiles, with config sweeps over scheduler and memory settings.",
+      "oneLine": "Compares vLLM against a Hugging Face Transformers baseline server on throughput, time to first token and p50/p95/p99 latency under concurrent load, isolating PagedAttention, continuous batching and prefix caching effects.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -122,14 +122,14 @@
           "url": "https://github.com/krbuti/High-Throughput-LLM-Serving-Benchmark---vLLM-vs.-baseline"
         }
       ],
-      "description": "Synthetic OpenAI-compatible serving benchmark that compares vLLM and Hugging Face Transformers on throughput, TTFT, and latency percentiles, with config sweeps over scheduler and memory settings.",
-      "whyItMatters": "Provides a reusable GPU-based protocol to isolate the effects of continuous batching, paged KV cache, and prefix caching, informing deployment configuration for cost-latency trade-offs.",
+      "description": "Compares vLLM against a Hugging Face Transformers baseline server on throughput, time to first token and p50/p95/p99 latency under concurrent load, isolating PagedAttention, continuous batching and prefix caching effects.",
+      "whyItMatters": "Serving-stack comparisons inform deployment decisions, but this is a single-author study whose results are placeholders rather than measurements.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Niche engineering benchmark targeting LLM serving performance; likely to draw modest interest from practitioners evaluating vLLM configurations."
+        "reason": "Excluded record; no public attention forecast is assigned."
       },
       "displayEligible": true,
       "curation": {
@@ -267,9 +267,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T08:05:30.554333Z",
-        "inputHash": "c8f3bcc811665c56d219976758180d6efabf01e7b52c15af0e28cf52c2e93ebc"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "6510bcd1c464bf52323465373e9bf30186c505988a807df0eebba2ee2385f5ae"
       }
     },
     {
@@ -557,7 +557,7 @@
       "aliases": [
         "fluente-oral-reading-benchmark"
       ],
-      "oneLine": "Given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
+      "oneLine": "Scores oral reading fluency systems against human-rater words-correct-per-minute counts and error-word identification on 125 scripted readings over 25 passages in Portuguese and English.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -634,14 +634,14 @@
           "url": "https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark"
         }
       ],
-      "description": "Given a recording of someone reading a passage aloud, how close does a system get to a trained human rater's count of words correct per minute, and does it flag the right words as errors?",
-      "whyItMatters": "Establishes a baseline for evaluating automatic oral reading fluency scoring systems against human-rater conventions.",
+      "description": "Scores oral reading fluency systems against human-rater words-correct-per-minute counts and error-word identification on 125 scripted readings over 25 passages in Portuguese and English.",
+      "whyItMatters": "Fluency scoring is a classroom-critical measurement with few shared evaluation sets; a fixed passages-and-answer-key dataset with a deterministic alignment procedure lets reading-assessment systems be compared on equal footing.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 42,
-        "confidence": "Medium",
+        "score": 18,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Targets a niche education domain with available data and explicit reproducible code, likely attracting moderate attention from ASR and educational technology communities."
+        "reason": "A small educational speech dataset with no paper and no supplied promotion may draw modest attention from reading-assessment and speech-evaluation researchers."
       },
       "displayEligible": true,
       "curation": {
@@ -659,9 +659,9 @@
         "canonicalNameEvidence": "pretty_name: Fluente Oral Reading Benchmark"
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T08:08:17.247046Z",
-        "inputHash": "7403d7c3f3b02dcc938ce4a565cba455a329b4e49cdb46fdb289ac2cbbadd3ac"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "5ff33d09b1568fd827535dee31a1299159f35a6426901f96360904c5490e27e5"
       },
       "attention": {
         "asOf": "2026-11-01",
@@ -897,7 +897,7 @@
       "aliases": [
         "ai-humanizer-benchmark-2026"
       ],
-      "oneLine": "Compares AI humanizer tools on their ability to make AI-generated text pass third-party AI detectors, using two fixed samples and a pass/fail score below 50% AI probability.",
+      "oneLine": "Ranks commercial AI humanizer tools by whether their rewritten outputs evade detector tools, using fixed input samples, single-run outputs and detector AI-score thresholds.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Software & AI Compute"
@@ -980,14 +980,14 @@
           "url": "https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026"
         }
       ],
-      "description": "Compares AI humanizer tools on their ability to make AI-generated text pass third-party AI detectors, using two fixed samples and a pass/fail score below 50% AI probability.",
-      "whyItMatters": "Offers a transparent, small-sample reference for humanizer effectiveness against public detectors.",
+      "description": "Ranks commercial AI humanizer tools by whether their rewritten outputs evade detector tools, using fixed input samples, single-run outputs and detector AI-score thresholds.",
+      "whyItMatters": "Detector-evasion claims are widely marketed but rarely checked; a comparable measurement could inform procurement and editorial decisions.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 18,
+        "score": 22,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Practical commercial angle may draw interest but tiny sample and single-date testing limit viral spread."
+        "reason": "A commercial-tool ranking on an attention-prone topic may draw brief interest from detector and content-marketing audiences despite minimal artifacts."
       },
       "displayEligible": true,
       "curation": {
@@ -1231,9 +1231,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "61373c4e38ca6de0d8fa3171194a30deb92e54e33e95ef318aae92045ec7a300"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "7be9201e953d67762fd88fd270f2cadaa9fd126ef597e9def59ce23345ba3b52"
       }
     },
     {
@@ -1244,7 +1244,7 @@
       "aliases": [
         "zeta-benchmarks"
       ],
-      "oneLine": "Proposed tool for running a matrix of models and agent harnesses across many pre-existing benchmark task sets, reporting scores and estimated model costs.",
+      "oneLine": "A command-line tool that runs existing cataloged benchmarks and local task sets across a matrix of models and agent harnesses, then reports scores and estimated model costs.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "General AI"
@@ -1321,14 +1321,14 @@
           "url": "https://huggingface.co/datasets/zontalabs/zeta-benchmarks"
         }
       ],
-      "description": "Proposed tool for running a matrix of models and agent harnesses across many pre-existing benchmark task sets, reporting scores and estimated model costs.",
-      "whyItMatters": "Could provide a consistent comparison interface across heterogeneous benchmarks and agent harnesses.",
+      "description": "A command-line tool that runs existing cataloged benchmarks and local task sets across a matrix of models and agent harnesses, then reports scores and estimated model costs.",
+      "whyItMatters": "Consistent harness-and-model comparison supports upgrade and regression checks across many published benchmarks.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 22,
+        "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The release aggregates existing benchmarks and harness comparison features, which may attract moderate attention from agent evaluation practitioners within the first week."
+        "reason": "Excluded record; no public attention forecast is assigned."
       },
       "displayEligible": false,
       "curation": {
@@ -1503,9 +1503,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "248ea8fab76939115b24ebafadcee81f83acab027c897ecf236c94bf76ec8161"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "4bd51d977175932f0ac372a183897be357c15a21e3d3a611429be6ebfb0c9b25"
       }
     },
     {
@@ -1514,7 +1514,7 @@
       "name": "ROSTrans",
       "paperTitle": "ROSTrans: Empirically Benchmarking LLMs for ROS1-to-ROS2 Migration",
       "aliases": [],
-      "oneLine": "A ROS1-to-ROS2 migration benchmark of 108 code tasks, evaluated by executing injected candidate files against fixed runtime test suites.",
+      "oneLine": "Evaluates LLMs on ROS1-to-ROS2 code migration across 108 scaffolded completion tasks from 70+ open-source ROS1 repositories, organized by interface-, behavioral- and system-level correctness with runtime test suites and containers.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -1609,13 +1609,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We present ROSTrans, a benchmark for evaluating LLMs on ROS1-to-ROS2 code migration"
       },
-      "description": "A ROS1-to-ROS2 migration benchmark of 108 code tasks, evaluated by executing injected candidate files against fixed runtime test suites.",
-      "whyItMatters": "Exposes correctness issues that only appear at runtime, beyond compile-time checks, providing a more meaningful measure of LLM performance for robotics software.",
+      "description": "Evaluates LLMs on ROS1-to-ROS2 code migration across 108 scaffolded completion tasks from 70+ open-source ROS1 repositories, organized by interface-, behavioral- and system-level correctness with runtime test suites and containers.",
+      "whyItMatters": "Migration correctness in robotics depends on runtime behavior across nodes, topics, services and actions; a staged, execution-based evaluation separates compile success from genuine migration correctness.",
       "attentionForecast": {
-        "score": 35,
-        "confidence": "Medium",
+        "score": 45,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "Topical ROS benchmark targets a niche but technically deep domain likely to draw moderate early attention from robotics and code-generation communities."
+        "reason": "A named robotics software-migration benchmark with runtime execution and frontier-model results may draw interest from robotics and code-generation audiences, tempered by the absence of a supplied artifact link."
       },
       "attention": {
         "asOf": "2026-11-02",
@@ -1768,9 +1768,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "2907641c89a96f75137e0cc67add1c7547a4b2793f93539a4022b62eb9611b4a"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "e4eed8f19eae4adc036bdbbe5fc2d693b920da72459485c66567755f1bf1f8ac"
       }
     },
     {
@@ -1781,7 +1781,7 @@
       "aliases": [
         "CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality"
       ],
-      "oneLine": "A controlled benchmark of vision-language compositionality using single-edit image-caption foils across 16 edit types, evaluated via image-text matching.",
+      "oneLine": "Evaluates vision-language compositionality through image-text matching on 1,776 single-edit foil pairs across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories and three caption verbosity tiers.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -1853,14 +1853,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "A controlled benchmark of vision-language compositionality using single-edit image-caption foils across 16 edit types, evaluated via image-text matching.",
-      "whyItMatters": "Isolates compositional binding from global image confounds, offering a more controlled measure of model ability than prior benchmarks.",
+      "description": "Evaluates vision-language compositionality through image-text matching on 1,776 single-edit foil pairs across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories and three caption verbosity tiers.",
+      "whyItMatters": "Prior image-text matching pairs change most pixels, confounding compositionality with global scene differences; a controlled single-edit protocol isolates binding failures for clearer model comparison.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 45,
+        "score": 52,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "The benchmark addresses a hot topic in vision-language compositionality with a large dataset and claims of exposing model failures, likely attracting attention from the multimodal AI community."
+        "reason": "A controlled compositionality benchmark with released data and evaluation code plus findings of at-chance model performance may attract vision-language research attention shortly after release."
       },
       "displayEligible": true,
       "curation": {
@@ -1877,14 +1877,6 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality"
       },
-      "publishers": [
-        {
-          "name": "Anonymous Authors",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://arxiv.org/abs/2610.41118",
-          "role": "benchmark-publisher"
-        }
-      ],
       "attention": {
         "asOf": "2026-11-02",
         "hfPaperUpvotes": null,
@@ -2043,9 +2035,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T08:08:17.247046Z",
-        "inputHash": "464122657a287a1204dc88d57e51983ba6e954712db5a2bbd80ff37af54f6dac"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "a1b7b09932f6f5137beedd51f4c8fe9a6562b570296aed3e530e42ecd7704270"
       }
     },
     {
@@ -2323,7 +2315,7 @@
       "name": "WorldProbe",
       "paperTitle": "WorldProbe: When Video World Models Fall Apart under Long-Horizon Spatial Exploration",
       "aliases": [],
-      "oneLine": "Evaluates video world models on 164 long-horizon spatial exploration test cases using goal-conditioned camera actions, scored across four dimensions of visual quality, content, memory, and evolution.",
+      "oneLine": "Diagnostic evaluation of video world models under long-horizon camera-controlled exploration, with 164 test cases across four probing families and a goal-conditioned multimodal agent steering camera actions online.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -2403,14 +2395,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates video world models on 164 long-horizon spatial exploration test cases using goal-conditioned camera actions, scored across four dimensions of visual quality, content, memory, and evolution.",
-      "whyItMatters": "Covers a gap left by short-horizon and fixed-trajectory benchmarks, providing a diagnostic lens on persistent 3D consistency in generated worlds.",
+      "description": "Diagnostic evaluation of video world models under long-horizon camera-controlled exploration, with 164 test cases across four probing families and a goal-conditioned multimodal agent steering camera actions online.",
+      "whyItMatters": "Short fixed-trajectory evaluations miss long-range memory and world-consistency failures; extended online exploration probes whether models maintain persistent 3D worlds over time.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 32,
-        "confidence": "Medium",
+        "score": 40,
+        "confidence": "Low",
         "horizon": "7d",
-        "reason": "ArXiv release with code link and timely focus on video world model limitations may attract moderate interest from the research community."
+        "reason": "A long-horizon spatial exploration probe of video world models over ten models may interest generative-video researchers, though the unverified resource link limits immediate uptake."
       },
       "displayEligible": true,
       "curation": {
@@ -2428,9 +2420,9 @@
         "canonicalNameEvidence": "WorldProbe: When Video World Models Fall Apart under Long-Horizon Spatial Exploration"
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "e577a657f5d3fb26728ed07237536cef9497a08610e95946386389c30fcd72c3"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "fdb34290d43506cc64c9ef081269b1496110e7118c7e5f2af162e491fa9f6806"
       },
       "attention": {
         "asOf": "2026-10-30",
@@ -2590,7 +2582,7 @@
       "name": "WorldFlowBench",
       "paperTitle": "WorldFlow: Joint Video and 3D Motion Prediction via Large-Scale Pretraining",
       "aliases": [],
-      "oneLine": "WorldFlowBench evaluates joint video and 3D trajectory prediction across simulated and real-world interactions using 1,678 samples from 11 data sources, including spatial reasoning tasks.",
+      "oneLine": "WorldFlowBench evaluates joint future video and query-based 3D trajectory prediction, drawing 1,678 samples from 11 simulated and real-world data sources, including spatial reasoning tasks, with average and final displacement error as metrics.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -2677,14 +2669,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "WorldFlowBench evaluates joint video and 3D trajectory prediction across simulated and real-world interactions using 1,678 samples from 11 data sources, including spatial reasoning tasks.",
-      "whyItMatters": "It provides a standardized testbed for physically grounded generative world models, enabling comparison of future video and 3D motion prediction in diverse embodied scenarios.",
+      "description": "WorldFlowBench evaluates joint future video and query-based 3D trajectory prediction, drawing 1,678 samples from 11 simulated and real-world data sources, including spatial reasoning tasks, with average and final displacement error as metrics.",
+      "whyItMatters": "Embodied prediction systems need comparable evaluation of explicit 3D dynamics rather than video-only or configuration-specific proxies; a multi-source suite with displacement metrics would let teams compare geometric forecasting quality.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
-        "score": 62,
+        "score": 38,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The benchmark's broad scope, including real-world and simulated data with spatial reasoning, is likely to attract moderate attention from embodied AI researchers."
+        "reason": "Attention is likely driven by the coupled video-and-3D world-model framing and a large pretraining corpus, tempered by the absence of released benchmark artifacts or a code link."
       },
       "displayEligible": true,
       "curation": {
@@ -2701,14 +2693,6 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We further introduce WorldFlowBench, comprising 1,678 evaluation samples from 11 data sources across simulated and real-world interactions, including spatial reasoning tasks."
       },
-      "publishers": [
-        {
-          "name": "WorldFlow Team",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://worldflow-rbs.github.io/",
-          "role": "benchmark-publisher"
-        }
-      ],
       "attention": {
         "asOf": "2026-11-01",
         "hfPaperUpvotes": null,
@@ -2860,9 +2844,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "41943141f5aaa8942aa83f8bc982a5633a06ec1cc052dc6f0ffda53d497ca901"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "c8c2cdd27fbe023af19a346006fbbd9b4290bc03e3742f573ce1ea3618eb4f94"
       }
     },
     {
@@ -3132,7 +3116,7 @@
       "aliases": [
         "Well-Specified and Well-Tested? Assessing SWE-bench-Style Datasets with a Self-Evolving Agent"
       ],
-      "oneLine": "Unclear evaluation object with no explicit scoring contract or release path.",
+      "oneLine": "SWE-TQ is a benchmark spanning eight programming languages, built by cleaning human annotations from SWE-bench and Multi-SWE-bench, covering task clarity and test coverage assessment in SWE datasets.",
       "area": "Code & Software",
       "applicationDomains": [
         "Software & AI Compute"
@@ -3212,14 +3196,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Unclear evaluation object with no explicit scoring contract or release path.",
-      "whyItMatters": "Insufficient evidence to describe the evaluation gap or decision value.",
+      "description": "SWE-TQ is a benchmark spanning eight programming languages, built by cleaning human annotations from SWE-bench and Multi-SWE-bench, covering task clarity and test coverage assessment in SWE datasets.",
+      "whyItMatters": "Assessing whether SWE-style instances are solvable and verifiable depends on the quality of task clarity and test coverage judgments, which affect both training-data filtering and evaluation reliability.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 5,
+        "score": 38,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The abstract does not supply release links or concrete benchmark artifacts, and the topical scope is narrow."
+        "reason": "Attention is likely driven by interest in SWE-bench dataset quality and automated annotation, tempered by the absence of any stated artifact release."
       },
       "displayEligible": false,
       "curation": {
@@ -3387,9 +3371,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "8cc823aa8047f755cc9736bbd232de060a895c453a1f6b5cda9b6ff583904900"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "4543557a3472417977043464ad92f26ac3647184f33c82810aa8fa71fe3677d4"
       }
     },
     {
@@ -3398,7 +3382,7 @@
       "name": "VideoMemBench",
       "paperTitle": "VideoMemBench: How Well Do MLLMs Remember in Video Conversations?",
       "aliases": [],
-      "oneLine": "Evaluates multimodal LLMs on multi-turn video conversations with cross-turn dependencies, measuring in-context video memory for visual episodes and prior answers.",
+      "oneLine": "VideoMemBench evaluates in-context video memory of multimodal large language models through long multi-turn dialogues over single videos, with turns linked by episodic and answer dependencies and an overall per-model score.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -3471,14 +3455,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Evaluates multimodal LLMs on multi-turn video conversations with cross-turn dependencies, measuring in-context video memory for visual episodes and prior answers.",
-      "whyItMatters": "Identifies a gap in existing video QA benchmarks that ignore cross-turn dependencies, providing a structured measure of a model's ability to sustain coherent long video dialogues.",
+      "description": "VideoMemBench evaluates in-context video memory of multimodal large language models through long multi-turn dialogues over single videos, with turns linked by episodic and answer dependencies and an overall per-model score.",
+      "whyItMatters": "Existing video QA benchmarks use independent single-turn questions, so no benchmark isolates whether a model carries information across turns; this targets memory of prior visual episodes and prior model answers.",
       "evaluationMode": "score_submission",
       "attentionForecast": {
         "score": 55,
-        "confidence": "Low",
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "Topic of multimodal memory in long videos is moderately popular, but the paper is recent and has no available citation or star signal in the supplied evidence."
+        "reason": "Attention is likely driven by long-video multimodal memory as an active topic and a released dataset covering many models, within a moderately broad audience."
       },
       "displayEligible": true,
       "curation": {
@@ -3646,9 +3630,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "59c39c3df17817bad0680121cc0b2e9598848f0859420a49defeee90842d7601"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "1811a241969d9f4048dddaabddac7f38d732adefea258137f4562beb9b8c2891"
       }
     },
     {
@@ -3657,7 +3641,7 @@
       "name": "RoboAtom-Bench",
       "paperTitle": "RoboAtom: Large-scale Atomic-Action Supervision for Robot Learning",
       "aliases": [],
-      "oneLine": "Benchmark for skill recognition and temporal boundary localization of atomic actions in robot trajectories, built on large-scale annotated robot data.",
+      "oneLine": "RoboAtom-Bench standardizes evaluation of skill recognition and temporal boundary localization on atomic-action annotations added to existing robot trajectory data from multiple sources.",
       "area": "Robotics & Embodied AI",
       "applicationDomains": [
         "Robotics & Embodied AI"
@@ -3738,14 +3722,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Benchmark for skill recognition and temporal boundary localization of atomic actions in robot trajectories, built on large-scale annotated robot data.",
-      "whyItMatters": "Provides a standardized evaluation for fine-grained action annotation and segmentation, enabling comparison of automatic annotation models for robot skill learning.",
+      "description": "RoboAtom-Bench standardizes evaluation of skill recognition and temporal boundary localization on atomic-action annotations added to existing robot trajectory data from multiple sources.",
+      "whyItMatters": "Robot datasets lack consistent subtask and atomic-action labels, limiting skill reuse and cross-source training; a common evaluation for skill recognition and boundary localization would make such annotations comparable.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 58,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Robot learning benchmarks with large-scale annotations may attract moderate interest from the robotics community, but the paper is very recent and lacks popularity signals."
+        "reason": "Interest may come from robot learning and fine-grained action annotation audiences, but artifacts are announced only as forthcoming."
       },
       "displayEligible": true,
       "curation": {
@@ -3763,9 +3747,9 @@
         "canonicalNameEvidence": "We construct RoboAtom-Bench to standardize evaluation of skill recognition and temporal boundary localization."
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "4e8ee30abe55b73f1c02cd37255ebacf1b03fb59713a41e63c18a825001f188c"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "b12df435f5a4610c6e024c3302fbb39bced1a7967e5849ccb270a9306af0d9cc"
       },
       "attention": {
         "asOf": "2026-11-01",
@@ -3925,7 +3909,7 @@
       "name": "RetroChessBench",
       "paperTitle": "RetroChessBench: A Benchmark for Reconstructing and Proving Chess Histories",
       "aliases": [],
-      "oneLine": "Benchmark of 12 retrograde chess tasks requiring reconstruction of legal chess histories and proofs of forced events, with references, rubrics, and a terminal-reward environment.",
+      "oneLine": "RetroChessBench evaluates reconstruction and proof of legal chess histories across 12 tasks, including exact-length constructions, unique endings, and exhaustive answer sets, with rubrics and a terminal-reward environment.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Mathematics & Formal Science"
@@ -4012,18 +3996,18 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce RetroChessBench, a 12-task benchmark covering exact-length constructions, unique endings, and exhaustive answer sets, with references, rubrics, and a terminal-reward environment."
       },
-      "description": "Benchmark of 12 retrograde chess tasks requiring reconstruction of legal chess histories and proofs of forced events, with references, rubrics, and a terminal-reward environment.",
-      "whyItMatters": "Challenges frontier reasoning models on pure deductive tasks with explicit rules, exposing failures in transferring mathematical reasoning to unfamiliar domains.",
+      "description": "RetroChessBench evaluates reconstruction and proof of legal chess histories across 12 tasks, including exact-length constructions, unique endings, and exhaustive answer sets, with rubrics and a terminal-reward environment.",
+      "whyItMatters": "Rule-governed reasoning failures persist even in frontier models, and existing retrograde archives typically supply puzzles and move sequences without derivations, leaving a gap for evaluating whether models distinguish possible from forced histories.",
       "attentionForecast": {
-        "score": 62,
+        "score": 42,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Retrograde chess is a niche domain with low expected mainstream attention, but the reference to frontier models and reasoning failures may draw some interest from the AI research community."
+        "reason": "Attention may come from reasoning and chess audiences drawn to rule-based verification and terminal-reward scoring, though the task domain is narrow."
       },
       "publishers": [
         {
-          "name": "RetroChessBench Team",
-          "organizationType": "academic-lab",
+          "name": "Poindexter Labs",
+          "organizationType": "company-research-lab",
           "sourceUrl": "https://app.poindexterlabs.net/docs/retro-chess",
           "role": "benchmark-publisher"
         }
@@ -4247,9 +4231,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "ea5cfcdd332ab4ace101d6abbf972bbcb8ec11e3def472b333f4bae5a8ce9df0"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "baea2c1e13dfcd9a117200914d99ed78ce9b6c1d4dd4a217ab52b9f67b5c2b25"
       }
     },
     {
@@ -4258,7 +4242,7 @@
       "name": "ReGap-Bench",
       "paperTitle": "Diagnosing the Reference Gap: What Visual Scaffolds Can and Cannot Fix in Multimodal Reasoning",
       "aliases": [],
-      "oneLine": "ReGap-Bench evaluates multimodal reasoning across five visual reasoning tasks with fixed scenes, questions, and answers, varying only the visual reference to assess reference binding.",
+      "oneLine": "A paired visual reasoning benchmark of five tasks in which scene, question, and answer are fixed while only the visual reference varies.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -4350,13 +4334,13 @@
         "canonicalNameSource": "abstract",
         "canonicalNameEvidence": "We introduce ReGap-Bench, a paired benchmark of five visual reasoning tasks in which the scene, question, and answer are fixed and only the reference varies."
       },
-      "description": "ReGap-Bench evaluates multimodal reasoning across five visual reasoning tasks with fixed scenes, questions, and answers, varying only the visual reference to assess reference binding.",
-      "whyItMatters": "It isolates the reference gap as a distinct bottleneck from visual perception, showing that task-matched references can improve accuracy without retraining, offering a practical diagnostic for multimodal models.",
+      "description": "A paired visual reasoning benchmark of five tasks in which scene, question, and answer are fixed while only the visual reference varies.",
+      "whyItMatters": "Separates failures of binding language to visual entities from perception errors, informing how task-matched references affect multimodal reasoning.",
       "attentionForecast": {
-        "score": 40,
+        "score": 18,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "The paper targets multimodal reasoning diagnostics with a clear benchmark concept, but limited artifact evidence and narrow scope cap initial attention."
+        "reason": "Narrow paired visual-reasoning scope and absence of released artifacts limit likely early visibility."
       },
       "attention": {
         "asOf": "2026-11-02",
@@ -4509,9 +4493,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T08:08:17.247046Z",
-        "inputHash": "cdadd5e1dfa0f8d649026d07b9261d667103472ad7d75cccbd7ce0b07edc2fdc"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "47411b262c7e3d426d6125fb99ec1c08503be5e8dd5f16c1217d0ed3f0af0f38"
       }
     },
     {
@@ -4520,7 +4504,7 @@
       "name": "PhysInsert-Bench",
       "paperTitle": "PhysInsert: Physically Plausible Object Insertion with Geometric Priors and Bidirectional Object-Scene Interactions",
       "aliases": [],
-      "oneLine": "Benchmark for physically plausible object insertion with cross-environment and cross-view cases, requiring adaptation of illumination and pose.",
+      "oneLine": "A benchmark of cross-environment and cross-view object-insertion cases requiring illumination and pose adaptation beyond appearance copying.",
       "area": "Vision & 3D",
       "applicationDomains": [
         "General AI"
@@ -4597,23 +4581,15 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Benchmark for physically plausible object insertion with cross-environment and cross-view cases, requiring adaptation of illumination and pose.",
-      "whyItMatters": "Assesses realism of object insertion beyond appearance copying, addressing limitations in existing methods for lighting and pose adaptation.",
+      "description": "A benchmark of cross-environment and cross-view object-insertion cases requiring illumination and pose adaptation beyond appearance copying.",
+      "whyItMatters": "Targets physically plausible object-scene insertion where pose and lighting adaptation are insufficiently constrained.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 52,
+        "score": 20,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Object insertion is a specialized computer vision topic with moderate interest; the paper is recent and no popularity metrics are provided."
+        "reason": "Project page exists, but scope is narrow and artifact readiness is unclear, limiting likely early attention."
       },
-      "publishers": [
-        {
-          "name": "PhysInsert Team",
-          "organizationType": "academic-lab",
-          "sourceUrl": "https://arthuring.github.io/PhysInsert/",
-          "role": "benchmark-publisher"
-        }
-      ],
       "displayEligible": true,
       "curation": {
         "state": "ai-reviewed",
@@ -4781,9 +4757,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "6d013f8c74da5726e80350cfeba9bc6eb53576db062167d7159797721a81f123"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "25aa4e7314ad74da46701f2db843004144ee82cc9dd297841e44c9659d2936a9"
       }
     },
     {
@@ -4792,7 +4768,7 @@
       "name": "PhysCount",
       "paperTitle": "PhysCount: Do MLLMs Count Visual Appearances or Physical Entities?",
       "aliases": [],
-      "oneLine": "Benchmark of 546 real-world images with human-written counting questions that distinguish between counting visual appearances and physical entities.",
+      "oneLine": "A counting benchmark of 546 real-world images and 4,595 questions over 651 groups testing whether multimodal models distinguish visible appearances from physical entities.",
       "area": "Multimodal",
       "applicationDomains": [
         "General AI"
@@ -4866,14 +4842,14 @@
       },
       "dataStatus": "primary-source-indexed",
       "demo": false,
-      "description": "Benchmark of 546 real-world images with human-written counting questions that distinguish between counting visual appearances and physical entities.",
-      "whyItMatters": "Reveals a gap between recognizing visible occurrences and recovering physical entities, exposing a core challenge in multimodal counting tasks.",
+      "description": "A counting benchmark of 546 real-world images and 4,595 questions over 651 groups testing whether multimodal models distinguish visible appearances from physical entities.",
+      "whyItMatters": "Separates enumerating visible appearances from recovering the physical entities behind reflections and glass, exposing a distinct counting gap.",
       "evaluationMode": "public_reusable",
       "attentionForecast": {
-        "score": 57,
+        "score": 30,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Physical counting is a moderately novel angle within multimodal benchmarks, but the new paper lacks fetched popularity signals, so attention is uncertain."
+        "reason": "Concrete counting dataset with broad model coverage but no released artifact path constrains expected early attention."
       },
       "displayEligible": false,
       "curation": {
@@ -5041,9 +5017,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "31ab842c31a7d5765e20df63f2492c0a6ca72b5dbf293b9165e005c348d2f00d"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "25e84135be52ad0b9710a63670d2eb62ebc402666e5e26314f677e0e9f24c99b"
       }
     },
     {
@@ -5052,7 +5028,7 @@
       "name": "PAPERBENCHX",
       "paperTitle": "PAPERBENCHX: Can AI Reproduce Science Across Disciplines?",
       "aliases": [],
-      "oneLine": "Benchmark of 93 paper-reproduction tasks across 12 scientific disciplines, requiring agents to reconstruct experiments, execute them, and deliver runnable workflows that produce verifiable evidence.",
+      "oneLine": "A benchmark of 93 paper-reproduction tasks across 12 research areas in which agents reconstruct and execute key experiments and deliver runnable workflows.",
       "area": "Language & Knowledge",
       "applicationDomains": [
         "Materials & Chemistry"
@@ -5154,13 +5130,13 @@
         "canonicalNameSource": "paper_title",
         "canonicalNameEvidence": "PAPERBENCHX: Can AI Reproduce Science Across Disciplines?"
       },
-      "description": "Benchmark of 93 paper-reproduction tasks across 12 scientific disciplines, requiring agents to reconstruct experiments, execute them, and deliver runnable workflows that produce verifiable evidence.",
-      "whyItMatters": "Assesses whether AI can translate scientific papers into reproducible experiments, providing a rigorous checkpoint for AI-driven scientific discovery.",
+      "description": "A benchmark of 93 paper-reproduction tasks across 12 research areas in which agents reconstruct and execute key experiments and deliver runnable workflows.",
+      "whyItMatters": "Extends reproducibility evaluation beyond machine learning to domain-specific scientific software, testing whether agents produce verifiable scientific evidence.",
       "attentionForecast": {
-        "score": 65,
+        "score": 35,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Cross-disciplinary scientific reproduction is a high-interest topic within AI for science, though the paper is recent and no popularity evidence is supplied."
+        "reason": "Cross-disciplinary agent-reproduction scope has broad topical appeal, but missing artifact links temper expected early attention."
       },
       "attention": {
         "asOf": "2026-11-01",
@@ -5313,9 +5289,9 @@
         }
       },
       "copyGeneration": {
-        "model": "deepseek-v4-pro",
-        "generatedAt": "2026-11-02T02:07:58.865574Z",
-        "inputHash": "a5cee9edc7ddc8869f5caf1ef6288003be2989ba2c8a89e92f65822ed165e940"
+        "model": "deepseek-v4-flash",
+        "generatedAt": "2026-11-02T12:47:22.966704Z",
+        "inputHash": "cfe38481758e86072a0e00684b377b271101b9a307710745bfa1d77b474580e6"
       }
     },
     {
