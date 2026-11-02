@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-01 · **Benchmark releases:** 2798
+**Snapshot:** 2026-11-02 · **Benchmark releases:** 2798
 
 ## Contents
 
@@ -616,7 +616,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **ADeptS-Bench** (2026-08-25) — We introduce ADeptS-Bench, a dual-stream trustworthiness benchmark, grounded in the ADEPTS capability framework and general population user studies. [Paper](https://arxiv.org/abs/2608.26204) · [HF](https://huggingface.co/papers/2608.26204)
 - **GUI-Primitives** (2026-08-22) — 994-item benchmark of contrastive instruction pairs over seven spatial relations in GUIs, isolating whether vision-language models bind relational language to UI elements correctly. [Paper](http://arxiv.org/abs/2608.21832v1)
 - **SPIEval** (2026-08-11) — SPIEval is a human-curated benchmark for evaluating large language models as mobile assistants that retrieve and reason over personal information scattered across multiple apps. It comprises 250 tasks across five cognit… [Paper](https://arxiv.org/abs/2608.10692) · [HF](https://huggingface.co/papers/2608.10692) · [Data](https://huggingface.co/datasets/Junjie-Ye/SPIEval)
-- **MobileJudgeBench** (2026-08-11) — MobileJudgeBench evaluates LLM-as-judge methods on mobile agent trajectories. It includes 931 human-annotated trajectories from 6 mobile agent benchmarks, covering 4 agent models and 68 apps. [Paper](https://arxiv.org/abs/2608.11434) · [HF](https://huggingface.co/papers/2608.11434)
+- **MobileJudgeBench** (2026-08-11) — MobileJudgeBench evaluates LLM-as-judge methods on mobile agent trajectories. It includes 931 human-annotated trajectories from 6 mobile agent benchmarks, covering 4 agent models and 68 apps. [Paper](https://arxiv.org/abs/2608.11434) · [HF](https://huggingface.co/papers/2608.11434) · [Code](https://github.com/WZq975/MobileJudgeBench)
 - **CAP** (2026-08-09) — CAP evaluates cross-site browser agents on 420 tasks across 108 real websites and 24 domains. Tasks require complex UI interactions and visual perception, with scoring via an agent-as-a-judge framework. [Paper](https://arxiv.org/abs/2608.08392) · [HF](https://huggingface.co/papers/2608.08392)
 - **Desktop-Delta Bench** (2026-07-28) — Desktop-Delta Bench (DDB) evaluates computer-use models on step-level GUI transition understanding through two tasks: temporal ordering of 3-frame observations and before-after pair classification with five action types… [Paper](https://arxiv.org/abs/2607.26041) · [HF](https://huggingface.co/papers/2607.26041)
 - **ParaGUIBench** (2026-07-17) — ParaGUIBench aims to benchmark parallel execution and coordination of multiple GUI agents across separate desktop instances, with a dataset of 233 tasks and efficiency metrics. [Paper](https://arxiv.org/abs/2607.22689) · [HF](https://huggingface.co/papers/2607.22689) · [Code](https://github.com/pkgunboat/ParaGUIBench)
