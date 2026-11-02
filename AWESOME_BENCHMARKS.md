@@ -10,17 +10,17 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-01 · **Benchmark releases:** 2796
+**Snapshot:** 2026-11-01 · **Benchmark releases:** 2798
 
 ## Contents
 
-- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (48)
+- [AI R&D & ML Engineering](#ai-rd--ml-engineering) (49)
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (25)
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (52)
 - [Agent Memory & Personalization](#agent-memory--personalization) (54)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (73)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (24)
-- [Agentic Coding & SWE](#agentic-coding--swe) (103)
+- [Agentic Coding & SWE](#agentic-coding--swe) (104)
 - [Chat, Writing & Preference](#chat,-writing--preference) (29)
 - [Code Generation](#code-generation) (91)
 - [Composite Indexes](#composite-indexes) (2)
@@ -33,8 +33,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Finance & Law](#finance--law) (60)
 - [Forecasting & Time Series](#forecasting--time-series) (21)
 - [Health & Medicine](#health--medicine) (113)
-- [Image & Video Generation](#image--video-generation) (110)
-- [Image & Visual Reasoning](#image--visual-reasoning) (123)
+- [Image & Video Generation](#image--video-generation) (111)
+- [Image & Visual Reasoning](#image--visual-reasoning) (124)
 - [Instruction Following](#instruction-following) (17)
 - [Knowledge & Expert QA](#knowledge--expert-qa) (16)
 - [Long Context](#long-context) (7)
@@ -43,17 +43,18 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Multilingual & Translation](#multilingual--translation) (35)
 - [Other benchmark tasks](#other-benchmark-tasks) (88)
 - [Professional & Enterprise Work](#professional--enterprise-work) (78)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (141)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (142)
 - [Safety & Alignment](#safety--alignment) (107)
 - [Science](#science) (127)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (62)
 - [Speech & Audio](#speech--audio) (47)
 - [Tool Use & Function Calling](#tool-use--function-calling) (74)
 - [Video Understanding](#video-understanding) (104)
-- [World Models & Physical Understanding](#world-models--physical-understanding) (40)
+- [World Models & Physical Understanding](#world-models--physical-understanding) (42)
 
 ## AI R&D & ML Engineering
 
+- **PAPERBENCHX** (2026-10-29) — Benchmark of 93 paper-reproduction tasks across 12 scientific disciplines, requiring agents to reconstruct experiments, execute them, and deliver runnable workflows that produce verifiable evidence. [Paper](https://arxiv.org/abs/2610.39744)
 - **k8s-inference-routing-benchmark** (2026-10-26) — Evaluates Kubernetes request routing strategies for LLM inference by replaying identical chat and RAG traces against simulated vLLM pods and measuring time to first token, prefix-cache hits, load balance, and latency ob… [Code](https://github.com/sunilmehta-si/k8s-inference-routing-benchmark)
 - **Auto-Research Arena** (2026-10-26) — Benchmarks automated research methods on improving language model training and inference efficiency across nine tasks with defined constraints and a shared engine. [Paper](http://arxiv.org/abs/2610.35866v2) · [Code](https://github.com/Auto-Research-Arena/auto-research-arena)
 - **FrontierCS 2** (2026-10-21) — Evaluates LLM agents on 48 open-ended computer science R&D tasks that require modifying a real research artifact to beat a hidden reference across held-out workloads. [Paper](https://arxiv.org/abs/2610.29932) · [HF](https://huggingface.co/papers/2610.29932) · [Code](https://github.com/FrontierCS/FrontierCS-2)
@@ -105,7 +106,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI-Content Detection & Forensics
 
-- **AI Humanizer Benchmark 2026** (2026-10-31) — Evaluates AI humanizer tools by running two short AI-generated texts through each tool and scoring outputs with independent AI detectors, plus a key-point retention check. [Code](https://github.com/Mohabak/ai-humanizer-benchmark-2026) · [Data](https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026)
+- **AI Humanizer Benchmark 2026** (2026-10-31) — Compares AI humanizer tools on their ability to make AI-generated text pass third-party AI detectors, using two fixed samples and a pass/fail score below 50% AI probability. [Code](https://github.com/Mohabak/ai-humanizer-benchmark-2026) · [Data](https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026)
 - **AV-FABLE** (2026-10-24) — A dual-timeline benchmark with 16,650 pristine–manipulated twin pairs (998 hours) for detecting and temporally localizing sparse audio-visual manipulations in long-form videos, using separate audio and visual timelines. [Paper](https://arxiv.org/abs/2610.33413)
 - **WildAIGC-Bench** (2026-10-20) — Evaluates AI image detectors on generated and edited images collected from news websites, fact-checking sources, and social media, with human-verified labels. [Paper](https://arxiv.org/abs/2610.28087) · [Code](https://github.com/YuZijian/WildAIGC-Bench)
 - **OLMo-Detect** (2026-10-02) — To address these limitations, we propose OLMo-Detect, a multi-stage, confounder-controlled benchmark built upon the fully open OLMo 2 pipeline. [Paper](https://arxiv.org/abs/2610.02986) · [HF](https://huggingface.co/papers/2610.02986)
@@ -348,6 +349,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
+- **ROSTrans** (2026-10-30) — A ROS1-to-ROS2 migration benchmark of 108 code tasks, evaluated by executing injected candidate files against fixed runtime test suites. [Paper](https://arxiv.org/abs/2610.41168)
 - **LLM Webdev Gauntlet** (2026-10-28) — A local curriculum and evaluation workspace with 112 web development exercises across 29 categories, providing prompts, starter code, acceptance criteria, and reference solutions. The evaluator returns pass/fail results… [Code](https://github.com/DanDekker/webdev-gauntlet)
 - **Req2Test-Bench** (2026-10-27) — Evaluates LLM agents on generating behaviorally adequate tests from natural-language software requirements. [Paper](http://arxiv.org/abs/2610.36584v1)
 - **RegBench-Py** (2026-10-26) — First Python PR regression benchmark with 154 verified real-world PRs for detecting unintended behavioral changes. [Paper](http://arxiv.org/abs/2610.35223v1)
@@ -1049,6 +1051,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Video Generation
 
 - **FontVibe AI Design Benchmark** (2026-10-30) — A set of design briefs in which language or image models act as designers, producing designs with text that are scored on legibility, lettering, information and layout, and appeal. [Code](https://github.com/Funovate-Technology/ai-design-benchmark) · [Data](https://zenodo.org/badge/DOI/10.5281/zenodo.23803802.svg)
+- **PhysInsert-Bench** (2026-10-29) — Benchmark for physically plausible object insertion with cross-environment and cross-view cases, requiring adaptation of illumination and pose. [Paper](http://arxiv.org/abs/2610.40453v1)
 - **LightGenBench** (2026-10-28) — Evaluates 3D emission generation on 37k artist-authored emissive assets in UV, voxel, and multi-view form. [Paper](https://arxiv.org/abs/2610.39038)
 - **IntReal Evaluation Suite** (2026-10-28) — Evaluates multimodal interleaved generation across seven capability dimensions using expert models. [Paper](https://arxiv.org/abs/2610.38425)
 - **MDMR-Bench** (2026-10-23) — Evaluates multi-reference image generation via multiple subsets covering common entity fusion and attribute transfer, multi-element extraction from a single image, infographic manipulation, and visual reasoning-intensiv… [Paper](https://arxiv.org/abs/2610.32459)
@@ -1162,6 +1165,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Visual Reasoning
 
 - **MicroStructAI reproducible benchmark** (2026-10-31) — Compares global Otsu and local Gaussian thresholding for synthetic image segmentation across 24 contrast, noise, illumination, and object-radius conditions with 20 seeded images per condition, scored by mean image IoU a… [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
+- **CompoSET** (2026-10-30) — Evaluates vision-language compositionality through single-edit image-caption pairs across 80 scenes, 16 edit types, and three caption verbosity tiers. [Paper](https://arxiv.org/abs/2610.41118) · [Code](https://github.com/laure-delisle/CompoSET) · [Data](https://huggingface.co/datasets/CompoSET/CompoSET)
 - **CASE** (2026-10-29) — Few-shot segmentation benchmark requiring models to interpret positive and negative visual exemplars across six task types. [Paper](https://arxiv.org/abs/2610.39396) · [Code](https://github.com/WongKinYiu/FSS-CASE)
 - **PRISM-BENCH** (2026-10-27) — Assesses vision-language model reasoning beyond final-answer accuracy using 1,000 curated multimodal questions with idealized traces. [Paper](http://arxiv.org/abs/2610.36554v1) · [Data](https://huggingface.co/datasets/vanshbhatia/PRISM-BENCH)
 - **CrowdCC** (2026-10-26) — Benchmarks crowd counting models on corruption robustness across 23 corruptions and deployment quantization on four datasets, with aligned annotations. [Paper](http://arxiv.org/abs/2610.36340v1) · [Code](https://github.com/Tulane-Computer-Architecture-Systems/CrowdCC-Release)
@@ -1616,7 +1620,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
-- **Quadruped UED Benchmark** (2026-10-29) — The Quadruped UED Benchmark runs fourteen UED, domain-randomisation, and robotics curricula under one protocol on five 3D quadrupeds in MuJoCo MJX, evaluating policy success on random and held-out structured terrains wi… [Paper](https://arxiv.org/abs/2610.40364) · [Code](https://github.com/Solvro/ml-wojtek-ued)
+- **RoboAtom-Bench** (2026-10-29) — Benchmark for skill recognition and temporal boundary localization of atomic actions in robot trajectories, built on large-scale annotated robot data. [Paper](https://arxiv.org/abs/2610.40207)
+- **Quadruped UED Benchmark** (2026-10-29) — Benchmarks 14 UED, domain-randomisation, and robotics curricula on procedural terrain for five quadruped robots in MuJoCo MJX. [Paper](https://arxiv.org/abs/2610.40364) · [Code](https://github.com/Solvro/ml-wojtek-ued)
 - **BURGER** (2026-10-29) — BURGER is a language-conditioned robotic drawing benchmark with 282 tasks, providing simulated and real-world environments for evaluating vision-language-action models on open-ended drawing commands. [Paper](https://arxiv.org/abs/2610.40532)
 - **UMI-Loc-Bench-v1** (2026-10-27) — Benchmark for real-world localization accuracy of handheld UMI data-collection devices using stereo vision. [Paper](https://arxiv.org/abs/2610.36598)
 - **SO-101 Bench** (2026-10-27) — Simulated benchmark for language-conditioned spatial manipulation on a digital twin of the SO-101 arm, with four tasks and object generalization splits. [Paper](http://arxiv.org/abs/2610.36420v1) · [Code](https://github.com/5hadytru/so101_bench)
@@ -2192,7 +2197,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Video Understanding
 
-- **VideoMemBench** (2026-10-29) — Evaluates multimodal LLM in-context video memory over long multi-turn dialogues, scoring answers that depend on earlier visual episodes and earlier model responses. [Paper](https://arxiv.org/abs/2610.40131)
+- **VideoMemBench** (2026-10-29) — Evaluates multimodal LLMs on multi-turn video conversations with cross-turn dependencies, measuring in-context video memory for visual episodes and prior answers. [Paper](https://arxiv.org/abs/2610.40131)
 - **AskStream** (2026-10-28) — Evaluates proactive asking in streaming video understanding across 438 videos, eight subtasks, and temporal wait/ask/answer windows. [Paper](https://arxiv.org/abs/2610.38678) · [Code](https://github.com/wanglu-cs/AskStream) · [Data](https://huggingface.co/datasets/wanglucs/AskStream)
 - **CourtSide RallyArb event benchmark** (2026-10-27) — Evaluates frame-level bounce and hit detection on tennis video across eight clips with mixed viewpoints, using a confusion-aware matcher and frozen dev/test split. [Paper](https://arxiv.org/abs/2610.38042) · [Code](https://github.com/David-dsv/tennis-bounce-hit-benchmark)
 - **SOMA** (2026-10-26) — A benchmark of 1,632 human-verified questions over egocentric videos evaluating body configuration, motion dynamics, and temporal reasoning. [Paper](http://arxiv.org/abs/2610.36384v1)
@@ -2299,6 +2304,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## World Models & Physical Understanding
 
+- **WorldProbe** (2026-10-29) — Evaluates video world models on 164 long-horizon spatial exploration test cases using goal-conditioned camera actions, scored across four dimensions of visual quality, content, memory, and evolution. [Paper](https://arxiv.org/abs/2610.39721) · [Code](https://github.com/Untitled-W/WorldProbe)
+- **WorldFlowBench** (2026-10-29) — WorldFlowBench evaluates joint video and 3D trajectory prediction across simulated and real-world interactions using 1,678 samples from 11 data sources, including spatial reasoning tasks. [Paper](https://arxiv.org/abs/2610.39278)
 - **WorldFailBench** (2026-10-24) — Evaluates world models' ability to faithfully simulate policy failures in manipulation tasks, focusing on reason, stage, and boundary of failures. [Paper](https://arxiv.org/abs/2610.33565)
 - **WMEval** (2026-10-24) — Evaluates interactive world models against Unity-based physical simulations using matched action sequences and state-based verification. [Paper](https://arxiv.org/abs/2610.33894) · [Code](https://github.com/hao-ai-lab/WMEval)
 - **ORBIA** (2026-10-14) — Evaluates the 3D consistency of interactive video world models on 720 cases with reference-grounded metrics. [Paper](https://arxiv.org/abs/2610.20693) · [Code](https://github.com/worldbench/Orbia) · [Data](https://huggingface.co/datasets/Orbia/Orbia)
