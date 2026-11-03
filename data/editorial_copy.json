@@ -104879,7 +104879,7 @@
     },
     "huggingface:zontalabs/zeta-benchmarks": {
       "evaluationEvidence": {
-        "task": "",
+        "task": "ζ runs benchmark tasks across a matrix of models and agent harnesses, and then reports scores and estimated model costs for each combination.",
         "scoring": "",
         "reuse": ""
       },
@@ -104887,25 +104887,25 @@
       "decision": "exclude",
       "canonicalName": "Zeta (ζ)",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "Zeta (ζ) Zeta (ζ) is a command-line tool for comparing AI models and agents on various tasks.",
-      "benchmarkMode": "not_benchmark",
+      "canonicalNameEvidence": "Zeta (ζ) is a command-line tool for comparing AI models and agents on various tasks.",
+      "benchmarkMode": "uses_existing",
       "stableScoringContract": false,
       "publicReusePath": false,
-      "description": "A command-line tool that runs existing cataloged benchmarks and local task sets across a matrix of models and agent harnesses, then reports scores and estimated model costs.",
-      "whyItMatters": "Consistent harness-and-model comparison supports upgrade and regression checks across many published benchmarks.",
-      "decisionReason": "Zeta is an evaluation harness and dataset registry over existing benchmarks rather than a distinct benchmark with its own task suite and scoring contract.",
+      "description": "Zeta is a tool that runs existing benchmarks rather than defining its own benchmark tasks.",
+      "whyItMatters": "As a benchmarking infrastructure, it does not qualify as a standalone benchmark with a new evaluation object.",
+      "decisionReason": "The project primarily manages and executes existing benchmarks; it does not introduce a distinct evaluation protocol or task suite.",
       "attentionForecast": {
         "score": 0,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "Excluded record; no public attention forecast is assigned."
+        "reason": "Excluded due to being a benchmarking tool rather than a benchmark, but could still gain attention as infrastructure."
       },
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-02T12:47:22.966704Z",
-      "inputHash": "4bd51d977175932f0ac372a183897be357c15a21e3d3a611429be6ebfb0c9b25",
-      "selectionFingerprint": "8a59166ceb597658fc9ee3a8fafbb229a4bcbfae6065e608fb95ca3238ee9523"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "248ea8fab76939115b24ebafadcee81f83acab027c897ecf236c94bf76ec8161",
+      "selectionFingerprint": "05d4b5456ce6678dd040f08122699cb16af27929ab559efae4ac7a3bbb20b29a"
     },
     "huggingface:theobservatory/observatory-relational-recovery-benchmark": {
       "evaluationEvidence": {
@@ -105411,32 +105411,39 @@
     "github:mohabak/ai-humanizer-benchmark-2026": {
       "evaluationEvidence": {
         "task": "Each tool rewrote the same two AI-generated texts, and every output was scored by independent AI detectors.",
-        "scoring": "Ranked by how many detector checks each tool passed across the three core detectors (2 samples x 3 detectors = 6 checks). A check passes when the detector's AI score is below 50%.",
+        "scoring": "Ranked by how many detector checks each tool passed across the three core detectors (2 samples x 3 detectors = 6 checks).",
         "reuse": "All inputs, outputs and raw scores are in this repo so anyone can check the numbers or rerun the test."
       },
-      "evaluationEvidenceVerified": false,
-      "decision": "defer",
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
       "canonicalName": "AI Humanizer Benchmark 2026",
       "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "# AI Humanizer Benchmark 2026 An open, reproducible benchmark of popular AI humanizers.",
-      "benchmarkMode": "score_submission",
-      "stableScoringContract": false,
-      "publicReusePath": false,
-      "description": "Ranks commercial AI humanizer tools by whether their rewritten outputs evade detector tools, using fixed input samples, single-run outputs and detector AI-score thresholds.",
-      "whyItMatters": "Detector-evasion claims are widely marketed but rarely checked; a comparable measurement could inform procurement and editorial decisions.",
-      "decisionReason": "The repository is a small single-run vendor ranking with two short samples, results entered from web-app detector scores, and no ongoing submission path; the linked dataset also describes a separate simulation-expanded rubric study, leaving artifacts and evaluation evidence unclear.",
+      "canonicalNameEvidence": "AI Humanizer Benchmark 2026",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "AI Humanizer Benchmark 2026 evaluates AI humanizer tools by having them rewrite two fixed texts and scoring the outputs with multiple AI detectors, with raw data and code available.",
+      "whyItMatters": "It provides a reproducible method for comparing the effectiveness of AI humanizers in evading detection, offering practical guidance for researchers and practitioners.",
+      "decisionReason": "The benchmark has a clear task, scoring metric, and publicly available data and code, enabling reuse and verification.",
       "attentionForecast": {
-        "score": 22,
-        "confidence": "Low",
+        "score": 55,
+        "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A commercial-tool ranking on an attention-prone topic may draw brief interest from detector and content-marketing audiences despite minimal artifacts."
+        "reason": "The topic of AI humanization attracts broad interest, and the release of raw data and ranking charts is likely to generate early attention."
       },
-      "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-02T12:47:22.966704Z",
-      "inputHash": "7be9201e953d67762fd88fd270f2cadaa9fd126ef597e9def59ce23345ba3b52",
-      "selectionFingerprint": "2b6df895be841271e21f193758a6773e057639c12cd56e4545f241acdd0f51c1"
+      "publishers": [
+        {
+          "name": "Humanization Benchmark",
+          "organizationType": "benchmark-organization",
+          "sourceUrl": "https://huggingface.co/datasets/AIHumanizerBenchmarker/ai-humanizer-benchmark-2026",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "aabbf24cc91dbc85054eec1084e6b2201d7d4503d043a17aefc71124146f4c72",
+      "selectionFingerprint": "d917b15af1a3072bfa88196aa6ed5fd4fe4d692b087f29183d95ad7af76442dd"
     },
     "github:shivanim042003/llm-inference-benchmark-lab": {
       "evaluationEvidence": {
@@ -105957,33 +105964,40 @@
     },
     "2610.41118": {
       "evaluationEvidence": {
-        "task": "1,776 instances across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories, with captions at 3 verbosity levels.",
-        "scoring": "Defaults: pulls the dataset from `CompoSET/CompoSET` on Hugging Face, runs the 2×2 retrieval protocol per variation × verbosity tier, and saves per-model CSVs under `results/` with `i2t_score`, `t2i_score`, and `group_score` columns.",
-        "reuse": "The repository contains: - **`eval/`** — code to score vision-language models on CompoSET and on a suite of prior compositionality benchmarks"
+        "task": "CompoSET contains 1,776 instances across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories, with captions at 3 verbosity levels.",
+        "scoring": "Evaluation code implements a 2×2 retrieval protocol per variation × verbosity tier, reporting i2t_score, t2i_score, and group_score.",
+        "reuse": "Dataset is available at https://huggingface.co/datasets/CompoSET/CompoSET and code at https://github.com/laure-delisle/CompoSET."
       },
       "evaluationEvidenceVerified": false,
       "decision": "publish",
       "canonicalName": "CompoSET",
-      "canonicalNameSource": "official_readme",
-      "canonicalNameEvidence": "# CompoSET: A Controlled Single-Edit Benchmark for Vision-Language Compositionality",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce Compositional Single-EdiT (CompoSET), a benchmark dataset",
       "benchmarkMode": "public_reusable",
       "stableScoringContract": true,
       "publicReusePath": true,
-      "description": "Evaluates vision-language compositionality through image-text matching on 1,776 single-edit foil pairs across 80 naturalistic scenes, spanning 16 edit types in 4 semantic categories and three caption verbosity tiers.",
-      "whyItMatters": "Prior image-text matching pairs change most pixels, confounding compositionality with global scene differences; a controlled single-edit protocol isolates binding failures for clearer model comparison.",
-      "decisionReason": "A formally named benchmark dataset with released data on Hugging Face, released scoring code, a defined 2×2 retrieval protocol and documented limitations, giving an executable public path for other teams.",
+      "description": "CompoSET evaluates vision-language compositionality using image-text pairs that differ by a single controlled edit, with multiple caption verbosity tiers and 1,776 instances.",
+      "whyItMatters": "It isolates compositional binding from scene confounds, offering a more rigorous measure of VLM performance and revealing current model limitations.",
+      "decisionReason": "The benchmark is formally defined, publicly available, and includes evaluation code and scoring protocol, enabling reuse.",
       "attentionForecast": {
-        "score": 52,
+        "score": 50,
         "confidence": "Medium",
         "horizon": "7d",
-        "reason": "A controlled compositionality benchmark with released data and evaluation code plus findings of at-chance model performance may attract vision-language research attention shortly after release."
+        "reason": "The controlled single-edit design addresses a recognized flaw in VLM evaluation and includes released data and code, likely attracting attention from vision-language researchers."
       },
-      "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-02T12:47:22.966704Z",
-      "inputHash": "a1b7b09932f6f5137beedd51f4c8fe9a6562b570296aed3e530e42ecd7704270",
-      "selectionFingerprint": "1ec8eaa76fa71a1e8e1e902370a1f3720bd0d50be73dd0f5f43a41466206c0bb"
+      "publishers": [
+        {
+          "name": "CompoSET Team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2610.41118",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "464122657a287a1204dc88d57e51983ba6e954712db5a2bbd80ff37af54f6dac",
+      "selectionFingerprint": "cf818869677e0ec2e0cb9f09bb274fcac218695f4b6829650ff86d681fb6ee0c"
     },
     "github:uw-codaproject/champs-cod-benchmark": {
       "evaluationEvidence": {
@@ -106144,33 +106158,33 @@
     },
     "2610.41168": {
       "evaluationEvidence": {
-        "task": "108 scaffolded completion tasks drawn from 70+ open-source ROS1 repositories for ROS1-to-ROS2 code migration.",
-        "scoring": "Candidates are scored by injecting only their target files into an otherwise fixed copy of the reference package, so a candidate can neither supply nor weaken the tests it is judged by.",
+        "task": "",
+        "scoring": "",
         "reuse": ""
       },
       "evaluationEvidenceVerified": false,
       "decision": "defer",
       "canonicalName": "ROSTrans",
-      "canonicalNameSource": "paper_title",
-      "canonicalNameEvidence": "ROSTrans: Empirically Benchmarking LLMs for ROS1-to-ROS2 Migration",
-      "benchmarkMode": "score_submission",
-      "stableScoringContract": true,
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We present ROSTrans, a benchmark for evaluating LLMs on ROS1-to-ROS2 code migration",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
       "publicReusePath": false,
-      "description": "Evaluates LLMs on ROS1-to-ROS2 code migration across 108 scaffolded completion tasks from 70+ open-source ROS1 repositories, organized by interface-, behavioral- and system-level correctness with runtime test suites and containers.",
-      "whyItMatters": "Migration correctness in robotics depends on runtime behavior across nodes, topics, services and actions; a staged, execution-based evaluation separates compile success from genuine migration correctness.",
-      "decisionReason": "The paper names a benchmark with a clear task suite and scoring contract, but no public code, data or access path is supplied and no artifact evidence is available, so the reuse path is unconfirmed.",
+      "description": "ROSTrans is a benchmark for ROS1-to-ROS2 migration with 108 tasks and execution-based scoring, but no public artifacts are linked.",
+      "whyItMatters": "It addresses underexplored robotics software migration, but usability requires code and task release.",
+      "decisionReason": "Lack of accessible code or data prevents verification of the executable reference and runtime test suites mentioned.",
       "attentionForecast": {
-        "score": 45,
+        "score": 25,
         "confidence": "Low",
         "horizon": "7d",
-        "reason": "A named robotics software-migration benchmark with runtime execution and frontier-model results may draw interest from robotics and code-generation audiences, tempered by the absence of a supplied artifact link."
+        "reason": "The robotics focus may draw some attention, but absent artifacts are expected to limit early dissemination."
       },
       "publishers": [],
-      "model": "deepseek-v4-flash",
-      "policyVersion": "2026-08-26.2",
-      "generatedAt": "2026-11-02T12:47:22.966704Z",
-      "inputHash": "e4eed8f19eae4adc036bdbbe5fc2d693b920da72459485c66567755f1bf1f8ac",
-      "selectionFingerprint": "be36fb99c1cc015bcbe733a0ced475f75d4864e581dcb081b01db2975cc8ab6f"
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "2907641c89a96f75137e0cc67add1c7547a4b2793f93539a4022b62eb9611b4a",
+      "selectionFingerprint": "7ad2c30891cdbd938c709758a043a35117ea301ad4603b63882f9cc58172c5fe"
     },
     "github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline": {
       "evaluationEvidence": {
@@ -106442,6 +106456,1112 @@
       "generatedAt": "2026-11-02T12:44:02.088790Z",
       "inputHash": "292dc89b78e38bf94b5e5c53c609bd323c1e31bc16131654dfa8eee76640c4cd",
       "selectionFingerprint": "034ab630786f01f068b674b8251672bb0d87a346c0bda8505b779a2cf6c68afd"
+    },
+    "github:adamdiam/loan-portfolio-copilot": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "Loan Portfolio AI Copilot",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# 🏦 Loan Portfolio AI Copilot",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluation suite for text-to-SQL and regulatory RAG over a synthetic non-performing loan portfolio.",
+      "whyItMatters": "Assesses natural language query accuracy and regulatory answer grounding in a finance-specific setting.",
+      "decisionReason": "The evaluation sets are used to validate a single project's own components and lack a standalone public comparison protocol or external submission path.",
+      "attentionForecast": {
+        "score": 25,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The specialized finance text-to-SQL and regulatory QA focus limits broad attention, though the detailed README and synthetic data generation may attract niche interest."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "374183223b2aa1454da4013aaf37b2ba4a2fb88ce82c880b682ebd77953d0cfe",
+      "selectionFingerprint": "e3e2451868f4f91cbbe88064b156627a599fb28ab11d6f1ab84074ef4e45a00a"
+    },
+    "github:hihihiddssa/llm-post-training-for-mathematical-reasoning": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "LLM-Post-Training-for-Mathematical-Reasoning",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# LLM Post-Training for Mathematical Reasoning",
+      "benchmarkMode": "uses_existing",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluates LLM fine-tuning methods on existing AQuA and AddSub math datasets with accuracy scores.",
+      "whyItMatters": "Provides reproducible comparison of adapter methods for math reasoning.",
+      "decisionReason": "Uses existing benchmarks without introducing a new evaluation protocol or public comparison path.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Forecast based on niche fine-tuning comparison and existing benchmark usage, not a standalone benchmark."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "637b39f1a19e72183404ac71e4c7d53c616e6230a11b9c6d53436f402ee527da",
+      "selectionFingerprint": "05ed3b8381cb197d641872da962a414217ce23e54f46c4d6341269250d93387e"
+    },
+    "github:rerishabh/kinocheck-eval": {
+      "evaluationEvidence": {
+        "task": "KinoCheck-Eval is a deterministic, execution-based benchmark evaluating whether code-generating AI models produce physically safe and kinematically valid wheeled-robot motion planning and speed-profiling code.",
+        "scoring": "Graders check output structure, endpoint matching, continuous geometry, risk integration, speed limits, curvature-based lateral acceleration, longitudinal acceleration, and feasibility contracts.",
+        "reuse": "The repository includes deterministic unit tests, reference planners, graders, scenario data, mutant implementations, and candidate artifacts."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "KinoCheck-Eval",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# KinoCheck-Eval: A Deterministic Kinodynamic Benchmark for Autonomous Mobile Robot Planning",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates AI-generated code for wheeled mobile robot motion planning across three tasks: kinodynamic path planning with continuous clearance, risk-budget shortest path planning, and curvature-aware speed profiling.",
+      "whyItMatters": "Measures physical correctness of robot navigation code beyond grid search, addressing swept-volume clearance, risk budgets, and curvature constraints critical for real autonomous systems.",
+      "decisionReason": "Provides a released codebase with deterministic graders, scenario data, and reference planners, enabling reproducible evaluation of submitted solutions.",
+      "attentionForecast": {
+        "score": 8,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Niche robotics code benchmark with no external promotion beyond a YouTube video; expected to attract limited initial attention from researchers in autonomous navigation."
+      },
+      "publishers": [
+        {
+          "name": "Rerishabh",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/Rerishabh/KinoCheck-Eval",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "7bc28325b7d3a47aa612612df980be2e50c16193cbcbae64ae36fbe4eeaa600a",
+      "selectionFingerprint": "61db2b7962e152f57d9ed0821b3bcaa017e19139c99a93fb2129b9b89f6fb1df"
+    },
+    "github:bil0000/hill-climb": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "Hill Climb",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "Hill Climb",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A skill and script that lets coding agents make small changes and only keep those that improve a user-defined score, with guards and commit management.",
+      "whyItMatters": "Provides tooling to enforce incremental agent improvements, but not a fixed benchmark or dataset.",
+      "decisionReason": "Not a benchmark; it is an agent tool for keeping score on arbitrary user-defined checks.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Excluded as a non-benchmark, so no benchmark attention forecast is applicable."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "4e102b92bc87330643d5512307f0f682990ab881202451e0a1ce4167d692ac77",
+      "selectionFingerprint": "8f5f441f837ac3ff52dc00c903e179542962bd195c0eeba91ce249e28366d2ef"
+    },
+    "github:wasitaigenerated/ai-video-detection-benchmark": {
+      "evaluationEvidence": {
+        "task": "An open benchmark for **AI-generated video detectors**: 324 clips from 12 current video models (Veo 3, Kling 3, Seedance 2, Wan 2.6, Hailuo, Grok Video and more) and free-licensed real footage, each also as a messenger copy, because that is how clips reach moderation and investigation teams.",
+        "scoring": "The script reports: - **AUROC**: how well the scores separate AI from real files across all thresholds. - **Detected @ 1% FP**: the threshold is set on the real files of the same row so that at most 1% of them are above it; the number is the share of AI files above it.",
+        "reuse": "## Submit your detector Run your detector on the public split and email **patrick@wasitaigenerated.com** with your results and a way for us to run it (weights, code or an API). We score it on the hidden split and list it on the write-up page, including results that beat ours."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "AI Video Detection Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# AI Video Detection Benchmark",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates AI-generated video detectors on 324 clips from 12 video models and real footage, including messenger copies, using AUROC and detected-at-1%-FPR.",
+      "whyItMatters": "Provides a public and hidden split to measure detector robustness on current video generators and compressed social-media copies, enabling independent comparison and reduction of home-field bias.",
+      "decisionReason": "The repository defines a concrete task, scoring metrics, a public split for local evaluation, and a hidden split with a submission path for external scoring, satisfying the benchmark criteria.",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses AI video detection with a public leaderboard-style submission path and covers current generators, likely to attract moderate initial interest from practitioners and researchers."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "20961cb4c507e06156bce4e09f8b35222920915eea7424283a60721bf764b743",
+      "selectionFingerprint": "c5f69af38b256b7e7b69d4f47e3f422ee2f34bc2633a9f26317773bc9b3397b5"
+    },
+    "github:mersch-eric/ai-model-economics-benchmark": {
+      "evaluationEvidence": {
+        "task": "Classifying 50 synthetic invoices into Approve, Review, or Hold categories.",
+        "scoring": "Classification accuracy plus inference cost per 1,000 invoices and workflow latency.",
+        "reuse": "No public evaluation code or dataset provided; methodology and results are described but artifacts may be added later."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "AI Model Economics Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "AI Model Economics Benchmark",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Initial controlled experiment comparing two AI models on synthetic invoice classification accuracy, latency, and inference cost.",
+      "whyItMatters": "Aims to quantify AI model economics in enterprise finance, but current release lacks reusable evaluation artifacts.",
+      "decisionReason": "The repository describes an initial experiment without released datasets or an executable evaluation path, so it cannot yet function as a repeatable benchmark.",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Enterprise finance angle could attract some interest, but lack of public data and code limits attention potential."
+      },
+      "publishers": [
+        {
+          "name": "Eric Mersch",
+          "organizationType": "community",
+          "sourceUrl": "https://github.com/mersch-eric/ai-model-economics-benchmark",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "d145a61a8e85e0972a8b3ffd59633426f28f3f906d7c900253897d6a84cffca6",
+      "selectionFingerprint": "58a1b9bcad2cd7ea437ba78c76dd61c4dffc1a68ec40563cb996411ad3662be3"
+    },
+    "huggingface:blockrunai/agent-money-bench": {
+      "evaluationEvidence": {
+        "task": "This repository publishes the eight example tasks, their payment traces, and aggregate results.",
+        "scoring": "Grading is deterministic, from on-chain settlement.",
+        "reuse": "Benchmark results below summarize the full evaluation. [GitHub repository](https://github.com/BlockRunAI/agent-money-bench)."
+      },
+      "evaluationEvidenceVerified": true,
+      "decision": "publish",
+      "canonicalName": "Agent Money Benchmark",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "Agent Money Benchmark",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates AI agents operating with real money across financial research and adversarial marketplace tasks, measuring wasted spend, task success, money errors, scam rates, and answer quality.",
+      "whyItMatters": "Provides a framework for testing whether AI agents can be trusted with financial delegation when counterparties may cheat and payments settle on-chain.",
+      "decisionReason": "Released benchmark with explicit tasks, deterministic scoring from on-chain payments, aggregate results, and public GitHub repository for reuse.",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark targets a timely and consequential topic with clear metrics and public examples, but access to the full task set is restricted, limiting immediate community engagement."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "5dadba2a2a09cbfa2bda1df200235015121e6e4637391f7f67e661f3fefcfd3d",
+      "selectionFingerprint": "d41da239accd88b151411b5e5453fd2c01ebd3ef871cc9deb12d8df10242449d"
+    },
+    "2611.01370": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "XDecideBench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce XDecideBench, a benchmark of nine suites in 122 languages with 88,425 texts and 153,875 typed questions.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluates typed decision models and confidence policies across 122 languages with nine suites and 153,875 typed questions.",
+      "whyItMatters": "Multilingual typed decision evaluation is valuable, but no artifacts or public reuse path are yet available.",
+      "decisionReason": "Paper preprint without released code, data, or evaluation artifacts; cannot verify public reuse or stable scoring.",
+      "attentionForecast": {
+        "score": 60,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Broad multilinguality and many languages would likely interest the community, but without artifacts, attention may be limited to paper readers."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "06ed56bdaccc72cd32152dcae5f14f7ec43137053e582054fd1b4bf1db1854d2",
+      "selectionFingerprint": "466b88f2796dc4060aa46371f60ad8093d13964fcdf9e614a973675988f53ff0"
+    },
+    "2611.01878": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "VagueBench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce VagueBench, where each seed query is annotated with structured intent and detail units then degraded into intent-vague and fully-vague variants.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Evaluates proactive elicitation in LLM conversations using degraded query variants with known missing information sets.",
+      "whyItMatters": "Proactive questioning is important for user satisfaction and information gathering, but benchmark artifacts are not released.",
+      "decisionReason": "Paper preprint without linked code or dataset; cannot confirm public reuse path or scoring contract.",
+      "attentionForecast": {
+        "score": 50,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Topical interest in LLM dialogue capabilities could drive moderate attention, but lack of released artifacts limits practical engagement."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "6d20729033bb182b5bffcc526c9291f7cf2959b808fd4a49b755a8c0bcec9c51",
+      "selectionFingerprint": "644cc72f8b363b980c9e8e406688a4aa54310ca36e1673e9d54802404a63b71e"
+    },
+    "2611.01645": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Uncertainty-aware depth restoration for material-agnostic robotic manipulation, evaluated on an eight-dataset zero-shot benchmark.",
+      "whyItMatters": "Reliable depth on non-Lambertian objects is crucial for robotic grasping and pose estimation.",
+      "decisionReason": "The benchmark is introduced alongside a method, with code, models, and data promised only upon publication, and no released artifacts or reproducible scoring path are currently available.",
+      "attentionForecast": {
+        "score": 55,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Robotic manipulation and depth restoration attract moderate interest, but the absence of released benchmarks limits immediate attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "796cf6aa2cd68f38ef13edd904a1c09f23b8134dc85a866bf495395fe346e905",
+      "selectionFingerprint": "dc7b372bed8613ce934c95d785d11530abcdc605c5c0b3bfaa38a5253df5a577"
+    },
+    "2611.01446": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "PTC-Bench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce PTC-Bench, a benchmark of long-tail, production-style user requests",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A benchmark of stateful programmatic tool calling for tool-augmented agents, with long-tail production-style user requests.",
+      "whyItMatters": "Stateful programmatic tool calling is underexplored, and a dedicated benchmark could drive progress on complex multi-step agent tasks.",
+      "decisionReason": "No code, data, or evaluation protocol is released, making the benchmark inaccessible for external reuse.",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Programmatic tool calling is a niche but growing area, yet the lack of available benchmark artifacts limits early traction."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "a6a9ee360cc582dc29bf141df2d5daf35c273e50e4b982b6f956f3ba3cbf9849",
+      "selectionFingerprint": "0a2ffa134904c60ddbf4cc3356aa48c2643044d13d7be3322354a42f4943dbfa"
+    },
+    "2611.01449": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "NeuroClaimBench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce \\textbf{NeuroClaimBench}, comprising 489 executable neuroimaging claims with frozen data",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A claim-level benchmark for scientific reporting in agentic neuroimaging, containing 489 executable claims with frozen data.",
+      "whyItMatters": "Trustworthy autonomous scientific reporting in neuroimaging needs evaluation of claim-level false support, which this benchmark addresses.",
+      "decisionReason": "The benchmark is described but no data or code release is indicated in the abstract or links, so it lacks a public reuse path.",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Agentic neuroimaging and scientific trustworthiness are relevant topics, but no artifacts are yet provided to draw attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "fd2d4cc43cc3abd8986ca23463504ac07af32fc5c4f9e5aaf5788dac3a635d03",
+      "selectionFingerprint": "eb30b03b2e79fdab0e10e802ba618d272fb68c2182abcf2590d9c161aef9e692"
+    },
+    "2611.01843": {
+      "evaluationEvidence": {
+        "task": "peaks in such measures align with boundaries of music segments; pitch surprisal and uncertainty estimated from audio are consistent with those modeled in event-based symbolic music",
+        "scoring": "MEX provides a Python API and a command-line interface based on jsonargparse; benchmarks are run via python -m mex.cli --config config/benchmark_segment_boundary_salami.yaml",
+        "reuse": "Code available at https://github.com/musicperceptmodeling/mex, with preprocessed datasets on Hugging Face, and utilities for running tasks with users' own data."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "MEX: The Musical Expectation Benchmark Suite",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "MEX: The Musical Expectation Benchmark Suite",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "A benchmark suite for evaluating computational models of musical expectation against perceptual and electrophysiological tasks using standard datasets.",
+      "whyItMatters": "Provides a common set of tasks to validate models of musical surprisal and uncertainty, spanning symbolic and audio domains, and bridges music information retrieval with cognitive science.",
+      "decisionReason": "The benchmark suite is explicitly released as open-access code with datasets and task configurations, enabling other teams to run and extend it.",
+      "attentionForecast": {
+        "score": 62,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Music information retrieval has a dedicated community, and a released multi-task suite with code and preprocessed data is likely to attract adoption."
+      },
+      "publishers": [
+        {
+          "name": "MusicPerceptModeling",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/musicperceptmodeling/mex",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "677e645dfa9ffb7efa49176eb42d4c2129dfc7d9c8c636b18db31d6e281aea6f",
+      "selectionFingerprint": "a89570f5461b48051293040cc0243d7f80a6f8e3a79c6c888a7dd23d91b99f33"
+    },
+    "2611.01525": {
+      "evaluationEvidence": {
+        "task": "machine learning for powder diffraction symmetry classification, with benchmark-construction method instantiated as RRUFF-473, RRUFF-325, and opXRD-98",
+        "scoring": "reporting protocol with prior-only frequency baselines, label-permutation test, hierarchy-aware error metric on condensed translationengleiche subgroup graph, and stratified evaluation",
+        "reuse": "All mapping tables, benchmark code, scripts, and checkpoints are released as shared infrastructure; code at https://github.com/scattering/InformedXRD, data at https://huggingface.co/datasets/informedxrd/informedxrd-benchmarks"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "InformedXRD",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "InformedXRD: Reproducible Benchmarks and Physics-Informed Evaluation for Powder Diffraction Symmetry Classification",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "An evaluation framework for powder diffraction symmetry classification, including standardized benchmarks, physics-informed metrics, and reproducibility tooling.",
+      "whyItMatters": "Addresses the lack of common evaluation standards in PXRD machine learning, enabling comparable and auditable assessment of models.",
+      "decisionReason": "The framework is released with full code, benchmark datasets, and checkpoints, providing a clear public path for reuse and rescoring.",
+      "attentionForecast": {
+        "score": 58,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "Materials science ML and NeurIPS E&D track interest, combined with complete artifact release, suggest moderate early visibility."
+      },
+      "publishers": [
+        {
+          "name": "InformedXRD Team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/scattering/InformedXRD",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "00444a1a5b96173bd2c70129434cc82a063a11365740103ffbae152938a7b88f",
+      "selectionFingerprint": "eb791b6420fbc86138089248a4595eed324816943309bbea7d18569c6d28f319"
+    },
+    "2611.01460": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "VidLearn",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce VidLearn, a multimodal QA benchmark built from 72 chess tutorial videos spanning 12 openings",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "A multimodal QA benchmark from chess tutorial videos, used to evaluate agents' ability to learn from instructional videos.",
+      "whyItMatters": "Tests continuous learning from video tutorials, an important capability for real-world agent applications.",
+      "decisionReason": "No code, data, or evaluation details are released, so the benchmark cannot be independently used or verified.",
+      "attentionForecast": {
+        "score": 48,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Video-based agent learning is a hot topic, but lack of released benchmark artifacts prevents early engagement."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "14b188ed85865eb517cef36224181b01bdaa2466aad60fe229cbe1cb267e188e",
+      "selectionFingerprint": "4889b9abf651cba92bdde883376d20c9aac247866f90ec8356559232921ebb8b"
+    },
+    "2611.01755": {
+      "evaluationEvidence": {
+        "task": "tests on a matched behavioral contrast whether the representation is recoverable and causally used, on a released semantic-parsing testbed of 96 matched sets",
+        "scoring": "assigns one of four bounded states through control-calibrated scores, gates, and stop rules; full adjudication licenses verdicts with false Causal-use rates reported",
+        "reuse": "The testbed of 96 matched sets is released, enabling other researchers to apply the protocol to their own explanations and models."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "Bounded Evaluation Protocol for Representational Systematicity",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "propose a bounded evaluation protocol for representational systematicity (Bounded-RS)",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "A protocol and released semantic-parsing testbed for evaluating representational systematicity claims through bounded, falsifiable verdicts.",
+      "whyItMatters": "Provides a principled way to adjudicate between competing representational explanations, addressing a long-standing debate in cognitive science and interpretability.",
+      "decisionReason": "The protocol and testbed are designed for reuse, with a released set of matched contrasts and a clear scoring procedure that yields one of four verdicts.",
+      "attentionForecast": {
+        "score": 50,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Representational systematicity is a niche but foundational topic, and the abstract's focus on a protocol may limit immediate broad interest."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "105a5935f3ecfae6fff9f1a0b955c232fd59afec86bcab6076a95557dfc3fe5b",
+      "selectionFingerprint": "049afac75ed2c62a73be7d9feada95a7b570cefb5a02fec67e704fafd7736749"
+    },
+    "2611.01125": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Proposes a Benchmark Card framework and audits existing situational-safety benchmarks for MLLMs, rather than introducing a named reusable benchmark.",
+      "whyItMatters": "Distinguishes label sources in safety benchmarks to understand what scores actually measure, which is critical for safe deployment decisions.",
+      "decisionReason": "No formally named benchmark release with a repeatable evaluation object and scoring contract is provided.",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The paper audits existing benchmarks and introduces a decomposition method, likely of moderate interest to the MLLM safety evaluation community."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "30320b3575e413c0d1cbfa3f6f11e2f93b8f00ebf4d09f1b7748df939c4cd020",
+      "selectionFingerprint": "515c40afb323a6b518c8b576aa614b7989ee903c1380e1ed14b60ddea430fab7"
+    },
+    "2611.00848": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Introduces ReSee, a benchmark of re-examination decisions with counterfactual adjudication, but no evidence of a released public evaluation path is supplied.",
+      "whyItMatters": "Provides counterfactual annotations for whether additional inspection is beneficial, enabling better supervision of agentic visual search decisions.",
+      "decisionReason": "The paper mentions a benchmark and counterfactual adjudication but supplies no artifact or public reuse path to confirm a released, repeatable benchmark.",
+      "attentionForecast": {
+        "score": 25,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The focused research problem and lack of confirmed release artifacts may limit immediate spread beyond the agentic visual search niche."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "a52243ec251437abd3f598939dc75a19e0da7714129a17145d1118b3450aa06c",
+      "selectionFingerprint": "077a68845c1043f865032cce58b0196dd099ff545032eecceca31df0bf188717"
+    },
+    "2611.00883": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "not_benchmark",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Describes a benchmark compression method, BestRand, applied to existing benchmarks, but does not define a new benchmark.",
+      "whyItMatters": "Offers a stable and low-cost way to estimate full-benchmark scores from subsets, reducing evaluation costs.",
+      "decisionReason": "BestRand is a method for compressing existing benchmarks, not a standalone benchmark with its own evaluation object and scoring contract.",
+      "attentionForecast": {
+        "score": 40,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The practical method for reducing evaluation cost may draw attention from researchers managing large model evaluations."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "b13f19cc58da5c1085bb8681cd576fcc2c54b1c138102d90715dce0d0c26504a",
+      "selectionFingerprint": "4e25dcd4aa04a3560a715793f06f20a9ba70075072d206ff517da7ad31ca4b7c"
+    },
+    "2611.00643": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "uses_existing",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Uses NAS-Bench-201 and HPOBench as testbeds for LLM-generated hypotheses, but introduces no new benchmark.",
+      "whyItMatters": "Provides a controlled setting to assess truth and non-obviousness of LLM research hypotheses.",
+      "decisionReason": "The paper evaluates on pre-existing benchmarks rather than releasing a new benchmark.",
+      "attentionForecast": {
+        "score": 20,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Pre-registered study on LLM ideation may interest a niche but is less likely to spread widely."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "03d08c2a3d509c6ccc2f9f3347cff7093e308f29f58053be934c747e1e449878",
+      "selectionFingerprint": "a1b1785638d64efc646f4b665b1f195983ad76e0eb4f647436f1f97d5dbdb207"
+    },
+    "2611.00619": {
+      "evaluationEvidence": {
+        "task": "Geometry-aware learning of transient thermal fields in LM6 aluminum sand casting using 450 geometry-process cases with CAD geometry, mesh connectivity, and time-resolved nodal temperatures.",
+        "scoring": "Geometry-level data splits compare a pointwise MLP and U-Net using temperature-field errors, with U-Net reducing errors, especially for geometries with localized features and abrupt section changes.",
+        "reuse": "The dataset is open and provides researchers a reproducible dataset and benchmark for geometry-aware surrogate modelling of casting thermal behaviour."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "LM6-CastBench",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "LM6-CastBench: A Geometry-Aware Simulation Dataset for Transient Thermal Prediction in LM6 Sand Casting",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates geometry-aware surrogate models predicting transient thermal fields in LM6 aluminum sand casting across 450 geometry-process cases.",
+      "whyItMatters": "Enables reproducible comparison of machine learning models for casting thermal prediction, reducing reliance on expensive simulations and supporting defect-prone region analysis.",
+      "decisionReason": "The dataset is openly released with clear task definition and scoring via geometry-level splits, enabling other teams to reuse it for benchmarking.",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The specialized casting simulation domain and moderate dataset size may limit broad initial attention despite clear benchmark relevance."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "9688c6ae1b2076b9959ef4186991d900b22e04ba5f0d5ea8cdb9cf84669423dc",
+      "selectionFingerprint": "9f672c672dbc8eb8b17efe88f85e9d4422f6566dd35e81fe99ce8c7b2e9aed2e"
+    },
+    "2611.00686": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "",
+      "canonicalNameSource": "",
+      "canonicalNameEvidence": "",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Releases datasets as a benchmark for probabilistic forecasting with ground-truth conditional ensembles, but no direct artifact link is supplied.",
+      "whyItMatters": "Offers ground-truth conditional ensembles, enabling rigorous evaluation of generative forecasters' distributional accuracy.",
+      "decisionReason": "The paper states datasets are released as a benchmark, but the abstract lacks a direct link or confirmation of a public reuse path.",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark addresses an important gap in probabilistic forecasting evaluation, but limited artifact evidence may slow adoption."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "2870b07db4ab79e80e77975f0f4b599d34fd5dc9d0143b5d7f277770c7f88eab",
+      "selectionFingerprint": "bb5a1860318802d0229d4bc5b33b3d4a8a6f73045297b5d0d501bafaf709d636"
+    },
+    "2611.00536": {
+      "evaluationEvidence": {
+        "task": "Given an ordered pair of policy directives, make a binary same-domain judgment and a five-way continuation/broadening/narrowing/reversal/other-domain judgment, combined into one five-category label.",
+        "scoring": "Primary metric is Cohen's kappa against expert labels, with chance-corrected agreement; human ceiling kappa ≈ 0.527.",
+        "reuse": "The paper claims an expert-annotated benchmark of 1,000 ordered directive pairs and a LoRA fine-tuned model achieving kappa of 0.524 on five-fold cross-validation, but no URL to the dataset or code is provided; the paper itself is the only source of the evaluation protocol."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "Dual-Axis Policy Entailment",
+      "canonicalNameSource": "paper_title",
+      "canonicalNameEvidence": "Dual-Axis Policy Entailment: A Benchmark for Policy-Change Reasoning",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": true,
+      "publicReusePath": false,
+      "description": "Evaluates policy-change reasoning on 1,000 ordered pairs of Chinese government policy directives with a binary domain judgment and a five-way change-type label.",
+      "whyItMatters": "Addresses the need for rigorous evaluation of policy change reasoning, which is underexplored in NLP and relevant to policy analysis.",
+      "decisionReason": "Although the task and scoring are described, no public release of the dataset, annotation protocol, or evaluation code is evident; the benchmark lacks a verifiable reuse path beyond the paper's reported experiments.",
+      "attentionForecast": {
+        "score": 42,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The domain-specific topic and lack of artifact links limit immediate reach, but the detailed evaluation protocol and novel task may still interest NLP researchers."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "a9fc4838db9b4ed5b705d1a90584625e6b8d4cd16273f5fb102ed85e3dbb37be",
+      "selectionFingerprint": "3bc24989c26eba7dc0ca765b9eee60b16249aed0691c4eef8ae5d98dbe263f07"
+    },
+    "2611.01181": {
+      "evaluationEvidence": {
+        "task": "We introduce $\\textbf{Foresight-SWE}$, a benchmark for measuring whether coding agents can anticipate and address unstated problems during software engineering tasks. Foresight-SWE consists of 212 samples spanning 4 languages and 35 popular open-source repositories.",
+        "scoring": "To measure whether agents exhibit foresight, we define the $\\textbf{foresight resolve rate (FRR)}$ as the fraction of instances where an agent fully resolves the original task while also avoiding the defect identified by a later PR.",
+        "reuse": "We evaluate eleven large language models and find that FRR ranges from only 6.13% to 24.53%"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "Foresight-SWE",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce $\\textbf{Foresight-SWE}$, a benchmark for measuring whether coding agents can anticipate and address unstated problems during software engineering tasks.",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Foresight-SWE evaluates coding agents on 212 pull-request-derived samples across 4 languages and 35 repositories, where each sample pairs an initial PR with a later fix PR; agents must solve the first task while avoiding the defect fixed in the second.",
+      "whyItMatters": "Most SWE benchmarks check only explicit task completion, while Foresight-SWE measures whether agents anticipate latent defects, a capability critical for safe autonomous coding. Its substantially low FRR scores highlight a gap in current model training and code review support.",
+      "decisionReason": "The benchmark is formally named, defines a clear scoring metric (FRR), and includes reported results from eleven models, indicating a public evaluation path; however, no code or data link is provided in this record, lowering readiness.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Given the benchmark's focus on coding agents and the surprising low foresight scores, it may attract interest from AI and software engineering communities, though absence of direct artifact links could limit immediate engagement."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "a9edb2466131c1cc0b73f8e84a3952af9c12c86f86480af0faecb3c9c35f56b4",
+      "selectionFingerprint": "3cc8abfa356351c6d73e8b641de1f01cfc3221c715f1db4ac706255ab7cb0c7b"
+    },
+    "2611.01255": {
+      "evaluationEvidence": {
+        "task": "Microbenchmark suites in CI run every benchmark for a fixed number of repetitions, on every commit, whether or not anything changed. AdapBench lets each benchmark stop as soon as the data decides.",
+        "scoring": "It tracks an anytime-valid confidence sequence per benchmark, so you may check after every measurement and stop whenever you like while the false-positive rate stays below α.",
+        "reuse": "the scheduler is a standalone component. Implement one method for your benchmark harness and it plugs in unchanged: class MyRunner: def measure(self, arm: str) -> float | None. Code and data: https://github.com/s3bastiankoch/adapbench"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "AdapBench",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "# AdapBench **Adaptive early-stopping and prioritization for microbenchmark suites in CI/CD**",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Implementations of online scheduler for reducing microbenchmark suite execution duration via anytime-valid confidence sequence-based early stopping and prioritization, with recorded traces from Java and Go projects.",
+      "whyItMatters": "Provides a reusable tool to cut CI/CD microbenchmarking runtimes while maintaining statistical error guarantees, helping practitioners reduce compute costs and accelerate regression detection.",
+      "decisionReason": "The repository provides an explicit scheduler and dataset, and the README shows other teams can plug in their own benchmark harness, meeting the public reusable benchmark criteria.",
+      "attentionForecast": {
+        "score": 30,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The benchmark is highly specific to microbenchmark scheduling and targets a narrow research community, with limited evidence of broad applicability."
+      },
+      "publishers": [
+        {
+          "name": "Scalable Software Systems Research Group, TU Berlin",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/s3bastiankoch/adapbench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:49:51.689584Z",
+      "inputHash": "276eb4d58b6a80e824387a18bb4bdb91c478fec325da271e39dee5c8d882f6c3",
+      "selectionFingerprint": "7133530bc04cc48947f1084e9e3a614af049dae876125664c70c9a4d8e5d1023"
+    },
+    "2611.01700": {
+      "evaluationEvidence": {
+        "task": "288 executable cases · 24 attack templates · 12 objectives · 12 operational contexts · 3 victim classes",
+        "scoring": "Metrics | PMIR, conditional C-ASR, UTDR, ATAR",
+        "reuse": "This repository releases code, benchmark inputs, protocols, and the manuscript’s first three figures"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "MemHarmBench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce MemHarmBench, a victim-centric benchmark for evaluating cross-session prompt injection in memory-persistent AI agents.",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "Evaluates cross-session prompt injection in memory-persistent AI agents using 288 executable cases across 12 objectives and 3 victim classes.",
+      "whyItMatters": "Provides a victim-centric framework for measuring whether persistent-memory agents adopt attacker-injected rules in later sessions, separating retention from harmful adoption.",
+      "decisionReason": "The paper and repository explicitly define tasks, scoring metrics, and a public release path; the benchmark is operational with executable cases and stable protocols.",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a topical security concern for AI agents and includes a robust public codebase, which should attract moderate early attention."
+      },
+      "publishers": [
+        {
+          "name": "MemHarmBench contributors",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://github.com/Kirito14IT/MemHarmBench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "40bfb328804b06a1a3571f8130951f1b0d06b664c340229e3411cbbd5f1fcfbb",
+      "selectionFingerprint": "034228c22d9d4ccc87006e8eb60aa4aff6e5681a0a1d3c0e4e6b02222504e3ff"
+    },
+    "2611.01728": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "MAC-Bench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce MAC-Bench, a comprehensive benchmark for evaluating multi-agent collaboration through interconnected tasks.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Potential benchmark for multi-agent collaboration, but artifacts and details are not provided in the abstract.",
+      "whyItMatters": "Multi-agent collaboration is an important area, but lack of public artifacts makes evaluation Gap unclear.",
+      "decisionReason": "No artifact evidence is available; only the paper abstract mentions a benchmark without concrete task, scoring, or reuse path.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Without released artifacts or details, early attention is unlikely."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "906b74ca2b5c790b1ba7167925526f912d1d8b125ddcab4edf62494e7e78b999",
+      "selectionFingerprint": "670bfd1ff78c3af3d698f2393dee9bd8c6acfb0876dc38eaa37f916c6e509b32"
+    },
+    "2611.01621": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "FinForesight",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce FinForesight, a diagnostic backtesting benchmark for financial deep research systems.",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Potential diagnostic backtesting benchmark for financial deep research systems, no artifacts provided.",
+      "whyItMatters": "Financial research systems need evaluation, but without data or code the value is unassessable.",
+      "decisionReason": "No artifact evidence is available; the paper abstract only mentions a benchmark without releasing tasks, scoring, or data.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Lack of released artifacts and niche financial focus limit early attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "f1846227da8c40c42688abd7fa37a2d5da4977d2e3b0ea59b0681ca77d585bc8",
+      "selectionFingerprint": "9e34d602f0d8ee54225710377cdca76587a9662f6ef0ba9ae32bc4e89edd4fff"
+    },
+    "2611.01484": {
+      "evaluationEvidence": {
+        "task": "171 real-world instances spanning 165 repositories, 20 technical domains, and 13 programming languages",
+        "scoring": "The abstract mentions benchmark but not explicit scoring; however, the dataset link contains information.",
+        "reuse": "https://huggingface.co/datasets/CrossSWE/CrossSWE-Bench"
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "CrossSWE",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce CrossSWE, a benchmark for cross-repository joint development comprising 171 real-world instances spanning 165 repositories, 20 technical domains, and 13 programming languages.",
+      "benchmarkMode": "score_submission",
+      "stableScoringContract": false,
+      "publicReusePath": true,
+      "description": "Benchmark for cross-repository joint development with 171 real-world coding instances across many domains and languages.",
+      "whyItMatters": "Addresses a gap in coding agent evaluation by considering collaboration across repositories rather than isolated tasks.",
+      "decisionReason": "The benchmark provides a Hugging Face dataset as a public reuse path; however, scoring details are not verified from the abstract alone, so contract is unclear.",
+      "attentionForecast": {
+        "score": 40,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "The large real-world dataset and public link could attract coding agent researchers, but lack of scoring details in abstract reduces confidence."
+      },
+      "publishers": [
+        {
+          "name": "CrossSWE",
+          "organizationType": "benchmark-organization",
+          "sourceUrl": "https://huggingface.co/datasets/CrossSWE/CrossSWE-Bench",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "cadcbeae4978155ca2fdd252d9abe16710b84cee235b4d899e4a9ccf08779dfe",
+      "selectionFingerprint": "95cdbaf1f21f2bc402af27d28f7fe3225a15accec81d73cfeb07adceb309bebe"
+    },
+    "2611.00791": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "PhoneValue-Bench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we propose PhoneValue-Bench, a dual-GT evaluation suite with tier-gated scorecards",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Potential multimodal benchmark for smartphone recommerce valuation, no artifacts in evidence.",
+      "whyItMatters": "Real-world trade-in valuation is economically significant, but absence of released data or scorer prevents evaluation use.",
+      "decisionReason": "The abstract claims an executable public scorer and submission schema, but no artifact evidence is supplied to verify public availability.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Without released benchmark artifacts, early attention is unlikely despite the interesting domain."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "f246313c494bf4c92159c242210ad8f22f74ed8791dde4de2952cc50f1934a87",
+      "selectionFingerprint": "eaade49cb5decfed8d1dd429f8a60244f861b2bc467ba6987a65ccec1e242b06"
+    },
+    "2611.00749": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "PeptSol",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce PeptSol, an open benchmark of 1388 hand-curated protected-peptide solubility measurements with chemistry-aware splits.",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Benchmark for protected-peptide solubility with 1388 measurements and chemistry-aware splits, but no public data or code provided in evidence.",
+      "whyItMatters": "Could enable model comparison for peptide developability, a practical need in drug manufacturing.",
+      "decisionReason": "The paper abstract describes a dataset and protocol, but no artifact link is given, so public reuse cannot be confirmed.",
+      "attentionForecast": {
+        "score": 0,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Lack of a released dataset and specialized domain reduce anticipated early attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "db4f627618f2cf1772b2eab52cd96d2f6c24853dd1c3427890afb6dd0aa5d79f",
+      "selectionFingerprint": "358d8ab1c87e966ba19685d85e1f6627d4169bebabdacd60d5cf4dd014b3927b"
+    },
+    "2611.00755": {
+      "evaluationEvidence": {
+        "task": "DuSE-Bench contains 1,000 tasks across five scenarios, including 700 jointly grounded tasks whose required premises originate in both dialogue and documents.",
+        "scoring": "The paper evaluates three response aspects separately: response content (content accuracy), response type (macro-F1), and source attribution (F1).",
+        "reuse": "The data are available at https://github.com/JianfengGao7/DuSE-Bench."
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "publish",
+      "canonicalName": "DuSE-Bench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "we introduce Dual-Source Evolution Benchmark (DuSE-Bench)",
+      "benchmarkMode": "public_reusable",
+      "stableScoringContract": true,
+      "publicReusePath": true,
+      "description": "DuSE-Bench evaluates joint reasoning over evolving dialogue and documents through 1,000 tasks across five scenarios, measuring response content accuracy, response type, and source attribution.",
+      "whyItMatters": "It fills a gap in evaluating how assistants combine updated document facts with evolving user requirements, enabling assessment of multi-turn evidence attribution.",
+      "decisionReason": "The benchmark is formally named, publicly available with data and code, includes clear task annotations and evaluation metrics, and supports reuse by other teams.",
+      "attentionForecast": {
+        "score": 45,
+        "confidence": "Medium",
+        "horizon": "7d",
+        "reason": "The benchmark addresses a novel dual-source evolving context, has released data and code, and shows baseline experiments, likely attracting moderate attention from NLP and agents researchers."
+      },
+      "publishers": [
+        {
+          "name": "DuSE-Bench Team",
+          "organizationType": "academic-lab",
+          "sourceUrl": "https://arxiv.org/abs/2611.00755",
+          "role": "benchmark-publisher"
+        }
+      ],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "337d84d0d445dd1362fb2cad397873fe7aef08a6f1390af9ba5bbda7ff1b0747",
+      "selectionFingerprint": "4efa56b0ea65692271ecbfe56e76eb85c41d399cb1397782518f928f5dd1cf93"
+    },
+    "2611.00769": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "exclude",
+      "canonicalName": "DramaVQA",
+      "canonicalNameSource": "official_readme",
+      "canonicalNameEvidence": "DramaVQA: Probing Detailed Understanding of Ultra-Long TV Dramas",
+      "benchmarkMode": "viewpoint_probe",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "Views on the benchmark are to only support the paper's findings; it lacks a standalone public comparison path despite question data and evaluation code.",
+      "whyItMatters": "Does not qualify as a public comparison benchmark per admission criteria.",
+      "decisionReason": "The source primarily supports one paper's finding and lacks a clear public reuse path or stable scoring contract as a standalone benchmark.",
+      "attentionForecast": {
+        "score": 35,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Despite significant scale and multimodal focus, limited public evidence of independent adoption beyond the paper's own evaluation reduces expected early attention."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "ee747cca5ba68602d92e7038b4648c344e2b2ce41aee52555c2952d4537e4363",
+      "selectionFingerprint": "65d09efce36c0bc213577722a436a99db52a06ae50075005101142b5185e5f21"
+    },
+    "2611.01145": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "CivicBench",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We present CivicBench, a 400-task benchmark",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "CivicBench is described as a 400-task benchmark for web-based civic data analytics with executable contracts, but no artifact links or detailed evaluation protocol are provided.",
+      "whyItMatters": "Its focus on validated claims from web sources could matter for trustworthy agent evaluation, but lack of artifacts prevents independent use.",
+      "decisionReason": "No code, data, or public evaluation path is evident; only paper-level claims, so readiness cannot be confirmed.",
+      "attentionForecast": {
+        "score": 20,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "Without released artifacts, early attention is likely limited despite the civic domain's importance."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "ef475a55792d02790ac608346a44b9c8c02ac48ae3251b5fc54cb1fb06cb8153",
+      "selectionFingerprint": "1d25c3a89abd3cf832e0ae8487280aedcb9f9cd9ab57754edaf462c7f85f9982"
+    },
+    "2611.00515": {
+      "evaluationEvidence": {
+        "task": "",
+        "scoring": "",
+        "reuse": ""
+      },
+      "evaluationEvidenceVerified": false,
+      "decision": "defer",
+      "canonicalName": "AStockArena",
+      "canonicalNameSource": "abstract",
+      "canonicalNameEvidence": "We introduce AStockArena, a real-time decision-auditing benchmark",
+      "benchmarkMode": "unclear",
+      "stableScoringContract": false,
+      "publicReusePath": false,
+      "description": "AStockArena is a real-time financial trading benchmark focusing on audit-based evaluation, but no code or data link is provided.",
+      "whyItMatters": "It proposes a process-auditing perspective that could complement return-based financial agent evaluation, but artifacts are required for adoption.",
+      "decisionReason": "Missing public artifacts and scoring tools; unable to verify the benchmark's usability or stable scoring contract.",
+      "attentionForecast": {
+        "score": 15,
+        "confidence": "Low",
+        "horizon": "7d",
+        "reason": "No released code or data limits expected early attention despite the financial domain's interest."
+      },
+      "publishers": [],
+      "model": "deepseek-v4-pro",
+      "policyVersion": "2026-09-09.1",
+      "generatedAt": "2026-11-03T03:54:15.811654Z",
+      "inputHash": "0974b2a7fbcbacc99c3c57a94858d1b9512f21b00588143c1f6d7e2bd1f09023",
+      "selectionFingerprint": "b3891b18b25fdcfe460df399d993e40da750526fb022d7e97194044424bf611a"
     }
   },
   "invalidOutput": {
@@ -106909,15 +108029,75 @@
     },
     "github:cxcscmu/ideataste": {
       "selectionFingerprint": "abaf51ccbe3d1eed0002b91d818074373a6697cba662f794f05ce9f5ac180260",
-      "attempts": 2,
+      "attempts": 3,
       "lastError": "Unsupported evaluation evidence for github:cxcscmu/ideataste:reuse",
-      "lastAttemptAt": "2026-11-02T12:44:02.088790Z"
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
     },
     "2610.39639": {
       "selectionFingerprint": "07fd1e3d92f1f8b012f9b1c0afd35bbbb9f6fad9c37ddda500f4c67c1a2e201d",
       "attempts": 1,
       "lastError": "Invalid attention forecast for 2610.39639",
       "lastAttemptAt": "2026-11-02T12:46:40.276196Z"
+    },
+    "github:davidewastaken/weather2watts": {
+      "selectionFingerprint": "e717fdb612f5789696330411cee44fa2c7439aeed45a00f85f5f9650fe43bdbd",
+      "attempts": 1,
+      "lastError": "Unsupported evaluation evidence for github:davidewastaken/weather2watts:reuse",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "huggingface:wlchen/veriharm-bench-150": {
+      "selectionFingerprint": "4a66f9db3a1fe63c02cd79a652d0c1df6c672874866e1e5e030082e14459d303",
+      "attempts": 1,
+      "lastError": "Unsupported canonical name for huggingface:wlchen/veriharm-bench-150",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "github:jamesmendax/regex-plus-agent-benchmark": {
+      "selectionFingerprint": "2e70c938efe0e2682c020b8ec8a1621479a1d44311116ae1fcfa4244abb43b81",
+      "attempts": 1,
+      "lastError": "Unsupported evaluation evidence for github:jamesmendax/regex-plus-agent-benchmark:task",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "huggingface:mast-benchmark/mast-2026-baseline-runs": {
+      "selectionFingerprint": "59ba06c6c9144150b2121613d4c66f06e6036922b53d6ed38ff1334fca815244",
+      "attempts": 1,
+      "lastError": "Invalid third-person copy for huggingface:mast-benchmark/mast-2026-baseline-runs:description",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "github:thameera-01/llm-output-benchmarking-and-evaluation-suite": {
+      "selectionFingerprint": "c7bb994ea0124a4f4047251228b5065331b6e8e94c0a53063fdff6cb0f3f3e5b",
+      "attempts": 1,
+      "lastError": "Unsupported evaluation evidence for github:thameera-01/llm-output-benchmarking-and-evaluation-suite:scoring",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "github:seandolan0/llm-auto-benchmark": {
+      "selectionFingerprint": "cb89467b7de75f72a6a3185e4fae04ffcac28acee3d501dc0f0e2b73d8111e5a",
+      "attempts": 1,
+      "lastError": "Invalid third-person copy for github:seandolan0/llm-auto-benchmark:description",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "huggingface:maxdemarzi/bjj-bench-250": {
+      "selectionFingerprint": "417f5d3d07da0bcff48578216c2780c8bfe5852e6cc329fbeeac5440379eaddf",
+      "attempts": 1,
+      "lastError": "Unsupported evaluation evidence for huggingface:maxdemarzi/bjj-bench-250:reuse",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "2611.00911": {
+      "selectionFingerprint": "5dea8f03e135c8d360150d965947a0fb1700f46a2b7e893ae001ebb732052209",
+      "attempts": 1,
+      "lastError": "Unsupported canonical name for 2611.00911",
+      "lastAttemptAt": "2026-11-03T03:49:51.689584Z"
+    },
+    "github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline": {
+      "selectionFingerprint": "000b43fdafe72d8ec4186373e515452325cbc5f36800e374e2f3caeb7115d9b3",
+      "attempts": 1,
+      "lastError": "Invalid third-person copy for github:krbuti/high-throughput-llm-serving-benchmark---vllm-vs.-baseline:description",
+      "lastAttemptAt": "2026-11-03T03:54:15.811654Z"
+    },
+    "huggingface:nicodevargas/fluente-oral-reading-benchmark": {
+      "selectionFingerprint": "3e06d149ed67a6a2e1dcea3d9054f1f5cdc2c6073cb50fd239ac74e45c962f7f",
+      "attempts": 1,
+      "lastError": "Unsupported evaluation evidence for huggingface:nicodevargas/fluente-oral-reading-benchmark:reuse",
+      "lastAttemptAt": "2026-11-03T03:54:15.811654Z"
     }
   }
 }
