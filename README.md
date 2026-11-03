@@ -26,17 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-02 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-03 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 31 dataset downloads |
-| 2 | **MEX: The Musical Expectation Benchmark Suite**<br><sub>[Paper](https://arxiv.org/abs/2611.01843) · [Code](https://github.com/musicperceptmodeling/mex)</sub> | Speech & Audio | 3 GitHub stars |
-| 3 | **MemHarmBench**<br><sub>[Paper](https://arxiv.org/abs/2611.01700) · [Code](https://github.com/Kirito14IT/MemHarmBench)</sub> | Agent Security & Prompt Injection · Agent Memory & Personalization | 3 GitHub stars |
-| 4 | **InformedXRD**<br><sub>[Paper](https://arxiv.org/abs/2611.01525) · [Code](https://github.com/scattering/InformedXRD)</sub> | Science · Image & Visual Reasoning | 0 GitHub stars · 104 dataset downloads |
-| 5 | **KinoCheck-Eval**<br><sub>[Code](https://github.com/Rerishabh/KinoCheck-Eval)</sub> | Code Generation · Robotics & Embodied AI | 0 GitHub stars |
-| 6 | **High-Throughput LLM Serving Benchmark**<br><sub>[Code](https://github.com/krbuti/High-Throughput-LLM-Serving-Benchmark---vLLM-vs.-baseline)</sub> | AI R&D & ML Engineering | 0 GitHub stars |
-| 7 | **AI Video Detection Benchmark**<br><sub>[Code](https://github.com/wasitaigenerated/ai-video-detection-benchmark)</sub> | AI-Content Detection & Forensics · Video Understanding | 0 GitHub stars · 29 dataset downloads |
+| 1 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 78 dataset downloads |
+| 2 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
+| 3 | **VeriHarm-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.03575v1)</sub> | Safety & Alignment | 30 dataset downloads |
+| 4 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 37 GitHub stars |
+| 5 | **Parametric CAD Bench v3**<br><sub>[Paper](http://arxiv.org/abs/2611.02659v1) · [Code](https://github.com/gNucleus-AI/freecad-validator)</sub> | Engineering & Hardware Design | 21 GitHub stars |
+| 6 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 3 HF votes · 15 GitHub stars |
+| 7 | **VisCodeBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02353v1) · [Code](https://github.com/SAIPLL/VisCodeBench)</sub> | Other benchmark tasks | 3 GitHub stars |
+| 8 | **TSB-SEG**<br><sub>[Paper](http://arxiv.org/abs/2611.03039v1) · [Code](https://github.com/fchavelli/TSB-SEG)</sub> | Forecasting & Time Series | 3 GitHub stars |
+| 9 | **DistDebug-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.03523v1) · [Code](https://github.com/OrderLab/distdebug-bench)</sub> | Agentic Coding & SWE | 3 GitHub stars |
+| 10 | **MEX: The Musical Expectation Benchmark Suite**<br><sub>[Paper](https://arxiv.org/abs/2611.01843) · [Code](https://github.com/musicperceptmodeling/mex)</sub> | Speech & Audio | 3 GitHub stars |
 
 ### Explore the library
 
