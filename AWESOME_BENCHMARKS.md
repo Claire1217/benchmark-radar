@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-03 · **Benchmark releases:** 2865
+**Snapshot:** 2026-11-04 · **Benchmark releases:** 2865
 
 ## Contents
 
@@ -194,7 +194,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Memory & Personalization
 
-- **GroupAssistBench** (2026-11-03) — We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. [Paper](https://arxiv.org/abs/2611.04867) · [Code](https://github.com/HU-xiaobai/GroupAssistantBench)
+- **GroupAssistBench** (2026-11-03) — We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. [Paper](https://arxiv.org/abs/2611.04867) · [HF](https://huggingface.co/papers/2611.04867) · [Code](https://github.com/HU-xiaobai/GroupAssistantBench)
 - **StateChangeBench** (2026-11-02) — To test this design, we introduce StateChangeBench, a controlled benchmark of 50 author-constructed cases annotated with cascade depth, hard negatives and action consequences. [Paper](https://arxiv.org/abs/2611.02912)
 - **FinLoCoMo** (2026-11-01) — Evaluates memory systems on long-horizon financial dialogues with evolving beliefs. [Paper](http://arxiv.org/abs/2611.02001v1)
 - **Epistemic Parity Bench** (2026-10-23) — Epistemic Parity Bench measures how LLM agents resolve conflicts between injected user memory and procedural skills when both are at equal privilege, using 52 scenarios with deterministic checkers. [Paper](https://arxiv.org/abs/2610.33128) · [Code](https://github.com/prakhar1605/epistemic-parity-bench)
@@ -1483,7 +1483,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **Kierston & KierstonBench** (2026-11-03) — We present Kierston, a city-scale simulation engine, and KierstonBench, a benchmark that tests these capabilities against known simulated events. [Paper](https://arxiv.org/abs/2611.04785)
+- **Kierston & KierstonBench** (2026-11-03) — We present Kierston, a city-scale simulation engine, and KierstonBench, a benchmark that tests these capabilities against known simulated events. [Paper](https://arxiv.org/abs/2611.04785) · [HF](https://huggingface.co/papers/2611.04785) · [Code](https://github.com/Kiz8-Team/kierston-oss)
 - **VisCodeBench** (2026-11-02) — We introduce VisCodeBench, an end-to-end text-to-vis benchmark with 2,672 samples from three different domains: educational, scientific, and general audience scenarios with varying levels of complexity. [Paper](https://arxiv.org/abs/2611.02353) · [Code](https://github.com/SAIPLL/VisCodeBench)
 - **Collaborative Intelligence Benchmark** (2026-11-02) — Evaluates AI agents as teammates across 240 tasks spanning 8 teamwork dimensions, with programmatically verifiable outcomes and capability-adjusted scoring. [Paper](http://arxiv.org/abs/2611.02633v1)
 - **AquaTX** (2026-11-02) — Benchmark of underwater object detection under transmission degradation with controlled resize and codec conditions. [Paper](http://arxiv.org/abs/2611.02419v1) · [Code](https://github.com/hijinkim/TERA)
