@@ -10,40 +10,40 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-04 · **Benchmark releases:** 2859
+**Snapshot:** 2026-11-03 · **Benchmark releases:** 2865
 
 ## Contents
 
 - [AI R&D & ML Engineering](#ai-rd--ml-engineering) (51)
 - [AI-Content Detection & Forensics](#ai-content-detection--forensics) (26)
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (54)
-- [Agent Memory & Personalization](#agent-memory--personalization) (56)
+- [Agent Memory & Personalization](#agent-memory--personalization) (57)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (75)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (25)
 - [Agentic Coding & SWE](#agentic-coding--swe) (105)
 - [Chat, Writing & Preference](#chat,-writing--preference) (30)
 - [Code Generation](#code-generation) (93)
 - [Composite Indexes](#composite-indexes) (2)
-- [Computer Use & GUI Agents](#computer-use--gui-agents) (57)
+- [Computer Use & GUI Agents](#computer-use--gui-agents) (58)
 - [Cybersecurity & CTF](#cybersecurity--ctf) (33)
 - [Deep Research & Search](#deep-research--search) (55)
 - [Document Understanding & OCR](#document-understanding--ocr) (34)
 - [Engineering & Hardware Design](#engineering--hardware-design) (35)
 - [Factuality & Hallucination](#factuality--hallucination) (32)
-- [Finance & Law](#finance--law) (61)
+- [Finance & Law](#finance--law) (62)
 - [Forecasting & Time Series](#forecasting--time-series) (22)
 - [Health & Medicine](#health--medicine) (117)
 - [Image & Video Generation](#image--video-generation) (111)
 - [Image & Visual Reasoning](#image--visual-reasoning) (126)
 - [Instruction Following](#instruction-following) (17)
-- [Knowledge & Expert QA](#knowledge--expert-qa) (18)
+- [Knowledge & Expert QA](#knowledge--expert-qa) (19)
 - [Long Context](#long-context) (8)
 - [Math Reasoning](#math-reasoning) (29)
 - [Multi-Agent & Games](#multi-agent--games) (36)
 - [Multilingual & Translation](#multilingual--translation) (36)
-- [Other benchmark tasks](#other-benchmark-tasks) (92)
+- [Other benchmark tasks](#other-benchmark-tasks) (93)
 - [Professional & Enterprise Work](#professional--enterprise-work) (78)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (144)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (145)
 - [Safety & Alignment](#safety--alignment) (108)
 - [Science](#science) (132)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (65)
@@ -194,6 +194,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Memory & Personalization
 
+- **GroupAssistBench** (2026-11-03) — We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. [Paper](https://arxiv.org/abs/2611.04867) · [Code](https://github.com/HU-xiaobai/GroupAssistantBench)
 - **StateChangeBench** (2026-11-02) — To test this design, we introduce StateChangeBench, a controlled benchmark of 50 author-constructed cases annotated with cascade depth, hard negatives and action consequences. [Paper](https://arxiv.org/abs/2611.02912)
 - **FinLoCoMo** (2026-11-01) — Evaluates memory systems on long-horizon financial dialogues with evolving beliefs. [Paper](http://arxiv.org/abs/2611.02001v1)
 - **Epistemic Parity Bench** (2026-10-23) — Epistemic Parity Bench measures how LLM agents resolve conflicts between injected user memory and procedural skills when both are at equal privilege, using 52 scenarios with deterministic checkers. [Paper](https://arxiv.org/abs/2610.33128) · [Code](https://github.com/prakhar1605/epistemic-parity-bench)
@@ -601,6 +602,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Computer Use & GUI Agents
 
+- **ScamWorld** (2026-11-03) — ScamWorld provides a reusable testbed for systematically evaluating and stress-testing web agents against real-world online fraud. [Paper](https://arxiv.org/abs/2611.04879) · [Code](https://github.com/wuyoscar/scamworld-bench)
 - **MAGAR-Bench** (2026-11-02) — We introduce MAGAR-Bench, a benchmark of 4,000 multimodal samples from 26 assembly families that separates Assembly Decision, Atomic Action, and Minimal Rework. [Paper](https://arxiv.org/abs/2611.02472)
 - **preflight-bench** (2026-10-29) — A benchmark generator that renders invented web pages into stale-click action pairs and did-it-work pairs, used to evaluate pre-click screen verification by pixel and vision-language model checks. [Paper](https://arxiv.org/abs/2610.39282) · [Code](https://github.com/multimodal-ai-engineering/preflight-bench)
 - **DynaRev** (2026-10-29) — Benchmark of 181 web agent tasks with dynamic goal revisions and trajectory-based evaluation. [Paper](https://arxiv.org/abs/2610.40133) · [Code](https://github.com/zsq259/DynaRev)
@@ -865,7 +867,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
-- **NitiBench** (2026-11-02) — We introduce NitiBench+, the sequel of our NitiBench, a Thai legal QA benchmark with 1,670 items across 17 domains, built from decisions of three courts. [Paper](https://arxiv.org/abs/2611.03576) · [HF](https://huggingface.co/papers/2611.03576)
+- **AgenticFinBench** (2026-11-03) — To bridge this gap, we introduce $\textbf{AgenticFinBench}$, a benchmark of 230 real-world financial tasks spanning 8 categories, 2 languages, and 4 complexity levels. [Paper](https://arxiv.org/abs/2611.04813)
+- **NitiBench** (2026-11-02) — We introduce NitiBench+, the sequel of our NitiBench, a Thai legal QA benchmark with 1,670 items across 17 domains, built from decisions of three courts. [Paper](https://arxiv.org/abs/2611.03576)
 - **NyayaVeda AI Legal Accuracy Benchmark** (2026-10-20) — A 600-question legal accuracy benchmark measuring Indian legal AI answers on citation grounding, statutory transition, fabrication rejection, Hindi/Hinglish capability, personal data leakage, overruled law reliance, and… [Code](https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-)
 - **LOB-Impact Benchmark** (2026-10-19) — Evaluates generative limit order book models by measuring market impact dynamics through controlled metaorder injections and relaxation protocols. [Paper](https://arxiv.org/abs/2610.27100) · [Code](https://github.com/george-nigmatulin/lob-impact)
 - **FinHopper** (2026-10-19) — Evaluates financial agents on multi-hop questions requiring exact intermediate constraints, with process-level scoring. [Paper](https://arxiv.org/abs/2610.26036) · [Code](https://github.com/justajustin/FinHopper/)
@@ -1337,6 +1340,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Knowledge & Expert QA
 
+- **VisSearch-Bench** (2026-11-03) — We introduce VisSearch-Bench, with 204 human-written tasks across 7 main domains and 25 subdomains. [Paper](https://arxiv.org/abs/2611.04894)
 - **GI-TraceBench** (2026-11-02) — GI-TraceBench evaluates evidence-grounded scientific reasoning in gastrointestinal oncology across provenance QA, knowledge discovery, and hypothesis evaluation using shared Paper, Claim, and Evidence Span records. [Paper](http://arxiv.org/abs/2611.02545v1) · [Data](https://huggingface.co/datasets/Sereints/FindLink)
 - **TriPhysBench** (2026-11-01) — Inspired by Popper's Three Worlds, we introduce TriPhysBench, a benchmark of 410 questions from 200 videos that brings physical perception, physical knowledge retrieval, and physical reasoning into a shared evaluation s… [Paper](https://arxiv.org/abs/2611.01934)
 - **TutorCaseBench** (2026-10-22) — Evaluates LLM tutors on 923 scenarios of challenging student behaviors using open-ended and multiple-choice tasks scored against evidence-backed rubrics. [Paper](https://arxiv.org/abs/2610.30828) · [Code](https://github.com/kixlab/TutorCaseBench)
@@ -1479,6 +1483,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **Kierston & KierstonBench** (2026-11-03) — We present Kierston, a city-scale simulation engine, and KierstonBench, a benchmark that tests these capabilities against known simulated events. [Paper](https://arxiv.org/abs/2611.04785)
 - **VisCodeBench** (2026-11-02) — We introduce VisCodeBench, an end-to-end text-to-vis benchmark with 2,672 samples from three different domains: educational, scientific, and general audience scenarios with varying levels of complexity. [Paper](https://arxiv.org/abs/2611.02353) · [Code](https://github.com/SAIPLL/VisCodeBench)
 - **Collaborative Intelligence Benchmark** (2026-11-02) — Evaluates AI agents as teammates across 240 tasks spanning 8 teamwork dimensions, with programmatically verifiable outcomes and capability-adjusted scoring. [Paper](http://arxiv.org/abs/2611.02633v1)
 - **AquaTX** (2026-11-02) — Benchmark of underwater object detection under transmission degradation with controlled resize and codec conditions. [Paper](http://arxiv.org/abs/2611.02419v1) · [Code](https://github.com/hijinkim/TERA)
@@ -1655,6 +1660,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
+- **CRONOS** (2026-11-03) — In this work, we introduce CRONOS, a simulation benchmark for RL fine-tuning of VLAs under non-episodic scene resets. [Paper](https://arxiv.org/abs/2611.05080)
 - **VLALagBench** (2026-11-02) — In this paper, we introduce VLALagBench, a comprehensive benchmark for studying VLA inference latency sensitivity across task types, object speeds, execution modes (synchronous and asynchronous), and VLA policies. [Paper](https://arxiv.org/abs/2611.03103) · [Code](https://github.com/codestrongestx/VLALagBench)
 - **PlanContext** (2026-11-02) — To fill this gap, we present PlanContext, a benchmark for evaluating in-context driving decision-making. [Paper](https://arxiv.org/abs/2611.03067)
 - **RoboAtom-Bench** (2026-10-29) — RoboAtom-Bench standardizes evaluation of skill recognition and temporal boundary localization on atomic-action annotations added to existing robot trajectory data from multiple sources. [Paper](https://arxiv.org/abs/2610.40207)
