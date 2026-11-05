@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-05 · **Benchmark releases:** 2876
+**Snapshot:** 2026-11-04 · **Benchmark releases:** 2880
 
 ## Contents
 
@@ -20,7 +20,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Agent Memory & Personalization](#agent-memory--personalization) (57)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (75)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (25)
-- [Agentic Coding & SWE](#agentic-coding--swe) (105)
+- [Agentic Coding & SWE](#agentic-coding--swe) (106)
 - [Chat, Writing & Preference](#chat,-writing--preference) (31)
 - [Code Generation](#code-generation) (93)
 - [Composite Indexes](#composite-indexes) (2)
@@ -34,7 +34,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Forecasting & Time Series](#forecasting--time-series) (22)
 - [Health & Medicine](#health--medicine) (117)
 - [Image & Video Generation](#image--video-generation) (111)
-- [Image & Visual Reasoning](#image--visual-reasoning) (126)
+- [Image & Visual Reasoning](#image--visual-reasoning) (127)
 - [Instruction Following](#instruction-following) (17)
 - [Knowledge & Expert QA](#knowledge--expert-qa) (19)
 - [Long Context](#long-context) (8)
@@ -45,12 +45,12 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Professional & Enterprise Work](#professional--enterprise-work) (78)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (146)
 - [Safety & Alignment](#safety--alignment) (109)
-- [Science](#science) (133)
+- [Science](#science) (134)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (65)
 - [Speech & Audio](#speech--audio) (53)
 - [Tool Use & Function Calling](#tool-use--function-calling) (75)
 - [Video Understanding](#video-understanding) (105)
-- [World Models & Physical Understanding](#world-models--physical-understanding) (42)
+- [World Models & Physical Understanding](#world-models--physical-understanding) (43)
 
 ## AI R&D & ML Engineering
 
@@ -194,7 +194,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Memory & Personalization
 
-- **GroupAssistBench** (2026-11-03) — We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. [Paper](http://arxiv.org/abs/2611.04867v1) · [HF](https://huggingface.co/papers/2611.04867) · [Code](https://github.com/HU-xiaobai/GroupAssistantBench)
+- **GroupAssistBench** (2026-11-03) — We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. [Paper](http://arxiv.org/abs/2611.04867v1) · [Code](https://github.com/HU-xiaobai/GroupAssistantBench)
 - **StateChangeBench** (2026-11-02) — To test this design, we introduce StateChangeBench, a controlled benchmark of 50 author-constructed cases annotated with cascade depth, hard negatives and action consequences. [Paper](http://arxiv.org/abs/2611.02912v1)
 - **FinLoCoMo** (2026-11-01) — Evaluates memory systems on long-horizon financial dialogues with evolving beliefs. [Paper](http://arxiv.org/abs/2611.02001v1)
 - **Epistemic Parity Bench** (2026-10-23) — Epistemic Parity Bench measures how LLM agents resolve conflicts between injected user memory and procedural skills when both are at equal privilege, using 52 scenarios with deterministic checkers. [Paper](https://arxiv.org/abs/2610.33128) · [Code](https://github.com/prakhar1605/epistemic-parity-bench)
@@ -360,6 +360,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
+- **ServerBench** (2026-11-04) — We introduce ServerBench, a benchmark for agentic design of complete, specialized LLM serving systems. [Paper](http://arxiv.org/abs/2611.06841v1)
 - **DistDebug-Bench** (2026-11-02) — We introduce DistDebug-Bench, a benchmark for evaluating agents' ability to diagnose complex-system failures at the code level. [Paper](http://arxiv.org/abs/2611.03523v1) · [Code](https://github.com/OrderLab/distdebug-bench)
 - **Foresight-SWE** (2026-10-31) — Foresight-SWE evaluates coding agents on 212 pull-request-derived samples across 4 languages and 35 repositories, where each sample pairs an initial PR with a later fix PR; agents must solve the first task while avoidin… [Paper](https://arxiv.org/abs/2611.01181)
 - **LLM Webdev Gauntlet** (2026-10-28) — A local curriculum and evaluation workspace with 112 web development exercises across 29 categories, providing prompts, starter code, acceptance criteria, and reference solutions. The evaluator returns pass/fail results… [Code](https://github.com/DanDekker/webdev-gauntlet)
@@ -871,7 +872,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **WayPOP** (2026-11-04) — We introduce WayPOP, a panoramic open-set panoptic tracking benchmark built on real Waymo PVPS sequences augmented with diverse out-of-taxonomy 3D assets from Objaverse. [Paper](http://arxiv.org/abs/2611.05801v1)
 - **AgenticFinBench** (2026-11-03) — To bridge this gap, we introduce $\textbf{AgenticFinBench}$, a benchmark of 230 real-world financial tasks spanning 8 categories, 2 languages, and 4 complexity levels. [Paper](http://arxiv.org/abs/2611.04813v2)
-- **NitiBench** (2026-11-02) — We introduce NitiBench+, the sequel of our NitiBench, a Thai legal QA benchmark with 1,670 items across 17 domains, built from decisions of three courts. [Paper](http://arxiv.org/abs/2611.03576v2) · [HF](https://huggingface.co/papers/2611.03576)
+- **NitiBench** (2026-11-02) — We introduce NitiBench+, the sequel of our NitiBench, a Thai legal QA benchmark with 1,670 items across 17 domains, built from decisions of three courts. [Paper](http://arxiv.org/abs/2611.03576v2)
 - **NyayaVeda AI Legal Accuracy Benchmark** (2026-10-20) — A 600-question legal accuracy benchmark measuring Indian legal AI answers on citation grounding, statutory transition, fabrication rejection, Hindi/Hinglish capability, personal data leakage, overruled law reliance, and… [Code](https://github.com/NyayaVeda-Ai/NYAYAVEDA-AI-BENCHMARK-)
 - **LOB-Impact Benchmark** (2026-10-19) — Evaluates generative limit order book models by measuring market impact dynamics through controlled metaorder injections and relaxation protocols. [Paper](https://arxiv.org/abs/2610.27100) · [Code](https://github.com/george-nigmatulin/lob-impact)
 - **FinHopper** (2026-10-19) — Evaluates financial agents on multi-hop questions requiring exact intermediate constraints, with process-level scoring. [Paper](https://arxiv.org/abs/2610.26036) · [Code](https://github.com/justajustin/FinHopper/)
@@ -1194,6 +1195,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Visual Reasoning
 
+- **LongBanana** (2026-11-04) — We introduce LongBanana, to our knowledge the first expert-designed and expert-verified benchmark for long-context multi-reference image synthesis in the age of agent-driven image generation. [Paper](http://arxiv.org/abs/2611.06856v1)
 - **VL-DedupBench** (2026-11-02) — VL-DedupBench evaluates graded multimodal entity resolution on image-text data, with 50,000 COCO and SOP records and 66,788 labeled pairs, measuring pair-level decisions, cluster structure, and retained-set quality. [Paper](http://arxiv.org/abs/2611.03080v1)
 - **ChemRxn-Bench** (2026-11-02) — ChemRxn-Bench evaluates structured reaction data extraction from chemistry figures, measuring exact molecular identity and reactant-product pairing across 603 annotated figures. [Paper](http://arxiv.org/abs/2611.02826v1) · [Code](https://github.com/rxnminer/RxnMiner) · [Data](https://huggingface.co/datasets/UniParser/RxnMiner-Benchmark)
 - **MicroStructAI reproducible benchmark** (2026-10-31) — Compares global Otsu and local Gaussian thresholding for synthetic image segmentation across 24 contrast, noise, illumination, and object-radius conditions with 20 seeded images per condition, scored by mean image IoU a… [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
@@ -1489,7 +1491,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **TandemBench** (2026-11-04) — We introduce TandemBench, a benchmark of 1,200 questions in multi-agent cooking scenarios where coordination choices affect goal completion. [Paper](http://arxiv.org/abs/2611.05827v1) · [Code](https://github.com/lililibaohang/TandemBench)
 - **SWEOps-Bench** (2026-11-04) — We introduce SWEOps-Bench, an interactive benchmark comprising 55 reproducible incident tasks derived from confirmed historical defects across 16 Kubernetes operator projects. [Paper](http://arxiv.org/abs/2611.06099v1)
 - **ReScopeBench** (2026-11-03) — To address this gap, we introduce ReScopeBench, a benchmark for the experience lifecycle across 18 interactive environments. [Paper](http://arxiv.org/abs/2611.05450v1)
-- **Kierston & KierstonBench** (2026-11-03) — We present Kierston, a city-scale simulation engine, and KierstonBench, a benchmark that tests these capabilities against known simulated events. [Paper](http://arxiv.org/abs/2611.04785v1) · [HF](https://huggingface.co/papers/2611.04785) · [Code](https://github.com/Kiz8-Team/kierston-oss)
+- **Kierston & KierstonBench** (2026-11-03) — We present Kierston, a city-scale simulation engine, and KierstonBench, a benchmark that tests these capabilities against known simulated events. [Paper](http://arxiv.org/abs/2611.04785v1)
 - **VisCodeBench** (2026-11-02) — We introduce VisCodeBench, an end-to-end text-to-vis benchmark with 2,672 samples from three different domains: educational, scientific, and general audience scenarios with varying levels of complexity. [Paper](http://arxiv.org/abs/2611.02353v1) · [Code](https://github.com/SAIPLL/VisCodeBench)
 - **Collaborative Intelligence Benchmark** (2026-11-02) — Evaluates AI agents as teammates across 240 tasks spanning 8 teamwork dimensions, with programmatically verifiable outcomes and capability-adjusted scoring. [Paper](http://arxiv.org/abs/2611.02633v1)
 - **AquaTX** (2026-11-02) — Benchmark of underwater object detection under transmission degradation with controlled resize and codec conditions. [Paper](http://arxiv.org/abs/2611.02419v1) · [Code](https://github.com/hijinkim/TERA)
@@ -1927,6 +1929,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **BEAKER** (2026-11-04) — To fill this gap, we introduce BEAKER, a Benchmark for evaluating Embodied Actionability, Knowledge, Experimentation, and Reasoning in SDCLs. [Paper](http://arxiv.org/abs/2611.06911v1)
 - **SlackBench** (2026-11-03) — We introduce SlackBench, a benchmark for evaluating agents on realistic research and engineering workflows that require joint reasoning over workplace communication and evolving repository state. [Paper](http://arxiv.org/abs/2611.05512v1) · [Data](https://huggingface.co/datasets/HuanzhiMao/SlackBench)
 - **COSMIO** (2026-11-03) — We formalize this as the problem of cross-survey modality imputation and introduce COSMIO, a multi-survey benchmark of aligned observations obtained by forward-rendered shared astrophysical scenes across LSST, Euclid, a… [Paper](http://arxiv.org/abs/2611.04139v1) · [Code](https://github.com/fw-ic/COSMIO)
 - **ScienceVision** (2026-11-02) — To assess these foundational capabilities, we introduce ScienceVision, a cross-domain benchmark for scientific 3D understanding and reasoning through expert-level visual question answering (VQA). [Paper](http://arxiv.org/abs/2611.04087v1)
@@ -2373,6 +2376,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## World Models & Physical Understanding
 
+- **FrontierPhysics** (2026-11-04) — We introduce FrontierPhysics, an end-to-end benchmark with 56 tasks made by 42 physicists based on their own research, covering nine domains across theoretical, computational, and experimental physics. [Paper](http://arxiv.org/abs/2611.06910v1)
 - **WorldProbe** (2026-10-29) — Diagnostic evaluation of video world models under long-horizon camera-controlled exploration, with 164 test cases across four probing families and a goal-conditioned multimodal agent steering camera actions online. [Paper](https://arxiv.org/abs/2610.39721) · [Code](https://github.com/Untitled-W/WorldProbe)
 - **WorldFlowBench** (2026-10-29) — WorldFlowBench evaluates joint future video and query-based 3D trajectory prediction, drawing 1,678 samples from 11 simulated and real-world data sources, including spatial reasoning tasks, with average and final displa… [Paper](https://arxiv.org/abs/2610.39278)
 - **WorldFailBench** (2026-10-24) — Evaluates world models' ability to faithfully simulate policy failures in manipulation tasks, focusing on reason, stage, and boundary of failures. [Paper](https://arxiv.org/abs/2610.33565)
