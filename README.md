@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-05 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-06 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 26 HF votes · 346 dataset downloads |
 | 2 | **VIPBench**<br><sub>[Paper](https://arxiv.org/abs/2611.05638)</sub> | Speech & Audio | 476 dataset downloads |
-| 3 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 78 dataset downloads |
+| 3 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 161 dataset downloads |
 | 4 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
-| 5 | **VeriHarm-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.03575v1)</sub> | Safety & Alignment | 30 dataset downloads |
-| 6 | **SlackBench**<br><sub>[Paper](https://arxiv.org/abs/2611.05512)</sub> | Science | 29 dataset downloads |
-| 7 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 37 GitHub stars |
-| 8 | **Parametric CAD Bench v3**<br><sub>[Paper](http://arxiv.org/abs/2611.02659v1) · [Code](https://github.com/gNucleus-AI/freecad-validator)</sub> | Engineering & Hardware Design | 21 GitHub stars |
-| 9 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 3 HF votes · 15 GitHub stars |
-| 10 | **MEX: The Musical Expectation Benchmark Suite**<br><sub>[Paper](https://arxiv.org/abs/2611.01843) · [Code](https://github.com/musicperceptmodeling/mex)</sub> | Speech & Audio | 4 GitHub stars |
+| 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 18 GitHub stars |
+| 6 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 40 GitHub stars |
+| 7 | **SlackBench**<br><sub>[Paper](https://arxiv.org/abs/2611.05512)</sub> | Science | 29 dataset downloads |
+| 8 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 15 HF votes · 20 GitHub stars |
+| 9 | **Switch-SWE**<br><sub>[Paper](http://arxiv.org/abs/2611.02017v1)</sub> | Other benchmark tasks | 9 HF votes · 26 GitHub stars |
+| 10 | **Parametric CAD Bench v3**<br><sub>[Paper](http://arxiv.org/abs/2611.02659v1) · [Code](https://github.com/gNucleus-AI/freecad-validator)</sub> | Engineering & Hardware Design | 22 GitHub stars |
 
 ### Explore the library
 
