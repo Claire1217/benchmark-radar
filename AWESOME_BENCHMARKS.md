@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-05 · **Benchmark releases:** 2890
+**Snapshot:** 2026-11-06 · **Benchmark releases:** 2890
 
 ## Contents
 
@@ -964,7 +964,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Health & Medicine
 
-- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](http://arxiv.org/abs/2611.08369v1)
+- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](http://arxiv.org/abs/2611.08369v1) · [HF](https://huggingface.co/papers/2611.08369)
 - **CardioVascBench** (2026-11-03) — We introduce CardioVascBench, a retrospective benchmark for prioritized diagnosis generation from real-world Chinese cardiovascular inpatient records. [Paper](http://arxiv.org/abs/2611.04687v1)
 - **SweetBench** (2026-11-02) — Using DiabetSim, we construct SweetBench by instantiating 32 scenario designs as 212 glucose-control tasks. [Paper](http://arxiv.org/abs/2611.03601v1)
 - **MedHEB** (2026-11-02) — We introduce MedHEB, a unified benchmark with 107 retrieval tasks from 54 datasets, including both in-distribution and held-out-source evaluation, across three axes: evidence form (2D images, 3D volumes, text), pairing… [Paper](http://arxiv.org/abs/2611.02519v1) · [HF](https://huggingface.co/papers/2611.02519)
