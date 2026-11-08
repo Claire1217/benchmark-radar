@@ -26,15 +26,15 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-08 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-07 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 1,097 dataset downloads |
-| 2 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 17 HF votes · 57 GitHub stars |
-| 3 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 435 dataset downloads |
-| 4 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 46 HF votes · 30 GitHub stars |
-| 5 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 200 dataset downloads |
+| 2 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 435 dataset downloads |
+| 3 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 17 HF votes · 57 GitHub stars |
+| 4 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 200 dataset downloads |
+| 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 46 HF votes · 30 GitHub stars |
 | 6 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
 | 7 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 40 GitHub stars |
 | 8 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 15 HF votes · 24 GitHub stars |
