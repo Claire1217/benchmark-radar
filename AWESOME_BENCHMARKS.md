@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-06 · **Benchmark releases:** 2890
+**Snapshot:** 2026-11-07 · **Benchmark releases:** 2890
 
 ## Contents
 
@@ -470,7 +470,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](https://arxiv.org/abs/2611.08281)
+- **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
 - **MotoVerse** (2026-11-04) — We introduce MotoVerse, a benchmark for predictive perception from an MTW's ego-centric perspective. [Paper](https://arxiv.org/abs/2611.06007) · [Code](https://github.com/VarunIIITH/MotoVerse)
 - **MemShift** (2026-11-02) — Evaluates LLM-derived personal memories for detection and repair across five shifts: source revision, deletion, redefinition, writer switch, and export. Reports per-item whether changes were noticed and repaired, scored… [Paper](http://arxiv.org/abs/2611.02338v1) · [Code](https://github.com/zichuanxu/memshift)
 - **MiDramaBench** (2026-10-22) — MiDramaBench is a bilingual benchmark for evaluating script logic and creative quality across different script lengths, using causal-pattern metrics for narrative repetition and diversity. [Paper](https://arxiv.org/abs/2610.32002)
@@ -606,7 +606,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Computer Use & GUI Agents
 
-- **USB Gym** (2026-11-05) — Methods: We built USB Gym, a testbed whose standard engine simulates ultrasound from public patient CT, with a network drawing organ textures from CT labels. [Paper](https://arxiv.org/abs/2611.08352) · [Code](https://github.com/tohnperfect/USBGym)
+- **USB Gym** (2026-11-05) — Methods: We built USB Gym, a testbed whose standard engine simulates ultrasound from public patient CT, with a network drawing organ textures from CT labels. [Paper](http://arxiv.org/abs/2611.08352v1) · [Code](https://github.com/tohnperfect/USBGym)
 - **ScamWorld** (2026-11-03) — ScamWorld provides a reusable testbed for systematically evaluating and stress-testing web agents against real-world online fraud. [Paper](http://arxiv.org/abs/2611.04879v2) · [Code](https://github.com/wuyoscar/scamworld-bench)
 - **MAGAR-Bench** (2026-11-02) — We introduce MAGAR-Bench, a benchmark of 4,000 multimodal samples from 26 assembly families that separates Assembly Decision, Atomic Action, and Minimal Rework. [Paper](http://arxiv.org/abs/2611.02472v1)
 - **preflight-bench** (2026-10-29) — A benchmark generator that renders invented web pages into stale-click action pairs and did-it-work pairs, used to evaluate pre-click screen verification by pixel and vision-language model checks. [Paper](https://arxiv.org/abs/2610.39282) · [Code](https://github.com/multimodal-ai-engineering/preflight-bench)
@@ -964,7 +964,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Health & Medicine
 
-- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](https://arxiv.org/abs/2611.08369)
+- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](http://arxiv.org/abs/2611.08369v1)
 - **CardioVascBench** (2026-11-03) — We introduce CardioVascBench, a retrospective benchmark for prioritized diagnosis generation from real-world Chinese cardiovascular inpatient records. [Paper](http://arxiv.org/abs/2611.04687v1)
 - **SweetBench** (2026-11-02) — Using DiabetSim, we construct SweetBench by instantiating 32 scenario designs as 212 glucose-control tasks. [Paper](http://arxiv.org/abs/2611.03601v1)
 - **MedHEB** (2026-11-02) — We introduce MedHEB, a unified benchmark with 107 retrieval tasks from 54 datasets, including both in-distribution and held-out-source evaluation, across three axes: evidence form (2D images, 3D volumes, text), pairing… [Paper](http://arxiv.org/abs/2611.02519v1) · [HF](https://huggingface.co/papers/2611.02519)
@@ -1382,7 +1382,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Math Reasoning
 
-- **Terminal-style Mathematical Modeling Bench** (2026-11-05) — We introduce TB-MathModel (the Terminal-style Mathematical Modeling Bench), the first benchmark to make complete contest-style modeling problems agentic, verifiable, and terminal at once, over 18 real CUMCM and MCM prob… [Paper](https://arxiv.org/abs/2611.08237) · [Code](https://github.com/wxj630/terminal-bench-math-modeling)
+- **Terminal-style Mathematical Modeling Bench** (2026-11-05) — We introduce TB-MathModel (the Terminal-style Mathematical Modeling Bench), the first benchmark to make complete contest-style modeling problems agentic, verifiable, and terminal at once, over 18 real CUMCM and MCM prob… [Paper](http://arxiv.org/abs/2611.08237v1) · [Code](https://github.com/wxj630/terminal-bench-math-modeling)
 - **TLAPS-Bench** (2026-11-02) — Evaluates AI agents on proving invariants for TLA+ system specifications using TLAPS proof system and sandboxed runtime. [Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)
 - **OpenFrontiers** (2026-10-27) — Benchmark for scientific rediscovery using formal proofs on recently resolved and open mathematics problems. [Paper](https://arxiv.org/abs/2610.37739)
 - **RadonBench** (2026-10-23) — Benchmark for constructing Radon-free lattice configurations, with a shared success predicate and reproducibility via explicitly scoped search domains. [Paper](https://arxiv.org/abs/2610.33259)
@@ -1493,7 +1493,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](https://arxiv.org/abs/2611.08177)
+- **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](http://arxiv.org/abs/2611.08177v1)
 - **TandemBench** (2026-11-04) — We introduce TandemBench, a benchmark of 1,200 questions in multi-agent cooking scenarios where coordination choices affect goal completion. [Paper](https://arxiv.org/abs/2611.05827) · [Code](https://github.com/lililibaohang/TandemBench)
 - **SWEOps-Bench** (2026-11-04) — We introduce SWEOps-Bench, an interactive benchmark comprising 55 reproducible incident tasks derived from confirmed historical defects across 16 Kubernetes operator projects. [Paper](https://arxiv.org/abs/2611.06099)
 - **ReScopeBench** (2026-11-03) — To address this gap, we introduce ReScopeBench, a benchmark for the experience lifecycle across 18 interactive environments. [Paper](http://arxiv.org/abs/2611.05450v1)
@@ -1674,8 +1674,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
-- **RoboARCade** (2026-11-05) — We introduce RoboARCade, a benchmark of long-horizon manipulation tasks across three embodiments designed to test in-context adaptation, memory, and reasoning for precise control. [Paper](https://arxiv.org/abs/2611.08209)
-- **E2W-Bench** (2026-11-05) — We introduce E2W-Bench, the Exists-to-Works Benchmark, which links dynamic hybrid scene graphs with real product manuals to evaluate capability-grounded robot--object assignment under availability, mobility, vertical-re… [Paper](https://arxiv.org/abs/2611.07517)
+- **RoboARCade** (2026-11-05) — We introduce RoboARCade, a benchmark of long-horizon manipulation tasks across three embodiments designed to test in-context adaptation, memory, and reasoning for precise control. [Paper](http://arxiv.org/abs/2611.08209v1)
+- **E2W-Bench** (2026-11-05) — We introduce E2W-Bench, the Exists-to-Works Benchmark, which links dynamic hybrid scene graphs with real product manuals to evaluate capability-grounded robot--object assignment under availability, mobility, vertical-re… [Paper](http://arxiv.org/abs/2611.07517v1)
 - **Robocasa-Mem** (2026-11-04) — To address this gap, we introduce RoboCasa-Mem, a new benchmark comprising nine mobile manipulation tasks that require agents to use interaction history at key decision points. [Paper](https://arxiv.org/abs/2611.06475)
 - **CRONOS** (2026-11-03) — In this work, we introduce CRONOS, a simulation benchmark for RL fine-tuning of VLAs under non-episodic scene resets. [Paper](http://arxiv.org/abs/2611.05080v1)
 - **VLALagBench** (2026-11-02) — In this paper, we introduce VLALagBench, a comprehensive benchmark for studying VLA inference latency sensitivity across task types, object speeds, execution modes (synchronous and asynchronous), and VLA policies. [Paper](http://arxiv.org/abs/2611.03103v1) · [Code](https://github.com/codestrongestx/VLALagBench)
@@ -2074,7 +2074,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Spatial & 3D Reasoning
 
-- **CST-Bench** (2026-11-05) — To address this problem, we introduce CST-Bench, a benchmark for counterfactual spatial reasoning. [Paper](https://arxiv.org/abs/2611.07541)
+- **CST-Bench** (2026-11-05) — To address this problem, we introduce CST-Bench, a benchmark for counterfactual spatial reasoning. [Paper](http://arxiv.org/abs/2611.07541v1)
 - **CellPlex** (2026-11-02) — We introduce CellPlex, a benchmark that poses the task at the level of the cell: seven cohorts with same-section H\&E and multiplexed immunofluorescence, from colorectal and breast cancer to lymph-node metastases, bone… [Paper](http://arxiv.org/abs/2611.02506v1)
 - **ArabGeoText** (2026-11-02) — We introduce ARABGEOTEXT, an Arabic-centric benchmark covering 970 geographic locations in Riyadh and Jeddah, with 17,875 manually annotated text instances per view type. [Paper](http://arxiv.org/abs/2611.03339v1) · [Code](https://github.com/yakoubbazi/ArabGeoText)
 - **RECONSPATIAL** (2026-11-01) — Benchmark for cross-view spatial intelligence via 3D reconstruction and QA. [Paper](http://arxiv.org/abs/2611.02026v1)
@@ -2199,7 +2199,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Tool Use & Function Calling
 
-- **MCPHallu** (2026-11-05) — We introduce MCPHallu, a benchmark for diagnosing hallucination-prone agent failures in MCP environments along three axes: reasoning, execution, and memory. [Paper](https://arxiv.org/abs/2611.07689) · [Code](https://github.com/J1zz/mcp_hallu)
+- **MCPHallu** (2026-11-05) — We introduce MCPHallu, a benchmark for diagnosing hallucination-prone agent failures in MCP environments along three axes: reasoning, execution, and memory. [Paper](http://arxiv.org/abs/2611.07689v1) · [Code](https://github.com/J1zz/mcp_hallu)
 - **PTC-Bench** (2026-11-01) — Benchmark for stateful programmatic tool calling with multi-step tasks. [Paper](http://arxiv.org/abs/2611.01446v1)
 - **SABench (Side-effect-Aware Benchmark)** (2026-10-25) — Evaluates tool-using language model agents on 201 tasks across email, calendar, and ticket workspaces, scoring goal success and unauthorized side effects. [Paper](http://arxiv.org/abs/2610.34167v1) · [Code](https://github.com/hjj194/sabench-artifact) · [Data](https://huggingface.co/datasets/Phaedrus/sabench)
 - **$Δτ$-Bench** (2026-10-25) — Evaluates agents on multi-turn tasks across evolving tool ecosystems, measuring proactive discovery of efficient paths and adaptation to moving capability frontiers. [Paper](http://arxiv.org/abs/2610.34238v1)
