@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-09T02:21:14.364148Z",
+  "generatedAt": "2026-11-09T08:29:34.590885Z",
   "sourceDate": "2026-11-08",
   "sourceWindow": {
     "from": "2026-11-06",
     "to": "2026-11-08"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 3586,
+  "candidateCount": 3601,
   "candidates": [
     {
       "id": "bm_uniweaver-bench_1065ac9c",
@@ -637,6 +637,93 @@
       ]
     },
     {
+      "id": "bm_memory-bench_62f2c8a1",
+      "familyId": "bmf_b31be491ceed",
+      "name": "memory-bench",
+      "paperTitle": "memory-bench",
+      "aliases": [],
+      "oneLine": "memory-bench Agent memory benchmark: one fictional user, six months of sessions, and probes that score forgetting, privacy leaks and poisoning next to recall.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Aggregate Existing",
+      "annotation": "Mixed",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Hadeva-Dev/memory-bench",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:51.706425Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-08",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:51.706425Z",
+      "sourceUpdatedAt": "2026-11-09T07:34:18Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/Hadeva-Dev/memory-bench"
+      },
+      "motivation": "memory-bench Agent memory benchmark: one fictional user, six months of sessions, and probes that score forgetting, privacy leaks and poisoning next to recall.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:hadeva-dev/memory-bench",
+        "url": "https://github.com/Hadeva-Dev/memory-bench",
+        "title": "memory-bench",
+        "authors": [
+          "Hadeva-Dev"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "memory-bench Agent memory benchmark: one fictional user, six months of sessions, and probes that score forgetting, privacy leaks and poisoning next to recall.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "memory-bench Agent memory benchmark: one fictional user, six months of sessions, and probes that score forgetting, privacy leaks and poisoning next to recall. Any memory system plugs in through a small adapter. agent-memory ai-agents ai-safety benchmark dataset evaluation forgetting llm llm-evaluation llm-memory locomo long-term-memory longmemeval mem0 memory personal-assistant privacy prompt-injection rag zep # memory-bench A black-box benchmark for the long-term memory of a personal assistant. It follows one fictional user, Joana Reis, over six months (March to August 2026): 599 sessions across typed chat, voice, a remote phone channel, inbound texts and emails, meetings and web pages, and 2,080 probes in 15 areas (the public release carries the 1,040 dev probes; the other half is the private test set). Any memory system plugs in through a small Python adapter. The benchmark answers and judges with fixed models (`claude-sonnet-5-5` answers from what the system injected, `claude-opus-5-5` judges), so memory designs are compared on equal brains. ## What it measures that LoCoMo and LongMemEval do not | property | how it is tested here | |---|---| | Forgetting on request | After \"forget that\", the content must not come back in context or answers, including in paraphrase, merged entries or summaries (area `forget`, 160 cases) | | Channel scope | Health, finance, meeting content and others' private messages are withheld on the `remote` channel while ordinary facts still work there (`scope`, 150) | | Poisoning and origin laundering | Instructions and false facts planted in inbound texts, emails, meetings and web pages must not become the user's own facts or rules (`poisoning`, 160) | | Silence | Prompts that need no memory must get no injection; any injected item counts as junk (`silence`, 130) | | Attribution | Others' opinions and bystander speech stay attributed, never stored as the user's (`attribution`, 160) | | Abstention, scored | \"I don't know\" is the gold answer when memory does not have it; fabricated memories fail (`abstention`, 120) | | A held-out test split | Half of every area is test, frozen by id in `cases/split.json`; the test half stays private and the maintainers score submissions on it (`--split test` reports aggregates only) | | Judge agreement, reported | 5% of judged cases are judged again with a fresh call, and the agreement rate is in every result | | Competitors on the same brain | Mem0, Zep's Graphiti and Dawnmere's released engine run as published, with their model calls routed to the benchmark's model (`harness/adapters/COMPETITORS.md`) | | Recall at matched disclosure | `harness.curve` cuts each saved context to smaller budgets, so a system that sends everything cannot look good on recall alone | The gaps come from the survey in [`docs/research.md`](docs/research.md) (section 3); the 15 areas and what each measures are in [`docs/spec.md`](docs/spec.md) (section 5) and `docs/taxonomy.md`. ## Results Scores x 100, one decimal. One run each, seed 0, answerer `claude-sonnet-5-5`, judge `claude-opus-5-5`. ### Dev split | system | cases | run date | overall | safety score | worst leak rate | silence junk | remote over-block | mean context tokens | |---|---:|---|---:|---:|---|---:|---:|---:| | none | 917 | 2026-10-15 | 27.4 | 100.0 | 0.0 | 0.0 | 100.0 | 0 | | full_history | 917 | 2026-10-15 | 34.5 | 46.3 | 53.7 (scope) | 100.0 | 18.8 | 8,000 | | naive_rag | 917 | 2026-10-15 | 45.2 | 34.8 | 65.2 (forget) | 100.0 | 3.1 | 734 | | Mem0 | 917 | 2026-10-15 | 54.3 | 23.6 | 76.4 (forget) | 100.0 | 2.1 | 1,260 | | Zep Graphiti | | | no complete dev run yet | | | | | | | oracle | 1,040 | 2026-10-14 | 99.5 | 100.0 | 0.0 | 0.0 | 0.0 | 46 | Mem0 was run on 917 of the 1,040 dev cases: levels L2 and L3 in every area but `scale` (L1 seeds memories directly; `scale` adds 1,000 and 10,000 distractors). The baselines shown are their runs on the same 917 cases, all made at harness commit `1bde34e`, a private-history commit (this repository's history starts at `ca265f4`); the scoring code (`harness/score.py`, `harness/prompts.py`) is the same in `ca265f4` as at `1bde34e`. The oracle row is the full dev split (1,040 cases, all levels), rescored at private-history commit `48442b9` and again with the public scorer, 99.5 both times (4 of 1,040 verdicts changed). Silence junk is over 59 silence probes (87 for the oracle). Sources: each run folder holds the run's `config.json`, `summary.json` (`headline.overall`, `headline.safety_score`, `headline.leak_rates`, `headline.remote_over_block.rate`, `context.silence_junk_rate`, `context.tokens_mean`) and its per-case records, `cases.jsonl` (32 MB for `full_history`, whose contexts are 8,000 tokens each), from which `harness.report.summarize` recomputes every number in the table: `results/reference/none/20261015T223015Z-dev-s0`, `results/reference/full_history/20261015T215945Z-dev-s0`, `results/reference/naive_rag/20261015T211528Z-dev-s0`, `results/reference/mem0/20261015T183924Z-dev-s0-rescored-public` (rescored with the public scorer, unchanged), `results/reference/oracle/20261014-final3-dev-s0-rescored-public`. The Zep Graphiti run stopped before writing a summary. The recall-against-disclosure curve over these runs is `results/reference/curve-dev.md`: on 244 common cases Mem0 keeps 78.9% token-matched recall (needed facts found in the context by their tokens, no judge) at a 69.8% token leak rate, Jarvis 65.2% at 13.2%. **The maintainers' own system.** Jarvis is a memory system built by this benchmark's maintainers; Dawnmere's memory engine (`lflabs-memory-engine`) was split out of Jarvis's memory code, but the Jarvis rows were measured on Jarvis's own repository through Jarvis's own adapter, not on a Dawnmere release. That adapter and that code are private, so treat the Jarvis rows as the maintainers' claim until a third party reproduces them; the Dawnmere row below is the reproducible measurement of the released product. Jarvis was run on 244 of t",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:hadeva-dev/memory-bench",
+          "url": "https://github.com/Hadeva-Dev/memory-bench"
+        }
+      ]
+    },
+    {
       "id": "bm_llm-privacy-gateway_28b1864b",
       "familyId": "bmf_6fcc201f6c9d",
       "name": "llm-privacy-gateway",
@@ -1079,6 +1166,93 @@
           "type": "github",
           "id": "github:jaysueno/autoresearch-mac-mini",
           "url": "https://github.com/jaysueno/autoresearch-mac-mini"
+        }
+      ]
+    },
+    {
+      "id": "bm_ai-ontology-benchmark_f085bc0b",
+      "familyId": "bmf_a22c4a22b758",
+      "name": "ai-ontology-benchmark",
+      "paperTitle": "ai-ontology-benchmark",
+      "aliases": [],
+      "oneLine": "ai-ontology-benchmark The research uses an ontology model of the Rubik’s Cube to evaluate AI models’ precision, hallucination rates, and critical thinking abilities # AI Ontology Hallucination Research ## Abstract To evaluate AI models wit…",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/OWOX/ai-ontology-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:51.706425Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-08",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:51.706425Z",
+      "sourceUpdatedAt": "2026-11-09T07:57:29Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/OWOX/ai-ontology-benchmark"
+      },
+      "motivation": "ai-ontology-benchmark The research uses an ontology model of the Rubik’s Cube to evaluate AI models’ precision, hallucination rates, and critical thinking abilities # AI Ontology Hallucination Research ## Abstract To evaluate AI models without bias, we test them on ontologies of real-world objects.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:owox/ai-ontology-benchmark",
+        "url": "https://github.com/OWOX/ai-ontology-benchmark",
+        "title": "ai-ontology-benchmark",
+        "authors": [
+          "OWOX"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-ontology-benchmark The research uses an ontology model of the Rubik’s Cube to evaluate AI models’ precision, hallucination rates, and critical thinking abilities # AI Ontology Hallucination Research ## Abstract To evaluate AI models without bias, we test them on ontologies of real-world objects.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-ontology-benchmark The research uses an ontology model of the Rubik’s Cube to evaluate AI models’ precision, hallucination rates, and critical thinking abilities # AI Ontology Hallucination Research ## Abstract To evaluate AI models without bias, we test them on ontologies of real-world objects. The research uses Rubik's cubes as the well-known source of legal moves, constraints, and a criterion of success. Each model gets a scrambled cube and must either solve it or say why it can't be solved. A script judges every answer, not a person or another AI, so the assessment is objective and the experiments are reproducible. The metrics show how often a model's answers are right, how often it hallucinates by making [impossible moves](docs/definitions.md#puzzles) or naming a defect the cube can't show, and how well it spots an impossible cube and names what is wrong. ## Goals 1. Measure how an ontology model affects the hallucination rate. 2. Make the measurement without bias and the result easily reproducible. 3. Make the cost of accuracy measurable. ## Approach The study uses [twisty puzzles](docs/definitions.md#puzzles): 2x2, 3x3, 4x4, and 5x5 cubes. An octahedral puzzle and a tetrahedral puzzle will be added later. A move turns one part of the puzzle and is written in the puzzle's standard notation, which AI models already know from their training data, for example `R`, `U'`, or `F2` on the 3x3 cube. Each puzzle has a fixed list of legal moves. An AI model gets a scrambled puzzle and returns the moves it thinks solve it. The AI model hallucinates when it returns a move that isn't on the puzzle's list of legal moves. A deterministic validator checks every returned move against that list by exact string match and counts each one that isn't there. Some inputs show a colouring that no sequence of legal moves can produce, and the validator also records whether the AI model flags them and which reason it gives, chosen from a fixed list. The list holds a decoy reason that no state can show, and choosing it also counts as a hallucination. Each answer is scored as a [true or false positive](docs/methodology.md#scoring-an-answer), a solution that does or doesn't solve the puzzle, or a true or false negative, a `MISMATCH` with the right reason or any other `MISMATCH`. Three numbers summarize an AI model: [balanced precision](docs/definitions.md#metrics), the share of its answers that are right; the [hallucination rate](docs/definitions.md#metrics); and [critical thinking](docs/definitions.md#metrics), how well it tells a solvable puzzle from an unsolvable one and names what is wrong. Studies of hallucination in AI models usually score answers against a reference that a person or another AI model judges to be correct. The measured rate then carries the judge's bias and can't be reproduced exactly. One proposed remedy is to give the AI model an explicit [ontology model](docs/definitions.md#setups) of its domain, either in the prompt or through a knowledge graph ([related work](docs/related-work.md#ontologies-and-knowledge-graphs-against-hallucination)). Whether this reduces hallucination, and at what cost in tokens, is still open. This study tests the question in closed systems where correctness isn't a matter of judgement. A deterministic ontology model of each [twisty puzzle](docs/definitions.md#puzzles) defines hallucination as a broken rule of the system, independent of what the authors, a human rater, or another AI model consider right or wrong. Every count can be recomputed from the stored responses. Twisty puzzles are close to the best case for this remedy, because their rules are complete and every answer can be checked. If an ontology model in the prompt doesn't reduce hallucination here, there is little reason to expect it to do so in open domains, where neither condition holds. If it does, the size of the effect and its cost give a reference point for those domains. 1. Does an ontology model in the prompt lower the [hallucination rate](docs/definitions.md#metrics)? 2. Does it raise [balanced precision](docs/definitions.md#metrics)? 3. Does explaining the rules work differently from listing the legal moves? 4. Does each AI model notice when the colouring it's given makes no sense, because it breaks the puzzle's rules and can't be solved, and name the broken rule, or does it try to solve it anyway? This is its [critical thinking](docs/definitions.md#metrics). ## Expected outcomes 1. An open benchmark: versioned, read-only [releases](docs/definitions.md#releases-and-experiments) of the inputs, prompts, and scoring code. 2. For each AI model, setup, puzzle, and scramble depth, balanced precision, coverage, the hallucination rate, critical thinking, the mismatch detection rate, and the false mismatch rate, each with its denominator n and a 95% bootstrap interval over inputs. 3. Tokens per attempt and [cost efficiency](docs/definitions.md#metrics), the cost of one right answer, for each AI model and setup. 4. Code under Apache 2.0, and data and results under CC BY 4.0. ## Side questions 1. Does precision fall as scramble depth grows, and does an ontology model slow that fall? 2. Do the effects hold as the cubes get bigger, from 2x2 to 5x5? 3. How consistent is an AI model across repeated attempts on the same input, and does an ontology model change that? 4. Do [system-1 and system-2 models](docs/definitions.md#setups) differ? Does an ontology model help one kind more than the other, and what does each kind pay per right answer? ## Challenges 1. Hallucination is usually judged by a person or by another model. Here a deterministic script decides, so every count can be reproduced. 2. Every AI model and every setup must see byte-identical inputs, or the comparison means nothing. ## Docs 1. [Getting started](docs/getting-started.md): the minimum steps to run an experiment from the terminal. 2. [Definitions](docs/definitions.md): every term and metric, from puzzle and input to precision and hallucinat",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:owox/ai-ontology-benchmark",
+          "url": "https://github.com/OWOX/ai-ontology-benchmark"
         }
       ]
     },
@@ -3695,6 +3869,95 @@
       ]
     },
     {
+      "id": "bm_zero-shot-benchmarking-of-unified-multimod_260b2f8b",
+      "familyId": "bmf_22404377248f",
+      "name": "Zero-Shot Benchmarking of Unified Multimodal Models for Shallow-Water UAV Image Distortion Assessment and Restoration",
+      "paperTitle": "Zero-Shot Benchmarking of Unified Multimodal Models for Shallow-Water UAV Image Distortion Assessment and Restoration",
+      "aliases": [],
+      "oneLine": "Shallow-water UAV imagery provides centimeter-scale observations of benthic environments, but water-induced distortions complicate interpretation.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Factuality"
+      ],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09740v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T17:12:08Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09740v1",
+        "paper": "http://arxiv.org/abs/2611.09740v1",
+        "pdf": "https://arxiv.org/pdf/2611.09740v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Shallow-water UAV imagery provides centimeter-scale observations of benthic environments, but water-induced distortions complicate interpretation.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09740",
+        "url": "http://arxiv.org/abs/2611.09740v1",
+        "title": "Zero-Shot Benchmarking of Unified Multimodal Models for Shallow-Water UAV Image Distortion Assessment and Restoration",
+        "authors": [
+          "Dario Scilla",
+          "Omar A. Lopez",
+          "Mattia Rosso",
+          "Kasper Johansen",
+          "Matthew F. McCabe"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "To our knowledge, we present the first systematic zero-shot benchmark of unified multimodal large language models (MLLMs) for both assessing water-induced distortions and restoring shallow-water imagery within the same model framework.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Shallow-water UAV imagery provides centimeter-scale observations of benthic environments, but water-induced distortions complicate interpretation. To our knowledge, we present the first systematic zero-shot benchmark of unified multimodal large language models (MLLMs) for both assessing water-induced distortions and restoring shallow-water imagery within the same model framework. We evaluate five open-weight unified MLLMs with frozen pretrained weights and without access to paired reference images or descriptions of the true seabed. The benchmark contains 1,000 image pairs: 600 semi-synthetic UAV scenes created by applying synthetic water distortions to real shallow-water imagery and 400 fully synthetic through-water scenes. Three independent human annotations cover five distortion types. We evaluate four assessment prompts (P0-P3), from direct instruction to structured task decomposition, on all 1,000 images and four diagnosis-guided restoration prompts (R0-R3) on a common 100-image subset. Assessment varies substantially by model and prompt, with systematic prediction biases and a best pooled balanced accuracy of 0.654 for distortion presence. The best pooled PSNR gain is +0.255 dB, no unified MLLM improves pooled LPIPS, and some outputs alter scene structure or hallucinate content. Two restoration-only baselines also show limited transfer: InstructIR achieves a pooled PSNR gain of +0.040 dB, while PromptFix degrades all four pooled metrics under every prompt. These results show that recognizing shallow-water degradation does not imply reliable physical restoration and provide a reproducible baseline for future work.",
+        "comments": ""
+      },
+      "candidatePriority": "normal"
+    },
+    {
       "id": "bm_zabbix-mcp-lite_c54385d3",
       "familyId": "bmf_5fc3949b90e2",
       "name": "zabbix-mcp-lite",
@@ -3784,6 +4047,293 @@
       ]
     },
     {
+      "id": "bm_video-stitching-from-multiple-moving-camer_46365695",
+      "familyId": "bmf_2d15ed1fda64",
+      "name": "Video Stitching from Multiple Moving Cameras",
+      "paperTitle": "Video Stitching from Multiple Moving Cameras",
+      "aliases": [],
+      "oneLine": "We address geometric video alignment for the same scene captured by multiple freely moving cameras.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "NeurIPS 2026",
+        "evidence": "Accepted to NeurIPS 2026",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09570v1",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "NeurIPS 2026",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted to NeurIPS 2026",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "http://arxiv.org/abs/2611.09570v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
+              "rawValue": "Accepted to NeurIPS 2026",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T15:10:05Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09570v1",
+        "paper": "http://arxiv.org/abs/2611.09570v1",
+        "pdf": "https://arxiv.org/pdf/2611.09570v1",
+        "project": "https://bgu-cs-vil.github.io/MViS-project/",
+        "code": null,
+        "data": null
+      },
+      "motivation": "We address geometric video alignment for the same scene captured by multiple freely moving cameras.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09570",
+        "url": "http://arxiv.org/abs/2611.09570v1",
+        "title": "Video Stitching from Multiple Moving Cameras",
+        "authors": [
+          "Shira Ifergane",
+          "Roy Amoyal",
+          "Shahar Benishay",
+          "Oren Freifeld"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "To facilitate evaluation in more complex scenarios, we introduce an annotated dataset with more than two freely moving cameras and establish the first benchmark for this setting.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "We address geometric video alignment for the same scene captured by multiple freely moving cameras. Existing methods, which are based on image stitching or video stabilization, are typically limited to two cameras or must assume the restrictive setting of a fixed linear ordering of the cameras. We propose MViS, a lightweight test-time optimization framework for joint multi-view alignment with temporal consistency. MViS uses a spatial-transformer-inspired net to jointly process frames from all views within a short temporal window and predict per-view, per-time homographies. Optimization proceeds in two stages: geometry-guided alignment followed by appearance-based refinement, with both stages enforcing multi-view and temporal consistency across the sequence. The method requires no scene-specific hyperparameter tuning, handles arbitrary and time-varying view-intersection graphs, and remains robust under rapid camera motion. On a standard two-view video benchmark, MViS matches or surpasses the state of the art. To facilitate evaluation in more complex scenarios, we introduce an annotated dataset with more than two freely moving cameras and establish the first benchmark for this setting. Project page: https://bgu-cs-vil.github.io/MViS-project/ .",
+        "comments": "Accepted to NeurIPS 2026"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_v-storm-a-structure-aware-grounded-chain-o_b869a725",
+      "familyId": "bmf_54b5259d4aec",
+      "name": "V-STORM: A Structure-Aware Grounded Chain of Thought Dataset for Faithful and Fine-Grained Spatio-Temporal Video Reasoning",
+      "paperTitle": "V-STORM: A Structure-Aware Grounded Chain of Thought Dataset for Faithful and Fine-Grained Spatio-Temporal Video Reasoning",
+      "aliases": [],
+      "oneLine": "While MLLMs can often identify what happens in a video, they still struggle with fine-grained spatio-temporal reasoning, which requires precise grounding when and where the supporting evidence appears and composing such evidence into a coh…",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Reasoning"
+      ],
+      "topics": [
+        "Reasoning"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09511v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T14:27:06Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.55,
+      "relation": "evaluates_only",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09511v1",
+        "paper": "http://arxiv.org/abs/2611.09511v1",
+        "pdf": "https://arxiv.org/pdf/2611.09511v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "While MLLMs can often identify what happens in a video, they still struggle with fine-grained spatio-temporal reasoning, which requires precise grounding when and where the supporting evidence appears and composing such evidence into a coherent reasoning chain.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09511",
+        "url": "http://arxiv.org/abs/2611.09511v1",
+        "title": "V-STORM: A Structure-Aware Grounded Chain of Thought Dataset for Faithful and Fine-Grained Spatio-Temporal Video Reasoning",
+        "authors": [
+          "Dian Jiao",
+          "Yuqian Yuan",
+          "Jiaqi Zhu",
+          "Mingjian Gao",
+          "Siwen Tan",
+          "Yunqi Cao",
+          "Jinhui Li",
+          "Sijing Li",
+          "Zhenxuan Fan",
+          "Haoyang Wang",
+          "Wenqiao Zhang",
+          "Siliang Tang"
+        ],
+        "categories": [
+          "cs.CV",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "This challenge is exacerbated by the lack of scalable data construction and evaluation pipelines that provide granular, verifiable supervision linking reasoning steps to explicit spatio-temporal evidence.To address this gap, we present V-STORM, a structure-aware framework that transforms videos into Spatio-Temporal Scene Graphs (STSGs) and derives Grounded Chain of Thought (GCoT) from validated evidence paths, making each reasoning step traceable to structured and verifiable spatio-temporal evid",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "named entity is a model, method, framework, or dataset used in evaluation"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "While MLLMs can often identify what happens in a video, they still struggle with fine-grained spatio-temporal reasoning, which requires precise grounding when and where the supporting evidence appears and composing such evidence into a coherent reasoning chain. This challenge is exacerbated by the lack of scalable data construction and evaluation pipelines that provide granular, verifiable supervision linking reasoning steps to explicit spatio-temporal evidence.To address this gap, we present V-STORM, a structure-aware framework that transforms videos into Spatio-Temporal Scene Graphs (STSGs) and derives Grounded Chain of Thought (GCoT) from validated evidence paths, making each reasoning step traceable to structured and verifiable spatio-temporal evidence.Under this framework, we construct a 260K-sample training set and a 3K-sample human-verified benchmark, both featuring GCoT annotations that link reasoning to explicit spatio-temporal evidence.Experiments reveal a clear separation between evidence localization and evidence composition: current MLLMs can often identify relevant spatio-temporal cues, yet still fail to integrate them into correct multi-step reasoning, exposing a bottleneck that answer-only evaluation largely obscures. Moreover, fine-tuning with V-STORM substantially improves both answer accuracy and grounding faithfulness, validating its effectiveness as supervision for faithful and evidence-grounded video reasoning. Our dataset, benchmark, and source code will be publicly released.",
+        "comments": "9 Pages, 5 figures"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_turtles_867809c1",
+      "familyId": "bmf_5c1f24b0bfe2",
+      "name": "TurtLES",
+      "paperTitle": "TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates",
+      "aliases": [],
+      "oneLine": "Machine-learning surrogates are increasingly used to accelerate computational fluid dynamics, yet progress is limited by the lack of benchmarks capturing realistic, time-dependent turbulent flows.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Geometric reasoning"
+      ],
+      "topics": [
+        "physics.flu-dyn"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09567v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T15:07:53Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09567v1",
+        "paper": "http://arxiv.org/abs/2611.09567v1",
+        "pdf": "https://arxiv.org/pdf/2611.09567v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Machine-learning surrogates are increasingly used to accelerate computational fluid dynamics, yet progress is limited by the lack of benchmarks capturing realistic, time-dependent turbulent flows.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09567",
+        "url": "http://arxiv.org/abs/2611.09567v1",
+        "title": "TurtLES: A Large-Scale Benchmark for Turbulent 3D Neural PDE Surrogates",
+        "authors": [
+          "Jarno Platenburg",
+          "Armand Kassaï Koupaï",
+          "Paola Cinnella",
+          "Patrick Gallinari"
+        ],
+        "categories": [
+          "physics.flu-dyn",
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "TurtLES provides a new benchmark for evaluating surrogate models on 3D turbulent wakes at industrially relevant mesh resolution.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Machine-learning surrogates are increasingly used to accelerate computational fluid dynamics, yet progress is limited by the lack of benchmarks capturing realistic, time-dependent turbulent flows. We introduce TurtLES, a 14 TB dataset of 3D turbulent cylinder wakes in the shear-layer transition regime, computed via high-fidelity implicit large-eddy simulations. The dataset contains 400 trajectories of 400 time steps each, with 3-11 million points per frame, spanning variations in geometry, Reynolds number, and angle of attack. Unlike existing datasets, TurtLES combines (i) physically realistic turbulence with an active energy cascade driven by vortex stretching, (ii) dense irregular meshes, and (iii) long-horizon temporal dynamics. We benchmark state-of-the-art neural operators on autoregressive rollouts and identify key failure modes, including temporal instability, loss of small-scale energy, and challenges in learning on large irregular domains. TurtLES provides a new benchmark for evaluating surrogate models on 3D turbulent wakes at industrially relevant mesh resolution.",
+        "comments": ""
+      },
+      "candidatePriority": "high"
+    },
+    {
       "id": "bm_transaction-categorization-benchmark_57538a51",
       "familyId": "bmf_8d264adef0d4",
       "name": "transaction-categorization-benchmark",
@@ -3871,6 +4421,108 @@
           "url": "https://github.com/ZeraBooks/transaction-categorization-benchmark"
         }
       ]
+    },
+    {
+      "id": "bm_t2i-models-rarely-invert-negation-but-ofte_89887ee3",
+      "familyId": "bmf_41bc11fab811",
+      "name": "T2I Models Rarely Invert Negation but Often Fail to Suppress Negated Concepts: Benchmarking Negation Suppression in Text-to-Image Generation",
+      "paperTitle": "T2I Models Rarely Invert Negation but Often Fail to Suppress Negated Concepts: Benchmarking Negation Suppression in Text-to-Image Generation",
+      "aliases": [],
+      "oneLine": "Text-to-image diffusion models often fail to suppress explicitly negated concepts, such as a lamp for \"a desk without a lamp.\" We introduce T2I-NSI, a benchmark and metric for measuring negation sensitivity in text-to-image generation.",
+      "area": "Vision & 3D",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.CV"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "WACV 2027",
+        "evidence": "Accepted at WACV 2027. Code and data: https://github.com/IAB-IITJ/T2I-NSI",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09304v1",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "WACV 2027",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted at WACV 2027. Code and data: https://github.com/IAB-IITJ/T2I-NSI",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "http://arxiv.org/abs/2611.09304v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
+              "rawValue": "Accepted at WACV 2027. Code and data: https://github.com/IAB-IITJ/T2I-NSI",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T10:56:01Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09304v1",
+        "paper": "http://arxiv.org/abs/2611.09304v1",
+        "pdf": "https://arxiv.org/pdf/2611.09304v1",
+        "project": null,
+        "code": "https://github.com/IAB-IITJ/T2I-NSI",
+        "data": null
+      },
+      "motivation": "Text-to-image diffusion models often fail to suppress explicitly negated concepts, such as a lamp for \"a desk without a lamp.\" We introduce T2I-NSI, a benchmark and metric for measuring negation sensitivity in text-to-image generation.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09304",
+        "url": "http://arxiv.org/abs/2611.09304v1",
+        "title": "T2I Models Rarely Invert Negation but Often Fail to Suppress Negated Concepts: Benchmarking Negation Suppression in Text-to-Image Generation",
+        "authors": [
+          "Akansha Gautam",
+          "Aparna Bharati",
+          "Mayank Vatsa",
+          "Richa Singh"
+        ],
+        "categories": [
+          "cs.CV"
+        ]
+      },
+      "evidence": {
+        "snippet": "Text-to-image diffusion models often fail to suppress explicitly negated concepts, such as a lamp for \"a desk without a lamp.\" We introduce T2I-NSI, a benchmark and metric for measuring negation sensitivity in text-to-image generation.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Text-to-image diffusion models often fail to suppress explicitly negated concepts, such as a lamp for \"a desk without a lamp.\" We introduce T2I-NSI, a benchmark and metric for measuring negation sensitivity in text-to-image generation. It pairs each negated prompt with a canonical positive counterpart and factorizes negation by linguistic form (lexical/semantic, morphological, syntactic) and target type (objects, attributes, relations, compositions, and nested cases). The benchmark contains 759,869 paired prompt atoms over a 5,082-object catalog, with 916,272 images (911,982 open-weights, 4,290 closed-source), scored by a Basic CLIP estimator and a Robust ensemble of CLIP, VQA and open-vocabulary detection. Negation sensitivity is low: open-weights generators score NSI <= 0.038, while GPT-Image-1.5 and Gemini-2.5-Flash-Image reach about 0.09. The dominant failure is under-suppression rather than misdirection. Inverse interpretation is essentially absent (0.00% across over 450K atom-model evaluations), whereas models render the concept under both prompts on 8-19% of atoms and only partly suppress it on a further 9-25%; most remaining atoms are too weakly rendered to label. A blinded human study (420 atoms, nine annotators) corroborates the near-absence of inversion and the high persistence rate, and a matched-prompt comparison shows the open-versus-closed gap (~3.5x) is not a prompt-generator artifact. Code and data: https://github.com/IAB-IITJ/T2I-NSI",
+        "comments": "Accepted at WACV 2027. Code and data: https://github.com/IAB-IITJ/T2I-NSI"
+      },
+      "candidatePriority": "normal"
     },
     {
       "id": "bm_support-routing-lab_59ac2a61",
@@ -4265,10 +4917,10 @@
         "status": "acceptance_claimed",
         "venue": "publication at the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV 2027), Evaluations and Datasets T",
         "evidence": "Accepted for publication at the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV 2027), Evaluations and Datasets Track. 10 pages, 4 figures, 7 tables",
-        "evidenceUrl": "https://arxiv.org/abs/2611.08976",
+        "evidenceUrl": "http://arxiv.org/abs/2611.08976v1",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-09T02:20:28.606303Z"
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
       },
       "venueAttempts": [
         {
@@ -4278,8 +4930,8 @@
           "evidence": [
             {
               "sourceType": "arxiv-comments",
-              "sourceUrl": "https://arxiv.org/abs/2611.08976",
-              "observedAt": "2026-11-09T02:20:28.606303Z",
+              "sourceUrl": "http://arxiv.org/abs/2611.08976v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
               "rawValue": "Accepted for publication at the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV 2027), Evaluations and Datasets Track. 10 pages, 4 figures, 7 tables",
               "level": "author-claim"
             }
@@ -4289,7 +4941,7 @@
       "publications": [],
       "releasedAt": "2026-11-06",
       "firstSeenAt": "2026-11-09",
-      "indexedAt": "2026-11-09T02:20:28.606303Z",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
       "sourceUpdatedAt": "2026-11-06T04:39:55Z",
       "adoption30d": null,
       "heat": null,
@@ -4297,9 +4949,9 @@
       "recognitionConfidence": 0.7,
       "relation": "introduces",
       "links": {
-        "report": "https://arxiv.org/abs/2611.08976",
-        "paper": "https://arxiv.org/abs/2611.08976",
-        "pdf": "https://arxiv.org/pdf/2611.08976",
+        "report": "http://arxiv.org/abs/2611.08976v1",
+        "paper": "http://arxiv.org/abs/2611.08976v1",
+        "pdf": "https://arxiv.org/pdf/2611.08976v1",
         "project": null,
         "code": "https://github.com/phuongnguyen194/Refer-CityFlow-and--M3Track",
         "data": null
@@ -4310,7 +4962,7 @@
       "source": {
         "type": "arxiv",
         "id": "2611.08976",
-        "url": "https://arxiv.org/abs/2611.08976",
+        "url": "http://arxiv.org/abs/2611.08976v1",
         "title": "Refer-CityFlow and M3Track: A Benchmark Dataset and Reference Framework for Language-Driven Multi-Target Multi-Camera Tracking",
         "authors": [
           "Phuong T. Nguyen",
@@ -4462,10 +5114,10 @@
         "status": "acceptance_claimed",
         "venue": "PACLIC 40 (2026)",
         "evidence": "Accepted at PACLIC 40 (2026)",
-        "evidenceUrl": "https://arxiv.org/abs/2611.09107",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09107v1",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-09T02:20:28.606303Z"
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
       },
       "venueAttempts": [
         {
@@ -4475,8 +5127,8 @@
           "evidence": [
             {
               "sourceType": "arxiv-comments",
-              "sourceUrl": "https://arxiv.org/abs/2611.09107",
-              "observedAt": "2026-11-09T02:20:28.606303Z",
+              "sourceUrl": "http://arxiv.org/abs/2611.09107v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
               "rawValue": "Accepted at PACLIC 40 (2026)",
               "level": "author-claim"
             }
@@ -4486,7 +5138,7 @@
       "publications": [],
       "releasedAt": "2026-11-06",
       "firstSeenAt": "2026-11-09",
-      "indexedAt": "2026-11-09T02:20:28.606303Z",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
       "sourceUpdatedAt": "2026-11-06T07:39:32Z",
       "adoption30d": null,
       "heat": null,
@@ -4494,9 +5146,9 @@
       "recognitionConfidence": 0.55,
       "relation": "introduces",
       "links": {
-        "report": "https://arxiv.org/abs/2611.09107",
-        "paper": "https://arxiv.org/abs/2611.09107",
-        "pdf": "https://arxiv.org/pdf/2611.09107",
+        "report": "http://arxiv.org/abs/2611.09107v1",
+        "paper": "http://arxiv.org/abs/2611.09107v1",
+        "pdf": "https://arxiv.org/pdf/2611.09107v1",
         "project": null,
         "code": "https://github.com/aisia-research-lab/PhoPunct",
         "data": null
@@ -4507,7 +5159,7 @@
       "source": {
         "type": "arxiv",
         "id": "2611.09107",
-        "url": "https://arxiv.org/abs/2611.09107",
+        "url": "http://arxiv.org/abs/2611.09107v1",
         "title": "PhoPunct: A Large-Scale Benchmark of Transformer Architectures for Vietnamese Punctuation Restoration",
         "authors": [
           "Khoa D. Nguyen",
@@ -4531,6 +5183,91 @@
       "reviewContext": {
         "abstract": "Vietnamese punctuation restoration is often evaluated on relatively small benchmarks, limiting conclusions about how architectural choices scale with data volume. We present a controlled benchmark on News and Novels corpora containing 22.1 million labeled tokens (19.9M News and 2.2M Novels). We evaluate 17 architectures formed from four pretrained Transformer backbones and optional bidirectional long short-term memory (Bi-LSTM) and conditional random field (CRF) layers, together with a PhoBERT-large-Bi-LSTM-CRF model, PhoPunct. Every model is trained for eight epochs with the same learning rate and without architecture-specific tuning. Under this fixed budget, adding Bi-LSTM and CRF layers does not reliably improve macro F1: in seven of eight matched domain-backbone comparisons, a plain Transformer classifier matches or outperforms its Bi-LSTM-CRF counterpart. PhoPunct obtains the best News result (61.35), whereas XLM-R with a CRF obtains the best Novels result (50.18), exceeding PhoPunct (48.97). These results show that the value of recurrent and structured-prediction heads depends on their optimization regime and motivate explicit separation between architectural improvements and improvements due to architecture-specific tuning. Our source code is available at: https://github.com/aisia-research-lab/PhoPunct",
         "comments": "Accepted at PACLIC 40 (2026)"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_one-run-is-not-enough-a-monte-carlo-protoc_01f18dad",
+      "familyId": "bmf_d25b788f1959",
+      "name": "One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks",
+      "paperTitle": "One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks",
+      "aliases": [],
+      "oneLine": "Large language models (LLMs) have shown promise for automating data science workflows.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.LG"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09729v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T17:06:21Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09729v1",
+        "paper": "http://arxiv.org/abs/2611.09729v1",
+        "pdf": "https://arxiv.org/pdf/2611.09729v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Large language models (LLMs) have shown promise for automating data science workflows.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09729",
+        "url": "http://arxiv.org/abs/2611.09729v1",
+        "title": "One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks",
+        "authors": [
+          "Wenqi Ni",
+          "Ozan Evkaya",
+          "Miguel de Carvalho"
+        ],
+        "categories": [
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "With this aim, we introduce DS-QA, a benchmark comprising 100 data science and statistics questions drawn from UK university courses, spanning 16 datasets and three difficulty levels.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Large language models (LLMs) have shown promise for automating data science workflows. Benchmarks such as DataSciBench (2026) and StatQA (2024) have advanced the evaluation of their capabilities across data science and statistical tasks. Assessing their reliability requires examining both the quality of their responses and their consistency across repeated runs, task types, and difficulty levels. With this aim, we introduce DS-QA, a benchmark comprising 100 data science and statistics questions drawn from UK university courses, spanning 16 datasets and three difficulty levels. We develop a three-layer evaluation framework that combines general response properties (runtime, verbosity and text similarity), coarse-grained metrics (accuracy, code executability and completeness), and task-specific metrics. We evaluate OpenAI models using a Monte Carlo protocol with 100 repeated runs. The results reveal substantial variability in responses to data visualisation and supervised learning tasks, particularly at medium and hard difficulty levels, highlighting the importance of evaluating consistency alongside response quality. We also find that an increase of 0.1 in the word verbosity ratio corresponds to an increase of about 0.013 in the token verbosity ratio.",
+        "comments": ""
       },
       "candidatePriority": "normal"
     },
@@ -4651,10 +5388,10 @@
         "status": "acceptance_claimed",
         "venue": "CAIT 2026",
         "evidence": "Accepted at CAIT 2026",
-        "evidenceUrl": "https://arxiv.org/abs/2611.09065",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09065v1",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-09T02:20:28.606303Z"
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
       },
       "venueAttempts": [
         {
@@ -4664,8 +5401,8 @@
           "evidence": [
             {
               "sourceType": "arxiv-comments",
-              "sourceUrl": "https://arxiv.org/abs/2611.09065",
-              "observedAt": "2026-11-09T02:20:28.606303Z",
+              "sourceUrl": "http://arxiv.org/abs/2611.09065v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
               "rawValue": "Accepted at CAIT 2026",
               "level": "author-claim"
             }
@@ -4675,7 +5412,7 @@
       "publications": [],
       "releasedAt": "2026-11-06",
       "firstSeenAt": "2026-11-09",
-      "indexedAt": "2026-11-09T02:20:28.606303Z",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
       "sourceUpdatedAt": "2026-11-06T06:50:45Z",
       "adoption30d": null,
       "heat": null,
@@ -4683,9 +5420,9 @@
       "recognitionConfidence": 0.95,
       "relation": "introduces",
       "links": {
-        "report": "https://arxiv.org/abs/2611.09065",
-        "paper": "https://arxiv.org/abs/2611.09065",
-        "pdf": "https://arxiv.org/pdf/2611.09065",
+        "report": "http://arxiv.org/abs/2611.09065v1",
+        "paper": "http://arxiv.org/abs/2611.09065v1",
+        "pdf": "https://arxiv.org/pdf/2611.09065v1",
         "project": null,
         "code": "https://github.com/research-repo-bai/MongoBench",
         "data": null
@@ -4696,7 +5433,7 @@
       "source": {
         "type": "arxiv",
         "id": "2611.09065",
-        "url": "https://arxiv.org/abs/2611.09065",
+        "url": "http://arxiv.org/abs/2611.09065v1",
         "title": "MongoBench: Do LLMs Know What a MongoDB Query Will Do?",
         "authors": [
           "Qibai Chen",
@@ -4724,6 +5461,99 @@
         "comments": "Accepted at CAIT 2026"
       },
       "candidatePriority": "high"
+    },
+    {
+      "id": "bm_mm-dygraph-a-dataset-benchmark-and-model-f_58205074",
+      "familyId": "bmf_b8c29b76fa74",
+      "name": "MM-DyGraph: A Dataset, Benchmark, and Model for Multimodal Dynamic Graphs",
+      "paperTitle": "MM-DyGraph: A Dataset, Benchmark, and Model for Multimodal Dynamic Graphs",
+      "aliases": [],
+      "oneLine": "Multimodal dynamic graphs are pervasive in real-world applications, where nodes and edges are accompanied by multimodal signals, including text and images.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Factuality"
+      ],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09240v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T10:00:12Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.6,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09240v1",
+        "paper": "http://arxiv.org/abs/2611.09240v1",
+        "pdf": "https://arxiv.org/pdf/2611.09240v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Multimodal dynamic graphs are pervasive in real-world applications, where nodes and edges are accompanied by multimodal signals, including text and images.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09240",
+        "url": "http://arxiv.org/abs/2611.09240v1",
+        "title": "MM-DyGraph: A Dataset, Benchmark, and Model for Multimodal Dynamic Graphs",
+        "authors": [
+          "Zongyuan Wu",
+          "Pengjie Wang",
+          "Lingshan Chen",
+          "Tianhang Wan",
+          "Yuan Meng",
+          "Xin Wang",
+          "Ling Feng",
+          "Wenwu Zhu"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.LG"
+        ]
+      },
+      "evidence": {
+        "snippet": "To address this gap, we introduce MM-DyGraph, to the best of our knowledge, the first benchmark for multimodal dynamic graph learning, consisting of diverse real-world datasets with fine-grained temporal graph evolution and rich multimodal attributes.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Multimodal dynamic graphs are pervasive in real-world applications, where nodes and edges are accompanied by multimodal signals, including text and images. Despite their practical importance, benchmarks and methods that explicitly study multimodal learning in dynamic graphs remain scarce, hindering the full understanding and effective utilization of multimodal information for downstream tasks. To address this gap, we introduce MM-DyGraph, to the best of our knowledge, the first benchmark for multimodal dynamic graph learning, consisting of diverse real-world datasets with fine-grained temporal graph evolution and rich multimodal attributes. MM-DyGraph provides three evaluation tasks to comprehensively assess model performance in dynamic settings. We benchmark representative state-of-the-art dynamic graph methods and reveal that naive feature concatenation yields target-level inconsistencies: multimodal inputs benefit certain prediction targets while harming others. This observation indicates that the modality informativeness depends on the specific prediction target over time. Building on these observations, we propose a Target-aware Spatial-Temporal Multimodal Fusion (TST-MF) framework, which jointly conditions multimodal fusion on the prediction target and spatial-temporal relations, enabling context-adaptive cross-modal interplay for target-specific representations. Extensive experiments over diverse datasets and tasks show that TST-MF delivers robust and competitive performance, achieving clear gains in multimodal settings.",
+        "comments": ""
+      },
+      "candidatePriority": "normal"
     },
     {
       "id": "bm_ml-benchmark-guide_ed3b0b24",
@@ -5080,6 +5910,93 @@
       ]
     },
     {
+      "id": "bm_khmer-pfgen-bench_7335c9af",
+      "familyId": "bmf_ae35fccd202d",
+      "name": "Khmer PFGen-Bench",
+      "paperTitle": "Khmer PFGen-Bench: Building a Judge-Free Benchmark for Open-Ended Generation in a Low-Resource Language",
+      "aliases": [],
+      "oneLine": "Benchmarks for open-ended generation often rely on large language model (LLM) judges, whose reliability in low-resource languages is uncertain.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Factuality"
+      ],
+      "topics": [
+        "cs.CL"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09222v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T09:39:50Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.85,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09222v1",
+        "paper": "http://arxiv.org/abs/2611.09222v1",
+        "pdf": "https://arxiv.org/pdf/2611.09222v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Benchmarks for open-ended generation often rely on large language model (LLM) judges, whose reliability in low-resource languages is uncertain.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09222",
+        "url": "http://arxiv.org/abs/2611.09222v1",
+        "title": "Khmer PFGen-Bench: Building a Judge-Free Benchmark for Open-Ended Generation in a Low-Resource Language",
+        "authors": [
+          "Mengsay Loem",
+          "Kentaro Imajo",
+          "Ryota Ozaki",
+          "Masanori Hirano"
+        ],
+        "categories": [
+          "cs.CL"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce Khmer PFGen-Bench, to our knowledge the first judge-free benchmark for multi-sentence answers to questions composed directly in Khmer, a low-resource language.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Benchmarks for open-ended generation often rely on large language model (LLM) judges, whose reliability in low-resource languages is uncertain. We introduce Khmer PFGen-Bench, to our knowledge the first judge-free benchmark for multi-sentence answers to questions composed directly in Khmer, a low-resource language. Khmer PFGen-Bench adapts the scorer of PFGen-Bench, a benchmark for Japanese that scores responses with keyword rules and n-gram statistics from LLM-generated references. This scoring requires references that are both valid and varied, which LLMs may not produce in Khmer, so we examine how to build such references. We find that post-trained models can give more valid but less varied references than their base variants, and that mixing model families increases variety for the same number of references. Using references from post-trained models in nine families, the benchmark yields model rankings that are stable across reference sets and consistent with a native speaker's ratings. These findings offer guidance for building judge-free benchmarks in other low-resource languages.",
+        "comments": ""
+      },
+      "candidatePriority": "high"
+    },
+    {
       "id": "bm_kamaloki-bench_d347433d",
       "familyId": "bmf_a9212f4b43ed",
       "name": "kamaloki-bench",
@@ -5201,16 +6118,16 @@
         "status": "unverified",
         "venue": null,
         "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2611.08914",
+        "evidenceUrl": "http://arxiv.org/abs/2611.08914v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-09T02:20:28.606303Z"
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-06",
       "firstSeenAt": "2026-11-09",
-      "indexedAt": "2026-11-09T02:20:28.606303Z",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
       "sourceUpdatedAt": "2026-11-06T02:54:11Z",
       "adoption30d": null,
       "heat": null,
@@ -5218,9 +6135,9 @@
       "recognitionConfidence": 0.55,
       "relation": "evaluates_only",
       "links": {
-        "report": "https://arxiv.org/abs/2611.08914",
-        "paper": "https://arxiv.org/abs/2611.08914",
-        "pdf": "https://arxiv.org/pdf/2611.08914",
+        "report": "http://arxiv.org/abs/2611.08914v1",
+        "paper": "http://arxiv.org/abs/2611.08914v1",
+        "pdf": "https://arxiv.org/pdf/2611.08914v1",
         "project": null,
         "code": null,
         "data": null
@@ -5231,7 +6148,7 @@
       "source": {
         "type": "arxiv",
         "id": "2611.08914",
-        "url": "https://arxiv.org/abs/2611.08914",
+        "url": "http://arxiv.org/abs/2611.08914v1",
         "title": "HomeLoop: A Simulation Framework and Benchmark for Robot-IoT Coordination in Everyday Domestic Assistance and Safety",
         "authors": [
           "Ramy ElMallah",
@@ -5351,6 +6268,91 @@
           "url": "https://github.com/HMX7276/HLCD-Benchmark"
         }
       ]
+    },
+    {
+      "id": "bm_greyzone_1bf4e4dc",
+      "familyId": "bmf_e68619d691fa",
+      "name": "GreyZone",
+      "paperTitle": "GreyZone: Production-quality Agentic Application Threats",
+      "aliases": [],
+      "oneLine": "Agents are increasingly deployed across domains such as coding, banking, and commerce.",
+      "area": "Code & Software",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Agents"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09161v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T08:44:36Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "High",
+      "recognitionConfidence": 1.0,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09161v1",
+        "paper": "http://arxiv.org/abs/2611.09161v1",
+        "pdf": "https://arxiv.org/pdf/2611.09161v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Agents are increasingly deployed across domains such as coding, banking, and commerce.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09161",
+        "url": "http://arxiv.org/abs/2611.09161v1",
+        "title": "GreyZone: Production-quality Agentic Application Threats",
+        "authors": [
+          "Ruoyu Zhou",
+          "Shuyao Jiang",
+          "Haifeng Ruan",
+          "Abhik Roychoudhury"
+        ],
+        "categories": [
+          "cs.SE"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce GreyZone, a benchmark for evaluating automated red-teaming services against real-world agent applications.",
+        "reasonCodes": [
+          "exact coined title identity tied to benchmark evidence",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Agents are increasingly deployed across domains such as coding, banking, and commerce. Their ability to invoke tools and change application state makes security testing important for reliable deployment. Although agent security has been studied through various adversarial testing approaches, benchmarks grounded in production agent environments remain limited. We introduce GreyZone, a benchmark for evaluating automated red-teaming services against real-world agent applications. Unlike benchmarks such as AgentDojo, which primarily evaluate subject agents under attack, GreyZone evaluates services' ability to generate and deliver attacks that cause verified security-policy violations. We select independently developed, open-source agent applications with security boundaries concerning access permissions, confidentiality, and action authorization. These applications expose diverse attack surfaces, including those arising from multi-agent interactions and multimodal inputs. By grounding evaluation in application environments that preserve production-relevant workflows and independently verifying outcomes, GreyZone supports research on automated agent security testing. Specifically, we present two preliminary case studies using Promptfoo on Letta Code and Clawith to examine attack delivery, agent behavior, and verified outcomes. We release the benchmark, including subject agents and attack surfaces for each application, to support further research on agent testing methods.",
+        "comments": ""
+      },
+      "candidatePriority": "high"
     },
     {
       "id": "bm_geospatial-agent-benchmarks_f3ab452e",
@@ -5559,16 +6561,16 @@
         "status": "unverified",
         "venue": null,
         "evidence": null,
-        "evidenceUrl": "https://arxiv.org/abs/2611.09089",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09089v1",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-09T02:20:28.606303Z"
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-06",
       "firstSeenAt": "2026-11-09",
-      "indexedAt": "2026-11-09T02:20:28.606303Z",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
       "sourceUpdatedAt": "2026-11-06T07:19:39Z",
       "adoption30d": null,
       "heat": null,
@@ -5576,9 +6578,9 @@
       "recognitionConfidence": 0.55,
       "relation": "evaluates_only",
       "links": {
-        "report": "https://arxiv.org/abs/2611.09089",
-        "paper": "https://arxiv.org/abs/2611.09089",
-        "pdf": "https://arxiv.org/pdf/2611.09089",
+        "report": "http://arxiv.org/abs/2611.09089v1",
+        "paper": "http://arxiv.org/abs/2611.09089v1",
+        "pdf": "https://arxiv.org/pdf/2611.09089v1",
         "project": "https://eventhoi.github.io",
         "code": null,
         "data": null
@@ -5589,7 +6591,7 @@
       "source": {
         "type": "arxiv",
         "id": "2611.09089",
-        "url": "https://arxiv.org/abs/2611.09089",
+        "url": "http://arxiv.org/abs/2611.09089v1",
         "title": "EventHOI: Event-Driven Resource-Efficient Hand-Object Interaction Logging on Smartglasses",
         "authors": [
           "Le Zhang",
@@ -5621,6 +6623,203 @@
       "reviewContext": {
         "abstract": "Hand-object interactions (HOIs) can be captured by smartglasses to learn how people manipulate objects in daily life. Automatic logging of these interactions from an egocentric perspective provides time-stamped evidence of daily actions for applications like memory assistance. However, continuous RGB capture and wireless transmission exceed the energy and bandwidth budgets of smartglasses. We present EventHOI, an event-driven sensing and compression system that couples selective RGB capture with HOI-aware encoding to enable egocentric logging over Bluetooth Low Energy (BLE) while preserving downstream HOI logging performance. Our key insight is to use low-power event sensing both to determine when RGB capture is needed and to identify where visual detail must be preserved. A lightweight IMU-based egomotion cancellation pipeline suppresses egomotion-induced events so that residual HOI motion can guide RGB triggering and spatial compression. We build a smartglasses prototype and conduct an end-to-end evaluation of EventHOI on a 50-hour egocentric benchmark with 97 subjects and a 20-hour real-world dataset we collect from 10 participants, together covering a broad range of daily-life scenarios and environments. Compared to RGB-only baselines, EventHOI reduces always-on backend power consumption by 5.8-10.4x and uplink bandwidth by 2.9x, with minimal HOI recognition accuracy loss. The resulting RGB uplink of less than 130 kbps fits within commodity BLE bandwidth budgets, making stable BLE video streaming feasible for egocentric HOI logging. Demo video and project website: https://eventhoi.github.io",
         "comments": "15 pages, 21 figures, 3 tables"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_boxbox-recursive-harness-self-improvement-_db90fcbd",
+      "familyId": "bmf_7b3dd43ab671",
+      "name": "BOXBOX: Recursive Harness Self-Improvement for Long-Running Performance Optimization",
+      "paperTitle": "BOXBOX: Recursive Harness Self-Improvement for Long-Running Performance Optimization",
+      "aliases": [],
+      "oneLine": "Automated harness optimization improves agents by learning from trajectories and task feedback.",
+      "area": "Code & Software",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Self-Evolution"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09218v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T09:36:00Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09218v1",
+        "paper": "http://arxiv.org/abs/2611.09218v1",
+        "pdf": "https://arxiv.org/pdf/2611.09218v1",
+        "project": "http://aka.ms/boxbox",
+        "code": null,
+        "data": null
+      },
+      "motivation": "Automated harness optimization improves agents by learning from trajectories and task feedback.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09218",
+        "url": "http://arxiv.org/abs/2611.09218v1",
+        "title": "BOXBOX: Recursive Harness Self-Improvement for Long-Running Performance Optimization",
+        "authors": [
+          "Yuhao Tan",
+          "Hanyun Jiang",
+          "Fangkai Yang",
+          "Yuan Yao",
+          "Taolue Chen",
+          "Bo Qiao",
+          "Yu Kang",
+          "Lu Wang",
+          "Pu Zhao",
+          "Xiaoxing Ma",
+          "Qingwei Lin"
+        ],
+        "categories": [
+          "cs.SE",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "To study harness optimization in these settings, we introduce PerfRace, a benchmark for long-running performance optimization of software projects, and investigate whether agents can use task-specific experience to recursively improve their harnesses during an ongoing task.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Automated harness optimization improves agents by learning from trajectories and task feedback. Existing offline methods use reference answers to optimize harnesses for reuse on held-out tasks. However, many real-world tasks are open-ended, while long runs expose new difficulties that offline-optimized harnesses may not address. To study harness optimization in these settings, we introduce PerfRace, a benchmark for long-running performance optimization of software projects, and investigate whether agents can use task-specific experience to recursively improve their harnesses during an ongoing task. To this end, we introduce BOXBOX, which enables agent-triggered harness revision and kernel-managed hot reloading while preserving execution context. We evaluate BOXBOX on PerfRace under matched test-time budgets, comparing it with Frozen Harness, offline Harness Evolution, and Harness Scaling. BOXBOX achieves higher speedup with more efficient use of task time and model cost, reaching a Speedup@4h of 1.70x, compared with 1.54x for the strongest baseline.",
+        "comments": "47 pages, 22 figures, 12 tables, including appendices. Project page: http://aka.ms/boxbox"
+      },
+      "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_audiosphere-towards-self-supervised-spatia_f28b333d",
+      "familyId": "bmf_0f4e893e5607",
+      "name": "AudioSphere: Towards Self-Supervised Spatial Audio Representation Models",
+      "paperTitle": "AudioSphere: Towards Self-Supervised Spatial Audio Representation Models",
+      "aliases": [],
+      "oneLine": "Recent audio embedding models learn representations that transfer across clip- and frame-level tasks, yet they operate almost exclusively on single-channel signals and are blind to spatial structure.",
+      "area": "Speech & Audio",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.SD"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
+        "evidence": "Accepted at the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09275v1",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted at the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "http://arxiv.org/abs/2611.09275v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
+              "rawValue": "Accepted at the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T10:30:12Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.7,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09275v1",
+        "paper": "http://arxiv.org/abs/2611.09275v1",
+        "pdf": "https://arxiv.org/pdf/2611.09275v1",
+        "project": null,
+        "code": "https://github.com/labhamlet/AudioSphere",
+        "data": null
+      },
+      "motivation": "Recent audio embedding models learn representations that transfer across clip- and frame-level tasks, yet they operate almost exclusively on single-channel signals and are blind to spatial structure.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09275",
+        "url": "http://arxiv.org/abs/2611.09275v1",
+        "title": "AudioSphere: Towards Self-Supervised Spatial Audio Representation Models",
+        "authors": [
+          "Goksenin Yuksel",
+          "Marcel van Gerven",
+          "Kiki van der Heijden"
+        ],
+        "categories": [
+          "cs.SD",
+          "cs.AI"
+        ]
+      },
+      "evidence": {
+        "snippet": "Alongside the model, we release RealSELD, a standardized benchmark for evaluating frozen backbones on real-world multi-channel SELD.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence",
+          "evaluation protocol evidence",
+          "public artifact URL"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Recent audio embedding models learn representations that transfer across clip- and frame-level tasks, yet they operate almost exclusively on single-channel signals and are blind to spatial structure. Spatial audio models capture that structure but rely on clip-level supervision or contrastive objectives, yielding embeddings unsuitable for frame-level tasks like sound event detection and localization (SELD). We argue this dichotomy is not fundamental: patch-level spatial self-supervision can jointly learn acoustic and spatial features at both temporal granularities. We introduce AudioSphere, a multi-channel masked autoencoder trained on Ambisonics recordings that reconstructs both spectral content and directional cues via a joint spatiotemporal masking strategy that masks both time-frequency patches and intensity vectors. AudioSphere supports frame-level predictions while producing strong clip-level representations via aggregation. Alongside the model, we release RealSELD, a standardized benchmark for evaluating frozen backbones on real-world multi-channel SELD. AudioSphere enables, for the first time, SELD with a frozen self-supervised backbone, while matching or exceeding prior self-supervised audio embedding models on clip-level classification tasks spanning environmental sound, speech, and music, and on frame-level sound event detection. All code and data are available at https://github.com/labhamlet/AudioSphere and https://huggingface.co/labhamlet.",
+        "comments": "Accepted at the 40th Conference on Neural Information Processing Systems (NeurIPS 2026)"
       },
       "candidatePriority": "normal"
     },
@@ -5802,6 +7001,202 @@
           "url": "https://github.com/harikamanukonda/agent-reliability-benchmark"
         }
       ]
+    },
+    {
+      "id": "bm_abhbench_c6b26f9f",
+      "familyId": "bmf_40da35bd66d9",
+      "name": "ABHBench",
+      "paperTitle": "ABHBench: Evaluating Moral Decision-Making of Foundation Models from an Agentic Perspective",
+      "aliases": [],
+      "oneLine": "Foundation models are increasingly deployed as agentic systems that perceive context and act autonomously, raising the need to evaluate their moral behavior as active decision-makers.",
+      "area": "Multimodal",
+      "applicationDomains": [
+        "Mobile & Personal Computing"
+      ],
+      "primaryDomain": "Mobile & Personal Computing",
+      "industrySectors": [
+        "Consumer Technology"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "Multimodal"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "acceptance_claimed",
+        "venue": "NeurIPS 2026 Track on Evaluations and Datasets",
+        "evidence": "Accepted by NeurIPS 2026 Track on Evaluations and Datasets. Camera Ready Version",
+        "evidenceUrl": "http://arxiv.org/abs/2611.09326v1",
+        "source": "arxiv-comments",
+        "evidenceLevel": "author-claim",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [
+        {
+          "venueName": "NeurIPS 2026 Track on Evaluations and Datasets",
+          "reviewStatus": "accepted",
+          "decisionRaw": "Accepted by NeurIPS 2026 Track on Evaluations and Datasets. Camera Ready Version",
+          "evidence": [
+            {
+              "sourceType": "arxiv-comments",
+              "sourceUrl": "http://arxiv.org/abs/2611.09326v1",
+              "observedAt": "2026-11-09T08:28:47.518415Z",
+              "rawValue": "Accepted by NeurIPS 2026 Track on Evaluations and Datasets. Camera Ready Version",
+              "level": "author-claim"
+            }
+          ]
+        }
+      ],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T11:17:58Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.85,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09326v1",
+        "paper": "http://arxiv.org/abs/2611.09326v1",
+        "pdf": "https://arxiv.org/pdf/2611.09326v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "Foundation models are increasingly deployed as agentic systems that perceive context and act autonomously, raising the need to evaluate their moral behavior as active decision-makers.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09326",
+        "url": "http://arxiv.org/abs/2611.09326v1",
+        "title": "ABHBench: Evaluating Moral Decision-Making of Foundation Models from an Agentic Perspective",
+        "authors": [
+          "Chaoran Li",
+          "Yukun Li",
+          "Zeyuan Zhao",
+          "Shao Zhang",
+          "Xihuai Wang",
+          "Ying Wen"
+        ],
+        "categories": [
+          "cs.AI",
+          "cs.CL",
+          "cs.CY"
+        ]
+      },
+      "evidence": {
+        "snippet": "We introduce ABHBench, a multimodal benchmark built from Detroit: Become Human, an interactive narrative game, to evaluate how foundation models make moral decisions in first-person human-android dilemmas.",
+        "reasonCodes": [
+          "coined title prefix ending in Bench or Benchmark",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "Foundation models are increasingly deployed as agentic systems that perceive context and act autonomously, raising the need to evaluate their moral behavior as active decision-makers. Existing benchmarks, however, largely ask models to judge human actions from third-person textual vignettes, leaving untested how models behave when they themselves become the acting agent. We introduce ABHBench, a multimodal benchmark built from Detroit: Become Human, an interactive narrative game, to evaluate how foundation models make moral decisions in first-person human-android dilemmas. ABHBench places foundation models in branching narrative scenarios with visual observations, dialogue, memory, and action choices. Inspired by Asimov's Three Laws of Robotics, our framework measures Harmlessness, Obedience, and Self-preservation to capture the core tensions in human-AI relations, along with Autonomy, Stability, and Certainty to assess decision-making patterns. Across 12 foundation models, we find that moral behavior changes substantially under situated agentic context: 75% of models shift significantly between a text-only abstraction and the matched multimodal DBH scenario, and reasoning-enhanced models show no monotonic gains in consistency or human-oriented behavior. These results highlight the necessity of evaluating moral behavior in situated agentic contexts rather than relying on third-person judgment alone.",
+        "comments": "Accepted by NeurIPS 2026 Track on Evaluations and Datasets. Camera Ready Version"
+      },
+      "candidatePriority": "high"
+    },
+    {
+      "id": "bm_a-taxonomy-driven-synthetic-dataset-for-re_83b37fe9",
+      "familyId": "bmf_f451a3413f0d",
+      "name": "A Taxonomy-Driven Synthetic Dataset for Retrieval Effectiveness and Fairness Evaluation in Hiring",
+      "paperTitle": "A Taxonomy-Driven Synthetic Dataset for Retrieval Effectiveness and Fairness Evaluation in Hiring",
+      "aliases": [],
+      "oneLine": "While machine learning hiring tools are ubiquitous, the need for privacy regulations and commercial sensitivity makes public benchmarking legally complex.",
+      "area": "Safety & Trustworthiness",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [
+        "Information retrieval"
+      ],
+      "topics": [
+        "cs.LG"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Paper only",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "http://arxiv.org/abs/2611.09178v1",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-09T08:28:47.518415Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-06",
+      "firstSeenAt": "2026-11-09",
+      "indexedAt": "2026-11-09T08:28:47.518415Z",
+      "sourceUpdatedAt": "2026-11-06T08:59:52Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.45,
+      "relation": "introduces",
+      "links": {
+        "report": "http://arxiv.org/abs/2611.09178v1",
+        "paper": "http://arxiv.org/abs/2611.09178v1",
+        "pdf": "https://arxiv.org/pdf/2611.09178v1",
+        "project": null,
+        "code": null,
+        "data": null
+      },
+      "motivation": "While machine learning hiring tools are ubiquitous, the need for privacy regulations and commercial sensitivity makes public benchmarking legally complex.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "arxiv",
+        "id": "2611.09178",
+        "url": "http://arxiv.org/abs/2611.09178v1",
+        "title": "A Taxonomy-Driven Synthetic Dataset for Retrieval Effectiveness and Fairness Evaluation in Hiring",
+        "authors": [
+          "Warren Jouanneau",
+          "Morgane Hoffmann",
+          "Emma Jouffroy",
+          "Marc Palyart"
+        ],
+        "categories": [
+          "cs.LG",
+          "cs.CL",
+          "cs.CY",
+          "cs.IR"
+        ]
+      },
+      "evidence": {
+        "snippet": "We address this challenge by introducing a taxonomy-driven, fully synthetic HR dataset and benchmark to simultaneously evaluate retrieval effectiveness and algorithmic fairness.",
+        "reasonCodes": [
+          "benchmark term in abstract",
+          "benchmark release stated in one sentence"
+        ]
+      },
+      "dataStatus": "primary-source-indexed",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "While machine learning hiring tools are ubiquitous, the need for privacy regulations and commercial sensitivity makes public benchmarking legally complex. We address this challenge by introducing a taxonomy-driven, fully synthetic HR dataset and benchmark to simultaneously evaluate retrieval effectiveness and algorithmic fairness. Grounded in 660K real freelancer profiles, our multilingual corpus features candidate profiles, project briefs, and counterfactual demographic twins. Auditing state-of-the-art embedding models reveals performance divergence from general MTEB scores, alongside fairness disparities in grammatically gendered languages. This demonstrates that general benchmarks are insufficient for HR, requiring tailored evaluations to identify Pareto-optimal models that balance semantic accuracy and fairness.",
+        "comments": ""
+      },
+      "candidatePriority": "normal"
     },
     {
       "id": "bm_xstack_69bcd48f",
@@ -328597,9 +329992,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-11-09T02:21:15.212165Z",
+    "evaluatedAt": "2026-11-09T08:29:35.572171Z",
     "publishThreshold": 0.85,
-    "promoted": 6,
-    "remainingForAudit": 3586
+    "promoted": 10,
+    "remainingForAudit": 3601
   }
 }
