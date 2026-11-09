@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-08 · **Benchmark releases:** 2896
+**Snapshot:** 2026-11-09 · **Benchmark releases:** 2896
 
 ## Contents
 
@@ -965,7 +965,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Health & Medicine
 
-- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](http://arxiv.org/abs/2611.08369v1)
+- **NPCBench** (2026-11-05) — To close this gap, we introduce NPCBench, a clinical apprenticeship benchmark for nasopharyngeal carcinoma (NPC). [Paper](http://arxiv.org/abs/2611.08369v1) · [HF](https://huggingface.co/papers/2611.08369)
 - **CardioVascBench** (2026-11-03) — We introduce CardioVascBench, a retrospective benchmark for prioritized diagnosis generation from real-world Chinese cardiovascular inpatient records. [Paper](http://arxiv.org/abs/2611.04687v1)
 - **SweetBench** (2026-11-02) — Using DiabetSim, we construct SweetBench by instantiating 32 scenario designs as 212 glucose-control tasks. [Paper](http://arxiv.org/abs/2611.03601v1)
 - **MedHEB** (2026-11-02) — We introduce MedHEB, a unified benchmark with 107 retrieval tasks from 54 datasets, including both in-distribution and held-out-source evaluation, across three axes: evidence form (2D images, 3D volumes, text), pairing… [Paper](http://arxiv.org/abs/2611.02519v1) · [HF](https://huggingface.co/papers/2611.02519)
@@ -1383,7 +1383,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Math Reasoning
 
-- **Terminal-style Mathematical Modeling Bench** (2026-11-05) — We introduce TB-MathModel (the Terminal-style Mathematical Modeling Bench), the first benchmark to make complete contest-style modeling problems agentic, verifiable, and terminal at once, over 18 real CUMCM and MCM prob… [Paper](http://arxiv.org/abs/2611.08237v1) · [Code](https://github.com/wxj630/terminal-bench-math-modeling)
+- **Terminal-style Mathematical Modeling Bench** (2026-11-05) — We introduce TB-MathModel (the Terminal-style Mathematical Modeling Bench), the first benchmark to make complete contest-style modeling problems agentic, verifiable, and terminal at once, over 18 real CUMCM and MCM prob… [Paper](http://arxiv.org/abs/2611.08237v1) · [HF](https://huggingface.co/papers/2611.08237) · [Code](https://github.com/wxj630/terminal-bench-math-modeling)
 - **TLAPS-Bench** (2026-11-02) — Evaluates AI agents on proving invariants for TLA+ system specifications using TLAPS proof system and sandboxed runtime. [Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)
 - **OpenFrontiers** (2026-10-27) — Benchmark for scientific rediscovery using formal proofs on recently resolved and open mathematics problems. [Paper](https://arxiv.org/abs/2610.37739)
 - **RadonBench** (2026-10-23) — Benchmark for constructing Radon-free lattice configurations, with a shared success predicate and reproducibility via explicitly scoped search domains. [Paper](https://arxiv.org/abs/2610.33259)
@@ -1497,7 +1497,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **DRAFT-Bench** (2026-11-06) — We introduce DRAFT-Bench (Design Reliability Across Feedback and Tasks), a lifecycle-oriented evaluation of requirement elicitation, creative exploration, constrained editing, iterative revision, and production handoff. [Paper](https://arxiv.org/abs/2611.08933)
 - **AlienBench** (2026-11-06) — We introduce AlienBench, a benchmark that adapts the structured imagination task to language models. [Paper](https://arxiv.org/abs/2611.09094)
-- **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](http://arxiv.org/abs/2611.08177v1)
+- **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](http://arxiv.org/abs/2611.08177v1) · [HF](https://huggingface.co/papers/2611.08177)
 - **TandemBench** (2026-11-04) — We introduce TandemBench, a benchmark of 1,200 questions in multi-agent cooking scenarios where coordination choices affect goal completion. [Paper](https://arxiv.org/abs/2611.05827) · [Code](https://github.com/lililibaohang/TandemBench)
 - **SWEOps-Bench** (2026-11-04) — We introduce SWEOps-Bench, an interactive benchmark comprising 55 reproducible incident tasks derived from confirmed historical defects across 16 Kubernetes operator projects. [Paper](https://arxiv.org/abs/2611.06099)
 - **ReScopeBench** (2026-11-03) — To address this gap, we introduce ReScopeBench, a benchmark for the experience lifecycle across 18 interactive environments. [Paper](http://arxiv.org/abs/2611.05450v1)
