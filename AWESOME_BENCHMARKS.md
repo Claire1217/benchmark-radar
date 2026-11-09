@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-08 · **Benchmark releases:** 2900
+**Snapshot:** 2026-11-09 · **Benchmark releases:** 2900
 
 ## Contents
 
@@ -1497,7 +1497,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Other benchmark tasks
 
 - **DRAFT-Bench** (2026-11-06) — We introduce DRAFT-Bench (Design Reliability Across Feedback and Tasks), a lifecycle-oriented evaluation of requirement elicitation, creative exploration, constrained editing, iterative revision, and production handoff. [Paper](http://arxiv.org/abs/2611.08933v1)
-- **AnimWeb-Bench** (2026-11-06) — To fill this gap, we introduce AnimWeb-Bench, the first benchmark for animated webpage code generation from videos. [Paper](http://arxiv.org/abs/2611.09769v1)
+- **AnimWeb-Bench** (2026-11-06) — To fill this gap, we introduce AnimWeb-Bench, the first benchmark for animated webpage code generation from videos. [Paper](http://arxiv.org/abs/2611.09769v1) · [HF](https://huggingface.co/papers/2611.09769)
 - **AlienBench** (2026-11-06) — We introduce AlienBench, a benchmark that adapts the structured imagination task to language models. [Paper](http://arxiv.org/abs/2611.09094v1)
 - **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](http://arxiv.org/abs/2611.08177v1) · [HF](https://huggingface.co/papers/2611.08177)
 - **TandemBench** (2026-11-04) — We introduce TandemBench, a benchmark of 1,200 questions in multi-agent cooking scenarios where coordination choices affect goal completion. [Paper](https://arxiv.org/abs/2611.05827) · [Code](https://github.com/lililibaohang/TandemBench)
