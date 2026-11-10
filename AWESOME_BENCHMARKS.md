@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-10 · **Benchmark releases:** 2920
+**Snapshot:** 2026-11-09 · **Benchmark releases:** 2927
 
 ## Contents
 
@@ -20,13 +20,13 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Agent Memory & Personalization](#agent-memory--personalization) (59)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (75)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (26)
-- [Agentic Coding & SWE](#agentic-coding--swe) (107)
+- [Agentic Coding & SWE](#agentic-coding--swe) (108)
 - [Chat, Writing & Preference](#chat,-writing--preference) (34)
 - [Code Generation](#code-generation) (93)
 - [Composite Indexes](#composite-indexes) (2)
 - [Computer Use & GUI Agents](#computer-use--gui-agents) (59)
 - [Cybersecurity & CTF](#cybersecurity--ctf) (34)
-- [Deep Research & Search](#deep-research--search) (55)
+- [Deep Research & Search](#deep-research--search) (56)
 - [Document Understanding & OCR](#document-understanding--ocr) (36)
 - [Engineering & Hardware Design](#engineering--hardware-design) (35)
 - [Factuality & Hallucination](#factuality--hallucination) (33)
@@ -39,13 +39,13 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Knowledge & Expert QA](#knowledge--expert-qa) (19)
 - [Long Context](#long-context) (8)
 - [Math Reasoning](#math-reasoning) (30)
-- [Multi-Agent & Games](#multi-agent--games) (38)
+- [Multi-Agent & Games](#multi-agent--games) (39)
 - [Multilingual & Translation](#multilingual--translation) (36)
-- [Other benchmark tasks](#other-benchmark-tasks) (102)
+- [Other benchmark tasks](#other-benchmark-tasks) (104)
 - [Professional & Enterprise Work](#professional--enterprise-work) (79)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (151)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (152)
 - [Safety & Alignment](#safety--alignment) (110)
-- [Science](#science) (135)
+- [Science](#science) (136)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (68)
 - [Speech & Audio](#speech--audio) (53)
 - [Tool Use & Function Calling](#tool-use--function-calling) (77)
@@ -363,6 +363,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
+- **SWE-Time** (2026-11-09) — We introduce SWE-Time, a benchmark for temporal repository understanding that makes repository evolution itself the reasoning target. [Paper](https://arxiv.org/abs/2611.12083)
 - **ServerBench** (2026-11-04) — We introduce ServerBench, a benchmark for agentic design of complete, specialized LLM serving systems. [Paper](https://arxiv.org/abs/2611.06841)
 - **Multi-step SWE** (2026-11-04) — We introduce Multi-step SWE, a long-horizon benchmark of 69 software engineering tasks, each a chain of 5-15 dependent steps on a single codebase. [Paper](https://arxiv.org/abs/2611.07166)
 - **DistDebug-Bench** (2026-11-02) — We introduce DistDebug-Bench, a benchmark for evaluating agents' ability to diagnose complex-system failures at the code level. [Paper](http://arxiv.org/abs/2611.03523v1) · [Code](https://github.com/OrderLab/distdebug-bench)
@@ -710,6 +711,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Deep Research & Search
 
+- **TRIAD** (2026-11-09) — We introduce TRIAD, a multimodal retrieval benchmark for evaluating how well retrieval systems satisfy these complex, evolving requests. [Paper](https://arxiv.org/abs/2611.12364)
 - **HuDS-Bench** (2026-10-29) — HuDS-Bench evaluates dataset search retrieval with 200 queries and 24,908 graded judgments, scored by NDCG and MAP. [Paper](https://arxiv.org/abs/2610.39608) · [Code](https://github.com/nju-websoft/AgenticDS)
 - **ATLAS-Bench** (2026-10-29) — Evaluates LLM agents on local area search tasks, requiring them to recommend places meeting mandatory requirements and preferences, grounded in place attributes and reviews. [Paper](https://arxiv.org/abs/2610.39438)
 - **POISE-Bench** (2026-10-28) — Evaluates LLM agents on information-seeking under partial observability and a budget, where agents open hidden records and answer or abstain. [Data](https://huggingface.co/datasets/Shahriar10/POISE-Bench)
@@ -1212,7 +1214,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Visual Reasoning
 
 - **Martine** (2026-11-08) — We introduce Martine, a benchmark for controlled 3D object surface reconstruction. [Paper](https://arxiv.org/abs/2611.11602)
-- **MotionGraphicsBench** (2026-11-07) — We introduce MotionGraphicsBench, an expert-curated benchmark of 100 instances for animating an input static SVG with a motion edit prompt. [Paper](https://arxiv.org/abs/2611.10592) · [HF](https://huggingface.co/papers/2611.10592) · [Data](https://huggingface.co/datasets/figma-ai/motion-graphics-bench)
+- **MotionGraphicsBench** (2026-11-07) — We introduce MotionGraphicsBench, an expert-curated benchmark of 100 instances for animating an input static SVG with a motion edit prompt. [Paper](https://arxiv.org/abs/2611.10592) · [Data](https://huggingface.co/datasets/figma-ai/motion-graphics-bench)
 - **LongBanana** (2026-11-04) — We introduce LongBanana, to our knowledge the first expert-designed and expert-verified benchmark for long-context multi-reference image synthesis in the age of agent-driven image generation. [Paper](https://arxiv.org/abs/2611.06856) · [HF](https://huggingface.co/papers/2611.06856) · [Code](https://github.com/KlingAIResearch/LongBanana)
 - **VL-DedupBench** (2026-11-02) — VL-DedupBench evaluates graded multimodal entity resolution on image-text data, with 50,000 COCO and SOP records and 66,788 labeled pairs, measuring pair-level decisions, cluster structure, and retained-set quality. [Paper](http://arxiv.org/abs/2611.03080v1)
 - **ChemRxn-Bench** (2026-11-02) — ChemRxn-Bench evaluates structured reaction data extraction from chemistry figures, measuring exact molecular identity and reactant-product pairing across 603 annotated figures. [Paper](http://arxiv.org/abs/2611.02826v1) · [Code](https://github.com/rxnminer/RxnMiner) · [Data](https://huggingface.co/datasets/UniParser/RxnMiner-Benchmark)
@@ -1429,6 +1431,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Multi-Agent & Games
 
+- **WorkflowArena** (2026-11-09) — We formalize this capability as workflow orchestration and introduce WorkflowArena, a benchmark of 145 long-horizon tasks spanning 8 professional domains, from software engineering and formal mathematics to legal analys… [Paper](https://arxiv.org/abs/2611.12856)
 - **MaRiO** (2026-11-07) — To study this problem, we introduce MaRiO, a benchmark for evaluating multi-agent collaborative reasoning, and evaluate 23 state-of-the-art MLLMs on it. [Paper](https://arxiv.org/abs/2611.10344)
 - **PHANTOM-Bench** (2026-11-06) — To measure this phenomenon, we introduce PHANTOM-Bench, a benchmark that separates isolated private judgments, public decisions after ambiguous social signals, elicited estimates of the group's private judgment, transpa… [Paper](http://arxiv.org/abs/2611.08971v1)
 - **Environment Duels** (2026-10-21) — Evaluates LLM capabilities as environment creators and solvers across 90 interactive environments spanning symbolic reasoning, planning, optimization, causal diagnosis, adversarial strategy, and dynamic control. [Paper](https://arxiv.org/abs/2610.30116) · [Code](https://github.com/LLM-Duels/EnvDuels)
@@ -1509,6 +1512,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **Infrathon** (2026-11-09) — We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. [Paper](https://arxiv.org/abs/2611.11995)
+- **AutoBuddy-Bench** (2026-11-09) — We introduce AutoBuddy-Bench, a simulator that addresses these challenges. [Paper](https://arxiv.org/abs/2611.12393)
 - **PoseBench** (2026-11-07) — To answer this question, we introduce PoseBench, a systematic benchmark to probe pose awareness in pretrained visual features. [Paper](https://arxiv.org/abs/2611.10347)
 - **InfoOrgBench** (2026-11-07) — We introduce InfoOrgBench, a benchmark of 150 tasks in which agents organize scattered records from meeting recaps, issue threads and design proposals into hierarchies. [Paper](https://arxiv.org/abs/2611.10600)
 - **DRAFT-Bench** (2026-11-06) — We introduce DRAFT-Bench (Design Reliability Across Feedback and Tasks), a lifecycle-oriented evaluation of requirement elicitation, creative exploration, constrained editing, iterative revision, and production handoff. [Paper](http://arxiv.org/abs/2611.08933v1)
@@ -1696,6 +1701,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
+- **GeoMind** (2026-11-09) — To address this gap, we introduce GeoMind, a systematic benchmark for structured spatial understanding through tabletop manipulation. [Paper](https://arxiv.org/abs/2611.12175) · [Code](https://github.com/Notfound-JH/GEOMIND-benchmark.git)
 - **HARP-Bench** (2026-11-08) — We introduce HARP-Bench, a benchmark for evaluating robot manipulation policies in workspaces shared with active humans. [Paper](https://arxiv.org/abs/2611.11123) · [Code](https://github.com/UMass-Embodied-AGI/harp)
 - **EmbodiedIntentBench** (2026-11-07) — We present EmbodiedIntentBench, a benchmark for intent-driven runtime adaptation in mobile robotic missions. [Paper](https://arxiv.org/abs/2611.10498)
 - **Seeing What Matters** (2026-11-06) — We introduce Seeing What Matters, a benchmark for task-conditioned actionable spatial belief in simulated tabletop manipulation. [Paper](http://arxiv.org/abs/2611.09794v1)
@@ -1963,6 +1969,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **ChemInsight** (2026-11-09) — We introduce ChemInsight, a benchmark designed to evaluate large language models (LLMs) on chemistry tasks that require multi-step reasoning and structured chemical understanding. [Paper](https://arxiv.org/abs/2611.11794)
 - **ZeoBench** (2026-11-06) — We present ZeoBench, a benchmark for self-supervised learning on dense 3D representations of all-silica zeolites, and evaluate the resulting features on six existing downstream adsorption-property prediction tasks, acro… [Paper](http://arxiv.org/abs/2611.09880v1)
 - **BEAKER** (2026-11-04) — To fill this gap, we introduce BEAKER, a Benchmark for evaluating Embodied Actionability, Knowledge, Experimentation, and Reasoning in SDCLs. [Paper](https://arxiv.org/abs/2611.06911) · [HF](https://huggingface.co/papers/2611.06911)
 - **SlackBench** (2026-11-03) — We introduce SlackBench, a benchmark for evaluating agents on realistic research and engineering workflows that require joint reasoning over workplace communication and evolving repository state. [Paper](http://arxiv.org/abs/2611.05512v1) · [HF](https://huggingface.co/papers/2611.05512) · [Data](https://huggingface.co/datasets/HuanzhiMao/SlackBench)
