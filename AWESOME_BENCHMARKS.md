@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-09 · **Benchmark releases:** 2920
+**Snapshot:** 2026-11-10 · **Benchmark releases:** 2920
 
 ## Contents
 
@@ -1212,8 +1212,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Visual Reasoning
 
 - **Martine** (2026-11-08) — We introduce Martine, a benchmark for controlled 3D object surface reconstruction. [Paper](https://arxiv.org/abs/2611.11602)
-- **MotionGraphicsBench** (2026-11-07) — We introduce MotionGraphicsBench, an expert-curated benchmark of 100 instances for animating an input static SVG with a motion edit prompt. [Paper](https://arxiv.org/abs/2611.10592) · [Data](https://huggingface.co/datasets/figma-ai/motion-graphics-bench)
-- **LongBanana** (2026-11-04) — We introduce LongBanana, to our knowledge the first expert-designed and expert-verified benchmark for long-context multi-reference image synthesis in the age of agent-driven image generation. [Paper](https://arxiv.org/abs/2611.06856) · [HF](https://huggingface.co/papers/2611.06856)
+- **MotionGraphicsBench** (2026-11-07) — We introduce MotionGraphicsBench, an expert-curated benchmark of 100 instances for animating an input static SVG with a motion edit prompt. [Paper](https://arxiv.org/abs/2611.10592) · [HF](https://huggingface.co/papers/2611.10592) · [Data](https://huggingface.co/datasets/figma-ai/motion-graphics-bench)
+- **LongBanana** (2026-11-04) — We introduce LongBanana, to our knowledge the first expert-designed and expert-verified benchmark for long-context multi-reference image synthesis in the age of agent-driven image generation. [Paper](https://arxiv.org/abs/2611.06856) · [HF](https://huggingface.co/papers/2611.06856) · [Code](https://github.com/KlingAIResearch/LongBanana)
 - **VL-DedupBench** (2026-11-02) — VL-DedupBench evaluates graded multimodal entity resolution on image-text data, with 50,000 COCO and SOP records and 66,788 labeled pairs, measuring pair-level decisions, cluster structure, and retained-set quality. [Paper](http://arxiv.org/abs/2611.03080v1)
 - **ChemRxn-Bench** (2026-11-02) — ChemRxn-Bench evaluates structured reaction data extraction from chemistry figures, measuring exact molecular identity and reactant-product pairing across 603 annotated figures. [Paper](http://arxiv.org/abs/2611.02826v1) · [Code](https://github.com/rxnminer/RxnMiner) · [Data](https://huggingface.co/datasets/UniParser/RxnMiner-Benchmark)
 - **MicroStructAI reproducible benchmark** (2026-10-31) — Compares global Otsu and local Gaussian thresholding for synthetic image segmentation across 24 contrast, noise, illumination, and object-radius conditions with 20 seeded images per condition, scored by mean image IoU a… [Code](https://github.com/dimitrispasias57-eng/microstructai-reproducible-benchmark)
