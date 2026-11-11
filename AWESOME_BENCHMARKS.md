@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-11 · **Benchmark releases:** 2930
+**Snapshot:** 2026-11-10 · **Benchmark releases:** 2933
 
 ## Contents
 
@@ -21,12 +21,12 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (75)
 - [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (26)
 - [Agentic Coding & SWE](#agentic-coding--swe) (108)
-- [Chat, Writing & Preference](#chat,-writing--preference) (34)
+- [Chat, Writing & Preference](#chat,-writing--preference) (35)
 - [Code Generation](#code-generation) (93)
 - [Composite Indexes](#composite-indexes) (2)
 - [Computer Use & GUI Agents](#computer-use--gui-agents) (59)
 - [Cybersecurity & CTF](#cybersecurity--ctf) (34)
-- [Deep Research & Search](#deep-research--search) (56)
+- [Deep Research & Search](#deep-research--search) (57)
 - [Document Understanding & OCR](#document-understanding--ocr) (36)
 - [Engineering & Hardware Design](#engineering--hardware-design) (35)
 - [Factuality & Hallucination](#factuality--hallucination) (33)
@@ -45,7 +45,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Professional & Enterprise Work](#professional--enterprise-work) (81)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (152)
 - [Safety & Alignment](#safety--alignment) (110)
-- [Science](#science) (136)
+- [Science](#science) (137)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (68)
 - [Speech & Audio](#speech--audio) (53)
 - [Tool Use & Function Calling](#tool-use--function-calling) (77)
@@ -474,6 +474,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
+- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
 - **THEATRON** (2026-11-08) — We introduce THEATRON, a controlled benchmark that uses financial replay to evaluate persona persistence in long-horizon sequential decision-making. [Paper](https://arxiv.org/abs/2611.11487) · [Code](https://github.com/yuyan12138/theatron)
 - **SIExBench** (2026-11-07) — We present SIExBench, to our knowledge the first benchmark dedicated to automated repair of SIEx defects. [Paper](https://arxiv.org/abs/2611.10776)
 - **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
@@ -711,6 +712,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Deep Research & Search
 
+- **ARE-bench** (2026-11-10) — We introduce ARE-bench to evaluate whether research agents advance ongoing projects while respecting prior decisions and existing workspace state, grounded in real session context and in-progress workspaces. [Paper](https://arxiv.org/abs/2611.14364)
 - **TRIAD** (2026-11-09) — We introduce TRIAD, a multimodal retrieval benchmark for evaluating how well retrieval systems satisfy these complex, evolving requests. [Paper](https://arxiv.org/abs/2611.12364)
 - **HuDS-Bench** (2026-10-29) — HuDS-Bench evaluates dataset search retrieval with 200 queries and 24,908 graded judgments, scored by NDCG and MAP. [Paper](https://arxiv.org/abs/2610.39608) · [Code](https://github.com/nju-websoft/AgenticDS)
 - **ATLAS-Bench** (2026-10-29) — Evaluates LLM agents on local area search tasks, requiring them to recommend places meeting mandatory requirements and preferences, grounded in place attributes and reviews. [Paper](https://arxiv.org/abs/2610.39438)
@@ -883,7 +885,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
-- **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and robots.txt directives. [Paper](https://arxiv.org/abs/2611.11306)
+- **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and $\texttt{robots.txt}$ d… [Paper](https://arxiv.org/abs/2611.11306)
 - **FinCutBench** (2026-11-08) — We introduce FinCutBench, a continually updated monthly financial knowledge benchmark for measuring how far a fixed model's financial knowledge extends over calendar time. [Paper](https://arxiv.org/abs/2611.11588)
 - **DeepFinance** (2026-11-07) — We introduce DeepFinance, an ultra long-horizon benchmark of 21 end-to-end PE and IB tasks that take a human professional an average of 27.1 hours. [Paper](https://arxiv.org/abs/2611.10926)
 - **WayPOP** (2026-11-04) — We introduce WayPOP, a panoramic open-set panoptic tracking benchmark built on real Waymo PVPS sequences augmented with diverse out-of-taxonomy 3D assets from Objaverse. [Paper](https://arxiv.org/abs/2611.05801) · [HF](https://huggingface.co/papers/2611.05801)
@@ -1859,7 +1861,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Safety & Alignment
 
-- **WarBias** (2026-11-08) — We introduce WarBias, a Ukrainian--English benchmark of stereotypes about these two groups. [Paper](https://arxiv.org/abs/2611.11284)
+- **WarBias** (2026-11-08) — We introduce WarBias, a Ukrainian-English benchmark of stereotypes about these two groups. [Paper](https://arxiv.org/abs/2611.11284)
 - **GeoBiaset** (2026-11-04) — To do so, we introduce GeoBiaset, the first benchmark designed to measure how geolocalization models are influenced by the apparent race of a person inserted into the image foreground. [Paper](https://arxiv.org/abs/2611.06085)
 - **VeriHarm-Bench** (2026-11-02) — Programmatically verifiable coding-agent benchmark measuring task success and unintended harmful side effects via paired correctness and harm tests. [Paper](http://arxiv.org/abs/2611.03575v1) · [Data](https://huggingface.co/datasets/wlchen/VeriHarm-Bench-150)
 - **BoardSafety Benchmark** (2026-10-24) — Evaluates LLM safety judgments on development-board operations with labels safe, unsafe, or insufficient-info. [Paper](https://arxiv.org/abs/2610.33448)
@@ -1972,6 +1974,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **Chem World** (2026-11-10) — We introduce Chem World, a large-scale benchmark integrating 17 public datasets with over 800,000 molecular and chemical-system instances across 10 property tracks, covering single-molecule and multi-component systems,… [Paper](https://arxiv.org/abs/2611.13945)
 - **ChemInsight** (2026-11-09) — We introduce ChemInsight, a benchmark designed to evaluate large language models (LLMs) on chemistry tasks that require multi-step reasoning and structured chemical understanding. [Paper](https://arxiv.org/abs/2611.11794)
 - **ZeoBench** (2026-11-06) — We present ZeoBench, a benchmark for self-supervised learning on dense 3D representations of all-silica zeolites, and evaluate the resulting features on six existing downstream adsorption-property prediction tasks, acro… [Paper](http://arxiv.org/abs/2611.09880v1)
 - **BEAKER** (2026-11-04) — To fill this gap, we introduce BEAKER, a Benchmark for evaluating Embodied Actionability, Knowledge, Experimentation, and Reasoning in SDCLs. [Paper](https://arxiv.org/abs/2611.06911) · [HF](https://huggingface.co/papers/2611.06911)
