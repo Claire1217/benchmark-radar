@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-10 · **Benchmark releases:** 2927
+**Snapshot:** 2026-11-10 · **Benchmark releases:** 2930
 
 ## Contents
 
@@ -41,8 +41,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Math Reasoning](#math-reasoning) (30)
 - [Multi-Agent & Games](#multi-agent--games) (39)
 - [Multilingual & Translation](#multilingual--translation) (36)
-- [Other benchmark tasks](#other-benchmark-tasks) (104)
-- [Professional & Enterprise Work](#professional--enterprise-work) (79)
+- [Other benchmark tasks](#other-benchmark-tasks) (105)
+- [Professional & Enterprise Work](#professional--enterprise-work) (81)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (152)
 - [Safety & Alignment](#safety--alignment) (110)
 - [Science](#science) (136)
@@ -1512,6 +1512,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **VIGOR** (2026-11-09) — We introduce VIGOR, a benchmark for evaluating VIsually GrOunded Rationales in MLLMs. [Paper](https://arxiv.org/abs/2611.13150) · [Code](https://github.com/deep-real/VIGOR)
 - **Infrathon** (2026-11-09) — We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. [Paper](https://arxiv.org/abs/2611.11995)
 - **AutoBuddy-Bench** (2026-11-09) — We introduce AutoBuddy-Bench, a simulator that addresses these challenges. [Paper](https://arxiv.org/abs/2611.12393)
 - **PoseBench** (2026-11-07) — To answer this question, we introduce PoseBench, a systematic benchmark to probe pose awareness in pretrained visual features. [Paper](https://arxiv.org/abs/2611.10347)
@@ -1619,6 +1620,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Professional & Enterprise Work
 
+- **DEPUTYBENCH** (2026-11-09) — We introduce DEPUTYBENCH, an executable benchmark with 79 base items, 375 instances, paired permission contexts, and graded evidence requirements. [Paper](https://arxiv.org/abs/2611.13355)
+- **AgentScript-Eval** (2026-11-09) — We introduce AgentScript-Eval, an execution-graded benchmark of 100 real tasks for AgentScript, the declarative DSL that Salesforce uses in Agentforce to build conversational agents. [Paper](https://arxiv.org/abs/2611.13183)
 - **Frame** (2026-11-06) — We introduce FRAME, a benchmark of 120 EDGAR- and arXiv-derived instances across Financial Quarterly, Financial Annual, Academic Simple, and Academic Complex categories, built with a temporal three-snapshot pipeline. [Paper](http://arxiv.org/abs/2611.08921v1)
 - **kw-bench** (2026-10-26) — kw-bench tests agent harnesses on investigative knowledge work: recovering hidden, checkable answers from messy ERP evidence and delivering tools. [Paper](http://arxiv.org/abs/2610.36405v1) · [Code](https://github.com/GSequist/kw-bench)
 - **Continual Learning Exam** (2026-10-25) — Evaluates LLM agents on 600 levels across 89 professional roles, organized as five-level ladders where agents must pass each level to unlock the next, with submissions scored by an evaluation agent against human-authore… [Paper](http://arxiv.org/abs/2610.33956v1)
