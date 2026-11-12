@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-12 · **Benchmark releases:** 2933
+**Snapshot:** 2026-11-11 · **Benchmark releases:** 2933
 
 ## Contents
 
@@ -474,7 +474,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [HF](https://huggingface.co/papers/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
+- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
 - **THEATRON** (2026-11-08) — We introduce THEATRON, a controlled benchmark that uses financial replay to evaluate persona persistence in long-horizon sequential decision-making. [Paper](https://arxiv.org/abs/2611.11487) · [Code](https://github.com/yuyan12138/theatron)
 - **SIExBench** (2026-11-07) — We present SIExBench, to our knowledge the first benchmark dedicated to automated repair of SIEx defects. [Paper](https://arxiv.org/abs/2611.10776)
 - **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
