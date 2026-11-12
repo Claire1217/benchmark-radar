@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-11 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-12 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 2,099 dataset downloads |
 | 2 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 22 HF votes · 108 GitHub stars |
-| 3 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 560 dataset downloads |
-| 4 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 48 HF votes · 32 GitHub stars |
-| 5 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 217 dataset downloads |
-| 6 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
-| 7 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 41 GitHub stars |
-| 8 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 25 GitHub stars |
-| 9 | **Switch-SWE**<br><sub>[Paper](http://arxiv.org/abs/2611.02017v1)</sub> | Other benchmark tasks | 10 HF votes · 26 GitHub stars |
-| 10 | **SlackBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05512v1)</sub> | Science | 1 HF votes · 123 dataset downloads |
+| 3 | **MotionGraphicsBench**<br><sub>[Paper](https://arxiv.org/abs/2611.10592)</sub> | Image & Visual Reasoning | 12 HF votes · 532 dataset downloads |
+| 4 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 560 dataset downloads |
+| 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 32 GitHub stars |
+| 6 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 230 dataset downloads |
+| 7 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
+| 8 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 44 GitHub stars |
+| 9 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 25 GitHub stars |
+| 10 | **Switch-SWE**<br><sub>[Paper](http://arxiv.org/abs/2611.02017v1)</sub> | Other benchmark tasks | 10 HF votes · 26 GitHub stars |
 
 ### Explore the library
 

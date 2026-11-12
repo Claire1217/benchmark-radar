@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-11 · **Benchmark releases:** 2933
+**Snapshot:** 2026-11-12 · **Benchmark releases:** 2933
 
 ## Contents
 
@@ -474,7 +474,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
+- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [HF](https://huggingface.co/papers/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
 - **THEATRON** (2026-11-08) — We introduce THEATRON, a controlled benchmark that uses financial replay to evaluate persona persistence in long-horizon sequential decision-making. [Paper](https://arxiv.org/abs/2611.11487) · [Code](https://github.com/yuyan12138/theatron)
 - **SIExBench** (2026-11-07) — We present SIExBench, to our knowledge the first benchmark dedicated to automated repair of SIEx defects. [Paper](https://arxiv.org/abs/2611.10776)
 - **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
@@ -1520,7 +1520,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **PoseBench** (2026-11-07) — To answer this question, we introduce PoseBench, a systematic benchmark to probe pose awareness in pretrained visual features. [Paper](https://arxiv.org/abs/2611.10347)
 - **InfoOrgBench** (2026-11-07) — We introduce InfoOrgBench, a benchmark of 150 tasks in which agents organize scattered records from meeting recaps, issue threads and design proposals into hierarchies. [Paper](https://arxiv.org/abs/2611.10600)
 - **DRAFT-Bench** (2026-11-06) — We introduce DRAFT-Bench (Design Reliability Across Feedback and Tasks), a lifecycle-oriented evaluation of requirement elicitation, creative exploration, constrained editing, iterative revision, and production handoff. [Paper](http://arxiv.org/abs/2611.08933v1)
-- **AnimWeb-Bench** (2026-11-06) — To fill this gap, we introduce AnimWeb-Bench, the first benchmark for animated webpage code generation from videos. [Paper](http://arxiv.org/abs/2611.09769v1) · [HF](https://huggingface.co/papers/2611.09769)
+- **AnimWeb-Bench** (2026-11-06) — To fill this gap, we introduce AnimWeb-Bench, the first benchmark for animated webpage code generation from videos. [Paper](http://arxiv.org/abs/2611.09769v1) · [HF](https://huggingface.co/papers/2611.09769) · [Code](https://github.com/starry1001/AnimWeb)
 - **AlienBench** (2026-11-06) — We introduce AlienBench, a benchmark that adapts the structured imagination task to language models. [Paper](http://arxiv.org/abs/2611.09094v1)
 - **BabyTheorist** (2026-11-05) — We introduce BabyTheorist, a benchmark for controlled training and evaluation of observational theory learning. [Paper](http://arxiv.org/abs/2611.08177v1) · [HF](https://huggingface.co/papers/2611.08177)
 - **TandemBench** (2026-11-04) — We introduce TandemBench, a benchmark of 1,200 questions in multi-agent cooking scenarios where coordination choices affect goal completion. [Paper](https://arxiv.org/abs/2611.05827) · [Code](https://github.com/lililibaohang/TandemBench)
@@ -2188,7 +2188,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **VIPBench** (2026-11-03) — We introduce the Voice Identity Perception benchmark (VIPBench), which contains 124,876 same-or-different judgments from 1,290 listeners on 9,800 recording pairs from 100 public figures. [Paper](http://arxiv.org/abs/2611.05638v1) · [Data](https://huggingface.co/datasets/sendfuze/vipbench)
 - **PianoBench** (2026-11-02) — We investigate this question by introducing PianoBench, a benchmark that tasks language models with reasoning about musical performances across congruent acoustic and symbolic input representations. [Paper](http://arxiv.org/abs/2611.03839v1) · [HF](https://huggingface.co/papers/2611.03839)
 - **Omni-Life** (2026-11-02) — We introduce Omni-Life, a benchmark grounded in real-world user needs, deployment scenarios, and device-dependent observations. [Paper](http://arxiv.org/abs/2611.02835v1)
-- **InteractionBench** (2026-11-02) — We present InteractionBench, a benchmark and evaluation harness that measures four dimensions on the same systems from the same recorded user audio: conversational timing, spoken-task accuracy, whisper and volume, and g… [Paper](http://arxiv.org/abs/2611.02430v1)
+- **InteractionBench** (2026-11-02) — We present InteractionBench, a benchmark and evaluation harness that measures four dimensions on the same systems from the same recorded user audio: conversational timing, spoken-task accuracy, whisper and volume, and g… [Paper](http://arxiv.org/abs/2611.02430v1) · [HF](https://huggingface.co/papers/2611.02430)
 - **CAST-Bench** (2026-11-02) — To address this, we introduce CAST?BENCH, a benchmark designed to trace every generated sound back to its in?tended source in multi-shot audio-video generation. [Paper](http://arxiv.org/abs/2611.05422v1) · [Code](https://github.com/yucong-liu/CAST-Bench-public)
 - **MEX: The Musical Expectation Benchmark Suite** (2026-11-01) — A benchmark suite for evaluating computational models of musical expectation against perceptual and electrophysiological tasks using standard datasets. [Paper](https://arxiv.org/abs/2611.01843) · [Code](https://github.com/musicperceptmodeling/mex)
 - **Fluente Oral Reading Benchmark** (2026-10-31) — Scores oral reading fluency systems against human-rater words-correct-per-minute counts and error-word identification on 125 scripted readings over 25 passages in Portuguese and English. [Data](https://huggingface.co/datasets/NicoDeVargas/fluente-oral-reading-benchmark)
