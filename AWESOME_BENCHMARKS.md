@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-13 · **Benchmark releases:** 2946
+**Snapshot:** 2026-11-12 · **Benchmark releases:** 2966
 
 ## Contents
 
@@ -19,33 +19,33 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Abstract Reasoning & Planning](#abstract-reasoning--planning) (54)
 - [Agent Memory & Personalization](#agent-memory--personalization) (59)
 - [Agent Security & Prompt Injection](#agent-security--prompt-injection) (75)
-- [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (26)
-- [Agentic Coding & SWE](#agentic-coding--swe) (110)
+- [Agent Skills & Self-Improvement](#agent-skills--self-improvement) (27)
+- [Agentic Coding & SWE](#agentic-coding--swe) (112)
 - [Chat, Writing & Preference](#chat,-writing--preference) (35)
 - [Code Generation](#code-generation) (93)
 - [Composite Indexes](#composite-indexes) (2)
 - [Computer Use & GUI Agents](#computer-use--gui-agents) (60)
-- [Cybersecurity & CTF](#cybersecurity--ctf) (34)
+- [Cybersecurity & CTF](#cybersecurity--ctf) (35)
 - [Deep Research & Search](#deep-research--search) (57)
-- [Document Understanding & OCR](#document-understanding--ocr) (37)
+- [Document Understanding & OCR](#document-understanding--ocr) (40)
 - [Engineering & Hardware Design](#engineering--hardware-design) (35)
-- [Factuality & Hallucination](#factuality--hallucination) (33)
+- [Factuality & Hallucination](#factuality--hallucination) (34)
 - [Finance & Law](#finance--law) (66)
 - [Forecasting & Time Series](#forecasting--time-series) (23)
 - [Health & Medicine](#health--medicine) (119)
 - [Image & Video Generation](#image--video-generation) (112)
-- [Image & Visual Reasoning](#image--visual-reasoning) (130)
+- [Image & Visual Reasoning](#image--visual-reasoning) (131)
 - [Instruction Following](#instruction-following) (17)
-- [Knowledge & Expert QA](#knowledge--expert-qa) (19)
+- [Knowledge & Expert QA](#knowledge--expert-qa) (20)
 - [Long Context](#long-context) (8)
 - [Math Reasoning](#math-reasoning) (30)
 - [Multi-Agent & Games](#multi-agent--games) (39)
 - [Multilingual & Translation](#multilingual--translation) (36)
-- [Other benchmark tasks](#other-benchmark-tasks) (106)
+- [Other benchmark tasks](#other-benchmark-tasks) (113)
 - [Professional & Enterprise Work](#professional--enterprise-work) (81)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (153)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (155)
 - [Safety & Alignment](#safety--alignment) (111)
-- [Science](#science) (137)
+- [Science](#science) (138)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (69)
 - [Speech & Audio](#speech--audio) (53)
 - [Tool Use & Function Calling](#tool-use--function-calling) (78)
@@ -334,6 +334,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Skills & Self-Improvement
 
+- **ReA-Bench** (2026-11-12) — We introduce ReA-Bench, a diagnostic benchmark for auditing responsible agent behavior. [Paper](https://arxiv.org/abs/2611.16493)
 - **CrossLearnBench** (2026-11-07) — For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can rea… [Paper](https://arxiv.org/abs/2611.10439)
 - **DexArena** (2026-11-02) — We introduce DexArena, a benchmark designed to evaluate learning and generalization in long-horizon bimanual dexterous manipulation. [Paper](http://arxiv.org/abs/2611.02629v2)
 - **SkillShift-Bench** (2026-10-24) — SkillShift-Bench evaluates web agents' skill learning under simulated contextual, perceptual, and execution shifts across three self-hosted web systems, measuring task success, interaction cost, skill use, and skill fai… [Paper](https://arxiv.org/abs/2610.33528)
@@ -363,6 +364,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
+- **Visual Cipher Bench** (2026-11-12) — To bridge this gap, we introduce Visual Cipher Bench, a collection of 40 original visual puzzles across four categories: spatial manipulation and simulation, logical constraints and planning, rule induction, and knowled… [Paper](https://arxiv.org/abs/2611.16861)
+- **MemReal-Bench** (2026-11-12) — To evaluate history-sensitive adaptation beyond factual recall, we introduce MemReal-Bench, a longitudinal benchmark grounded in month-long real-user interactions across dyadic and group scenes. [Paper](https://arxiv.org/abs/2611.16223) · [Code](https://github.com/jiazhicheng7-ctrl/MindMem)
 - **MLIRBench** (2026-11-11) — In this paper, we introduce MLIRBench, a benchmark for evaluating how LLMs reason about MLIR programs. [Paper](https://arxiv.org/abs/2611.14881)
 - **JoyFrontBench** (2026-11-11) — We introduce JoyFrontBench, a benchmark that makes this distinction through goal-oriented acceptance contracts. [Paper](https://arxiv.org/abs/2611.14952)
 - **SWE-Time** (2026-11-09) — We introduce SWE-Time, a benchmark for temporal repository understanding that makes repository evolution itself the reasoning target. [Paper](https://arxiv.org/abs/2611.12083)
@@ -476,7 +479,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [HF](https://huggingface.co/papers/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
+- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
 - **THEATRON** (2026-11-08) — We introduce THEATRON, a controlled benchmark that uses financial replay to evaluate persona persistence in long-horizon sequential decision-making. [Paper](https://arxiv.org/abs/2611.11487) · [Code](https://github.com/yuyan12138/theatron)
 - **SIExBench** (2026-11-07) — We present SIExBench, to our knowledge the first benchmark dedicated to automated repair of SIEx defects. [Paper](https://arxiv.org/abs/2611.10776)
 - **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
@@ -678,6 +681,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Cybersecurity & CTF
 
+- **CrossPloit** (2026-11-12) — We introduce CrossPloit, a benchmark of 127 migration instances across 45 CVEs in the Python web ecosystem. [Paper](https://arxiv.org/abs/2611.16588)
 - **CyberBinGym** (2026-11-07) — We introduce CyberBinGym, a benchmark containing 100 tasks derived from real vulnerabilities in 53 widely used projects, spanning six vulnerability families and three levels of analysis complexity. [Paper](https://arxiv.org/abs/2611.10723)
 - **AI Vulnerability Triage Benchmark** (2026-11-02) — Evaluates LLM vulnerability triage on NVD-derived security findings with human-verified labels for verdict, CWE, exploitability, severity, root cause, and remediation. [Code](https://github.com/krk-90/AI-Vulnerability-Triage-Benchmark)
 - **ICALL-BENCH** (2026-10-27) — Evaluates LLMs and agents on indirect-call target recovery in 50 real-world C/C++ binary programs, measuring program-level verifiable success. [Paper](https://arxiv.org/abs/2610.37871)
@@ -775,7 +779,10 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Document Understanding & OCR
 
+- **LiveGeo** (2026-11-12) — We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments usin… [Paper](https://arxiv.org/abs/2611.17267)
 - **WordInferBench** (2026-11-11) — We introduce WordInferBench, a benchmark comprising 280 base document-editing instances, each paired with three instruction conditions: descriptive (the instruction explicitly lists every attribute change), referential… [Paper](https://arxiv.org/abs/2611.15189)
+- **VibePrevisBench** (2026-11-11) — We introduce VibePrevisBench, a benchmark for 4D scene reconstruction: an agent turns a brief into an executable 4D scene and renders its proxy video. [Paper](https://arxiv.org/abs/2611.15789)
+- **ChJGBench** (2026-11-11) — We introduce ChJGBench, a benchmark for generating the reasoning and dispositive sections of Chinese judgments across civil, criminal, and administrative cases. [Paper](https://arxiv.org/abs/2611.15639)
 - **RealEmbedBench** (2026-11-08) — We introduce RealEmbedBench, a benchmark of 5,142 samples covering three application-layer tasks: code generation and completion, state machine modeling and implementation, and cross-OS code translation. [Paper](https://arxiv.org/abs/2611.11469)
 - **ViBench 2.0** (2026-11-03) — We introduce ViBench 2.0, a benchmark for long-horizon software building that we use to select our platform's models. [Paper](http://arxiv.org/abs/2611.05620v1)
 - **inkGround** (2026-10-28) — inkGround evaluates vision-language models on stroke trajectory recovery from full-page, camera-captured handwriting, using text-conditioned point grounding to output ordered stroke points for a target word. [Paper](https://arxiv.org/abs/2610.38720)
@@ -853,6 +860,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Factuality & Hallucination
 
+- **ShadowBench** (2026-11-11) — To quantify this limitation, we introduce ShadowBench, a rigorously hardened, shortcut-resistant benchmark designed to evaluate Latent Entity Association via a novel Dual-Trait Association (DTA) task. [Paper](https://arxiv.org/abs/2611.15925)
 - **WordEval** (2026-11-07) — We introduce WordEval, an operation-fidelity benchmark that instead centers evaluation on Word editing operations, testing whether each requested edit is realized as intended changes to Word objects and properties. [Paper](https://arxiv.org/abs/2611.10475)
 - **CiteResolve** (2026-10-21) — Evaluates detection and resolution of hallucinated citations, testing source-aware grounding and recovery across 423 real-world cases. [Paper](https://arxiv.org/abs/2610.30355) · [Code](https://github.com/oldwizard7/CiteANCHOR_code)
 - **Visual Sanad** (2026-10-15) — Evaluates vision-language models on verifying Qur'anic citation claims from rendered images across varied visual framings and factual states. [Paper](https://arxiv.org/abs/2610.22009) · [Code](https://github.com/NiazTahi/Visual-Sanad)
@@ -1221,6 +1229,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Image & Visual Reasoning
 
+- **DesignTaste** (2026-11-12) — We introduce DesignTaste, a visual design benchmark that compares generated images with award-winning works. [Paper](https://arxiv.org/abs/2611.16442) · [Code](https://github.com/ArtArk-AI/DesignTaste)
 - **GingivitisSeg** (2026-11-11) — We introduce GingivitisSeg, a public benchmark comprising 961 intraoral images with pixel-level annotations of gingival inflammation and predefined training (672), validation (144), and test (145) partitions. [Paper](https://arxiv.org/abs/2611.15184) · [Code](https://github.com/zeynepozdemir/GingivitisSeg)
 - **Martine** (2026-11-08) — We introduce Martine, a benchmark for controlled 3D object surface reconstruction. [Paper](https://arxiv.org/abs/2611.11602)
 - **MotionGraphicsBench** (2026-11-07) — We introduce MotionGraphicsBench, an expert-curated benchmark of 100 instances for animating an input static SVG with a motion edit prompt. [Paper](https://arxiv.org/abs/2611.10592) · [HF](https://huggingface.co/papers/2611.10592) · [Data](https://huggingface.co/datasets/figma-ai/motion-graphics-bench)
@@ -1374,6 +1383,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Knowledge & Expert QA
 
+- **PhysCapBench** (2026-11-12) — Motivated by our data construction for world-model pretraining, we introduce PhysCapBench, to our knowledge the first unified physical-caption benchmark spanning all three domains: third-person scenes, egocentric manipu… [Paper](https://arxiv.org/abs/2611.16424)
 - **VisSearch-Bench** (2026-11-03) — We introduce VisSearch-Bench, with 204 human-written tasks across 7 main domains and 25 subdomains. [Paper](http://arxiv.org/abs/2611.04894v1) · [HF](https://huggingface.co/papers/2611.04894) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)
 - **GI-TraceBench** (2026-11-02) — GI-TraceBench evaluates evidence-grounded scientific reasoning in gastrointestinal oncology across provenance QA, knowledge discovery, and hypothesis evaluation using shared Paper, Claim, and Evidence Span records. [Paper](http://arxiv.org/abs/2611.02545v1) · [Data](https://huggingface.co/datasets/Sereints/FindLink)
 - **TriPhysBench** (2026-11-01) — Inspired by Popper's Three Worlds, we introduce TriPhysBench, a benchmark of 410 questions from 200 videos that brings physical perception, physical knowledge retrieval, and physical reasoning into a shared evaluation s… [Paper](https://arxiv.org/abs/2611.01934)
@@ -1521,6 +1531,13 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **Singularity-Bench** (2026-11-12) — We introduce Singularity-Bench, an open-ended benchmark for autonomous AI development with six end-to-end tasks spanning pre-training, mid-training, post-training, inference, the agent harness, and cluster orchestration. [Paper](https://arxiv.org/abs/2611.16591)
+- **ProgramSelectBench** (2026-11-12) — To systematically study this bottleneck, we introduce ProgramSelectBench, a large-scale benchmark with a combined total of 16,977 agent-generated and human-engineered SSL programs, and evaluate both unsupervised and act… [Paper](https://arxiv.org/abs/2611.17323)
+- **MuSeToM** (2026-11-12) — To address this gap, we present MuSeToM, a human-validated, text-based benchmark for evaluating epistemic belief revision in ToM reasoning. [Paper](https://arxiv.org/abs/2611.16662)
+- **GOOSELoc** (2026-11-12) — We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial localization in unstructured environments, including forests, fields, and rural tracks. [Paper](https://arxiv.org/abs/2611.16162)
+- **FuGIBench** (2026-11-12) — We introduce FuGIBench (Future-Grounded Interaction), a streaming-video benchmark in which a model chooses among waiting, reversible preparation, and response given a causal video prefix and a task contract. [Paper](https://arxiv.org/abs/2611.16400)
+- **AeroZoo** (2026-11-12) — We introduce AeroZoo, a benchmark and training corpus of 3,815 time-mean solutions to the unsteady Reynolds-averaged Navier--Stokes (RANS) equations with a transition model, across seven geometry families, eight enclosu… [Paper](https://arxiv.org/abs/2611.17152) · [Data](https://huggingface.co/datasets/nvidia/AeroZoo)
+- **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777)
 - **MechBench** (2026-11-11) — To fill this gap, we introduce MECHBENCH, a 2,541-question benchmark for evaluating LLMs in parallel mechanisms across professional knowledge, mechanism analysis, and design. [Paper](https://arxiv.org/abs/2611.15342)
 - **VIGOR** (2026-11-09) — We introduce VIGOR, a benchmark for evaluating VIsually GrOunded Rationales in MLLMs. [Paper](https://arxiv.org/abs/2611.13150) · [HF](https://huggingface.co/papers/2611.13150) · [Code](https://github.com/deep-real/VIGOR)
 - **Infrathon** (2026-11-09) — We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. [Paper](https://arxiv.org/abs/2611.11995) · [HF](https://huggingface.co/papers/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)
@@ -1714,6 +1731,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
+- **ManiLadder** (2026-11-12) — We present ManiLadder, a large-scale and organized simulation benchmark for robotic manipulation. [Paper](https://arxiv.org/abs/2611.16374)
+- **DashBench** (2026-11-12) — To provide a comprehensive evaluation of Video LLMs on precisely these scenarios, we introduce DashBench, a benchmark testing 25 Video LLMs on 1,709 carefully curated driving videos spanning not only collision-related c… [Paper](https://arxiv.org/abs/2611.16767)
 - **MVDriveBench** (2026-11-11) — To address this gap, we propose MVDriveBench, a high-information-density video QA benchmark for autonomous driving, characterized by synchronized surround-view inputs, spatio-temporal understanding, and reasoning-chain-… [Paper](https://arxiv.org/abs/2611.15225)
 - **GeoMind** (2026-11-09) — To address this gap, we introduce GeoMind, a systematic benchmark for structured spatial understanding through tabletop manipulation. [Paper](https://arxiv.org/abs/2611.12175) · [Code](https://github.com/Notfound-JH/GEOMIND-benchmark.git)
 - **HARP-Bench** (2026-11-08) — We introduce HARP-Bench, a benchmark for evaluating robot manipulation policies in workspaces shared with active humans. [Paper](https://arxiv.org/abs/2611.11123) · [Code](https://github.com/UMass-Embodied-AGI/harp)
@@ -1984,6 +2003,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
+- **NIBench** (2026-11-11) — Here we present NIBench, a neuroimaging benchmark comprising three complementary evaluations of autonomous agents. [Paper](https://arxiv.org/abs/2611.15831)
 - **Chem World** (2026-11-10) — We introduce Chem World, a large-scale benchmark integrating 17 public datasets with over 800,000 molecular and chemical-system instances across 10 property tracks, covering single-molecule and multi-component systems,… [Paper](https://arxiv.org/abs/2611.13945)
 - **ChemInsight** (2026-11-09) — We introduce ChemInsight, a benchmark designed to evaluate large language models (LLMs) on chemistry tasks that require multi-step reasoning and structured chemical understanding. [Paper](https://arxiv.org/abs/2611.11794)
 - **ZeoBench** (2026-11-06) — We present ZeoBench, a benchmark for self-supervised learning on dense 3D representations of all-silica zeolites, and evaluate the resulting features on six existing downstream adsorption-property prediction tasks, acro… [Paper](http://arxiv.org/abs/2611.09880v1)
@@ -2124,7 +2144,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Spatial & 3D Reasoning
 
-- **RSLiveBench-UAV** (2026-11-11) — We introduce \textbf{RSLiveBench-UAV}, a continually evolving vision-language benchmark driven by recurring acquisition of real UAV imagery. [Paper](https://arxiv.org/abs/2611.14953) · [HF](https://huggingface.co/papers/2611.14953)
+- **RSLiveBench-UAV** (2026-11-11) — We introduce \textbf{RSLiveBench-UAV}, a continually evolving vision-language benchmark driven by recurring acquisition of real UAV imagery. [Paper](https://arxiv.org/abs/2611.14953)
 - **SurgKnowBench** (2026-11-08) — In Stage I, we introduce SurgKnowBench, a diagnostic benchmark that harmonizes public surgical datasets across procedures and tasks and evaluates proprietary and open-source MLLMs to map the boundary of pretrained surgi… [Paper](https://arxiv.org/abs/2611.11437)
 - **Frontier3DBench** (2026-11-06) — We propose Frontier3DBench, a unified benchmark of 145 tasks across 9 categories spanning object, scene, and interactive open-world creation, with joint evaluation of appearance, structure, and behavior. [Paper](http://arxiv.org/abs/2611.09017v1) · [HF](https://huggingface.co/papers/2611.09017)
 - **CST-Bench** (2026-11-05) — To address this problem, we introduce CST-Bench, a benchmark for counterfactual spatial reasoning. [Paper](http://arxiv.org/abs/2611.07541v1)
