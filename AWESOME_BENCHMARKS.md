@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-12 · **Benchmark releases:** 2966
+**Snapshot:** 2026-11-13 · **Benchmark releases:** 2966
 
 ## Contents
 
@@ -1537,7 +1537,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **GOOSELoc** (2026-11-12) — We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial localization in unstructured environments, including forests, fields, and rural tracks. [Paper](https://arxiv.org/abs/2611.16162)
 - **FuGIBench** (2026-11-12) — We introduce FuGIBench (Future-Grounded Interaction), a streaming-video benchmark in which a model chooses among waiting, reversible preparation, and response given a causal video prefix and a task contract. [Paper](https://arxiv.org/abs/2611.16400)
 - **AeroZoo** (2026-11-12) — We introduce AeroZoo, a benchmark and training corpus of 3,815 time-mean solutions to the unsteady Reynolds-averaged Navier--Stokes (RANS) equations with a transition model, across seven geometry families, eight enclosu… [Paper](https://arxiv.org/abs/2611.17152) · [Data](https://huggingface.co/datasets/nvidia/AeroZoo)
-- **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777)
+- **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777) · [HF](https://huggingface.co/papers/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)
 - **MechBench** (2026-11-11) — To fill this gap, we introduce MECHBENCH, a 2,541-question benchmark for evaluating LLMs in parallel mechanisms across professional knowledge, mechanism analysis, and design. [Paper](https://arxiv.org/abs/2611.15342)
 - **VIGOR** (2026-11-09) — We introduce VIGOR, a benchmark for evaluating VIsually GrOunded Rationales in MLLMs. [Paper](https://arxiv.org/abs/2611.13150) · [HF](https://huggingface.co/papers/2611.13150) · [Code](https://github.com/deep-real/VIGOR)
 - **Infrathon** (2026-11-09) — We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. [Paper](https://arxiv.org/abs/2611.11995) · [HF](https://huggingface.co/papers/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)
