@@ -26,12 +26,12 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-14 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-13 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 22 HF votes · 123 GitHub stars |
-| 2 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 2,213 dataset downloads |
+| 1 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 2,213 dataset downloads |
+| 2 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 22 HF votes · 123 GitHub stars |
 | 3 | **MotionGraphicsBench**<br><sub>[Paper](https://arxiv.org/abs/2611.10592)</sub> | Image & Visual Reasoning | 14 HF votes · 532 dataset downloads |
 | 4 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 589 dataset downloads |
 | 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 32 GitHub stars |
