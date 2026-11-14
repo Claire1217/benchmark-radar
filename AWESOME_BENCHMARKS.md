@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-13 · **Benchmark releases:** 2966
+**Snapshot:** 2026-11-14 · **Benchmark releases:** 2966
 
 ## Contents
 
@@ -335,7 +335,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Agent Skills & Self-Improvement
 
 - **ReA-Bench** (2026-11-12) — We introduce ReA-Bench, a diagnostic benchmark for auditing responsible agent behavior. [Paper](https://arxiv.org/abs/2611.16493)
-- **CrossLearnBench** (2026-11-07) — For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can rea… [Paper](https://arxiv.org/abs/2611.10439)
+- **CrossLearnBench** (2026-11-07) — For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can rea… [Paper](https://arxiv.org/abs/2611.10439) · [HF](https://huggingface.co/papers/2611.10439)
 - **DexArena** (2026-11-02) — We introduce DexArena, a benchmark designed to evaluate learning and generalization in long-horizon bimanual dexterous manipulation. [Paper](http://arxiv.org/abs/2611.02629v2)
 - **SkillShift-Bench** (2026-10-24) — SkillShift-Bench evaluates web agents' skill learning under simulated contextual, perceptual, and execution shifts across three self-hosted web systems, measuring task success, interaction cost, skill use, and skill fai… [Paper](https://arxiv.org/abs/2610.33528)
 - **SkillTransferBench** (2026-10-13) — SkillTransferBench evaluates whether LLM agent skills learned in one task family transfer to held-out cases across 35 families and 408 executable tasks. [Paper](https://arxiv.org/abs/2610.17860) · [Code](https://github.com/NJU-LINK/Socratic-Skill-Learning)
@@ -479,7 +479,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
+- **SPY-Bench** (2026-11-10) — To this end, we present SPY-Bench, the first systematic assessment of ITP$^3$ ability, which comprises (1) 32,700 unique samples with image-question pairs and personalized privacy instructions across 67 categories and 2… [Paper](https://arxiv.org/abs/2611.13997) · [HF](https://huggingface.co/papers/2611.13997) · [Code](https://github.com/achernarwang/specify-privacy-yourself)
 - **THEATRON** (2026-11-08) — We introduce THEATRON, a controlled benchmark that uses financial replay to evaluate persona persistence in long-horizon sequential decision-making. [Paper](https://arxiv.org/abs/2611.11487) · [Code](https://github.com/yuyan12138/theatron)
 - **SIExBench** (2026-11-07) — We present SIExBench, to our knowledge the first benchmark dedicated to automated repair of SIEx defects. [Paper](https://arxiv.org/abs/2611.10776)
 - **Multimodal-SEA** (2026-11-05) — We introduce Multimodal-SEA, an interactive benchmark comprising 608 expert-designed tasks grounded in real-world fraud cases, covering 14 domains and 152 attack scenarios with prepared multimodal content. [Paper](http://arxiv.org/abs/2611.08281v1)
@@ -897,7 +897,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
-- **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and $\texttt{robots.txt}$ d… [Paper](https://arxiv.org/abs/2611.11306)
+- **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and $\texttt{robots.txt}$ d… [Paper](https://arxiv.org/abs/2611.11306) · [HF](https://huggingface.co/papers/2611.11306) · [Code](https://github.com/imperialite/scrapebench)
 - **FinCutBench** (2026-11-08) — We introduce FinCutBench, a continually updated monthly financial knowledge benchmark for measuring how far a fixed model's financial knowledge extends over calendar time. [Paper](https://arxiv.org/abs/2611.11588)
 - **DeepFinance** (2026-11-07) — We introduce DeepFinance, an ultra long-horizon benchmark of 21 end-to-end PE and IB tasks that take a human professional an average of 27.1 hours. [Paper](https://arxiv.org/abs/2611.10926)
 - **WayPOP** (2026-11-04) — We introduce WayPOP, a panoramic open-set panoptic tracking benchmark built on real Waymo PVPS sequences augmented with diverse out-of-taxonomy 3D assets from Objaverse. [Paper](https://arxiv.org/abs/2611.05801) · [HF](https://huggingface.co/papers/2611.05801)
@@ -1537,7 +1537,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **GOOSELoc** (2026-11-12) — We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial localization in unstructured environments, including forests, fields, and rural tracks. [Paper](https://arxiv.org/abs/2611.16162)
 - **FuGIBench** (2026-11-12) — We introduce FuGIBench (Future-Grounded Interaction), a streaming-video benchmark in which a model chooses among waiting, reversible preparation, and response given a causal video prefix and a task contract. [Paper](https://arxiv.org/abs/2611.16400)
 - **AeroZoo** (2026-11-12) — We introduce AeroZoo, a benchmark and training corpus of 3,815 time-mean solutions to the unsteady Reynolds-averaged Navier--Stokes (RANS) equations with a transition model, across seven geometry families, eight enclosu… [Paper](https://arxiv.org/abs/2611.17152) · [Data](https://huggingface.co/datasets/nvidia/AeroZoo)
-- **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777)
+- **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777) · [HF](https://huggingface.co/papers/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)
 - **MechBench** (2026-11-11) — To fill this gap, we introduce MECHBENCH, a 2,541-question benchmark for evaluating LLMs in parallel mechanisms across professional knowledge, mechanism analysis, and design. [Paper](https://arxiv.org/abs/2611.15342)
 - **VIGOR** (2026-11-09) — We introduce VIGOR, a benchmark for evaluating VIsually GrOunded Rationales in MLLMs. [Paper](https://arxiv.org/abs/2611.13150) · [HF](https://huggingface.co/papers/2611.13150) · [Code](https://github.com/deep-real/VIGOR)
 - **Infrathon** (2026-11-09) — We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. [Paper](https://arxiv.org/abs/2611.11995) · [HF](https://huggingface.co/papers/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)
@@ -2144,7 +2144,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Spatial & 3D Reasoning
 
-- **RSLiveBench-UAV** (2026-11-11) — We introduce \textbf{RSLiveBench-UAV}, a continually evolving vision-language benchmark driven by recurring acquisition of real UAV imagery. [Paper](https://arxiv.org/abs/2611.14953)
+- **RSLiveBench-UAV** (2026-11-11) — We introduce \textbf{RSLiveBench-UAV}, a continually evolving vision-language benchmark driven by recurring acquisition of real UAV imagery. [Paper](https://arxiv.org/abs/2611.14953) · [HF](https://huggingface.co/papers/2611.14953)
 - **SurgKnowBench** (2026-11-08) — In Stage I, we introduce SurgKnowBench, a diagnostic benchmark that harmonizes public surgical datasets across procedures and tasks and evaluates proprietary and open-source MLLMs to map the boundary of pretrained surgi… [Paper](https://arxiv.org/abs/2611.11437)
 - **Frontier3DBench** (2026-11-06) — We propose Frontier3DBench, a unified benchmark of 145 tasks across 9 categories spanning object, scene, and interactive open-world creation, with joint evaluation of appearance, structure, and behavior. [Paper](http://arxiv.org/abs/2611.09017v1) · [HF](https://huggingface.co/papers/2611.09017)
 - **CST-Bench** (2026-11-05) — To address this problem, we introduce CST-Bench, a benchmark for counterfactual spatial reasoning. [Paper](http://arxiv.org/abs/2611.07541v1)
