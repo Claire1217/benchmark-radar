@@ -26,7 +26,7 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-15 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-14 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
@@ -37,8 +37,8 @@
 | 5 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 586 dataset downloads |
 | 6 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 32 GitHub stars |
 | 7 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 270 dataset downloads |
-| 8 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
-| 9 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
+| 8 | **GI-TraceBench**<br><sub>[Paper](http://arxiv.org/abs/2611.02545v1)</sub> | Knowledge & Expert QA · Science | 48 dataset downloads |
+| 9 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
 | 10 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 27 GitHub stars |
 
 ### Explore the library
