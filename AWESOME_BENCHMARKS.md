@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-15 · **Benchmark releases:** 2972
+**Snapshot:** 2026-11-16 · **Benchmark releases:** 2972
 
 ## Contents
 
@@ -783,7 +783,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **LiveGeo** (2026-11-12) — We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments usin… [Paper](https://arxiv.org/abs/2611.17267)
 - **WordInferBench** (2026-11-11) — We introduce WordInferBench, a benchmark comprising 280 base document-editing instances, each paired with three instruction conditions: descriptive (the instruction explicitly lists every attribute change), referential… [Paper](https://arxiv.org/abs/2611.15189)
-- **VibePrevisBench** (2026-11-11) — We introduce VibePrevisBench, a benchmark for 4D scene reconstruction: an agent turns a brief into an executable 4D scene and renders its proxy video. [Paper](https://arxiv.org/abs/2611.15789)
+- **VibePrevisBench** (2026-11-11) — We introduce VibePrevisBench, a benchmark for 4D scene reconstruction: an agent turns a brief into an executable 4D scene and renders its proxy video. [Paper](https://arxiv.org/abs/2611.15789) · [HF](https://huggingface.co/papers/2611.15789)
 - **ChJGBench** (2026-11-11) — We introduce ChJGBench, a benchmark for generating the reasoning and dispositive sections of Chinese judgments across civil, criminal, and administrative cases. [Paper](https://arxiv.org/abs/2611.15639)
 - **RealEmbedBench** (2026-11-08) — We introduce RealEmbedBench, a benchmark of 5,142 samples covering three application-layer tasks: code generation and completion, state machine modeling and implementation, and cross-OS code translation. [Paper](https://arxiv.org/abs/2611.11469)
 - **ViBench 2.0** (2026-11-03) — We introduce ViBench 2.0, a benchmark for long-horizon software building that we use to select our platform's models. [Paper](http://arxiv.org/abs/2611.05620v1)
@@ -1537,9 +1537,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **Singularity-Bench** (2026-11-12) — We introduce Singularity-Bench, an open-ended benchmark for autonomous AI development with six end-to-end tasks spanning pre-training, mid-training, post-training, inference, the agent harness, and cluster orchestration. [Paper](https://arxiv.org/abs/2611.16591)
 - **ProgramSelectBench** (2026-11-12) — To systematically study this bottleneck, we introduce ProgramSelectBench, a large-scale benchmark with a combined total of 16,977 agent-generated and human-engineered SSL programs, and evaluate both unsupervised and act… [Paper](https://arxiv.org/abs/2611.17323)
 - **MuSeToM** (2026-11-12) — To address this gap, we present MuSeToM, a human-validated, text-based benchmark for evaluating epistemic belief revision in ToM reasoning. [Paper](https://arxiv.org/abs/2611.16662)
-- **GOOSELoc** (2026-11-12) — We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial localization in unstructured environments, including forests, fields, and rural tracks. [Paper](https://arxiv.org/abs/2611.16162)
+- **GOOSELoc** (2026-11-12) — We introduce GOOSELoc, a multimodal benchmark for ground-to-aerial localization in unstructured environments, including forests, fields, and rural tracks. [Paper](https://arxiv.org/abs/2611.16162) · [HF](https://huggingface.co/papers/2611.16162)
 - **FuGIBench** (2026-11-12) — We introduce FuGIBench (Future-Grounded Interaction), a streaming-video benchmark in which a model chooses among waiting, reversible preparation, and response given a causal video prefix and a task contract. [Paper](https://arxiv.org/abs/2611.16400)
-- **AeroZoo** (2026-11-12) — We introduce AeroZoo, a benchmark and training corpus of 3,815 time-mean solutions to the unsteady Reynolds-averaged Navier--Stokes (RANS) equations with a transition model, across seven geometry families, eight enclosu… [Paper](https://arxiv.org/abs/2611.17152) · [Data](https://huggingface.co/datasets/nvidia/AeroZoo)
+- **AeroZoo** (2026-11-12) — We introduce AeroZoo, a benchmark and training corpus of 3,815 time-mean solutions to the unsteady Reynolds-averaged Navier--Stokes (RANS) equations with a transition model, across seven geometry families, eight enclosu… [Paper](https://arxiv.org/abs/2611.17152) · [HF](https://huggingface.co/papers/2611.17152) · [Data](https://huggingface.co/datasets/nvidia/AeroZoo)
 - **SO-Arena** (2026-11-11) — We introduce SO-Arena, a benchmark characterizing the capability spectrum and decision reliability of System One models across 11 domains and five capability families. [Paper](https://arxiv.org/abs/2611.15777) · [HF](https://huggingface.co/papers/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)
 - **MechBench** (2026-11-11) — To fill this gap, we introduce MECHBENCH, a 2,541-question benchmark for evaluating LLMs in parallel mechanisms across professional knowledge, mechanism analysis, and design. [Paper](https://arxiv.org/abs/2611.15342)
 - **VIGOR** (2026-11-09) — We introduce VIGOR, a benchmark for evaluating VIsually GrOunded Rationales in MLLMs. [Paper](https://arxiv.org/abs/2611.13150) · [HF](https://huggingface.co/papers/2611.13150) · [Code](https://github.com/deep-real/VIGOR)
@@ -1736,7 +1736,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **Ego2Flow** (2026-11-13) — We introduce Ego2Flow, a closed-loop benchmark for assessing the traffic-system impact of autonomous driving on maps distilled from real-world cities. [Paper](https://arxiv.org/abs/2611.17720) · [Code](https://github.com/Fisher-007/Ego2Flow)
 - **ManiLadder** (2026-11-12) — We present ManiLadder, a large-scale and organized simulation benchmark for robotic manipulation. [Paper](https://arxiv.org/abs/2611.16374)
-- **DashBench** (2026-11-12) — To provide a comprehensive evaluation of Video LLMs on precisely these scenarios, we introduce DashBench, a benchmark testing 25 Video LLMs on 1,709 carefully curated driving videos spanning not only collision-related c… [Paper](https://arxiv.org/abs/2611.16767)
+- **DashBench** (2026-11-12) — To provide a comprehensive evaluation of Video LLMs on precisely these scenarios, we introduce DashBench, a benchmark testing 25 Video LLMs on 1,709 carefully curated driving videos spanning not only collision-related c… [Paper](https://arxiv.org/abs/2611.16767) · [HF](https://huggingface.co/papers/2611.16767)
 - **MVDriveBench** (2026-11-11) — To address this gap, we propose MVDriveBench, a high-information-density video QA benchmark for autonomous driving, characterized by synchronized surround-view inputs, spatio-temporal understanding, and reasoning-chain-… [Paper](https://arxiv.org/abs/2611.15225)
 - **GeoMind** (2026-11-09) — To address this gap, we introduce GeoMind, a systematic benchmark for structured spatial understanding through tabletop manipulation. [Paper](https://arxiv.org/abs/2611.12175) · [Code](https://github.com/Notfound-JH/GEOMIND-benchmark.git)
 - **HARP-Bench** (2026-11-08) — We introduce HARP-Bench, a benchmark for evaluating robot manipulation policies in workspaces shared with active humans. [Paper](https://arxiv.org/abs/2611.11123) · [Code](https://github.com/UMass-Embodied-AGI/harp)
