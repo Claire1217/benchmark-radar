@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-16 · **Benchmark releases:** 2972
+**Snapshot:** 2026-11-15 · **Benchmark releases:** 2974
 
 ## Contents
 
@@ -30,7 +30,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Document Understanding & OCR](#document-understanding--ocr) (40)
 - [Engineering & Hardware Design](#engineering--hardware-design) (35)
 - [Factuality & Hallucination](#factuality--hallucination) (34)
-- [Finance & Law](#finance--law) (66)
+- [Finance & Law](#finance--law) (67)
 - [Forecasting & Time Series](#forecasting--time-series) (23)
 - [Health & Medicine](#health--medicine) (119)
 - [Image & Video Generation](#image--video-generation) (112)
@@ -41,7 +41,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Math Reasoning](#math-reasoning) (30)
 - [Multi-Agent & Games](#multi-agent--games) (40)
 - [Multilingual & Translation](#multilingual--translation) (36)
-- [Other benchmark tasks](#other-benchmark-tasks) (113)
+- [Other benchmark tasks](#other-benchmark-tasks) (114)
 - [Professional & Enterprise Work](#professional--enterprise-work) (81)
 - [Robotics & Embodied AI](#robotics--embodied-ai) (156)
 - [Safety & Alignment](#safety--alignment) (111)
@@ -899,6 +899,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
+- **NER-D** (2026-11-13) — We present NER-D, a cross-domain benchmark for German NER comprising 13 datasets spanning 9 domains, including General/Politics, Wikipedia, Legal, Medical, Historical, Financial, Agriculture and Archaeology. [Paper](https://arxiv.org/abs/2611.18257)
 - **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and $\texttt{robots.txt}$ d… [Paper](https://arxiv.org/abs/2611.11306) · [HF](https://huggingface.co/papers/2611.11306) · [Code](https://github.com/imperialite/scrapebench)
 - **FinCutBench** (2026-11-08) — We introduce FinCutBench, a continually updated monthly financial knowledge benchmark for measuring how far a fixed model's financial knowledge extends over calendar time. [Paper](https://arxiv.org/abs/2611.11588)
 - **DeepFinance** (2026-11-07) — We introduce DeepFinance, an ultra long-horizon benchmark of 21 end-to-end PE and IB tasks that take a human professional an average of 27.1 hours. [Paper](https://arxiv.org/abs/2611.10926)
@@ -1534,6 +1535,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
+- **WeightBench** (2026-11-13) — We introduce WEIGHTBENCH, a benchmark that evaluates LLMs of increasing capability on 42 WSP tasks across five tracks: reading, fixing and writing weights, recognizing edits that are impossible, and data-free compressio… [Paper](https://arxiv.org/abs/2611.18553) · [Code](https://github.com/Aayush-Marasini/WeightBench)
 - **Singularity-Bench** (2026-11-12) — We introduce Singularity-Bench, an open-ended benchmark for autonomous AI development with six end-to-end tasks spanning pre-training, mid-training, post-training, inference, the agent harness, and cluster orchestration. [Paper](https://arxiv.org/abs/2611.16591)
 - **ProgramSelectBench** (2026-11-12) — To systematically study this bottleneck, we introduce ProgramSelectBench, a large-scale benchmark with a combined total of 16,977 agent-generated and human-engineered SSL programs, and evaluate both unsupervised and act… [Paper](https://arxiv.org/abs/2611.17323)
 - **MuSeToM** (2026-11-12) — To address this gap, we present MuSeToM, a human-validated, text-based benchmark for evaluating epistemic belief revision in ToM reasoning. [Paper](https://arxiv.org/abs/2611.16662)
