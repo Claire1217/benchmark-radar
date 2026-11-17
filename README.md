@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-16 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-17 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 22 HF votes · 163 GitHub stars |
-| 2 | **Infrathon**<br><sub>[Paper](https://arxiv.org/abs/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)</sub> | Other benchmark tasks | 52 HF votes · 37 GitHub stars |
+| 2 | **Infrathon**<br><sub>[Paper](https://arxiv.org/abs/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)</sub> | Other benchmark tasks | 56 HF votes · 40 GitHub stars |
 | 3 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 138 HF votes · 26 GitHub stars |
-| 4 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 32 GitHub stars |
-| 5 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
-| 6 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 26 HF votes · 2,352 dataset downloads |
-| 7 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 27 GitHub stars |
-| 8 | **Switch-SWE**<br><sub>[Paper](http://arxiv.org/abs/2611.02017v1)</sub> | Other benchmark tasks | 10 HF votes · 26 GitHub stars |
-| 9 | **AscendGYM**<br><sub>[Paper](https://arxiv.org/abs/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)</sub> | AI R&D & ML Engineering | 23 GitHub stars |
-| 10 | **Parametric CAD Bench v3**<br><sub>[Paper](http://arxiv.org/abs/2611.02659v1) · [Code](https://github.com/gNucleus-AI/freecad-validator)</sub> | Engineering & Hardware Design | 22 GitHub stars |
+| 4 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 26 HF votes · 2,449 dataset downloads |
+| 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 32 GitHub stars |
+| 6 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
+| 7 | **MotionGraphicsBench**<br><sub>[Paper](https://arxiv.org/abs/2611.10592)</sub> | Image & Visual Reasoning | 14 HF votes · 532 dataset downloads |
+| 8 | **VIPBench**<br><sub>[Paper](http://arxiv.org/abs/2611.05638v1)</sub> | Speech & Audio | 613 dataset downloads |
+| 9 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 27 GitHub stars |
+| 10 | **Agent Money Benchmark** | Agent Security & Prompt Injection · Professional & Enterprise Work | 294 dataset downloads |
 
 ### Explore the library
 
