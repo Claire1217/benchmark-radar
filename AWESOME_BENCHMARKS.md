@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-16 · **Benchmark releases:** 2992
+**Snapshot:** 2026-11-18 · **Benchmark releases:** 2992
 
 ## Contents
 
@@ -54,7 +54,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## AI R&D & ML Engineering
 
-- **AscendGYM** (2026-11-13) — To address this requirement, we introduce AscendGYM, a benchmark whose initial suite comprises 48 kernels across three difficulty levels. [Paper](https://arxiv.org/abs/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)
+- **AscendGYM** (2026-11-13) — To address this requirement, we introduce AscendGYM, a benchmark whose initial suite comprises 48 kernels across three difficulty levels. [Paper](https://arxiv.org/abs/2611.17621) · [HF](https://huggingface.co/papers/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)
 - **High-Throughput LLM Serving Benchmark** (2026-11-01) — Compares vLLM against a Hugging Face Transformers baseline server on throughput, time to first token and p50/p95/p99 latency under concurrent load, isolating PagedAttention, continuous batching and prefix caching effect… [Code](https://github.com/krbuti/High-Throughput-LLM-Serving-Benchmark---vLLM-vs.-baseline)
 - **AdapBench** (2026-10-31) — Implementations of online scheduler for reducing microbenchmark suite execution duration via anytime-valid confidence sequence-based early stopping and prioritization, with recorded traces from Java and Go projects. [Paper](https://arxiv.org/abs/2611.01255) · [Code](https://github.com/s3bastiankoch/adapbench)
 - **PAPERBENCHX** (2026-10-29) — A benchmark of 93 paper-reproduction tasks across 12 research areas in which agents reconstruct and execute key experiments and deliver runnable workflows. [Paper](https://arxiv.org/abs/2610.39744)
@@ -335,7 +335,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agent Skills & Self-Improvement
 
-- **ReA-Bench** (2026-11-12) — We introduce ReA-Bench, a diagnostic benchmark for auditing responsible agent behavior. [Paper](https://arxiv.org/abs/2611.16493)
+- **ReA-Bench** (2026-11-12) — We introduce ReA-Bench, a diagnostic benchmark for auditing responsible agent behavior. [Paper](https://arxiv.org/abs/2611.16493) · [HF](https://huggingface.co/papers/2611.16493)
 - **CrossLearnBench** (2026-11-07) — For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can rea… [Paper](https://arxiv.org/abs/2611.10439) · [HF](https://huggingface.co/papers/2611.10439)
 - **DexArena** (2026-11-02) — We introduce DexArena, a benchmark designed to evaluate learning and generalization in long-horizon bimanual dexterous manipulation. [Paper](http://arxiv.org/abs/2611.02629v2)
 - **SkillShift-Bench** (2026-10-24) — SkillShift-Bench evaluates web agents' skill learning under simulated contextual, perceptual, and execution shifts across three self-hosted web systems, measuring task success, interaction cost, skill use, and skill fai… [Paper](https://arxiv.org/abs/2610.33528)
@@ -365,8 +365,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Agentic Coding & SWE
 
-- **Accelerate Bench** (2026-11-16) — We introduce Accelerate Bench, a benchmark of 32 CPU optimization tasks adapted from scientific applications and supercomputing competitions. [Paper](https://arxiv.org/abs/2611.20882)
-- **SWE-CoWork** (2026-11-15) — We introduce SWE-CoWork, a benchmark comprising 101 development assignments across 101 real repositories, 11 programming languages, and 12 application domains. [Paper](https://arxiv.org/abs/2611.20218)
+- **Accelerate Bench** (2026-11-16) — We introduce Accelerate Bench, a benchmark of 32 CPU optimization tasks adapted from scientific applications and supercomputing competitions. [Paper](https://arxiv.org/abs/2611.20882) · [HF](https://huggingface.co/papers/2611.20882) · [Code](https://github.com/AdAstraAbyssoque/accelerate-bench)
+- **SWE-CoWork** (2026-11-15) — We introduce SWE-CoWork, a benchmark comprising 101 development assignments across 101 real repositories, 11 programming languages, and 12 application domains. [Paper](https://arxiv.org/abs/2611.20218) · [HF](https://huggingface.co/papers/2611.20218)
 - **Visual Cipher Bench** (2026-11-12) — To bridge this gap, we introduce Visual Cipher Bench, a collection of 40 original visual puzzles across four categories: spatial manipulation and simulation, logical constraints and planning, rule induction, and knowled… [Paper](https://arxiv.org/abs/2611.16861)
 - **MemReal-Bench** (2026-11-12) — To evaluate history-sensitive adaptation beyond factual recall, we introduce MemReal-Bench, a longitudinal benchmark grounded in month-long real-user interactions across dyadic and group scenes. [Paper](https://arxiv.org/abs/2611.16223) · [Code](https://github.com/jiazhicheng7-ctrl/MindMem)
 - **MLIRBench** (2026-11-11) — In this paper, we introduce MLIRBench, a benchmark for evaluating how LLMs reason about MLIR programs. [Paper](https://arxiv.org/abs/2611.14881) · [HF](https://huggingface.co/papers/2611.14881)
@@ -622,8 +622,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Computer Use & GUI Agents
 
-- **EVIDENT** (2026-11-16) — We introduce EVIDENT, an evidence-driven benchmark for evaluating whether GUI agents ground their decisions in observable web evidence. [Paper](https://arxiv.org/abs/2611.20488)
-- **WebArena-Pro** (2026-11-13) — To address these gaps, we introduce WebArena-Pro, a benchmark comprising 300 tasks across 20 self-hosted web applications in six domain categories, spanning distinct interface conventions, workflows, and data models. [Paper](https://arxiv.org/abs/2611.17955)
+- **EVIDENT** (2026-11-16) — We introduce EVIDENT, an evidence-driven benchmark for evaluating whether GUI agents ground their decisions in observable web evidence. [Paper](https://arxiv.org/abs/2611.20488) · [HF](https://huggingface.co/papers/2611.20488)
+- **WebArena-Pro** (2026-11-13) — To address these gaps, we introduce WebArena-Pro, a benchmark comprising 300 tasks across 20 self-hosted web applications in six domain categories, spanning distinct interface conventions, workflows, and data models. [Paper](https://arxiv.org/abs/2611.17955) · [HF](https://huggingface.co/papers/2611.17955) · [Code](https://github.com/McGill-NLP/webarena-pro)
 - **AcrossPlace** (2026-11-11) — We introduce AcrossPlace, a provenance-aware benchmark establishing a systematic evaluation standard for bidirectional language--vision place recognition. [Paper](https://arxiv.org/abs/2611.15314)
 - **USB Gym** (2026-11-05) — Methods: We built USB Gym, a testbed whose standard engine simulates ultrasound from public patient CT, with a network drawing organ textures from CT labels. [Paper](http://arxiv.org/abs/2611.08352v1) · [Code](https://github.com/tohnperfect/USBGym)
 - **ScamWorld** (2026-11-03) — ScamWorld provides a reusable testbed for systematically evaluating and stress-testing web agents against real-world online fraud. [Paper](http://arxiv.org/abs/2611.04879v2) · [HF](https://huggingface.co/papers/2611.04879) · [Code](https://github.com/wuyoscar/scamworld-bench)
@@ -787,7 +787,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **LiveGeo** (2026-11-12) — We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments usin… [Paper](https://arxiv.org/abs/2611.17267)
 - **WordInferBench** (2026-11-11) — We introduce WordInferBench, a benchmark comprising 280 base document-editing instances, each paired with three instruction conditions: descriptive (the instruction explicitly lists every attribute change), referential… [Paper](https://arxiv.org/abs/2611.15189)
-- **VibePrevisBench** (2026-11-11) — We introduce VibePrevisBench, a benchmark for 4D scene reconstruction: an agent turns a brief into an executable 4D scene and renders its proxy video. [Paper](https://arxiv.org/abs/2611.15789) · [HF](https://huggingface.co/papers/2611.15789)
+- **VibePrevisBench** (2026-11-11) — We introduce VibePrevisBench, a benchmark for 4D scene reconstruction: an agent turns a brief into an executable 4D scene and renders its proxy video. [Paper](https://arxiv.org/abs/2611.15789) · [HF](https://huggingface.co/papers/2611.15789) · [Code](https://github.com/vibeprevisbench/vibeprevisbench)
 - **ChJGBench** (2026-11-11) — We introduce ChJGBench, a benchmark for generating the reasoning and dispositive sections of Chinese judgments across civil, criminal, and administrative cases. [Paper](https://arxiv.org/abs/2611.15639)
 - **RealEmbedBench** (2026-11-08) — We introduce RealEmbedBench, a benchmark of 5,142 samples covering three application-layer tasks: code generation and completion, state machine modeling and implementation, and cross-OS code translation. [Paper](https://arxiv.org/abs/2611.11469)
 - **ViBench 2.0** (2026-11-03) — We introduce ViBench 2.0, a benchmark for long-horizon software building that we use to select our platform's models. [Paper](http://arxiv.org/abs/2611.05620v1)
@@ -2240,7 +2240,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Speech & Audio
 
-- **MR-Bench** (2026-11-16) — We build MR-Bench: MR-Bench-A types every test sample of four sentiment benchmarks; MR-Bench-H contains 900 human-validated clips (620 language-shortcut, LS; 280 non-verbal-shortcut, NS) from seven sources, and every mo… [Paper](https://arxiv.org/abs/2611.20349)
+- **MR-Bench** (2026-11-16) — We build MR-Bench: MR-Bench-A types every test sample of four sentiment benchmarks; MR-Bench-H contains 900 human-validated clips (620 language-shortcut, LS; 280 non-verbal-shortcut, NS) from seven sources, and every mo… [Paper](https://arxiv.org/abs/2611.20349) · [HF](https://huggingface.co/papers/2611.20349)
 - **OmniScore-Bench** (2026-11-13) — We introduce OmniScore-Bench, an evaluation of OMR capabilities in VLMs through 3,000 questions spanning six aspects and 24 task subtypes. [Paper](https://arxiv.org/abs/2611.17870)
 - **VIPBench** (2026-11-03) — We introduce the Voice Identity Perception benchmark (VIPBench), which contains 124,876 same-or-different judgments from 1,290 listeners on 9,800 recording pairs from 100 public figures. [Paper](http://arxiv.org/abs/2611.05638v1) · [Data](https://huggingface.co/datasets/sendfuze/vipbench)
 - **PianoBench** (2026-11-02) — We investigate this question by introducing PianoBench, a benchmark that tasks language models with reasoning about musical performances across congruent acoustic and symbolic input representations. [Paper](http://arxiv.org/abs/2611.03839v1) · [HF](https://huggingface.co/papers/2611.03839)
