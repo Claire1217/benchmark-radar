@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-17 · **Benchmark releases:** 3003
+**Snapshot:** 2026-11-18 · **Benchmark releases:** 3003
 
 ## Contents
 
@@ -1549,8 +1549,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **Social Signal Bench** (2026-11-17) — We introduce Social Signal Bench, a 47-hour densely annotated benchmark for the evaluation of social signal recognition and engagement, comprising two datasets: Social Signal Bench Video (25 hours), covering ten social… [Paper](https://arxiv.org/abs/2611.22704)
-- **PURE** (2026-11-17) — We introduce PURE, a diagnostic benchmark for multi-granularity multimodal identity matching covering four capability dimensions: Perception, Understanding, Reasoning, and Evidence-grounded Judgment. [Paper](https://arxiv.org/abs/2611.22343)
+- **Social Signal Bench** (2026-11-17) — We introduce Social Signal Bench, a 47-hour densely annotated benchmark for the evaluation of social signal recognition and engagement, comprising two datasets: Social Signal Bench Video (25 hours), covering ten social… [Paper](https://arxiv.org/abs/2611.22704) · [HF](https://huggingface.co/papers/2611.22704)
+- **PURE** (2026-11-17) — We introduce PURE, a diagnostic benchmark for multi-granularity multimodal identity matching covering four capability dimensions: Perception, Understanding, Reasoning, and Evidence-grounded Judgment. [Paper](https://arxiv.org/abs/2611.22343) · [HF](https://huggingface.co/papers/2611.22343)
 - **ReconPotBench** (2026-11-16) — We present ReconPotBench, a multi-round benchmark for Linux reconnaissance honeypots. [Paper](https://arxiv.org/abs/2611.20528) · [Code](https://github.com/qianli-wang/ReconPotBench)
 - **CivilBench** (2026-11-16) — In this work, we introduce CivilBench, a comprehensive benchmark for evaluating VLMs in civil engineering and disaster-related scenarios. [Paper](https://arxiv.org/abs/2611.21105) · [Data](https://huggingface.co/datasets/traceuryuan/CivilBench)
 - **XLSAR-Bench** (2026-11-14) — To address these limitations, we present XLSAR-Bench, a comprehensive benchmark for evaluating the perception and reasoning capabilities of MLLMs in large-scene SAR imagery. [Paper](https://arxiv.org/abs/2611.19364)
