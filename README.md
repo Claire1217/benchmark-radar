@@ -26,20 +26,20 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-19 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-20 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
 | 1 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 22 HF votes · 165 GitHub stars |
 | 2 | **Infrathon**<br><sub>[Paper](https://arxiv.org/abs/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)</sub> | Other benchmark tasks | 56 HF votes · 42 GitHub stars |
-| 3 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 87 HF votes · 26 GitHub stars |
-| 4 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 47 HF votes · 33 GitHub stars |
-| 5 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
-| 6 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 3,027 dataset downloads |
-| 7 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 28 GitHub stars |
-| 8 | **VibePrevisBench**<br><sub>[Paper](https://arxiv.org/abs/2611.15789) · [Code](https://github.com/vibeprevisbench/vibeprevisbench)</sub> | Document Understanding & OCR | 88 HF votes · 14 GitHub stars |
-| 9 | **SWE-CoWork**<br><sub>[Paper](https://arxiv.org/abs/2611.20218) · [Code](https://github.com/TokenWave-AI/swe-cowork-bench)</sub> | Agentic Coding & SWE | 51 HF votes · 14 GitHub stars |
-| 10 | **Switch-SWE**<br><sub>[Paper](http://arxiv.org/abs/2611.02017v1)</sub> | Other benchmark tasks | 10 HF votes · 26 GitHub stars |
+| 3 | **AscendGYM**<br><sub>[Paper](https://arxiv.org/abs/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)</sub> | AI R&D & ML Engineering | 92 HF votes · 32 GitHub stars |
+| 4 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 72 HF votes · 27 GitHub stars |
+| 5 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 25 HF votes · 34 GitHub stars |
+| 6 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 47 GitHub stars |
+| 7 | **VibePrevisBench**<br><sub>[Paper](https://arxiv.org/abs/2611.15789) · [Code](https://github.com/vibeprevisbench/vibeprevisbench)</sub> | Document Understanding & OCR | 87 HF votes · 18 GitHub stars |
+| 8 | **CrossSWE**<br><sub>[Paper](https://arxiv.org/abs/2611.01484)</sub> | Agentic Coding & SWE · Multilingual & Translation | 25 HF votes · 3,027 dataset downloads |
+| 9 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 28 GitHub stars |
+| 10 | **SWE-CoWork**<br><sub>[Paper](https://arxiv.org/abs/2611.20218) · [Code](https://github.com/TokenWave-AI/swe-cowork-bench)</sub> | Agentic Coding & SWE | 51 HF votes · 14 GitHub stars |
 
 ### Explore the library
 
