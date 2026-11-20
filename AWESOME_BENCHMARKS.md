@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-20 · **Benchmark releases:** 3033
+**Snapshot:** 2026-11-19 · **Benchmark releases:** 3034
 
 ## Contents
 
@@ -43,7 +43,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - [Multilingual & Translation](#multilingual--translation) (36)
 - [Other benchmark tasks](#other-benchmark-tasks) (129)
 - [Professional & Enterprise Work](#professional--enterprise-work) (82)
-- [Robotics & Embodied AI](#robotics--embodied-ai) (161)
+- [Robotics & Embodied AI](#robotics--embodied-ai) (162)
 - [Safety & Alignment](#safety--alignment) (111)
 - [Science](#science) (143)
 - [Spatial & 3D Reasoning](#spatial--3d-reasoning) (76)
@@ -1559,7 +1559,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **PosteriorBench** (2026-11-19) — We introduce PosteriorBench, a benchmark for comparing algorithms by their compute cost and by how close their samples are to the true posterior in forward and reverse KL divergence. [Paper](https://arxiv.org/abs/2611.25735) · [HF](https://huggingface.co/papers/2611.25735) · [Code](https://github.com/TransluceAI/PosteriorBench)
+- **PosteriorBench** (2026-11-19) — We introduce PosteriorBench, a benchmark for comparing algorithms by their compute cost and by how close their samples are to the true posterior in forward and reverse KL divergence. [Paper](https://arxiv.org/abs/2611.25735) · [Code](https://github.com/TransluceAI/PosteriorBench)
 - **FG-GraphBench** (2026-11-19) — To address these challenges, we introduce Fine-Grained Multimodal Scene Graph Benchmark (FG-GraphBench) and FiGRA. [Paper](https://arxiv.org/abs/2611.25408)
 - **EgoWitness** (2026-11-19) — To address this gap, we present EgoWitness, a benchmark for instance-level spatial memory and reasoning in egocentric video. [Paper](https://arxiv.org/abs/2611.25849) · [Code](https://github.com/egowitness/EgoWitness)
 - **ClosureBench** (2026-11-19) — We present ClosureBench, a benchmark that tests whether LLMs follow the stated rules for dealing with missing information. [Paper](https://arxiv.org/abs/2611.26335)
@@ -1569,8 +1569,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **DVBench** (2026-11-18) — In this paper, we present DVBench, the first end-to-end benchmark for Real-World UVM design verification agents. [Paper](https://arxiv.org/abs/2611.25066)
 - **CoEvoBench** (2026-11-18) — We introduce CoEvoBench, a benchmark that asks models to adapt an old driver module to a target kernel and evaluates the result against the developer's reference patch. [Paper](https://arxiv.org/abs/2611.24269)
 - **SurgCBVR** (2026-11-17) — We introduce SurgCBVR, the first benchmark for content-based video-to-video retrieval in surgery. [Paper](https://arxiv.org/abs/2611.23347)
-- **Social Signal Bench** (2026-11-17) — We introduce Social Signal Bench, a 47-hour densely annotated benchmark for the evaluation of social signal recognition and engagement, comprising two datasets: Social Signal Bench Video (25 hours), covering ten social… [Paper](https://arxiv.org/abs/2611.22704) · [HF](https://huggingface.co/papers/2611.22704)
-- **PURE** (2026-11-17) — We introduce PURE, a diagnostic benchmark for multi-granularity multimodal identity matching covering four capability dimensions: Perception, Understanding, Reasoning, and Evidence-grounded Judgment. [Paper](https://arxiv.org/abs/2611.22343) · [HF](https://huggingface.co/papers/2611.22343)
+- **Social Signal Bench** (2026-11-17) — We introduce Social Signal Bench, a 47-hour densely annotated benchmark for the evaluation of social signal recognition and engagement, comprising two datasets: Social Signal Bench Video (25 hours), covering ten social… [Paper](https://arxiv.org/abs/2611.22704)
+- **PURE** (2026-11-17) — We introduce PURE, a diagnostic benchmark for multi-granularity multimodal identity matching covering four capability dimensions: Perception, Understanding, Reasoning, and Evidence-grounded Judgment. [Paper](https://arxiv.org/abs/2611.22343)
 - **ReconPotBench** (2026-11-16) — We present ReconPotBench, a multi-round benchmark for Linux reconnaissance honeypots. [Paper](https://arxiv.org/abs/2611.20528) · [Code](https://github.com/qianli-wang/ReconPotBench)
 - **CivilBench** (2026-11-16) — In this work, we introduce CivilBench, a comprehensive benchmark for evaluating VLMs in civil engineering and disaster-related scenarios. [Paper](https://arxiv.org/abs/2611.21105) · [Data](https://huggingface.co/datasets/traceuryuan/CivilBench)
 - **XLSAR-Bench** (2026-11-14) — To address these limitations, we present XLSAR-Bench, a comprehensive benchmark for evaluating the perception and reasoning capabilities of MLLMs in large-scene SAR imagery. [Paper](https://arxiv.org/abs/2611.19364)
@@ -1776,6 +1776,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Robotics & Embodied AI
 
+- **PhyDEX** (2026-11-19) — We address this gap through the lens of dynamic extrinsic dexterity and introduce PhyDEX, a throwing benchmark in which a robot must infer an object's mass, center of mass, and friction to send it to a destination beyon… [Paper](https://arxiv.org/abs/2611.26565)
 - **Mind2Act World** (2026-11-19) — We introduce Mind2Act World, a diagnostic benchmark of 30 simulated manipulation tasks from five real-world application domains. [Paper](https://arxiv.org/abs/2611.26444)
 - **HandWorldBench** (2026-11-18) — To address this gap, we introduce HandWorldBench, a unified benchmark that systematically evaluates hand-centric world models across human hands, simulated dexterous hands, and real dexterous hands along six dimensions:… [Paper](https://arxiv.org/abs/2611.24731)
 - **RoboTeam** (2026-11-17) — We present RoboTeam, a simulated benchmark where agents control 4 to 16 robot arms in real time from camera images alone. [Paper](https://arxiv.org/abs/2611.22138)
@@ -2054,8 +2055,8 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
-- **TwinLab-Bench** (2026-11-19) — We introduce TwinLab-Bench, which evaluates AI scientists on self-designed experiments in 52 tasks from laboratories in the physical sciences, the life sciences, and engineering. [Paper](https://arxiv.org/abs/2611.26248) · [HF](https://huggingface.co/papers/2611.26248)
-- **RoughCut-Bench** (2026-11-18) — To address the evaluation gap, we introduce RoughCut-Bench, which covers two practical settings: (1) a visually driven setting over video cases, covering highlight detection and selection, source-video ordering, and adh… [Paper](https://arxiv.org/abs/2611.24098) · [HF](https://huggingface.co/papers/2611.24098)
+- **TwinLab-Bench** (2026-11-19) — We introduce TwinLab-Bench, which evaluates AI scientists on self-designed experiments in 52 tasks from laboratories in the physical sciences, the life sciences, and engineering. [Paper](https://arxiv.org/abs/2611.26248)
+- **RoughCut-Bench** (2026-11-18) — To address the evaluation gap, we introduce RoughCut-Bench, which covers two practical settings: (1) a visually driven setting over video cases, covering highlight detection and selection, source-video ordering, and adh… [Paper](https://arxiv.org/abs/2611.24098)
 - **SciResearch-Eval** (2026-11-16) — We introduce SciResearch-Eval, an interactive benchmark of scientific judgment built on a standard laboratory problem: measuring a material's thermal properties by heating it and fitting a heat-conduction simulator. [Paper](https://arxiv.org/abs/2611.21541) · [Code](https://github.com/Btwestyo/sciresearch-eval)
 - **EEGProbe** (2026-11-16) — We introduce EEGProbe, a signal-grounded benchmark for evaluating whether general-purpose VLMs can extract and reason from minimally processed, channel-wise EEG without task-specific feature engineering or EEG-specific… [Paper](https://arxiv.org/abs/2611.20779) · [Data](https://huggingface.co/datasets/2122ZHU/EEGProbe)
 - **MineralExp** (2026-11-13) — To address these challenges, we introduce MineralExp, a benchmark that reformulates geochemical experimental design as a hypothesis-based experiment selection problem, i.e., a multi-label classification problem. [Paper](https://arxiv.org/abs/2611.17931)
