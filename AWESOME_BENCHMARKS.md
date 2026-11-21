@@ -1559,7 +1559,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Other benchmark tasks
 
-- **PosteriorBench** (2026-11-19) — We introduce PosteriorBench, a benchmark for comparing algorithms by their compute cost and by how close their samples are to the true posterior in forward and reverse KL divergence. [Paper](https://arxiv.org/abs/2611.25735) · [HF](https://huggingface.co/papers/2611.25735) · [Code](https://github.com/TransluceAI/PosteriorBench)
+- **PosteriorBench** (2026-11-19) — We introduce PosteriorBench, a benchmark for comparing algorithms by their compute cost and by how close their samples are to the true posterior in forward and reverse KL divergence. [Paper](https://arxiv.org/abs/2611.25735) · [Code](https://github.com/TransluceAI/PosteriorBench)
 - **FG-GraphBench** (2026-11-19) — To address these challenges, we introduce Fine-Grained Multimodal Scene Graph Benchmark (FG-GraphBench) and FiGRA. [Paper](https://arxiv.org/abs/2611.25408)
 - **EgoWitness** (2026-11-19) — To address this gap, we present EgoWitness, a benchmark for instance-level spatial memory and reasoning in egocentric video. [Paper](https://arxiv.org/abs/2611.25849) · [Code](https://github.com/egowitness/EgoWitness)
 - **ClosureBench** (2026-11-19) — We present ClosureBench, a benchmark that tests whether LLMs follow the stated rules for dealing with missing information. [Paper](https://arxiv.org/abs/2611.26335)
@@ -1777,7 +1777,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Robotics & Embodied AI
 
 - **PhyDEX** (2026-11-19) — We address this gap through the lens of dynamic extrinsic dexterity and introduce PhyDEX, a throwing benchmark in which a robot must infer an object's mass, center of mass, and friction to send it to a destination beyon… [Paper](https://arxiv.org/abs/2611.26565)
-- **Mind2Act World** (2026-11-19) — We introduce Mind2Act World, a diagnostic benchmark of 30 simulated manipulation tasks from five real-world application domains. [Paper](https://arxiv.org/abs/2611.26444) · [HF](https://huggingface.co/papers/2611.26444) · [Code](https://github.com/Mind2Act/Mind2Act_World)
+- **Mind2Act World** (2026-11-19) — We introduce Mind2Act World, a diagnostic benchmark of 30 simulated manipulation tasks from five real-world application domains. [Paper](https://arxiv.org/abs/2611.26444)
 - **HandWorldBench** (2026-11-18) — To address this gap, we introduce HandWorldBench, a unified benchmark that systematically evaluates hand-centric world models across human hands, simulated dexterous hands, and real dexterous hands along six dimensions:… [Paper](https://arxiv.org/abs/2611.24731)
 - **RoboTeam** (2026-11-17) — We present RoboTeam, a simulated benchmark where agents control 4 to 16 robot arms in real time from camera images alone. [Paper](https://arxiv.org/abs/2611.22138)
 - **VisDrone-ReID** (2026-11-16) — This paper presents VisDrone-ReID, a unified multi-category Re-ID benchmark derived from the VisDrone2019-MOT dataset through a principled conversion pipeline. [Paper](https://arxiv.org/abs/2611.20372)
@@ -2055,7 +2055,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Science
 
-- **TwinLab-Bench** (2026-11-19) — We introduce TwinLab-Bench, which evaluates AI scientists on self-designed experiments in 52 tasks from laboratories in the physical sciences, the life sciences, and engineering. [Paper](https://arxiv.org/abs/2611.26248) · [HF](https://huggingface.co/papers/2611.26248) · [Code](https://github.com/ZJUSCL/TwinLab-Bench)
+- **TwinLab-Bench** (2026-11-19) — We introduce TwinLab-Bench, which evaluates AI scientists on self-designed experiments in 52 tasks from laboratories in the physical sciences, the life sciences, and engineering. [Paper](https://arxiv.org/abs/2611.26248)
 - **RoughCut-Bench** (2026-11-18) — To address the evaluation gap, we introduce RoughCut-Bench, which covers two practical settings: (1) a visually driven setting over video cases, covering highlight detection and selection, source-video ordering, and adh… [Paper](https://arxiv.org/abs/2611.24098)
 - **SciResearch-Eval** (2026-11-16) — We introduce SciResearch-Eval, an interactive benchmark of scientific judgment built on a standard laboratory problem: measuring a material's thermal properties by heating it and fitting a heat-conduction simulator. [Paper](https://arxiv.org/abs/2611.21541) · [Code](https://github.com/Btwestyo/sciresearch-eval)
 - **EEGProbe** (2026-11-16) — We introduce EEGProbe, a signal-grounded benchmark for evaluating whether general-purpose VLMs can extract and reason from minimally processed, channel-wise EEG without task-specific feature engineering or EEG-specific… [Paper](https://arxiv.org/abs/2611.20779) · [Data](https://huggingface.co/datasets/2122ZHU/EEGProbe)
