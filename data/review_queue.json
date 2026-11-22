@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-22T02:48:30.409050Z",
+  "generatedAt": "2026-11-22T08:26:51.900321Z",
   "sourceDate": "2026-11-21",
   "sourceWindow": {
     "from": "2026-11-21",
     "to": "2026-11-21"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 4079,
+  "candidateCount": 4080,
   "candidates": [
     {
       "id": "bm_zahramun-memory-benchmark_1e03ca00",
@@ -632,6 +632,96 @@
           "type": "huggingface",
           "id": "huggingface:cc3369/nextunit-bench",
           "url": "https://huggingface.co/datasets/CC3369/NextUnit-Bench"
+        }
+      ]
+    },
+    {
+      "id": "bm_loss-reserving-benchmark_6947a1b0",
+      "familyId": "bmf_7952bffb87fb",
+      "name": "loss-reserving-benchmark",
+      "paperTitle": "loss-reserving-benchmark",
+      "aliases": [],
+      "oneLine": "loss-reserving-benchmark Chain-ladder, Mack, bootstrap and ML reserve ranges tested against real outcomes (CAS Schedule P) # Loss reserving benchmark How good are insurance reserve ranges?",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/vickymitra786/loss-reserving-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-22T08:26:39.412981Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-21",
+      "firstSeenAt": "2026-11-22",
+      "indexedAt": "2026-11-22T08:26:39.412981Z",
+      "sourceUpdatedAt": "2026-11-22T03:23:01Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://www.casact.org/publications-research/research/research-resources/loss-reserving-data-pulled-naic-schedule-p",
+        "code": "https://github.com/vickymitra786/loss-reserving-benchmark"
+      },
+      "motivation": "loss-reserving-benchmark Chain-ladder, Mack, bootstrap and ML reserve ranges tested against real outcomes (CAS Schedule P) # Loss reserving benchmark How good are insurance reserve ranges?",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:vickymitra786/loss-reserving-benchmark",
+        "url": "https://github.com/vickymitra786/loss-reserving-benchmark",
+        "title": "loss-reserving-benchmark",
+        "authors": [
+          "vickymitra786"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "loss-reserving-benchmark Chain-ladder, Mack, bootstrap and ML reserve ranges tested against real outcomes (CAS Schedule P) # Loss reserving benchmark How good are insurance reserve ranges?",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "loss-reserving-benchmark Chain-ladder, Mack, bootstrap and ML reserve ranges tested against real outcomes (CAS Schedule P) # Loss reserving benchmark How good are insurance reserve ranges? This project takes 269 real US insurer claims triangles from NAIC Schedule P, forecasts what each company still owed at the end of 1997 using only what it knew then, and checks the forecasts against what it actually paid over the following years. Methods, kept deliberately simple and standard: - **Chain-ladder** on paid losses, and on reported (case-incurred) losses. - **Mack's model** (Mack, 1993): the standard error of the chain-ladder reserve, turned into a range with a lognormal curve. - **Over-dispersed Poisson bootstrap** (England and Verrall, 1999, 2002): 4,000 simulations per company for a full range of outcomes. A machine-learning model was tried during development. It did not beat chain-ladder in a preliminary run, so it was removed and is not part of these results. ## Results Typical miss = median absolute error of the total reserve. Lean = median signed error (+ means the reserve was too high). A good 90% range should hold the truth 90% of the time. | Line | Triangles | Chain-ladder (paid) typical miss | Chain-ladder (paid) lean | Chain-ladder (reported) typical miss | Mack 90% range held truth | Bootstrap 90% range held truth | |---|---:|---:|---:|---:|---:|---:| | All lines | 269 | 21.9% | +11.3% | 20.1% | 65% | 67% | | Private passenger auto | 77 | 19.6% | +13.0% | 11.2% | 62% | 60% | | Workers' compensation | 46 | 21.8% | +13.7% | 31.0% | 48% | 50% | | Commercial auto | 67 | 21.9% | +11.0% | 20.2% | 73% | 78% | | Other liability | 62 | 29.7% | +12.8% | 28.1% | 74% | 77% | | Medical malpractice | 8 | 45.2% | +23.3% | 25.5% | 38% | 50% | | Product liability | 9 | 16.4% | -2.3% | 18.8% | 67% | 67% | The ranges are too narrow, and they are usually set too high. Full details, uncertainty intervals and figures are in the paper. ## Run it 1. Install Python 3.13 and the packages: `pip install -r requirements.txt` 2. Download the six CSV files of the CAS Loss Reserving Database into `data/`: `comauto_pos.csv`, `medmal_pos.csv`, `othliab_pos.csv`, `ppauto_pos.csv`, `prodliab_pos.csv`, `wkcomp_pos.csv`. They are linked from the CAS page \"Loss Reserving Data Pulled From NAIC Schedule P\": https://www.casact.org/publications-research/research/research-resources/loss-reserving-data-pulled-naic-schedule-p 3. Check the maths: `python test_reserving.py` (reproduces Mack's published Taylor-Ashe reserve and standard error, and matches the `chainladder` package on a Schedule P triangle). 4. Rebuild every number: `python run_all.py` (under a minute). It writes `results/summary.json`, `results/companies.csv`, `results/dropped.csv`, the paper figures and the website data files. 5. Rebuild the paper (optional, needs Node.js): `cd paper && npm install && npm run build`, then save `paper/reserving.docx` as PDF. ## Files - `reserving.py`: data loading, the selection rule, chain-ladder, Mack and the bootstrap. - `run_all.py`: runs every company, scores the methods and writes the outputs. - `test_reserving.py`: checks against published results. - `paper/`: figures script, paper builder and the paper (`reserving.pdf`). ## Paper [How good are reserve ranges? Chain-ladder, Mack and bootstrap tested against realised outcomes in Schedule P data](paper/reserving.pdf). Interactive version: https://vivekmitra.com/reserving.html ## Data credit Casualty Actuarial Society, Loss Reserving Database. Meyers, G. and Shi, P. (2011), *Loss Reserving Data Pulled From NAIC Schedule P*. Company names and codes are as given in that database. Amounts are in thousands of US dollars. ## Licence Copyright (C) 2026 Vivek Mitra. Licensed under the GNU Affero General Public License v3.0.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:vickymitra786/loss-reserving-benchmark",
+          "url": "https://github.com/vickymitra786/loss-reserving-benchmark"
         }
       ]
     },
@@ -3459,13 +3549,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26389",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:43:42Z",
       "adoption30d": null,
       "heat": null,
@@ -3642,13 +3732,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26408",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:56:27Z",
       "adoption30d": null,
       "heat": null,
@@ -3729,13 +3819,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26311",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:00:09Z",
       "adoption30d": null,
       "heat": null,
@@ -3904,13 +3994,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25708",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T08:20:28Z",
       "adoption30d": null,
       "heat": null,
@@ -3990,13 +4080,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26386",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:41:48Z",
       "adoption30d": null,
       "heat": null,
@@ -4448,13 +4538,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25963",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T11:51:16Z",
       "adoption30d": null,
       "heat": null,
@@ -4542,13 +4632,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25925",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T11:08:50Z",
       "adoption30d": null,
       "heat": null,
@@ -4630,13 +4720,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26293",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T15:48:40Z",
       "adoption30d": null,
       "heat": null,
@@ -4994,13 +5084,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26369",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:34:29Z",
       "adoption30d": null,
       "heat": null,
@@ -5077,13 +5167,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26383",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T16:40:16Z",
       "adoption30d": null,
       "heat": null,
@@ -5430,13 +5520,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25407",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T02:48:39Z",
       "adoption30d": null,
       "heat": null,
@@ -5516,13 +5606,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25620",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T07:06:36Z",
       "adoption30d": null,
       "heat": null,
@@ -5610,7 +5700,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.25680",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-22T02:48:11.747916Z"
+        "verifiedAt": "2026-11-22T08:26:34.353129Z"
       },
       "venueAttempts": [
         {
@@ -5621,7 +5711,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.25680",
-              "observedAt": "2026-11-22T02:48:11.747916Z",
+              "observedAt": "2026-11-22T08:26:34.353129Z",
               "rawValue": "Accepted to EACL2027(Main)",
               "level": "author-claim"
             }
@@ -5631,7 +5721,7 @@
       "publications": [],
       "releasedAt": "2026-11-19",
       "firstSeenAt": "2026-11-22",
-      "indexedAt": "2026-11-22T02:48:11.747916Z",
+      "indexedAt": "2026-11-22T08:26:34.353129Z",
       "sourceUpdatedAt": "2026-11-19T07:58:14Z",
       "adoption30d": null,
       "heat": null,
@@ -238932,6 +239022,11 @@
           "type": "github",
           "id": "github:arjunbioinfo/multiomics-cancer-biomarker-ml",
           "url": "https://github.com/arjunbioinfo/multiomics-cancer-biomarker-ml"
+        },
+        {
+          "type": "github",
+          "id": "github:pi-mathematical-reasoning/pi-benchmarks",
+          "url": "https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks"
         }
       ]
     },
@@ -373429,9 +373524,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-11-22T02:48:31.350256Z",
+    "evaluatedAt": "2026-11-22T08:26:53.012825Z",
     "publishThreshold": 0.85,
     "promoted": 13,
-    "remainingForAudit": 4079
+    "remainingForAudit": 4080
   }
 }
