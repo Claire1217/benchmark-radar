@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-23T03:30:05.377741Z",
+  "generatedAt": "2026-11-23T09:26:15.081748Z",
   "sourceDate": "2026-11-22",
   "sourceWindow": {
     "from": "2026-11-20",
     "to": "2026-11-22"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 4119,
+  "candidateCount": 4122,
   "candidates": [
     {
       "id": "bm_seo-llm-bench_d5156a45",
@@ -541,6 +541,95 @@
           "type": "github",
           "id": "github:baksho/kg-truthlens",
           "url": "https://github.com/baksho/kg-truthlens"
+        }
+      ]
+    },
+    {
+      "id": "bm_genomic-ai-benchmark_68237a35",
+      "familyId": "bmf_213ddbb42c59",
+      "name": "genomic-ai-benchmark",
+      "paperTitle": "genomic-ai-benchmark",
+      "aliases": [],
+      "oneLine": "genomic-ai-benchmark Reproducible research demo for evaluating genomic foundation models, sequence baselines, biological generalization, and potential data leakage.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Biology & Drug Discovery"
+      ],
+      "primaryDomain": "Biology & Drug Discovery",
+      "industrySectors": [
+        "Pharma & Biotech"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Original Synthetic",
+      "annotation": "Machine Generated",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/ranajahanzaib/genomic-ai-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-23T09:25:28.292326Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-22",
+      "firstSeenAt": "2026-11-23",
+      "indexedAt": "2026-11-23T09:25:28.292326Z",
+      "sourceUpdatedAt": "2026-11-23T03:55:54Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "code": "https://github.com/ranajahanzaib/genomic-ai-benchmark"
+      },
+      "motivation": "genomic-ai-benchmark Reproducible research demo for evaluating genomic foundation models, sequence baselines, biological generalization, and potential data leakage.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ranajahanzaib/genomic-ai-benchmark",
+        "url": "https://github.com/ranajahanzaib/genomic-ai-benchmark",
+        "title": "genomic-ai-benchmark",
+        "authors": [
+          "ranajahanzaib"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 3
+        }
+      },
+      "evidence": {
+        "snippet": "genomic-ai-benchmark Reproducible research demo for evaluating genomic foundation models, sequence baselines, biological generalization, and potential data leakage.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "genomic-ai-benchmark Reproducible research demo for evaluating genomic foundation models, sequence baselines, biological generalization, and potential data leakage. benchmarking bioinformatics data-leakage foundation-models genomic-language-models genomics machine-learning reproducibility sequence-analysis # Genomic AI Benchmark An independent, reproducible research observatory for evaluating genomic foundation models, conventional sequence baselines, biological generalization, and sequence leakage across dataset splits. [![Observatory Dashboard](docs/screenshots/overview.png)](docs/screenshots/overview.png) --- ## Overview Modern genomic foundation models are frequently evaluated on tasks where sequence homology, reverse-complement equivalence, or substring containment between training and evaluation splits can inflate performance metrics. **Genomic AI Benchmark** provides a local research observatory and evaluation harness designed to: - Test biological generalization using **leave-one-species-out cross-validation**. - Detect cross-split sequence leakage (**exact matches, reverse-complement matches, and substring containment**). - Validate declared dataset partitions before benchmarking. - Provide a conventional **3-mer nearest-centroid sequence baseline** to calibrate model expectations. - Inspect sequence representations, nucleotide coordinates, and model metadata through an interactive workspace. - Provide full **dark mode** support and **WCAG AA accessible typography** (calibrated font sizes, high-contrast nucleotide base coloring, and responsive data displays). - Generate deterministic, cryptographically hashed **reproducibility manifests** for every evaluation run. > **Demonstration Notice:** The included local observatory is a research demo initialized with synthetic promoter sequence fixtures. The Evo 2 adapter adheres to the upstream scoring and embedding interface, but local model inference requires Linux with CUDA and validated weights. Results on synthetic fixtures exercise pipeline mechanics and do not represent biological evidence. --- ## Visual Tour & Interface Showcase ### Benchmark Explorer Evaluates sequence classification across independent species groups using leave-one-species-out partitioning, computing accuracy, balanced accuracy, macro-F1, per-class metrics, and held-out predictions: ![Benchmark Explorer](docs/screenshots/benchmarks.png) ### Leakage Inspector Scans declared dataset splits for exact matches, reverse-complement orientation matches, and substring containment to audit split integrity: ![Leakage Inspector](docs/screenshots/leakage-inspector.png) ### Embedding Atlas & Genome Browser Deterministic 2D projection of sequence composition metrics paired with a nucleotide-level viewer displaying sequence coordinates and color-coded bases (A, C, G, T): | Embedding Atlas | Genome Browser | | :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: | | [![Embedding Atlas](docs/screenshots/embedding-atlas.png)](docs/screenshots/embedding-atlas.png) | [![Genome Browser](docs/screenshots/genome-browser.png)](docs/screenshots/genome-browser.png) | ### Model Observatory & Dataset Registry Track model capabilities, verified architecture metadata, and hardware requirements independently from marketing claims. Import custom FASTA files or retrieve public NCBI nucleotide accessions: | Model Observatory | Dataset Registry | | :----------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | | [![Model Observatory](docs/screenshots/model-observatory.png)](docs/screenshots/model-observatory.png) | [![Dataset Registry](docs/screenshots/dataset-registry.png)](docs/screenshots/dataset-registry.png) | ### Experiment Runs & Audit History Every evaluation and leakage scan is persisted locally in SQLite with its timestamp, status, and full result payload: ![Experiment Runs](docs/screenshots/experiment-runs.png) --- ## Terminal & CLI Workflows In addition to the web observatory, all evaluation and audit workflows can be executed directly from the command line, emitting reproducibility manifests with fixture digests and runtime metadata: ![CLI Demonstration](docs/screenshots/cli-demo.svg) ### Available CLI Commands ```bash # Run leave-one-species-out grouped baseline evaluation .venv/bin/python -m research.cli evaluate --output artifacts/demo-evaluation.json # Audit dataset splits for exact, reverse-complement, or containment leakage .venv/bin/python -m research.cli leakage --output artifacts/demo-leakage.json # Validate declared split labels for species crossings .venv/bin/python -m research.cli validate-split --output artifacts/demo-split-validation.json ``` Each generated manifest includes: - `manifest_version` - `created_at` (ISO 8601 UTC timestamp) - `python` runtime version - `fixture_id` and SHA-256 fixture checksum - Full structured `result` payload --- ## Architecture The project is structured into three clean layers: ``` genomic-ai-benchmark/ ├── apps/ │ └── web/ # Next.js App Router & interactive research workspace │ ├── public/ # Static observatory client bundle (app.js, style.css, index.html) │ └── src/app/ # Next.js workspace wrapper ├── services/ │ └── api/ # FastAPI backend & SQLite persistence layer │ ├── main.py # REST endpoints, CORS, request limits, lifespans │ ├── app.py # SQLite storage and fixture seeding │ └── providers/ # External data providers (rate-limited NCBI EFetch) ├── research/ # Core scientific algorithms & CLI │ ├── cli.py # Reproducible CLI workflow runner & manifest emitter │ ├── genomics.py # k-mer vectorization, leave-one-species-out evaluation, leakage audits │ └── models/ # Model adapter contracts (Evo 2 StripedHyena 2 adapter) ├── fixtures/ # Checked-in synthetic sequ",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ranajahanzaib/genomic-ai-benchmark",
+          "url": "https://github.com/ranajahanzaib/genomic-ai-benchmark"
         }
       ]
     },
@@ -1438,6 +1527,97 @@
           "type": "huggingface",
           "id": "huggingface:arthrod/redline-bench-deepseek-trajectories",
           "url": "https://huggingface.co/datasets/arthrod/redline-bench-deepseek-trajectories"
+        }
+      ]
+    },
+    {
+      "id": "bm_pi-benchmarks_dab85197",
+      "familyId": "bmf_98833063c485",
+      "name": "pi-benchmarks",
+      "paperTitle": "pi-benchmarks",
+      "aliases": [],
+      "oneLine": "pi-benchmarks Manifests and tooling for Pi's benchmark data, mirrored in a private S3 bucket.",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-23T09:25:28.292326Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-21",
+      "firstSeenAt": "2026-11-23",
+      "indexedAt": "2026-11-23T09:25:28.292326Z",
+      "sourceUpdatedAt": "2026-11-21T05:55:15Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://raw.githubusercontent.com/Pi-Mathematical-Reasoning/pi-branding/main/assets/banner/pi-readme-banner.png",
+        "code": "https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks"
+      },
+      "motivation": "pi-benchmarks Manifests and tooling for Pi's benchmark data, mirrored in a private S3 bucket.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:pi-mathematical-reasoning/pi-benchmarks",
+        "url": "https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks",
+        "title": "pi-benchmarks",
+        "authors": [
+          "Pi-Mathematical-Reasoning"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "pi-benchmarks Manifests and tooling for Pi's benchmark data, mirrored in a private S3 bucket.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "pi-benchmarks Manifests and tooling for Pi's benchmark data, mirrored in a private S3 bucket. benchmarks datasets mathematical-reasoning s3 [![Pi: irrationally good at math](https://raw.githubusercontent.com/Pi-Mathematical-Reasoning/pi-branding/main/assets/banner/pi-readme-banner.png)](https://github.com/Pi-Mathematical-Reasoning) # pi-benchmarks [![GitHub release](https://img.shields.io/github/v/release/Pi-Mathematical-Reasoning/pi-benchmarks?label=release)](https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks/releases/latest) [![CI](https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks/actions/workflows/ci.yml/badge.svg?event=pull_request)](https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks/blob/main/LICENSE) The benchmark data for [Pi](https://github.com/Pi-Mathematical-Reasoning/pi), mirrored in a private S3 bucket. Pi pins every benchmark file by SHA-256 and fetches it from a public upstream. This repository says which of those files are also kept in a bucket of Pi's own, so the baseline can still be re-run if an upstream disappears. It holds manifests and tooling. It holds no problem text. ## Status **Both files are mirrored.** [Jaws](https://github.com/Jaws-Platform/jaws) v0.71.0 created the bucket on 2026-11-21, and both files were imported and verified the same day. Pi reads them from the bucket when the shell is signed in to AWS, and from their upstream otherwise. ## What is mirrored | Manifest | What it is | Size | Pi uses it as | | --- | --- | --- | --- | | [`math-500`](datasets/math-500.toml) | The 500 MATH test problems OpenAI selected for \"Let's Verify Step by Step\" | 447 KB | The scored benchmark | | [`math-train-12k`](datasets/math-train-12k.toml) | The 12,000 MATH problems PRM800K trains on: MATH's training split and the test problems not in MATH-500 | 5.1 MB | The source of the 30 development problems | Each file lives at `data/ / / ` in the bucket `jaws-pi-benchmarks-problems`. A changed file has a new key, so nothing is ever overwritten. `uv run pi-benchmarks check` prints every key. ## How it works - **[`jaws.yaml`](jaws.yaml)** declares one dataset and nothing else. Jaws creates a private, versioned, kept-forever bucket, with no network and no instances. - **A manifest** in `datasets/` names the upstream URL, pinned to a revision, and the file's SHA-256, size and license. - **Nothing automated writes the bucket.** The owner imports each file with admin credentials, and only the owner's credentials can read it. ## Importing a file Sign in to the production account first: ```sh aws sso login --profile jaws-prod export AWS_PROFILE=jaws-prod ``` Then import, and verify everything the bucket holds: ```sh uv run pi-benchmarks import math-500 uv run pi-benchmarks import math-train-12k --from ../Pi/data/math-dev-5bb914caa970.parquet uv run pi-benchmarks verify ``` `import` fetches the upstream, or takes a local copy with `--from` (here, the checked copy in a `pi` checkout beside this one), and checks it against its manifest. It uploads only if the key is new, then reads the object back and checks it again. Running it twice changes nothing. ## Adding a file 1. Add `datasets/ .toml` with the upstream URL pinned to a revision, the SHA-256, the size in bytes, and what the upstream says about its license. 2. Run `uv run pi-benchmarks check`, then open a pull request. 3. Once it has merged, import it as above. ## Development The repository uses [uv](https://docs.astral.sh/uv/), which installs the pinned Python (3.13) and the dependencies: ```sh uv sync uv run pytest uv run ruff check . && uv run ruff format --check . ``` The tests reach neither AWS nor an upstream: a stand-in for the AWS CLI (`tests/fake_aws.py`) answers on `PATH`. ## Contributing Every change reaches `main` through a pull request with a Conventional Commit title, and commits are a single line. [CONTRIBUTING.md](CONTRIBUTING.md) has the setup and the rules; coding agents read [AGENTS.md](AGENTS.md). ## License The code in this repository is [MIT](LICENSE). The benchmark files are not in the repository and keep their own terms, as each manifest records.",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:pi-mathematical-reasoning/pi-benchmarks",
+          "url": "https://github.com/Pi-Mathematical-Reasoning/pi-benchmarks"
         }
       ]
     },
@@ -3268,13 +3448,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27241",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T07:44:17Z",
       "adoption30d": null,
       "heat": null,
@@ -3537,13 +3717,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27355",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T09:26:13Z",
       "adoption30d": null,
       "heat": null,
@@ -3627,13 +3807,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27494",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T11:39:56Z",
       "adoption30d": null,
       "heat": null,
@@ -3716,13 +3896,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27136",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T05:10:36Z",
       "adoption30d": null,
       "heat": null,
@@ -3807,13 +3987,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26972",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T01:48:57Z",
       "adoption30d": null,
       "heat": null,
@@ -3985,13 +4165,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27753",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T15:43:13Z",
       "adoption30d": null,
       "heat": null,
@@ -4163,13 +4343,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27810",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T16:36:57Z",
       "adoption30d": null,
       "heat": null,
@@ -4250,13 +4430,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27106",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T04:32:13Z",
       "adoption30d": null,
       "heat": null,
@@ -4522,7 +4702,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27253",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -4533,7 +4713,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2611.27253",
-              "observedAt": "2026-11-23T03:29:23.185110Z",
+              "observedAt": "2026-11-23T09:25:24.260627Z",
               "rawValue": "Proceedings of the 43rd International Conference on Machine Learning (ICML 2026), PMLR 306:5144-5178, 2026",
               "level": "strong-author-metadata"
             }
@@ -4542,7 +4722,7 @@
       ],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T07:59:30Z",
       "adoption30d": null,
       "heat": null,
@@ -4626,13 +4806,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27741",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T15:36:12Z",
       "adoption30d": null,
       "heat": null,
@@ -4712,13 +4892,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27396",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T10:02:31Z",
       "adoption30d": null,
       "heat": null,
@@ -4891,13 +5071,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27536",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T12:33:19Z",
       "adoption30d": null,
       "heat": null,
@@ -5064,13 +5244,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27963",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T18:44:57Z",
       "adoption30d": null,
       "heat": null,
@@ -5152,13 +5332,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27411",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T10:16:13Z",
       "adoption30d": null,
       "heat": null,
@@ -5426,13 +5606,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27203",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T06:43:42Z",
       "adoption30d": null,
       "heat": null,
@@ -5514,13 +5694,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27181",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T06:11:14Z",
       "adoption30d": null,
       "heat": null,
@@ -5611,13 +5791,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27350",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T09:23:21Z",
       "adoption30d": null,
       "heat": null,
@@ -5698,13 +5878,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27306",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T08:49:02Z",
       "adoption30d": null,
       "heat": null,
@@ -5881,13 +6061,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27858",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T17:06:53Z",
       "adoption30d": null,
       "heat": null,
@@ -5966,13 +6146,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27273",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T08:12:23Z",
       "adoption30d": null,
       "heat": null,
@@ -6239,13 +6419,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.26942",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T00:54:46Z",
       "adoption30d": null,
       "heat": null,
@@ -6514,13 +6694,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27734",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T15:29:27Z",
       "adoption30d": null,
       "heat": null,
@@ -6568,6 +6748,95 @@
         "comments": ""
       },
       "candidatePriority": "normal"
+    },
+    {
+      "id": "bm_aimos-benchmark-results_1f029c00",
+      "familyId": "bmf_e9b2efb97cb9",
+      "name": "aimos-benchmark-results",
+      "paperTitle": "aimos-benchmark-results",
+      "aliases": [],
+      "oneLine": "aimos-benchmark-results AiMOS local LLM coding benchmark results — standardized Aider Polyglot runs on self-hosted hardware # AiMOS Local LLM Coding Benchmark Results Standardized [Aider Polyglot](https://aider.chat/docs/leaderboards/) ben…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "General AI"
+      ],
+      "primaryDomain": "General AI",
+      "industrySectors": [],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/AI-Development-Work/aimos-benchmark-results",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-23T09:25:28.292326Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-20",
+      "firstSeenAt": "2026-11-23",
+      "indexedAt": "2026-11-23T09:25:28.292326Z",
+      "sourceUpdatedAt": "2026-11-23T04:03:14Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://aider.chat/docs/leaderboards/",
+        "code": "https://github.com/AI-Development-Work/aimos-benchmark-results"
+      },
+      "motivation": "aimos-benchmark-results AiMOS local LLM coding benchmark results — standardized Aider Polyglot runs on self-hosted hardware # AiMOS Local LLM Coding Benchmark Results Standardized [Aider Polyglot](https://aider.chat/docs/leaderboards/) benchmark runs of open-weight LLMs, self-hosted on owned hardware.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:ai-development-work/aimos-benchmark-results",
+        "url": "https://github.com/AI-Development-Work/aimos-benchmark-results",
+        "title": "aimos-benchmark-results",
+        "authors": [
+          "AI-Development-Work"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "aimos-benchmark-results AiMOS local LLM coding benchmark results — standardized Aider Polyglot runs on self-hosted hardware # AiMOS Local LLM Coding Benchmark Results Standardized [Aider Polyglot](https://aider.chat/docs/leaderboards/) benchmark runs of open-weight LLMs, self-hosted on owned hardware.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "aimos-benchmark-results AiMOS local LLM coding benchmark results — standardized Aider Polyglot runs on self-hosted hardware # AiMOS Local LLM Coding Benchmark Results Standardized [Aider Polyglot](https://aider.chat/docs/leaderboards/) benchmark runs of open-weight LLMs, self-hosted on owned hardware. This repo is a running record — hardware and the model roster will change over time; each result row is tagged with the hardware config and date it was run under. ## Headline: time to a correct solution What developers actually care about is how fast they get working code, not how many tries a model needs. This table scores every run on **wall-clock time to a correct solution**: the share of all 225 exercises solved within 5, 10 and 30 minutes of starting, all tries included. The standard leaderboard number (pass within 2 tries) is shown alongside for comparison. | Run | Engine | Hardware | Leaderboard score (2 tries) | Solved (final) | Median time to solve | Solved within 5 min | within 10 min | within 30 min | |---|---|---|---|---|---|---|---|---| | **DeepSeek V4.1-Flash (2-bit), thinking OFF — retry run** | Maya | 2 GPUs | 68.9% | 92.0% | 0.8 min | 88.4% | 90.7% | 92.0% | | DeepSeek V4.1-Flash (2-bit), thinking OFF — retry run | Maya | 1 GPU + RAM | 72.0% | 92.0% | 1.6 min | 78.7% | 89.8% | 91.6% | | **Qwen3.8-Flash-Next Q8_0, thinking OFF — retry run** | Basalt | 1 GPU + RAM | 75.1% | 90.7% | 0.2 min | 90.7% | 90.7% | 90.7% | | Qwen3.8-Flash-Next Q8_0, thinking OFF — retry run | Strata | 1 GPU + RAM | 73.8% | 89.8% | 0.2 min | 89.8% | 89.8% | 89.8% | | Qwen3.8-27B FP8, thinking OFF — retry run | vLLM | 1 GPU | 48.0% | 84.4% | 1.1 min | 74.7% | 82.7% | 84.4% | | DeepSeek V4.1-Flash (2-bit), thinking ON | Maya | 1 GPU + RAM | 85.8% | 85.8% | 8.8 min | 30.2% | 45.8% | 73.8% | | Qwen3.5-397B-A17B Q4_K_M, thinking OFF | llama.cpp | 2 GPUs + RAM | 84.4% | 84.4% | 6.2 min | 33.8% | 63.6% | 79.1% | | **Qwen3.8-Flash-Next Q8_0, thinking ON** | Strata | 1 GPU + RAM | **85.8%** | 85.8% | 2.5 min | 72.9% | 81.3% | 85.8% | | Qwen3.8-27B BF16 (16-bit), thinking ON | vLLM | 1 GPU | 75.1% | 75.1% | 7.3 min | 27.1% | 45.3% | 68.4% | | Qwen3.8-Flash-Next Q8_0, thinking OFF | Strata | 1 GPU + RAM | 74.2% | 74.2% | 0.2 min | 74.2% | 74.2% | 74.2% | | Qwen3.8-Flash-Next Q8_0, thinking OFF | Basalt | 1 GPU + RAM | 72.0% | 72.0% | 0.2 min | 72.0% | 72.0% | 72.0% | | Qwen3.8-Flash-Next Q8_0, thinking OFF, 4 requests at once | Basalt | 1 GPU + RAM | 71.1% | 71.1% | 0.9 min | 69.8% | 71.1% | 71.1% | | Qwen3.8-27B NVFP4 (4-bit), thinking ON | vLLM | 1 GPU | 71.1% | 71.1% | 3.3 min | 42.7% | 63.6% | 68.9% | | Qwen3.8-27B FP8, thinking ON | vLLM | 1 GPU | 69.3% | 69.3% | 4.0 min | 39.1% | 53.3% | 68.9% | | DeepSeek V4.1-Flash (2-bit), thinking OFF | Maya | 2 GPUs | 69.3% | 69.3% | 0.6 min | 69.3% | 69.3% | 69.3% | | DeepSeek V4.1-Flash (2-bit), thinking OFF | Maya | 1 GPU + RAM | 68.0% | 68.0% | 1.7 min | 61.3% | 67.1% | 68.0% | | Qwen3-235B-A22B-Instruct-2507 NVFP4 | vLLM | 2 GPUs | 53.8% | 53.8% | 0.7 min | 53.3% | 53.8% | 53.8% | | gpt-oss-120b | vLLM | 1 GPU | 53.3% | 53.3% | 0.7 min | 52.4% | 52.9% | 53.3% | | Qwen3.8-27B FP8, thinking OFF | vLLM | 1 GPU | 50.7% | 50.7% | 0.8 min | 48.4% | 50.7% | 50.7% | | Qwen3.8-27B BF16, thinking OFF | vLLM | 1 GPU | 50.2% | 50.2% | 1.3 min | 43.1% | 48.4% | 50.2% | | Qwen3.8-27B NVFP4 (4-bit), thinking OFF | vLLM | 1 GPU | 42.7% | 42.7% | 0.5 min | 42.2% | 42.7% | 42.7% | | Mistral Small 4 119B NVFP4 | vLLM | 1 GPU | 15.1% | 15.1% | 0.2 min | 15.1% | 15.1% | 15.1% | | Devstral Small 2 24B | vLLM | 1 GPU | 13.8% | 13.8% | 0.4 min | 13.8% | 13.8% | 13.8% | **2 GPUs vs 1:** the same 2-bit DeepSeek build moved from 1 GPU + system RAM to fully on both GPUs went from 78.7% to 88.4% solved within 5 minutes, with the median time to solve halved (1.6 → 0.8 min), at the same final accuracy (92.0%). **4-bit vs 8-bit vs 16-bit Qwen3.8-27B:** with thinking ON, 4-bit NVFP4 matched or beat FP8 (71.1% vs 69.3%) and was faster (median 3.3 vs 4.0 min; 42.7% vs 39.1% solved within 5 min). With thinking OFF, 4-bit lost about 8 points (42.7% vs 50.7% FP8, 50.2% BF16). With thinking ON, 16-bit BF16 was the most accurate (75.1%, about 4-6 points above 4-bit and 8-bit) but about 2x slower to a correct answer (median 7.3 min vs 3.3 min for 4-bit and 4.0 min for 8-bit; 27.1% solved within 5 min vs 42.7% and 39.1%); 4-bit is the fastest. **What it shows:** a fast model that retries against test feedback gets to working code sooner than a slow \"thinking\" model. DeepSeek with thinking off and retries solves 79% of exercises within 5 minutes; the same model with thinking on solves 30% in that time, despite the higher leaderboard score. The \"retry run\" rows are separate runs from the standard 2-try runs of the same model. **Strata vs Basalt, same model:** the same Qwen3.8-Flash-Next Q8_0 weights on Basalt v0.5.5 (GPU 1 plus RAM) solved 90.7% (75.1% in the first two tries) in 2h40m, versus 89.8% (73.8%) in 3h24m on Strata — about 22% less wall clock with equal or better accuracy; decode ~224 vs ~190–206 tok/s. **Flash-Next on Strata:** Qwen3.8-Flash-Next Q8_0 on the Strata engine (GPU 0 plus system RAM, 64k context, thinking OFF) solved 89.8% with a median of 0.2 min, and every solve landed inside 5 minutes. That is the best time-to-solution median in the table, ahead of the earlier best retry run on Qwen3.8-27B FP8 (84.4% solved, median 1.1 min), though DeepSeek 2-bit still solves more in total (92.0%). Its standard 2-try run reproduces the retry run's first-two-tries number (74.2% vs 73.8%) in 1h44m instead of 3h24m. *How measured:* per-exercise wall-clock time, 4 exercises running in parallel on the same hardware (so times are under load), self-hosted on a Dell T7920 with 2× RTX PRO 6000 Blackwell Max-Q. Script and raw results: see [RESULTS.md](RESULTS.md). > **Other engines optimize a model. Caldera optimizes the solution:** a suite of models working together, measured by how fast a task ends in cor",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:ai-development-work/aimos-benchmark-results",
+          "url": "https://github.com/AI-Development-Work/aimos-benchmark-results"
+        }
+      ]
     },
     {
       "id": "bm_ai-test-failure-analysis_294b5356",
@@ -6781,13 +7050,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.27044",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-23T03:29:23.185110Z"
+        "verifiedAt": "2026-11-23T09:25:24.260627Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-20",
       "firstSeenAt": "2026-11-23",
-      "indexedAt": "2026-11-23T03:29:23.185110Z",
+      "indexedAt": "2026-11-23T09:25:24.260627Z",
       "sourceUpdatedAt": "2026-11-20T03:16:43Z",
       "adoption30d": null,
       "heat": null,
@@ -377043,9 +377312,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-11-23T03:30:06.508742Z",
+    "evaluatedAt": "2026-11-23T09:26:16.156393Z",
     "publishThreshold": 0.85,
     "promoted": 16,
-    "remainingForAudit": 4119
+    "remainingForAudit": 4122
   }
 }
