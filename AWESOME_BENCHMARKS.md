@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-24 · **Benchmark releases:** 3092
+**Snapshot:** 2026-11-23 · **Benchmark releases:** 3092
 
 ## Contents
 
@@ -749,7 +749,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Deep Research & Search
 
 - **CocoonBench** (2026-11-23) — We introduce CocoonBench, a benchmark that evaluates whether multilingual search agents can escape such language information cocoons. [Paper](https://arxiv.org/abs/2611.30727)
-- **CompareDR** (2026-11-22) — We introduce CompareDR, a benchmark that combines task-specific pointwise audits with guideline-based pairwise comparisons. [Paper](https://arxiv.org/abs/2611.29549) · [HF](https://huggingface.co/papers/2611.29549)
+- **CompareDR** (2026-11-22) — We introduce CompareDR, a benchmark that combines task-specific pointwise audits with guideline-based pairwise comparisons. [Paper](https://arxiv.org/abs/2611.29549)
 - **AutoRAGBench** (2026-11-19) — In this paper, we propose AutoRAGBench, the first benchmark to evaluate how well LLM agents develop RAG systems from scratch in an open code space. [Paper](https://arxiv.org/abs/2611.25582)
 - **TUSI-Bench** (2026-11-16) — To address this gap, we introduce TUSI-Bench, a structured Persian legal benchmark designed for the evaluation of RAG-based systems. [Paper](https://arxiv.org/abs/2611.21823)
 - **ARE-bench** (2026-11-10) — We introduce ARE-bench to evaluate whether research agents advance ongoing projects while respecting prior decisions and existing workspace state, grounded in real session context and in-progress workspaces. [Paper](https://arxiv.org/abs/2611.14364)
@@ -898,7 +898,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Factuality & Hallucination
 
-- **PhyCoVE** (2026-11-22) — We introduce PhyCoVE, a benchmark of 533 cases on 110 source videos that covers rigid, elastic, and fluid dynamics in five interaction patterns, with edits that remove an object, change a physical quantity, or insert a… [Paper](https://arxiv.org/abs/2611.29184) · [HF](https://huggingface.co/papers/2611.29184)
+- **PhyCoVE** (2026-11-22) — We introduce PhyCoVE, a benchmark of 533 cases on 110 source videos that covers rigid, elastic, and fluid dynamics in five interaction patterns, with edits that remove an object, change a physical quantity, or insert a… [Paper](https://arxiv.org/abs/2611.29184)
 - **ComplexIF** (2026-11-22) — We introduce ComplexIF, a challenging benchmark for this setting, together with the automatic pipeline that generates it. [Paper](https://arxiv.org/abs/2611.29775)
 - **ShadowBench** (2026-11-11) — To quantify this limitation, we introduce ShadowBench, a rigorously hardened, shortcut-resistant benchmark designed to evaluate Latent Entity Association via a novel Dual-Trait Association (DTA) task. [Paper](https://arxiv.org/abs/2611.15925)
 - **WordEval** (2026-11-07) — We introduce WordEval, an operation-fidelity benchmark that instead centers evaluation on Word editing operations, testing whether each requested edit is realized as intended changes to Word objects and properties. [Paper](https://arxiv.org/abs/2611.10475)
@@ -1280,7 +1280,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Image & Visual Reasoning
 
 - **OpenViVE** (2026-11-23) — To address this gap, we introduce OpenViVE, the first large-scale native Vietnamese VE benchmark, containing 62,268 balanced image-hypothesis pairs from 10,378 culturally grounded images. [Paper](https://arxiv.org/abs/2611.30161)
-- **HIVE-Bench** (2026-11-23) — We introduce HIVE-Bench: one shared flow-matching policy reads 20 encoders from seven families on 24 egocentric bimanual tasks, across adaptation, task sharing, and sweeps of data, model size, and layer. [Paper](https://arxiv.org/abs/2611.30813) · [HF](https://huggingface.co/papers/2611.30813) · [Code](https://github.com/KolaKivy/HIVE-Bench)
+- **HIVE-Bench** (2026-11-23) — We introduce HIVE-Bench: one shared flow-matching policy reads 20 encoders from seven families on 24 egocentric bimanual tasks, across adaptation, task sharing, and sweeps of data, model size, and layer. [Paper](https://arxiv.org/abs/2611.30813)
 - **AIGI-26** (2026-11-23) — We introduce AIGI-26, a benchmark of 253,200 images covering 26 recent open- and closed-source generators. [Paper](https://arxiv.org/abs/2611.30236)
 - **CountDrawBench** (2026-11-22) — To study this problem, we introduce CountDrawBench, a benchmark including floor plans, electrical schematics, mechanical drawings, and molecular structures, with 1,574 counting questions and instance-level annotations w… [Paper](https://arxiv.org/abs/2611.29309)
 - **Omni-Workspace** (2026-11-14) — We introduce Omni-Workspace, a benchmark comprising 380 deep-research-style tasks across four multimodal workspace types and two difficulty levels. [Paper](https://arxiv.org/abs/2611.19202)
@@ -1594,9 +1594,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 - **PRIMEAPE** (2026-11-23) — To study this, we introduce PRIMEAPE, a multilingual benchmark for evaluating judge verdicts and rationales. [Paper](https://arxiv.org/abs/2611.30925)
 - **JaxNaviSim** (2026-11-23) — To address this problem, we introduce JaxNaviSim, a data-driven simulator and learning benchmark coupling Automatic Identification System (AIS) data with fast, controllable traffic simulation, in which learned models st… [Paper](https://arxiv.org/abs/2611.30600)
-- **GameDojo** (2026-11-23) — We introduce GameDojo, a controllable interactive gameplay benchmark of 120 boss encounters across 20 games for evaluating model capabilities, learning algorithms, and agent harnesses. [Paper](https://arxiv.org/abs/2611.30771) · [HF](https://huggingface.co/papers/2611.30771) · [Code](https://github.com/THUSI-Lab/GameDojo)
+- **GameDojo** (2026-11-23) — We introduce GameDojo, a controllable interactive gameplay benchmark of 120 boss encounters across 20 games for evaluating model capabilities, learning algorithms, and agent harnesses. [Paper](https://arxiv.org/abs/2611.30771) · [Code](https://github.com/THUSI-Lab/GameDojo)
 - **ComputeWise** (2026-11-23) — So we built ComputeWise, an open benchmark of research tasks on which this waste can be measured and reduced. [Paper](https://arxiv.org/abs/2611.31027) · [Code](https://github.com/SalesforceAIResearch/computewise) · [Data](https://huggingface.co/datasets/Salesforce/computewise)
-- **CivilCADBench** (2026-11-21) — We introduce CivilCADBench, a benchmark for understanding, reconstructing, and designing civil engineering drawing sets, built from real infrastructure drawings and source CAD files containing over 250,000 CAD entities. [Paper](https://arxiv.org/abs/2611.28853) · [HF](https://huggingface.co/papers/2611.28853)
+- **CivilCADBench** (2026-11-21) — We introduce CivilCADBench, a benchmark for understanding, reconstructing, and designing civil engineering drawing sets, built from real infrastructure drawings and source CAD files containing over 250,000 CAD entities. [Paper](https://arxiv.org/abs/2611.28853)
 - **Agent Money Benchmark** (2026-11-21) — We introduce Agent Money Benchmark (AMB) to test whether agents spend a client's money well, starting with purchases of information for financial decisions. [Paper](https://arxiv.org/abs/2611.28610)
 - **Tasklets** (2026-11-20) — We introduce Tasklets, a benchmark of small synthetic tasks for evaluating the computational capabilities of language model sequence-mixing layers. [Paper](https://arxiv.org/abs/2611.27607) · [Code](https://github.com/zaydzuhri/flame/tree/tasklets)
 - **AppCon-Bench** (2026-11-20) — We introduce AppCon-Bench, a benchmark comprising five tasks designed to assess material appearance constancy under controlled variations in geometry and illumination, and evaluate representative VLMs alongside human ob… [Paper](https://arxiv.org/abs/2611.27453)
@@ -1818,7 +1818,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Robotics & Embodied AI
 
 - **SayDo** (2026-11-23) — We introduce SayDo, a benchmark that assesses the propensity of frontier models to cause harm in embodied contexts. [Paper](https://arxiv.org/abs/2611.30957)
-- **SWEEP-Bench** (2026-11-23) — We introduce SWEEP-Bench, a simulation benchmark with 80 conveyor-belt manipulation tasks spanning 16 skill categories, each evaluated at 13 belt speeds (0.10-0.40 m/s). [Paper](https://arxiv.org/abs/2611.30637) · [HF](https://huggingface.co/papers/2611.30637) · [Code](https://github.com/Damin3927/SWEEP-Bench)
+- **SWEEP-Bench** (2026-11-23) — We introduce SWEEP-Bench, a simulation benchmark with 80 conveyor-belt manipulation tasks spanning 16 skill categories, each evaluated at 13 belt speeds (0.10-0.40 m/s). [Paper](https://arxiv.org/abs/2611.30637)
 - **RoboLiveMem** (2026-11-23) — We introduce RoboLiveMem, a benchmark that runs the same memory tasks twice, once with the world paused while the model thinks and once with the world running. [Paper](https://arxiv.org/abs/2611.30047)
 - **LIBERO-MOR** (2026-11-21) — We introduce LIBERO-MOR, a multimodal robustness benchmark across the vision-language-action pipeline. [Paper](https://arxiv.org/abs/2611.28867)
 - **RoboPRO** (2026-11-20) — To this end, we present RoboPRO, a Robotics benchmark for Perturbation-Resilient and Obstacle-aware planning, which unifies various axes of robustness in manipulation. [Paper](https://arxiv.org/abs/2611.26971)
