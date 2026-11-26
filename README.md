@@ -26,7 +26,7 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-25 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-27 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
@@ -38,7 +38,7 @@
 | 6 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 73 HF votes · 29 GitHub stars |
 | 7 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 48 GitHub stars |
 | 8 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 25 HF votes · 34 GitHub stars |
-| 9 | **qlaybench**<br><sub>[Paper](https://arxiv.org/abs/2611.30043) · [Code](https://github.com/caidish/KlayoutClaw)</sub> | Document Understanding & OCR | 40 GitHub stars |
+| 9 | **qlaybench**<br><sub>[Paper](https://arxiv.org/abs/2611.30043) · [Code](https://github.com/caidish/KlayoutClaw)</sub> | Document Understanding & OCR | 41 GitHub stars |
 | 10 | **Collaborative Intelligence Benchmark**<br><sub>[Paper](http://arxiv.org/abs/2611.02633v1)</sub> | Other benchmark tasks | 16 HF votes · 28 GitHub stars |
 
 ### Explore the library
