@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-26 · **Benchmark releases:** 3133
+**Snapshot:** 2026-11-25 · **Benchmark releases:** 3133
 
 ## Contents
 
@@ -500,7 +500,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **EvoLink-Bench** (2026-11-25) — To address this gap, we introduce \textbf{EvoLink-Bench}, a benchmark for evaluating self-evolving agents in long-horizon, interdependent task streams. [Paper](https://arxiv.org/abs/2611.34400) · [HF](https://huggingface.co/papers/2611.34400)
+- **EvoLink-Bench** (2026-11-25) — To address this gap, we introduce \textbf{EvoLink-Bench}, a benchmark for evaluating self-evolving agents in long-horizon, interdependent task streams. [Paper](https://arxiv.org/abs/2611.34400)
 - **PROPS** (2026-11-22) — We introduce PROPS, a benchmark of 2,257 pairs of twin histories that end on the same request but show one prop in two different looks. [Paper](https://arxiv.org/abs/2611.29665)
 - **EA-Bench** (2026-11-21) — To systematically study agent inefficiency under such imperfect information, we introduce Efficient Action (EA)-Bench, which evaluates both tool calls and user interactions in work-related tasks. [Paper](https://arxiv.org/abs/2611.28846)
 - **CompAct-Bench** (2026-11-19) — We introduce CompAct-Bench, a benchmark for evaluating working-context compaction through its downstream effect on agent task completion. [Paper](https://arxiv.org/abs/2611.25673)
@@ -1611,7 +1611,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **SysBio-SR** (2026-11-25) — We introduce SysBio-SR, a benchmark of 198 literature-based biological ODE systems with reaction annotations spanning mass action, Michaelis--Menten, Hill, and complex kinetics. [Paper](https://arxiv.org/abs/2611.34106)
 - **IRTIQA** (2026-11-25) — We ask whether self-evolution transfers from English to Urdu, and release IRTIQA, a benchmark of aligned English, Urdu-translated, and Urdu code-switched variants of DROP, SNIPS, AppWorld, and SkillsBench, built with a… [Paper](https://arxiv.org/abs/2611.34303)
 - **EgoUseBench** (2026-11-25) — We introduce EgoUseBench, a benchmark for evaluating Ego Use across three interaction settings with different levels of first-person context. [Paper](https://arxiv.org/abs/2611.34466)
-- **EgoMyo** (2026-11-25) — To support this task, we introduce EgoMyo, a benchmark spanning 5.75M video frames, 50 participants, 34 contact configurations, and repeated donnings, synchronizing these inputs with 3D hand pose and with contact and no… [Paper](https://arxiv.org/abs/2611.34224) · [HF](https://huggingface.co/papers/2611.34224)
+- **EgoMyo** (2026-11-25) — To support this task, we introduce EgoMyo, a benchmark spanning 5.75M video frames, 50 participants, 34 contact configurations, and repeated donnings, synchronizing these inputs with 3D hand pose and with contact and no… [Paper](https://arxiv.org/abs/2611.34224)
 - **SofaSpace** (2026-11-24) — Inspired by the moving sofa problem, we introduce SofaSpace, a benchmark for visual spatial reasoning through continuous planar rigid-body transport and environment construction. [Paper](https://arxiv.org/abs/2611.32285)
 - **Marketing-Bench** (2026-11-24) — We introduce Marketing-Bench, the first open-source marketing benchmark, which pairs discriminative tasks (detecting brand anomalies) with generative tasks (remediation), while keeping answers verifiable. [Paper](https://arxiv.org/abs/2611.32012)
 - **ICLWorld** (2026-11-24) — We present ICLWorld, an online benchmark that evaluates the ICL of agents from digital to physical worlds, covering computer use and robot use, together with UIverse, a unified harness that turns every environment into… [Paper](https://arxiv.org/abs/2611.32649) · [Code](https://github.com/ICLWorld/ICLWorld) · [Data](https://huggingface.co/datasets/Aoraku/ICLWorld)
