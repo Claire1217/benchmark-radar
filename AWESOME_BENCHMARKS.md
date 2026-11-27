@@ -10,7 +10,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 > This is a discovery index, not an endorsement or quality leaderboard. Ambiguous candidates are held for review, and missing resources remain unknown.
 
-**Snapshot:** 2026-11-27 · **Benchmark releases:** 3133
+**Snapshot:** 2026-11-26 · **Benchmark releases:** 3133
 
 ## Contents
 
@@ -500,7 +500,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Chat, Writing & Preference
 
-- **EvoLink-Bench** (2026-11-25) — To address this gap, we introduce \textbf{EvoLink-Bench}, a benchmark for evaluating self-evolving agents in long-horizon, interdependent task streams. [Paper](https://arxiv.org/abs/2611.34400) · [HF](https://huggingface.co/papers/2611.34400)
+- **EvoLink-Bench** (2026-11-25) — To address this gap, we introduce \textbf{EvoLink-Bench}, a benchmark for evaluating self-evolving agents in long-horizon, interdependent task streams. [Paper](https://arxiv.org/abs/2611.34400)
 - **PROPS** (2026-11-22) — We introduce PROPS, a benchmark of 2,257 pairs of twin histories that end on the same request but show one prop in two different looks. [Paper](https://arxiv.org/abs/2611.29665) · [HF](https://huggingface.co/papers/2611.29665)
 - **EA-Bench** (2026-11-21) — To systematically study agent inefficiency under such imperfect information, we introduce Efficient Action (EA)-Bench, which evaluates both tool calls and user interactions in work-related tasks. [Paper](https://arxiv.org/abs/2611.28846)
 - **CompAct-Bench** (2026-11-19) — We introduce CompAct-Bench, a benchmark for evaluating working-context compaction through its downstream effect on agent task completion. [Paper](https://arxiv.org/abs/2611.25673)
@@ -752,7 +752,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Deep Research & Search
 
-- **DRBench Pro** (2026-11-25) — We introduce DRBench Pro, a benchmark that makes structured knowledge coverage the primary evaluation target. [Paper](https://arxiv.org/abs/2611.34852) · [HF](https://huggingface.co/papers/2611.34852) · [Code](https://github.com/ZJU-REAL/DRBenchPro)
+- **DRBench Pro** (2026-11-25) — We introduce DRBench Pro, a benchmark that makes structured knowledge coverage the primary evaluation target. [Paper](https://arxiv.org/abs/2611.34852) · [Code](https://github.com/ZJU-REAL/DRBenchPro)
 - **CocoonBench** (2026-11-23) — We introduce CocoonBench, a benchmark that evaluates whether multilingual search agents can escape such language information cocoons. [Paper](https://arxiv.org/abs/2611.30727)
 - **CompareDR** (2026-11-22) — We introduce CompareDR, a benchmark that combines task-specific pointwise audits with guideline-based pairwise comparisons. [Paper](https://arxiv.org/abs/2611.29549) · [HF](https://huggingface.co/papers/2611.29549)
 - **AutoRAGBench** (2026-11-19) — In this paper, we propose AutoRAGBench, the first benchmark to evaluate how well LLM agents develop RAG systems from scratch in an open code space. [Paper](https://arxiv.org/abs/2611.25582)
@@ -944,7 +944,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 
 ## Finance & Law
 
-- **RealContextBench** (2026-11-25) — To evaluate contextual retrieval across workloads and under interference, we introduce RealContextBench, a benchmark with five application collections and three controlled conditions that isolate the effect of distracti… [Paper](https://arxiv.org/abs/2611.34366) · [HF](https://huggingface.co/papers/2611.34366) · [Code](https://github.com/SStan1/ConTra)
+- **RealContextBench** (2026-11-25) — To evaluate contextual retrieval across workloads and under interference, we introduce RealContextBench, a benchmark with five application collections and three controlled conditions that isolate the effect of distracti… [Paper](https://arxiv.org/abs/2611.34366) · [Code](https://github.com/SStan1/ConTra)
 - **SG-LegalClarify** (2026-11-14) — To address these gaps, we introduce SG-LegalClarify, a large-scale benchmark for open-ended legal reasoning and ambiguity recognition in Singapore law. [Paper](https://arxiv.org/abs/2611.19643)
 - **NER-D** (2026-11-13) — We present NER-D, a cross-domain benchmark for German NER comprising 13 datasets spanning 9 domains, including General/Politics, Wikipedia, Legal, Medical, Historical, Financial, Agriculture and Archaeology. [Paper](https://arxiv.org/abs/2611.18257)
 - **ScrapeBench** (2026-11-08) — In this paper, we introduce ScrapeBench, the first agentic benchmark for empirically evaluating the legal compliance of AI agents with website scraping policies, namely terms of service (ToS) and $\texttt{robots.txt}$ d… [Paper](https://arxiv.org/abs/2611.11306) · [HF](https://huggingface.co/papers/2611.11306) · [Code](https://github.com/imperialite/scrapebench)
@@ -1521,7 +1521,7 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Multi-Agent & Games
 
 - **CypherMAS** (2026-11-24) — We introduce CypherMAS, a synthetic benchmark that isolates communication and routing in fixed multi-agent graphs. [Paper](https://arxiv.org/abs/2611.33242) · [Code](https://github.com/Andoree/CypherMAS)
-- **Coding4Games** (2026-11-24) — We thus introduce Coding4Games, a benchmark for evaluating whether coding agents can develop standalone programs that play modern games through visual observations and standard game inputs. [Paper](https://arxiv.org/abs/2611.31974) · [HF](https://huggingface.co/papers/2611.31974) · [Code](https://github.com/GVCLab/Coding4Games)
+- **Coding4Games** (2026-11-24) — We thus introduce Coding4Games, a benchmark for evaluating whether coding agents can develop standalone programs that play modern games through visual observations and standard game inputs. [Paper](https://arxiv.org/abs/2611.31974)
 - **RI-Bench** (2026-11-20) — To measure it, we introduce RI-Bench, a behavioral benchmark grounded in the structures and public records of three institutional hierarchies: peer review, appellate adjudication, and parliamentary inquiry. [Paper](https://arxiv.org/abs/2611.27139) · [Code](https://github.com/jxtse/ri-bench)
 - **PixelBench** (2026-11-16) — We introduce PixelBench, formalizing text-to-image generation and instruction-guided editing for pixel art and providing a benchmark for these tasks. [Paper](https://arxiv.org/abs/2611.20628)
 - **OCTAVE** (2026-11-13) — We present OCTAVE, a benchmark for complete HTML5 game generation organized around eight Capability Dimensions, with 180 tasks and 1,800 Evaluation Requirements drawn from real player requests, commercial-mechanics reco… [Paper](https://arxiv.org/abs/2611.17681)
@@ -1610,11 +1610,11 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 - **VComBench** (2026-11-25) — We introduce VComBench, a benchmark of 380 compositional, multi-requirement tasks spanning text-to-video, image-to-video, and reference-to-video generation. [Paper](https://arxiv.org/abs/2611.34680)
 - **SysBio-SR** (2026-11-25) — We introduce SysBio-SR, a benchmark of 198 literature-based biological ODE systems with reaction annotations spanning mass action, Michaelis--Menten, Hill, and complex kinetics. [Paper](https://arxiv.org/abs/2611.34106)
 - **IRTIQA** (2026-11-25) — We ask whether self-evolution transfers from English to Urdu, and release IRTIQA, a benchmark of aligned English, Urdu-translated, and Urdu code-switched variants of DROP, SNIPS, AppWorld, and SkillsBench, built with a… [Paper](https://arxiv.org/abs/2611.34303)
-- **EgoUseBench** (2026-11-25) — We introduce EgoUseBench, a benchmark for evaluating Ego Use across three interaction settings with different levels of first-person context. [Paper](https://arxiv.org/abs/2611.34466) · [HF](https://huggingface.co/papers/2611.34466) · [Code](https://github.com/YurunChen/EgoUseBench)
-- **EgoMyo** (2026-11-25) — To support this task, we introduce EgoMyo, a benchmark spanning 5.75M video frames, 50 participants, 34 contact configurations, and repeated donnings, synchronizing these inputs with 3D hand pose and with contact and no… [Paper](https://arxiv.org/abs/2611.34224) · [HF](https://huggingface.co/papers/2611.34224)
+- **EgoUseBench** (2026-11-25) — We introduce EgoUseBench, a benchmark for evaluating Ego Use across three interaction settings with different levels of first-person context. [Paper](https://arxiv.org/abs/2611.34466)
+- **EgoMyo** (2026-11-25) — To support this task, we introduce EgoMyo, a benchmark spanning 5.75M video frames, 50 participants, 34 contact configurations, and repeated donnings, synchronizing these inputs with 3D hand pose and with contact and no… [Paper](https://arxiv.org/abs/2611.34224)
 - **SofaSpace** (2026-11-24) — Inspired by the moving sofa problem, we introduce SofaSpace, a benchmark for visual spatial reasoning through continuous planar rigid-body transport and environment construction. [Paper](https://arxiv.org/abs/2611.32285)
-- **Marketing-Bench** (2026-11-24) — We introduce Marketing-Bench, the first open-source marketing benchmark, which pairs discriminative tasks (detecting brand anomalies) with generative tasks (remediation), while keeping answers verifiable. [Paper](https://arxiv.org/abs/2611.32012) · [HF](https://huggingface.co/papers/2611.32012)
-- **ICLWorld** (2026-11-24) — We present ICLWorld, an online benchmark that evaluates the ICL of agents from digital to physical worlds, covering computer use and robot use, together with UIverse, a unified harness that turns every environment into… [Paper](https://arxiv.org/abs/2611.32649) · [HF](https://huggingface.co/papers/2611.32649) · [Code](https://github.com/ICLWorld/ICLWorld) · [Data](https://huggingface.co/datasets/Aoraku/ICLWorld)
+- **Marketing-Bench** (2026-11-24) — We introduce Marketing-Bench, the first open-source marketing benchmark, which pairs discriminative tasks (detecting brand anomalies) with generative tasks (remediation), while keeping answers verifiable. [Paper](https://arxiv.org/abs/2611.32012)
+- **ICLWorld** (2026-11-24) — We present ICLWorld, an online benchmark that evaluates the ICL of agents from digital to physical worlds, covering computer use and robot use, together with UIverse, a unified harness that turns every environment into… [Paper](https://arxiv.org/abs/2611.32649) · [Code](https://github.com/ICLWorld/ICLWorld) · [Data](https://huggingface.co/datasets/Aoraku/ICLWorld)
 - **PRIMEAPE** (2026-11-23) — To study this, we introduce PRIMEAPE, a multilingual benchmark for evaluating judge verdicts and rationales. [Paper](https://arxiv.org/abs/2611.30925) · [HF](https://huggingface.co/papers/2611.30925)
 - **OnTimeBench** (2026-11-23) — To evaluate each policy under its own latency, we introduce OnTimeBench, a dynamic manipulation benchmark in which the scene keeps moving while the policy computes. [Paper](https://arxiv.org/abs/2611.31705)
 - **JaxNaviSim** (2026-11-23) — To address this problem, we introduce JaxNaviSim, a data-driven simulator and learning benchmark coupling Automatic Identification System (AIS) data with fast, controllable traffic simulation, in which learned models st… [Paper](https://arxiv.org/abs/2611.30600)
@@ -2289,9 +2289,9 @@ A daily-updated discovery index grouped by the same categories as Radar, Library
 ## Spatial & 3D Reasoning
 
 - **QK-Bench** (2026-11-25) — We introduce the Quantitative Kinematics Benchmark (QK-Bench), comprising 2,341 multiple-choice QA pairs from 379 videos and 17 tasks spanning Object-Centric Kinematics, Camera Ego-Motion Kinematics, and Multi-Object Ki… [Paper](https://arxiv.org/abs/2611.33991)
-- **CHD-Bench** (2026-11-25) — We introduce CHD-Bench, the first benchmark for interactive CHD diagnosis, defining a multi-label task and evaluation protocol over 247 CT and MRI scans from three cohorts covering 38 CHD types. [Paper](https://arxiv.org/abs/2611.33775) · [HF](https://huggingface.co/papers/2611.33775) · [Code](https://github.com/Maitri-Labs-Amrita/CHD-Bench)
+- **CHD-Bench** (2026-11-25) — We introduce CHD-Bench, the first benchmark for interactive CHD diagnosis, defining a multi-label task and evaluation protocol over 247 CT and MRI scans from three cohorts covering 38 CHD types. [Paper](https://arxiv.org/abs/2611.33775) · [Code](https://github.com/Maitri-Labs-Amrita/CHD-Bench)
 - **BOP-Refer** (2026-11-25) — We introduce BOP-Refer, the first benchmark for monocular 3D and 2D grounding of everyday and industrial objects sourced from 9 diverse BOP datasets. [Paper](https://arxiv.org/abs/2611.34862)
-- **ROAM-Bench** (2026-11-24) — We introduce ROAM-Bench to evaluate these abilities under robot motion and collision constraints. [Paper](https://arxiv.org/abs/2611.33143) · [HF](https://huggingface.co/papers/2611.33143)
+- **ROAM-Bench** (2026-11-24) — We introduce ROAM-Bench to evaluate these abilities under robot motion and collision constraints. [Paper](https://arxiv.org/abs/2611.33143)
 - **VeriWorld** (2026-11-23) — We introduce VeriWorld, a benchmark for spatial reasoning in interactive 3D environments with executable actions and deterministic verification. [Paper](https://arxiv.org/abs/2611.30226) · [Code](https://github.com/VITA-Group/VeriWorld) · [Data](https://huggingface.co/datasets/yanyanzheng96/VeriWorld)
 - **EgoDepth-Bench** (2026-11-23) — We introduce EgoDepth-Bench, comprising 941,233 synchronized samples collected across 37 distinct physical environments. [Paper](https://arxiv.org/abs/2611.30734) · [HF](https://huggingface.co/papers/2611.30734)
 - **ActSpace-Bench** (2026-11-23) — We present ActSpace-Bench, a benchmark of 994 questions across 234 exploration episodes in 72 real-scanned indoor scenes, where a model starts from a single view, navigates real captured frames, and must gather evidence… [Paper](https://arxiv.org/abs/2611.31215) · [HF](https://huggingface.co/papers/2611.31215)
