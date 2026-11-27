@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-27T04:45:40.092965Z",
+  "generatedAt": "2026-11-27T09:54:33.894268Z",
   "sourceDate": "2026-11-26",
   "sourceWindow": {
     "from": "2026-11-26",
     "to": "2026-11-26"
   },
   "queueMode": "automatic-admission-audit",
-  "candidateCount": 4362,
+  "candidateCount": 4363,
   "candidates": [
     {
       "id": "bm_worldevals_19aa16fa",
@@ -1622,6 +1622,97 @@
       ]
     },
     {
+      "id": "bm_ai-review-benchmark_2c26aa14",
+      "familyId": "bmf_c7954dc75458",
+      "name": "ai-review-benchmark",
+      "paperTitle": "ai-review-benchmark",
+      "aliases": [],
+      "oneLine": "ai-review-benchmark # AI Review Benchmarks **Build a system for comparing AI pull request reviewers, then use it to run as many distinct reviewers as you can on the same changes.** We give you a Python application, eight review cases, and…",
+      "area": "Language & Knowledge",
+      "applicationDomains": [
+        "Software & AI Compute"
+      ],
+      "primaryDomain": "Software & AI Compute",
+      "industrySectors": [
+        "Software & Cloud"
+      ],
+      "domainCuration": {
+        "state": "auto",
+        "method": "rules-v1"
+      },
+      "capabilities": [],
+      "topics": [
+        "cs.AI"
+      ],
+      "construction": "Unknown",
+      "annotation": "Unknown",
+      "readiness": "Runnable",
+      "publication": {
+        "status": "unverified",
+        "venue": null,
+        "evidence": null,
+        "evidenceUrl": "https://github.com/AryanUbale7/ai-review-benchmark",
+        "source": "arxiv-metadata",
+        "evidenceLevel": "unverified",
+        "verifiedAt": "2026-11-27T09:54:17.950253Z"
+      },
+      "venueAttempts": [],
+      "publications": [],
+      "releasedAt": "2026-11-26",
+      "firstSeenAt": "2026-11-27",
+      "indexedAt": "2026-11-27T09:54:17.950253Z",
+      "sourceUpdatedAt": "2026-11-27T06:36:42Z",
+      "adoption30d": null,
+      "heat": null,
+      "confidence": "Medium",
+      "recognitionConfidence": 0.4,
+      "relation": "unclear",
+      "links": {
+        "project": "https://proofline.sh/careers/",
+        "code": "https://github.com/AryanUbale7/ai-review-benchmark"
+      },
+      "motivation": "ai-review-benchmark # AI Review Benchmarks **Build a system for comparing AI pull request reviewers, then use it to run as many distinct reviewers as you can on the same changes.** We give you a Python application, eight review cases, and a way to deploy the application to AWS.",
+      "constructionDetail": "Unknown — the indexer does not infer construction details without explicit source evidence.",
+      "metrics": [],
+      "source": {
+        "type": "github",
+        "id": "github:aryanubale7/ai-review-benchmark",
+        "url": "https://github.com/AryanUbale7/ai-review-benchmark",
+        "title": "ai-review-benchmark",
+        "authors": [
+          "AryanUbale7"
+        ],
+        "categories": [],
+        "publicSignals": {
+          "githubStars": 0
+        }
+      },
+      "evidence": {
+        "snippet": "ai-review-benchmark # AI Review Benchmarks **Build a system for comparing AI pull request reviewers, then use it to run as many distinct reviewers as you can on the same changes.** We give you a Python application, eight review cases, and a way to deploy the application to AWS.",
+        "reasonCodes": [
+          "discovered via github",
+          "benchmark term in abstract",
+          "evaluation protocol evidence",
+          "public artifact URL",
+          "no explicit benchmark release evidence"
+        ]
+      },
+      "dataStatus": "primary-source-candidate",
+      "demo": false,
+      "reviewContext": {
+        "abstract": "ai-review-benchmark # AI Review Benchmarks **Build a system for comparing AI pull request reviewers, then use it to run as many distinct reviewers as you can on the same changes.** We give you a Python application, eight review cases, and a way to deploy the application to AWS. You own the experiment: how to add a reviewer, what each reviewer sees, how to capture its first response, and how to decide whether a finding is right. At Proofline, a useful review helps an engineer decide what to change before shipping. A reviewer might catch a real bug, warn about a problem the code already handles, or correctly say that it needs deployment information to tell. We want to see whether your benchmark can distinguish those outcomes. This challenge is especially suited to software engineering intern candidates. You can find our internship, founding engineering role, and application instructions on the [Proofline careers page](https://proofline.sh/careers/). ## What we look for | What matters | What to show in your submission | | --- | --- | | **A benchmark another engineer can operate** | Show how to add the next provider, run the same cases, recover from an interrupted run, and trace a score back to the original review. Include the commands you actually used. | | **Breadth of real reviews** | Start with two providers to prove the workflow, then add as many distinct reviewers as your free allowances permit. Show a provider-by-case table with completed reviews, quota stops, errors, and unattempted cases. An integration counts toward provider coverage once you have an actual review from it. | | **A fair experiment** | Decide what earns credit before reading the output. Pin the code, settings, and deployment context. Explain how you kept answer keys, prior reviews, and other providers’ comments out of each run. Show how you checked one disputed or surprising finding. | | **Working knowledge of the systems** | Trace one commit from a GitHub PR through CI, deployment to your AWS account, and a verified invocation. Link the evidence for each step. Explain which facts came from the live deployment and which came from a supplied case snapshot. | ## Run the experiment 1. **Make a private working copy.** Use **Use this template → Create a new repository → Private** and copy the default branch. Build the benchmark in that repository. Run the report service once, then inspect a proposed change and decide how you would establish its effect. [Application guide](docs/report-service.md) · [Eight review cases](cases/README.md) 2. **Set the protocol and isolate the inputs.** Choose the common batch, review window, and scoring rules before the first run. Keep each provider’s review repository separate from your harness, results, and graders’ notes. If a provider can search old PRs or learn across repositories, record what you could control. If you use some cases to tune the system, reserve fresh cases for evaluation and identify any you already used. [Experiment guide](docs/experiment.md) 3. **Run CI and deploy the sample.** The starter includes PR checks and a manually triggered GitHub Actions deployment. Deploy a known revision, verify the report it delivered, save the workflow link and receipt, then delete the stack. Use that experience to decide how your benchmark will pin, collect, and replay evidence. [AWS deployment](docs/aws.md) · [GitHub Actions setup](docs/github-aws.md) 4. **Expand coverage and report the denominators.** Five reviewers completing eight cases gives 40 provider–case observations on eight changes. Rerunning a pair measures variability. Report distinct providers, distinct cases, completed pairs, and repeats separately. Compare providers on their shared cases and show the whole table so readers can see what is missing. ## Aim for $0 out of pocket Eligible new AWS customers get $100 in signup credits and can earn up to $100 more. Select the Free plan if eligible, check your balance and service availability, and tear down the deployment after collecting your receipt. Private GitHub repositories can use their plan’s included Actions allowance. Check the remaining allowance before scheduling a batch. [AWS Free Tier](https://aws.amazon.com/free/) · [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions) Many reviewers offer free reviews, credits, or trials. Greptile lists a free Starter credit allowance, CodeRabbit offers a trial, and Proofline offers hosted review credit. Look for other reviewers too. Verify that the offer covers full reviews on **private** PRs, check expiry and automatic billing, and stop at the free limit. A $0 run is achievable within eligible allowances. Record any limit you hit so the next person can plan their run. [Greptile plans](https://www.greptile.com/pricing) · [CodeRabbit plans](https://www.coderabbit.ai/pricing) · [Proofline plans](https://proofline.sh/pricing/) ## Submit your work Open a PR in your private working repository with your benchmark code, rerun instructions, coverage table, and a short report. Pick one result and take us from the commit and original review comment to the behavior you verified and the score you assigned. Explain one limitation that could change your conclusion. Give the hiring team read access to the PR and its evidence, and share the link through the application route for your role. [Proofline careers](https://proofline.sh/careers/)",
+        "comments": ""
+      },
+      "candidatePriority": "normal",
+      "discoverySources": [
+        {
+          "type": "github",
+          "id": "github:aryanubale7/ai-review-benchmark",
+          "url": "https://github.com/AryanUbale7/ai-review-benchmark"
+        }
+      ]
+    },
+    {
       "id": "bm_worldphy-benchmarking-fine-grained-physica_5485b6bd",
       "familyId": "bmf_7244475ba79b",
       "name": "WorldPhy: Benchmarking Fine-Grained Physical Plausibility of World Models in Robotics",
@@ -1654,13 +1745,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34130",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T10:30:48Z",
       "adoption30d": null,
       "heat": null,
@@ -1744,13 +1835,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34105",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T10:12:13Z",
       "adoption30d": null,
       "heat": null,
@@ -2008,13 +2099,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34603",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T15:57:55Z",
       "adoption30d": null,
       "heat": null,
@@ -2101,13 +2192,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33934",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T07:54:11Z",
       "adoption30d": null,
       "heat": null,
@@ -2190,7 +2281,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34881",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [
         {
@@ -2201,7 +2292,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.34881",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "This paper was accepted to the 40th Conference on Neural Information Processing Systems (NeurIPS 2026). Track on Evaluations and Datasets. Dataset: huggingface.co/datasets/sidgairo18/strange-bench",
               "level": "author-claim"
             }
@@ -2211,7 +2302,7 @@
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:39:28Z",
       "adoption30d": null,
       "heat": null,
@@ -2383,13 +2474,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34839",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:18:51Z",
       "adoption30d": null,
       "heat": null,
@@ -2467,13 +2558,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34461",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T14:33:51Z",
       "adoption30d": null,
       "heat": null,
@@ -2554,13 +2645,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34044",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T09:22:57Z",
       "adoption30d": null,
       "heat": null,
@@ -2640,13 +2731,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34646",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T16:25:19Z",
       "adoption30d": null,
       "heat": null,
@@ -2745,13 +2836,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34545",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T15:24:02Z",
       "adoption30d": null,
       "heat": null,
@@ -3013,13 +3104,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34331",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T13:10:49Z",
       "adoption30d": null,
       "heat": null,
@@ -3113,13 +3204,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34457",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T14:31:23Z",
       "adoption30d": null,
       "heat": null,
@@ -3212,13 +3303,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34690",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T16:50:03Z",
       "adoption30d": null,
       "heat": null,
@@ -3393,13 +3484,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34126",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T10:30:08Z",
       "adoption30d": null,
       "heat": null,
@@ -3488,13 +3579,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34925",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:58:56Z",
       "adoption30d": null,
       "heat": null,
@@ -3667,13 +3758,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34920",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:58:42Z",
       "adoption30d": null,
       "heat": null,
@@ -3762,13 +3853,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33673",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T02:37:38Z",
       "adoption30d": null,
       "heat": null,
@@ -3847,7 +3938,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34188",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [
         {
@@ -3858,7 +3949,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.34188",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "To appear in Proceedings of EACL 2027 (Main conference paper)",
               "level": "author-claim"
             }
@@ -3868,7 +3959,7 @@
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T11:16:43Z",
       "adoption30d": null,
       "heat": null,
@@ -3947,13 +4038,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34465",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T14:35:42Z",
       "adoption30d": null,
       "heat": null,
@@ -4393,13 +4484,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34328",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T13:09:34Z",
       "adoption30d": null,
       "heat": null,
@@ -4482,13 +4573,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34152",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T10:46:43Z",
       "adoption30d": null,
       "heat": null,
@@ -4843,13 +4934,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33715",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T03:28:11Z",
       "adoption30d": null,
       "heat": null,
@@ -4936,13 +5027,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34024",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T09:12:36Z",
       "adoption30d": null,
       "heat": null,
@@ -5026,13 +5117,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34941",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:59:55Z",
       "adoption30d": null,
       "heat": null,
@@ -5298,13 +5389,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33654",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T02:20:47Z",
       "adoption30d": null,
       "heat": null,
@@ -5474,13 +5565,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34478",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T14:43:03Z",
       "adoption30d": null,
       "heat": null,
@@ -5563,13 +5654,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33791",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T05:15:48Z",
       "adoption30d": null,
       "heat": null,
@@ -5740,13 +5831,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34250",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T12:13:27Z",
       "adoption30d": null,
       "heat": null,
@@ -5840,13 +5931,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34538",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T15:20:36Z",
       "adoption30d": null,
       "heat": null,
@@ -6115,13 +6206,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34254",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T12:18:29Z",
       "adoption30d": null,
       "heat": null,
@@ -6204,7 +6295,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33732",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [
         {
@@ -6215,7 +6306,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.33732",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "22 pages, 2 figures, 11 tables. Accepted as a poster at the NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling (FMTS)",
               "level": "author-claim"
             }
@@ -6225,7 +6316,7 @@
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T03:53:23Z",
       "adoption30d": null,
       "heat": null,
@@ -6399,13 +6490,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33728",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T03:47:00Z",
       "adoption30d": null,
       "heat": null,
@@ -6667,13 +6758,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34240",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T12:03:40Z",
       "adoption30d": null,
       "heat": null,
@@ -6753,13 +6844,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33594",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T01:09:44Z",
       "adoption30d": null,
       "heat": null,
@@ -6841,13 +6932,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34347",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T13:18:30Z",
       "adoption30d": null,
       "heat": null,
@@ -6933,13 +7024,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34907",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:54:03Z",
       "adoption30d": null,
       "heat": null,
@@ -7114,13 +7205,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34939",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:59:45Z",
       "adoption30d": null,
       "heat": null,
@@ -7202,13 +7293,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.34930",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-25",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T18:59:13Z",
       "adoption30d": null,
       "heat": null,
@@ -7374,7 +7465,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33424",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [
         {
@@ -7385,7 +7476,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.33424",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "Accepted at 2026 IEEE International Conference on Big Data",
               "level": "author-claim"
             }
@@ -7395,7 +7486,7 @@
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T20:46:55Z",
       "adoption30d": null,
       "heat": null,
@@ -7652,13 +7743,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33036",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T17:48:54Z",
       "adoption30d": null,
       "heat": null,
@@ -7747,13 +7838,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31956",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T05:05:05Z",
       "adoption30d": null,
       "heat": null,
@@ -7843,13 +7934,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32973",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T17:07:54Z",
       "adoption30d": null,
       "heat": null,
@@ -8025,13 +8116,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32153",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T08:07:29Z",
       "adoption30d": null,
       "heat": null,
@@ -8209,13 +8300,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32946",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T16:48:06Z",
       "adoption30d": null,
       "heat": null,
@@ -8317,13 +8408,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32621",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T13:48:07Z",
       "adoption30d": null,
       "heat": null,
@@ -8497,13 +8588,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31895",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T03:55:04Z",
       "adoption30d": null,
       "heat": null,
@@ -8591,13 +8682,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31803",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T01:56:13Z",
       "adoption30d": null,
       "heat": null,
@@ -8686,13 +8777,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32152",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T08:06:52Z",
       "adoption30d": null,
       "heat": null,
@@ -8774,13 +8865,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32623",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T13:48:28Z",
       "adoption30d": null,
       "heat": null,
@@ -9046,13 +9137,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33137",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T18:55:07Z",
       "adoption30d": null,
       "heat": null,
@@ -9134,7 +9225,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32610",
         "source": "arxiv-comments",
         "evidenceLevel": "author-claim",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [
         {
@@ -9145,7 +9236,7 @@
             {
               "sourceType": "arxiv-comments",
               "sourceUrl": "https://arxiv.org/abs/2611.32610",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "Accepted to Findings of EACL 2027",
               "level": "author-claim"
             }
@@ -9155,7 +9246,7 @@
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T13:43:03Z",
       "adoption30d": null,
       "heat": null,
@@ -9235,13 +9326,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32431",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T11:32:50Z",
       "adoption30d": null,
       "heat": null,
@@ -9598,13 +9689,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32566",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T13:12:32Z",
       "adoption30d": null,
       "heat": null,
@@ -9686,13 +9777,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31755",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T01:01:08Z",
       "adoption30d": null,
       "heat": null,
@@ -9949,13 +10040,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32650",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T14:07:21Z",
       "adoption30d": null,
       "heat": null,
@@ -10042,13 +10133,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32446",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T05:05:28Z",
       "adoption30d": null,
       "heat": null,
@@ -10126,13 +10217,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32957",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T16:56:34Z",
       "adoption30d": null,
       "heat": null,
@@ -10214,13 +10305,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33020",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T17:35:38Z",
       "adoption30d": null,
       "heat": null,
@@ -10314,13 +10405,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32214",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T08:58:33Z",
       "adoption30d": null,
       "heat": null,
@@ -10404,13 +10495,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33250",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T16:11:32Z",
       "adoption30d": null,
       "heat": null,
@@ -10486,13 +10577,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33335",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T19:22:11Z",
       "adoption30d": null,
       "heat": null,
@@ -10575,13 +10666,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33492",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T22:15:33Z",
       "adoption30d": null,
       "heat": null,
@@ -10659,13 +10750,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32765",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T15:03:47Z",
       "adoption30d": null,
       "heat": null,
@@ -10841,13 +10932,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33010",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T17:32:00Z",
       "adoption30d": null,
       "heat": null,
@@ -11023,13 +11114,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32896",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T16:23:22Z",
       "adoption30d": null,
       "heat": null,
@@ -11476,13 +11567,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31976",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T05:25:36Z",
       "adoption30d": null,
       "heat": null,
@@ -11561,13 +11652,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32094",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T07:14:47Z",
       "adoption30d": null,
       "heat": null,
@@ -11922,13 +12013,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32251",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T09:27:40Z",
       "adoption30d": null,
       "heat": null,
@@ -12012,13 +12103,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31774",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T01:27:26Z",
       "adoption30d": null,
       "heat": null,
@@ -12188,13 +12279,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31814",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T02:06:37Z",
       "adoption30d": null,
       "heat": null,
@@ -12277,13 +12368,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33486",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T22:07:13Z",
       "adoption30d": null,
       "heat": null,
@@ -12367,13 +12458,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32964",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T17:01:37Z",
       "adoption30d": null,
       "heat": null,
@@ -12636,13 +12727,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32316",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-25T17:26:17Z",
       "adoption30d": null,
       "heat": null,
@@ -12732,7 +12823,7 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32734",
         "source": "arxiv-journal-reference",
         "evidenceLevel": "strong-author-metadata",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [
@@ -12743,7 +12834,7 @@
             {
               "sourceType": "arxiv-journal-reference",
               "sourceUrl": "https://arxiv.org/abs/2611.32734",
-              "observedAt": "2026-11-27T04:45:17.865237Z",
+              "observedAt": "2026-11-27T09:54:10.842622Z",
               "rawValue": "Proceedings of the 7th Conference on Health, Inference, and Learning, PMLR 333:404-426, 2026",
               "level": "strong-author-metadata"
             }
@@ -12752,7 +12843,7 @@
       ],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T14:49:50Z",
       "adoption30d": null,
       "heat": null,
@@ -12837,13 +12928,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33403",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T20:24:16Z",
       "adoption30d": null,
       "heat": null,
@@ -12924,13 +13015,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.31962",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T05:11:39Z",
       "adoption30d": null,
       "heat": null,
@@ -13015,13 +13106,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.33093",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T18:28:41Z",
       "adoption30d": null,
       "heat": null,
@@ -13379,13 +13470,13 @@
         "evidenceUrl": "https://arxiv.org/abs/2611.32646",
         "source": "arxiv-metadata",
         "evidenceLevel": "unverified",
-        "verifiedAt": "2026-11-27T04:45:17.865237Z"
+        "verifiedAt": "2026-11-27T09:54:10.842622Z"
       },
       "venueAttempts": [],
       "publications": [],
       "releasedAt": "2026-11-24",
       "firstSeenAt": "2026-11-27",
-      "indexedAt": "2026-11-27T04:45:17.865237Z",
+      "indexedAt": "2026-11-27T09:54:10.842622Z",
       "sourceUpdatedAt": "2026-11-24T14:05:10Z",
       "adoption30d": null,
       "heat": null,
@@ -399235,9 +399326,9 @@
   },
   "automaticAdmission": {
     "policy": "source-evidence-v2",
-    "evaluatedAt": "2026-11-27T04:45:41.115381Z",
+    "evaluatedAt": "2026-11-27T09:54:35.015287Z",
     "publishThreshold": 0.85,
     "promoted": 37,
-    "remainingForAudit": 4362
+    "remainingForAudit": 4363
   }
 }
