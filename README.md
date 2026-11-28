@@ -26,16 +26,16 @@
 ## Hot this month
 
 <!-- GENERATED_OVERVIEW_START -->
-<sub>Updated 2026-11-27 · benchmarks first released in November 2026</sub>
+<sub>Updated 2026-11-29 · benchmarks first released in November 2026</sub>
 
 | # | Benchmark | Field | Public signals |
 |---:|---|---|---|
-| 1 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 21 HF votes · 126 GitHub stars |
+| 1 | **VisSearch-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.04894v1) · [Code](https://github.com/antins-labs/VisSearch-Bench-v1)</sub> | Knowledge & Expert QA | 21 HF votes · 117 GitHub stars |
 | 2 | **Mind2Act World**<br><sub>[Paper](https://arxiv.org/abs/2611.26444) · [Code](https://github.com/Mind2Act/Mind2Act_World)</sub> | Robotics & Embodied AI | 57 HF votes · 55 GitHub stars |
-| 3 | **Infrathon**<br><sub>[Paper](https://arxiv.org/abs/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)</sub> | Other benchmark tasks | 53 HF votes · 52 GitHub stars |
-| 4 | **AscendGYM**<br><sub>[Paper](https://arxiv.org/abs/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)</sub> | AI R&D & ML Engineering | 94 HF votes · 35 GitHub stars |
-| 5 | **VibePrevisBench**<br><sub>[Paper](https://arxiv.org/abs/2611.15789) · [Code](https://github.com/vibeprevisbench/vibeprevisbench)</sub> | Document Understanding & OCR | 89 HF votes · 30 GitHub stars |
-| 6 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 73 HF votes · 29 GitHub stars |
+| 3 | **Infrathon**<br><sub>[Paper](https://arxiv.org/abs/2611.11995) · [Code](https://github.com/InfrathonX/Infrathon)</sub> | Other benchmark tasks | 53 HF votes · 56 GitHub stars |
+| 4 | **AscendGYM**<br><sub>[Paper](https://arxiv.org/abs/2611.17621) · [Code](https://github.com/SLAI-AITP/AscendGYM)</sub> | AI R&D & ML Engineering | 95 HF votes · 35 GitHub stars |
+| 5 | **VibePrevisBench**<br><sub>[Paper](https://arxiv.org/abs/2611.15789) · [Code](https://github.com/vibeprevisbench/vibeprevisbench)</sub> | Document Understanding & OCR | 89 HF votes · 33 GitHub stars |
+| 6 | **SO-Arena**<br><sub>[Paper](https://arxiv.org/abs/2611.15777) · [Code](https://github.com/holdrain/SO-Arena)</sub> | Other benchmark tasks | 69 HF votes · 29 GitHub stars |
 | 7 | **TLAPS-Bench**<br><sub>[Paper](http://arxiv.org/abs/2611.02849v1) · [Code](https://github.com/specula-org/TLAPS-Bench)</sub> | Math Reasoning | 48 GitHub stars |
 | 8 | **IdeaTaste**<br><sub>[Paper](http://arxiv.org/abs/2611.03424v1) · [Code](https://github.com/cxcscmu/IdeaTaste)</sub> | Science | 25 HF votes · 34 GitHub stars |
 | 9 | **qlaybench**<br><sub>[Paper](https://arxiv.org/abs/2611.30043) · [Code](https://github.com/caidish/KlayoutClaw)</sub> | Document Understanding & OCR | 41 GitHub stars |
